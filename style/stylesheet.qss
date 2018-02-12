@@ -1,0 +1,38 @@
+QPushButton {
+    border: none;
+    outline: none;
+    border-radius: 2px;
+    color: #000;
+    margin: 10px;
+    padding: 5px 10px;
+    background: #4FC3F7;
+}
+
+QPushButton:hover, QPushButton:focus {
+    background: #81D4FA;
+}
+
+QPushButton:hover > *, QPushButton:focus > * {
+    border: none;
+}
+
+
+QPushButton:pressed {
+    color: #fff;
+    background: #01579B;
+}
+
+
+.Window {
+    background: #263238;
+}
+
+.Intro > QWidget {
+    border-radius: 2px;
+    min-width: 250px;
+    max-width: 500px;
+    min-height: 400px;
+    max-height: 800px;
+    background: #E0F2F1;
+}
+
