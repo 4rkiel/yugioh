@@ -8,22 +8,19 @@ QPushButton {
     background: #03A9F4;
 }
 
+QPushButton:hover {
+    background: #4FC3F7;
+}
+    
 QPushButton:focus {
     font-weight: bold;
-}
-
-QPushButton:hover, QPushButton:focus {
     background: #80D8FF;
-}
-
-QPushButton:hover > *, QPushButton:focus > * {
-    border: none;
 }
 
 
 QPushButton:pressed {
     color: #fff;
-    background: #01579B;
+    background: #0288D1;
 }
 
 

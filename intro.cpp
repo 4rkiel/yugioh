@@ -26,6 +26,7 @@ Intro::Intro () {
     box -> addWidget(newgame);
 
 
+
     // Options Button
 
     options = new IntroButt;
@@ -40,6 +41,21 @@ Intro::Intro () {
 
     box -> addWidget(options);
 
+
+
+    // Options Button
+
+    rules = new IntroButt;
+    
+    QIcon icoRules("nyancat.png");
+    rules -> setIcon(icoRules);
+    
+    QString strRules = QString::fromUtf8("Rules");
+    rules -> setText(strRules);
+    
+    rules -> setToolTip("Infobulle txt");
+
+    box -> addWidget(rules);
 
 
 
@@ -73,6 +89,7 @@ Intro::~Intro (){
 
     delete newgame;
     delete options;
+    delete rules;
     delete quit;
 }
 

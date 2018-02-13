@@ -32,6 +32,7 @@ class Intro : public QFrame {
     private:
     IntroButt * newgame;
     IntroButt * options;
+    IntroButt * rules;
     IntroButt * quit;
  
 };
