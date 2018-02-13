@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
     
     int id = QFontDatabase::addApplicationFont("font/Roboto-Thin.ttf");
     QString family = QFontDatabase::applicationFontFamilies(id).at(0);
-    QFont roboto(family, 14, QFont::Bold);
+    QFont roboto(family, 14);
 
     QApplication::setFont(roboto);
 

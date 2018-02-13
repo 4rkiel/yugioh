@@ -8,43 +8,44 @@ Intro::Intro () {
     QWidget * introBox = new QWidget;
     QVBoxLayout * box = new QVBoxLayout;
 
-    layout -> addWidget(introBox, 0, 0);
-    
-    introBox -> setLayout(box);
 
+    // New Game Button
 
-    // Button
-
-    button = new QPushButton("Button", this);
+    newgame = new IntroButt;
     
     QIcon icoButton("nyancat.png");
-    button -> setIcon(icoButton);
+    newgame -> setIcon(icoButton);
     
     QString strButton = QString::fromUtf8("New Game");
-    button -> setText(strButton);
+    newgame -> setText(strButton);
     
-    button -> setToolTip("Infobulle txt");
+    newgame -> setToolTip("Infobulle txt");
 
-    effectButt = new QGraphicsDropShadowEffect;
-    effectButt -> setBlurRadius(5);
-    effectButt -> setXOffset(0);
-    effectButt -> setYOffset(5);
-    effectButt -> setColor(QColor(0,0,0,200));
+    connect(newgame, SIGNAL(clicked()), this, SLOT(emitNewStack()));
     
-    button -> setGraphicsEffect(effectButt);
+    box -> addWidget(newgame);
+
+
+    // Options Button
+
+    options = new IntroButt;
     
-    lastButt = 5;
+    QIcon icoOptions("nyancat.png");
+    options -> setIcon(icoOptions);
+    
+    QString strOptions = QString::fromUtf8("Options");
+    options -> setText(strOptions);
+    
+    options -> setToolTip("Infobulle txt");
 
-    box -> addWidget(button);
+    box -> addWidget(options);
 
-    connect(button, SIGNAL(released()), this, SLOT(buttonReleased()));
-    connect(button, SIGNAL(pressed()), this, SLOT(buttonPressed()));
-    connect(button, SIGNAL(clicked()), this, SLOT(emitNewStack()));
+
 
 
     // Quit Button
 
-    quit = new QPushButton("Quit", this);
+    quit = new IntroButt;
      
     QIcon icoQuit("nyancat.png");
     quit -> setIcon(icoQuit);
@@ -54,23 +55,15 @@ Intro::Intro () {
     
     quit -> setToolTip("Infobulle txt");
 
-    effectQuit = new QGraphicsDropShadowEffect;
-    effectQuit -> setBlurRadius(5);
-    effectQuit -> setXOffset(0);
-    effectQuit -> setYOffset(5);
-    effectQuit -> setColor(QColor(0,0,0,200));
-
-    quit -> setGraphicsEffect(effectQuit);
-
-    lastQuit = 5;
-
+    connect(quit, SIGNAL(clicked()), qApp, SLOT(quit()));
+    
     box -> addWidget(quit);
 
-    connect(quit, SIGNAL(released()), this, SLOT(buttonReleased()));
-    connect(quit, SIGNAL(pressed()), this, SLOT(buttonPressed()));
-    connect(quit, SIGNAL(clicked()), qApp, SLOT(quit()));
 
 
+    layout -> addWidget(introBox, 0, 0);
+
+    introBox -> setLayout(box);
 
     this -> setLayout(layout);
 }
@@ -78,7 +71,8 @@ Intro::Intro () {
     
 Intro::~Intro (){
 
-    delete button;
+    delete newgame;
+    delete options;
     delete quit;
 }
 
@@ -88,7 +82,7 @@ void Intro::emitNewStack (){
         emit newStack();
 }
 
-
+/*
 void Task::runButtonReleased(){
 
     int k = 0;
@@ -232,3 +226,5 @@ void Intro::buttonPressed(){
         threadButt -> start();
     }
 }
+
+*/
