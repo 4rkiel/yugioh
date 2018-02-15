@@ -25,6 +25,7 @@ class App : public QFrame {
     void newStack();
 
     private:
+    QGridLayout * layout;
     QPushButton * button;
     QPushButton * quit;
     QLabel * text;

@@ -3,7 +3,7 @@
 
 App::App () {
 
-    QGridLayout * layout = new QGridLayout;
+    layout = new QGridLayout;
 
 
     // Text label
@@ -61,7 +61,10 @@ App::App () {
 App::~App (){
 
     delete text;
+    delete button;
     delete quit;
+
+    delete layout;
 }
 
 

@@ -8,31 +8,43 @@ Window::Window () : QWidget () {
     stackedLayout = new QStackedLayout;
     currentLayout = 0;
 
+    generique = new Generique;
+    stackedLayout -> addWidget(generique);
+    connect(generique, SIGNAL(introStack()), this, SLOT(primoStack()));
+
     intro = new Intro;
-    stackedLayout->addWidget(intro);
+    stackedLayout -> addWidget(intro);
     connect(intro, SIGNAL(newStack()), this, SLOT(changeStacked()));
-    
+
+
     app = new App;
-    stackedLayout->addWidget(app);
+    stackedLayout -> addWidget(app);
     connect(app, SIGNAL(newStack()), this, SLOT(changeStacked()));
 
-    this -> setLayout(stackedLayout);
-
-
+    setLayout(stackedLayout);
 }
 
     
 Window::~Window (){
 
-    delete intro;
     delete app;
+    delete intro;
+    delete generique;
+
     delete stackedLayout;
+}
+
+
+void Window::primoStack (){
+
+    stackedLayout -> setCurrentWidget(intro);
+
 }
 
 
 void Window::changeStacked (){
 
-    currentLayout = (currentLayout + 1)%2;
+    currentLayout = (currentLayout + 1) % 2;
 
     switch (currentLayout){
         case 0:
@@ -74,9 +86,9 @@ int main(int argc, char *argv[]) {
     // Load main widget
 
     Window w;
-//    w.resize(500, 400);
-    w.setWindowTitle("BGE - Best Game Ever");
-    w.setWindowIcon(QIcon("nyancat.png"));
+    w.resize(300, 500);
+    w.setWindowTitle("Trading Card Game");
+    w.setWindowIcon(QIcon("card.svg"));
 
     w.show();
 

@@ -9,7 +9,8 @@ QPushButton {
 }
 
 QPushButton:hover {
-    background: #4FC3F7;
+    background: qradialgradient(cx:0.5, cy:1, radius: 1,
+                    fx:0.5, fy:0.5, stop:0 #4FC3F7, stop:1 #26A69A);
 }
     
 QPushButton:focus {
@@ -28,6 +29,18 @@ QPushButton:pressed {
     background: #263238;
 }
 
+.Generique {
+    border-image: url(intro.jpg);
+}
+
+.Generique > QWidget {
+    background: #fff;
+}
+
+.Generique .QLabel {
+    qproperty-alignment: AlignCenter;
+}
+
 .Intro > QWidget {
     border-radius: 2px;
     min-width: 250px;
@@ -36,4 +49,5 @@ QPushButton:pressed {
     max-height: 800px;
     background: #E0F2F1;
 }
+
 

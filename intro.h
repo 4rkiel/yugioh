@@ -11,7 +11,7 @@
 #include <QIcon>
 #include <QString>
 
-#include "introButt.h"
+#include "shadowButt.h"
 
 
 
@@ -30,10 +30,14 @@ class Intro : public QFrame {
     void newStack();
 
     private:
-    IntroButt * newgame;
-    IntroButt * options;
-    IntroButt * rules;
-    IntroButt * quit;
+    QGridLayout * layout;
+    QWidget * introBox;
+    QVBoxLayout * box;
+
+    ShadowButt * newgame;
+    ShadowButt * options;
+    ShadowButt * rules;
+    ShadowButt * quit;
  
 };
 

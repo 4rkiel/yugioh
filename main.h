@@ -10,6 +10,7 @@
 
 #include "app.h"
 #include "intro.h"
+#include "generique.h"
 
 class Window : public QWidget {
 
@@ -21,11 +22,12 @@ class Window : public QWidget {
 
     private slots:
     void changeStacked();
+    void primoStack();
 
     private:
+    int currentLayout;
     QStackedLayout * stackedLayout;
     Intro * intro;
     App * app;
-    int currentLayout;
-
+    Generique * generique;
 };

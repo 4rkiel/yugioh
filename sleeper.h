@@ -1,3 +1,6 @@
+#ifndef SLEEPER
+#define SLEEPER
+
 class Sleeper : public QThread {
 
 public:
@@ -5,3 +8,5 @@ public:
     static void msleep(unsigned long msecs){QThread::msleep(msecs);}
     static void sleep(unsigned long secs){QThread::sleep(secs);}
 };
+
+#endif
