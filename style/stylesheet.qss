@@ -14,12 +14,12 @@ QPushButton {
 }
 
 QPushButton:hover {
-    background: #00BFA5;
+    background: #80D8FF;
 }
     
 QPushButton:focus {
     font-weight: bold;
-    background: #80D8FF;
+    background: #00BFA5;
 }
 
 

@@ -75,22 +75,39 @@ void ShadowButt::buttonReleased(){
 
 void ShadowButt::runNewState (){
 
-    if (state == 0 && lastPosi > 1){
+    if (state == 0 && lastPosi > 0){
 
         lastPosi -- ;
+
+		if (lastPosi == 0){
+			
+			effectButt -> setEnabled(false);
+		
+		} else {
+
+			effectButt -> setBlurRadius(lastPosi);
+			effectButt -> setYOffset(lastPosi);
+
+		    effectButt -> update();
+		}
 
         emit askWait();
 
     } else if (state == 1 && lastPosi < 5){
 
         lastPosi ++ ;
-        
+
+		if (lastPosi == 1){
+			effectButt -> setEnabled(true);
+		}
+
+		effectButt -> setBlurRadius(lastPosi);
+		effectButt -> setYOffset(lastPosi);
+
+		effectButt -> update();
+
+
         emit askWait();
     }
-
-    effectButt -> setBlurRadius(lastPosi);
-    effectButt -> setYOffset(lastPosi);
-
-    effectButt -> update();
 }
 
