@@ -38,6 +38,7 @@ Window::~Window (){
 void Window::primoStack (){
 
     stackedLayout -> setCurrentWidget(intro);
+    intro -> init();
 
 }
 
@@ -50,6 +51,8 @@ void Window::changeStacked (){
         case 0:
             
             stackedLayout -> setCurrentWidget(intro);
+            intro -> init();
+            
             break;
 
         case 1:
@@ -86,7 +89,7 @@ int main(int argc, char *argv[]) {
     // Load main widget
 
     Window w;
-    w.resize(300, 500);
+    w.resize(500, 700);
     w.setWindowTitle("Trading Card Game");
     w.setWindowIcon(QIcon("card.svg"));
 

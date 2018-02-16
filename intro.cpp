@@ -20,7 +20,7 @@ Intro::Intro () {
     newgame -> setText(strButton);
     
     newgame -> setToolTip("Infobulle txt");
-
+ 
     connect(newgame, SIGNAL(clicked()), this, SLOT(emitNewStack()));
     
     box -> addWidget(newgame);
@@ -98,6 +98,9 @@ Intro::~Intro (){
 }
 
 
+void Intro::init (){
+    newgame -> setFocus();
+}
 
 void Intro::emitNewStack (){
         emit newStack();

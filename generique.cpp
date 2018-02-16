@@ -4,17 +4,25 @@
 Generique::Generique () {
 
     layout = new QGridLayout;
-    
+ 
+    layout -> setSpacing(0);
+    layout -> setMargin(0);
+
+   
     geneBox = new QWidget;
     box = new QVBoxLayout;
+
+    box -> setSpacing(0);
+    box -> setMargin(0);
 
 
     // State label
 
     state = new QLabel;
 
-    QString str = QString::fromUtf8("Initialisation...\n");
+    QString str = QString::fromUtf8("Initialisation...");
     state -> setText(str);
+    state -> setWordWrap(true);
 
     box -> addWidget(state);
 
@@ -64,13 +72,13 @@ void Generique::newLabel (){
 
     switch (labelCount){
         case 1:
-            str = QString::fromUtf8("Chargement de\n l'amitié");
+            str = QString::fromUtf8("Chargement de l'amitié");
             break;
         case 2:
-            str = QString::fromUtf8("Synchronisation de l'heure\n du D-D-D-D-D-D-Duel");
+            str = QString::fromUtf8("Synchro de l'heure du D-D-D-D-D-Duel");
             break;
         case 3:
-            str = QString::fromUtf8("Configuration de\n l'âme des cartes");
+            str = QString::fromUtf8("Configuration de l'âme des cartes");
             break;
         default:
             break;

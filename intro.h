@@ -22,6 +22,7 @@ class Intro : public QFrame {
     public:
     Intro();
     ~Intro();
+    void init();
 
     public slots:
     void emitNewStack();

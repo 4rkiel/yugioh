@@ -1,3 +1,8 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
 QPushButton {
     border: none;
     outline: none;
@@ -9,8 +14,7 @@ QPushButton {
 }
 
 QPushButton:hover {
-    background: qradialgradient(cx:0.5, cy:1, radius: 1,
-                    fx:0.5, fy:0.5, stop:0 #4FC3F7, stop:1 #26A69A);
+    background: #00BFA5;
 }
     
 QPushButton:focus {
@@ -25,21 +29,49 @@ QPushButton:pressed {
 }
 
 
+
+
 .Window {
     background: #263238;
 }
+
+
+
 
 .Generique {
     border-image: url(intro.jpg);
 }
 
 .Generique > QWidget {
-    background: #fff;
+    background: #607D8B;
 }
 
 .Generique .QLabel {
+    color: #fff;
+    margin: 10px 10px 0 10px;
     qproperty-alignment: AlignCenter;
 }
+
+
+.Generique QProgressBar {
+    margin: 10px;
+    border: none;
+    padding: 1px;
+    border-radius: 2px;
+    background: #E0F2F1;
+    color: #000;
+    text-align: center;
+}
+
+.Generique QProgressBar::chunk {
+    background: #00BFA5;
+    border-radius: 2px;
+    border: none;
+}
+
+
+
+
 
 .Intro > QWidget {
     border-radius: 2px;
@@ -49,5 +81,7 @@ QPushButton:pressed {
     max-height: 800px;
     background: #E0F2F1;
 }
+
+
 
 
