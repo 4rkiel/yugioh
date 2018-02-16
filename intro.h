@@ -7,6 +7,8 @@
 #include <QGridLayout>
 #include <QVBoxLayout>
 
+#include <QGraphicsDropShadowEffect>
+
 #include <QPushButton>
 #include <QIcon>
 #include <QString>
@@ -34,6 +36,8 @@ class Intro : public QFrame {
     QGridLayout * layout;
     QWidget * introBox;
     QVBoxLayout * box;
+
+    QGraphicsDropShadowEffect * effect;
 
     ShadowButt * newgame;
     ShadowButt * options;

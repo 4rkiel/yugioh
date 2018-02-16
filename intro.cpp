@@ -9,6 +9,15 @@ Intro::Intro () {
     box = new QVBoxLayout;
 
 
+    effect = new QGraphicsDropShadowEffect(this);
+    effect -> setBlurRadius(5);
+    effect -> setXOffset(0);
+    effect -> setYOffset(5);
+    effect -> setColor(QColor(0,0,0,150));
+
+    introBox -> setGraphicsEffect(effect);
+
+
     // New Game Button
 
     newgame = new ShadowButt;
@@ -77,9 +86,9 @@ Intro::Intro () {
 
 
 
-    layout -> addWidget(introBox, 0, 0);
-
     introBox -> setLayout(box);
+
+    layout -> addWidget(introBox, 0, 0);
 
     this -> setLayout(layout);
 }
@@ -91,6 +100,8 @@ Intro::~Intro (){
     delete options;
     delete rules;
     delete quit;
+
+    delete effect;
 
     delete box;
     delete introBox;

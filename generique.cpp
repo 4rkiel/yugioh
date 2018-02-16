@@ -75,7 +75,7 @@ void Generique::newLabel (){
             str = QString::fromUtf8("Chargement de l'amitié");
             break;
         case 2:
-            str = QString::fromUtf8("Synchro de l'heure du D-D-D-D-D-Duel");
+            str = QString::fromUtf8("Synchronisation de l'heure du D-D-D-D-D-Duel");
             break;
         case 3:
             str = QString::fromUtf8("Configuration de l'âme des cartes");

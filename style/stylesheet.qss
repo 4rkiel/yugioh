@@ -32,7 +32,7 @@ QPushButton:pressed {
 
 
 .Window {
-    background: #263238;
+    background: #607D8B;
 }
 
 
