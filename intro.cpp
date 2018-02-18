@@ -8,7 +8,6 @@ Intro::Intro () {
     introBox = new QWidget;
     box = new QVBoxLayout;
 
-
     effect = new QGraphicsDropShadowEffect(this);
     effect -> setBlurRadius(5);
     effect -> setXOffset(0);
@@ -18,15 +17,11 @@ Intro::Intro () {
     introBox -> setGraphicsEffect(effect);
 
 
-    // New Game Button
 
-    newgame = new ShadowButt;
-    
-    QIcon icoButton("puzzle.png");
-    newgame -> setIcon(icoButton);
-    
-    QString strButton = QString::fromUtf8("New Game");
-    newgame -> setText(strButton);
+    // New Game Button
+  
+    QString strButton = QString::fromUtf8("Duel");
+    newgame = new ShadowButt("\uf439", strButton);
     
     newgame -> setToolTip("Infobulle txt");
  
@@ -36,53 +31,53 @@ Intro::Intro () {
 
 
 
+    
     // Options Button
 
-    options = new ShadowButt;
+    QString strDeck = QString::fromUtf8("Decks");
+    decks = new ShadowButt("\uf02d", strDeck);
     
-    QIcon icoOptions("puzzle.png");
-    options -> setIcon(icoOptions);
-    
-    QString strOptions = QString::fromUtf8("Options");
-    options -> setText(strOptions);
-    
-    options -> setToolTip("Infobulle txt");
+    decks -> setToolTip("Infobulle txt");
 
-    box -> addWidget(options);
+    box -> addWidget(decks);
 
 
 
-    // Options Button
 
-    rules = new ShadowButt;
-    
-    QIcon icoRules("puzzle.png");
-    rules -> setIcon(icoRules);
-    
-    QString strRules = QString::fromUtf8("Rules");
-    rules -> setText(strRules);
-    
+    // Regles Button
+
+    QString strRules = QString::fromUtf8("Règles");
+    rules = new ShadowButt("\uf24e", strRules);
+     
     rules -> setToolTip("Infobulle txt");
 
     box -> addWidget(rules);
 
 
 
+    // Options Button
+
+    QString strOptions = QString::fromUtf8("Options");
+    options = new ShadowButt("\uf085", strOptions);
+     
+    options -> setToolTip("Infobulle txt");
+
+    box -> addWidget(options);
+
+
+
+
     // Quit Button
 
-    quit = new ShadowButt;
+    QString strQuit = QString::fromUtf8("Quitter");
+    quit = new ShadowButt("\uf011", strQuit);
      
-    QIcon icoQuit("puzzle.png");
-    quit -> setIcon(icoQuit);
-    
-    QString strQuit = QString::fromUtf8("Quit");
-    quit -> setText(strQuit);
-    
     quit -> setToolTip("Infobulle txt");
 
     connect(quit, SIGNAL(clicked()), qApp, SLOT(quit()));
     
     box -> addWidget(quit);
+
 
 
 
@@ -97,8 +92,9 @@ Intro::Intro () {
 Intro::~Intro (){
 
     delete newgame;
-    delete options;
+    delete decks;
     delete rules;
+    delete options;
     delete quit;
 
     delete effect;

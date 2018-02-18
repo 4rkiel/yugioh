@@ -3,6 +3,10 @@
 
 #include <QPushButton>
 
+#include <QHBoxLayout>
+#include <QString>
+#include <QLabel>
+
 #include <QGraphicsDropShadowEffect>
 #include <QColor>
 
@@ -32,7 +36,7 @@ class ShadowButt : public QPushButton {
     Q_OBJECT
 
     public: 
-    ShadowButt();
+    ShadowButt(QString icoStr, QString txtStr);
     ~ShadowButt();
 
     public slots:
@@ -41,6 +45,9 @@ class ShadowButt : public QPushButton {
     void runNewState();
 
     private:
+    QHBoxLayout * layout;
+    QLabel * ico;
+    QLabel * txt;
     QGraphicsDropShadowEffect * effectButt;
     QThread * pressThread;
     ShadowTask * pressTask;

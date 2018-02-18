@@ -1,11 +1,35 @@
 #include "shadowButt.h"
 
-ShadowButt::ShadowButt (){
+ShadowButt::ShadowButt (QString icoStr, QString textStr){
+ 
+    // Button content
+
+    layout = new QHBoxLayout;
+    layout -> setAlignment(Qt::AlignCenter);
+
+
+    ico = new QLabel;
+    ico -> setFont(QFont("Font Awesome 5 Free", 12));
+    ico -> setText(icoStr);
+    
+    layout -> addWidget(ico);
+
+
+    txt = new QLabel;
+    txt -> setText(textStr);
+
+    layout -> addWidget(txt);
+    
+
+    setLayout(layout);
+
+
+    // Button shadow
 
     effectButt = new QGraphicsDropShadowEffect(this);
     effectButt -> setBlurRadius(5);
-    effectButt -> setXOffset(0);
     effectButt -> setYOffset(5);
+    effectButt -> setXOffset(0);
     effectButt -> setColor(QColor(0,0,0,150));
 
     setGraphicsEffect(effectButt);
@@ -17,7 +41,7 @@ ShadowButt::ShadowButt (){
     connect(this, SIGNAL(pressed()), this, SLOT(buttonPressed()));
 
 
-    // run thread 
+    // run effect thread 
 
     pressThread = new QThread;
     pressTask = new ShadowTask;
@@ -38,6 +62,10 @@ ShadowButt::ShadowButt (){
 
 
 ShadowButt::~ShadowButt (){
+
+    delete ico;
+    delete txt;
+    delete layout;
 
     delete effectButt;
 
@@ -81,8 +109,8 @@ void ShadowButt::runNewState (){
 
 		if (lastPosi == 0){
 			
-			effectButt -> setEnabled(false);
-		
+	        setGraphicsEffect(NULL);
+
 		} else {
 
 			effectButt -> setBlurRadius(lastPosi);
@@ -98,7 +126,12 @@ void ShadowButt::runNewState (){
         lastPosi ++ ;
 
 		if (lastPosi == 1){
-			effectButt -> setEnabled(true);
+
+            effectButt = new QGraphicsDropShadowEffect;
+            effectButt -> setXOffset(0);
+            effectButt -> setColor(QColor(0,0,0,150));
+
+            setGraphicsEffect(effectButt);
 		}
 
 		effectButt -> setBlurRadius(lastPosi);

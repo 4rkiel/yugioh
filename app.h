@@ -5,8 +5,10 @@
 #include <QFrame>
 
 #include <QGridLayout>
+#include <QWidget>
+#include <QVBoxLayout>
+
 #include <QPushButton>
-#include <QIcon>
 #include <QString>
 #include <QLabel>
 
@@ -25,11 +27,23 @@ class App : public QFrame {
     void newStack();
 
     private:
-    QGridLayout * layout;
-    QPushButton * button;
-    QPushButton * quit;
-    QLabel * text;
+    QGridLayout * overLayout;
+    QWidget * sceneBox;
+    QGridLayout * sceneLayout;
+    
+    QWidget * leftBarBox;
+    QVBoxLayout * leftBarLayout;
+    
+    QWidget * arenaBox;
+    QGridLayout * arenaLayout;
+    
+    QWidget * rightBarBox;
+    QVBoxLayout * rightBarLayout;
 
+
+    QLabel * lifeAdv;
+    QLabel * lifeSlf;
+    QPushButton * menu;
 };
 
 

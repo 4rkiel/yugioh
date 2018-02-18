@@ -4,7 +4,7 @@
 
 QMAKE_CXXFLAGS += -std=c++0x
 
-
+CONFIG += console
 QT += widgets
 
 TEMPLATE = app

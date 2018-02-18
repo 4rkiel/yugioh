@@ -71,10 +71,13 @@ int main(int argc, char *argv[]) {
     // Load new font file
     
     int id = QFontDatabase::addApplicationFont("font/Roboto-Thin.ttf");
+
     QString family = QFontDatabase::applicationFontFamilies(id).at(0);
     QFont roboto(family, 14);
-
     QApplication::setFont(roboto);
+
+//    QFontDatabase::addApplicationFont("font/FontAwesome.otf"); 
+    QFontDatabase::addApplicationFont("font/FontAwesomeSolid.otf"); 
 
 
     // Load new qss file

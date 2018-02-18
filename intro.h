@@ -10,11 +10,9 @@
 #include <QGraphicsDropShadowEffect>
 
 #include <QPushButton>
-#include <QIcon>
 #include <QString>
 
 #include "shadowButt.h"
-
 
 
 class Intro : public QFrame {
@@ -40,8 +38,9 @@ class Intro : public QFrame {
     QGraphicsDropShadowEffect * effect;
 
     ShadowButt * newgame;
-    ShadowButt * options;
+    ShadowButt * decks;
     ShadowButt * rules;
+    ShadowButt * options;
     ShadowButt * quit;
  
 };

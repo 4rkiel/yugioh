@@ -1,59 +1,65 @@
 * {
     padding: 0;
     margin: 0;
+    spacing:0;
 }
 
-QPushButton {
+
+
+
+
+ShadowButt {
     border: none;
     outline: none;
     border-radius: 2px;
-    color: #000;
     margin: 10px;
     padding: 5px 10px;
     background: #03A9F4;
 }
 
-QPushButton:hover {
+ShadowButt QLabel {
+    color: #000;
+}
+
+ShadowButt:hover {
     background: #80D8FF;
 }
-    
-QPushButton:focus {
-    font-weight: bold;
+ 
+ShadowButt:focus {
     background: #00BFA5;
 }
 
-
-QPushButton:pressed {
-    color: #fff;
+ShadowButt:pressed {
     background: #0288D1;
 }
 
 
 
 
-.Window {
+
+Window {
     background: #607D8B;
 }
 
 
 
 
-.Generique {
+Generique {
     border-image: url(intro.jpg);
 }
 
-.Generique > QWidget {
+Generique > QWidget {
     background: #607D8B;
 }
 
-.Generique .QLabel {
+Generique .QLabel {
     color: #fff;
     margin: 10px 10px 0 10px;
     qproperty-alignment: AlignCenter;
 }
 
 
-.Generique QProgressBar {
+Generique QProgressBar {
     margin: 10px;
     border: none;
     padding: 1px;
@@ -63,7 +69,7 @@ QPushButton:pressed {
     text-align: center;
 }
 
-.Generique QProgressBar::chunk {
+Generique QProgressBar::chunk {
     background: #00BFA5;
     border-radius: 2px;
     border: none;
@@ -73,7 +79,7 @@ QPushButton:pressed {
 
 
 
-.Intro > QWidget {
+Intro > QWidget {
     border-radius: 2px;
     min-width: 250px;
     max-width: 500px;
@@ -85,3 +91,27 @@ QPushButton:pressed {
 
 
 
+#leftBarBox {
+    background: #fff;
+}
+
+#leftBarBox QLabel,
+#rightBarBox QLabel {
+    background: blue;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 2px;
+}
+
+
+#rightBarBox QPushButton {
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    outline: none;
+    background: blue;
+}
+
+#rightBarBox {
+    background: #fff;
+}
