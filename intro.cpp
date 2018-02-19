@@ -23,7 +23,7 @@ Intro::Intro () {
     QString strButton = QString::fromUtf8("Duel");
     newgame = new ShadowButt("\uf439", strButton);
     
-    newgame -> setToolTip("Infobulle txt");
+    newgame -> setToolTip("Commencer une partie");
  
     connect(newgame, SIGNAL(clicked()), this, SLOT(emitNewStack()));
     
@@ -37,7 +37,7 @@ Intro::Intro () {
     QString strDeck = QString::fromUtf8("Decks");
     decks = new ShadowButt("\uf02d", strDeck);
     
-    decks -> setToolTip("Infobulle txt");
+    decks -> setToolTip("Gestion des decks");
 
     box -> addWidget(decks);
 
@@ -49,7 +49,7 @@ Intro::Intro () {
     QString strRules = QString::fromUtf8("Règles");
     rules = new ShadowButt("\uf24e", strRules);
      
-    rules -> setToolTip("Infobulle txt");
+    rules -> setToolTip("Gestion de l'arbitrage");
 
     box -> addWidget(rules);
 
@@ -60,7 +60,7 @@ Intro::Intro () {
     QString strOptions = QString::fromUtf8("Options");
     options = new ShadowButt("\uf085", strOptions);
      
-    options -> setToolTip("Infobulle txt");
+    options -> setToolTip("Gestion des options");
 
     box -> addWidget(options);
 
@@ -72,7 +72,7 @@ Intro::Intro () {
     QString strQuit = QString::fromUtf8("Quitter");
     quit = new ShadowButt("\uf011", strQuit);
      
-    quit -> setToolTip("Infobulle txt");
+    quit -> setToolTip("Quitter l'application");
 
     connect(quit, SIGNAL(clicked()), qApp, SLOT(quit()));
     

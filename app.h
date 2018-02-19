@@ -13,6 +13,10 @@
 #include <QString>
 #include <QLabel>
 
+#include <QGraphicsDropShadowEffect>
+
+#include "shadowButt.h"
+
 class App : public QFrame {
 
     Q_OBJECT
@@ -37,16 +41,16 @@ class App : public QFrame {
         QWidget * leftBarBox;
         QVBoxLayout * leftBarLayout;
     
+            QLabel * lifeAdv;
+        
         QWidget * arenaBox;
         QGridLayout * arenaLayout;
     
         QWidget * rightBarBox;
         QVBoxLayout * rightBarLayout;
 
-
-        QLabel * lifeAdv;
-        QLabel * lifeSlf;
-        QPushButton * menuButt;
+            QLabel * lifeSlf;
+            ShadowButt * menuButt;
 
     QWidget * popupOuter;
     QGridLayout * popupOuterLayout;
@@ -60,8 +64,9 @@ class App : public QFrame {
         QWidget * menuBox;
         QVBoxLayout * menuLayout;
 
-        QPushButton * quit;
-        QPushButton * back;
+            QGraphicsDropShadowEffect * popupEffect;
+            ShadowButt * quit;
+            ShadowButt * back;
 };
 
 

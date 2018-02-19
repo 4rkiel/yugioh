@@ -33,7 +33,7 @@ class Window : public QWidget {
 
 
     protected:
-    void closeEvent(QCloseEvent* event);
+    void closeEvent(QCloseEvent *);
     virtual void readSettings();
     virtual void writeSettings();
 

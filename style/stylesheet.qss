@@ -95,8 +95,8 @@ Intro > QWidget {
     background: #fff;
 }
 
-#leftBarBox QLabel,
-#rightBarBox QLabel {
+#leftBarBox > QLabel,
+#rightBarBox > QLabel {
     background: blue;
     padding: 10px;
     margin: 10px;
@@ -104,17 +104,10 @@ Intro > QWidget {
 }
 
 
-#rightBarBox QPushButton {
-    margin: 10px;
-    padding: 10px;
-    border: none;
+#rightBarBox > ShadowBox {
     outline: none;
-    background: blue;
 }
 
-#rightBarBox QPushButton:focus {
-    background: red;
-}
 
 #rightBarBox {
     background: #fff;
@@ -133,7 +126,8 @@ Intro > QWidget {
     border-radius: 2px;
     min-width: 250px;
     max-width: 500px;
-    min-height: 400px;
+    min-height: 200px;
     max-height: 800px;
     background: #E0F2F1;
 }
+

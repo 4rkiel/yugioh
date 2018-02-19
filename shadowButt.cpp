@@ -7,19 +7,20 @@ ShadowButt::ShadowButt (QString icoStr, QString textStr){
     layout = new QHBoxLayout;
     layout -> setAlignment(Qt::AlignCenter);
 
-
-    ico = new QLabel;
-    ico -> setFont(QFont("Font Awesome 5 Free", 12));
-    ico -> setText(icoStr);
+    if (icoStr != ""){
+        ico = new QLabel;
+        ico -> setFont(QFont("Font Awesome 5 Free", 12));
+        ico -> setText(icoStr);
     
-    layout -> addWidget(ico);
+        layout -> addWidget(ico);
+    }
 
+    if (textStr != ""){
+        txt = new QLabel;
+        txt -> setText(textStr);
 
-    txt = new QLabel;
-    txt -> setText(textStr);
-
-    layout -> addWidget(txt);
-    
+        layout -> addWidget(txt);
+    }
 
     setLayout(layout);
 

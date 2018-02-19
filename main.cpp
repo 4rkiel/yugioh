@@ -99,7 +99,7 @@ void Window::readSettings (){
 }
 
 
-void Window::closeEvent (QCloseEvent* event){
+void Window::closeEvent (QCloseEvent *){
     writeSettings();
 }
 

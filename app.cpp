@@ -65,12 +65,9 @@ App::App () {
         rightBarLayout -> setAlignment(Qt::AlignCenter);
 
             
-            menuButt = new QPushButton;
-            menuButt -> setFont(QFont("Font Awesome 5 Free", 14));
-            menuButt -> setText("\uf0c9");
-            
+            menuButt = new ShadowButt("\uf0c9", "");
+            menuButt -> setToolTip("Menu");
             connect(menuButt, SIGNAL(clicked()), this, SLOT(openMenu()));
-            
             rightBarLayout -> addWidget(menuButt);
            
 
@@ -126,6 +123,15 @@ App::App () {
     popupLayout -> setSpacing(0);
     popupLayout -> setMargin(0);
 
+        popupEffect = new QGraphicsDropShadowEffect; 
+        popupEffect -> setBlurRadius(5); 
+        popupEffect -> setXOffset(0); 
+        popupEffect -> setYOffset(5); 
+        popupEffect -> setColor(QColor(0,0,0,150)); 
+
+        popupBox -> setGraphicsEffect(popupEffect); 
+
+
 
     
         // TODO battle intro
@@ -137,44 +143,22 @@ App::App () {
         menuOuter = new QWidget;
         menuOuterLayout = new QGridLayout;
 
-        menuOuterLayout -> setSpacing(0);
-        menuOuterLayout -> setMargin(0);
-
-
-
         menuBox = new QWidget;
         menuBox -> setObjectName("menuBox");
         menuLayout = new QVBoxLayout;
         menuLayout -> setAlignment(Qt::AlignCenter);
- 
-            back = new QPushButton;
+           
 
-//            QIcon icoButton("nyancat.png");
-//            quit -> setIcon(icoButton);
-
-            QString strBack = QString::fromUtf8("Retour");
-            back -> setText(strBack);
-
+            back = new ShadowButt("\uf078", "Fermer");
+            back -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
             back -> setToolTip("Retour au Duel");
-
             connect(back, SIGNAL(clicked()), this, SLOT(closeMenu()));
-            
             menuLayout -> addWidget(back);
 
-
-
-            quit = new QPushButton;
-
-            QIcon icoButton("nyancat.png");
-            quit -> setIcon(icoButton);
-
-            QString strButton = QString::fromUtf8("Quitter");
-            quit -> setText(strButton);
-
+            quit = new ShadowButt("\uf053", "Quitter");
+            quit -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
             quit -> setToolTip("Quitter le Duel");
-
             connect(quit, SIGNAL(clicked()), this, SLOT(emitNewStack()));
-            
             menuLayout -> addWidget(quit);
 
 
@@ -211,7 +195,8 @@ App::~App (){
         delete menuBox;
         delete menuOuterLayout;
         delete menuOuter;
-    
+
+    delete popupEffect;
     delete popupLayout;
     delete popupBox;
     delete popupShadow;
