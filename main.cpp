@@ -6,30 +6,30 @@
 Window::Window () : QWidget () {
 
     stackedLayout = new QStackedLayout;
-    currentLayout = 0;
+    currentLayout = -1;
 
     generique = new Generique;
     stackedLayout -> addWidget(generique);
     connect(generique, SIGNAL(introStack()), this, SLOT(primoStack()));
-
-    intro = new Intro;
-    stackedLayout -> addWidget(intro);
-    connect(intro, SIGNAL(newStack()), this, SLOT(changeStacked()));
-
-
-    app = new App;
-    stackedLayout -> addWidget(app);
-    connect(app, SIGNAL(newStack()), this, SLOT(changeStacked()));
-
     setLayout(stackedLayout);
 }
 
     
 Window::~Window (){
 
-    delete app;
-    delete intro;
-    delete generique;
+    switch (currentLayout){
+        case -1 :
+            delete generique;
+            break;
+
+        case 0 :
+            delete intro;
+            break;
+
+        case 1 :
+            delete app;
+            break;
+    }
 
     delete stackedLayout;
 }
@@ -37,8 +37,15 @@ Window::~Window (){
 
 void Window::primoStack (){
 
+    intro = new Intro;
+    stackedLayout -> addWidget(intro);
+    connect(intro, SIGNAL(newStack()), this, SLOT(changeStacked()));
+
     stackedLayout -> setCurrentWidget(intro);
+    stackedLayout -> removeWidget(generique);
+
     intro -> init();
+    currentLayout = 0;
 
 }
 
@@ -49,15 +56,29 @@ void Window::changeStacked (){
 
     switch (currentLayout){
         case 0:
-            
+ 
+            intro = new Intro;
+            stackedLayout -> addWidget(intro);
+            connect(intro, SIGNAL(newStack()), this, SLOT(changeStacked()));
+   
             stackedLayout -> setCurrentWidget(intro);
+            stackedLayout -> removeWidget(app); 
+
             intro -> init();
             
             break;
 
         case 1:
 
+            app = new App;
+            stackedLayout -> addWidget(app);
+            connect(app, SIGNAL(newStack()), this, SLOT(changeStacked()));
+
             stackedLayout -> setCurrentWidget(app);
+            stackedLayout -> removeWidget(intro);
+
+            delete(intro);
+
             break;
     }
 }

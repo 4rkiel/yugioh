@@ -3,10 +3,11 @@
 
 #include <QApplication>
 #include <QFrame>
+#include <QWidget>
 
 #include <QGridLayout>
-#include <QWidget>
 #include <QVBoxLayout>
+#include <QStackedLayout>
 
 #include <QPushButton>
 #include <QString>
@@ -22,6 +23,8 @@ class App : public QFrame {
 
     public slots:
     void emitNewStack();
+    void openMenu();
+    void closeMenu();
 
     signals:
     void newStack();
@@ -31,19 +34,34 @@ class App : public QFrame {
     QWidget * sceneBox;
     QGridLayout * sceneLayout;
     
-    QWidget * leftBarBox;
-    QVBoxLayout * leftBarLayout;
+        QWidget * leftBarBox;
+        QVBoxLayout * leftBarLayout;
     
-    QWidget * arenaBox;
-    QGridLayout * arenaLayout;
+        QWidget * arenaBox;
+        QGridLayout * arenaLayout;
     
-    QWidget * rightBarBox;
-    QVBoxLayout * rightBarLayout;
+        QWidget * rightBarBox;
+        QVBoxLayout * rightBarLayout;
 
 
-    QLabel * lifeAdv;
-    QLabel * lifeSlf;
-    QPushButton * menu;
+        QLabel * lifeAdv;
+        QLabel * lifeSlf;
+        QPushButton * menuButt;
+
+    QWidget * popupOuter;
+    QGridLayout * popupOuterLayout;
+    QPushButton * popupShadow;
+    QWidget * popupBox;
+    QStackedLayout * popupLayout;
+    
+        QWidget * menuOuter;
+        QGridLayout * menuOuterLayout;
+
+        QWidget * menuBox;
+        QVBoxLayout * menuLayout;
+
+        QPushButton * quit;
+        QPushButton * back;
 };
 
 

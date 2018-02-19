@@ -30,4 +30,5 @@ class Window : public QWidget {
     Intro * intro;
     App * app;
     Generique * generique;
+
 };

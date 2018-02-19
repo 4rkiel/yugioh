@@ -112,6 +112,28 @@ Intro > QWidget {
     background: blue;
 }
 
+#rightBarBox QPushButton:focus {
+    background: red;
+}
+
 #rightBarBox {
     background: #fff;
+}
+
+
+
+#popupShadow {
+    outline: none;
+    border: none;
+    background: rgba(0,0,0,100);
+}
+
+
+#menuBox {
+    border-radius: 2px;
+    min-width: 250px;
+    max-width: 500px;
+    min-height: 400px;
+    max-height: 800px;
+    background: #E0F2F1;
 }
