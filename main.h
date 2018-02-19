@@ -31,4 +31,10 @@ class Window : public QWidget {
     App * app;
     Generique * generique;
 
+
+    protected:
+    void closeEvent(QCloseEvent* event);
+    virtual void readSettings();
+    virtual void writeSettings();
+
 };

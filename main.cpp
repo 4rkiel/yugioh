@@ -2,8 +2,11 @@
 #include "intro.h"
 #include "app.h"
 
+#include <QSettings>
 
 Window::Window () : QWidget () {
+
+    readSettings();
 
     stackedLayout = new QStackedLayout;
     currentLayout = -1;
@@ -32,6 +35,8 @@ Window::~Window (){
     }
 
     delete stackedLayout;
+
+    writeSettings();
 }
 
 
@@ -85,9 +90,37 @@ void Window::changeStacked (){
 
 
 
+void Window::readSettings (){
+    QSettings settings;
+    QPoint pos = settings.value("pos", QPoint(200, 200)).toPoint();
+    QSize size = settings.value("size", QSize(400, 400)).toSize();
+    resize(size);
+    move(pos);
+}
+
+
+void Window::closeEvent (QCloseEvent* event){
+    writeSettings();
+}
+
+
+void Window::writeSettings (){
+    
+    /* Save postion/size of main window */
+    QSettings settings;
+    settings.setValue("pos", pos());
+    settings.setValue("size", size());
+}
+
+
 int main(int argc, char *argv[]) {
 
+    // Set Application
+
     QApplication app(argc, argv);
+    app.setOrganizationName("Yu-Gi-Home");
+    app.setOrganizationDomain("Yu.Gi.Oh");
+    app.setApplicationName("Yu-Gi-Oh");
 
     // Load new font file
     
@@ -97,7 +130,6 @@ int main(int argc, char *argv[]) {
     QFont roboto(family, 14);
     QApplication::setFont(roboto);
 
-//    QFontDatabase::addApplicationFont("font/FontAwesome.otf"); 
     QFontDatabase::addApplicationFont("font/FontAwesomeSolid.otf"); 
 
 
@@ -113,12 +145,12 @@ int main(int argc, char *argv[]) {
     // Load main widget
 
     Window w;
-    w.resize(500, 700);
+
+    //w.resize(500, 700);
     w.setWindowTitle("Trading Card Game");
     w.setWindowIcon(QIcon("card.svg"));
 
     w.show();
-
 
     return app.exec();
 }
