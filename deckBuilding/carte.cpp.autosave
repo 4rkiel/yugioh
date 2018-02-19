@@ -1,0 +1,12 @@
+#include "carte.h"
+
+carte::carte(string carte_nom)
+{
+    
+}
+
+carte::carte()
+{
+
+}
+

@@ -23,10 +23,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Input
-HEADERS += app.h generique.h genProgress.h intro.h main.h shadowButt.h sleeper.h
+HEADERS += app.h generique.h genProgress.h intro.h main.h shadowButt.h sleeper.h \
+    deckBuilding/deck.h \
+    deckBuilding/carte.h
 SOURCES += app.cpp \
            generique.cpp \
            genProgress.cpp \
            intro.cpp \
            main.cpp \
-           shadowButt.cpp
+           shadowButt.cpp \
+    deckBuilding/deck.cpp \
+    deckBuilding/carte.cpp
