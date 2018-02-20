@@ -91,13 +91,10 @@ Intro > QWidget {
 
 
 
-#leftBarBox {
-    background: #fff;
-}
-
 #leftBarBox > QLabel,
 #rightBarBox > QLabel {
-    background: blue;
+    background: #3F51B5;
+    color: #fff;
     padding: 10px;
     margin: 10px;
     border-radius: 2px;
@@ -108,10 +105,6 @@ Intro > QWidget {
     outline: none;
 }
 
-
-#rightBarBox {
-    background: #fff;
-}
 
 
 

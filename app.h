@@ -42,10 +42,13 @@ class App : public QFrame {
         QVBoxLayout * leftBarLayout;
     
             QLabel * lifeAdv;
-        
+            QLabel * card;
+            ShadowButt * actionButt;
+
         QWidget * arenaBox;
         QGridLayout * arenaLayout;
-    
+   
+
         QWidget * rightBarBox;
         QVBoxLayout * rightBarLayout;
 

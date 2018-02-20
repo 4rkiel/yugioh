@@ -7,6 +7,9 @@ ShadowButt::ShadowButt (QString icoStr, QString textStr){
     layout = new QHBoxLayout;
     layout -> setAlignment(Qt::AlignCenter);
 
+    ico = nullptr;
+    txt = nullptr;
+
     if (icoStr != ""){
         ico = new QLabel;
         ico -> setFont(QFont("Font Awesome 5 Free", 12));
@@ -64,8 +67,14 @@ ShadowButt::ShadowButt (QString icoStr, QString textStr){
 
 ShadowButt::~ShadowButt (){
 
-    delete ico;
-    delete txt;
+    if (ico != nullptr){
+        delete ico;
+    }
+
+    if (txt != nullptr){
+        delete txt;
+    }
+
     delete layout;
 
     delete effectButt;

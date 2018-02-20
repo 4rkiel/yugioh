@@ -33,12 +33,24 @@ App::App () {
             lifeAdv = new QLabel();
             QString strAdv = QString::fromUtf8("8000");
             lifeAdv -> setText(strAdv);
-
+            lifeAdv -> setObjectName("Life");
             leftBarLayout -> addWidget(lifeAdv);
            
 
             leftBarLayout -> addStretch();
 
+       
+            card = new QLabel();
+            card -> setObjectName("Card");
+            leftBarLayout -> addWidget(card);
+
+
+            leftBarLayout -> addStretch();
+
+
+            actionButt = new ShadowButt("\uf04b", "");
+            actionButt -> setToolTip("Terminer le tour");
+            leftBarLayout -> addWidget(actionButt);
 
            
         leftBarBox -> setObjectName("leftBarBox");            
@@ -79,9 +91,11 @@ App::App () {
 
             rightBarLayout -> addStretch();
 
+
             lifeSlf = new QLabel();
             QString strSlf = QString::fromUtf8("8000");
             lifeSlf -> setText(strSlf);
+            lifeSlf -> setObjectName("Life");
 
             rightBarLayout -> addWidget(lifeSlf);
            
@@ -147,19 +161,19 @@ App::App () {
         menuBox -> setObjectName("menuBox");
         menuLayout = new QVBoxLayout;
         menuLayout -> setAlignment(Qt::AlignCenter);
-           
+
+
+            quit = new ShadowButt("\uf00d", "Abandonner");
+            quit -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+            quit -> setToolTip("Quitter le Duel");
+            connect(quit, SIGNAL(clicked()), this, SLOT(emitNewStack()));
+            menuLayout -> addWidget(quit);
 
             back = new ShadowButt("\uf078", "Fermer");
             back -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
             back -> setToolTip("Retour au Duel");
             connect(back, SIGNAL(clicked()), this, SLOT(closeMenu()));
             menuLayout -> addWidget(back);
-
-            quit = new ShadowButt("\uf053", "Quitter");
-            quit -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-            quit -> setToolTip("Quitter le Duel");
-            connect(quit, SIGNAL(clicked()), this, SLOT(emitNewStack()));
-            menuLayout -> addWidget(quit);
 
 
 
@@ -205,12 +219,16 @@ App::~App (){
 
             delete menuButt;
             delete lifeSlf;
-            delete lifeAdv;
 
         delete rightBarLayout;
         delete rightBarBox;
         delete arenaLayout;
         delete arenaBox;
+
+            delete actionButt;
+            delete lifeAdv;
+            delete card;
+
         delete leftBarLayout;
         delete leftBarBox;
 
