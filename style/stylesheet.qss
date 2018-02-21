@@ -142,34 +142,46 @@ Intro > QWidget {
 }
 
 #arenaBox {
-
-    background: #000;
+    background: #263238;
 }
 
-#arenaBox > QWidget {
-
-    background: #555;
+#arenaBox Card {
+    background: qradialgradient(
+    cx: 0.5, 
+    cy: 0.5, 
+    radius: 1.5, 
+    fx: 0.5,
+    fy: 0.5, 
+    stop: 0.2 #150A0A, 
+    stop: 1 #381010);
+    background: #150A0A;
+    border: none;
+    border-radius: 2px;
 }
 
-#arenaBox > QWidget > QWidget {
-    background: #aaa;
+#arenaBox Card:hover,
+#arenaBox Card:focus,
+#arenaBox Card:pressed {
+    border: none;
 }
 
-#arenaBox #advHand {
-    margin: 0;
+#arenaBox #advDeck,
+#arenaBox #slfDeck {
+    border-image: url(card3.svg);
 }
 
-#arenaBox #advMagic Card {
-    background: blue;
-    margin: 10px 10px 0;
+#arenaBox #advHand Card,
+#arenaBox #slfHand Card {
+    margin: 0 2px;
 }
 
-#arenaBox #advMonst Card {
-    background: green;
-    margin: 0 10px 10px;
+#arenaBox #advMagic Card,
+#arenaBox #slfMonst Card {
+    margin: 15px 2px 1px 2px;
 }
 
-#arenaBox > QWidget > QWidget > QWidget {
-    background: red;
+#arenaBox #advMonst Card,
+#arenaBox #slfMagic Card {
+    margin: 1px 2px 15px 2px;
 }
 

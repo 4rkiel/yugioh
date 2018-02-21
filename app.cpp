@@ -84,10 +84,11 @@ App::App () {
                 advHand = new QWidget;
                 advHand -> setObjectName("advHand");
                 advHandLayout = new QHBoxLayout;
-                advHandLayout -> setAlignment(Qt::AlignTop);
                 advHandLayout -> setMargin(0);
+                advHandLayout -> setSpacing(0);
 
                     advHand0 = new Card;
+                    advHand0 -> setObjectName("advDeck");
                     advHandLayout -> addWidget(advHand0);
                     advHand1 = new Card;
                     advHandLayout -> addWidget(advHand1);
@@ -108,8 +109,8 @@ App::App () {
                 advMagic = new QWidget;
                 advMagic -> setObjectName("advMagic");
                 advMagicLayout = new QHBoxLayout;
-                advMagicLayout -> setAlignment(Qt::AlignBottom);
                 advMagicLayout -> setMargin(0);
+                advMagicLayout -> setSpacing(0);
                 
                     advMagic0 = new Card;
                     advMagicLayout -> addWidget(advMagic0);
@@ -132,8 +133,8 @@ App::App () {
                 advMonst = new QWidget;
                 advMonst -> setObjectName("advMonst");
                 advMonstLayout = new QHBoxLayout;
-                advMonstLayout -> setAlignment(Qt::AlignBottom);
                 advMonstLayout -> setMargin(0);
+                advMonstLayout -> setSpacing(0);
 
                     advMonst0 = new Card;
                     advMonstLayout -> addWidget(advMonst0);
@@ -161,11 +162,15 @@ App::App () {
 
             slfBox = new QWidget;
             slfLayout = new QVBoxLayout;
-            
+            slfLayout -> setMargin(0);
+            slfLayout -> setSpacing(0);
             slfLayout -> setAlignment(Qt::AlignCenter);
             
                 slfMonst = new QWidget;
+                slfMonst -> setObjectName("slfMonst");
                 slfMonstLayout = new QHBoxLayout;
+                slfMonstLayout -> setMargin(0);
+                slfMonstLayout -> setSpacing(0);
      
                     slfMonst0 = new Card;
                     slfMonstLayout -> addWidget(slfMonst0);
@@ -186,7 +191,10 @@ App::App () {
                 slfLayout -> addWidget(slfMonst);
 
                 slfMagic = new QWidget;
+                slfMagic -> setObjectName("slfMagic");
                 slfMagicLayout = new QHBoxLayout;
+                slfMagicLayout -> setMargin(0);
+                slfMagicLayout -> setSpacing(0);
      
                     slfMagic0 = new Card;
                     slfMagicLayout -> addWidget(slfMagic0);
@@ -207,7 +215,10 @@ App::App () {
                 slfLayout -> addWidget(slfMagic);
 
                 slfHand = new QWidget;
+                slfHand -> setObjectName("slfHand");
                 slfHandLayout = new QHBoxLayout;
+                slfHandLayout -> setMargin(0);
+                slfHandLayout -> setSpacing(0);
       
                     slfHand0 = new Card;
                     slfHandLayout -> addWidget(slfHand0);
@@ -222,6 +233,7 @@ App::App () {
                     slfHand5 = new Card;
                     slfHandLayout -> addWidget(slfHand5);
                     slfHand6 = new Card;
+                    slfHand6 -> setObjectName("slfDeck");
                     slfHandLayout -> addWidget(slfHand6);
                
                 slfHand -> setLayout(slfHandLayout);
