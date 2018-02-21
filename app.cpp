@@ -76,11 +76,16 @@ App::App () {
                 
             advBox = new QWidget;
             advLayout = new QVBoxLayout;
-
             advLayout -> setAlignment(Qt::AlignCenter);
-            
+            advLayout -> setSpacing(0);
+            advLayout -> setMargin(0);
+
+           
                 advHand = new QWidget;
+                advHand -> setObjectName("advHand");
                 advHandLayout = new QHBoxLayout;
+                advHandLayout -> setAlignment(Qt::AlignTop);
+                advHandLayout -> setMargin(0);
 
                     advHand0 = new Card;
                     advHandLayout -> addWidget(advHand0);
@@ -101,8 +106,11 @@ App::App () {
                 advLayout -> addWidget(advHand);
 
                 advMagic = new QWidget;
+                advMagic -> setObjectName("advMagic");
                 advMagicLayout = new QHBoxLayout;
-     
+                advMagicLayout -> setAlignment(Qt::AlignBottom);
+                advMagicLayout -> setMargin(0);
+                
                     advMagic0 = new Card;
                     advMagicLayout -> addWidget(advMagic0);
                     advMagic1 = new Card;
@@ -122,8 +130,11 @@ App::App () {
                 advLayout -> addWidget(advMagic);
 
                 advMonst = new QWidget;
+                advMonst -> setObjectName("advMonst");
                 advMonstLayout = new QHBoxLayout;
-     
+                advMonstLayout -> setAlignment(Qt::AlignBottom);
+                advMonstLayout -> setMargin(0);
+
                     advMonst0 = new Card;
                     advMonstLayout -> addWidget(advMonst0);
                     advMonst1 = new Card;

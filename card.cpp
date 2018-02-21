@@ -4,7 +4,6 @@ Card::Card (){
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-
 }
 
 

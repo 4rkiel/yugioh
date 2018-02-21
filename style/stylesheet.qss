@@ -155,6 +155,20 @@ Intro > QWidget {
     background: #aaa;
 }
 
+#arenaBox #advHand {
+    margin: 0;
+}
+
+#arenaBox #advMagic Card {
+    background: blue;
+    margin: 10px 10px 0;
+}
+
+#arenaBox #advMonst Card {
+    background: green;
+    margin: 0 10px 10px;
+}
+
 #arenaBox > QWidget > QWidget > QWidget {
     background: red;
 }
