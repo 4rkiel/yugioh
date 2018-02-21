@@ -16,6 +16,8 @@
 #include <QGraphicsDropShadowEffect>
 
 #include "shadowButt.h"
+#include "appIndicator.h"
+#include "card.h"
 
 class App : public QFrame {
 
@@ -41,18 +43,89 @@ class App : public QFrame {
         QWidget * leftBarBox;
         QVBoxLayout * leftBarLayout;
     
-            QLabel * lifeAdv;
-            QLabel * card;
+            AppIndicator * lifeAdv;
+            AppIndicator * card;
             ShadowButt * actionButt;
 
         QWidget * arenaBox;
         QGridLayout * arenaLayout;
-   
+      
+            QWidget * advBox;
+            QVBoxLayout * advLayout;
+                
+                QWidget * advHand;
+                QHBoxLayout * advHandLayout;
+               
+                    Card * advHand0;
+                    Card * advHand1;
+                    Card * advHand2;
+                    Card * advHand3;
+                    Card * advHand4;
+                    Card * advHand5;
+                    Card * advHand6;
+
+                QWidget * advMagic;
+                QHBoxLayout * advMagicLayout;
+                
+                    Card * advMagic0;
+                    Card * advMagic1;
+                    Card * advMagic2;
+                    Card * advMagic3;
+                    Card * advMagic4;
+                    Card * advMagic5;
+                    Card * advMagic6;
+
+                QWidget * advMonst; 
+                QHBoxLayout * advMonstLayout; 
+                 
+                    Card * advMonst0;
+                    Card * advMonst1;
+                    Card * advMonst2;
+                    Card * advMonst3;
+                    Card * advMonst4;
+                    Card * advMonst5;
+                    Card * advMonst6;
+                
+           QWidget * slfBox;
+           QVBoxLayout * slfLayout;
+
+                QWidget * slfMonst; 
+                QHBoxLayout * slfMonstLayout; 
+                 
+                    Card * slfMonst0;
+                    Card * slfMonst1;
+                    Card * slfMonst2;
+                    Card * slfMonst3;
+                    Card * slfMonst4;
+                    Card * slfMonst5;
+                    Card * slfMonst6;
+
+                QWidget * slfMagic; 
+                QHBoxLayout * slfMagicLayout; 
+                 
+                    Card * slfMagic0;
+                    Card * slfMagic1;
+                    Card * slfMagic2;
+                    Card * slfMagic3;
+                    Card * slfMagic4;
+                    Card * slfMagic5;
+                    Card * slfMagic6;
+
+                QWidget * slfHand; 
+                QHBoxLayout * slfHandLayout; 
+
+                    Card * slfHand0;
+                    Card * slfHand1;
+                    Card * slfHand2;
+                    Card * slfHand3;
+                    Card * slfHand4;
+                    Card * slfHand5;
+                    Card * slfHand6;
 
         QWidget * rightBarBox;
         QVBoxLayout * rightBarLayout;
 
-            QLabel * lifeSlf;
+            AppIndicator * lifeSlf;
             ShadowButt * menuButt;
 
     QWidget * popupOuter;

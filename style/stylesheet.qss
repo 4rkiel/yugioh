@@ -91,15 +91,32 @@ Intro > QWidget {
 
 
 
-#leftBarBox > QLabel,
-#rightBarBox > QLabel {
+#leftBarBox #Card {
     background: #3F51B5;
     color: #fff;
     padding: 10px;
     margin: 10px;
     border-radius: 2px;
+    font-size: 12px;
+    min-width: 150px;
+    max-width: 200px;
 }
 
+#leftBarBox #Life,
+#rightBarBox #Life {
+    background: #304FFE;
+    color: #fff;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 2px;
+    max-width: 100px;
+}
+
+#leftBarBox > ShadowButt,
+#rightBarBox > ShadowButt {
+    font-size: 28px;
+    max-width: 100px;
+}
 
 #rightBarBox > ShadowBox {
     outline: none;
@@ -122,5 +139,23 @@ Intro > QWidget {
     min-height: 200px;
     max-height: 800px;
     background: #E0F2F1;
+}
+
+#arenaBox {
+
+    background: #000;
+}
+
+#arenaBox > QWidget {
+
+    background: #555;
+}
+
+#arenaBox > QWidget > QWidget {
+    background: #aaa;
+}
+
+#arenaBox > QWidget > QWidget > QWidget {
+    background: red;
 }
 
