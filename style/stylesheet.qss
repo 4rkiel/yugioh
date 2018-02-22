@@ -128,7 +128,7 @@ Intro #optionBox QTabBar::tab:!selected {
 
 Intro #optionTab > *,
 Intro #aboutTab > * {
-    min-width: 250px;
+    width: 250px;
     min-height: 350px;
 }
 
