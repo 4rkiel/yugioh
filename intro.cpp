@@ -107,6 +107,20 @@ Intro::Intro () {
                 optionTab -> setLayout(optionTabLayout);
                 tabBox -> addTab(optionTab, "Options");
 
+
+                accessTab = new QWidget;
+                accessTab -> setObjectName("accessTab");
+                accessTabLayout = new QVBoxLayout;
+
+                    accLabel = new QLabel();
+                    accLabel -> setText("yoooooo");
+
+                    accessTabLayout -> addWidget(accLabel);
+
+                accessTab -> setLayout(accessTabLayout);
+                tabBox -> addTab(accessTab, "Accessibilité");
+
+
     
                 aboutTab = new QWidget;
                 aboutTab -> setObjectName("aboutTab");
@@ -148,6 +162,9 @@ Intro::~Intro (){
     delete optLabel;
     delete optionTabLayout;
     delete optionTab;
+    delete accLabel;
+    delete accessTabLayout;
+    delete accessTab;
     delete abtLabel;
     delete aboutTabLayout;
     delete aboutTab;

@@ -57,6 +57,11 @@ class Intro : public QFrame {
         QWidget * optionTab;
         QVBoxLayout * optionTabLayout;
         QLabel * optLabel;
+        
+        QWidget * accessTab;
+        QVBoxLayout * accessTabLayout;
+        QLabel * accLabel;
+        
         QWidget * aboutTab;
         QVBoxLayout * aboutTabLayout;
         QLabel * abtLabel;
