@@ -1,40 +1,42 @@
 #ifndef CARTE_H
 #define CARTE_H
 
-enum attribut
+#include<QString>
+
+enum Etat
 {
-    TENEBRE,
-    LUMIERE
+    RECTO,
+    VERSO
 };
 
-enum type_
-{
-    NORMAL,
-    FUSION,
-    RITUEL,
-    SYNCHRO,
-    XYZ,
-    LINK,
-    EFFET
-};
-
-enum categorie
-{
-    MONSTRE,
-    MAGIE,
-    PIEGE
-};
-
-class carte
+class Carte
 {
     public:
-        carte(string carte_nom);
-        carte();
 
-        string carte_nom;
-        string carte_description;
+        Carte(QString carte_nom, QString carte_image);
+        Carte(QString carte_nom);
+        Carte();
 
-        attribut carte_attribut;
+        // Getteur / Setteur
+
+        QString getCarte_nom() const;
+        void setCarte_nom(const QString &value);
+
+        QString getImage() const;
+        void setImage(const QString &value);
+
+        Etat getEtat() const;
+        void setEtat(const Etat &value);
+
+    private:
+
+        QString carte_nom;
+        QString image;
+
+    protected:
+
+        Etat etat; // recto / verso
+
 };
 
 #endif // CARTE_H

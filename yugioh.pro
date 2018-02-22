@@ -25,7 +25,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # Input
 HEADERS += app.h generique.h genProgress.h intro.h main.h shadowButt.h sleeper.h \
     deckBuilding/deck.h \
-    deckBuilding/carte.h
+    deckBuilding/carte_monstre.h \
+    deckBuilding/carte.h \
+    deckBuilding/carte_monstre_effet.h \
+    deckBuilding/carte_monstre_normal.h
 SOURCES += app.cpp \
            generique.cpp \
            genProgress.cpp \
@@ -33,4 +36,7 @@ SOURCES += app.cpp \
            main.cpp \
            shadowButt.cpp \
     deckBuilding/deck.cpp \
-    deckBuilding/carte.cpp
+    deckBuilding/carte.cpp \
+    deckBuilding/carte_monstre.cpp \
+    deckBuilding/carte_monstre_effet.cpp \
+    deckBuilding/carte_monstre_normal.cpp
