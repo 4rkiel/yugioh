@@ -1,13 +1,13 @@
 #ifndef CARTE_MONSTRE_H
 #define CARTE_MONSTRE_H
 
-enum monstre_attribut
+enum attribut
 {
     LUMIERE,
     TENEBRE
 };
 
-enum monstre_type
+enum type
 {
     GUERRIER,
     MAGICIEN,
@@ -18,8 +18,12 @@ enum monstre_type
 class carte_monstre : carte
 {
     public:
-        carte_monstre();
+        carte_monstre(QString carte_nom, QString carte_image,
+            attribut carte_attribut, type carte_type);
         ~carte_monstre();
+
+        attribut monstre_attribut;
+        type monstre_type;
 };
 
 #endif // CARTE_MONSTRE_H

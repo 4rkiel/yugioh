@@ -13,30 +13,14 @@ class Carte
 {
     public:
 
-        Carte(QString carte_nom, QString carte_image);
-        Carte(QString carte_nom);
+        Carte(QString nom, QString image);
+        Carte(QString nom);
         Carte();
 
-        // Getteur / Setteur
-
-        QString getCarte_nom() const;
-        void setCarte_nom(const QString &value);
-
-        QString getImage() const;
-        void setImage(const QString &value);
-
-        Etat getEtat() const;
-        void setEtat(const Etat &value);
-
-    private:
-
         QString carte_nom;
-        QString image;
+        QString carte_image;
 
-    protected:
-
-        Etat etat; // recto / verso
-
+        Etat carte_etat; // recto / verso
 };
 
 #endif // CARTE_H
