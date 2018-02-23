@@ -23,6 +23,7 @@ Intro::Intro () {
         introBox -> setGraphicsEffect(effect);
 
 
+
             // New Game Button
           
             QString strButton = QString::fromUtf8("Duel");
@@ -76,6 +77,7 @@ Intro::Intro () {
         shadow = new QPushButton;
         shadow -> setObjectName("shadow");
         shadow -> setVisible(false);
+    	shadow -> setFocusPolicy(Qt::NoFocus);
         shadow -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         connect(shadow, SIGNAL(clicked()), this, SLOT(showIntro()));
         

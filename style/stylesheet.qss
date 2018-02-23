@@ -110,12 +110,12 @@ Intro #optionBox QPushButton {
 }
 
 
-/*
-Intro #optionBox QPushButton {
+
+Intro #optionBox QPushButton[curr="true"] {
     color: #009688;
     border-bottom: 2px solid #009688;
 }
-*/
+
 
 
 

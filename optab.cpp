@@ -1,4 +1,5 @@
 #include <optab.h>
+#include <QDebug>
 
 OptionTab::OptionTab (){
 
@@ -27,16 +28,19 @@ OptionTab::OptionTab (){
             
             optionButt = new QPushButton;
             optionButt -> setText("Options");
+            optionButt -> setAttribute("curr", true);
             connect(optionButt, SIGNAL(clicked()), this, SLOT(setOption()));
             tabLayout -> addWidget(optionButt);
             
             accessButt = new QPushButton;
             accessButt -> setText("Accessibilité");
+            accessButt -> setAttribute("curr", false);
             connect(accessButt, SIGNAL(clicked()), this, SLOT(setAccess()));
             tabLayout -> addWidget(accessButt);
 
             aboutButt = new QPushButton;
             aboutButt -> setText("A Propos");
+            aboutButt -> setAttribute("curr", false);
             connect(aboutButt, SIGNAL(clicked()), this, SLOT(setAbout()));
             tabLayout -> addWidget(aboutButt);
             
@@ -138,15 +142,23 @@ void OptionTab::paintEvent(QPaintEvent *){
 
 
 void OptionTab::setOption (){
-    
+
+    aboutButt -> setAttribute("curr", false);
+    accessButt -> setAttribute("curr", false);
+    optionButt -> setAttribute("curr", true);
+
     aboutScroll -> setVisible(false);
     accessLabel -> setVisible(false);
-    optionLabel -> setVisible(true);
+   optionLabel -> setVisible(true);
 }
 
 
 void OptionTab::setAccess (){
-    
+ 
+    aboutButt -> setAttribute("curr", false);
+    optionButt -> setAttribute("curr", false);
+    accessButt -> setAttribute("curr", true);
+   
     optionLabel -> setVisible(false);
     aboutScroll -> setVisible(false);
     accessLabel -> setVisible(true);
@@ -154,7 +166,11 @@ void OptionTab::setAccess (){
 
 
 void OptionTab::setAbout (){
-    
+ 
+    optionButt -> setAttribute("curr", false);
+    accessButt -> setAttribute("curr", false);
+    aboutButt -> setAttribute("curr", true);
+
     accessLabel -> setVisible(false);
     optionLabel -> setVisible(false);
     aboutScroll -> setVisible(true);
