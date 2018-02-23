@@ -84,60 +84,11 @@ Intro::Intro () {
 
         // Options
         
-        optionBox = new QWidget;
-        optionBox -> setObjectName("optionBox");
-        optionBox -> setVisible(false);
-
-        optionLayout = new QVBoxLayout;
-        optionLayout -> setSpacing(0);
-        optionLayout -> setMargin(0);
-        optionLayout -> setAlignment(Qt::AlignCenter);
-
-            tabBox = new QTabWidget;
-
-                optionTab = new QWidget;
-                optionTab -> setObjectName("optionTab");
-                optionTabLayout = new QVBoxLayout;
-
-                    optLabel = new QLabel();
-                    optLabel -> setText("yoooooo");
-
-                    optionTabLayout -> addWidget(optLabel);
-
-                optionTab -> setLayout(optionTabLayout);
-                tabBox -> addTab(optionTab, "Options");
-
-
-                accessTab = new QWidget;
-                accessTab -> setObjectName("accessTab");
-                accessTabLayout = new QVBoxLayout;
-
-                    accLabel = new QLabel();
-                    accLabel -> setText("yoooooo");
-
-                    accessTabLayout -> addWidget(accLabel);
-
-                accessTab -> setLayout(accessTabLayout);
-                tabBox -> addTab(accessTab, "Accessibilité");
-
-
-    
-                aboutTab = new QWidget;
-                aboutTab -> setObjectName("aboutTab");
-                aboutTabLayout = new QVBoxLayout;
- 
-                    abtLabel = new QLabel();
-                    abtLabel -> setText("wuuuu");
-
-                    aboutTabLayout -> addWidget(abtLabel);
-
-                aboutTab -> setLayout(aboutTabLayout);
-                tabBox -> addTab(aboutTab, "A Propos");
-
-            optionLayout -> addWidget(tabBox, 0, 0);
-
-        optionBox -> setLayout(optionLayout);
+        optionBox = new OptionTab;
+        connect(optionBox, SIGNAL(closeTab()), this, SLOT(showIntro()));
+        
         layout -> addWidget(optionBox, 0, 0, 1, 1, Qt::AlignCenter);
+
 
     this -> setLayout(layout);
 }
@@ -159,17 +110,6 @@ Intro::~Intro (){
 
     delete shadow;
 
-    delete optLabel;
-    delete optionTabLayout;
-    delete optionTab;
-    delete accLabel;
-    delete accessTabLayout;
-    delete accessTab;
-    delete abtLabel;
-    delete aboutTabLayout;
-    delete aboutTab;
-    delete tabBox;
-    delete optionLayout;
     delete optionBox;
 }
 

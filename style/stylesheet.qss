@@ -79,7 +79,7 @@ Generique QProgressBar::chunk {
 
 
 
-Intro > #introBox {
+Intro #introBox {
     border-radius: 2px;
     min-width: 250px;
     max-width: 500px;
@@ -89,52 +89,33 @@ Intro > #introBox {
 }
 
 
-Intro > #optionBox {
-    background: none;
-}
 
-Intro #optionBox QTabWidget::pane {
+Intro #optionBox {
     background: #E0F2F1;
-    border: none;
 }
 
-Intro #optionBox QTabWidget::tab-bar {
+
+Intro #optionBox > QWidget {
+    margin: 30px;
+}
+
+
+Intro #optionBox QPushButton {
+    border: none;
     background: none;
-    border: none;
+    color: #37474F;
+    padding: 5px 0;
+    margin: 5px 10px;
+    border-bottom: 2px solid #CFD8DC;
 }
 
 
-Intro #optionBox QTabBar::tab {
-    border: none;
-    padding: 10px 20px;
-    background: #03A9F4;
+/*
+Intro #optionBox QPushButton {
+    color: #009688;
+    border-bottom: 2px solid #009688;
 }
-
-Intro #optionBox QTabBar::tab:selected, QTabBar::tab:hover {
-    background: #80D8FF;
-}
-
-Intro #optionBox QTabBar::tab:selected {
-    background: #00BFA5;
-}
-
-Intro #optionBox QTabBar::tab:!selected {
-    margin-top: 5px;
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0.7 #03A9F4, stop: 1 #0277BD);
- 
-}
-
-
-Intro #optionTab > *,
-Intro #aboutTab > * {
-    min-width: 250px;
-    min-height: 350px;
-}
-
-
-
-
+*/
 
 
 
@@ -142,6 +123,9 @@ Intro > #shadow {
     background: #455A64;
     border: none;
 }
+
+
+
 
 
 

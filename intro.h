@@ -16,7 +16,7 @@
 
 
 #include "shadowButt.h"
-
+#include "optab.h"
 
 class Intro : public QFrame {
 
@@ -51,20 +51,7 @@ class Intro : public QFrame {
 
     QPushButton * shadow;
 
-    QWidget * optionBox;
-    QVBoxLayout * optionLayout;
-        QTabWidget * tabBox;
-        QWidget * optionTab;
-        QVBoxLayout * optionTabLayout;
-        QLabel * optLabel;
-        
-        QWidget * accessTab;
-        QVBoxLayout * accessTabLayout;
-        QLabel * accLabel;
-        
-        QWidget * aboutTab;
-        QVBoxLayout * aboutTabLayout;
-        QLabel * abtLabel;
+    OptionTab * optionBox;
 };
 
 
