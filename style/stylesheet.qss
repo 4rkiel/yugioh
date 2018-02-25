@@ -1,11 +1,9 @@
-* {
-    padding: 0;
-    margin: 0;
-    spacing:0;
-}
 
+/*****************************************************************
 
+    Shadow Button
 
+******************************************************************/
 
 
 ShadowButt {
@@ -36,6 +34,11 @@ ShadowButt:pressed {
 
 
 
+/*****************************************************************
+
+    Main Window
+
+******************************************************************/
 
 Window {
     background: #607D8B;
@@ -43,6 +46,12 @@ Window {
 
 
 
+
+/*****************************************************************
+
+    Introduction Generique
+
+******************************************************************/
 
 Generique {
     border-image: url(intro.jpg);
@@ -79,6 +88,12 @@ Generique QProgressBar::chunk {
 
 
 
+/*****************************************************************
+
+    Intro Menu
+
+*****************************************************************/
+
 Intro #introBox {
     border-radius: 2px;
     min-width: 250px;
@@ -90,17 +105,27 @@ Intro #introBox {
 
 
 
-Intro #optionBox {
+
+/******************************************************************************
+
+    Options Menu
+
+******************************************************************************/
+    
+
+
+OptionTab {
     background: #E0F2F1;
-}
-
-
-Intro #optionBox > QWidget {
     margin: 30px;
 }
 
 
-Intro #optionBox QPushButton {
+OptionTab > QWidget {
+    margin: 30px;
+}
+
+
+OptionTab .QPushButton {
     border: none;
     background: none;
     color: #37474F;
@@ -111,23 +136,34 @@ Intro #optionBox QPushButton {
 
 
 
-Intro #optionBox QPushButton[curr="true"] {
+OptionTab .QPushButton[down="true"] {
     color: #009688;
     border-bottom: 2px solid #009688;
 }
 
 
 
-
-Intro > #shadow {
-    background: #455A64;
+OptionTab QScrollArea {
     border: none;
+    background: none;
+}
+
+OptionTab QScrollArea QLabel {
+    background: #E0F2F1;
+    color: #37474F;
 }
 
 
 
 
 
+
+
+/*****************************************************************
+
+    App Window
+
+******************************************************************/
 
 #leftBarBox #Card {
     background: #3F51B5;

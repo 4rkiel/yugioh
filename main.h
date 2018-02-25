@@ -2,6 +2,8 @@
 #include <QWidget>
 #include <QStackedLayout>
 
+#include <QSettings>
+
 #include <QFontDatabase>
 #include <QFont>
 #include <QIcon>
@@ -11,6 +13,7 @@
 #include "app.h"
 #include "intro.h"
 #include "generique.h"
+#include "optab.h"
 
 class Window : public QWidget {
 
@@ -21,20 +24,22 @@ class Window : public QWidget {
     ~Window();
 
     private slots:
-    void changeStacked();
-    void primoStack();
+    void introStack();
+    void appStack();
+    void optStack();
 
     private:
     int currentLayout;
     QStackedLayout * stackedLayout;
+    Generique * generique;
     Intro * intro;
     App * app;
-    Generique * generique;
+    OptionTab * opt; 
 
+    void cleanStack();
 
     protected:
     void closeEvent(QCloseEvent *);
     virtual void readSettings();
     virtual void writeSettings();
-
 };

@@ -12,7 +12,6 @@ Intro::Intro () {
 
         introBox = new QWidget;
         introBox -> setObjectName("introBox");
-        box = new QVBoxLayout;
 
         effect = new QGraphicsDropShadowEffect(this);
         effect -> setBlurRadius(5);
@@ -22,6 +21,7 @@ Intro::Intro () {
 
         introBox -> setGraphicsEffect(effect);
 
+        box = new QVBoxLayout;
 
 
             // New Game Button
@@ -29,11 +29,11 @@ Intro::Intro () {
             QString strButton = QString::fromUtf8("Duel");
             newgame = new ShadowButt("\uf439", strButton);
             newgame -> setToolTip("Commencer une partie");
-            connect(newgame, SIGNAL(clicked()), this, SLOT(emitNewStack()));
+            connect(newgame, SIGNAL(clicked()), this, SLOT(emitApp()));
             box -> addWidget(newgame);
 
 
-            // Options Button
+            // Decks Button
 
             QString strDeck = QString::fromUtf8("Decks");
             decks = new ShadowButt("\uf02d", strDeck);
@@ -51,10 +51,10 @@ Intro::Intro () {
 
             // Options Button
 
-            QString strOptions = QString::fromUtf8("Options");
+            QString strOptions = QString::fromUtf8("Paramètres");
             options = new ShadowButt("\uf085", strOptions);
             options -> setToolTip("Gestion des options");
-            connect(options, SIGNAL(clicked()), this, SLOT(showOptions()));
+            connect(options, SIGNAL(clicked()), this, SLOT(emitOpt()));
             box -> addWidget(options);
 
 
@@ -74,6 +74,7 @@ Intro::Intro () {
 
         // Shadow
         
+        /*
         shadow = new QPushButton;
         shadow -> setObjectName("shadow");
         shadow -> setVisible(false);
@@ -87,12 +88,13 @@ Intro::Intro () {
         // Options
         
         optionBox = new OptionTab;
+            
         connect(optionBox, SIGNAL(closeTab()), this, SLOT(showIntro()));
         
         layout -> addWidget(optionBox, 0, 0, 1, 1, Qt::AlignCenter);
+        */
 
-
-    this -> setLayout(layout);
+    setLayout(layout);
 }
 
     
@@ -109,10 +111,6 @@ Intro::~Intro (){
     delete box;
     delete introBox;
     delete layout;
-
-    delete shadow;
-
-    delete optionBox;
 }
 
 
@@ -121,26 +119,12 @@ void Intro::init (){
 }
 
 
-void Intro::emitNewStack (){
-        emit newStack();
+void Intro::emitApp (){
+    emit appStack();
 }
 
 
-void Intro::showOptions (){
-    introBox -> setVisible(false);
-    shadow -> setVisible(true);
-    optionBox -> setVisible(true);
+void Intro::emitOpt (){
+    emit optStack();
 }
 
-
-void Intro::showRules (){
-    introBox -> setVisible(false);
-    shadow -> setVisible(true);
-}
-
-
-void Intro::showIntro (){
-    optionBox -> setVisible(false);
-    shadow -> setVisible(false);
-    introBox -> setVisible(true);    
-}

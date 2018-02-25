@@ -2,14 +2,15 @@
 #define TAB
 
 #include <QWidget>
-#include <QPaintEvent>
-#include <QStyleOption>
-#include <QPainter>
+#include <QFrame>
 
+#include <QStyle>
 #include <QGraphicsDropShadowEffect>
 
+#include <QGridLayout>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QStackedLayout>
 
 #include <QScrollArea>
 #include <QPushButton>
@@ -17,31 +18,39 @@
 #include <QFile>
 #include <QTextStream>
 
-class OptionTab : public QWidget {
+#include "shadowButt.h"
+
+class OptionTab : public QFrame {
 
     Q_OBJECT
     
     public:
     OptionTab();
     ~OptionTab();
-    virtual void paintEvent(QPaintEvent *);
 
     private:
-    QGraphicsDropShadowEffect * effect;
-    QVBoxLayout * optionLayout;
-    QWidget * tabBox;
-    QHBoxLayout * tabLayout;
+    QGraphicsDropShadowEffect * optEffect;
+    QGridLayout * layout;
 
+    QWidget * tabBox;
+    QGridLayout * tabLayout;
+
+    QPushButton * currButt;
+    
     QPushButton * optionButt;
     QPushButton * accessButt;
     QPushButton * aboutButt;
-    QPushButton * exitButt;
+    ShadowButt * exitButt;
 
+    QWidget * optBox;
+    QStackedLayout * optionLayout;
     QScrollArea * aboutScroll;
     QLabel * optionLabel;
     QLabel * accessLabel;
     QLabel * aboutLabel;
 
+    void updateStyle(QPushButton * b);
+    
     public slots:
     void setOption();
     void setAccess();
@@ -49,7 +58,7 @@ class OptionTab : public QWidget {
     void emitClose();
 
     signals:
-    void closeTab();
+    void introStack();
 };
 
 

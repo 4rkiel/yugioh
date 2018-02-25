@@ -1,119 +1,129 @@
-#include <optab.h>
-#include <QDebug>
+#include "optab.h"
 
 OptionTab::OptionTab (){
 
-    setObjectName("optionBox");
-    setVisible(false);
-
-
-    effect = new QGraphicsDropShadowEffect(this);
-    effect -> setBlurRadius(5);
-    effect -> setXOffset(0);
-    effect -> setYOffset(5);
-    effect -> setColor(QColor(0,0,0,150));
-
-    setGraphicsEffect(effect);
-
+    layout = new QGridLayout;
     
-    optionLayout = new QVBoxLayout;
-    optionLayout -> setSpacing(0);
-    optionLayout -> setMargin(0);
+    optEffect = new QGraphicsDropShadowEffect(this);
+    optEffect -> setBlurRadius(5);
+    optEffect -> setXOffset(0);
+    optEffect -> setYOffset(5);
+    optEffect -> setColor(QColor(0,0,0,150));
+
+    setGraphicsEffect(optEffect);
+
+        // Tab
 
         tabBox = new QWidget;
         tabBox -> setObjectName("optionTab");
-        tabLayout = new QHBoxLayout;
-        
-            tabLayout -> addStretch();
+        tabLayout = new QGridLayout;
+        tabLayout -> setSpacing(0);
+        tabLayout -> setMargin(0);
+  
+            exitButt = new ShadowButt("\uf00d", "");
+            exitButt -> setToolTip("Fermer les paramètres");
+            connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));
             
+            tabLayout -> addWidget(exitButt, 0, 4, 1, 1);
+
+
+
             optionButt = new QPushButton;
             optionButt -> setText("Options");
-            optionButt -> setAttribute("curr", true);
+            optionButt -> setProperty("down", true);
             connect(optionButt, SIGNAL(clicked()), this, SLOT(setOption()));
-            tabLayout -> addWidget(optionButt);
-            
+            tabLayout -> addWidget(optionButt, 0, 0, 1, 1);
+            currButt = optionButt;
+
             accessButt = new QPushButton;
             accessButt -> setText("Accessibilité");
-            accessButt -> setAttribute("curr", false);
+            accessButt -> setProperty("down", false);
             connect(accessButt, SIGNAL(clicked()), this, SLOT(setAccess()));
-            tabLayout -> addWidget(accessButt);
+            tabLayout -> addWidget(accessButt, 0, 1, 1, 1);
 
             aboutButt = new QPushButton;
             aboutButt -> setText("A Propos");
-            aboutButt -> setAttribute("curr", false);
+            aboutButt -> setProperty("down", false);
             connect(aboutButt, SIGNAL(clicked()), this, SLOT(setAbout()));
-            tabLayout -> addWidget(aboutButt);
-            
-            tabLayout -> addStretch();
+            tabLayout -> addWidget(aboutButt, 0, 2, 1, 1);
 
-            exitButt = new QPushButton;
-            exitButt -> setText("Fermer");
-            connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));
-            tabLayout -> addWidget(exitButt);
-
-            tabLayout -> addStretch();
-
+            tabLayout -> addItem(new QSpacerItem(1,1,QSizePolicy::Expanding,QSizePolicy::Preferred),0,3);
 
         tabBox -> setLayout(tabLayout);
 
-    optionLayout -> addWidget(tabBox);
-    //optionLayout -> setAlignment(tabBox, Qt::AlignTop);
-    //optionLayout -> addStretch();
 
-    optionLabel = new QLabel;
-    optionLabel -> setVisible(true);
-
-    optionLayout -> addWidget(optionLabel);
-
-    
-    accessLabel = new QLabel;
-    accessLabel -> setVisible(false);
-
-    optionLayout -> addWidget(accessLabel);
-
-
-    aboutLabel = new QLabel;
-
-        QFile file("i18n/fr_FR/about.text");
-
-        QString text = "";
-        QString line;
-        if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
-            QTextStream stream(&file);
-            while (!stream.atEnd()){
-                line = stream.readLine();
-                text = text + line + "\n";
-            }
-        }
-        file.close();
-
-    aboutLabel -> setText(text);
-    aboutLabel -> setWordWrap(true);
-    aboutLabel -> setTextInteractionFlags(Qt::TextSelectableByMouse);
-
-
-    aboutScroll = new QScrollArea;
-    aboutScroll -> setWidgetResizable(true);
-    aboutScroll -> setBackgroundRole(QPalette::Dark);
-    aboutScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    aboutScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    aboutScroll -> setWidget(aboutLabel);
-
-    aboutScroll-> setVisible(false);
-    
-    optionLayout -> addWidget(aboutScroll);
+    layout -> addWidget(tabBox, 0, 0, 1, 1);
 
 
 
 
-    setLayout(optionLayout);
 
+        // Label Box
+
+        optBox = new QWidget;
+        
+        optionLayout = new QStackedLayout;
+        optionLayout -> setSpacing(0);
+        optionLayout -> setMargin(0);
+
+
+            optionLabel = new QLabel;
+
+            optionLayout -> addWidget(optionLabel);
+
+            
+            accessLabel = new QLabel;
+
+            optionLayout -> addWidget(accessLabel);
+
+
+            aboutScroll = new QScrollArea;
+            aboutScroll -> setFrameShape(QFrame::NoFrame);
+            aboutScroll -> setWidgetResizable(true);
+            aboutScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            aboutScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+ 
+
+                aboutLabel = new QLabel;
+
+                    QFile file("i18n/fr_FR/about.text");
+
+                    QString text = "";
+                    QString line;
+                    if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
+                        QTextStream stream(&file);
+                        while (!stream.atEnd()){
+                            line = stream.readLine();
+                            text = text + line + "\n";
+                        }
+                    }
+                    file.close();
+
+                aboutLabel -> setText(text);
+                aboutLabel -> setWordWrap(true);
+                aboutLabel -> setTextInteractionFlags(Qt::TextSelectableByMouse);
+                aboutLabel->setTextFormat(Qt::RichText);
+                aboutLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+                aboutLabel->setOpenExternalLinks(true);
+
+                aboutScroll -> setWidget(aboutLabel);
+
+            
+            optionLayout -> addWidget(aboutScroll);
+
+
+        optionLayout -> setCurrentWidget(optionLabel);
+        optBox -> setLayout(optionLayout);
+
+    layout -> addWidget(optBox, 1, 0, 1, 2);
+
+    setLayout(layout);
 }
 
 
 OptionTab::~OptionTab (){
 
-    delete effect;
+    delete optEffect;
 
     delete aboutLabel;
     delete accessLabel;
@@ -129,55 +139,61 @@ OptionTab::~OptionTab (){
     delete tabLayout;
     delete tabBox;
     delete optionLayout;
+
+    delete optBox;
+
+    delete layout;
 }
-
-
-
-void OptionTab::paintEvent(QPaintEvent *){
-    QStyleOption o;
-    o.initFrom(this);
-    QPainter p(this);
-    style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
-};
 
 
 void OptionTab::setOption (){
 
-    aboutButt -> setAttribute("curr", false);
-    accessButt -> setAttribute("curr", false);
-    optionButt -> setAttribute("curr", true);
+    currButt -> setProperty("down", false);
+    optionButt -> setProperty("down", true);
 
-    aboutScroll -> setVisible(false);
-    accessLabel -> setVisible(false);
-   optionLabel -> setVisible(true);
+    updateStyle(optionButt);
+
+    optionLayout -> setCurrentWidget(optionLabel);
 }
 
 
 void OptionTab::setAccess (){
  
-    aboutButt -> setAttribute("curr", false);
-    optionButt -> setAttribute("curr", false);
-    accessButt -> setAttribute("curr", true);
+    currButt -> setProperty("down", false);
+    accessButt -> setProperty("down", true);
    
-    optionLabel -> setVisible(false);
-    aboutScroll -> setVisible(false);
-    accessLabel -> setVisible(true);
+    updateStyle(accessButt);
+    
+    optionLayout -> setCurrentWidget(accessLabel);
 }
 
 
 void OptionTab::setAbout (){
  
-    optionButt -> setAttribute("curr", false);
-    accessButt -> setAttribute("curr", false);
-    aboutButt -> setAttribute("curr", true);
+    currButt -> setProperty("down", false);
+    aboutButt -> setProperty("down", true);
 
-    accessLabel -> setVisible(false);
-    optionLabel -> setVisible(false);
-    aboutScroll -> setVisible(true);
+    updateStyle(aboutButt);
+
+    optionLayout -> setCurrentWidget(aboutScroll);
+}
+
+
+void OptionTab::updateStyle (QPushButton * b){
+    
+    currButt -> style() -> unpolish(currButt);
+    currButt -> style() -> polish(currButt);
+    
+    b -> style() -> unpolish(b);
+    b -> style() -> polish(b);
+
+    currButt = b;
 }
 
 
 void OptionTab::emitClose (){
 
-    emit closeTab();
+    emit introStack();
 }
+
+

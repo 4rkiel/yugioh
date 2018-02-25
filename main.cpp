@@ -2,35 +2,39 @@
 #include "intro.h"
 #include "app.h"
 
-#include <QSettings>
-
 Window::Window () : QWidget () {
 
     readSettings();
 
     stackedLayout = new QStackedLayout;
-    currentLayout = -1;
 
     generique = new Generique;
+    connect(generique, SIGNAL(introStack()), this, SLOT(introStack()));
+    
     stackedLayout -> addWidget(generique);
-    connect(generique, SIGNAL(introStack()), this, SLOT(primoStack()));
     setLayout(stackedLayout);
+    
+    currentLayout = 0;
 }
 
     
 Window::~Window (){
 
     switch (currentLayout){
-        case -1 :
+        case 0 :
             delete generique;
             break;
 
-        case 0 :
+        case 1 :
             delete intro;
             break;
 
-        case 1 :
+        case 2 :
             delete app;
+            break;
+
+        case 5 :
+            delete opt;
             break;
     }
 
@@ -40,55 +44,88 @@ Window::~Window (){
 }
 
 
-void Window::primoStack (){
+void Window::introStack (){
 
     intro = new Intro;
-    stackedLayout -> addWidget(intro);
-    connect(intro, SIGNAL(newStack()), this, SLOT(changeStacked()));
+    connect(intro, SIGNAL(appStack()), this, SLOT(appStack()));
+    connect(intro, SIGNAL(optStack()), this, SLOT(optStack()));
 
+    stackedLayout -> addWidget(intro);
     stackedLayout -> setCurrentWidget(intro);
-    stackedLayout -> removeWidget(generique);
+
+    cleanStack();
 
     intro -> init();
-    currentLayout = 0;
-
+    currentLayout = 1;
 }
 
 
-void Window::changeStacked (){
+void Window::appStack (){
 
-    currentLayout = (currentLayout + 1) % 2;
+    app = new App;
+    connect(app, SIGNAL(introStack()), this, SLOT(introStack()));
+
+    stackedLayout -> addWidget(app);
+    stackedLayout -> setCurrentWidget(app);
+
+    cleanStack();
+
+    currentLayout = 2;
+}
+
+
+void Window::optStack (){
+
+    opt = new OptionTab;
+    connect(opt, SIGNAL(introStack()), this, SLOT(introStack()));
+
+    stackedLayout -> addWidget(opt);
+    stackedLayout -> setCurrentWidget(opt);
+
+    cleanStack();
+
+    currentLayout = 5;
+}
+
+
+
+
+void Window::cleanStack (){
 
     switch (currentLayout){
+    
         case 0:
- 
-            intro = new Intro;
-            stackedLayout -> addWidget(intro);
-            connect(intro, SIGNAL(newStack()), this, SLOT(changeStacked()));
-   
-            stackedLayout -> setCurrentWidget(intro);
-            stackedLayout -> removeWidget(app); 
-
-            intro -> init();
+            
+            stackedLayout -> removeWidget(generique);
+            delete generique;
             
             break;
 
         case 1:
-
-            app = new App;
-            stackedLayout -> addWidget(app);
-            connect(app, SIGNAL(newStack()), this, SLOT(changeStacked()));
-
-            stackedLayout -> setCurrentWidget(app);
+ 
             stackedLayout -> removeWidget(intro);
+            delete intro;
+            
+            break;
 
-            delete(intro);
+        case 2:
+ 
+            stackedLayout -> removeWidget(app);
+            delete app;
+            
+            break;
 
+        case 5:
+ 
+            stackedLayout -> removeWidget(opt);
+            delete opt;
+            
             break;
     }
 }
 
 
+/*****************************************************************************/
 
 void Window::readSettings (){
     QSettings settings;
@@ -112,6 +149,9 @@ void Window::writeSettings (){
     settings.setValue("size", size());
 }
 
+
+
+/*****************************************************************************/
 
 int main(int argc, char *argv[]) {
 

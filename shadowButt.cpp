@@ -153,4 +153,3 @@ void ShadowButt::runNewState (){
         emit askWait();
     }
 }
-

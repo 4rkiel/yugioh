@@ -28,13 +28,12 @@ class Intro : public QFrame {
     void init();
 
     public slots:
-    void emitNewStack();
-    void showOptions();
-    void showRules();
-    void showIntro();
+    void emitApp();
+    void emitOpt();
 
     signals:
-    void newStack();
+    void appStack();
+    void optStack();
 
     private:
     QGridLayout * layout;
