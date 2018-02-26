@@ -57,7 +57,24 @@ Generique {
     border-image: url(intro.jpg);
 }
 
-Generique > QWidget {
+Generique #logoBox {
+    background: rgba(0, 0, 0, 200);
+}
+
+Generique #logo {
+    min-width: 200px;
+    min-height: 200px;
+    max-width: 200px;
+    max-height: 200px;
+    border-image: url(puzzle.png);
+}
+
+Generique #title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+Generique #geneBox {
     background: #607D8B;
 }
 
@@ -94,6 +111,10 @@ Generique QProgressBar::chunk {
 
 *****************************************************************/
 
+Intro {
+    margin: 30px;
+}
+
 Intro #introBox {
     border-radius: 2px;
     min-width: 250px;
@@ -124,9 +145,9 @@ OptionTab > QWidget {
     margin: 30px;
 }
 
-
 OptionTab .QPushButton {
     border: none;
+    outline: none;
     background: none;
     color: #37474F;
     padding: 5px 0;
@@ -134,18 +155,37 @@ OptionTab .QPushButton {
     border-bottom: 2px solid #CFD8DC;
 }
 
-
+OptionTab .QPushButton:focus {
+    padding: 5px 0 2px;
+    border-bottom: 5px solid #CFD8DC;
+}
 
 OptionTab .QPushButton[down="true"] {
     color: #009688;
     border-bottom: 2px solid #009688;
 }
 
+OptionTab .QPushButton[down="true"]:focus {
+    color: #009688;
+    padding: 5px 0 2px;
+    border-bottom: 5px solid #009688;
+}
 
 
-OptionTab QScrollArea {
+OptionTab #optBox QLabel {
+    margin: 0 0 30px 0;
+}
+
+
+OptionTab #optBox QWidget:focus {
+    background: #AAA;
+    outline: none;
+}
+
+
+OptionTab QScrollArea QWidget {
     border: none;
-    background: none;
+    background: #E0F2F1;
 }
 
 OptionTab QScrollArea QLabel {

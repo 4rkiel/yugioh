@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QFrame>
 
+#include <QSettings>
+
 #include <QStyle>
 #include <QGraphicsDropShadowEffect>
 
@@ -17,6 +19,9 @@
 #include <QLabel>
 #include <QFile>
 #include <QTextStream>
+#include <QCheckBox>
+#include <QSpacerItem>
+#include <QComboBox>
 
 #include "shadowButt.h"
 
@@ -27,6 +32,7 @@ class OptionTab : public QFrame {
     public:
     OptionTab();
     ~OptionTab();
+    void init();
 
     private:
     QGraphicsDropShadowEffect * optEffect;
@@ -36,7 +42,7 @@ class OptionTab : public QFrame {
     QGridLayout * tabLayout;
 
     QPushButton * currButt;
-    
+
     QPushButton * optionButt;
     QPushButton * accessButt;
     QPushButton * aboutButt;
@@ -44,18 +50,38 @@ class OptionTab : public QFrame {
 
     QWidget * optBox;
     QStackedLayout * optionLayout;
+
+    QScrollArea * optionScroll;
+    QWidget * optionScrollBox;
+    QVBoxLayout * optPaneLayout;
+
+        QCheckBox * shareChck;
+        QLabel * shareDesc;
+
+        QComboBox * langInput;
+        QLabel * langDesc;
+
+        QLabel * shortcutDesc;
+    
+    QScrollArea * accessScroll;
+    QWidget * accessScrollBox;
+    QVBoxLayout * accPaneLayout;
+
+        
+
     QScrollArea * aboutScroll;
-    QLabel * optionLabel;
-    QLabel * accessLabel;
     QLabel * aboutLabel;
 
     void updateStyle(QPushButton * b);
-    
+    void loadOptSettings();
+    void loadAccSettings();
+
     public slots:
     void setOption();
     void setAccess();
     void setAbout();
     void emitClose();
+    void shareChange();   
 
     signals:
     void introStack();

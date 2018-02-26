@@ -2,6 +2,8 @@
 #include "intro.h"
 #include "app.h"
 
+#include <QLoggingCategory>
+
 Window::Window () : QWidget () {
 
     readSettings();
@@ -84,6 +86,7 @@ void Window::optStack (){
 
     cleanStack();
 
+    opt -> init();
     currentLayout = 5;
 }
 
@@ -128,6 +131,7 @@ void Window::cleanStack (){
 /*****************************************************************************/
 
 void Window::readSettings (){
+
     QSettings settings;
     QPoint pos = settings.value("pos", QPoint(200, 200)).toPoint();
     QSize size = settings.value("size", QSize(400, 400)).toSize();
@@ -143,7 +147,6 @@ void Window::closeEvent (QCloseEvent *){
 
 void Window::writeSettings (){
     
-    /* Save postion/size of main window */
     QSettings settings;
     settings.setValue("pos", pos());
     settings.setValue("size", size());
@@ -154,6 +157,10 @@ void Window::writeSettings (){
 /*****************************************************************************/
 
 int main(int argc, char *argv[]) {
+
+    QLoggingCategory::setFilterRules("default.debug=true");
+
+
 
     // Set Application
 

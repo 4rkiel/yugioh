@@ -12,7 +12,7 @@ OptionTab::OptionTab (){
 
     setGraphicsEffect(optEffect);
 
-        // Tab
+        // Tab ................................................................
 
         tabBox = new QWidget;
         tabBox -> setObjectName("optionTab");
@@ -33,7 +33,7 @@ OptionTab::OptionTab (){
             optionButt -> setProperty("down", true);
             connect(optionButt, SIGNAL(clicked()), this, SLOT(setOption()));
             tabLayout -> addWidget(optionButt, 0, 0, 1, 1);
-            currButt = optionButt;
+            
 
             accessButt = new QPushButton;
             accessButt -> setText("Accessibilité");
@@ -47,7 +47,9 @@ OptionTab::OptionTab (){
             connect(aboutButt, SIGNAL(clicked()), this, SLOT(setAbout()));
             tabLayout -> addWidget(aboutButt, 0, 2, 1, 1);
 
-            tabLayout -> addItem(new QSpacerItem(1,1,QSizePolicy::Expanding,QSizePolicy::Preferred),0,3);
+            QSpacerItem * spacerButt = new QSpacerItem(1,1,
+                    QSizePolicy::Expanding,QSizePolicy::Preferred);
+            tabLayout -> addItem(spacerButt, 0, 3);
 
         tabBox -> setLayout(tabLayout);
 
@@ -56,26 +58,135 @@ OptionTab::OptionTab (){
 
 
 
-
-
-        // Label Box
+        // Label Box ..........................................................
 
         optBox = new QWidget;
+        optBox -> setObjectName("optBox");
         
         optionLayout = new QStackedLayout;
         optionLayout -> setSpacing(0);
         optionLayout -> setMargin(0);
 
 
-            optionLabel = new QLabel;
+            // Options ........................................................
 
-            optionLayout -> addWidget(optionLabel);
+            optionScroll = new QScrollArea;
+            optionScroll -> setFrameShape(QFrame::NoFrame);
+            optionScroll -> setWidgetResizable(true);
+            optionScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            optionScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+            optionScroll -> setFocusPolicy(Qt::NoFocus);
+
+            optionScrollBox = new QWidget;
+            optPaneLayout = new QVBoxLayout;
+            optPaneLayout -> setAlignment(Qt::AlignTop);
+
+                // Share
+                
+                shareChck = new QCheckBox;
+                shareChck -> setText("Partage");
+                connect(shareChck, SIGNAL(toggled(bool)), this, SLOT(shareChange())); 
+                optPaneLayout -> addWidget(shareChck);
+
+                shareDesc = new QLabel;
+                shareDesc -> setWordWrap(true);
+                shareDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
+                shareDesc -> setText("Partage les données d'utilisation");
+                optPaneLayout -> addWidget(shareDesc);
+
+
+                // Langage
+                
+                langInput = new QComboBox;
+                langInput -> addItem("Français");
+                langInput -> addItem("English");
+                optPaneLayout -> addWidget(langInput);
+
+                langDesc = new QLabel;
+                langDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
+                langDesc -> setText("Langue de l'interface");
+                optPaneLayout -> addWidget(langDesc);
+
+                // Shortcut
+
+                shortcutDesc = new QLabel;
+                shortcutDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
+                shortcutDesc -> setText("Raccourcis Clavier");
+                optPaneLayout -> addWidget(shortcutDesc);
+            
+
+                // load settings
+
+                loadOptSettings();
+
+
+            optionScrollBox -> setLayout(optPaneLayout); 
+            optionScroll -> setWidget(optionScrollBox);
+
+            optionLayout -> addWidget(optionScroll);
 
             
-            accessLabel = new QLabel;
+            // Accessibility ..................................................
 
-            optionLayout -> addWidget(accessLabel);
+            accessScroll = new QScrollArea;
+            accessScroll -> setFrameShape(QFrame::NoFrame);
+            accessScroll -> setWidgetResizable(true);
+            accessScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            accessScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+            accessScroll -> setFocusPolicy(Qt::NoFocus);
 
+            accessScrollBox = new QWidget;
+            accPaneLayout = new QVBoxLayout;
+            accPaneLayout -> setAlignment(Qt::AlignTop);
+
+            /*
+                // Share
+                
+                shareChck = new QCheckBox;
+                shareChck -> setText("Partage");
+                connect(shareChck, SIGNAL(toggled(bool)), this, SLOT(shareChange())); 
+                accPaneLayout -> addWidget(shareChck);
+
+                shareDesc = new QLabel;
+                shareDesc -> setWordWrap(true);
+                shareDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
+                shareDesc -> setText("Partage les données d'utilisation");
+                accPaneLayout -> addWidget(shareDesc);
+
+
+                // Langage
+                
+                langInput = new QComboBox;
+                langInput -> addItem("Français");
+                langInput -> addItem("English");
+                accPaneLayout -> addWidget(langInput);
+
+                langDesc = new QLabel;
+                langDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
+                langDesc -> setText("Langue de l'interface");
+                accPaneLayout -> addWidget(langDesc);
+
+                // Shortcut
+
+                shortcutDesc = new QLabel;
+                shortcutDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
+                shortcutDesc -> setText("Raccourcis Clavier");
+                accPaneLayout -> addWidget(shortcutDesc);
+            */
+
+                // load settings
+
+                loadAccSettings();
+
+
+            accessScrollBox -> setLayout(accPaneLayout); 
+            accessScroll -> setWidget(accessScrollBox);
+
+
+            optionLayout -> addWidget(accessScroll);
+
+
+            // About ..........................................................
 
             aboutScroll = new QScrollArea;
             aboutScroll -> setFrameShape(QFrame::NoFrame);
@@ -112,12 +223,13 @@ OptionTab::OptionTab (){
             optionLayout -> addWidget(aboutScroll);
 
 
-        optionLayout -> setCurrentWidget(optionLabel);
+        optionLayout -> setCurrentWidget(optionScroll);
         optBox -> setLayout(optionLayout);
 
     layout -> addWidget(optBox, 1, 0, 1, 2);
 
     setLayout(layout);
+
 }
 
 
@@ -126,15 +238,30 @@ OptionTab::~OptionTab (){
     delete optEffect;
 
     delete aboutLabel;
-    delete accessLabel;
-    delete optionLabel;
-   
     delete aboutScroll;
 
-    delete exitButt;
-    delete aboutButt;
-    delete accessButt;
-    delete optionButt;
+        //
+
+    delete accPaneLayout;
+    delete accessScrollBox;
+    delete accessScroll;
+
+        delete shareChck;
+        delete shareDesc;
+
+        delete langInput;
+        delete langDesc;
+
+        delete shortcutDesc;
+
+    delete optPaneLayout;
+    delete optionScrollBox;
+    delete optionScroll;
+
+        delete exitButt;
+        delete aboutButt;
+        delete accessButt;
+        delete optionButt;
     
     delete tabLayout;
     delete tabBox;
@@ -145,6 +272,12 @@ OptionTab::~OptionTab (){
     delete layout;
 }
 
+void OptionTab::init (){
+
+    currButt = optionButt;
+    optionButt -> setFocus();
+}
+
 
 void OptionTab::setOption (){
 
@@ -153,8 +286,8 @@ void OptionTab::setOption (){
 
     updateStyle(optionButt);
 
-    optionLayout -> setCurrentWidget(optionLabel);
-}
+        optionLayout -> setCurrentWidget(optionScroll);
+    }
 
 
 void OptionTab::setAccess (){
@@ -164,7 +297,7 @@ void OptionTab::setAccess (){
    
     updateStyle(accessButt);
     
-    optionLayout -> setCurrentWidget(accessLabel);
+    optionLayout -> setCurrentWidget(accessScroll);
 }
 
 
@@ -197,3 +330,25 @@ void OptionTab::emitClose (){
 }
 
 
+void OptionTab::loadAccSettings (){
+
+    QSettings settings;
+
+}
+
+
+void OptionTab::loadOptSettings (){
+
+    QSettings settings;
+    
+    if (settings.value("share", Qt::Unchecked).toBool()){
+        shareChck -> setCheckState(Qt::Checked);
+    }
+
+}
+
+void OptionTab::shareChange (){
+
+    QSettings settings;
+    settings.setValue("share", shareChck -> isChecked());
+}

@@ -10,6 +10,8 @@
 #include <QString>
 #include <QLabel>
 
+#include <QPixmap>
+
 #include "genProgress.h"
 
 
@@ -30,6 +32,13 @@ class Generique : public QFrame {
 
     private:
     QGridLayout * layout;
+
+    QWidget * logoBox;
+    QGridLayout * logoLayout;
+    QLabel * title;
+    QLabel * subTitle;
+    QLabel * img;
+    
     QWidget * geneBox;
     QVBoxLayout * box;
     int labelCount;
