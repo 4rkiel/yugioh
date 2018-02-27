@@ -46,6 +46,7 @@ Intro::Intro () {
             QString strRules = QString::fromUtf8("Règles");
             rules = new ShadowButt("\uf24e", strRules);
             rules -> setToolTip("Gestion de l'arbitrage");
+            connect(rules, SIGNAL(clicked()), this, SLOT(emitRule()));
             box -> addWidget(rules);
 
 
@@ -70,29 +71,6 @@ Intro::Intro () {
         introBox -> setLayout(box);
         layout -> addWidget(introBox, 0, 0, 1, 1);
 
-
-
-        // Shadow
-        
-        /*
-        shadow = new QPushButton;
-        shadow -> setObjectName("shadow");
-        shadow -> setVisible(false);
-    	shadow -> setFocusPolicy(Qt::NoFocus);
-        shadow -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        connect(shadow, SIGNAL(clicked()), this, SLOT(showIntro()));
-        
-        layout -> addWidget(shadow, 0, 0, 1, 1);
-        
-
-        // Options
-        
-        optionBox = new OptionTab;
-            
-        connect(optionBox, SIGNAL(closeTab()), this, SLOT(showIntro()));
-        
-        layout -> addWidget(optionBox, 0, 0, 1, 1, Qt::AlignCenter);
-        */
 
     setLayout(layout);
 }
@@ -121,6 +99,11 @@ void Intro::init (){
 
 void Intro::emitApp (){
     emit appStack();
+}
+
+
+void Intro::emitRule (){
+    emit ruleStack();
 }
 
 

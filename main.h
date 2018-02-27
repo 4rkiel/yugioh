@@ -14,6 +14,7 @@
 #include "intro.h"
 #include "generique.h"
 #include "optab.h"
+#include "ruletab.h"
 
 class Window : public QWidget {
 
@@ -27,6 +28,7 @@ class Window : public QWidget {
     void introStack();
     void appStack();
     void optStack();
+    void ruleStack();
 
     private:
     int currentLayout;
@@ -35,6 +37,7 @@ class Window : public QWidget {
     Intro * intro;
     App * app;
     OptionTab * opt; 
+    RuleTab * rule;
 
     void cleanStack();
 

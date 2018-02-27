@@ -1,8 +1,4 @@
 #include "main.h"
-#include "intro.h"
-#include "app.h"
-
-#include <QLoggingCategory>
 
 Window::Window () : QWidget () {
 
@@ -34,6 +30,10 @@ Window::~Window (){
         case 2 :
             delete app;
             break;
+        
+        case 4 :
+            delete rule;
+            break;
 
         case 5 :
             delete opt;
@@ -50,6 +50,7 @@ void Window::introStack (){
 
     intro = new Intro;
     connect(intro, SIGNAL(appStack()), this, SLOT(appStack()));
+    connect(intro, SIGNAL(ruleStack()), this, SLOT(ruleStack()));
     connect(intro, SIGNAL(optStack()), this, SLOT(optStack()));
 
     stackedLayout -> addWidget(intro);
@@ -76,6 +77,21 @@ void Window::appStack (){
 }
 
 
+void Window::ruleStack (){
+
+    rule = new RuleTab;
+    connect(rule, SIGNAL(introStack()), this, SLOT(introStack()));
+
+    stackedLayout -> addWidget(rule);
+    stackedLayout -> setCurrentWidget(rule);
+
+    cleanStack();
+
+    rule -> init();
+    currentLayout = 4;
+}
+
+
 void Window::optStack (){
 
     opt = new OptionTab;
@@ -89,6 +105,7 @@ void Window::optStack (){
     opt -> init();
     currentLayout = 5;
 }
+
 
 
 
@@ -115,6 +132,13 @@ void Window::cleanStack (){
  
             stackedLayout -> removeWidget(app);
             delete app;
+            
+            break;
+
+        case 4:
+ 
+            stackedLayout -> removeWidget(rule);
+            delete rule;
             
             break;
 
@@ -157,10 +181,6 @@ void Window::writeSettings (){
 /*****************************************************************************/
 
 int main(int argc, char *argv[]) {
-
-    QLoggingCategory::setFilterRules("default.debug=true");
-
-
 
     // Set Application
 

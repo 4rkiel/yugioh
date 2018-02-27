@@ -14,9 +14,7 @@
 
 #include <QTabWidget>
 
-
 #include "shadowButt.h"
-#include "optab.h"
 
 class Intro : public QFrame {
 
@@ -29,10 +27,12 @@ class Intro : public QFrame {
 
     public slots:
     void emitApp();
+    void emitRule();
     void emitOpt();
 
     signals:
     void appStack();
+    void ruleStack();
     void optStack();
 
     private:
@@ -48,9 +48,6 @@ class Intro : public QFrame {
         ShadowButt * options;
         ShadowButt * quit;
 
-    QPushButton * shadow;
-
-    OptionTab * optionBox;
 };
 
 

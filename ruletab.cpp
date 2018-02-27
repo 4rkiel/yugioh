@@ -1,6 +1,6 @@
-#include "optab.h"
+#include "ruletab.h"
 
-OptionTab::OptionTab (){
+RuleTab::RuleTab (){
 
     layout = new QGridLayout;
     layout -> setSpacing(0);
@@ -246,7 +246,7 @@ OptionTab::OptionTab (){
 }
 
 
-OptionTab::~OptionTab (){
+RuleTab::~RuleTab (){
 
     delete optEffect;
 
@@ -293,14 +293,14 @@ OptionTab::~OptionTab (){
     delete layout;
 }
 
-void OptionTab::init (){
+void RuleTab::init (){
 
     currButt = optionButt;
     optionButt -> setFocus();
 }
 
 
-void OptionTab::setOption (){
+void RuleTab::setOption (){
 
     currButt -> setProperty("down", false);
     optionButt -> setProperty("down", true);
@@ -311,7 +311,7 @@ void OptionTab::setOption (){
     }
 
 
-void OptionTab::setAccess (){
+void RuleTab::setAccess (){
  
     currButt -> setProperty("down", false);
     accessButt -> setProperty("down", true);
@@ -322,7 +322,7 @@ void OptionTab::setAccess (){
 }
 
 
-void OptionTab::setAbout (){
+void RuleTab::setAbout (){
  
     currButt -> setProperty("down", false);
     aboutButt -> setProperty("down", true);
@@ -333,7 +333,7 @@ void OptionTab::setAbout (){
 }
 
 
-void OptionTab::updateStyle (QPushButton * b){
+void RuleTab::updateStyle (QPushButton * b){
     
     currButt -> style() -> unpolish(currButt);
     currButt -> style() -> polish(currButt);
@@ -345,13 +345,13 @@ void OptionTab::updateStyle (QPushButton * b){
 }
 
 
-void OptionTab::emitClose (){
+void RuleTab::emitClose (){
 
     emit introStack();
 }
 
 
-void OptionTab::loadAccSettings (){
+void RuleTab::loadAccSettings (){
 
     QSettings settings;
 
@@ -370,7 +370,7 @@ void OptionTab::loadAccSettings (){
 }
 
 
-void OptionTab::loadOptSettings (){
+void RuleTab::loadOptSettings (){
 
     QSettings settings;
     
@@ -381,7 +381,7 @@ void OptionTab::loadOptSettings (){
 }
 
 
-void OptionTab::shareChange (){
+void RuleTab::shareChange (){
 
     QSettings settings;
     settings.setValue("share", shareChck -> isChecked());
@@ -389,7 +389,7 @@ void OptionTab::shareChange (){
 
 
 
-void OptionTab::contrasteChange (){
+void RuleTab::contrasteChange (){
 
     QSettings settings;
     settings.setValue("contraste", contrasteChck -> isChecked());
@@ -397,7 +397,7 @@ void OptionTab::contrasteChange (){
 
 
 
-void OptionTab::achromaChange (){
+void RuleTab::achromaChange (){
 
     QSettings settings;
     settings.setValue("achroma", achromaChck -> isChecked());
@@ -405,7 +405,7 @@ void OptionTab::achromaChange (){
 
 
 
-void OptionTab::largeChange (){
+void RuleTab::largeChange (){
 
     QSettings settings;
     settings.setValue("large", largeChck -> isChecked());

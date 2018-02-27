@@ -1,5 +1,5 @@
-#ifndef OPTAB
-#define OPTAB
+#ifndef RUTAB
+#define RUTAB
 
 #include <QWidget>
 #include <QFrame>
@@ -25,13 +25,13 @@
 
 #include "shadowButt.h"
 
-class OptionTab : public QFrame {
+class RuleTab : public QFrame {
 
     Q_OBJECT
     
     public:
-    OptionTab();
-    ~OptionTab();
+    RuleTab();
+    ~RuleTab();
     void init();
 
     private:

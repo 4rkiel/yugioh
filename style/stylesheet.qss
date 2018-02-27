@@ -10,8 +10,6 @@ ShadowButt {
     border: none;
     outline: none;
     border-radius: 2px;
-    margin: 10px;
-    padding: 5px 10px;
     background: #03A9F4;
 }
 
@@ -124,7 +122,10 @@ Intro #introBox {
     background: #E0F2F1;
 }
 
-
+Intro ShadowButt {
+    margin: 10px;
+    padding: 5px 10px;
+} 
 
 
 /******************************************************************************
@@ -134,65 +135,73 @@ Intro #introBox {
 ******************************************************************************/
     
 
-
 OptionTab {
     background: #E0F2F1;
     margin: 30px;
 }
 
-
-OptionTab > QWidget {
-    margin: 30px;
+OptionTab #optionTab {
+    background: #B0BEC5;
 }
 
-OptionTab .QPushButton {
+OptionTab #optionTab .QPushButton {
     border: none;
     outline: none;
     background: none;
     color: #37474F;
-    padding: 5px 0;
-    margin: 5px 10px;
-    border-bottom: 2px solid #CFD8DC;
+    padding: 15px 20px 13px;
+    margin: 0px;
+    border-bottom: 2px solid #03A9F4;
+    border-right: 0px;
+    border-left: 0px;
 }
 
-OptionTab .QPushButton:focus {
-    padding: 5px 0 2px;
-    border-bottom: 5px solid #CFD8DC;
+OptionTab #optionTab .QPushButton:focus {
+    padding: 15px 20px 10px;
+    border-bottom: 5px solid #03A9F4;
 }
 
-OptionTab .QPushButton[down="true"] {
+
+OptionTab #optionTab .QPushButton[down="true"] {
     color: #009688;
+    padding: 15px 20px 13px;
     border-bottom: 2px solid #009688;
 }
 
-OptionTab .QPushButton[down="true"]:focus {
+
+OptionTab #optionTab .QPushButton[down="true"]:focus {
     color: #009688;
-    padding: 5px 0 2px;
+    padding: 15px 20px 10px;
     border-bottom: 5px solid #009688;
+    border-left: 1px solid #90A4AE;
+    border-right: 1px solid #90A4AE;
+}
+
+OptionTab #optionTab ShadowButt {
+    padding: 5px 10px;
+    margin: 0 10px;
+}
+
+
+OptionTab #optBox > QScrollArea {
+    background: #E0F2F1;
+    margin: 30px;
+}
+
+OptionTab #optBox > QScrollArea QWidget {
+    background: #E0F2F1;
 }
 
 
 OptionTab #optBox QLabel {
     margin: 0 0 30px 0;
+    padding: 0 0 30px 0;
+    border-bottom: 1px solid #CFD8DC;
 }
 
-
-OptionTab #optBox QWidget:focus {
-    background: #AAA;
-    outline: none;
+OptionTab #optBox QComboBox {
+    padding: 2px 30px 2px 10px;
 }
-
-
-OptionTab QScrollArea QWidget {
-    border: none;
-    background: #E0F2F1;
-}
-
-OptionTab QScrollArea QLabel {
-    background: #E0F2F1;
-    color: #37474F;
-}
-
 
 
 
