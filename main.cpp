@@ -1,8 +1,10 @@
 #include "main.h"
 
-Window::Window () : QWidget () {
+Window::Window () {
 
-    readSettings();
+    readSizeSettings();
+    readConfSettings();
+
 
     stackedLayout = new QStackedLayout;
 
@@ -96,7 +98,7 @@ void Window::optStack (){
 
     opt = new OptionTab;
     connect(opt, SIGNAL(introStack()), this, SLOT(introStack()));
-
+    connect(opt, SIGNAL(newSettings()), this, SLOT(changeSettings()));
     stackedLayout -> addWidget(opt);
     stackedLayout -> setCurrentWidget(opt);
 
@@ -107,7 +109,9 @@ void Window::optStack (){
 }
 
 
-
+void Window::changeSettings(){
+    readConfSettings();
+}
 
 
 void Window::cleanStack (){
@@ -152,15 +156,85 @@ void Window::cleanStack (){
 }
 
 
+
+
 /*****************************************************************************/
 
-void Window::readSettings (){
+void Window::readSizeSettings (){
 
     QSettings settings;
+
+    // Window Position
+
     QPoint pos = settings.value("pos", QPoint(200, 200)).toPoint();
     QSize size = settings.value("size", QSize(400, 400)).toSize();
     resize(size);
     move(pos);
+
+}
+
+
+void Window::readConfSettings (){
+
+    QSettings settings;
+    
+    // Load new font file
+    
+    int id = QFontDatabase::addApplicationFont("font/Roboto-Thin.ttf");
+
+    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
+    QFont roboto;
+    roboto.setFamily(family);
+    
+    if (settings.value("large", false).toBool()){
+        roboto.setPointSize(14);
+    } else {
+        roboto.setPointSize(12);
+    }
+
+    QApplication::setFont(roboto);
+
+    QFontDatabase::addApplicationFont("font/FontAwesomeSolid.otf"); 
+
+
+    // Load new qss file
+   
+    QFile file;
+    file.setFileName("style/stylesheet.qss");
+    file.open(QFile::ReadOnly);
+    QString styleSheet = QLatin1String(file.readAll());
+    file.close();
+
+    if (settings.value("achroma", false).toBool() &&
+            settings.value("contraste", false).toBool()){
+    
+        file.setFileName("style/stylesheet.qss");
+        file.open(QFile::ReadOnly);
+        styleSheet = styleSheet + QLatin1String(file.readAll());
+        file.close();
+
+        file.setFileName("style/dys.qss");
+        file.open(QFile::ReadOnly);
+        styleSheet = styleSheet + QLatin1String(file.readAll());
+        file.close();
+
+    } else if (settings.value("achroma", false).toBool()){
+
+        file.setFileName("style/dys.qss");
+        file.open(QFile::ReadOnly);
+        styleSheet = styleSheet + QLatin1String(file.readAll());
+        file.close();
+
+    } else if (settings.value("contraste", false).toBool()){
+
+        file.setFileName("style/stylesheet.qss");
+        file.open(QFile::ReadOnly);
+        styleSheet = styleSheet + QLatin1String(file.readAll());
+        file.close();
+    }
+    
+    setStyleSheet(styleSheet);
+
 }
 
 
@@ -189,31 +263,11 @@ int main(int argc, char *argv[]) {
     app.setOrganizationDomain("Yu.Gi.Oh");
     app.setApplicationName("Yu-Gi-Oh");
 
-    // Load new font file
-    
-    int id = QFontDatabase::addApplicationFont("font/Roboto-Thin.ttf");
-
-    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
-    QFont roboto(family, 14);
-    QApplication::setFont(roboto);
-
-    QFontDatabase::addApplicationFont("font/FontAwesomeSolid.otf"); 
-
-
-    // Load new qss file
-    
-    QFile file("style/stylesheet.qss");
-    file.open(QFile::ReadOnly);
-    QString styleSheet = QLatin1String(file.readAll());
-
-    app.setStyleSheet(styleSheet);
-
 
     // Load main widget
 
     Window w;
 
-    //w.resize(500, 700);
     w.setWindowTitle("Trading Card Game");
     w.setWindowIcon(QIcon("card.svg"));
 

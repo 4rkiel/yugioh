@@ -7,9 +7,6 @@
 
 
 ShadowButt {
-    border: none;
-    outline: none;
-    border-radius: 2px;
     background: #03A9F4;
 }
 
@@ -39,7 +36,7 @@ ShadowButt:pressed {
 ******************************************************************/
 
 Window {
-    background: #607D8B;
+    background: #000;
 }
 
 
@@ -51,25 +48,8 @@ Window {
 
 ******************************************************************/
 
-Generique {
-    border-image: url(intro.jpg);
-}
-
 Generique #logoBox {
     background: rgba(0, 0, 0, 200);
-}
-
-Generique #logo {
-    min-width: 200px;
-    min-height: 200px;
-    max-width: 200px;
-    max-height: 200px;
-    border-image: url(puzzle.png);
-}
-
-Generique #title {
-    font-size: 30px;
-    font-weight: bold;
 }
 
 Generique #geneBox {
@@ -78,25 +58,16 @@ Generique #geneBox {
 
 Generique .QLabel {
     color: #fff;
-    margin: 10px 10px 0 10px;
-    qproperty-alignment: AlignCenter;
 }
 
 
 Generique QProgressBar {
-    margin: 10px;
-    border: none;
-    padding: 1px;
-    border-radius: 2px;
     background: #E0F2F1;
     color: #000;
-    text-align: center;
 }
 
 Generique QProgressBar::chunk {
     background: #00BFA5;
-    border-radius: 2px;
-    border: none;
 }
 
 
@@ -109,23 +80,9 @@ Generique QProgressBar::chunk {
 
 *****************************************************************/
 
-Intro {
-    margin: 30px;
-}
-
 Intro #introBox {
-    border-radius: 2px;
-    min-width: 250px;
-    max-width: 500px;
-    min-height: 400px;
-    max-height: 800px;
     background: #E0F2F1;
 }
-
-Intro ShadowButt {
-    margin: 10px;
-    padding: 5px 10px;
-} 
 
 
 /******************************************************************************
@@ -137,7 +94,6 @@ Intro ShadowButt {
 
 OptionTab {
     background: #E0F2F1;
-    margin: 30px;
 }
 
 OptionTab #optionTab {
@@ -145,47 +101,32 @@ OptionTab #optionTab {
 }
 
 OptionTab #optionTab .QPushButton {
-    border: none;
-    outline: none;
-    background: none;
     color: #37474F;
-    padding: 15px 20px 13px;
-    margin: 0px;
     border-bottom: 2px solid #03A9F4;
     border-right: 0px;
     border-left: 0px;
 }
 
 OptionTab #optionTab .QPushButton:focus {
-    padding: 15px 20px 10px;
     border-bottom: 5px solid #03A9F4;
 }
 
 
 OptionTab #optionTab .QPushButton[down="true"] {
     color: #009688;
-    padding: 15px 20px 13px;
     border-bottom: 2px solid #009688;
 }
 
 
 OptionTab #optionTab .QPushButton[down="true"]:focus {
     color: #009688;
-    padding: 15px 20px 10px;
     border-bottom: 5px solid #009688;
     border-left: 1px solid #90A4AE;
     border-right: 1px solid #90A4AE;
 }
 
-OptionTab #optionTab ShadowButt {
-    padding: 5px 10px;
-    margin: 0 10px;
-}
-
-
 OptionTab #optBox > QScrollArea {
     background: #E0F2F1;
-    margin: 30px;
 }
 
 OptionTab #optBox > QScrollArea QWidget {
@@ -194,13 +135,7 @@ OptionTab #optBox > QScrollArea QWidget {
 
 
 OptionTab #optBox QLabel {
-    margin: 0 0 30px 0;
-    padding: 0 0 30px 0;
     border-bottom: 1px solid #CFD8DC;
-}
-
-OptionTab #optBox QComboBox {
-    padding: 2px 30px 2px 10px;
 }
 
 
@@ -213,12 +148,6 @@ OptionTab #optBox QComboBox {
     App Window
 
 ******************************************************************/
-
-App ShadowButt {
-    padding: 5px 10px;
-    margin: 10px;
-    font-size: 20px;
-}
 
 #leftBarBox #Card {
     background: #3F51B5;
@@ -243,6 +172,7 @@ App ShadowButt {
 
 #leftBarBox > ShadowButt,
 #rightBarBox > ShadowButt {
+    font-size: 28px;
     max-width: 100px;
 }
 

@@ -29,6 +29,7 @@ class Window : public QWidget {
     void appStack();
     void optStack();
     void ruleStack();
+    void changeSettings();
 
     private:
     int currentLayout;
@@ -43,6 +44,7 @@ class Window : public QWidget {
 
     protected:
     void closeEvent(QCloseEvent *);
-    virtual void readSettings();
+    virtual void readSizeSettings();
+    virtual void readConfSettings();
     virtual void writeSettings();
 };

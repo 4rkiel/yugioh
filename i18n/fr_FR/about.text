@@ -1,27 +1,28 @@
-<div>
-    <p>Kaiba: Draw your last pathetic card so I can end this, Yugi!</p>
-    <p>Yami Yugi: My Grandpa's deck has no pathetic cards, Kaiba. But it does contain... the unstoppable Exodia!</p>
-    <p>Kaiba: Aaaaargh! Impossible!</p>
-    <p>Yami Yugi: I've assembled all five special cards... all five pieces of the puzzle!</p>
-    <p><i>[Exodia the Forbidden One suddenly appears on the field towering over the Blue-Eyes White Dragons]</i></p>
-    <p>Kaiba: Exodia? It-it's not possible! No one's ever been able to call him!</p>
-    <p>Yami Yugi: Exodia, obliterate!</p>
-</div>
+<h2>Crédits</h2>
 
-<h2>Auteurs</h2>
-
-<p>Site réalisé par l'équipe de production</p>
-
-<p>Sous la direction de l'équipe de direction</p>
-
-<p>Pour vous.</p>
-
-<br/>
+<h3>Equipe de production</h3>
 
 <p><a href="https://github.com/4rkiel">4rkiel</a></p>
 <p><a href="https://github.com/Wargamme">Wargamme</a></p>
+
+<br/>
+
 
 
 <h2>Licence</h2>
 
 <p>Logiciel produit sous la <a href="https://en.wikipedia.org/wiki/WTFPL">licence WTFPL</a>. Redistribution et modification sans aucune restriction.</p>
+
+<br/>
+
+
+<h2>Remerciements</h2>
+<ul>
+    <li>Kaiba: Draw your last pathetic card so I can end this, Yugi!</li>
+    <li>Yami Yugi: My Grandpa's deck has no pathetic cards, Kaiba. But it does contain... the unstoppable Exodia!</li>
+    <li>Kaiba: Aaaaargh! Impossible!</li>
+    <li>Yami Yugi: I've assembled all five special cards... all five pieces of the puzzle!</li>
+    <li>[<i>Exodia the Forbidden One suddenly appears on the field towering over the Blue-Eyes White Dragons</i>]</li>
+    <li>Kaiba: Exodia? It-it's not possible! No one's ever been able to call him!</li>
+    <li>Yami Yugi: Exodia, obliterate!</li>
+</ul>

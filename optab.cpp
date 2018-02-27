@@ -307,8 +307,8 @@ void OptionTab::setOption (){
 
     updateStyle(optionButt);
 
-        optionLayout -> setCurrentWidget(optionScroll);
-    }
+    optionLayout -> setCurrentWidget(optionScroll);
+}
 
 
 void OptionTab::setAccess (){
@@ -385,6 +385,8 @@ void OptionTab::shareChange (){
 
     QSettings settings;
     settings.setValue("share", shareChck -> isChecked());
+
+    emit newSettings();
 }
 
 
@@ -393,6 +395,8 @@ void OptionTab::contrasteChange (){
 
     QSettings settings;
     settings.setValue("contraste", contrasteChck -> isChecked());
+
+    emit newSettings();
 }
 
 
@@ -401,6 +405,8 @@ void OptionTab::achromaChange (){
 
     QSettings settings;
     settings.setValue("achroma", achromaChck -> isChecked());
+
+    emit newSettings();
 }
 
 
@@ -409,6 +415,8 @@ void OptionTab::largeChange (){
 
     QSettings settings;
     settings.setValue("large", largeChck -> isChecked());
+
+    emit newSettings();
 }
 
 

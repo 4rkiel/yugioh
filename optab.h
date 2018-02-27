@@ -97,6 +97,7 @@ class OptionTab : public QFrame {
 
     signals:
     void introStack();
+    void newSettings();
 };
 
 

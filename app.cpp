@@ -19,14 +19,14 @@ App::App () {
 
 
 
-        // Left bar
+        // Left bar ...........................................................
 
         leftBarBox = new QWidget;
-        leftBarBox -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-        leftBarLayout = new QVBoxLayout;
+//        leftBarBox -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        leftBarLayout = new QGridLayout;
         leftBarLayout -> setSpacing(0);
         leftBarLayout -> setMargin(0);
-        leftBarLayout -> setAlignment(Qt::AlignCenter);
+//        leftBarLayout -> setAlignment(Qt::AlignHCenter);
 
 
             // Text label
@@ -35,30 +35,46 @@ App::App () {
             QString strAdv = QString::fromUtf8("8000");
             lifeAdv -> setText(strAdv);
             lifeAdv -> setObjectName("Life");
-            leftBarLayout -> addWidget(lifeAdv);
-           
+            leftBarLayout -> addWidget(lifeAdv, 0, 1, 1, 1);
+          
+
+            QSpacerItem * spacerLeftTop = new QSpacerItem(3,1,
+                QSizePolicy::Preferred,QSizePolicy::Expanding);
+            leftBarLayout -> addItem(spacerLeftTop, 1, 0);
 
 
-            leftBarLayout -> addStretch();
-       
             card = new AppIndicator();
             card -> setObjectName("Card");
             card -> setWordWrap(true);
             QString strCard = QString::fromUtf8(""
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                " Nunc a massa at sapien ultrices sagittis luctus vitae massa. "
-                "Donec iaculis, quam et semper bibendum, sapien augue imperdiet diam,"
-                "feugiat maximus mauris purus et lacus. ");
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                "Morbi molestie arcu viverra urna faucibus tempor. "
+                "Mauris nulla elit, elementum a dolor eu, condimentum eleifend elit. "
+                "Nullam aliquet varius magna nec elementum. "
+                "Aliquam elementum dapibus justo, eget imperdiet arcu pretium sit amet. "
+                "Aenean vitae eros tortor. "
+                "Etiam interdum erat dolor, et lacinia purus vestibulum id. "
+                "Quisque pretium neque vel commodo tincidunt. "
+                "Sed in suscipit erat."
+                "\n\n"
+                "★ ★ 8"
+                "\n"
+                "ATK/2000"
+                "\n"
+                "DEF/2000"
+            );
             card -> setText(strCard);
-            leftBarLayout -> addWidget(card);
+            leftBarLayout -> addWidget(card, 2, 0, 1, 3);
 
 
-            leftBarLayout -> addStretch();
+            QSpacerItem * spacerLeftBot = new QSpacerItem(3,1,
+                QSizePolicy::Preferred,QSizePolicy::Expanding);
+            leftBarLayout -> addItem(spacerLeftBot, 3, 0);
 
 
             actionButt = new ShadowButt("\uf04b", "");
             actionButt -> setToolTip("Terminer le tour");
-            leftBarLayout -> addWidget(actionButt);
+            leftBarLayout -> addWidget(actionButt, 4, 1, 1, 1);
 
            
         leftBarBox -> setObjectName("leftBarBox");            
@@ -66,7 +82,7 @@ App::App () {
 
 
 
-        // Arena
+        // Arena ..............................................................
 
         arenaBox = new QWidget;
         arenaBox -> setObjectName("arenaBox");
@@ -245,7 +261,7 @@ App::App () {
         arenaBox -> setLayout(arenaLayout);
 
 
-        // Right Bar
+        // Right Bar ..........................................................
 
         rightBarBox = new QWidget;
         rightBarLayout = new QVBoxLayout;
@@ -343,7 +359,7 @@ App::App () {
             quit = new ShadowButt("\uf00d", "Abandonner");
             quit -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
             quit -> setToolTip("Quitter le Duel");
-            connect(quit, SIGNAL(clicked()), this, SLOT(emitNewStack()));
+            connect(quit, SIGNAL(clicked()), this, SLOT(emitIntroStack()));
             menuLayout -> addWidget(quit);
 
             back = new ShadowButt("\uf078", "Fermer");
@@ -489,8 +505,8 @@ App::~App (){
 }
 
 
-void App::emitNewStack (){
-    emit newStack();
+void App::emitIntroStack (){
+    emit introStack();
 }
 
 void App::openMenu (){

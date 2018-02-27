@@ -28,12 +28,12 @@ class App : public QFrame {
     ~App();
 
     public slots:
-    void emitNewStack();
+    void emitIntroStack();
     void openMenu();
     void closeMenu();
 
     signals:
-    void newStack();
+    void introStack();
 
     private:
     QGridLayout * overLayout;
@@ -41,7 +41,7 @@ class App : public QFrame {
     QGridLayout * sceneLayout;
     
         QWidget * leftBarBox;
-        QVBoxLayout * leftBarLayout;
+        QGridLayout * leftBarLayout;
     
             AppIndicator * lifeAdv;
             AppIndicator * card;
