@@ -4,17 +4,8 @@
 
 using namespace std;
 
-deck::deck(file fichier)
+deck::deck(QFile fichier)
 {
-    ifstream iFile(fichier, ios::in);
-    if(iFile)
-    {
-
-        iFile.close();
-    }
-
-
-
 }
 
 deck::deck()

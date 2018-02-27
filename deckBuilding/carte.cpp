@@ -4,18 +4,17 @@
 
 Carte::Carte(QString nom, QString image)
 {
-    setImage("./image/default");
-    setCarte_nom(nom);
-    setImage(image);
+    carte_image = image;
+    carte_nom = nom;
 }
 
-Carte::Carte(string nom)
+Carte::Carte(QString nom)
 {
-    setImage("./image/default");
-    setCarte_nom(nom);
+    carte_image = "./image/default";
+    carte_nom = nom;
 }
 
 Carte::Carte()
 {
-    setImage("./image/default");
+    carte_image = "./image/default";
 }

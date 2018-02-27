@@ -1,10 +1,13 @@
 #include "carte_monstre_effet.h"
 
-carte_monstre_effet::carte_monstre_effet(QString nom, QString image, monstre_attribut carte_attribut, monstre_type carte_type, QString carte_effet)
+carte_monstre_effet::carte_monstre_effet(QString nom, QString image, attribut carte_attribut, type carte_type, QString carte_effet)
 {
-    super(nom, image, carte_attribut, );
-    monstre_attribut = carte_attribut;
-    mon
+    carte_monstre(nom,  image,  carte_attribut, carte_type);
+    monstre_effet = carte_effet;
+}
 
+carte_monstre_effet::carte_monstre_effet()
+{
+    carte_monstre();
 }
 

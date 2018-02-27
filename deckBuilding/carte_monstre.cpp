@@ -1,10 +1,20 @@
 #include "carte_monstre.h"
 
-carte_Monstre::carte_Monstre(QString carte_nom, QString carte_image,
-                             monstre_atribut carte_attribut, monstre_type carte_type)
+carte_monstre::carte_monstre(QString carte_nom, QString carte_image,
+                             attribut carte_attribut, type carte_type)
 {
-    super(nom, image);
+    Carte(carte_nom, carte_image);
     monstre_attribut = carte_attribut;
-    monstre_type = carte_attribut;
+    monstre_type = carte_type;
+}
+
+carte_monstre::carte_monstre()
+{
+
+}
+
+carte_monstre::~carte_monstre()
+{
+
 }
 

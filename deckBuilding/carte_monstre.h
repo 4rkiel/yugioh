@@ -1,6 +1,8 @@
 #ifndef CARTE_MONSTRE_H
 #define CARTE_MONSTRE_H
 
+#include "carte.h"
+
 enum attribut
 {
     LUMIERE,
@@ -15,11 +17,11 @@ enum type
     DEMON
 };
 
-class carte_monstre : carte
+class carte_monstre : Carte
 {
     public:
-        carte_monstre(QString carte_nom, QString carte_image,
-            attribut carte_attribut, type carte_type);
+        carte_monstre(QString carte_nom, QString carte_image, attribut carte_attribut, type carte_type);
+        carte_monstre();
         ~carte_monstre();
 
         attribut monstre_attribut;

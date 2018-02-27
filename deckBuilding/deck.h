@@ -1,22 +1,20 @@
 #ifndef DECK_H
 #define DECK_H
 
+#include "carte.h"
 #include <vector>
+#include <QFile>
 
 class deck
 {
     public:
-        deck(file fichier);
+        deck(QFile fichier);
         deck();
         ~deck();
 
-        melanger();
-
-    protected:
-        addCarte(carte cardName);
-
-    private:
-        vector<carte> bibliotheque;
+        bool melanger();
+        bool addCarte(Carte cardName);
+        std::vector<Carte> bibliotheque;
 
 };
 
