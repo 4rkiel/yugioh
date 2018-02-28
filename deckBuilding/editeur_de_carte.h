@@ -43,6 +43,9 @@ class editeur_de_carte : public QDialog
         QPushButton *buttons[NumButtons];
         QDialogButtonBox *buttonBox;
 
+        QComboBox *cb_categorie;
+        QComboBox *cb_type;
+
         QMenu *fileMenu;
         QAction *exitAction;
 };

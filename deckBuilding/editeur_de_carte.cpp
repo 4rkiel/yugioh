@@ -44,13 +44,24 @@ void editeur_de_carte::createMenu()
 void editeur_de_carte::createHorizontalGroupBox()
 {
     horizontalGroupBox = new QGroupBox("Horizontal layout");
-    QHBoxLayout *layout = new QHBoxLayout;
+//    QHBoxLayout *layout = new QHBoxLayout;
 
-    for (int i = 0; i < NumButtons; ++i)
-    {
-        buttons[i] = new QPushButton(tr("Button %1%2").arg(i + 1).arg(3));
-        layout->addWidget(buttons[i]);
-    }
+//    for (int i = 0; i < NumButtons; ++i)
+//    {
+//        buttons[i] = new QPushButton(tr("Button %1%2").arg(i + 1).arg(3));
+//        layout->addWidget(buttons[i]);
+//    }
+
+
+    QGridLayout *layout = new QGridLayout;
+    cb_categorie = new QComboBox;
+    cb_type = new QComboBox;
+    layout->addWidget(new QLabel("Categorie:"), 0, 0, Qt::AlignHCenter);
+    layout->addWidget(cb_categorie, 0, 1, 1, 2);
+    layout->addWidget(cb_type, 0, 3, 1, 2);
+
+
+
     horizontalGroupBox->setLayout(layout);
 }
 
