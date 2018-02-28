@@ -1,4 +1,4 @@
-#include "card.h"
+#include "../inc/card.h"
 
 Card::Card (){
 

@@ -1,4 +1,4 @@
-#include "appIndicator.h"
+#include "../inc/appIndicator.h"
 
 AppIndicator::AppIndicator (){
 

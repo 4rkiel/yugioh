@@ -23,7 +23,7 @@
 #include <QSpacerItem>
 #include <QComboBox>
 
-#include "shadowButt.h"
+#include "../inc/shadowButt.h"
 
 class OptionTab : public QFrame {
 

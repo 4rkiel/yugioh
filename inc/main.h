@@ -10,11 +10,11 @@
 
 #include <QFile>
 
-#include "app.h"
-#include "intro.h"
-#include "generique.h"
-#include "optab.h"
-#include "ruletab.h"
+#include "../inc/app.h"
+#include "../inc/intro.h"
+#include "../inc/generique.h"
+#include "../inc/optab.h"
+#include "../inc/ruletab.h"
 
 class Window : public QWidget {
 

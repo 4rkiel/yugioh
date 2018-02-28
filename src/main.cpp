@@ -1,4 +1,4 @@
-#include "main.h"
+#include "../inc/main.h"
 
 Window::Window () {
 
@@ -269,7 +269,7 @@ int main(int argc, char *argv[]) {
     Window w;
 
     w.setWindowTitle("Trading Card Game");
-    w.setWindowIcon(QIcon("card.svg"));
+    w.setWindowIcon(QIcon("img/card.svg"));
 
     w.show();
 

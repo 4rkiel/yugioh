@@ -1,4 +1,4 @@
-#include "optab.h"
+#include "../inc/optab.h"
 
 OptionTab::OptionTab (){
 

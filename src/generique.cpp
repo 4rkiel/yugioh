@@ -1,4 +1,4 @@
-#include "generique.h"
+#include "../inc/generique.h"
 
 
 Generique::Generique () {

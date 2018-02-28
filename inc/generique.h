@@ -12,7 +12,7 @@
 
 #include <QPixmap>
 
-#include "genProgress.h"
+#include "../inc/genProgress.h"
 
 
 class Generique : public QFrame {

@@ -15,9 +15,9 @@
 
 #include <QGraphicsDropShadowEffect>
 
-#include "shadowButt.h"
-#include "appIndicator.h"
-#include "card.h"
+#include "../inc/shadowButt.h"
+#include "../inc/appIndicator.h"
+#include "../inc/card.h"
 
 class App : public QFrame {
 

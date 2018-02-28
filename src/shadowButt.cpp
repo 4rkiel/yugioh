@@ -1,4 +1,4 @@
-#include "shadowButt.h"
+#include "../inc/shadowButt.h"
 
 ShadowButt::ShadowButt (QString icoStr, QString textStr){
  

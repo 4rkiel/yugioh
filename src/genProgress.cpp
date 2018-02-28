@@ -1,4 +1,4 @@
-#include "genProgress.h"
+#include "../inc/genProgress.h"
 
 GenProgress::GenProgress (){
 

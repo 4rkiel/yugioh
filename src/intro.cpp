@@ -1,4 +1,4 @@
-#include "intro.h"
+#include "../inc/intro.h"
 
 Intro::Intro () {
 

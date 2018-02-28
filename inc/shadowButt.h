@@ -12,7 +12,7 @@
 
 #include <QThread>
 
-#include "sleeper.h"
+#include "../inc/sleeper.h"
 
 
 class ShadowButt;

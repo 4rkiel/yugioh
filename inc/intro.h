@@ -14,7 +14,7 @@
 
 #include <QTabWidget>
 
-#include "shadowButt.h"
+#include "../inc/shadowButt.h"
 
 class Intro : public QFrame {
 

@@ -1,4 +1,4 @@
-#include "ruletab.h"
+#include "../inc/ruletab.h"
 
 RuleTab::RuleTab (){
 
