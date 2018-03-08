@@ -1,19 +1,16 @@
 #include "../inc/card.h"
 
-#include <QGridLayout>
-#include <QGraphicsView>
-#include <QGraphicsScene>
-#include <QGraphicsProxyWidget>
-#include <QPropertyAnimation>
 #include <QLabel>
 
 Card::Card (){
 
+    posi = 0;
+
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
    
-    QGridLayout * layout = new QGridLayout;
+    layout = new QGridLayout;
 
-    QGraphicsView *view = new QGraphicsView;
+    view = new QGraphicsView;
     view->setFrameStyle(0);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -23,7 +20,7 @@ Card::Card (){
     view->setRenderHints(QPainter::HighQualityAntialiasing|QPainter::TextAntialiasing);
 
 
-    QGraphicsScene *scene = new QGraphicsScene;
+    scene = new QGraphicsScene;
     view -> setScene(scene);
 
     QGraphicsProxyWidget *proxy = new QGraphicsProxyWidget();
@@ -38,19 +35,15 @@ Card::Card (){
     proxy -> setScale(1);
     proxy -> setRotation(0);
     proxy -> setTransformOriginPoint(scene -> width() / 2, scene -> height() / 2);
-
-    QPropertyAnimation *anim = new QPropertyAnimation(proxy, "rotation");
-    anim->setDuration(5000);
-    anim->setStartValue(0);
-    anim->setEndValue(360);
-    anim->setLoopCount(-1);
-    //anim->setEasingCurve(QEasingCurve::OutQuad);
-    anim->start(/*QAbstractAnimation::DeleteWhenStopped*/);
-    
-    
+   
     layout -> addWidget(view,0,1,3,1);
     setLayout(layout);
 
+
+    anim = new QPropertyAnimation(proxy, "rotation");
+    anim->setDuration(500);
+
+    // anim->setLoopCount(-1);
 
     connect(this, SIGNAL(clicked()), this, SLOT(turnDef()));
     
@@ -64,6 +57,10 @@ Card::~Card (){
 
 void Card::turnDef (){
 
-
+    posi = (posi + 1) % 2;
+    anim->setStartValue(90 - (posi * 90));
+    anim->setEndValue(posi * 90);
+    //anim->setEasingCurve(QEasingCurve::OutQuad);
+    anim->start(/*QAbstractAnimation::DeleteWhenStopped*/);
 
 }

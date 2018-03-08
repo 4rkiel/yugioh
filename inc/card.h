@@ -3,6 +3,13 @@
 
 #include <QPushButton>
 
+#include <QGridLayout>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QGraphicsProxyWidget>
+#include <QPropertyAnimation>
+
+
 
 class Card : public QPushButton {
 
@@ -15,6 +22,14 @@ class Card : public QPushButton {
     public slots:
     void turnDef();
 
+    private:
+    bool posi;
+    QGridLayout * layout;
+    QGraphicsView * view;
+    QGraphicsScene * scene;
+    QGraphicsProxyWidget * proxy;
+
+    QPropertyAnimation * anim;
 };
 
 

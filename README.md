@@ -50,5 +50,4 @@ Implémentation du jeu de carte Yu-Gi-Oh!
 Nom de la classe | Remplace/Améliore | Descriptif
 ---------------- | ----------------- | ----------
 ShadowButt | QPushButton | Rajoute des effets d'ombrage
-OpTab | QPanel | Panel plus joli
 
