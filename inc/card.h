@@ -12,6 +12,9 @@ class Card : public QPushButton {
     Card();
     ~Card();
 
+    public slots:
+    void turnDef();
+
 };
 
 
