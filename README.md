@@ -11,37 +11,42 @@ Implémentation du jeu de carte Yu-Gi-Oh!
 
 #### Projet Général
 
- - [ ] | assigné :
+ - [ ] TODO List
+ - [ ] Cahier des charges
 
 
 #### Interface Générale
 
- - [ ] | assigné : 
+ - [ ] Yu-Gi-Oh style qss
+ - [ ] Contraste-full style
+ - [ ] Dyschromatopsia style
 
 
 #### Menu Général
 
- - [ ] | assigné :
+ - [x] Menu
+ - [x] Écran de chargement
+ - [ ] Indications
 
 
 #### Zone Duels
 
- - [ ] | assigné :
+ - [ ]
 
 
 #### Zone DeckBuild
 
- - [ ] | assigné :
+ - [ ]
 
 
 #### Zone Règles
 
- - [ ] | assigné :
+ - [ ]
 
 
 #### Zone Paramètres
 
- - [ ] | assigné :
+ - [ ]
 
 
 
