@@ -22,10 +22,12 @@ Implémentation du jeu de carte Yu-Gi-Oh!
  - [ ] Dyschromatopsia style
 
 
-#### Menu Général
+#### Menu Principal
 
- - [x] Menu
  - [x] Écran de chargement
+ - [x] Menu Principal
+   - [ ] Menu Selection Jeu (Solo / Local / Online)
+   - [ ] Menu Aide
  - [ ] Indications
 
 
@@ -47,6 +49,11 @@ Implémentation du jeu de carte Yu-Gi-Oh!
 #### Zone Paramètres
 
  - [ ]
+
+
+#### Zone Aide
+
+   - [ ] Déplacement "A Propos" dans Aide
 
 
 
