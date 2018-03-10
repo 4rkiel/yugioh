@@ -4,6 +4,12 @@ Implémentation du jeu de carte Yu-Gi-Oh!
 
 [Lien vers le cahier des charges](https://docs.google.com/document/d/1OeF_gmBVjo56tAUFRijaNlVDgjEvVVLkMJVCUVTZqDc/edit?usp=sharing), à completer.
 
+:information_source: Libre à chacun d'éditer les fichiers
+
+:information_source: Vous pouvez utiliser [GitKraken](https://www.gitkraken.com) pour suivre facilement les commits.
+
+:warning: Mettez des commits à minima clairs
+
 :warning: La cohérence du design sera mise en place progressivement, une fois les élements développés et stables. Attention toutefois à réutiliser les élements de GUI déjà réimplémentés le plus souvent possible, par soucis de cohérence (voir tableau ci-dessous).
 
 
@@ -11,7 +17,6 @@ Implémentation du jeu de carte Yu-Gi-Oh!
 
 #### Projet Général
 
- - [ ] TODO List
  - [ ] Cahier des charges
 
 
@@ -20,6 +25,7 @@ Implémentation du jeu de carte Yu-Gi-Oh!
  - [ ] Yu-Gi-Oh style qss
  - [ ] Contraste-full style
  - [ ] Dyschromatopsia style
+ - [ ] Traduction FR - EN
 
 
 #### Menu Principal
@@ -33,27 +39,41 @@ Implémentation du jeu de carte Yu-Gi-Oh!
 
 #### Zone Duels
 
- - [ ]
+ - [ ] Interface Generale
+    - [ ] Rotation Partie adverse + inversion
+ - [ ] Gestion (classe) parties
+    - [ ] Solo
+       - [ ] IA 1
+    - [ ] Local
+    - [ ] Online
+ - [ ] Chargement des Decks
+ - [ ] Chargement des cartes
 
 
 #### Zone DeckBuild
 
- - [ ]
+ - [ ] DeckBuild
+    - [ ] Liste des decks
+      - [ ] Choix du deck courrant
+      - [ ] Choix du deck adverse (a placer dans la zone de duel ?)
+ - [ ] CarteBuild
 
 
 #### Zone Règles
 
- - [ ]
+ - [ ] Sous-Zone Edition
+ - [ ] Sous-Zone "Lire les règles officielles"
 
 
 #### Zone Paramètres
 
- - [ ]
+ - [ ] Enlever "A Propos"
+ - [ ] Deplacement "Raccourcis"
 
 
 #### Zone Aide
 
-   - [ ] Déplacement "A Propos" dans Aide
+   - [ ] Rajout "A Propos"
 
 
 
