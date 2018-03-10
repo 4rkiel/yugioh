@@ -1,0 +1,555 @@
+﻿mse version: 0.3.8
+game: yugioh
+short name: Series9
+installer group: Yugioh/Series9
+icon: card-sample.png
+position hint: 01
+
+version: 2014-04-11
+depends on:
+	package: yugioh.mse-game
+	version: 2014-04-11
+depends on:
+	package: yugioh-standard-levels.mse-symbol-font
+	version: 2014-04-11
+depends on:
+	package: yugioh-text-replacements.mse-symbol-font
+	version: 2014-04-11
+depends on:
+	package: yugioh-text-numbers.mse-symbol-font
+	version: 2014-04-11
+
+card width: 421
+card height: 614
+card dpi: 152.6265
+
+####################################### Updated by: Order-Sol, Judas
+############################################################## Extra scripts
+############################################################## Extra style
+styling field:
+	type: choice
+	name: rules alignment
+	description: Should the rules text be justified?
+	initial: justified
+	choice: not justified
+	choice: justified
+styling field:
+	type: boolean
+	name: foil texture
+	description: Disabling this will allow the rarity to only affect the name and not the image.
+	initial: yes
+styling field:
+	type: boolean
+	name: image frame
+	description: Choosing "yes" will omit the image frame like on Anniversary Edition cards.
+	initial: no
+styling field:
+	type: boolean
+	name: bold effect text
+	description: Should effect text be bold as seen on some cards such as those from The Dark Emperor?
+	initial: no
+styling field:
+	type: boolean
+	name: large type
+	description: For monster cards only: make the monster type large, as on the newer Series 9 cards, or keep it small.
+	initial: no
+styling field:
+	type: choice
+	name: text size
+	description: Make the font size larger, if there is less flavor text.
+	initial: small
+	choice: small
+	choice: large
+styling field:
+	type: boolean
+	name: max line space
+	description: Fill the entire text box vertically
+	initial: no
+styling field:
+	type: boolean
+	name: disable hologram
+	description: Disable the Eye of Anubis hologram, to make it more similar to Konami's official proxies.
+	initial: no
+styling field:
+	type: boolean
+	name: pendulum transparency
+	description: Enable transparency in pendulum monsters? (Warning, this changes image size.)
+	initial: yes
+styling field:
+	type: choice
+	name: pendulum size
+	description: Pick one of three available sizes for pendulum monsters (Warning, this may change image size.)
+	initial: default
+	choice: default
+	choice: less
+	choice: more
+styling field:
+	type: boolean
+	name: pendulum text centering
+	description: Center the pendulum text in the box.
+	initial: no
+############################################################## Card fields
+card style:
+	############################# Background stuff
+	card type:
+		left: 0
+		top: 0
+		width: 421
+		height: 614
+		z index: -2
+		render style: image
+		popup style: in place
+		choice images:
+			normal monster         : card-normal.png
+			effect monster         : card-effect.png
+			fusion monster         : card-fusion.png
+			ritual monster         : card-ritual.png
+			synchro monster        : card-synchro.png
+			dark synchro monster   : card-dsynchro.png
+			xyz monster            : card-xyz.png
+			pendulum normal monster: { if styling.pendulum_size=="less" then "card-normal-pendulum-less.png" else if styling.pendulum_size=="more" then "card-normal-pendulum-more.png" else "card-normal-pendulum.png" }
+			pendulum effect monster: { if styling.pendulum_size=="less" then "card-effect-pendulum-less.png" else if styling.pendulum_size=="more" then "card-effect-pendulum-more.png" else "card-effect-pendulum.png" }
+			token monster          : card-token.png
+			obelisk card           : card-obelisk.png
+			slifer card            : card-slifer.png
+			ra card                : card-ra.png
+			dragons card           : card-dragons.png
+			spell card             : card-spell.png
+			trap card              : card-trap.png
+	foils:
+		left: { if card.rarity=="parallel rare" or card.rarity=="star rare" or card.rarity=="mosaic rare" or card.rarity=="gold rare" then 0 else if card.rarity=="promo" or card.rarity=="secret rare" or card.rarity=="ultimate rare" or card.rarity=="ultra rare" or card.rarity=="super rare" and is_pendulum() then 28 else if styling.image_frame=="yes" then 44 else 51 }
+		top: { if card.rarity=="parallel rare" or card.rarity=="star rare" or card.rarity=="mosaic rare" or card.rarity=="gold rare" then 0 else if card.rarity=="promo" or card.rarity=="secret rare" or card.rarity=="ultimate rare" or card.rarity=="ultra rare" or card.rarity=="super rare" and card.card_type=="pendulum normal monster" or card.card_type=="pendulum effect monster" then 110 else if styling.image_frame=="yes" then 106 else 113 }
+		width: { if card.rarity=="parallel rare" or card.rarity=="star rare" or card.rarity=="mosaic rare" or card.rarity=="gold rare" then 421 else if card.rarity=="promo" or card.rarity=="secret rare" or card.rarity=="ultimate rare" or card.rarity=="ultra rare" or card.rarity=="super rare" and card.card_type=="pendulum normal monster" or card.card_type=="pendulum effect monster" then 364 else if styling.image_frame=="yes" then "333" else 320 }
+		height: { if card.rarity=="parallel rare" or card.rarity=="star rare" or card.rarity=="mosaic rare" or card.rarity=="gold rare" then 614 else if card.rarity=="promo" or card.rarity=="secret rare" or card.rarity=="ultimate rare" or card.rarity=="ultra rare" or card.rarity=="super rare" and is_pendulum() then ( if styling.pendulum_transparency=="yes" then ( if styling.pendulum_size=="more" then 363 else 347 ) else if styling.pendulum_transparency=="no" then ( if styling.pendulum_size=="less" then 293 else 273) ) else if styling.image_frame=="yes" then 333 else 320 }
+		#height: { if card.rarity=="parallel rare" or card.rarity=="star rare" or card.rarity=="mosaic rare" or card.rarity=="gold rare" then 614 else if card.rarity=="promo" or card.rarity=="secret rare" or card.rarity=="ultimate rare" or card.rarity=="ultra rare" or card.rarity=="super rare" and card.card_type=="pendulum normal monster" or card.card_type=="pendulum effect monster" then 273 else if styling.image_frame=="yes" then 333 else 320 }
+		z index: 5
+		render style: image
+		popup style: in place
+		image:
+			script:
+				if card.rarity=="gold rare" and is_pendulum() then ( if styling.pendulum_size=="less" then "goldfoil-pendulum_less.png" else if styling.pendulum_size=="more" then "goldfoil-pendulum_more.png" else "goldfoil-pendulum.png" ) else
+				if card.rarity=="gold rare" and styling.image_frame=="yes" then "goldfoil-anniversary.png" else
+				if card.rarity=="gold rare" and styling.image_frame=="no" then "goldfoil.png" else
+				if styling.foil_texture=="yes" then (
+				if card.rarity=="super rare" then "superfoil.png" else
+				if card.rarity=="ultra rare" then "ultrafoil.png" else
+				if card.rarity=="secret rare" then "secretfoil.png" else
+				if card.rarity=="ultimate rare" then "ultimatefoil.png" else
+				if card.rarity=="parallel rare" then "parallelfoil.png" else
+				if card.rarity=="star rare" then "starfoil.png" else
+				if card.rarity=="mosaic rare" then "mosaicfoil.png" else
+				if card.rarity=="promo" then "superfoil.png") else
+				"blank2.png"
+		mask: { if card.rarity=="promo" or card.rarity=="secret rare" or card.rarity=="ultimate rare" or card.rarity=="ultra rare" or card.rarity=="super rare" then ( if is_pendulum() then ( if styling.pendulum_transparency=="yes" then ( if styling.pendulum_size=="less" then "mask-p_less.png" else if styling.pendulum_size=="more" then "mask-p_more.png" else "mask-p.png" ) else ( if styling.pendulum_size=="less" then "mask-p_opaque_less.png" else "mask-p_opaque.png" ) ) else "mask.png" ) else "" }
+		combine: normal
+	############################# Name line
+	name:
+		left: 31
+		top : 25
+		width: 319
+		height: 41
+		alignment: middle shrink-overflow
+		padding bottom: 0
+		z index: 2
+		font:
+			shadow color: 
+				script: if card.rarity=="rare" then "transparent"
+				else if card.rarity=="star rare" and card.card_type=="xyz monster" then rgb(255,255,255)
+				else if card.rarity=="star rare" and card.card_type=="dark synchro monster" then rgb(255,255,255)
+				else if card.rarity=="star rare" then rgb(255,255,255)
+				else if card.rarity=="mosaic rare" and card.card_type=="xyz monster" then rgb(255,255,255)
+				else if card.rarity=="mosaic rare" and card.card_type=="dark synchro monster" then rgb(255,255,255)
+				else if card.rarity=="mosaic rare" then rgb(255,255,255)
+				else if card.rarity=="promo" then rgb(255,200,210)
+				#else if card.rarity=="secret rare" then rgb(182,162,255)
+				else if card.rarity=="ghost rare (No foil)" then rgb(210,235,250)
+				#else if card.rarity=="ultra rare" then rgb(255,215,0)
+				else if card.rarity=="ultimate rare" then rgb(255,215,0)
+				else if card.rarity=="ultimate rare (No foil)" then rgb(255,243,110)
+				else if card.rarity=="parallel rare" then rgb(255,215,0)
+				else if card.rarity=="gold rare" then rgb(255,215,0)
+				else if card.rarity=="super rare" then "transparent"
+				else if card.card_type=="xyz monster" then "transparent"
+				else if card.card_type=="dark synchro monster" then "transparent"
+				else if card.card_type=="xyz monster" then rgb(255,255,255)
+				else if card.card_type=="dark synchro monster" then rgb(255,255,255)
+				else if is_nmonster() then "transparent"
+				else "transparent"
+
+
+			shadow displacement x: 0.3
+			shadow displacement y: 1.2
+
+			name: Yu-Gi-Oh! Matrix Small Caps 2
+			size: 35
+			color:
+				script: if card.rarity=="rare" then rgb(206,212,217)
+				else if card.rarity=="star rare" and card.card_type=="xyz monster" then rgb(255,255,255)
+				else if card.rarity=="star rare" and card.card_type=="dark synchro monster" then rgb(255,255,255)
+				else if card.rarity=="star rare" then rgb(35,40,49)
+				else if card.rarity=="mosaic rare" and card.card_type=="xyz monster" then rgb(255,255,255)
+				else if card.rarity=="mosaic rare" and card.card_type=="dark synchro monster" then rgb(255,255,255)
+				else if card.rarity=="mosaic rare" then rgb(10,10,10)
+				else if card.rarity=="promo" then rgb(60,0,0)
+				else if card.rarity=="secret rare" then rgb(102,255,255)
+				else if card.rarity=="ghost rare (No foil)" then rgb(133,168,169)
+				else if card.rarity=="ultra rare" then rgb(255,240,0)
+				else if card.rarity=="ultimate rare" then rgb(88,76,12)
+				else if card.rarity=="ultimate rare (No foil)" then rgb(69,60,0)
+				else if card.rarity=="parallel rare" then rgb(88,76,12)
+				else if card.rarity=="gold rare" then rgb(88,76,12)
+				else if card.card_type=="xyz monster" then rgb(255,255,255)
+				else if card.card_type=="dark synchro monster" then rgb(255,255,255)
+				else if is_nmonster() then rgb(255,255,255)
+				else rgb(0,0,0)
+	attribute:
+		left: 351
+		top : 29
+		width: 40
+		height: 40
+		z index: 2
+		render style: image
+		popup style: in place
+		choice images:
+			earth: earth.png
+			water: water.png
+			fire: fire.png
+			wind: wind.png
+			light: light.png
+			dark: dark.png
+			divine: divine.png
+			spell: spell.png
+			trap: trap.png
+	level:
+		left: { if is_nmonster() then 42 else 43 }
+		top : { if is_nmonster() then 74 else 76}
+		width: { if is_nmonster() then 327 else 334 }
+		height: { if is_nmonster() then 28 else 28 }
+		alignment: { if card.card_type=="xyz monster" or card.card_type=="dark synchro monster" then "middle left shrink-overflow" else "middle right shrink-overflow" }
+		z index: 2
+		font:
+			name: Stone Serif Sem SC ITC TT
+			size: 15
+			color: rgb(0,0,0)
+		symbol font:
+			name: yugioh-standard-levels
+			alignment: middle center
+			scale down to: 1
+			size: { if is_monster() then 7.5 else 15 }
+	############################# Image
+	image:
+		left: { if is_pendulum() then 28 else if styling.image_frame=="yes" then 44 else 51 }
+		top: { if is_pendulum() then 110 else if styling.image_frame=="yes" then 106 else 113 }
+		width: { if is_pendulum() then 364 else if styling.image_frame=="yes" then 333 else 320 }
+		height: { if is_pendulum() then ( if styling.pendulum_transparency=="yes" then ( if styling.pendulum_size=="more" then 363 else 347 ) else if styling.pendulum_transparency=="no" then ( if styling.pendulum_size=="less" then 293 else 273) ) else if styling.image_frame=="yes" then 333 else 320 }
+		z index: 1
+		mask: { if is_pendulum() then ( if styling.pendulum_transparency=="yes" then ( if styling.pendulum_size=="less" then "mask-p_less.png" else if styling.pendulum_size=="more" then "mask-p_more.png" else "mask-p.png" ) else ( if styling.pendulum_size=="less" then "mask-p_opaque_less.png" else "mask-p_opaque.png" ) ) else "" }
+	############################# Card type
+	monster type:
+		left: { 40 }
+		top : { if is_pendulum() and styling.pendulum_size=="more" then 476 else 462 }
+		width: { if styling.large_type=="yes" then card_style.monster_type.content_width + 8 else card_style.monster_type.content_width + 6 }
+		height: 15
+		alignment: middle left
+		z index: 2
+		font:
+			name: Yu-Gi-Oh!ITCStoneSerifSmallCaps
+			size: { if styling.large_type=="yes" then 13.1 else 11.4 }
+			color: rgb(0,0,0)
+		symbol font:
+			name: yugioh-text-replacements
+			alignment: middle center
+			size: 3.5
+		visible: script: if is_nmonster() then false else true
+	############################# Edition and Card ID
+	number:
+		left: { if card.card_type=="pendulum normal monster" or card.card_type=="pendulum effect monster" then 34 else 262 }
+		top : { if card.card_type=="pendulum normal monster" or card.card_type=="pendulum effect monster" then 561 else 440 }
+		width: 115
+		height: 15
+		z index: 2
+		alignment: { if card.card_type=="pendulum normal monster" or card.card_type=="pendulum effect monster" then "left middle" else "right middle" }
+		font:
+			name: Stone Serif
+			size: 8.5
+			color: { if card.card_type=="xyz monster" or card.card_type=="dark synchro monster" then rgb(255,255,255) else rgb(0,0,0) }
+	edition:
+		left: 78
+		top: 584
+		width: 150
+		height: 15
+		z index: 4
+		alignment: middle left
+		visible: true
+		font:
+			name: { if card.edition=="DUEL TERMINAL" then "BankGothic Md BT" else "Palatino Linotype" }
+			size: { if card.edition=="DUEL TERMINAL" then "11.5" else "9.5" }
+			color: { if card.card_type=="xyz monster" or card.card_type=="dark synchro monster" then rgb(255,255,255) else rgb(0,0,0) }
+	############################# Text box
+	rule text:
+		left: 32
+		top : { if is_nmonster() then 458 else if is_pendulum() then ( if styling.pendulum_size=="more" then ( if card.card_type=="pendulum normal monster" then 492 else 490 ) else ( if card.card_type=="pendulum normal monster" then 476 else 474 ) ) else if ( card.card_type=="normal monster" and styling.image_frame=="no" ) then 476 else 474 }
+		width: 356
+		height: { if is_nmonster() then 118 else if is_pendulum() and styling.pendulum_size=="more" then 65 else 82 }
+		font:
+			name: { if styling.bold_effect_text=="yes" then "Matrix-Bold" else "Yu-Gi-Oh! Matrix Book" }
+			italic name: { "Stone Serif Italic" }
+			size: { if is_nmonster() and styling.text_size=="large" then "11.8" else if is_nmonster() and styling.text_size=="small" then "11" else if styling.bold_effect_text=="yes" then "10" else if styling.text_size=="large" then "11.6" else "11" }
+			scale down to: 6
+			color: rgb(0,0,0)
+		symbol font:
+			name: yugioh-text-numbers
+			alignment: bottom center
+			size: 6
+		alignment: { if styling.rules_alignment=="justified" then "top left justify" else "top left" }
+		z index: 3
+		padding left: 1
+		padding top: 1
+		padding right: 0
+		padding bottom: 0
+		line height hard: { if is_nmonster() then 0.8 else if styling.text_size=="large" then 0.72 else 0.76 }
+		line height line: { if is_nmonster() then 0.8 else if styling.text_size=="large" then 0.72 else 0.76 }
+		line height soft: { if is_nmonster() then 0.8 else if styling.text_size=="large" then 0.72 else 0.76 }
+		line height hard max: { if styling.max_line_space=="yes" then 1 else if is_nmonster() then 0.8 else if styling.text_size=="large" then 0.72 else 0.76 }
+		line height soft max: { if styling.max_line_space=="yes" then 1 else if is_nmonster() then 0.8 else if styling.text_size=="large" then 0.72 else 0.76 }
+		line height line max: { if styling.max_line_space=="yes" then 1 else if is_nmonster() then 0.8 else if styling.text_size=="large" then 0.72 else 0.76 }
+	############################# Attack/Defense/Pendulum Scale/Spell Effect
+	attack:
+		left: 262
+		top: 558
+		width: 38
+		height: 18
+		z index: 2
+		alignment: right middle
+		font:
+			name: MatrixBoldFractions
+			italic name: Matrix-Bold
+			size: 14
+			color: rgb(0,0,0)
+		symbol font:
+			name: yugioh-text-replacements
+			alignment: middle center
+			size: 6
+		visible: { if is_nmonster() then false else true }
+	defense:
+		left: 348
+		top: 558
+		width: 38
+		height: 18
+		z index: 2
+		alignment: right middle
+		font:
+			name: MatrixBoldFractions
+			italic name: Matrix-Bold
+			size: 14
+			color: rgb(0,0,0)
+		symbol font:
+			name: yugioh-text-replacements
+			alignment: middle center
+			size: 6
+		visible: { if is_nmonster() then false else true }
+	pendulum text:
+		left: { if is_pendulum() then true and 65 }
+		top : { if is_pendulum() then true and ( if styling.pendulum_size=="less" then 406 else 384 ) }
+		width: { if is_pendulum() then true and 290 }
+		height: { if is_pendulum() then true and ( if styling.pendulum_size=="less" then 48 else if styling.pendulum_size=="more" then 84 else 69 ) }
+		visible: { is_pendulum() }
+		font:
+			name: Yu-Gi-Oh! Matrix Book
+			size: { if styling.pendulum_size=="less" then 10.4 else 9.7 }
+			#9.5 for regular, 6.9 for medium size
+			scale down to: 4
+			color: rgb(0,0,0)
+		symbol font:
+			name: yugioh-text-numbers
+			alignment: bottom center
+			size: 4
+		alignment: { if styling.pendulum_text_centering=="yes" then "middle left justify" else "top left justify" }
+		z index: 3
+		padding left: 1
+		padding top: 1
+		padding right: 1
+		padding bottom: 1
+		line height hard: 0.73
+		line height line: 0.73
+		line height soft: 0.73
+		line height hard max: { if styling.max_line_space=="yes" then 1 else 0.73 }
+		line height soft max: { if styling.max_line_space=="yes" then 1 else 0.73 }
+		line height line max: { if styling.max_line_space=="yes" then 1 else 0.73 }
+	blue scale:
+		left: { if is_pendulum() then true and 30 }
+		top: { if is_pendulum() then true and ( if styling.pendulum_size=="less" then 434 else if styling.pendulum_size=="more" then 431 else 424 ) }
+		width: { if is_pendulum() then true and 27 }
+		height: { if is_pendulum()  then true and 14 }
+		visible: { if is_pendulum() then true else false }
+		z index: 2
+		alignment: "middle center"
+		font:
+			name: MatrixBoldFractions
+			size: 22
+			color: rgb(30,30,30)
+	red scale:
+		left: { if is_pendulum() then true and 363 }
+		top: { if is_pendulum() then true and ( if styling.pendulum_size=="less" then 434 else if styling.pendulum_size=="more" then 431 else 424 ) }
+		width: { if is_pendulum() then true and 27 }
+		height: { if is_pendulum()  then true and 14 }
+		visible: { if is_pendulum() then true else false }
+		z index: 2
+		alignment: "middle center"
+		font:
+			name: MatrixBoldFractions
+			size: 22
+			color: rgb(30,30,30)
+	############################# Card sorting / numbering
+	############################# Copyright stuff
+	gamecode:
+		left: 20
+		top : 584
+		width: 57
+		height: 15
+		alignment: middle left
+		z index: 2
+		font:
+			name: Stone Serif
+			size: 8.5
+			color: { if card.card_type=="xyz monster" or card.card_type=="dark synchro monster" then rgb(255,255,255) else rgb(0,0,0) }
+	rarity:
+		left: 388
+		top : 580
+		height: 21
+		width: 21
+		z index: 3
+		render style: image
+		popup style: in place
+		choice images:
+			common: blank2.png
+			rare: blank2.png
+			super rare: blank2.png
+			ultra rare: blank2.png
+			secret rare: blank2.png
+			ghost rare: blank2.png
+			ultimate rare: blank2.png
+			parallel rare: blank2.png
+			gold rare: blank2.png
+			promo: blank2.png
+	corner foil:
+		left: 388
+		top : 580
+		height: 23
+		width: 23
+		z index: 2
+		render style: image list
+		choice images:
+			stamp:
+				script: if styling.disable_hologram=="yes" then "blank2.png" else if card.edition!="" then "cornerfirst.png" else "cornerunlimited.png"
+	copyright:
+		left: 230
+		top : 584
+		width: 150
+		height: 15
+		z index: 4
+		alignment: middle right
+		font:
+			name: Stone Serif
+			size: 8.5
+			color: { if card.card_type=="xyz monster" or card.card_type=="dark synchro monster" then rgb(255,255,255) else rgb(0,0,0) }
+############################################extra card field:
+extra card field:
+	type: choice
+	name: bar
+	choice: bar
+	editable: false
+extra card field:
+	type: choice
+	name: leftbracket
+	choice: lbracket
+	editable: false
+extra card field:
+	type: choice
+	name: rightbracket
+	choice: rbracket
+	editable: false
+extra card field:
+	type: text
+	name: atkoverlay
+	default: ""
+	editable: false
+extra card field:
+	type: text
+	name: defoverlay
+	default: ""
+	editable: false
+extra card field:
+	type: text
+	name: pendulum text
+	description: ¹=(1), ²=(2), ³=(3), £=(4), ¢=(5), ~=infinity, ?=question mark, *=dot
+	script: circled_numbers(value)
+	multi line: true
+	save value: true
+	show statistics: false
+extra card field:
+	type: text
+	name: blue scale
+	multi line: false
+	save value: true
+	show statistics: false
+extra card field:
+	type: text
+	name: red scale
+	multi line: false
+	save value: true
+	show statistics: false
+
+extra card style:
+	bar:
+		left: 33
+		top : 557
+		width: 355
+		height: 3
+		z index: 4
+		render style: image list
+		choice images:
+			bar: bar.png
+		visible: script: if is_nmonster() then false else true
+	leftbracket:
+		left: { if is_nmonster() then (359 - card_style.level.content_width) else 32 }
+		top : { if is_nmonster() then 80 else if styling.pendulum_size=="more" then 479 else if styling.large_type=="yes" then 464  else 464 }
+		width: { if is_nmonster() then 6 else 6 }
+		height: { if is_nmonster() then 19 else if styling.large_type=="yes" then 15 else 14 }
+		z index: 2
+		render style: image list
+		choice images:
+			lbracket: /yugioh-standard-levels.mse-symbol-font/leftbracket.png
+	rightbracket:
+		left: { if is_nmonster() then 372  else if styling.large_type=="yes" then (card_style.monster_type.content_width + 42) else (card_style.monster_type.content_width + 42) }
+		top : { if is_nmonster() then 80 else if styling.pendulum_size=="more" then 479 else if styling.large_type=="yes" then 464 else 464 }
+		width: { if is_nmonster() then 6 else 6 }
+		height: { if is_nmonster() then 19 else if styling.large_type=="yes" then 15  else 14 }
+		z index: 4
+		render style: image list
+		choice images:
+			rbracket: /yugioh-standard-levels.mse-symbol-font/rightbracket.png
+	atkoverlay:
+		left: { if card.card_type=="pendulum normal monster" or card.card_type=="pendulum effect monster" then 213 else 209 }
+		top: { if card.card_type=="pendulum normal monster" or card.card_type=="pendulum effect monster" then 562 else 558 }
+		width: 48
+		height: 18
+		z index: 2
+		alignment: right middle
+		font:
+			name: MatrixBoldSmallCaps
+			size: 14
+			color: rgb(0,0,0)
+		visible: script: if is_nmonster() then false else true
+	defoverlay:
+		left: { if card.card_type=="pendulum normal monster" or card.card_type=="pendulum effect monster" then 302 else 295 }
+		top: { if card.card_type=="pendulum normal monster" or card.card_type=="pendulum effect monster" then 562 else 558 }
+		width: 48
+		height: 18
+		z index: 2
+		alignment: right middle
+		font:
+			name: MatrixBoldSmallCaps
+			size: 14
+			color: rgb(0,0,0)
+		visible: script: if is_nmonster() then false else true
