@@ -40,7 +40,7 @@ Implémentation du jeu de carte Yu-Gi-Oh!
 #### Zone Duels
 
  - [ ] Interface Generale
-    - [ ] Rotation Partie adverse + inversion
+    - [ ] Rotation Partie adverse + inversion
  - [ ] Gestion (classe) parties
     - [ ] Solo
        - [ ] IA 1
