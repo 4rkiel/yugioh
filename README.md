@@ -33,12 +33,20 @@ Implémentation du jeu de carte Yu-Gi-Oh!
 
 #### Zone Duels
 
- - [ ]
+ - [ ] Interface Generale
+   - [ ] Rotation
+ - [ ] Gestion (classe) parties
+   - [ ] Solo
+     - [ ] IA 1
+   - [ ] Local
+   - [ ] Online
+ - [ ] Chargement des Decks
+ - [ ] Chargement des cartes
 
 
 #### Zone DeckBuild
 
- - [ ]
+ - [ ] 
 
 
 #### Zone Règles
