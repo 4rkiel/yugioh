@@ -41,6 +41,10 @@ Window::~Window (){
         case 5 :
             delete opt;
             break;
+
+        case 6 :
+            delete opt;
+            break;
     }
 
     delete stackedLayout;
@@ -55,6 +59,7 @@ void Window::introStack (){
     connect(intro, SIGNAL(appStack()), this, SLOT(appStack()));
     connect(intro, SIGNAL(ruleStack()), this, SLOT(ruleStack()));
     connect(intro, SIGNAL(optStack()), this, SLOT(optStack()));
+    connect(intro, SIGNAL(helpStack()), this, SLOT(helpStack()));
 
     stackedLayout -> addWidget(intro);
     stackedLayout -> setCurrentWidget(intro);
@@ -111,6 +116,20 @@ void Window::optStack (){
 }
 
 
+void Window::helpStack (){
+
+    help = new HelpTab;
+    connect(help, SIGNAL(introStack()), this, SLOT(introStack()));
+    stackedLayout -> addWidget(help);
+    stackedLayout -> setCurrentWidget(help);
+
+    cleanStack();
+
+    help -> init();
+    currentLayout = 6;
+}
+
+
 void Window::changeSettings(){
     readConfSettings();
 
@@ -158,6 +177,13 @@ void Window::cleanStack (){
  
             stackedLayout -> removeWidget(opt);
             delete opt;
+            
+            break;
+
+        case 6:
+ 
+            stackedLayout -> removeWidget(help);
+            delete help;
             
             break;
     }

@@ -34,6 +34,7 @@ HEADERS += inc/app.h \
            inc/main.h \
            inc/optab.h \
            inc/ruletab.h \
+           inc/helptab.h \
            inc/shadowButt.h \
            inc/sleeper.h
 SOURCES += src/app.cpp \
@@ -45,4 +46,5 @@ SOURCES += src/app.cpp \
            src/main.cpp \
            src/optab.cpp \
            src/ruletab.cpp \
+           src/helptab.cpp \
            src/shadowButt.cpp

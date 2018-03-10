@@ -62,10 +62,10 @@ Intro::Intro () {
             // Options Button
 
             QString strHelp = QString::fromUtf8("Aide");
-            options = new ShadowButt("\uf059", strHelp);
-            options -> setToolTip("Besoin d'aide ?");
-            //connect(options, SIGNAL(clicked()), this, SLOT(emitOpt()));
-            box -> addWidget(options);
+            help = new ShadowButt("\uf059", strHelp);
+            help -> setToolTip("Besoin d'aide ?");
+            connect(help, SIGNAL(clicked()), this, SLOT(emitHelp()));
+            box -> addWidget(help);
 
 
 
@@ -92,6 +92,7 @@ Intro::~Intro (){
     delete decks;
     delete rules;
     delete options;
+    delete help;
     delete quit;
 
     delete effect;
@@ -119,5 +120,9 @@ void Intro::emitRule (){
 
 void Intro::emitOpt (){
     emit optStack();
+}
+
+void Intro::emitHelp (){
+    emit helpStack();
 }
 

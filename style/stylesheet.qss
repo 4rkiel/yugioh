@@ -136,17 +136,20 @@ Intro ShadowButt {
     
 
 OptionTab, 
+HelpTab, 
 RuleTab {
     background: #E0F2F1;
     margin: 30px;
 }
 
 OptionTab #optionTab, 
+HelpTab #helpTab, 
 RuleTab #ruleTab {
     background: #B0BEC5;
 }
 
 OptionTab #optionTab .QPushButton,
+HelpTab #helpTab .QPushButton,
 RuleTab #ruleTab .QPushButton {
     border: none;
     outline: none;
@@ -160,12 +163,14 @@ RuleTab #ruleTab .QPushButton {
 }
 
 OptionTab #optionTab .QPushButton:focus,
+HelpTab #helpTab .QPushButton:focus,
 RuleTab #ruleTab .QPushButton:focus {
     padding: 15px 20px 10px;
     border-bottom: 5px solid #03A9F4;
 }
 
 OptionTab #optionTab .QPushButton[down="true"],
+HelpTab #helpTab .QPushButton[down="true"],
 RuleTab #ruleTab .QPushButton[down="true"] {
     color: #009688;
     padding: 15px 20px 10px;
@@ -173,6 +178,7 @@ RuleTab #ruleTab .QPushButton[down="true"] {
 }
 
 OptionTab #optionTab ShadowButt,
+HelpTab #helpTab ShadowButt,
 RuleTab #ruleTab ShadowButt {
     padding: 5px 10px;
     margin: 0 10px;
@@ -180,18 +186,21 @@ RuleTab #ruleTab ShadowButt {
 
 
 OptionTab #optBox > QScrollArea,
+HelpTab #helpBox > QScrollArea,
 RuleTab #ruleBox > QScrollArea {
     background: #E0F2F1;
     margin: 30px;
 }
 
 OptionTab #optBox > QScrollArea QWidget,
+HelpTab #helpBox > QScrollArea QWidget,
 RuleTab #ruleBox > QScrollArea QWidget {
     background: #E0F2F1;
 }
 
 
 OptionTab #optBox QLabel,
+HelpTab #helpBox QLabel,
 RuleTab #ruleBox QLabel {
     margin: 0 0 30px 0;
     padding: 0 0 30px 0;
@@ -199,6 +208,7 @@ RuleTab #ruleBox QLabel {
 }
 
 OptionTab #optBox QComboBox,
+HelpTab #helpBox QComboBox,
 RuleTab #ruleBox QComboBox {
     padding: 2px 30px 2px 10px;
 }

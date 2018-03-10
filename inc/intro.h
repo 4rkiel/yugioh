@@ -29,11 +29,13 @@ class Intro : public QFrame {
     void emitApp();
     void emitRule();
     void emitOpt();
+    void emitHelp();
 
     signals:
     void appStack();
     void ruleStack();
     void optStack();
+    void helpStack();
 
     private:
     QGridLayout * layout;
@@ -46,6 +48,7 @@ class Intro : public QFrame {
         ShadowButt * decks;
         ShadowButt * rules;
         ShadowButt * options;
+        ShadowButt * help;
         ShadowButt * quit;
 
 };

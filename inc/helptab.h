@@ -1,5 +1,5 @@
-#ifndef RUTAB
-#define RUTAB
+#ifndef HELPTAB
+#define HELPTAB
 
 #include <QWidget>
 #include <QFrame>
@@ -25,18 +25,18 @@
 
 #include "../inc/shadowButt.h"
 
-class RuleTab : public QFrame {
+class HelpTab : public QFrame {
 
     Q_OBJECT
     
     public:
-    RuleTab();
-    ~RuleTab();
+    HelpTab();
+    ~HelpTab();
     void init();
     void reInit();
 
     private:
-    QGraphicsDropShadowEffect * ruEffect;
+    QGraphicsDropShadowEffect * helpEffect;
     QGridLayout * layout;
 
     QWidget * tabBox;
@@ -44,42 +44,26 @@ class RuleTab : public QFrame {
 
     QPushButton * currButt;
 
-    QPushButton * persoButt;
-    QPushButton * rulesButt;
+    QPushButton * helpButt;
+    QPushButton * aboutButt;
     ShadowButt * exitButt;
 
-    QWidget * ruleBox;
-    QStackedLayout * ruleLayout;
+    QWidget * helpBox;
+    QStackedLayout * helpLayout;
 
-    QScrollArea * persoScroll;
-    QWidget * persoScrollBox;
-    QVBoxLayout * persoPaneLayout;
-/*
-        QCheckBox * shareChck;
-        QLabel * shareDesc;
+    QScrollArea * helpScroll;
+    QLabel * helpLabel; 
 
-        QComboBox * langInput;
-        QLabel * langDesc;
-
-        QLabel * shortcutDesc;
-*/
-
-    QScrollArea * ruleScroll;
-    QLabel * ruleLabel;
+    QScrollArea * aboutScroll;
+    QLabel * aboutLabel;
 
     void updateStyle(QPushButton * b);
-    void loadPersoSettings();
 
     public slots:
-    void setPerso();
-    void setRules();
+    void setHelp();
+    void setAbout();
     void emitClose();
-/*
-    void shareChange();   
-    void contrasteChange();
-    void achromaChange();
-    void largeChange();
-*/
+    
     signals:
     void introStack();
 };
