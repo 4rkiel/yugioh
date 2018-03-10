@@ -6,7 +6,7 @@ Card::Card (){
 
     posi = 0;
 
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
    
     layout = new QGridLayout;
 
@@ -23,7 +23,7 @@ Card::Card (){
     scene = new QGraphicsScene;
     view -> setScene(scene);
 
-    QGraphicsProxyWidget *proxy = new QGraphicsProxyWidget();
+    proxy = new QGraphicsProxyWidget();
     scene -> addItem(proxy);
 
     QLabel * lab = new QLabel("Azerty");
@@ -53,6 +53,11 @@ Card::Card (){
 
 Card::~Card (){
 
+    delete anim;
+    delete proxy;
+    delete scene;
+    delete view;
+    delete layout;
 }
 
 void Card::turnDef (){

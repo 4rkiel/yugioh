@@ -1,4 +1,5 @@
 #include "../inc/app.h"
+#include <iostream>
 
 
 App::App () {
@@ -84,15 +85,34 @@ App::App () {
 
         // Arena ..............................................................
 
+        arenaView = new QGraphicsView;
+        arenaView->setFrameStyle(0);
+        arenaView->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        arenaView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        arenaView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        arenaView->setStyleSheet("background: transparent");
+        arenaView->setCacheMode(QGraphicsView::CacheBackground);
+        arenaView->setRenderHints(
+                QPainter::Antialiasing|
+                QPainter::HighQualityAntialiasing|
+                QPainter::TextAntialiasing);
+
+        arenaScene = new QGraphicsScene;
+        
+        arenaProxy = new QGraphicsProxyWidget;
+
+
+
         arenaBox = new QWidget;
+        arenaBox->setStyleSheet("background: transparent");
         arenaBox -> setObjectName("arenaBox");
         arenaLayout = new QGridLayout;
 
                 // Opponent 
                 
             advBox = new QWidget;
-            advLayout = new QVBoxLayout;
-            advLayout -> setAlignment(Qt::AlignCenter);
+            advLayout = new QGridLayout;
+            //advLayout -> setAlignment(Qt::AlignCenter);
             advLayout -> setSpacing(0);
             advLayout -> setMargin(0);
 
@@ -120,7 +140,7 @@ App::App () {
                     advHandLayout -> addWidget(advHand6);
 
                 advHand -> setLayout(advHandLayout);
-                advLayout -> addWidget(advHand);
+                advLayout -> addWidget(advHand, 0,0,1,1);
 
                 advMagic = new QWidget;
                 advMagic -> setObjectName("advMagic");
@@ -144,7 +164,7 @@ App::App () {
                     advMagicLayout -> addWidget(advMagic6);
                
                 advMagic -> setLayout(advMagicLayout);
-                advLayout -> addWidget(advMagic);
+                advLayout -> addWidget(advMagic, 1,0,1,1);
 
                 advMonst = new QWidget;
                 advMonst -> setObjectName("advMonst");
@@ -168,19 +188,19 @@ App::App () {
                     advMonstLayout -> addWidget(advMonst6);
                           
                 advMonst -> setLayout(advMonstLayout);
-                advLayout -> addWidget(advMonst);
+                advLayout -> addWidget(advMonst,2,0,1,1);
 
             advBox -> setLayout(advLayout);
-            arenaLayout -> addWidget(advBox);
+            arenaLayout -> addWidget(advBox, 0,0,1,1);
 
                 
                 // Self
 
             slfBox = new QWidget;
-            slfLayout = new QVBoxLayout;
+            slfLayout = new QGridLayout;
             slfLayout -> setMargin(0);
             slfLayout -> setSpacing(0);
-            slfLayout -> setAlignment(Qt::AlignCenter);
+            //slfLayout -> setAlignment(Qt::AlignCenter);
             
                 slfMonst = new QWidget;
                 slfMonst -> setObjectName("slfMonst");
@@ -204,7 +224,7 @@ App::App () {
                     slfMonstLayout -> addWidget(slfMonst6);
                                      
                 slfMonst -> setLayout(slfMonstLayout);
-                slfLayout -> addWidget(slfMonst);
+                slfLayout -> addWidget(slfMonst, 0,0,1,1);
 
                 slfMagic = new QWidget;
                 slfMagic -> setObjectName("slfMagic");
@@ -228,7 +248,7 @@ App::App () {
                     slfMagicLayout -> addWidget(slfMagic6);
                 
                 slfMagic -> setLayout(slfMagicLayout);
-                slfLayout -> addWidget(slfMagic);
+                slfLayout -> addWidget(slfMagic, 1,0,1,1);
 
                 slfHand = new QWidget;
                 slfHand -> setObjectName("slfHand");
@@ -253,12 +273,17 @@ App::App () {
                     slfHandLayout -> addWidget(slfHand6);
                
                 slfHand -> setLayout(slfHandLayout);
-                slfLayout -> addWidget(slfHand);
+                slfLayout -> addWidget(slfHand, 2,0,1,1);
 
             slfBox -> setLayout(slfLayout);
-            arenaLayout -> addWidget(slfBox);
+            arenaLayout -> addWidget(slfBox, 1,0,1,1);
 
         arenaBox -> setLayout(arenaLayout);
+        arenaProxy -> setWidget(arenaBox);
+        arenaScene -> addItem(arenaProxy);
+        arenaView -> setScene(arenaScene);
+        
+
 
 
         // Right Bar ..........................................................
@@ -300,15 +325,19 @@ App::App () {
 
         rightBarBox -> setObjectName("rightBarBox");
         rightBarBox -> setLayout(rightBarLayout);
-    
+   
 
     sceneLayout -> addWidget(leftBarBox, 0, 0, 3, 1);
-    sceneLayout -> addWidget(arenaBox, 0, 1, 3, 5);
+    sceneLayout -> addWidget(arenaView, 0, 1, 3, 5);
     sceneLayout -> addWidget(rightBarBox, 0, 6, 3, 1);
     sceneBox -> setLayout(sceneLayout);
 
 
-
+    /**************************************************************************
+     *
+     *          Popup Menu
+     *
+     **************************************************************************/
 
     popupOuter = new QWidget;   
     popupOuter -> setVisible(false);
@@ -339,11 +368,6 @@ App::App () {
         popupBox -> setGraphicsEffect(popupEffect); 
 
 
-
-    
-        // TODO battle intro
-
-        
 
         // menu
 
@@ -389,6 +413,9 @@ App::App () {
     overLayout -> addWidget(popupOuter, 0, 0);
 
     this -> setLayout(overLayout);
+
+
+
 
 }
 
@@ -490,6 +517,10 @@ App::~App (){
         
         delete arenaLayout;
         delete arenaBox;
+        
+        //delete arenaProxy;
+        delete arenaScene;
+        delete arenaView;
 
             delete actionButt;
             delete lifeAdv;
@@ -520,3 +551,98 @@ void App::closeMenu (){
     menuButt -> setEnabled(true);
     menuButt -> setFocus();
 }
+
+
+void App::init(){
+
+    rotateXApp();
+
+    lastPosi = 0;
+
+    appThread = new QThread;
+    appTask = new AppTask;
+    appTask -> moveToThread(appThread);
+
+    connect( this, SIGNAL(askWait()), appTask, SLOT(appLoop()) );
+    connect( appTask, SIGNAL(newState()), this, SLOT(runNewState()) );
+    
+    connect( appThread, SIGNAL(finished()), appTask, SLOT(deleteLater()) );
+    connect( appThread, SIGNAL(finished()), appThread, SLOT(deleteLater()) );
+
+    appThread -> start();
+
+    emit askWait();
+}
+
+
+void AppTask::appLoop (){
+
+    Sleeper::msleep(42);
+
+    emit newState();
+}
+
+
+void App::runNewState (){
+
+    lastPosi = (lastPosi + 1)%360;
+
+    rotateYApp(lastPosi);
+
+    emit askWait();
+}
+
+
+void App::resizeEvent(QResizeEvent *){
+
+    rotateXApp();
+
+}
+
+
+void App::rotateXApp (){
+ 
+    arenaScene -> setSceneRect(
+                0, 0,
+                arenaView->width(), arenaView->height());
+ 
+    arenaBox -> setGeometry(
+            0,0,
+            arenaView->size().width(),arenaView->size().height());
+
+
+
+    QTransform matrix;
+    
+    matrix.translate(arenaBox -> width()/2, arenaBox -> height());
+    matrix.rotate(15, Qt::XAxis);
+    matrix.translate(-1 * arenaBox ->width()/2, -1 * arenaBox -> height());
+   
+    matrix.translate(arenaBox -> width()/2, arenaBox -> height()/2);
+    matrix.rotate(lastPosi, Qt::ZAxis);
+    matrix.translate(-1*arenaBox -> width()/2, -1*arenaBox -> height()/2);
+   
+    arenaProxy -> setTransform(matrix);
+
+}
+
+
+void App::rotateYApp (int x){
+ 
+    QTransform matrix;
+    
+    matrix.translate(arenaBox -> width()/2, arenaBox -> height());
+    matrix.rotate(15, Qt::XAxis);
+    matrix.translate(-1 * arenaBox ->width()/2, -1 * arenaBox -> height());
+    
+    matrix.translate(arenaBox -> width()/2, arenaBox -> height()/2);
+    matrix.rotate(x, Qt::ZAxis);
+    matrix.translate(-1*arenaBox -> width()/2, -1*arenaBox -> height()/2);
+   
+    arenaProxy -> setTransform(matrix);
+
+}
+
+
+
+

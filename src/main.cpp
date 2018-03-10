@@ -75,6 +75,7 @@ void Window::appStack (){
 
     cleanStack();
 
+    app -> init();
     currentLayout = 2;
 }
 

@@ -14,28 +14,66 @@
 #include <QLabel>
 
 #include <QGraphicsDropShadowEffect>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QGraphicsProxyWidget>
+#include <QPropertyAnimation>
+
+
+#include <QThread>
+
+#include "../inc/sleeper.h"
 
 #include "../inc/shadowButt.h"
 #include "../inc/appIndicator.h"
 #include "../inc/card.h"
 
-class App : public QFrame {
+
+class App;
+
+class AppTask : public QObject {
 
     Q_OBJECT
- 
+
+    public slots:
+    void appLoop();
+
+    signals:
+    void newState();
+
+};
+
+class App : public QWidget {
+
+    Q_OBJECT
+    //Q_PROPERTY(QTransform transfrom READ transform WRITE setTransform)
+
     public:
     App();
     ~App();
+    void init();
+    void resizeEvent(QResizeEvent *);
 
     public slots:
     void emitIntroStack();
     void openMenu();
     void closeMenu();
+    void runNewState();
 
     signals:
     void introStack();
+    void askWait();
+    void newState();
 
     private:
+    void rotateXApp();
+    void rotateYApp(int x);
+        
+    QThread * appThread;
+    AppTask * appTask;
+
+    int lastPosi;
+
     QGridLayout * overLayout;
     QWidget * sceneBox;
     QGridLayout * sceneLayout;
@@ -47,11 +85,16 @@ class App : public QFrame {
             AppIndicator * card;
             ShadowButt * actionButt;
 
+        QGraphicsView * arenaView;
+        QGraphicsScene * arenaScene;
+        QGraphicsProxyWidget * arenaProxy;
+        QPropertyAnimation * arenaAnim;
+        
         QWidget * arenaBox;
         QGridLayout * arenaLayout;
       
             QWidget * advBox;
-            QVBoxLayout * advLayout;
+            QGridLayout * advLayout;
                 
                 QWidget * advHand;
                 QHBoxLayout * advHandLayout;
@@ -87,7 +130,7 @@ class App : public QFrame {
                     Card * advMonst6;
                 
            QWidget * slfBox;
-           QVBoxLayout * slfLayout;
+           QGridLayout * slfLayout;
 
                 QWidget * slfMonst; 
                 QHBoxLayout * slfMonstLayout; 
