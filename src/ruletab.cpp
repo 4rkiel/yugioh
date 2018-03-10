@@ -6,52 +6,49 @@ RuleTab::RuleTab (){
     layout -> setSpacing(0);
     layout -> setMargin(0);
     
-    optEffect = new QGraphicsDropShadowEffect(this);
-    optEffect -> setBlurRadius(5);
-    optEffect -> setXOffset(0);
-    optEffect -> setYOffset(5);
-    optEffect -> setColor(QColor(0,0,0,150));
+    ruEffect = new QGraphicsDropShadowEffect(this);
+    ruEffect -> setBlurRadius(5);
+    ruEffect -> setXOffset(0);
+    ruEffect -> setYOffset(5);
+    ruEffect -> setColor(QColor(0,0,0,150));
 
-    setGraphicsEffect(optEffect);
+    setGraphicsEffect(ruEffect);
 
         // Tab box ............................................................
 
         tabBox = new QWidget;
-        tabBox -> setObjectName("optionTab");
+        tabBox -> setObjectName("ruleTab");
         tabLayout = new QGridLayout;
         tabLayout -> setSpacing(0);
         tabLayout -> setMargin(0);
   
             exitButt = new ShadowButt("\uf00d", "");
-            exitButt -> setToolTip("Fermer les paramètres");
+            exitButt -> setToolTip("Fermer les règles");
             connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));
             
             tabLayout -> addWidget(exitButt, 0, 4, 1, 1);
 
 
+            persoButt = new QPushButton;
+            persoButt -> setText("Personnalisation");
+            persoButt -> setProperty("down", true);
+            connect(persoButt, SIGNAL(clicked()), this, SLOT(setPerso()));
 
-            optionButt = new QPushButton;
-            optionButt -> setText("Options");
-            optionButt -> setProperty("down", true);
-            connect(optionButt, SIGNAL(clicked()), this, SLOT(setOption()));
-            tabLayout -> addWidget(optionButt, 0, 0, 1, 1);
+            tabLayout -> addWidget(persoButt, 0, 0, 1, 1);
             
 
-            accessButt = new QPushButton;
-            accessButt -> setText("Accessibilité");
-            accessButt -> setProperty("down", false);
-            connect(accessButt, SIGNAL(clicked()), this, SLOT(setAccess()));
-            tabLayout -> addWidget(accessButt, 0, 1, 1, 1);
+            rulesButt = new QPushButton;
+            rulesButt -> setText("Règles du Jeu");
+            rulesButt -> setProperty("down", false);
+            connect(rulesButt, SIGNAL(clicked()), this, SLOT(setRules()));
+            
+            tabLayout -> addWidget(rulesButt, 0, 1, 1, 1);
 
-            aboutButt = new QPushButton;
-            aboutButt -> setText("A Propos");
-            aboutButt -> setProperty("down", false);
-            connect(aboutButt, SIGNAL(clicked()), this, SLOT(setAbout()));
-            tabLayout -> addWidget(aboutButt, 0, 2, 1, 1);
 
             QSpacerItem * spacerButt = new QSpacerItem(1,1,
                     QSizePolicy::Expanding,QSizePolicy::Preferred);
-            tabLayout -> addItem(spacerButt, 0, 3);
+            
+            tabLayout -> addItem(spacerButt, 0, 2);
 
         tabBox -> setLayout(tabLayout);
 
@@ -62,40 +59,41 @@ RuleTab::RuleTab (){
 
         // Label Box ..........................................................
 
-        optBox = new QWidget;
-        optBox -> setObjectName("optBox");
+        ruleBox = new QWidget;
+        ruleBox -> setObjectName("ruleBox");
         
-        optionLayout = new QStackedLayout;
-        optionLayout -> setSpacing(0);
-        optionLayout -> setMargin(0);
+        ruleLayout = new QStackedLayout;
+        ruleLayout -> setSpacing(0);
+        ruleLayout -> setMargin(0);
 
 
-            // Options ........................................................
+            // Personnalisation ...............................................
 
-            optionScroll = new QScrollArea;
-            optionScroll -> setFrameShape(QFrame::NoFrame);
-            optionScroll -> setWidgetResizable(true);
-            optionScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            optionScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-            optionScroll -> setFocusPolicy(Qt::NoFocus);
+            persoScroll = new QScrollArea;
+            persoScroll -> setFrameShape(QFrame::NoFrame);
+            persoScroll -> setWidgetResizable(true);
+            persoScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            persoScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+            persoScroll -> setFocusPolicy(Qt::NoFocus);
 
-            optionScrollBox = new QWidget;
-            optPaneLayout = new QVBoxLayout;
-            optPaneLayout -> setAlignment(Qt::AlignTop);
+            persoScrollBox = new QWidget;
+            persoPaneLayout = new QVBoxLayout;
+            persoPaneLayout -> setAlignment(Qt::AlignTop);
 
+            /*
                 // Share
                 
                 shareChck = new QCheckBox;
                 shareChck -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
                 shareChck -> setText("Partage");
                 connect(shareChck, SIGNAL(toggled(bool)), this, SLOT(shareChange())); 
-                optPaneLayout -> addWidget(shareChck);
+                persoPaneLayout -> addWidget(shareChck);
 
                 shareDesc = new QLabel;
-                shareDesc -> setWordWrap(true);
+                shareDesc -> setWordWrap(tperse);
                 shareDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
                 shareDesc -> setText("Partage les données d'utilisation");
-                optPaneLayout -> addWidget(shareDesc);
+                persoPaneLayout -> addWidget(shareDesc);
 
 
                 // Langage
@@ -104,113 +102,47 @@ RuleTab::RuleTab (){
                 langInput -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
                 langInput -> addItem("Français");
                 langInput -> addItem("English");
-                optPaneLayout -> addWidget(langInput);
+                persoPaneLayout -> addWidget(langInput);
 
                 langDesc = new QLabel;
                 langDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
                 langDesc -> setText("Langue de l'interface");
-                optPaneLayout -> addWidget(langDesc);
+                persoPaneLayout -> addWidget(langDesc);
 
                 // Shortcut
 
                 shortcutDesc = new QLabel;
                 shortcutDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
                 shortcutDesc -> setText("Raccourcis Clavier");
-                optPaneLayout -> addWidget(shortcutDesc);
+                persoPaneLayout -> addWidget(shortcutDesc);
             
-
+            */
+//
                 // load settings
 
-                loadOptSettings();
+                loadPersoSettings();
 
 
-            optionScrollBox -> setLayout(optPaneLayout); 
-            optionScroll -> setWidget(optionScrollBox);
+            persoScrollBox -> setLayout(persoPaneLayout); 
+            persoScroll -> setWidget(persoScrollBox);
 
-            optionLayout -> addWidget(optionScroll);
+            ruleLayout -> addWidget(persoScroll);
 
-            
-            // Accessibility ..................................................
-
-            accessScroll = new QScrollArea;
-            accessScroll -> setFrameShape(QFrame::NoFrame);
-            accessScroll -> setWidgetResizable(true);
-            accessScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            accessScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-            accessScroll -> setFocusPolicy(Qt::NoFocus);
-
-            accessScrollBox = new QWidget;
-            accPaneLayout = new QVBoxLayout;
-            accPaneLayout -> setAlignment(Qt::AlignTop);
-
-             
-                // Large text
-                
-                largeChck = new QCheckBox;
-                largeChck -> setText("Large texte");
-                connect(largeChck, SIGNAL(toggled(bool)), this, SLOT(largeChange())); 
-                accPaneLayout -> addWidget(largeChck);
-
-                largeDesc = new QLabel;
-                largeDesc -> setWordWrap(true);
-                largeDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
-                largeDesc -> setText("Textes de grande taille");
-                accPaneLayout -> addWidget(largeDesc);
-
-
-                // Contraste
-                
-                contrasteChck = new QCheckBox;
-                contrasteChck -> setText("Contraste élevé");
-                connect(contrasteChck, SIGNAL(toggled(bool)), this, SLOT(contrasteChange())); 
-                accPaneLayout -> addWidget(contrasteChck);
-
-                contrasteDesc = new QLabel;
-                contrasteDesc -> setWordWrap(true);
-                contrasteDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
-                contrasteDesc -> setText("Augmenter les contrastes de l'application");
-                accPaneLayout -> addWidget(contrasteDesc);
-
-
-                // Achromatopsie
-                
-                achromaChck = new QCheckBox;
-                achromaChck -> setText("Couleurs pour Dyschromatopsie");
-                connect(achromaChck, SIGNAL(toggled(bool)), this, SLOT(achromaChange())); 
-                accPaneLayout -> addWidget(achromaChck);
-
-                achromaDesc = new QLabel;
-                achromaDesc -> setWordWrap(true);
-                achromaDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
-                achromaDesc -> setText("Adapter l'affichage des couleurs");
-                accPaneLayout -> addWidget(achromaDesc);
-
-               
-
-                // load settings
-
-                loadAccSettings();
-
-
-            accessScrollBox -> setLayout(accPaneLayout); 
-            accessScroll -> setWidget(accessScrollBox);
-
-
-            optionLayout -> addWidget(accessScroll);
+           
 
 
             // About ..........................................................
 
-            aboutScroll = new QScrollArea;
-            aboutScroll -> setFrameShape(QFrame::NoFrame);
-            aboutScroll -> setWidgetResizable(true);
-            aboutScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            aboutScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+            ruleScroll = new QScrollArea;
+            ruleScroll -> setFrameShape(QFrame::NoFrame);
+            ruleScroll -> setWidgetResizable(true);
+            ruleScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            ruleScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
  
 
-                aboutLabel = new QLabel;
+                ruleLabel = new QLabel;
 
-                    QFile file("i18n/fr_FR/about.text");
+                    QFile file("i18n/fr_FR/rules.text");
 
                     QString text = "";
                     QString line;
@@ -223,23 +155,22 @@ RuleTab::RuleTab (){
                     }
                     file.close();
 
-                aboutLabel -> setText(text);
-                aboutLabel -> setWordWrap(true);
-                aboutLabel -> setTextInteractionFlags(Qt::TextSelectableByMouse);
-                aboutLabel->setTextFormat(Qt::RichText);
-                aboutLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
-                aboutLabel->setOpenExternalLinks(true);
+                ruleLabel -> setText(text);
+                ruleLabel -> setWordWrap(true);
+                ruleLabel -> setTextInteractionFlags(Qt::TextSelectableByMouse);
+                ruleLabel->setTextFormat(Qt::RichText);
+                ruleLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+                ruleLabel->setOpenExternalLinks(true);
 
-                aboutScroll -> setWidget(aboutLabel);
-
+            ruleScroll -> setWidget(ruleLabel);
             
-            optionLayout -> addWidget(aboutScroll);
+            ruleLayout -> addWidget(ruleScroll);
 
 
-        optionLayout -> setCurrentWidget(optionScroll);
-        optBox -> setLayout(optionLayout);
+        ruleLayout -> setCurrentWidget(persoScroll);
+        ruleBox -> setLayout(ruleLayout);
 
-    layout -> addWidget(optBox, 1, 0, 1, 2);
+    layout -> addWidget(ruleBox, 1, 0, 1, 2);
 
     setLayout(layout);
 
@@ -248,93 +179,62 @@ RuleTab::RuleTab (){
 
 RuleTab::~RuleTab (){
 
-    delete optEffect;
+    delete ruEffect;
 
-    delete aboutLabel;
-    delete aboutScroll;
+    delete ruleLabel;
+    delete ruleScroll;
 
-        delete contrasteChck;
-        delete contrasteDesc;
-
-        delete achromaChck;
-        delete achromaDesc;
-        
-        delete largeChck;
-        delete largeDesc;
-
-
-    delete accPaneLayout;
-    delete accessScrollBox;
-    delete accessScroll;
-
-        delete shareChck;
-        delete shareDesc;
-
-        delete langInput;
-        delete langDesc;
-
-        delete shortcutDesc;
-
-    delete optPaneLayout;
-    delete optionScrollBox;
-    delete optionScroll;
+    delete persoPaneLayout;
+    delete persoScrollBox;
+    delete persoScroll;
 
         delete exitButt;
-        delete aboutButt;
-        delete accessButt;
-        delete optionButt;
+        delete rulesButt;
+        delete persoButt;
     
     delete tabLayout;
     delete tabBox;
-    delete optionLayout;
+    delete ruleLayout;
 
-    delete optBox;
+    delete ruleBox;
 
     delete layout;
 }
 
+
 void RuleTab::init (){
 
-    currButt = optionButt;
-    optionButt -> setFocus();
+    currButt = persoButt;
+    persoButt -> setFocus();
+}
+
+void RuleTab::reInit (){
+
+    updateStyle(currButt);
 }
 
 
-void RuleTab::setOption (){
+void RuleTab::setRules (){
 
-    currButt -> setProperty("down", false);
-    optionButt -> setProperty("down", true);
+    updateStyle(rulesButt);
 
-    updateStyle(optionButt);
-
-        optionLayout -> setCurrentWidget(optionScroll);
+        ruleLayout -> setCurrentWidget(ruleScroll);
     }
 
 
-void RuleTab::setAccess (){
- 
-    currButt -> setProperty("down", false);
-    accessButt -> setProperty("down", true);
-   
-    updateStyle(accessButt);
-    
-    optionLayout -> setCurrentWidget(accessScroll);
-}
+void RuleTab::setPerso (){
 
+    updateStyle(persoButt);
 
-void RuleTab::setAbout (){
- 
-    currButt -> setProperty("down", false);
-    aboutButt -> setProperty("down", true);
-
-    updateStyle(aboutButt);
-
-    optionLayout -> setCurrentWidget(aboutScroll);
+    ruleLayout -> setCurrentWidget(persoScroll);
 }
 
 
 void RuleTab::updateStyle (QPushButton * b){
-    
+     
+    currButt -> setProperty("down", false);
+    b -> setProperty("down", true);
+
     currButt -> style() -> unpolish(currButt);
     currButt -> style() -> polish(currButt);
     
@@ -351,36 +251,17 @@ void RuleTab::emitClose (){
 }
 
 
-void RuleTab::loadAccSettings (){
-
-    QSettings settings;
-
-    if (settings.value("contraste", Qt::Unchecked).toBool()){
-        contrasteChck -> setCheckState(Qt::Checked);
-    }
-
-    if (settings.value("achroma", Qt::Unchecked).toBool()){
-        achromaChck -> setCheckState(Qt::Checked);
-    }
-
-    if (settings.value("large", Qt::Unchecked).toBool()){
-        largeChck -> setCheckState(Qt::Checked);
-    }
-
-}
-
-
-void RuleTab::loadOptSettings (){
-
+void RuleTab::loadPersoSettings (){
+/*
     QSettings settings;
     
     if (settings.value("share", Qt::Unchecked).toBool()){
         shareChck -> setCheckState(Qt::Checked);
     }
-
+*/
 }
 
-
+/*
 void RuleTab::shareChange (){
 
     QSettings settings;
@@ -411,5 +292,5 @@ void RuleTab::largeChange (){
     settings.setValue("large", largeChck -> isChecked());
 }
 
-
+*/
 

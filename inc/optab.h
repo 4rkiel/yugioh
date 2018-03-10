@@ -33,6 +33,7 @@ class OptionTab : public QFrame {
     OptionTab();
     ~OptionTab();
     void init();
+    void reInit();
 
     private:
     QGraphicsDropShadowEffect * optEffect;

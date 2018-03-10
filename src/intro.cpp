@@ -59,6 +59,16 @@ Intro::Intro () {
             box -> addWidget(options);
 
 
+            // Options Button
+
+            QString strHelp = QString::fromUtf8("Aide");
+            options = new ShadowButt("\uf059", strHelp);
+            options -> setToolTip("Besoin d'aide ?");
+            //connect(options, SIGNAL(clicked()), this, SLOT(emitOpt()));
+            box -> addWidget(options);
+
+
+
             // Quit Button
 
             QString strQuit = QString::fromUtf8("Quitter");

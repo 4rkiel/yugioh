@@ -2,6 +2,8 @@
 
 Window::Window () {
 
+    currentLayout = 0;
+    
     readSizeSettings();
     readConfSettings();
 
@@ -14,7 +16,6 @@ Window::Window () {
     stackedLayout -> addWidget(generique);
     setLayout(stackedLayout);
     
-    currentLayout = 0;
 }
 
     
@@ -112,6 +113,12 @@ void Window::optStack (){
 
 void Window::changeSettings(){
     readConfSettings();
+
+    if (currentLayout == 4){
+        rule -> reInit();
+    } else if (currentLayout == 5){
+        opt -> reInit();
+    }
 }
 
 

@@ -30,7 +30,7 @@ ShadowButt::ShadowButt (QString icoStr, QString textStr){
 
     // Button shadow
 
-    effectButt = new QGraphicsDropShadowEffect(this);
+    effectButt = new QGraphicsDropShadowEffect;
     effectButt -> setBlurRadius(5);
     effectButt -> setYOffset(5);
     effectButt -> setXOffset(0);
@@ -119,7 +119,7 @@ void ShadowButt::runNewState (){
 
 		if (lastPosi == 0){
 			
-	        setGraphicsEffect(NULL);
+            effectButt -> setColor(QColor(0,0,0,0));
 
 		} else {
 
@@ -137,11 +137,8 @@ void ShadowButt::runNewState (){
 
 		if (lastPosi == 1){
 
-            effectButt = new QGraphicsDropShadowEffect;
-            effectButt -> setXOffset(0);
             effectButt -> setColor(QColor(0,0,0,150));
 
-            setGraphicsEffect(effectButt);
 		}
 
 		effectButt -> setBlurRadius(lastPosi);

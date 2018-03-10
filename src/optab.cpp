@@ -299,11 +299,11 @@ void OptionTab::init (){
     optionButt -> setFocus();
 }
 
+void OptionTab::reInit(){
+    updateStyle(currButt);
+}
 
 void OptionTab::setOption (){
-
-    currButt -> setProperty("down", false);
-    optionButt -> setProperty("down", true);
 
     updateStyle(optionButt);
 
@@ -313,9 +313,6 @@ void OptionTab::setOption (){
 
 void OptionTab::setAccess (){
  
-    currButt -> setProperty("down", false);
-    accessButt -> setProperty("down", true);
-   
     updateStyle(accessButt);
     
     optionLayout -> setCurrentWidget(accessScroll);
@@ -324,9 +321,6 @@ void OptionTab::setAccess (){
 
 void OptionTab::setAbout (){
  
-    currButt -> setProperty("down", false);
-    aboutButt -> setProperty("down", true);
-
     updateStyle(aboutButt);
 
     optionLayout -> setCurrentWidget(aboutScroll);
@@ -334,7 +328,10 @@ void OptionTab::setAbout (){
 
 
 void OptionTab::updateStyle (QPushButton * b){
-    
+
+    currButt -> setProperty("down", false);
+    b -> setProperty("down", true);
+
     currButt -> style() -> unpolish(currButt);
     currButt -> style() -> polish(currButt);
     

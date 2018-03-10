@@ -394,9 +394,6 @@ App::App () {
 
 
 
-            
-
-
         menuBox -> setLayout(menuLayout);
         
         menuOuterLayout -> addWidget(menuBox);

@@ -416,8 +416,8 @@ obj/moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 compiler_moc_header_make_all: obj/moc_app.cpp obj/moc_appIndicator.cpp obj/moc_card.cpp obj/moc_generique.cpp obj/moc_genProgress.cpp obj/moc_intro.cpp obj/moc_main.cpp obj/moc_optab.cpp obj/moc_ruletab.cpp obj/moc_shadowButt.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) obj/moc_app.cpp obj/moc_appIndicator.cpp obj/moc_card.cpp obj/moc_generique.cpp obj/moc_genProgress.cpp obj/moc_intro.cpp obj/moc_main.cpp obj/moc_optab.cpp obj/moc_ruletab.cpp obj/moc_shadowButt.cpp
-obj/moc_app.cpp: inc/shadowButt.h \
-		inc/sleeper.h \
+obj/moc_app.cpp: inc/sleeper.h \
+		inc/shadowButt.h \
 		inc/appIndicator.h \
 		inc/card.h \
 		inc/app.h \
@@ -456,8 +456,8 @@ obj/moc_intro.cpp: inc/shadowButt.h \
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) --include obj/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ark/qt/yugioh -I/home/ark/qt/yugioh -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include inc/intro.h -o obj/moc_intro.cpp
 
 obj/moc_main.cpp: inc/app.h \
-		inc/shadowButt.h \
 		inc/sleeper.h \
+		inc/shadowButt.h \
 		inc/appIndicator.h \
 		inc/card.h \
 		inc/intro.h \
@@ -505,8 +505,8 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 ####### Compile
 
 obj/app.o: src/app.cpp inc/app.h \
-		inc/shadowButt.h \
 		inc/sleeper.h \
+		inc/shadowButt.h \
 		inc/appIndicator.h \
 		inc/card.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/app.o src/app.cpp
@@ -533,8 +533,8 @@ obj/intro.o: src/intro.cpp inc/intro.h \
 
 obj/main.o: src/main.cpp inc/main.h \
 		inc/app.h \
-		inc/shadowButt.h \
 		inc/sleeper.h \
+		inc/shadowButt.h \
 		inc/appIndicator.h \
 		inc/card.h \
 		inc/intro.h \

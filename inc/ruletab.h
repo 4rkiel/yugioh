@@ -33,9 +33,10 @@ class RuleTab : public QFrame {
     RuleTab();
     ~RuleTab();
     void init();
+    void reInit();
 
     private:
-    QGraphicsDropShadowEffect * optEffect;
+    QGraphicsDropShadowEffect * ruEffect;
     QGridLayout * layout;
 
     QWidget * tabBox;
@@ -43,18 +44,17 @@ class RuleTab : public QFrame {
 
     QPushButton * currButt;
 
-    QPushButton * optionButt;
-    QPushButton * accessButt;
-    QPushButton * aboutButt;
+    QPushButton * persoButt;
+    QPushButton * rulesButt;
     ShadowButt * exitButt;
 
-    QWidget * optBox;
-    QStackedLayout * optionLayout;
+    QWidget * ruleBox;
+    QStackedLayout * ruleLayout;
 
-    QScrollArea * optionScroll;
-    QWidget * optionScrollBox;
-    QVBoxLayout * optPaneLayout;
-
+    QScrollArea * persoScroll;
+    QWidget * persoScrollBox;
+    QVBoxLayout * persoPaneLayout;
+/*
         QCheckBox * shareChck;
         QLabel * shareDesc;
 
@@ -62,39 +62,24 @@ class RuleTab : public QFrame {
         QLabel * langDesc;
 
         QLabel * shortcutDesc;
-    
-    QScrollArea * accessScroll;
-    QWidget * accessScrollBox;
-    QVBoxLayout * accPaneLayout;
+*/
 
-        QCheckBox * contrasteChck;
-        QLabel * contrasteDesc;
-
-        QCheckBox * achromaChck;
-        QLabel * achromaDesc;
-
-        QCheckBox * largeChck;
-        QLabel * largeDesc;
-
-    QScrollArea * aboutScroll;
-    QLabel * aboutLabel;
+    QScrollArea * ruleScroll;
+    QLabel * ruleLabel;
 
     void updateStyle(QPushButton * b);
-    void loadOptSettings();
-    void loadAccSettings();
-
+    void loadPersoSettings();
 
     public slots:
-    void setOption();
-    void setAccess();
-    void setAbout();
+    void setPerso();
+    void setRules();
     void emitClose();
-
+/*
     void shareChange();   
     void contrasteChange();
     void achromaChange();
     void largeChange();
-
+*/
     signals:
     void introStack();
 };
