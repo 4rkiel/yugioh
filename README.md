@@ -33,15 +33,14 @@ Implémentation du jeu de carte Yu-Gi-Oh!
  - [x] Écran de chargement
  - [x] Menu Principal
    - [ ] Menu Selection Jeu (Solo / Local / Online)
-   - [ ] Menu Aide
- - [ ] Indications
+ - [ ] Indications (replace tooltip, everywhere)
 
 
 #### Zone Duels
 
  - [ ] Interface Generale
     - [ ] Rotation Partie adverse + inversion
- - [ ] Gestion (classe) parties
+ - [ ] Gestion des parties
     - [ ] Solo
        - [ ] IA 1
     - [ ] Local
@@ -61,19 +60,22 @@ Implémentation du jeu de carte Yu-Gi-Oh!
 
 #### Zone Règles
 
- - [ ] Sous-Zone Edition
- - [ ] Sous-Zone "Lire les règles officielles"
+ - [x] Sous-Zone Edition
+    - [ ] Listage des règles modifiables
+    - [ ] Création des règles modifiables
+ - [x] Sous-Zone "Lire les règles officielles"
 
 
 #### Zone Paramètres
 
- - [ ] Enlever "A Propos"
+ - [x] Enlever "A Propos"
  - [ ] Deplacement "Raccourcis"
 
 
 #### Zone Aide
 
-   - [ ] Rajout "A Propos"
+   - [x] Rajout "A Propos"
+   - [ ] Création de l'aide (help.text)
 
 
 
