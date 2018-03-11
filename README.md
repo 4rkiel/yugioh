@@ -13,6 +13,13 @@ Implémentation du jeu de carte Yu-Gi-Oh!
 :warning: La cohérence du design sera mise en place progressivement, une fois les élements développés et stables. Attention toutefois à réutiliser les élements de GUI déjà réimplémentés le plus souvent possible, par soucis de cohérence (voir tableau ci-dessous).
 
 
+## Actuellement en Zone Critique
+
+ - [ ] Création du type carte
+ - [ ] Elaboration du système de "commandes de jeu" (ex: pour que la carte X attaque la carte Y ou que la carte X active son effet Y), avec code. En lien avec le tranzit de ces commandes sur le réseau.
+
+
+
 ## TODO List
 
 #### Projet Général
@@ -39,7 +46,8 @@ Implémentation du jeu de carte Yu-Gi-Oh!
 #### Zone Duels
 
  - [ ] Interface Generale
-    - [ ] Rotation Partie adverse + inversion
+    - [x] Rotation Partie adverse + inversion
+    - [ ] Confirmation lors de l'abandon
  - [ ] Gestion des parties
     - [ ] Solo
        - [ ] IA 1
