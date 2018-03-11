@@ -46,7 +46,6 @@ class OptionTab : public QFrame {
 
     QPushButton * optionButt;
     QPushButton * accessButt;
-    QPushButton * aboutButt;
     ShadowButt * exitButt;
 
     QWidget * optBox;
@@ -77,9 +76,6 @@ class OptionTab : public QFrame {
         QCheckBox * largeChck;
         QLabel * largeDesc;
 
-    QScrollArea * aboutScroll;
-    QLabel * aboutLabel;
-
     void updateStyle(QPushButton * b);
     void loadOptSettings();
     void loadAccSettings();
@@ -88,7 +84,6 @@ class OptionTab : public QFrame {
     public slots:
     void setOption();
     void setAccess();
-    void setAbout();
     void emitClose();
 
     void shareChange();   

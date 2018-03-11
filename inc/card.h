@@ -29,7 +29,8 @@ class Card : public QPushButton {
     QGraphicsScene * scene;
     QGraphicsProxyWidget * proxy;
 
-    QPropertyAnimation * anim;
+    QPropertyAnimation * rotAnim;
+    QPropertyAnimation * scaleAnim;
 };
 
 

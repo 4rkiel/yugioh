@@ -43,15 +43,9 @@ OptionTab::OptionTab (){
             connect(accessButt, SIGNAL(clicked()), this, SLOT(setAccess()));
             tabLayout -> addWidget(accessButt, 0, 1, 1, 1);
 
-            aboutButt = new QPushButton;
-            aboutButt -> setText("A Propos");
-            aboutButt -> setProperty("down", false);
-            connect(aboutButt, SIGNAL(clicked()), this, SLOT(setAbout()));
-            tabLayout -> addWidget(aboutButt, 0, 2, 1, 1);
-
             QSpacerItem * spacerButt = new QSpacerItem(1,1,
                     QSizePolicy::Expanding,QSizePolicy::Preferred);
-            tabLayout -> addItem(spacerButt, 0, 3);
+            tabLayout -> addItem(spacerButt, 0, 2);
 
         tabBox -> setLayout(tabLayout);
 
@@ -199,43 +193,6 @@ OptionTab::OptionTab (){
             optionLayout -> addWidget(accessScroll);
 
 
-            // About ..........................................................
-
-            aboutScroll = new QScrollArea;
-            aboutScroll -> setFrameShape(QFrame::NoFrame);
-            aboutScroll -> setWidgetResizable(true);
-            aboutScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            aboutScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
- 
-
-                aboutLabel = new QLabel;
-
-                    QFile file("i18n/fr_FR/about.text");
-
-                    QString text = "";
-                    QString line;
-                    if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
-                        QTextStream stream(&file);
-                        while (!stream.atEnd()){
-                            line = stream.readLine();
-                            text = text + line + "\n";
-                        }
-                    }
-                    file.close();
-
-                aboutLabel -> setText(text);
-                aboutLabel -> setWordWrap(true);
-                aboutLabel -> setTextInteractionFlags(Qt::TextSelectableByMouse);
-                aboutLabel->setTextFormat(Qt::RichText);
-                aboutLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
-                aboutLabel->setOpenExternalLinks(true);
-
-                aboutScroll -> setWidget(aboutLabel);
-
-            
-            optionLayout -> addWidget(aboutScroll);
-
-
         optionLayout -> setCurrentWidget(optionScroll);
         optBox -> setLayout(optionLayout);
 
@@ -249,9 +206,6 @@ OptionTab::OptionTab (){
 OptionTab::~OptionTab (){
 
     delete optEffect;
-
-    delete aboutLabel;
-    delete aboutScroll;
 
         delete contrasteChck;
         delete contrasteDesc;
@@ -280,7 +234,6 @@ OptionTab::~OptionTab (){
     delete optionScroll;
 
         delete exitButt;
-        delete aboutButt;
         delete accessButt;
         delete optionButt;
     
@@ -316,14 +269,6 @@ void OptionTab::setAccess (){
     updateStyle(accessButt);
     
     optionLayout -> setCurrentWidget(accessScroll);
-}
-
-
-void OptionTab::setAbout (){
- 
-    updateStyle(aboutButt);
-
-    optionLayout -> setCurrentWidget(aboutScroll);
 }
 
 
