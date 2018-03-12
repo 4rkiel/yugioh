@@ -43,7 +43,7 @@ class AppTask : public QObject {
 
 };
 
-class App : public QWidget {
+class App : public QFrame {
 
     Q_OBJECT
     //Q_PROPERTY(QTransform transfrom READ transform WRITE setTransform)

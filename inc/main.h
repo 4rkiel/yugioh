@@ -22,7 +22,7 @@ class Window : public QWidget {
     Q_OBJECT
 
     public:
-    Window();
+    Window(QApplication * a);
     ~Window();
 
     private slots:
@@ -35,6 +35,7 @@ class Window : public QWidget {
 
     private:
     int currentLayout;
+    QApplication * a;
     QStackedLayout * stackedLayout;
     Generique * generique;
     Intro * intro;

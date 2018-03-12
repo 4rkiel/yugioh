@@ -9,25 +9,28 @@
 #include <QGraphicsProxyWidget>
 #include <QPropertyAnimation>
 
+#include <QString>
 
 
-class Card : public QPushButton {
+class Card : public QGraphicsView {
 
     Q_OBJECT
 
     public: 
     Card();
     ~Card();
+    void setContent(QString str);
 
     public slots:
-    void turnDef();
+    void turn();
 
     private:
     bool posi;
-    QGridLayout * layout;
-    QGraphicsView * view;
+    
     QGraphicsScene * scene;
     QGraphicsProxyWidget * proxy;
+
+    QPushButton * content;
 
     QPropertyAnimation * rotAnim;
     QPropertyAnimation * scaleAnim;

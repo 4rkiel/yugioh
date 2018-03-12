@@ -1,6 +1,8 @@
 #include "../inc/main.h"
 
-Window::Window () {
+Window::Window (QApplication * qa) {
+
+    a = qa;
 
     currentLayout = 0;
     
@@ -267,7 +269,7 @@ void Window::readConfSettings (){
         file.close();
     }
     
-    setStyleSheet(styleSheet);
+    a -> setStyleSheet(styleSheet);
 
 }
 
@@ -300,7 +302,7 @@ int main(int argc, char *argv[]) {
 
     // Load main widget
 
-    Window w;
+    Window w(&app);
 
     w.setWindowTitle("Trading Card Game");
     w.setWindowIcon(QIcon("img/card.svg"));

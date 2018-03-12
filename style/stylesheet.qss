@@ -283,7 +283,7 @@ App ShadowButt {
     background: #263238;
 }
 
-#arenaBox Card {
+#fieldCard {
     background: qradialgradient(
     cx: 0.5, 
     cy: 0.5, 
@@ -297,28 +297,10 @@ App ShadowButt {
     border-radius: 2px;
 }
 
-#arenaBox Card:hover,
-#arenaBox Card:focus,
-#arenaBox Card:pressed {
+#fieldCard:hover,
+#fieldCard:focus,
+#fieldCard:pressed {
     border: none;
+    background: green;
 }
 
-#arenaBox #advDeck,
-#arenaBox #slfDeck {
-    border-image: url(img/card3.svg);
-}
-
-#arenaBox #advHand Card,
-#arenaBox #slfHand Card {
-    margin: 0 2px;
-}
-
-#arenaBox #advMagic Card,
-#arenaBox #slfMonst Card {
-    margin: 15px 2px 1px 2px;
-}
-
-#arenaBox #advMonst Card,
-#arenaBox #slfMagic Card {
-    margin: 1px 2px 15px 2px;
-}

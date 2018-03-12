@@ -1,6 +1,4 @@
 #include "../inc/app.h"
-#include <iostream>
-
 
 App::App () {
 
@@ -87,16 +85,16 @@ App::App () {
 
         arenaView = new QGraphicsView;
         arenaView->setFrameStyle(0);
-        arenaView->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
         arenaView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         arenaView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         arenaView->setStyleSheet("background: transparent");
         arenaView->setCacheMode(QGraphicsView::CacheBackground);
-        arenaView->setRenderHints(
-                QPainter::Antialiasing|
-                QPainter::HighQualityAntialiasing|
-                QPainter::TextAntialiasing);
 
+        arenaView -> setRenderHints(
+                QPainter::Antialiasing
+                | QPainter::SmoothPixmapTransform
+                | QPainter::TextAntialiasing
+                | QPainter::HighQualityAntialiasing );
         arenaScene = new QGraphicsScene;
         
         arenaProxy = new QGraphicsProxyWidget;
@@ -104,7 +102,7 @@ App::App () {
 
 
         arenaBox = new QWidget;
-        arenaBox->setStyleSheet("background: transparent");
+//        arenaBox->setStyleSheet("background: transparent");
         arenaBox -> setObjectName("arenaBox");
         arenaLayout = new QGridLayout;
 
@@ -120,11 +118,12 @@ App::App () {
                 advHand = new QWidget;
                 advHand -> setObjectName("advHand");
                 advHandLayout = new QHBoxLayout;
-                advHandLayout -> setMargin(0);
-                advHandLayout -> setSpacing(0);
+                advHandLayout -> setMargin(10);
+                advHandLayout -> setSpacing(10);
 
                     advHand0 = new Card;
                     advHand0 -> setObjectName("advDeck");
+                    advHand0 -> setContent("Deck");
                     advHandLayout -> addWidget(advHand0);
                     advHand1 = new Card;
                     advHandLayout -> addWidget(advHand1);
@@ -145,8 +144,8 @@ App::App () {
                 advMagic = new QWidget;
                 advMagic -> setObjectName("advMagic");
                 advMagicLayout = new QHBoxLayout;
-                advMagicLayout -> setMargin(0);
-                advMagicLayout -> setSpacing(0);
+                advMagicLayout -> setMargin(10);
+                advMagicLayout -> setSpacing(10);
                 
                     advMagic0 = new Card;
                     advMagicLayout -> addWidget(advMagic0);
@@ -169,8 +168,8 @@ App::App () {
                 advMonst = new QWidget;
                 advMonst -> setObjectName("advMonst");
                 advMonstLayout = new QHBoxLayout;
-                advMonstLayout -> setMargin(0);
-                advMonstLayout -> setSpacing(0);
+                advMonstLayout -> setMargin(10);
+                advMonstLayout -> setSpacing(10);
 
                     advMonst0 = new Card;
                     advMonstLayout -> addWidget(advMonst0);
@@ -205,8 +204,8 @@ App::App () {
                 slfMonst = new QWidget;
                 slfMonst -> setObjectName("slfMonst");
                 slfMonstLayout = new QHBoxLayout;
-                slfMonstLayout -> setMargin(0);
-                slfMonstLayout -> setSpacing(0);
+                slfMonstLayout -> setMargin(10);
+                slfMonstLayout -> setSpacing(10);
      
                     slfMonst0 = new Card;
                     slfMonstLayout -> addWidget(slfMonst0);
@@ -229,8 +228,8 @@ App::App () {
                 slfMagic = new QWidget;
                 slfMagic -> setObjectName("slfMagic");
                 slfMagicLayout = new QHBoxLayout;
-                slfMagicLayout -> setMargin(0);
-                slfMagicLayout -> setSpacing(0);
+                slfMagicLayout -> setMargin(10);
+                slfMagicLayout -> setSpacing(10);
      
                     slfMagic0 = new Card;
                     slfMagicLayout -> addWidget(slfMagic0);
@@ -253,8 +252,8 @@ App::App () {
                 slfHand = new QWidget;
                 slfHand -> setObjectName("slfHand");
                 slfHandLayout = new QHBoxLayout;
-                slfHandLayout -> setMargin(0);
-                slfHandLayout -> setSpacing(0);
+                slfHandLayout -> setMargin(10);
+                slfHandLayout -> setSpacing(10);
       
                     slfHand0 = new Card;
                     slfHandLayout -> addWidget(slfHand0);
@@ -551,6 +550,16 @@ void App::closeMenu (){
 
 
 void App::init(){
+ 
+    arenaScene -> setSceneRect(
+                0, 0,
+                arenaView->width(), arenaView->height());
+ 
+    arenaBox -> setGeometry(
+            0,0,
+            arenaView->size().width(),arenaView->size().height());
+
+
 
     rotateXApp();
 
@@ -598,16 +607,6 @@ void App::resizeEvent(QResizeEvent *){
 
 
 void App::rotateXApp (){
- 
-    arenaScene -> setSceneRect(
-                0, 0,
-                arenaView->width(), arenaView->height());
- 
-    arenaBox -> setGeometry(
-            0,0,
-            arenaView->size().width(),arenaView->size().height());
-
-
 
     QTransform matrix;
     
@@ -639,7 +638,5 @@ void App::rotateYApp (int x){
     arenaProxy -> setTransform(matrix);
 
 }
-
-
 
 
