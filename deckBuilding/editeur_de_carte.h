@@ -24,7 +24,9 @@ class editeur_de_carte : public QDialog
     public:
         editeur_de_carte();
 
-    private:
+public slots:
+        void sauvegarder();
+private:
         void createMenu();
         void createHorizontalGroupBox();
         void createGridGroupBox();
@@ -42,6 +44,19 @@ class editeur_de_carte : public QDialog
         QLineEdit *lineEdits[NumGridRows];
         QPushButton *buttons[NumButtons];
         QDialogButtonBox *buttonBox;
+
+        QLineEdit *nom;
+        QLineEdit *description;
+
+        QComboBox *genreCarte;
+        QComboBox *sousGenreCarte;
+        QComboBox *attribut;
+        QComboBox *type;
+
+        QSpinBox *ID;
+        QSpinBox *nrSet;
+        QSpinBox *spinAttaque;
+        QSpinBox *spinDefense;
 
         QComboBox *cb_categorie;
         QComboBox *cb_type;

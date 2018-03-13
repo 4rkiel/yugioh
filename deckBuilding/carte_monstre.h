@@ -26,6 +26,7 @@ class carte_monstre : Carte
 
         attribut monstre_attribut;
         type monstre_type;
+        int niveau;
 };
 
 #endif // CARTE_MONSTRE_H
