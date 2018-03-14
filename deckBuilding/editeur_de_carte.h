@@ -7,6 +7,11 @@
 #include <QMenuBar>
 #include <vector>
 #include <QString>
+#include <QDebug>
+#include <ctime>
+
+using namespace std;
+
 class QAction;
 class QDialogButtonBox;
 class QGroupBox;
@@ -17,7 +22,23 @@ class QMenuBar;
 class QPushButton;
 class QTextEdit;
 
-enum { NumGridRows = 3, NumButtons = 4 };
+enum GENRE
+{
+    MONSTRE,
+    MAGIE,
+    PIEGE
+};
+
+enum ATTRIBUT
+{
+    LUMIERE,
+    TENEBRE,
+    TERRE,
+    EAU,
+    FEU,
+    VENT,
+    DIVIN
+};
 
 class editeur_de_carte : public QDialog
 {
@@ -28,13 +49,14 @@ class editeur_de_carte : public QDialog
 
 public slots:
         void sauvegarder();
+        void slotAttribut();
 private:
         void createMenu();
         void createHorizontalGroupBox();
         void createGridGroupBox();
         void createFormGroupBox();
 
-
+        QString imgRep = QCoreApplication::applicationDirPath()+"/deckBuilding/img_attr/";
 
         QMenuBar *menuBar;
         QGroupBox *horizontalGroupBox;
@@ -42,9 +64,6 @@ private:
         QGroupBox *formGroupBox;
         QTextEdit *smallEditor;
         QTextEdit *bigEditor;
-        QLabel *labels[NumGridRows];
-        QLineEdit *lineEdits[NumGridRows];
-        QPushButton *buttons[NumButtons];
         QDialogButtonBox *buttonBox;
 
         QLineEdit *nom;

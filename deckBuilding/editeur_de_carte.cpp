@@ -2,7 +2,6 @@
 
 #define name "editeur de carte V1"
 
-using namespace std;
 
 editeur_de_carte::editeur_de_carte()
 {
@@ -46,6 +45,10 @@ void editeur_de_carte::createFormGroupBox()
     formGroupBox = new QGroupBox(tr("Form layout"));
 
     int i = 0;
+    srand(time(NULL));
+
+    spinAttaque = new QSpinBox;
+    spinDefense = new QSpinBox;
 
     nom = new QLineEdit;
     nom->setText("Magicien Blanc aux Yeux Rouge du Lustre Noir");
@@ -57,28 +60,37 @@ void editeur_de_carte::createFormGroupBox()
     ID->setValue(rand()%100000);
 
     nrSet = new QComboBox;
-    vector<String> extension;
-    extension.push_back("Légende du Dragon Blanc aux yeux bleus");
+    vector<QString> extension;
+    extension.push_back("Legende du Dragon Blanc aux yeux bleus");
     extension.push_back("Metal Raider");
 
     for(unsigned i=0; i<extension.size(); i++)
     {
-        QString s;
-        s.fromUtf8(extension.at(i));
-        nrSet->addItem(s, i);
-        //nrSet->addItem(QString::fromUtf8(extension.at(i)), i);
+        nrSet->addItem(extension.at(i), i);
     }
     nrSet->addItem("Custom", 666);
     nrSet->setCurrentIndex(0);
 
+    genreCarte = new QComboBox;
+    genreCarte->addItem("Monstre", 0);
+    genreCarte->addItem("Magie", 1);
+    genreCarte->addItem("Piege", 2);
 
-    spinAttaque = new QSpinBox;
+    genreCarte->setItemIcon(0, QIcon(imgRep + "Level"));
+    genreCarte->setItemIcon(1, QIcon(imgRep + "SPELL"));
+    genreCarte->setItemIcon(2, QIcon(imgRep + "TRAP"));
+    attribut = new QComboBox;
+    QObject::connect(genreCarte, SIGNAL(currentIndexChanged(int)), this,SLOT(slotAttribut()));
+    slotAttribut();
+    genreCarte->setCurrentIndex(rand()%3);
+
+
     spinAttaque -> setSingleStep(500);
     spinAttaque -> setAccelerated(true);
     spinAttaque -> setMaximum(5000);
     spinAttaque -> setMinimum(0);
 
-    spinDefense = new QSpinBox;
+
     spinDefense -> setSingleStep(500);
     spinDefense -> setAccelerated(true);
     spinDefense -> setMaximum(5000);
@@ -92,6 +104,10 @@ void editeur_de_carte::createFormGroupBox()
     layout->addWidget(ID, i, 2, 1, 22);
     layout->addWidget(new QLabel("Set:"), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(nrSet, i, 2, 1, 22);
+    layout->addWidget(new QLabel("genre:"), ++i, 0, 1, 2, Qt::AlignCenter);
+    layout->addWidget(genreCarte, i, 2, 1, 22);
+    layout->addWidget(new QLabel("attribut:"), ++i, 0, 1, 2, Qt::AlignCenter);
+    layout->addWidget(attribut, i, 2, 1, 22);
 
     layout->addWidget(new QLabel("Attaque:"), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(spinAttaque, i, 2, 1, 10);
@@ -103,7 +119,6 @@ void editeur_de_carte::createFormGroupBox()
 
 void editeur_de_carte::sauvegarder()
 {
-    using namespace std;
     QString yolo = "guilg";
     QString file = QFileDialog::getSaveFileName();
     qDebug() << (file);
@@ -118,6 +133,71 @@ void editeur_de_carte::sauvegarder()
 
 
     myfile->close();
+}
+
+void editeur_de_carte::slotAttribut()
+{
+    attribut->clear();
+    switch(genreCarte->currentIndex())
+    {
+        case MONSTRE:
+            attribut->addItem("Lumiere", 0);
+            attribut->addItem("Tenebre", 1);
+            attribut->addItem("Terre", 2);
+            attribut->addItem("Eau", 3);
+            attribut->addItem("Feu", 4);
+            attribut->addItem("Vent", 5);
+            attribut->addItem("Divin", 6);
+
+            attribut->setItemIcon(0, QIcon(imgRep + "LUMIERE"));
+            attribut->setItemIcon(1, QIcon(imgRep + "TENEBRE"));
+            attribut->setItemIcon(2, QIcon(imgRep + "TERRE"));
+            attribut->setItemIcon(3, QIcon(imgRep + "EAU"));
+            attribut->setItemIcon(4, QIcon(imgRep + "FEU"));
+            attribut->setItemIcon(5, QIcon(imgRep + "VENT"));
+            attribut->setItemIcon(6, QIcon(imgRep + "DIVIN"));
+
+            attribut->setCurrentIndex(rand()%7);
+
+            spinAttaque->setDisabled(false);
+            spinDefense->setDisabled(false);
+        break;
+
+        case MAGIE:
+            attribut->addItem("Normal", 0);
+            attribut->addItem("Continue", 1);
+            attribut->addItem("Equipement", 2);
+            attribut->addItem("Jeu-Rapide", 3);
+            attribut->addItem("Rituelle", 4);
+            attribut->addItem("Terrain", 5);
+
+            attribut->setItemIcon(0, QIcon(imgRep + "Normal-N"));
+            attribut->setItemIcon(1, QIcon(imgRep + "Continuous"));
+            attribut->setItemIcon(2, QIcon(imgRep + "Equip"));
+            attribut->setItemIcon(3, QIcon(imgRep + "Quick-Play"));
+            attribut->setItemIcon(4, QIcon(imgRep + "Ritual"));
+            attribut->setItemIcon(5, QIcon(imgRep + "Field"));
+
+            attribut->setCurrentIndex(rand()%6);
+
+            spinAttaque->setDisabled(true);
+            spinDefense->setDisabled(true);
+        break;
+
+        case PIEGE:
+            attribut->addItem("Normal", 0);
+            attribut->addItem("Continue", 1);
+            attribut->addItem("Contre", 2);
+
+            attribut->setItemIcon(0, QIcon(imgRep + "Normal-N"));
+            attribut->setItemIcon(1, QIcon(imgRep + "Continuous"));
+            attribut->setItemIcon(2, QIcon(imgRep + "Counter"));
+
+            attribut->setCurrentIndex(rand()%3);
+
+            spinAttaque->setDisabled(true);
+            spinDefense->setDisabled(true);
+    }
 }
 
 int main(int argc, char *argv[]) {
