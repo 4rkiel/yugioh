@@ -29,7 +29,7 @@ Intro::Intro () {
             QString strButton = QString::fromUtf8("Duel");
             newgame = new ShadowButt("\uf439", strButton);
             newgame -> setToolTip("Commencer une partie");
-            connect(newgame, SIGNAL(clicked()), this, SLOT(emitApp()));
+            connect(newgame, SIGNAL(clicked()), this, SLOT(emitField()));
             box -> addWidget(newgame);
 
 
@@ -108,8 +108,8 @@ void Intro::init (){
 }
 
 
-void Intro::emitApp (){
-    emit appStack();
+void Intro::emitField (){
+    emit fieldStack();
 }
 
 

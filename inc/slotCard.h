@@ -1,5 +1,5 @@
-#ifndef CARD
-#define CARD
+#ifndef SLOTCARD
+#define SLOTCARD
 
 #include <QPushButton>
 
@@ -12,13 +12,14 @@
 #include <QString>
 
 
-class Card : public QGraphicsView {
+class SlotCard : public QGraphicsView {
 
     Q_OBJECT
 
     public: 
-    Card();
-    ~Card();
+    SlotCard();
+    ~SlotCard();
+    void resizeEvent(QResizeEvent *);
     void setContent(QString str);
 
     public slots:

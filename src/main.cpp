@@ -1,8 +1,8 @@
 #include "../inc/main.h"
 
-Window::Window (QApplication * qa) {
+Window::Window (QApplication * q) {
 
-    a = qa;
+    a = q;
 
     currentLayout = 0;
     
@@ -33,7 +33,7 @@ Window::~Window (){
             break;
 
         case 2 :
-            delete app;
+            delete field;
             break;
         
         case 4 :
@@ -58,7 +58,7 @@ Window::~Window (){
 void Window::introStack (){
 
     intro = new Intro;
-    connect(intro, SIGNAL(appStack()), this, SLOT(appStack()));
+    connect(intro, SIGNAL(fieldStack()), this, SLOT(fieldStack()));
     connect(intro, SIGNAL(ruleStack()), this, SLOT(ruleStack()));
     connect(intro, SIGNAL(optStack()), this, SLOT(optStack()));
     connect(intro, SIGNAL(helpStack()), this, SLOT(helpStack()));
@@ -73,17 +73,17 @@ void Window::introStack (){
 }
 
 
-void Window::appStack (){
+void Window::fieldStack (){
 
-    app = new App;
-    connect(app, SIGNAL(introStack()), this, SLOT(introStack()));
+    field = new Field;
+    connect(field, SIGNAL(introStack()), this, SLOT(introStack()));
 
-    stackedLayout -> addWidget(app);
-    stackedLayout -> setCurrentWidget(app);
+    stackedLayout -> addWidget(field);
+    stackedLayout -> setCurrentWidget(field);
 
     cleanStack();
 
-    app -> init();
+    field -> init();
     currentLayout = 2;
 }
 
@@ -163,8 +163,8 @@ void Window::cleanStack (){
 
         case 2:
  
-            stackedLayout -> removeWidget(app);
-            delete app;
+            stackedLayout -> removeWidget(field);
+            delete field;
             
             break;
 

@@ -25,9 +25,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Input
-HEADERS += inc/app.h \
+HEADERS += inc/field.h \
            inc/appIndicator.h \
-           inc/card.h \
+           inc/slotCard.h \
+           inc/slotDeck.h \
            inc/generique.h \
            inc/genProgress.h \
            inc/intro.h \
@@ -37,9 +38,10 @@ HEADERS += inc/app.h \
            inc/helptab.h \
            inc/shadowButt.h \
            inc/sleeper.h
-SOURCES += src/app.cpp \
+SOURCES += src/field.cpp \
            src/appIndicator.cpp \
-           src/card.cpp \
+           src/slotCard.cpp \
+           src/slotDeck.cpp \
            src/generique.cpp \
            src/genProgress.cpp \
            src/intro.cpp \

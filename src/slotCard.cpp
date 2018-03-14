@@ -1,6 +1,6 @@
-#include "../inc/card.h"
+#include "../inc/slotCard.h"
 
-Card::Card (){
+SlotCard::SlotCard (){
 
     posi = 0;
 
@@ -18,14 +18,16 @@ Card::Card (){
     scene = new QGraphicsScene;
     setScene(scene);
 
+
     proxy = new QGraphicsProxyWidget();
     scene -> addItem(proxy);
 
 
         content = new QPushButton;
+
         content -> setObjectName("fieldCard");
-        content -> setGeometry(0,0,width(),height());
-    
+        content -> resize(width(),height());
+        
         proxy -> setWidget(content);
 
     proxy -> setTransformOriginPoint(0,0);
@@ -43,7 +45,7 @@ Card::Card (){
 
 
 
-Card::~Card (){
+SlotCard::~SlotCard (){
    
     delete scaleAnim;
     delete rotAnim;
@@ -53,7 +55,11 @@ Card::~Card (){
 }
 
 
-void Card::turn (){
+void SlotCard::resizeEvent(QResizeEvent *){
+}
+
+
+void SlotCard::turn (){
     
     posi = (posi + 1) % 2;
     
@@ -76,6 +82,6 @@ void Card::turn (){
 }
 
 
-void Card::setContent(QString str){
+void SlotCard::setContent(QString str){
     content -> setText(str);
 }

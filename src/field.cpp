@@ -1,6 +1,6 @@
-#include "../inc/app.h"
+#include "../inc/field.h"
 
-App::App () {
+Field::Field () {
 
     overLayout = new QGridLayout;
     //overLayout -> setAlignment(Qt::AlignCenter);
@@ -94,7 +94,9 @@ App::App () {
                 QPainter::Antialiasing
                 | QPainter::SmoothPixmapTransform
                 | QPainter::TextAntialiasing
-                | QPainter::HighQualityAntialiasing );
+                | QPainter::HighQualityAntialiasing 
+        );
+        
         arenaScene = new QGraphicsScene;
         
         arenaProxy = new QGraphicsProxyWidget;
@@ -102,15 +104,14 @@ App::App () {
 
 
         arenaBox = new QWidget;
-//        arenaBox->setStyleSheet("background: transparent");
         arenaBox -> setObjectName("arenaBox");
         arenaLayout = new QGridLayout;
+       
 
-                // Opponent 
+            // Opponent 
                 
             advBox = new QWidget;
             advLayout = new QGridLayout;
-            //advLayout -> setAlignment(Qt::AlignCenter);
             advLayout -> setSpacing(0);
             advLayout -> setMargin(0);
 
@@ -121,25 +122,25 @@ App::App () {
                 advHandLayout -> setMargin(10);
                 advHandLayout -> setSpacing(10);
 
-                    advHand0 = new Card;
+                    advHand0 = new SlotDeck;
                     advHand0 -> setObjectName("advDeck");
-                    advHand0 -> setContent("Deck");
+
                     advHandLayout -> addWidget(advHand0);
-                    advHand1 = new Card;
+                    advHand1 = new SlotCard;
                     advHandLayout -> addWidget(advHand1);
-                    advHand2 = new Card;
+                    advHand2 = new SlotCard;
                     advHandLayout -> addWidget(advHand2);
-                    advHand3 = new Card;
+                    advHand3 = new SlotCard;
                     advHandLayout -> addWidget(advHand3);
-                    advHand4 = new Card;
+                    advHand4 = new SlotCard;
                     advHandLayout -> addWidget(advHand4);
-                    advHand5 = new Card;
+                    advHand5 = new SlotCard;
                     advHandLayout -> addWidget(advHand5);
-                    advHand6 = new Card;
+                    advHand6 = new SlotCard;
                     advHandLayout -> addWidget(advHand6);
 
                 advHand -> setLayout(advHandLayout);
-                advLayout -> addWidget(advHand, 0,0,1,1);
+                advLayout -> addWidget(advHand, 2,0,1,1);
 
                 advMagic = new QWidget;
                 advMagic -> setObjectName("advMagic");
@@ -147,19 +148,19 @@ App::App () {
                 advMagicLayout -> setMargin(10);
                 advMagicLayout -> setSpacing(10);
                 
-                    advMagic0 = new Card;
+                    advMagic0 = new SlotCard;
                     advMagicLayout -> addWidget(advMagic0);
-                    advMagic1 = new Card;
+                    advMagic1 = new SlotCard;
                     advMagicLayout -> addWidget(advMagic1);
-                    advMagic2 = new Card;
+                    advMagic2 = new SlotCard;
                     advMagicLayout -> addWidget(advMagic2);
-                    advMagic3 = new Card;
+                    advMagic3 = new SlotCard;
                     advMagicLayout -> addWidget(advMagic3);
-                    advMagic4 = new Card;
+                    advMagic4 = new SlotCard;
                     advMagicLayout -> addWidget(advMagic4);
-                    advMagic5 = new Card;
+                    advMagic5 = new SlotCard;
                     advMagicLayout -> addWidget(advMagic5);
-                    advMagic6 = new Card;
+                    advMagic6 = new SlotCard;
                     advMagicLayout -> addWidget(advMagic6);
                
                 advMagic -> setLayout(advMagicLayout);
@@ -171,23 +172,23 @@ App::App () {
                 advMonstLayout -> setMargin(10);
                 advMonstLayout -> setSpacing(10);
 
-                    advMonst0 = new Card;
+                    advMonst0 = new SlotCard;
                     advMonstLayout -> addWidget(advMonst0);
-                    advMonst1 = new Card;
+                    advMonst1 = new SlotCard;
                     advMonstLayout -> addWidget(advMonst1);
-                    advMonst2 = new Card;
+                    advMonst2 = new SlotCard;
                     advMonstLayout -> addWidget(advMonst2);
-                    advMonst3 = new Card;
+                    advMonst3 = new SlotCard;
                     advMonstLayout -> addWidget(advMonst3);
-                    advMonst4 = new Card;
+                    advMonst4 = new SlotCard;
                     advMonstLayout -> addWidget(advMonst4);
-                    advMonst5 = new Card;
+                    advMonst5 = new SlotCard;
                     advMonstLayout -> addWidget(advMonst5);
-                    advMonst6 = new Card;
+                    advMonst6 = new SlotCard;
                     advMonstLayout -> addWidget(advMonst6);
                           
                 advMonst -> setLayout(advMonstLayout);
-                advLayout -> addWidget(advMonst,2,0,1,1);
+                advLayout -> addWidget(advMonst,0,0,1,1);
 
             advBox -> setLayout(advLayout);
             arenaLayout -> addWidget(advBox, 0,0,1,1);
@@ -207,19 +208,19 @@ App::App () {
                 slfMonstLayout -> setMargin(10);
                 slfMonstLayout -> setSpacing(10);
      
-                    slfMonst0 = new Card;
+                    slfMonst0 = new SlotCard;
                     slfMonstLayout -> addWidget(slfMonst0);
-                    slfMonst1 = new Card;
+                    slfMonst1 = new SlotCard;
                     slfMonstLayout -> addWidget(slfMonst1);
-                    slfMonst2 = new Card;
+                    slfMonst2 = new SlotCard;
                     slfMonstLayout -> addWidget(slfMonst2);
-                    slfMonst3 = new Card;
+                    slfMonst3 = new SlotCard;
                     slfMonstLayout -> addWidget(slfMonst3);
-                    slfMonst4 = new Card;
+                    slfMonst4 = new SlotCard;
                     slfMonstLayout -> addWidget(slfMonst4);
-                    slfMonst5 = new Card;
+                    slfMonst5 = new SlotCard;
                     slfMonstLayout -> addWidget(slfMonst5);
-                    slfMonst6 = new Card;
+                    slfMonst6 = new SlotCard;
                     slfMonstLayout -> addWidget(slfMonst6);
                                      
                 slfMonst -> setLayout(slfMonstLayout);
@@ -231,19 +232,19 @@ App::App () {
                 slfMagicLayout -> setMargin(10);
                 slfMagicLayout -> setSpacing(10);
      
-                    slfMagic0 = new Card;
+                    slfMagic0 = new SlotCard;
                     slfMagicLayout -> addWidget(slfMagic0);
-                    slfMagic1 = new Card;
+                    slfMagic1 = new SlotCard;
                     slfMagicLayout -> addWidget(slfMagic1);
-                    slfMagic2 = new Card;
+                    slfMagic2 = new SlotCard;
                     slfMagicLayout -> addWidget(slfMagic2);
-                    slfMagic3 = new Card;
+                    slfMagic3 = new SlotCard;
                     slfMagicLayout -> addWidget(slfMagic3);
-                    slfMagic4 = new Card;
+                    slfMagic4 = new SlotCard;
                     slfMagicLayout -> addWidget(slfMagic4);
-                    slfMagic5 = new Card;
+                    slfMagic5 = new SlotCard;
                     slfMagicLayout -> addWidget(slfMagic5);
-                    slfMagic6 = new Card;
+                    slfMagic6 = new SlotCard;
                     slfMagicLayout -> addWidget(slfMagic6);
                 
                 slfMagic -> setLayout(slfMagicLayout);
@@ -255,20 +256,22 @@ App::App () {
                 slfHandLayout -> setMargin(10);
                 slfHandLayout -> setSpacing(10);
       
-                    slfHand0 = new Card;
+                    slfHand0 = new SlotCard;
                     slfHandLayout -> addWidget(slfHand0);
-                    slfHand1 = new Card;
+                    slfHand1 = new SlotCard;
                     slfHandLayout -> addWidget(slfHand1);
-                    slfHand2 = new Card;
+                    slfHand2 = new SlotCard;
                     slfHandLayout -> addWidget(slfHand2);
-                    slfHand3 = new Card;
+                    slfHand3 = new SlotCard;
                     slfHandLayout -> addWidget(slfHand3);
-                    slfHand4 = new Card;
+                    slfHand4 = new SlotCard;
                     slfHandLayout -> addWidget(slfHand4);
-                    slfHand5 = new Card;
+                    slfHand5 = new SlotCard;
                     slfHandLayout -> addWidget(slfHand5);
-                    slfHand6 = new Card;
+                    
+                    slfHand6 = new SlotDeck;
                     slfHand6 -> setObjectName("slfDeck");
+
                     slfHandLayout -> addWidget(slfHand6);
                
                 slfHand -> setLayout(slfHandLayout);
@@ -416,7 +419,7 @@ App::App () {
 }
 
     
-App::~App (){
+Field::~Field (){
 
             delete quit;
             delete back;
@@ -532,111 +535,119 @@ App::~App (){
 }
 
 
-void App::emitIntroStack (){
+void Field::emitIntroStack (){
     emit introStack();
 }
 
-void App::openMenu (){
+void Field::openMenu (){
     popupOuter -> setVisible(true);
     menuButt -> setEnabled(false);
     back -> setFocus();
 }
 
-void App::closeMenu (){
+void Field::closeMenu (){
     popupOuter -> setVisible(false);
     menuButt -> setEnabled(true);
     menuButt -> setFocus();
 }
 
 
-void App::init(){
- 
-    arenaScene -> setSceneRect(
-                0, 0,
-                arenaView->width(), arenaView->height());
- 
-    arenaBox -> setGeometry(
-            0,0,
-            arenaView->size().width(),arenaView->size().height());
+void Field::init(){
 
+    rotateXField();
 
-
-    rotateXApp();
-
+    /*
     lastPosi = 0;
 
-    appThread = new QThread;
-    appTask = new AppTask;
-    appTask -> moveToThread(appThread);
+    fieldThread = new QThread;
+    fieldTask = new FieldTask;
+    fieldTask -> moveToThread(fieldThread);
 
-    connect( this, SIGNAL(askWait()), appTask, SLOT(appLoop()) );
-    connect( appTask, SIGNAL(newState()), this, SLOT(runNewState()) );
+    connect( this, SIGNAL(askWait()), fieldTask, SLOT(fieldLoop()) );
+    connect( fieldTask, SIGNAL(newState()), this, SLOT(runNewState()) );
     
-    connect( appThread, SIGNAL(finished()), appTask, SLOT(deleteLater()) );
-    connect( appThread, SIGNAL(finished()), appThread, SLOT(deleteLater()) );
+    connect( fieldThread, SIGNAL(finished()), fieldTask, SLOT(deleteLater()) );
+    connect( fieldThread, SIGNAL(finished()), fieldThread, SLOT(deleteLater()) );
 
-    appThread -> start();
-
+    fieldThread -> start();
+ 
+    
     emit askWait();
+    */
+
 }
 
 
-void AppTask::appLoop (){
+void FieldTask::fieldLoop (){
 
-    Sleeper::msleep(42);
+    Sleeper::msleep(8);
 
     emit newState();
 }
 
 
-void App::runNewState (){
+void Field::runNewState (){
 
-    lastPosi = (lastPosi + 1)%360;
+    lastPosi ++;
 
-    rotateYApp(lastPosi);
+    rotateYField(lastPosi);
 
-    emit askWait();
+    if (lastPosi < 360){
+        emit askWait();
+    } else {
+        rotateXField();
+    }
 }
 
 
-void App::resizeEvent(QResizeEvent *){
+void Field::resizeEvent(QResizeEvent *){
 
-    rotateXApp();
-
-}
-
-
-void App::rotateXApp (){
-
-    QTransform matrix;
-    
-    matrix.translate(arenaBox -> width()/2, arenaBox -> height());
-    matrix.rotate(15, Qt::XAxis);
-    matrix.translate(-1 * arenaBox ->width()/2, -1 * arenaBox -> height());
-   
-    matrix.translate(arenaBox -> width()/2, arenaBox -> height()/2);
-    matrix.rotate(lastPosi, Qt::ZAxis);
-    matrix.translate(-1*arenaBox -> width()/2, -1*arenaBox -> height()/2);
-   
-    arenaProxy -> setTransform(matrix);
+    arenaView -> fitInView( arenaScene->sceneRect());
 
 }
 
 
-void App::rotateYApp (int x){
+void Field::rotateXField (){
  
     QTransform matrix;
     
-    matrix.translate(arenaBox -> width()/2, arenaBox -> height());
+    int w = arenaView -> width();
+    int h = arenaView -> height();
+    int v = h - (h * cos(15 * M_PI / 180)); 
+
+    matrix.translate(0, -3 * v);
+    matrix.translate(w, h);
     matrix.rotate(15, Qt::XAxis);
-    matrix.translate(-1 * arenaBox ->width()/2, -1 * arenaBox -> height());
-    
-    matrix.translate(arenaBox -> width()/2, arenaBox -> height()/2);
-    matrix.rotate(x, Qt::ZAxis);
-    matrix.translate(-1*arenaBox -> width()/2, -1*arenaBox -> height()/2);
-   
+    matrix.translate(-1 * w,  -1 * h);
+
     arenaProxy -> setTransform(matrix);
 
+    arenaView -> fitInView( arenaScene->sceneRect());
+
+}
+
+
+void Field::rotateYField (int /* x */){
+/* 
+    QTransform matrix;
+ 
+    int w = arenaView -> width();
+    int h = arenaView -> height();
+    int v = h - (h * cos(15 * M_PI / 180)); 
+
+
+    matrix.translate(arenaView -> width()/2, arenaView -> height()/2);
+    matrix.rotate(x);
+    matrix.translate(-1*arenaView -> width()/2, -1*arenaView -> height()/2);
+    
+    matrix.translate(0, -3 * v);
+    matrix.translate(w, h);
+    matrix.rotate(15, Qt::XAxis);
+    matrix.translate(-1 * w,  -1 * h);
+
+    arenaProxy -> setTransform(matrix);
+    arenaView -> fitInView( arenaScene->sceneRect());
+*/
 }
 
 

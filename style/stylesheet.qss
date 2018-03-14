@@ -224,7 +224,7 @@ RuleTab #ruleBox QComboBox {
 
 ******************************************************************/
 
-App ShadowButt {
+Field ShadowButt {
     padding: 5px 10px;
     margin: 10px;
     font-size: 20px;
