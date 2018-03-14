@@ -608,7 +608,7 @@ void Field::resizeEvent(QResizeEvent *){
 
 
 void Field::rotateXField (){
- 
+/* 
     QTransform matrix;
     
     int w = arenaView -> width();
@@ -616,12 +616,12 @@ void Field::rotateXField (){
     int v = h - (h * cos(15 * M_PI / 180)); 
 
     matrix.translate(0, -3 * v);
-    matrix.translate(w, h);
+    matrix.translate(w/2, h);
     matrix.rotate(15, Qt::XAxis);
-    matrix.translate(-1 * w,  -1 * h);
+    matrix.translate(-1 * w/2,  -1 * h);
 
     arenaProxy -> setTransform(matrix);
-
+*/
     arenaView -> fitInView( arenaScene->sceneRect());
 
 }

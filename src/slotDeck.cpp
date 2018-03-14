@@ -14,7 +14,7 @@ SlotDeck::SlotDeck (){
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setCacheMode(QGraphicsView::CacheBackground);
-        setStyleSheet("background: red; padding: 30px; margin:30px");
+	setStyleSheet("background: red; padding: 6px; margin:0px");
     setRenderHints(
             QPainter::Antialiasing
             | QPainter::SmoothPixmapTransform
@@ -33,9 +33,12 @@ SlotDeck::SlotDeck (){
 
         content -> setObjectName("fieldCard");
         content -> resize(width(),height());
-        
-        content -> setStyleSheet("background: blue; padding: 30px; margin:30px");
+
+
+        content -> setStyleSheet("background: blue; padding: 0px; margin:0px; border: 10px solid green");
         proxy -> setWidget(content);
+
+
 
 }
 
