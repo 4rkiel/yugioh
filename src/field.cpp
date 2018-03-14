@@ -3,7 +3,6 @@
 Field::Field () {
 
     overLayout = new QGridLayout;
-    //overLayout -> setAlignment(Qt::AlignCenter);
     overLayout -> setSpacing(0);
     overLayout -> setMargin(0);
 
@@ -17,15 +16,12 @@ Field::Field () {
     sceneLayout -> setMargin(0);
 
 
-
         // Left bar ...........................................................
 
         leftBarBox = new QWidget;
-//        leftBarBox -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
         leftBarLayout = new QGridLayout;
         leftBarLayout -> setSpacing(0);
         leftBarLayout -> setMargin(0);
-//        leftBarLayout -> setAlignment(Qt::AlignHCenter);
 
 
             // Text label
@@ -83,26 +79,6 @@ Field::Field () {
 
         // Arena ..............................................................
 
-        arenaView = new QGraphicsView;
-        arenaView->setFrameStyle(0);
-        arenaView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        arenaView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        arenaView->setStyleSheet("background: transparent");
-        arenaView->setCacheMode(QGraphicsView::CacheBackground);
-
-        arenaView -> setRenderHints(
-                QPainter::Antialiasing
-                | QPainter::SmoothPixmapTransform
-                | QPainter::TextAntialiasing
-                | QPainter::HighQualityAntialiasing 
-        );
-        
-        arenaScene = new QGraphicsScene;
-        
-        arenaProxy = new QGraphicsProxyWidget;
-
-
-
         arenaBox = new QWidget;
         arenaBox -> setObjectName("arenaBox");
         arenaLayout = new QGridLayout;
@@ -140,7 +116,7 @@ Field::Field () {
                     advHandLayout -> addWidget(advHand6);
 
                 advHand -> setLayout(advHandLayout);
-                advLayout -> addWidget(advHand, 2,0,1,1);
+                advLayout -> addWidget(advHand, 0,0,1,1);
 
                 advMagic = new QWidget;
                 advMagic -> setObjectName("advMagic");
@@ -188,7 +164,7 @@ Field::Field () {
                     advMonstLayout -> addWidget(advMonst6);
                           
                 advMonst -> setLayout(advMonstLayout);
-                advLayout -> addWidget(advMonst,0,0,1,1);
+                advLayout -> addWidget(advMonst,2,0,1,1);
 
             advBox -> setLayout(advLayout);
             arenaLayout -> addWidget(advBox, 0,0,1,1);
@@ -281,9 +257,6 @@ Field::Field () {
             arenaLayout -> addWidget(slfBox, 1,0,1,1);
 
         arenaBox -> setLayout(arenaLayout);
-        arenaProxy -> setWidget(arenaBox);
-        arenaScene -> addItem(arenaProxy);
-        arenaView -> setScene(arenaScene);
         
 
 
@@ -322,15 +295,12 @@ Field::Field () {
 
 
 
-
-
-
         rightBarBox -> setObjectName("rightBarBox");
         rightBarBox -> setLayout(rightBarLayout);
    
 
     sceneLayout -> addWidget(leftBarBox, 0, 0, 3, 1);
-    sceneLayout -> addWidget(arenaView, 0, 1, 3, 5);
+    sceneLayout -> addWidget(arenaBox, 0, 1, 3, 5);
     sceneLayout -> addWidget(rightBarBox, 0, 6, 3, 1);
     sceneBox -> setLayout(sceneLayout);
 
@@ -412,8 +382,6 @@ Field::Field () {
     overLayout -> addWidget(popupOuter, 0, 0);
 
     this -> setLayout(overLayout);
-
-
 
 
 }
@@ -517,10 +485,6 @@ Field::~Field (){
         delete arenaLayout;
         delete arenaBox;
         
-        //delete arenaProxy;
-        delete arenaScene;
-        delete arenaView;
-
             delete actionButt;
             delete lifeAdv;
             delete card;
@@ -549,105 +513,6 @@ void Field::closeMenu (){
     popupOuter -> setVisible(false);
     menuButt -> setEnabled(true);
     menuButt -> setFocus();
-}
-
-
-void Field::init(){
-
-    rotateXField();
-
-    /*
-    lastPosi = 0;
-
-    fieldThread = new QThread;
-    fieldTask = new FieldTask;
-    fieldTask -> moveToThread(fieldThread);
-
-    connect( this, SIGNAL(askWait()), fieldTask, SLOT(fieldLoop()) );
-    connect( fieldTask, SIGNAL(newState()), this, SLOT(runNewState()) );
-    
-    connect( fieldThread, SIGNAL(finished()), fieldTask, SLOT(deleteLater()) );
-    connect( fieldThread, SIGNAL(finished()), fieldThread, SLOT(deleteLater()) );
-
-    fieldThread -> start();
- 
-    
-    emit askWait();
-    */
-
-}
-
-
-void FieldTask::fieldLoop (){
-
-    Sleeper::msleep(8);
-
-    emit newState();
-}
-
-
-void Field::runNewState (){
-
-    lastPosi ++;
-
-    rotateYField(lastPosi);
-
-    if (lastPosi < 360){
-        emit askWait();
-    } else {
-        rotateXField();
-    }
-}
-
-
-void Field::resizeEvent(QResizeEvent *){
-
-    arenaView -> fitInView( arenaScene->sceneRect());
-
-}
-
-
-void Field::rotateXField (){
-/* 
-    QTransform matrix;
-    
-    int w = arenaView -> width();
-    int h = arenaView -> height();
-    int v = h - (h * cos(15 * M_PI / 180)); 
-
-    matrix.translate(0, -3 * v);
-    matrix.translate(w/2, h);
-    matrix.rotate(15, Qt::XAxis);
-    matrix.translate(-1 * w/2,  -1 * h);
-
-    arenaProxy -> setTransform(matrix);
-*/
-    arenaView -> fitInView( arenaScene->sceneRect());
-
-}
-
-
-void Field::rotateYField (int /* x */){
-/* 
-    QTransform matrix;
- 
-    int w = arenaView -> width();
-    int h = arenaView -> height();
-    int v = h - (h * cos(15 * M_PI / 180)); 
-
-
-    matrix.translate(arenaView -> width()/2, arenaView -> height()/2);
-    matrix.rotate(x);
-    matrix.translate(-1*arenaView -> width()/2, -1*arenaView -> height()/2);
-    
-    matrix.translate(0, -3 * v);
-    matrix.translate(w, h);
-    matrix.rotate(15, Qt::XAxis);
-    matrix.translate(-1 * w,  -1 * h);
-
-    arenaProxy -> setTransform(matrix);
-    arenaView -> fitInView( arenaScene->sceneRect());
-*/
 }
 
 

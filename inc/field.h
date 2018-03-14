@@ -14,16 +14,6 @@
 #include <QLabel>
 
 #include <QGraphicsDropShadowEffect>
-#include <QGraphicsView>
-#include <QGraphicsScene>
-#include <QGraphicsProxyWidget>
-#include <QPropertyAnimation>
-
-#include <cmath>
-
-#include <QThread>
-
-#include "../inc/sleeper.h"
 
 #include "../inc/shadowButt.h"
 #include "../inc/appIndicator.h"
@@ -31,51 +21,24 @@
 #include "../inc/slotDeck.h"
 
 
-class Field;
-
-class FieldTask : public QObject {
-
-    Q_OBJECT
-
-    public slots:
-    void fieldLoop();
-
-    signals:
-    void newState();
-
-};
-
 class Field : public QFrame {
 
-    Q_OBJECT
-    //Q_PROPERTY(QTransform transfrom READ transform WRITE setTransform)
+Q_OBJECT
 
-    public:
+public:
+
     Field();
     ~Field();
-    void init();
-    void resizeEvent(QResizeEvent *);
 
-    public slots:
+public slots:
     void emitIntroStack();
     void openMenu();
     void closeMenu();
-    void runNewState();
 
-    signals:
+signals:
     void introStack();
-    void askWait();
-    void newState();
 
-    private:
-    void rotateXField();
-    void rotateYField(int x);
-        
-    QThread * fieldThread;
-    FieldTask * fieldTask;
-
-    int lastPosi;
-
+private:
     QGridLayout * overLayout;
     QWidget * sceneBox;
     QGridLayout * sceneLayout;
@@ -87,11 +50,6 @@ class Field : public QFrame {
             AppIndicator * card;
             ShadowButt * actionButt;
 
-        QGraphicsView * arenaView;
-        QGraphicsScene * arenaScene;
-        QGraphicsProxyWidget * arenaProxy;
-        QPropertyAnimation * arenaAnim;
-        
         QWidget * arenaBox;
         QGridLayout * arenaLayout;
       

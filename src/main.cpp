@@ -83,7 +83,6 @@ void Window::fieldStack (){
 
     cleanStack();
 
-    field -> init();
     currentLayout = 2;
 }
 
