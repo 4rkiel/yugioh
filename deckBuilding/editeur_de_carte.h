@@ -5,6 +5,8 @@
 #include <QDialog>
 #include <QtGui>
 #include <QMenuBar>
+#include <vector>
+#include <QString>
 class QAction;
 class QDialogButtonBox;
 class QGroupBox;
@@ -52,9 +54,9 @@ private:
         QComboBox *sousGenreCarte;
         QComboBox *attribut;
         QComboBox *type;
+        QComboBox *nrSet;
 
-        QSpinBox *ID;
-        QSpinBox *nrSet;
+        QSpinBox *ID;        
         QSpinBox *spinAttaque;
         QSpinBox *spinDefense;
 

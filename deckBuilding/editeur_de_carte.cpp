@@ -2,6 +2,8 @@
 
 #define name "editeur de carte V1"
 
+using namespace std;
+
 editeur_de_carte::editeur_de_carte()
 {
     createMenu();
@@ -48,6 +50,27 @@ void editeur_de_carte::createFormGroupBox()
     nom = new QLineEdit;
     nom->setText("Magicien Blanc aux Yeux Rouge du Lustre Noir");
 
+    ID = new QSpinBox;
+    ID->setSingleStep(1);
+    ID->setAccelerated(true);
+    ID->setMaximum(100000);
+    ID->setValue(rand()%100000);
+
+    nrSet = new QComboBox;
+    vector<String> extension;
+    extension.push_back("Légende du Dragon Blanc aux yeux bleus");
+    extension.push_back("Metal Raider");
+
+    for(unsigned i=0; i<extension.size(); i++)
+    {
+        QString s;
+        s.fromUtf8(extension.at(i));
+        nrSet->addItem(s, i);
+        //nrSet->addItem(QString::fromUtf8(extension.at(i)), i);
+    }
+    nrSet->addItem("Custom", 666);
+    nrSet->setCurrentIndex(0);
+
 
     spinAttaque = new QSpinBox;
     spinAttaque -> setSingleStep(500);
@@ -65,6 +88,10 @@ void editeur_de_carte::createFormGroupBox()
 
     layout->addWidget(new QLabel("Nom:"), i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(nom, i, 2, 1, 22);
+    layout->addWidget(new QLabel("ID:"), ++i, 0, 1, 2, Qt::AlignCenter);
+    layout->addWidget(ID, i, 2, 1, 22);
+    layout->addWidget(new QLabel("Set:"), ++i, 0, 1, 2, Qt::AlignCenter);
+    layout->addWidget(nrSet, i, 2, 1, 22);
 
     layout->addWidget(new QLabel("Attaque:"), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(spinAttaque, i, 2, 1, 10);

@@ -28,7 +28,11 @@ HEADERS += app.h generique.h genProgress.h intro.h main.h shadowButt.h sleeper.h
     deckBuilding/carte_monstre.h \
     deckBuilding/carte.h \
     deckBuilding/carte_monstre_effet.h \
-    deckBuilding/carte_monstre_normal.h
+    deckBuilding/carte_monstre_normal.h \
+    deckBuilding/bouton_ouvrir_fichier_deck.h \
+    deckBuilding/carte_magie.h \
+    deckBuilding/carte_piege.h \
+    deckBuilding/editeur_de_carte.h
 SOURCES += app.cpp \
            generique.cpp \
            genProgress.cpp \
@@ -39,4 +43,8 @@ SOURCES += app.cpp \
     deckBuilding/carte.cpp \
     deckBuilding/carte_monstre.cpp \
     deckBuilding/carte_monstre_effet.cpp \
-    deckBuilding/carte_monstre_normal.cpp
+    deckBuilding/carte_monstre_normal.cpp \
+    deckBuilding/bouton_ouvrir_fichier_deck.cpp \
+    deckBuilding/carte_magie.cpp \
+    deckBuilding/carte_piege.cpp \
+    deckBuilding/editeur_de_carte.cpp

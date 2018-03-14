@@ -85,40 +85,40 @@ void Window::changeStacked (){
 
 
 
-int main(int argc, char *argv[]) {
+//int main(int argc, char *argv[]) {
 
-    QApplication app(argc, argv);
+//    QApplication app(argc, argv);
 
-    // Load new font file
+//    // Load new font file
     
-    int id = QFontDatabase::addApplicationFont("font/Roboto-Thin.ttf");
+//    int id = QFontDatabase::addApplicationFont("font/Roboto-Thin.ttf");
 
-    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
-    QFont roboto(family, 14);
-    QApplication::setFont(roboto);
+//    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
+//    QFont roboto(family, 14);
+//    QApplication::setFont(roboto);
 
-//    QFontDatabase::addApplicationFont("font/FontAwesome.otf"); 
-    QFontDatabase::addApplicationFont("font/FontAwesomeSolid.otf"); 
+////    QFontDatabase::addApplicationFont("font/FontAwesome.otf");
+//    QFontDatabase::addApplicationFont("font/FontAwesomeSolid.otf");
 
 
-    // Load new qss file
+//    // Load new qss file
     
-    QFile file("style/stylesheet.qss");
-    file.open(QFile::ReadOnly);
-    QString styleSheet = QLatin1String(file.readAll());
+//    QFile file("style/stylesheet.qss");
+//    file.open(QFile::ReadOnly);
+//    QString styleSheet = QLatin1String(file.readAll());
 
-    app.setStyleSheet(styleSheet);
-
-
-    // Load main widget
-
-    Window w;
-    w.resize(500, 700);
-    w.setWindowTitle("Trading Card Game");
-    w.setWindowIcon(QIcon("card.svg"));
-
-    w.show();
+//    app.setStyleSheet(styleSheet);
 
 
-    return app.exec();
-}
+//    // Load main widget
+
+//    Window w;
+//    w.resize(500, 700);
+//    w.setWindowTitle("Trading Card Game");
+//    w.setWindowIcon(QIcon("card.svg"));
+
+//    w.show();
+
+
+//    return app.exec();
+//}
