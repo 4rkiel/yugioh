@@ -1,11 +1,14 @@
 #ifndef SLOTDECK
 #define SLOTDECK
 
-#include <QFrame>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QGraphicsProxyWidget>
+#include <QPushButton>
 
 #include <QString>
 
-class SlotDeck : public QFrame {
+class SlotDeck : public QGraphicsView {
 
     Q_OBJECT
 
@@ -17,6 +20,10 @@ class SlotDeck : public QFrame {
 
     private:
     int size;
+    QGraphicsScene * scene;
+    QGraphicsProxyWidget * proxy;
+    QPushButton * content;
+
 };
 
 
