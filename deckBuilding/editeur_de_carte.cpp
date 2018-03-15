@@ -49,8 +49,24 @@ void editeur_de_carte::createFormGroupBox()
 
     spinAttaque = new QSpinBox;
     spinDefense = new QSpinBox;
-
+    genreCarte = new QComboBox;
+    typePrimaire = new QComboBox;
+    typeSecondaire = new QComboBox;
+    attribut = new QComboBox;
     nom = new QLineEdit;
+
+
+    QStringList typePrimaireList;
+    typePrimaireList << "Aqua" << "Bete" << "Bete Ailee" << "Bete-Divine" << "Bete-Guerrier" << "Demon" << "Dinosaure" <<"Dragon"  << "Elfe"
+             << "Guerrier" << "Insecte" << "Machine" << "Magicien" << "Plante" << "Poisson" << "Pyro" << "Rocher" << "Reptile"
+             << "Serpent de Mer" << "Tonnerre" << "Wyrm" <<"Zombie";
+
+    QStringList typeSecondaireList;
+    typeSecondaireList << "Effet" << "Normal" << "Fusion" << "Toon" << "Rituel";
+
+    QCompleter *completerTypePrimaire = new QCompleter(typePrimaireList, this);
+    completerTypePrimaire->setCaseSensitivity(Qt::CaseInsensitive);
+
     nom->setText("Magicien Blanc aux Yeux Rouge du Lustre Noir");
 
     ID = new QSpinBox;
@@ -71,7 +87,7 @@ void editeur_de_carte::createFormGroupBox()
     nrSet->addItem("Custom", 666);
     nrSet->setCurrentIndex(0);
 
-    genreCarte = new QComboBox;
+
     genreCarte->addItem("Monstre", 0);
     genreCarte->addItem("Magie", 1);
     genreCarte->addItem("Piege", 2);
@@ -79,7 +95,24 @@ void editeur_de_carte::createFormGroupBox()
     genreCarte->setItemIcon(0, QIcon(imgRep + "Level"));
     genreCarte->setItemIcon(1, QIcon(imgRep + "SPELL"));
     genreCarte->setItemIcon(2, QIcon(imgRep + "TRAP"));
-    attribut = new QComboBox;
+
+    genreCarte->setItemData(1, QBrush(Qt::darkCyan), Qt::TextColorRole);
+    genreCarte->setItemData(2, QBrush(Qt::magenta), Qt::TextColorRole);
+
+    for(int i=0; i<typePrimaireList.size(); i++)
+    {
+        typePrimaire->addItem(typePrimaireList.at(i), i);
+    }
+    typePrimaire->setEditable(true);
+    typePrimaire->setCompleter(completerTypePrimaire);
+
+    for(int i=0; i<typeSecondaireList.size(); i++)
+    {
+        typeSecondaire->addItem(typeSecondaireList.at(i), i);
+    }
+
+
+
     QObject::connect(genreCarte, SIGNAL(currentIndexChanged(int)), this,SLOT(slotAttribut()));
     slotAttribut();
     genreCarte->setCurrentIndex(rand()%3);
@@ -105,7 +138,9 @@ void editeur_de_carte::createFormGroupBox()
     layout->addWidget(new QLabel("Set:"), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(nrSet, i, 2, 1, 22);
     layout->addWidget(new QLabel("genre:"), ++i, 0, 1, 2, Qt::AlignCenter);
-    layout->addWidget(genreCarte, i, 2, 1, 22);
+    layout->addWidget(genreCarte, i, 2, 1, 7);
+    layout->addWidget(typePrimaire, i, 9, 1, 7);
+    layout->addWidget(typeSecondaire, i, 16, 1, 8);
     layout->addWidget(new QLabel("attribut:"), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(attribut, i, 2, 1, 22);
 
@@ -161,6 +196,8 @@ void editeur_de_carte::slotAttribut()
 
             spinAttaque->setDisabled(false);
             spinDefense->setDisabled(false);
+            typePrimaire->setDisabled(false);
+            typeSecondaire->setDisabled(false);
         break;
 
         case MAGIE:
@@ -182,6 +219,8 @@ void editeur_de_carte::slotAttribut()
 
             spinAttaque->setDisabled(true);
             spinDefense->setDisabled(true);
+            typePrimaire->setDisabled(true);
+            typeSecondaire->setDisabled(true);
         break;
 
         case PIEGE:
@@ -197,6 +236,8 @@ void editeur_de_carte::slotAttribut()
 
             spinAttaque->setDisabled(true);
             spinDefense->setDisabled(true);
+            typePrimaire->setDisabled(true);
+            typeSecondaire->setDisabled(true);
     }
 }
 

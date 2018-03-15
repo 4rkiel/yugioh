@@ -65,12 +65,12 @@ private:
         QTextEdit *smallEditor;
         QTextEdit *bigEditor;
         QDialogButtonBox *buttonBox;
-
         QLineEdit *nom;
         QLineEdit *description;
 
         QComboBox *genreCarte;
-        QComboBox *sousGenreCarte;
+        QComboBox *typePrimaire;
+        QComboBox *typeSecondaire;
         QComboBox *attribut;
         QComboBox *type;
         QComboBox *nrSet;
