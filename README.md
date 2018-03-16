@@ -4,18 +4,14 @@ Implémentation du jeu de carte Yu-Gi-Oh!
 
 [Lien vers le cahier des charges](https://docs.google.com/document/d/1OeF_gmBVjo56tAUFRijaNlVDgjEvVVLkMJVCUVTZqDc/edit?usp=sharing), à completer.
 
-:information_source: Libre à chacun d'éditer les fichiers
-
 :information_source: Vous pouvez utiliser [GitKraken](https://www.gitkraken.com) pour suivre facilement les commits.
-
-:warning: Mettez des commits à minima clairs
 
 :warning: La cohérence du design sera mise en place progressivement, une fois les élements développés et stables. Attention toutefois à réutiliser les élements de GUI déjà réimplémentés le plus souvent possible, par soucis de cohérence (voir tableau ci-dessous).
 
 
 ## Actuellement en Zone Critique
 
- - [ ] Création du type carte
+ - [x] Création du type carte
  - [ ] Elaboration du système de "commandes de jeu" (ex: pour que la carte X attaque la carte Y ou que la carte X active son effet Y), avec code. En lien avec le tranzit de ces commandes sur le réseau.
 
 
@@ -33,26 +29,31 @@ Implémentation du jeu de carte Yu-Gi-Oh!
  - [ ] Contraste-full style
  - [ ] Dyschromatopsia style
  - [ ] Traduction FR - EN
+ - [ ] Indications (replace tooltip, everywhere)
 
 
 #### Menu Principal
 
  - [x] Écran de chargement
  - [x] Menu Principal
-   - [ ] Menu Selection Jeu (Solo / Local / Online)
- - [ ] Indications (replace tooltip, everywhere)
+   - [ ] Menu de Selection du Mode de Jeu
+ - [ ] Affichage des Paramètres (decks courrant + règles courrantes)
 
 
 #### Zone Duels
 
  - [ ] Interface Generale
-    - [x] Rotation Partie adverse + inversion
+    - [ ] Rotation Partie adverse
     - [ ] Confirmation lors de l'abandon
  - [ ] Gestion des parties
     - [ ] Solo
-       - [ ] IA 1
-    - [ ] Local
-    - [ ] Online
+       - [ ] IA Random
+       - [ ] IA Optimisation
+       - [ ] Trained IA
+    - [ ] Private Server
+       - [ ] Créer
+       - [ ] Réjoindre
+    - [ ] Online MatchMaking
  - [ ] Chargement des Decks
  - [ ] Chargement des cartes
 
@@ -63,7 +64,9 @@ Implémentation du jeu de carte Yu-Gi-Oh!
     - [ ] Liste des decks
       - [ ] Choix du deck courrant
       - [ ] Choix du deck adverse (a placer dans la zone de duel ?)
+ - [ ] Liste des cartes custom
  - [ ] CarteBuild
+    - [ ] Edition des cartes déjà créées
 
 
 #### Zone Règles
@@ -92,4 +95,14 @@ Implémentation du jeu de carte Yu-Gi-Oh!
 Nom de la classe | Remplace/Améliore | Descriptif
 ---------------- | ----------------- | ----------
 ShadowButt | QPushButton | Rajoute des effets d'ombrage
+
+
+
+## Elements Optionnels Interessants/WTF
+
+:information_source: Ces élements ne sont à prendre en compte qu'une fois les fonctionnalités principales implémentées.
+
+ - [ ] Environnement sonore
+    - [ ] Option de désactivation des élements sonores
+ 
 
