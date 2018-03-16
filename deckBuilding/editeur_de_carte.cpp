@@ -56,7 +56,10 @@ void editeur_de_carte::createFormGroupBox()
     attribut = new QComboBox;
     nom = new QLineEdit;
     image = new QPushButton;
+    addComboBox = new QPushButton;
+    deleteComboBox = new QPushButton;
     imageUrl = new QLineEdit;
+    comboBoxList = new Qlist;
 
     QStringList imgList = QDir(imgRep).entryList();
 
@@ -177,6 +180,9 @@ void editeur_de_carte::createFormGroupBox()
     layout->addWidget(spinDefense, i, 2, 1, 10);
     layout->addWidget(new QLabel("Image URL:"), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(imageUrl, i, 2, 1, 10);
+
+    layout->addWidget(addComboBox, ++i, 0, 1, 10);
+    layout->addWidget(deleteComboBox, ++i, 0, 1, 10);
 
     formGroupBox->setLayout(layout);
 }

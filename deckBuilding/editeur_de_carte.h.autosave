@@ -73,7 +73,7 @@ private:
         QLineEdit *description;
         QLineEdit *imageUrl;
 
-        QList *comboBoxList;
+        QList<boxEffet> *comboBoxList;
 
         QComboBox *genreCarte;
         QComboBox *typePrimaire;

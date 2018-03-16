@@ -32,7 +32,8 @@ HEADERS += app.h generique.h genProgress.h intro.h main.h shadowButt.h sleeper.h
     deckBuilding/bouton_ouvrir_fichier_deck.h \
     deckBuilding/carte_magie.h \
     deckBuilding/carte_piege.h \
-    deckBuilding/editeur_de_carte.h
+    deckBuilding/editeur_de_carte.h \
+    deckBuilding/boxeffet.h
 SOURCES += app.cpp \
            generique.cpp \
            genProgress.cpp \
@@ -47,4 +48,5 @@ SOURCES += app.cpp \
     deckBuilding/bouton_ouvrir_fichier_deck.cpp \
     deckBuilding/carte_magie.cpp \
     deckBuilding/carte_piege.cpp \
-    deckBuilding/editeur_de_carte.cpp
+    deckBuilding/editeur_de_carte.cpp \
+    deckBuilding/boxeffet.cpp
