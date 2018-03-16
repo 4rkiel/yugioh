@@ -3,34 +3,39 @@
 SlotCard::SlotCard (){
 
     posi = 0;
+    url = "img/cards/001/LOB-EN124-ExodiatheForbiddenOneTCG.jpg";
 
-    setFrameStyle(0);
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setCacheMode(QGraphicsView::CacheBackground);
-    setStyleSheet("background: transparent");
-    setRenderHints(
-            QPainter::Antialiasing
-            | QPainter::SmoothPixmapTransform
-            | QPainter::TextAntialiasing
-            | QPainter::HighQualityAntialiasing);
+    setObjectName("fieldCard");
+    setFlat(true);
 
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    
+    layout = new QGridLayout;
+
+
+    view = new QGraphicsView;
+    view -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view -> setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view -> setStyleSheet("background: transparent");
+    view->setFrameStyle(0);
+    
     scene = new QGraphicsScene;
-    setScene(scene);
+    view -> setScene(scene);
 
+    
+    imgButt = new QPushButton;
+    imgButt -> setObjectName("fieldCardInside");
+    imgButt -> setStyleSheet("border-image: url(" + url + ");");
 
-    proxy = new QGraphicsProxyWidget();
-    scene -> addItem(proxy);
+    
+    proxy = scene -> addWidget(imgButt);
 
+    layout -> addWidget(view);
 
-        content = new QPushButton;
-
-        content -> setObjectName("fieldCard");
-        content -> resize(width(),height());
-        
-        proxy -> setWidget(content);
-
-    proxy -> setTransformOriginPoint(0,0);
+    setLayout(layout);
+    
+    
 
     rotAnim = new QPropertyAnimation(proxy, "rotation");
     rotAnim -> setDuration(500);
@@ -39,23 +44,38 @@ SlotCard::SlotCard (){
     scaleAnim -> setDuration(500);
 
 
-    connect(content, SIGNAL(clicked()), this, SLOT(turn()));
     
+    connect(this, SIGNAL(clicked()), this, SLOT(turn()));
+    connect(imgButt, SIGNAL(clicked()), this, SLOT(turn()));
+
 }
 
 
 
 SlotCard::~SlotCard (){
-   
+
     delete scaleAnim;
     delete rotAnim;
 
     delete proxy;
     delete scene;
+    delete view;
 }
 
 
-void SlotCard::resizeEvent(QResizeEvent *){
+void SlotCard::resizeEvent (QResizeEvent*){
+   
+    int w = width();
+    int h = height();
+
+    view -> setGeometry(0,0,w,h);
+    scene->setSceneRect(0,0,w,h);
+
+    if (posi){
+        imgButt -> resize(QSize(h,w));
+    } else {
+        imgButt -> resize(QSize(w,h));
+    }
 }
 
 
@@ -63,25 +83,28 @@ void SlotCard::turn (){
     
     posi = (posi + 1) % 2;
     
+    int w = width();
+    int h = height();
+
     if (posi == 0){
-        scaleAnim->setStartValue(QRect(0,height(),height(),width()));
-        scaleAnim->setEndValue(QRect(0,0,width(),height()));
+        scaleAnim->setStartValue(QRect(0,h,h,w));
+        scaleAnim->setEndValue(QRect(0,0,w,h));
     } else {
-        scaleAnim->setStartValue(QRect(0,0,width(),height()));
-        scaleAnim->setEndValue(QRect(0,height(),height(),width()));
+        scaleAnim->setStartValue(QRect(0,0,w,h));
+        scaleAnim->setEndValue(QRect(0,h,h,w));
     }
 
-    scaleAnim -> start();
-    
     rotAnim->setStartValue(-90 + (posi * 90));
     rotAnim->setEndValue(posi * -90);
     
+    scaleAnim -> start();
     rotAnim->start();
 
 
 }
 
 
-void SlotCard::setContent(QString str){
-    content -> setText(str);
+void SlotCard::setPic(QString str){
+    url = str;
+    imgButt -> setStyleSheet("border-image: url(" + url + ");");
 }

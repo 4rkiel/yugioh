@@ -1,38 +1,44 @@
 #ifndef SLOTCARD
 #define SLOTCARD
 
-#include <QPushButton>
-
 #include <QGridLayout>
+
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QGraphicsProxyWidget>
+
 #include <QPropertyAnimation>
 
+#include <QPushButton>
 #include <QString>
 
 
-class SlotCard : public QGraphicsView {
 
-    Q_OBJECT
+class SlotCard : public QPushButton {
 
-    public: 
+Q_OBJECT
+
+public: 
     SlotCard();
     ~SlotCard();
-    void resizeEvent(QResizeEvent *);
-    void setContent(QString str);
+    void resizeEvent (QResizeEvent*);
+    void setPic(QString str);
 
-    public slots:
+public slots:
     void turn();
 
-    private:
+private:
     bool posi;
-    
+    QString url;
+
+    QGridLayout * layout;
+
+    QGraphicsView * view;
     QGraphicsScene * scene;
     QGraphicsProxyWidget * proxy;
 
-    QPushButton * content;
-
+    QPushButton * imgButt;
+    
     QPropertyAnimation * rotAnim;
     QPropertyAnimation * scaleAnim;
 };

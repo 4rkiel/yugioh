@@ -15,6 +15,7 @@ ShadowButt {
 
 ShadowButt QLabel {
     color: #000;
+    margin: 0 10px;
 }
 
 ShadowButt:hover {
@@ -115,10 +116,6 @@ Intro {
 
 Intro #introBox {
     border-radius: 2px;
-    min-width: 250px;
-    max-width: 500px;
-    min-height: 400px;
-    max-height: 800px;
     background: #E0F2F1;
 }
 
@@ -272,10 +269,6 @@ Field ShadowButt {
 
 #menuBox {
     border-radius: 2px;
-    min-width: 250px;
-    max-width: 500px;
-    min-height: 200px;
-    max-height: 800px;
     background: #E0F2F1;
 }
 
@@ -283,24 +276,66 @@ Field ShadowButt {
     background: #263238;
 }
 
+
 #fieldCard {
-    background: qradialgradient(
-    cx: 0.5, 
-    cy: 0.5, 
-    radius: 1.5, 
-    fx: 0.5,
-    fy: 0.5, 
-    stop: 0.2 #150A0A, 
-    stop: 1 #381010);
-    background: #150A0A;
-    border: none;
-    border-radius: 2px;
+    background: transparent;
+    border-radius: 3px;
+    min-width: 50px;
 }
+
+#advHand #fieldCard,
+#slfHand #fieldCard {
+    border: 2px solid rgba(255,255,255,100);
+}
+
+#advMagic #fieldCard,
+#slfMagic #fieldCard {
+    border: 2px solid rgba(0,150,136,100);
+}
+
+#advMonst #fieldCard,
+#slfMonst #fieldCard {
+    border: 2px solid rgba(121,85,72,100);
+}
+
 
 #fieldCard:hover,
 #fieldCard:focus,
 #fieldCard:pressed {
-    border: none;
-    background: green;
+    border: 2px solid white;
 }
 
+#fieldCardInside {
+    background: transparent;
+    margin: 5px;
+    border-radius: 3px;
+}
+
+
+#fieldDeckAdv,
+#fieldDeckSlf {
+    background: transparent;
+    min-width: 50px;
+    border: 0px outset transparent;
+    border-bottom: 5px outset #3E2723;
+    border-right: 0px outset transparent;
+    border-left: 0px outset transparent;
+    border-top: 0px outset transparent;
+    border-radius: 5px;
+}
+
+#fieldDeckAdv {
+    border-right: 5px outset #4E342E;
+}
+
+#fieldDeckSlf {
+    border-left: 5px outset #4E342E;
+}
+
+
+
+
+#fieldDeckInside {
+    background: transparent;
+    margin: 0 5px 5px 5px;
+}

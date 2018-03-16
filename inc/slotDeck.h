@@ -1,29 +1,46 @@
 #ifndef SLOTDECK
 #define SLOTDECK
 
+#include <QGridLayout>
+
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QGraphicsProxyWidget>
-#include <QPushButton>
 
+#include <QPropertyAnimation>
+
+#include <QPushButton>
 #include <QString>
 
-class SlotDeck : public QGraphicsView {
 
-    Q_OBJECT
 
-    public: 
+class SlotDeck : public QPushButton {
+
+Q_OBJECT
+
+public: 
     SlotDeck();
     ~SlotDeck();
-    void changeState(int sz);
-    void draw();
+    void resizeEvent (QResizeEvent*);
+    void setPic(QString str);
 
-    private:
-    int size;
+public slots:
+    void turn();
+
+private:
+    bool posi;
+    QString url;
+
+    QGridLayout * layout;
+
+    QGraphicsView * view;
     QGraphicsScene * scene;
     QGraphicsProxyWidget * proxy;
-    QPushButton * content;
 
+    QPushButton * imgButt;
+    
+    QPropertyAnimation * rotAnim;
+    QPropertyAnimation * scaleAnim;
 };
 
 

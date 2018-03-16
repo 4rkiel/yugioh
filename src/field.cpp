@@ -91,7 +91,6 @@ Field::Field () {
             advLayout -> setSpacing(0);
             advLayout -> setMargin(0);
 
-           
                 advHand = new QWidget;
                 advHand -> setObjectName("advHand");
                 advHandLayout = new QHBoxLayout;
@@ -99,9 +98,9 @@ Field::Field () {
                 advHandLayout -> setSpacing(10);
 
                     advHand0 = new SlotDeck;
-                    advHand0 -> setObjectName("advDeck");
-
+                    advHand0 -> setObjectName("fieldDeckAdv");
                     advHandLayout -> addWidget(advHand0);
+                    
                     advHand1 = new SlotCard;
                     advHandLayout -> addWidget(advHand1);
                     advHand2 = new SlotCard;
@@ -246,8 +245,7 @@ Field::Field () {
                     slfHandLayout -> addWidget(slfHand5);
                     
                     slfHand6 = new SlotDeck;
-                    slfHand6 -> setObjectName("slfDeck");
-
+                    slfHand6 -> setObjectName("fieldDeckSlf");
                     slfHandLayout -> addWidget(slfHand6);
                
                 slfHand -> setLayout(slfHandLayout);

@@ -4,25 +4,37 @@ ShadowButt::ShadowButt (QString icoStr, QString textStr){
  
     // Button content
 
+
     layout = new QHBoxLayout;
-    layout -> setAlignment(Qt::AlignCenter);
+    layout -> setSizeConstraint(QLayout::SetMinimumSize);
 
     ico = nullptr;
     txt = nullptr;
 
     if (icoStr != ""){
         ico = new QLabel;
+        ico -> setMargin(10);
         ico -> setFont(QFont("Font Awesome 5 Free", 12));
         ico -> setText(icoStr);
-    
-        layout -> addWidget(ico);
+   
+        if (textStr == ""){
+            setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+
+            layout -> addStretch();
+            layout -> addWidget(ico, 0, Qt::AlignCenter);
+            layout -> addStretch();
+        } else {
+            layout -> addWidget(ico, 0, Qt::AlignLeft);
+        }
     }
 
     if (textStr != ""){
         txt = new QLabel;
         txt -> setText(textStr);
 
-        layout -> addWidget(txt);
+        layout -> addStretch();
+        layout -> addWidget(txt, 0, Qt::AlignRight);
+        layout -> addStretch();
     }
 
     setLayout(layout);
