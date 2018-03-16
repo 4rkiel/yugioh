@@ -12,6 +12,7 @@
 
 #include "../inc/field.h"
 #include "../inc/intro.h"
+#include "../inc/choice.h"
 #include "../inc/generique.h"
 #include "../inc/optab.h"
 #include "../inc/ruletab.h"
@@ -27,7 +28,8 @@ class Window : public QWidget {
 
     private slots:
     void introStack();
-    void fieldStack();
+	void choiceStack();
+	void fieldStack();
     void optStack();
     void ruleStack();
     void helpStack();
@@ -39,6 +41,7 @@ class Window : public QWidget {
     QStackedLayout * stackedLayout;
     Generique * generique;
     Intro * intro;
+	Choice * choice;
     Field * field;
     OptionTab * opt; 
     RuleTab * rule;

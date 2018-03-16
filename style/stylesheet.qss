@@ -110,16 +110,20 @@ Generique QProgressBar::chunk {
 
 *****************************************************************/
 
-Intro {
+Intro,
+Choice {
     margin: 30px;
 }
 
-Intro #introBox {
+Intro #introBox,
+Choice #introBox {
     border-radius: 2px;
     background: #E0F2F1;
+	max-width: 500px;
 }
 
-Intro ShadowButt {
+Intro ShadowButt,
+Choice ShadowButt {
     margin: 10px;
     padding: 5px 10px;
 } 

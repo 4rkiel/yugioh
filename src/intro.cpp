@@ -27,10 +27,10 @@ Intro::Intro () {
             // New Game Button
           
             QString strButton = QString::fromUtf8("Duel");
-            newgame = new ShadowButt("\uf439", strButton);
-            newgame -> setToolTip("Commencer une partie");
-            connect(newgame, SIGNAL(clicked()), this, SLOT(emitField()));
-            box -> addWidget(newgame);
+            choice = new ShadowButt("\uf439", strButton);
+            choice -> setToolTip("Commencer une partie");
+            connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
+            box -> addWidget(choice);
 
 
             // Decks Button
@@ -88,7 +88,7 @@ Intro::Intro () {
     
 Intro::~Intro (){
 
-    delete newgame;
+    delete choice;
     delete decks;
     delete rules;
     delete options;
@@ -104,12 +104,12 @@ Intro::~Intro (){
 
 
 void Intro::init (){
-    newgame -> setFocus();
+    choice -> setFocus();
 }
 
 
-void Intro::emitField (){
-    emit fieldStack();
+void Intro::emitChoice (){
+    emit choiceStack();
 }
 
 

@@ -32,6 +32,7 @@ HEADERS += inc/field.h \
            inc/generique.h \
            inc/genProgress.h \
            inc/intro.h \
+           inc/choice.h \
            inc/main.h \
            inc/optab.h \
            inc/ruletab.h \
@@ -45,6 +46,7 @@ SOURCES += src/field.cpp \
            src/generique.cpp \
            src/genProgress.cpp \
            src/intro.cpp \
+           src/choice.cpp \
            src/main.cpp \
            src/optab.cpp \
            src/ruletab.cpp \

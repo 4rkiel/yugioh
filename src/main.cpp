@@ -47,6 +47,10 @@ Window::~Window (){
         case 6 :
             delete opt;
             break;
+
+		case 7:
+			delete choice;
+			break;
     }
 
     delete stackedLayout;
@@ -58,7 +62,7 @@ Window::~Window (){
 void Window::introStack (){
 
     intro = new Intro;
-    connect(intro, SIGNAL(fieldStack()), this, SLOT(fieldStack()));
+    connect(intro, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
     connect(intro, SIGNAL(ruleStack()), this, SLOT(ruleStack()));
     connect(intro, SIGNAL(optStack()), this, SLOT(optStack()));
     connect(intro, SIGNAL(helpStack()), this, SLOT(helpStack()));
@@ -72,6 +76,20 @@ void Window::introStack (){
     currentLayout = 1;
 }
 
+void Window::choiceStack (){
+	
+	choice = new Choice;
+	
+    connect(choice, SIGNAL(introStack()), this, SLOT(introStack()));
+    connect(choice, SIGNAL(localStack()), this, SLOT(fieldStack()));
+	
+	stackedLayout -> addWidget(choice);
+	stackedLayout -> setCurrentWidget(choice);
+
+	cleanStack();
+
+	currentLayout = 7;
+}
 
 void Window::fieldStack (){
 
@@ -187,6 +205,13 @@ void Window::cleanStack (){
             delete help;
             
             break;
+
+		case 7:
+
+			stackedLayout -> removeWidget(choice);
+			delete choice;
+
+			break;
     }
 }
 

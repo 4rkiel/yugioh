@@ -26,13 +26,13 @@ class Intro : public QFrame {
     void init();
 
     public slots:
-    void emitField();
+    void emitChoice();
     void emitRule();
     void emitOpt();
     void emitHelp();
 
     signals:
-    void fieldStack();
+    void choiceStack();
     void ruleStack();
     void optStack();
     void helpStack();
@@ -44,7 +44,7 @@ class Intro : public QFrame {
         QVBoxLayout * box;
         QGraphicsDropShadowEffect * effect;
 
-        ShadowButt * newgame;
+        ShadowButt * choice;
         ShadowButt * decks;
         ShadowButt * rules;
         ShadowButt * options;
