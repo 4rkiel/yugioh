@@ -49,7 +49,9 @@ class editeur_de_carte : public QDialog
 
 public slots:
         void sauvegarder();
+        void selectImg();
         void slotAttribut();
+
 private:
         void createMenu();
         void createHorizontalGroupBox();
@@ -67,6 +69,7 @@ private:
         QDialogButtonBox *buttonBox;
         QLineEdit *nom;
         QLineEdit *description;
+        QLineEdit *imageUrl;
 
         QComboBox *genreCarte;
         QComboBox *typePrimaire;
@@ -75,9 +78,12 @@ private:
         QComboBox *type;
         QComboBox *nrSet;
 
+        QLabel *image;
+
         QSpinBox *ID;        
         QSpinBox *spinAttaque;
         QSpinBox *spinDefense;
+        QSpinBox *niveau;
 
         QComboBox *cb_categorie;
         QComboBox *cb_type;

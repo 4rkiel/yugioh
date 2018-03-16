@@ -49,12 +49,16 @@ void editeur_de_carte::createFormGroupBox()
 
     spinAttaque = new QSpinBox;
     spinDefense = new QSpinBox;
+    niveau = new QSpinBox;
     genreCarte = new QComboBox;
     typePrimaire = new QComboBox;
     typeSecondaire = new QComboBox;
     attribut = new QComboBox;
     nom = new QLineEdit;
+    image = new QLabel();
+    imageUrl = new QLineEdit;
 
+    QStringList imgList = QDir(imgRep).entryList();
 
     QStringList typePrimaireList;
     typePrimaireList << "Aqua" << "Bete" << "Bete Ailee" << "Bete-Divine" << "Bete-Guerrier" << "Demon" << "Dinosaure" <<"Dragon"  << "Elfe"
@@ -64,8 +68,10 @@ void editeur_de_carte::createFormGroupBox()
     QStringList typeSecondaireList;
     typeSecondaireList << "Effet" << "Normal" << "Fusion" << "Toon" << "Rituel";
 
-    QCompleter *completerTypePrimaire = new QCompleter(typePrimaireList, this);
-    completerTypePrimaire->setCaseSensitivity(Qt::CaseInsensitive);
+    QCompleter *completerImg = new QCompleter(imgList, this);
+    completerImg->setCaseSensitivity(Qt::CaseInsensitive);
+
+    imageUrl->setCompleter(completerImg);
 
     nom->setText("Magicien Blanc aux Yeux Rouge du Lustre Noir");
 
@@ -103,8 +109,9 @@ void editeur_de_carte::createFormGroupBox()
     {
         typePrimaire->addItem(typePrimaireList.at(i), i);
     }
-    typePrimaire->setEditable(true);
-    typePrimaire->setCompleter(completerTypePrimaire);
+
+//    typePrimaire->setEditable(true);
+//    typePrimaire->setCompleter(completerTypePrimaire);
 
     for(int i=0; i<typeSecondaireList.size(); i++)
     {
@@ -117,6 +124,15 @@ void editeur_de_carte::createFormGroupBox()
     slotAttribut();
     genreCarte->setCurrentIndex(rand()%3);
 
+//    image->setPixmap( QPixmap(imgRep + "DEFAULT" ) );
+//    image->show();
+
+    QLabel *font = new QLabel;
+    font->setStyleSheet("border: 2px solid black");
+    image->setStyleSheet("border-image: url("+imgRep + "DEFAULT"+"); margin: 2px");
+
+    QObject::connect(image, SIGNAL(clicked()), this,SLOT(selectImg()));
+
 
     spinAttaque -> setSingleStep(500);
     spinAttaque -> setAccelerated(true);
@@ -128,6 +144,11 @@ void editeur_de_carte::createFormGroupBox()
     spinDefense -> setAccelerated(true);
     spinDefense -> setMaximum(5000);
     spinDefense -> setMinimum(0);
+
+    niveau -> setSingleStep(1);
+    niveau -> setAccelerated(true);
+    niveau -> setMaximum(12);
+    niveau -> setMinimum(1);
 
     QGridLayout *layout = new QGridLayout;
 
@@ -142,12 +163,18 @@ void editeur_de_carte::createFormGroupBox()
     layout->addWidget(typePrimaire, i, 9, 1, 7);
     layout->addWidget(typeSecondaire, i, 16, 1, 8);
     layout->addWidget(new QLabel("attribut:"), ++i, 0, 1, 2, Qt::AlignCenter);
-    layout->addWidget(attribut, i, 2, 1, 22);
+    layout->addWidget(attribut, i, 2, 1, 10);
+    layout->addWidget(font, i, 12, 5, 12);
+    layout->addWidget(image, i, 12, 5, 12);
+    layout->addWidget(new QLabel("Niveau:"), ++i, 0, 1, 2, Qt::AlignCenter);
+    layout->addWidget(niveau, i, 2, 1, 10);
 
     layout->addWidget(new QLabel("Attaque:"), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(spinAttaque, i, 2, 1, 10);
-    layout->addWidget(new QLabel("Defense:"), i, 12, 1, 2, Qt::AlignCenter);
-    layout->addWidget(spinDefense, i, 14, 1, 10);
+    layout->addWidget(new QLabel("Defense:"), ++i, 0, 1, 2, Qt::AlignCenter);
+    layout->addWidget(spinDefense, i, 2, 1, 10);
+    layout->addWidget(new QLabel("Image URL:"), ++i, 0, 1, 2, Qt::AlignCenter);
+    layout->addWidget(imageUrl, i, 2, 1, 10);
 
     formGroupBox->setLayout(layout);
 }
@@ -168,6 +195,15 @@ void editeur_de_carte::sauvegarder()
 
 
     myfile->close();
+}
+
+void editeur_de_carte::selectImg()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Selectionner une image"), imgRep,
+                                                    tr("Images (*.png *.xpm *.jpg)"));
+    qDebug() << (fileName);
+
+    image->setStyleSheet("border-image: url("+imgRep + fileName + "); margin: 2px");
 }
 
 void editeur_de_carte::slotAttribut()
@@ -198,6 +234,7 @@ void editeur_de_carte::slotAttribut()
             spinDefense->setDisabled(false);
             typePrimaire->setDisabled(false);
             typeSecondaire->setDisabled(false);
+            niveau->setDisabled(false);
         break;
 
         case MAGIE:
@@ -221,6 +258,7 @@ void editeur_de_carte::slotAttribut()
             spinDefense->setDisabled(true);
             typePrimaire->setDisabled(true);
             typeSecondaire->setDisabled(true);
+            niveau->setDisabled(true);
         break;
 
         case PIEGE:
@@ -238,8 +276,10 @@ void editeur_de_carte::slotAttribut()
             spinDefense->setDisabled(true);
             typePrimaire->setDisabled(true);
             typeSecondaire->setDisabled(true);
+            niveau->setDisabled(true);
     }
 }
+
 
 int main(int argc, char *argv[]) {
 
