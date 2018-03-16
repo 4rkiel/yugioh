@@ -55,7 +55,7 @@ void editeur_de_carte::createFormGroupBox()
     typeSecondaire = new QComboBox;
     attribut = new QComboBox;
     nom = new QLineEdit;
-    image = new QLabel();
+    image = new QPushButton;
     imageUrl = new QLineEdit;
 
     QStringList imgList = QDir(imgRep).entryList();
@@ -71,6 +71,8 @@ void editeur_de_carte::createFormGroupBox()
     QCompleter *completerImg = new QCompleter(imgList, this);
     completerImg->setCaseSensitivity(Qt::CaseInsensitive);
 
+    image->setFlat(true);
+    image->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     imageUrl->setCompleter(completerImg);
 
     nom->setText("Magicien Blanc aux Yeux Rouge du Lustre Noir");
@@ -203,7 +205,8 @@ void editeur_de_carte::selectImg()
                                                     tr("Images (*.png *.xpm *.jpg)"));
     qDebug() << (fileName);
 
-    image->setStyleSheet("border-image: url("+imgRep + fileName + "); margin: 2px");
+    if(!fileName.isNull())
+        image->setStyleSheet("border-image: url(" + fileName + "); margin: 2px");
 }
 
 void editeur_de_carte::slotAttribut()
@@ -212,7 +215,7 @@ void editeur_de_carte::slotAttribut()
     switch(genreCarte->currentIndex())
     {
         case MONSTRE:
-            attribut->addItem("Lumiere", 0);
+            attribut->addItem(QString::fromUtf8("Lumière"), 0);
             attribut->addItem("Tenebre", 1);
             attribut->addItem("Terre", 2);
             attribut->addItem("Eau", 3);

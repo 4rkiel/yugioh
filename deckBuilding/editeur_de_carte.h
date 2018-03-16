@@ -7,6 +7,7 @@
 #include <QMenuBar>
 #include <vector>
 #include <QString>
+#include <string>
 #include <QDebug>
 #include <ctime>
 
@@ -78,7 +79,7 @@ private:
         QComboBox *type;
         QComboBox *nrSet;
 
-        QLabel *image;
+        QPushButton *image;
 
         QSpinBox *ID;        
         QSpinBox *spinAttaque;
