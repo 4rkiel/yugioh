@@ -21,7 +21,7 @@ OptionTab::OptionTab (){
         tabLayout = new QGridLayout;
         tabLayout -> setSpacing(0);
         tabLayout -> setMargin(0);
-  
+
             exitButt = new ShadowButt("\uf00d", "");
             exitButt -> setToolTip("Fermer les paramètres");
             connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));

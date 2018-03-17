@@ -32,9 +32,15 @@ ShadowButt::ShadowButt (QString icoStr, QString textStr){
         txt = new QLabel;
         txt -> setText(textStr);
 
-        layout -> addStretch();
+        layout -> addStretch(1);
+            
         layout -> addWidget(txt, 0, Qt::AlignRight);
-        layout -> addStretch();
+        
+        if (icoStr != ""){
+            layout -> addStretch(2);
+        } else {
+            layout -> addStretch(1);
+        }
     }
 
     setLayout(layout);

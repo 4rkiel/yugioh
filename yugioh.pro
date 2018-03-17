@@ -34,6 +34,7 @@ HEADERS += inc/field.h \
            inc/intro.h \
            inc/choice.h \
            inc/main.h \
+           inc/buildtab.h \
            inc/optab.h \
            inc/ruletab.h \
            inc/helptab.h \
@@ -48,6 +49,7 @@ SOURCES += src/field.cpp \
            src/intro.cpp \
            src/choice.cpp \
            src/main.cpp \
+           src/buildtab.cpp \
            src/optab.cpp \
            src/ruletab.cpp \
            src/helptab.cpp \

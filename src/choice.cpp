@@ -24,15 +24,39 @@ Choice::Choice () {
         box = new QVBoxLayout;
 
 
-            // New Game Button
+            // Local Button
           
-            QString strButton = QString::fromUtf8("Local");
-            local = new ShadowButt("\uf007", strButton);
+            QString strLocal = QString::fromUtf8("Local");
+            local = new ShadowButt("\uf007", strLocal);
             local -> setToolTip("Commencer une Partie Solo");
             connect(local, SIGNAL(clicked()), this, SLOT(emitLocal()));
             box -> addWidget(local);
 
+            box -> addStretch(1);
+           
 
+            // Private Online Button
+          
+            QString strPrivate = QString::fromUtf8("Privée");
+            group = new ShadowButt("\uf0c0", strPrivate);
+            group -> setToolTip("Commencer une Partie Privée");
+            connect(group, SIGNAL(clicked()), this, SLOT(emitLocal()));
+            box -> addWidget(group);
+
+            box -> addStretch(1);
+           
+
+            // MatchMaking Button
+          
+            QString strOnline = QString::fromUtf8("Online");
+            online = new ShadowButt("\uf0ac", strOnline);
+            online -> setToolTip("Commencer une Partie Online");
+            connect(online, SIGNAL(clicked()), this, SLOT(emitLocal()));
+            box -> addWidget(online);
+
+
+            box -> addStretch(20);
+            
 
             // Back Button
 
@@ -54,6 +78,8 @@ Choice::Choice () {
 Choice::~Choice (){
 
     delete intro;
+    delete online;
+    delete group;
     delete local;
 
     delete effect;

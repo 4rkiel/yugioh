@@ -35,7 +35,11 @@ Window::~Window (){
         case 2 :
             delete field;
             break;
-        
+
+        case 3:
+            delete build;
+            break;
+
         case 4 :
             delete rule;
             break;
@@ -45,7 +49,7 @@ Window::~Window (){
             break;
 
         case 6 :
-            delete opt;
+            delete help;
             break;
 
 		case 7:
@@ -63,6 +67,7 @@ void Window::introStack (){
 
     intro = new Intro;
     connect(intro, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
+    connect(intro, SIGNAL(buildStack()), this, SLOT(buildStack()));
     connect(intro, SIGNAL(ruleStack()), this, SLOT(ruleStack()));
     connect(intro, SIGNAL(optStack()), this, SLOT(optStack()));
     connect(intro, SIGNAL(helpStack()), this, SLOT(helpStack()));
@@ -102,6 +107,21 @@ void Window::fieldStack (){
     cleanStack();
 
     currentLayout = 2;
+}
+
+
+void Window::buildStack (){
+
+    build = new BuildTab;
+    connect(build, SIGNAL(introStack()), this, SLOT(introStack()));
+
+    stackedLayout -> addWidget(build);
+    stackedLayout -> setCurrentWidget(build);
+
+    cleanStack();
+
+    build -> init();
+    currentLayout = 3;
 }
 
 
@@ -149,6 +169,8 @@ void Window::helpStack (){
 }
 
 
+
+
 void Window::changeSettings(){
     readConfSettings();
 
@@ -183,6 +205,13 @@ void Window::cleanStack (){
             stackedLayout -> removeWidget(field);
             delete field;
             
+            break;
+
+        case 3:
+
+            stackedLayout -> removeWidget(build);
+            delete build;
+
             break;
 
         case 4:

@@ -1,5 +1,7 @@
 #include "../inc/intro.h"
 
+#include <QHBoxLayout>
+
 Intro::Intro () {
 
     layout = new QGridLayout;
@@ -8,12 +10,34 @@ Intro::Intro () {
     layout -> setMargin(0);
 
 
+        QWidget * infoBox = new QWidget;
+        infoBox -> setObjectName("infoBox");
+        infoBox -> setStyleSheet("background: red; margin: 0px 0px 30px 0px");
+        
+        QGraphicsDropShadowEffect * iffect = new QGraphicsDropShadowEffect;
+        iffect -> setBlurRadius(5);
+        iffect -> setXOffset(0);
+        iffect -> setYOffset(5);
+        iffect -> setColor(QColor(0,0,0,150));
+
+        infoBox -> setGraphicsEffect(iffect);
+        
+        QHBoxLayout * infoLayout = new QHBoxLayout;
+
+        QLabel * info = new QLabel ("Yoooo");
+
+        infoLayout -> addWidget(info);
+        infoBox -> setLayout(infoLayout);
+
+        layout -> addWidget(infoBox, 0,0,1,3);
+
+
         // Intro Menu 
 
         introBox = new QWidget;
         introBox -> setObjectName("introBox");
 
-        effect = new QGraphicsDropShadowEffect(this);
+        effect = new QGraphicsDropShadowEffect;
         effect -> setBlurRadius(5);
         effect -> setXOffset(0);
         effect -> setYOffset(5);
@@ -32,14 +56,17 @@ Intro::Intro () {
             connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
             box -> addWidget(choice);
 
+            box -> addStretch(1);
 
             // Decks Button
 
             QString strDeck = QString::fromUtf8("Decks");
             decks = new ShadowButt("\uf02d", strDeck);
             decks -> setToolTip("Gestion des decks");
+            connect(decks, SIGNAL(clicked()), this, SLOT(emitDeck()));
             box -> addWidget(decks);
 
+            box -> addStretch(1);
 
             // Regles Button
 
@@ -49,6 +76,7 @@ Intro::Intro () {
             connect(rules, SIGNAL(clicked()), this, SLOT(emitRule()));
             box -> addWidget(rules);
 
+            box -> addStretch(1);
 
             // Options Button
 
@@ -58,6 +86,7 @@ Intro::Intro () {
             connect(options, SIGNAL(clicked()), this, SLOT(emitOpt()));
             box -> addWidget(options);
 
+            box -> addStretch(1);
 
             // Options Button
 
@@ -68,6 +97,7 @@ Intro::Intro () {
             box -> addWidget(help);
 
 
+            box -> addStretch(20);
 
             // Quit Button
 
@@ -79,7 +109,7 @@ Intro::Intro () {
 
 
         introBox -> setLayout(box);
-        layout -> addWidget(introBox, 0, 0, 1, 1);
+        layout -> addWidget(introBox, 2, 1, 1, 1);
 
 
     setLayout(layout);
@@ -112,11 +142,13 @@ void Intro::emitChoice (){
     emit choiceStack();
 }
 
+void Intro::emitDeck (){
+    emit buildStack();
+}
 
 void Intro::emitRule (){
     emit ruleStack();
 }
-
 
 void Intro::emitOpt (){
     emit optStack();

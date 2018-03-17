@@ -1,3 +1,9 @@
+QToolTip {
+    margin: 0px;
+    padding: 0px 10px;
+    background: #E0F2F1;
+    border: none;
+}
 
 /*****************************************************************
 
@@ -112,11 +118,12 @@ Generique QProgressBar::chunk {
 
 Intro,
 Choice {
-    margin: 30px;
+    margin: 0px 0px 30px 0px;
 }
 
 Intro #introBox,
 Choice #introBox {
+    margin: 10px 30px;
     border-radius: 2px;
     background: #E0F2F1;
 	max-width: 500px;
@@ -124,9 +131,21 @@ Choice #introBox {
 
 Intro ShadowButt,
 Choice ShadowButt {
-    margin: 10px;
+    margin: 10px 30px;
     padding: 5px 10px;
 } 
+
+Intro ShadowButt > *,
+Choice ShadowButt > * {
+    margin: 0px 30px;
+}
+
+Intro ShadowButt QToolTip,
+Choice ShadowButt QToolTip {
+    margin: 0px;
+    padding: 5px 10px;
+}
+
 
 
 /******************************************************************************
@@ -157,7 +176,7 @@ RuleTab #ruleTab .QPushButton {
     background: none;
     color: #37474F;
     padding: 15px 20px 13px;
-    margin: 0px;
+    margin: 5px 0px 0px;
     border-bottom: 2px solid #03A9F4;
     border-right: 0px;
     border-left: 0px;
@@ -181,8 +200,8 @@ RuleTab #ruleTab .QPushButton[down="true"] {
 OptionTab #optionTab ShadowButt,
 HelpTab #helpTab ShadowButt,
 RuleTab #ruleTab ShadowButt {
-    padding: 5px 10px;
-    margin: 0 10px;
+    padding: 5px;
+    margin: 10px;
 }
 
 

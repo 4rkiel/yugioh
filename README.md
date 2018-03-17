@@ -29,7 +29,8 @@ Implémentation du jeu de carte Yu-Gi-Oh!
  - [ ] Contraste-full style
  - [ ] Dyschromatopsia style
  - [ ] Traduction FR - EN
- - [ ] Indications (replace tooltip, everywhere)
+ - [ ] Indications Bar (Where-Am-I) dans les menus
+ - [ ] Replace tooltip ?
 
 
 #### Menu Principal

@@ -14,6 +14,7 @@
 #include "../inc/intro.h"
 #include "../inc/choice.h"
 #include "../inc/generique.h"
+#include "../inc/buildtab.h"
 #include "../inc/optab.h"
 #include "../inc/ruletab.h"
 #include "../inc/helptab.h"
@@ -30,6 +31,7 @@ class Window : public QWidget {
     void introStack();
 	void choiceStack();
 	void fieldStack();
+    void buildStack();
     void optStack();
     void ruleStack();
     void helpStack();
@@ -43,6 +45,7 @@ class Window : public QWidget {
     Intro * intro;
 	Choice * choice;
     Field * field;
+    BuildTab * build;
     OptionTab * opt; 
     RuleTab * rule;
     HelpTab * help;
