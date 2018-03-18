@@ -57,7 +57,13 @@ Implémentation du jeu de carte Yu-Gi-Oh!
     - [ ] Popup sur certains élements
         - [ ] Confirmation lors de l'abandon
 	- [ ] Affichage du cimetière
-
+    
+ - [ ] Chargement des Decks
+ - [ ] Chargement des cartes
+ 
+ - [ ] Communication/Slots Moteur - Terrain
+ - [ ] Communication/Slots Terrain - Cartes
+ 
  - [ ] Gestion des parties
     - [ ] Solo
        - [ ] IA Random
@@ -67,12 +73,6 @@ Implémentation du jeu de carte Yu-Gi-Oh!
        - [ ] Créer
        - [ ] Réjoindre
     - [ ] Online MatchMaking
-    
- - [ ] Chargement des Decks
- - [ ] Chargement des cartes
- 
- - [ ] Communication/Slots Moteur - Terrain
- - [ ] Communication/Slots Terrain - Cartes
 
 
 #### Zone DeckBuild
