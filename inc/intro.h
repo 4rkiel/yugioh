@@ -6,6 +6,7 @@
 
 #include <QGridLayout>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include <QGraphicsDropShadowEffect>
 
@@ -41,6 +42,14 @@ class Intro : public QFrame {
 
     private:
     QGridLayout * layout;
+
+    QWidget * infoBox;
+        
+        QGraphicsDropShadowEffect * iffect;
+        QHBoxLayout * infoLayout;
+        QLabel * info;
+
+    
     QWidget * introBox;
     
         QVBoxLayout * box;

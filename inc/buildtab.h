@@ -16,9 +16,6 @@
 
 #include <QScrollArea>
 #include <QPushButton>
-#include <QLabel>
-#include <QFile>
-#include <QTextStream>
 #include <QCheckBox>
 #include <QSpacerItem>
 #include <QComboBox>
@@ -27,44 +24,55 @@
 
 class BuildTab : public QFrame {
 
-    Q_OBJECT
+Q_OBJECT
     
-    public:
+public:
     BuildTab();
     ~BuildTab();
     void init();
     void reInit();
 
-    private:
-    QGraphicsDropShadowEffect * helpEffect;
+
+private:
+    QGraphicsDropShadowEffect * buildEffect;
     QGridLayout * layout;
+
+    QWidget * infoBox;
+
+        QGraphicsDropShadowEffect * iffect;
+        QHBoxLayout * infoLayout;
+        QLabel * info;
+
+
+    QWidget * tabInside;
+    QGridLayout * tabInsideLayout;
 
     QWidget * tabBox;
     QGridLayout * tabLayout;
 
     QPushButton * currButt;
 
-    QPushButton * helpButt;
-    QPushButton * aboutButt;
+    QPushButton * deckButt;
+    QPushButton * cardButt;
     ShadowButt * exitButt;
 
-    QWidget * helpBox;
-    QStackedLayout * helpLayout;
+    QWidget * buildBox;
+    QStackedLayout * buildLayout;
 
-    QScrollArea * helpScroll;
-    QLabel * helpLabel; 
+    QScrollArea * deckScroll;
 
-    QScrollArea * aboutScroll;
-    QLabel * aboutLabel;
+    QScrollArea * cardScroll;
 
     void updateStyle(QPushButton * b);
 
-    public slots:
-    void setHelp();
-    void setAbout();
+
+public slots:
     void emitClose();
-    
-    signals:
+    void setDeck();
+    void setCard();
+
+
+signals:
     void introStack();
 };
 

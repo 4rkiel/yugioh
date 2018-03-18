@@ -39,6 +39,16 @@ class OptionTab : public QFrame {
     QGraphicsDropShadowEffect * optEffect;
     QGridLayout * layout;
 
+    QWidget * infoBox;
+
+        QGraphicsDropShadowEffect * iffect;
+        QHBoxLayout * infoLayout;
+        QLabel * info;
+
+
+    QWidget * tabInside;
+    QGridLayout * tabInsideLayout;
+
     QWidget * tabBox;
     QGridLayout * tabLayout;
 
@@ -61,8 +71,6 @@ class OptionTab : public QFrame {
         QComboBox * langInput;
         QLabel * langDesc;
 
-        QLabel * shortcutDesc;
-    
     QScrollArea * accessScroll;
     QWidget * accessScrollBox;
     QVBoxLayout * accPaneLayout;

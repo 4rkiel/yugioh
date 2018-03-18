@@ -1,10 +1,38 @@
+<h1>Duel Monster</h1>
+
+<p>Version 1.0</p>
+
+<br/>
+
+
+
 <h2>Crédits</h2>
+
+<h3>Supervision</h3>
+
+<p><a href="https://github.com/wiztigers">Wiztigers</a></p>
+
+<br/>
+
 
 <h3>Equipe de production</h3>
 
-<p><a href="https://github.com/4rkiel">4rkiel</a></p>
-<p><a href="https://github.com/Wargamme">Wargamme</a></p>
-<p><a href="https://github.com/VictorCostantino">Costantino</a></p>
+<br/>
+
+<table border="none">
+    <tr>
+        <td rowspan="3" style="padding: 0 30px">
+            <img src="img/friendship.png" width="150" height="150" />
+        </td>
+        
+        <td><a href="https://github.com/4rkiel">4rkiel</a></td>
+    </tr>
+    <tr>
+        <td><a href="https://github.com/Wargamme">Wargamme</a></td>
+    <tr>
+        <td><a href="https://github.com/VictorCostantino">Costantino</a></td>
+    </tr>
+</table>
 
 <br/>
 
@@ -17,13 +45,15 @@
 <br/>
 
 
+
 <h2>Remerciements</h2>
-<ul>
-    <li>Kaiba: Draw your last pathetic card so I can end this, Yugi!</li>
-    <li>Yami Yugi: My Grandpa's deck has no pathetic cards, Kaiba. But it does contain... the unstoppable Exodia!</li>
-    <li>Kaiba: Aaaaargh! Impossible!</li>
-    <li>Yami Yugi: I've assembled all five special cards... all five pieces of the puzzle!</li>
-    <li>[<i>Exodia the Forbidden One suddenly appears on the field towering over the Blue-Eyes White Dragons</i>]</li>
-    <li>Kaiba: Exodia? It-it's not possible! No one's ever been able to call him!</li>
-    <li>Yami Yugi: Exodia, obliterate!</li>
-</ul>
+
+<div style="margin: 0 30px">
+<p> — J'ai décidé de faire comme toi, j'ai adopté aussi un trésor ! Tu veux le voir ?</p>
+<p> — Je veut bien.</p>
+<p> — Désolé... Le mien est "visible, mais pas perceptible", je ne peut pas te le montrer !</p>
+<p> — ?!!!</p>
+<p> — C'est mon amitié !! Toi et moi, on peut nous voir. Mais l'amitié est invisible !</p>
+</div>
+
+<h4><i>Kazuki Takahashi</i></h4>

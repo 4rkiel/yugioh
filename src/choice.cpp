@@ -8,6 +8,28 @@ Choice::Choice () {
     layout -> setMargin(0);
 
 
+        infoBox = new QWidget;
+        infoBox -> setObjectName("infoBox");
+
+        iffect = new QGraphicsDropShadowEffect;
+        iffect -> setBlurRadius(5);
+        iffect -> setXOffset(0);
+        iffect -> setYOffset(5);
+        iffect -> setColor(QColor(0,0,0,150));
+
+        infoBox -> setGraphicsEffect(iffect);
+
+        infoLayout = new QHBoxLayout;
+
+        info = new QLabel ("Mode de Jeu");
+
+        infoLayout -> addWidget(info);
+        infoBox -> setLayout(infoLayout);
+
+        layout -> addWidget(infoBox, 0,0,1,3);
+        
+        
+        
         // Intro Menu 
 
         introBox = new QWidget;
@@ -22,6 +44,8 @@ Choice::Choice () {
         introBox -> setGraphicsEffect(effect);
 
         box = new QVBoxLayout;
+
+            box -> addStretch(1);
 
 
             // Local Button
@@ -54,7 +78,6 @@ Choice::Choice () {
             connect(online, SIGNAL(clicked()), this, SLOT(emitLocal()));
             box -> addWidget(online);
 
-
             box -> addStretch(20);
             
 
@@ -65,10 +88,12 @@ Choice::Choice () {
             intro -> setToolTip("Retour au Menu");
             connect(intro, SIGNAL(clicked()), this, SLOT(emitIntro()));
             box -> addWidget(intro);
+            
+            box -> addStretch(1);
 
 
         introBox -> setLayout(box);
-        layout -> addWidget(introBox, 0, 0, 1, 1);
+        layout -> addWidget(introBox, 2, 1, 1, 1);
 
 
     setLayout(layout);
@@ -86,6 +111,12 @@ Choice::~Choice (){
 
     delete box;
     delete introBox;
+
+    delete iffect;
+    delete info;
+    delete infoLayout;
+    delete infoBox;
+
     delete layout;
 }
 

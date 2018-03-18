@@ -10,11 +10,10 @@ Intro::Intro () {
     layout -> setMargin(0);
 
 
-        QWidget * infoBox = new QWidget;
+        infoBox = new QWidget;
         infoBox -> setObjectName("infoBox");
-        infoBox -> setStyleSheet("background: red; margin: 0px 0px 30px 0px");
         
-        QGraphicsDropShadowEffect * iffect = new QGraphicsDropShadowEffect;
+        iffect = new QGraphicsDropShadowEffect;
         iffect -> setBlurRadius(5);
         iffect -> setXOffset(0);
         iffect -> setYOffset(5);
@@ -22,9 +21,9 @@ Intro::Intro () {
 
         infoBox -> setGraphicsEffect(iffect);
         
-        QHBoxLayout * infoLayout = new QHBoxLayout;
+        infoLayout = new QHBoxLayout;
 
-        QLabel * info = new QLabel ("Yoooo");
+        info = new QLabel ("Menu Principal");
 
         infoLayout -> addWidget(info);
         infoBox -> setLayout(infoLayout);
@@ -47,6 +46,7 @@ Intro::Intro () {
 
         box = new QVBoxLayout;
 
+            box -> addStretch(1);
 
             // New Game Button
           
@@ -107,6 +107,8 @@ Intro::Intro () {
             connect(quit, SIGNAL(clicked()), qApp, SLOT(quit()));
             box -> addWidget(quit);
 
+            
+            box -> addStretch(1);
 
         introBox -> setLayout(box);
         layout -> addWidget(introBox, 2, 1, 1, 1);
@@ -126,9 +128,14 @@ Intro::~Intro (){
     delete quit;
 
     delete effect;
-
     delete box;
     delete introBox;
+    
+    delete info;
+    delete infoLayout;
+    delete iffect;
+    delete infoBox;
+    
     delete layout;
 }
 

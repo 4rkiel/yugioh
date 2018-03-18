@@ -6,13 +6,47 @@ HelpTab::HelpTab (){
     layout -> setSpacing(0);
     layout -> setMargin(0);
     
+        infoBox = new QWidget;
+        infoBox -> setObjectName("infoBox");
+        infoBox -> setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Maximum);
+
+        iffect = new QGraphicsDropShadowEffect;
+        iffect -> setBlurRadius(5);
+        iffect -> setXOffset(0);
+        iffect -> setYOffset(5);
+        iffect -> setColor(QColor(0,0,0,150));
+
+        infoBox -> setGraphicsEffect(iffect);
+
+        infoLayout = new QHBoxLayout;
+
+        info = new QLabel ("Aide");
+
+        infoLayout -> addWidget(info);
+        infoBox -> setLayout(infoLayout);
+
+
+    layout -> addWidget(infoBox, 0,0,1,3);
+    
+    
+    tabInside = new QWidget;
+    tabInside -> setObjectName("tabInside");
+    tabInsideLayout = new QGridLayout;
+    tabInsideLayout -> setSpacing(0);
+    tabInsideLayout -> setMargin(0);
+    tabInsideLayout -> setContentsMargins(30,0,30,0);
+    
+    
     helpEffect = new QGraphicsDropShadowEffect(this);
     helpEffect -> setBlurRadius(5);
     helpEffect -> setXOffset(0);
     helpEffect -> setYOffset(5);
     helpEffect -> setColor(QColor(0,0,0,150));
 
-    setGraphicsEffect(helpEffect);
+    tabInside -> setGraphicsEffect(helpEffect);
+
+
+
 
         // Tab box ............................................................
 
@@ -30,7 +64,7 @@ HelpTab::HelpTab (){
 
 
             helpButt = new QPushButton;
-            helpButt -> setText("Aide");
+            helpButt -> setText("Informations");
             helpButt -> setProperty("down", true);
             connect(helpButt, SIGNAL(clicked()), this, SLOT(setHelp()));
 
@@ -53,7 +87,7 @@ HelpTab::HelpTab (){
         tabBox -> setLayout(tabLayout);
 
 
-    layout -> addWidget(tabBox, 0, 0, 1, 1);
+    tabInsideLayout -> addWidget(tabBox, 0, 0, 1, 1);
 
 
 
@@ -144,7 +178,11 @@ HelpTab::HelpTab (){
         helpLayout -> setCurrentWidget(helpScroll);
         helpBox -> setLayout(helpLayout);
 
-    layout -> addWidget(helpBox, 1, 0, 1, 2);
+    tabInsideLayout -> addWidget(helpBox, 1, 0, 1, 2);
+
+    tabInside -> setLayout(tabInsideLayout);
+
+    layout -> addWidget(tabInside, 1, 0, 1, 1);
 
     setLayout(layout);
 
@@ -153,6 +191,7 @@ HelpTab::HelpTab (){
 
 HelpTab::~HelpTab (){
     
+    delete helpEffect;
 
     delete aboutLabel;
     delete aboutScroll;
@@ -169,8 +208,13 @@ HelpTab::~HelpTab (){
     delete tabLayout;
     delete tabBox;
     
-    delete helpEffect;
-    
+    delete tabInsideLayout;
+    delete tabInside;
+
+    delete info;
+    delete infoLayout;
+    delete iffect;
+    delete infoBox;
     delete layout;
 }
 

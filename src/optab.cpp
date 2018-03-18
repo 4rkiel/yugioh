@@ -5,19 +5,54 @@ OptionTab::OptionTab (){
     layout = new QGridLayout;
     layout -> setSpacing(0);
     layout -> setMargin(0);
-    
+   
+        infoBox = new QWidget;
+        infoBox -> setObjectName("infoBox");
+        infoBox -> setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Maximum);
+
+        iffect = new QGraphicsDropShadowEffect;
+        iffect -> setBlurRadius(5);
+        iffect -> setXOffset(0);
+        iffect -> setYOffset(5);
+        iffect -> setColor(QColor(0,0,0,150));
+
+        infoBox -> setGraphicsEffect(iffect);
+
+        infoLayout = new QHBoxLayout;
+
+        info = new QLabel ("Paramètres");
+
+        infoLayout -> addWidget(info);
+        infoBox -> setLayout(infoLayout);
+
+    layout -> addWidget(infoBox, 0,0,1,3);
+
+
+    tabInside = new QWidget;
+    tabInside -> setObjectName("tabInside");
+    tabInsideLayout = new QGridLayout;
+    tabInsideLayout -> setSpacing(0);
+    tabInsideLayout -> setMargin(0);
+    tabInsideLayout -> setContentsMargins(30,0,30,0);
+
+
+ 
     optEffect = new QGraphicsDropShadowEffect(this);
     optEffect -> setBlurRadius(5);
     optEffect -> setXOffset(0);
     optEffect -> setYOffset(5);
     optEffect -> setColor(QColor(0,0,0,150));
 
-    setGraphicsEffect(optEffect);
+    tabInside -> setGraphicsEffect(optEffect);
+
+
+
 
         // Tab box ............................................................
 
         tabBox = new QWidget;
         tabBox -> setObjectName("optionTab");
+        tabBox -> setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Maximum);
         tabLayout = new QGridLayout;
         tabLayout -> setSpacing(0);
         tabLayout -> setMargin(0);
@@ -43,14 +78,23 @@ OptionTab::OptionTab (){
             connect(accessButt, SIGNAL(clicked()), this, SLOT(setAccess()));
             tabLayout -> addWidget(accessButt, 0, 1, 1, 1);
 
+/*
+            raccButt = new QPushButton;
+            raccButt -> setText("Options");
+            raccButt -> setProperty("down", true);
+            connect(raccButt, SIGNAL(clicked()), this, SLOT(setRacc()));
+            tabLayout -> addWidget(raccButt, 0, 0, 1, 1);
+*/ 
+
             QSpacerItem * spacerButt = new QSpacerItem(1,1,
                     QSizePolicy::Expanding,QSizePolicy::Preferred);
             tabLayout -> addItem(spacerButt, 0, 2);
 
+
+
         tabBox -> setLayout(tabLayout);
 
-
-    layout -> addWidget(tabBox, 0, 0, 1, 1);
+        tabInsideLayout -> addWidget(tabBox, 0, 0, 1, 1);
 
 
 
@@ -105,13 +149,6 @@ OptionTab::OptionTab (){
                 langDesc -> setText("Langue de l'interface");
                 optPaneLayout -> addWidget(langDesc);
 
-                // Shortcut
-
-                shortcutDesc = new QLabel;
-                shortcutDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
-                shortcutDesc -> setText("Raccourcis Clavier");
-                optPaneLayout -> addWidget(shortcutDesc);
-            
 
                 // load settings
 
@@ -196,7 +233,11 @@ OptionTab::OptionTab (){
         optionLayout -> setCurrentWidget(optionScroll);
         optBox -> setLayout(optionLayout);
 
-    layout -> addWidget(optBox, 1, 0, 1, 2);
+    tabInsideLayout -> addWidget(optBox, 1, 0, 2, 1);
+
+    tabInside -> setLayout(tabInsideLayout);
+
+    layout -> addWidget(tabInside, 1, 0, 1, 1);
 
     setLayout(layout);
 
@@ -227,8 +268,6 @@ OptionTab::~OptionTab (){
         delete langInput;
         delete langDesc;
 
-        delete shortcutDesc;
-
     delete optPaneLayout;
     delete optionScrollBox;
     delete optionScroll;
@@ -242,6 +281,14 @@ OptionTab::~OptionTab (){
     delete optionLayout;
 
     delete optBox;
+
+    delete tabInsideLayout;
+    delete tabInside;
+
+    delete info;
+    delete infoLayout;
+    delete iffect;
+    delete infoBox;
 
     delete layout;
 }

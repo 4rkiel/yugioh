@@ -5,14 +5,49 @@ RuleTab::RuleTab (){
     layout = new QGridLayout;
     layout -> setSpacing(0);
     layout -> setMargin(0);
-    
+
+
+        infoBox = new QWidget;
+        infoBox -> setObjectName("infoBox");
+        infoBox -> setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Maximum);
+
+        iffect = new QGraphicsDropShadowEffect;
+        iffect -> setBlurRadius(5);
+        iffect -> setXOffset(0);
+        iffect -> setYOffset(5);
+        iffect -> setColor(QColor(0,0,0,150));
+
+        infoBox -> setGraphicsEffect(iffect);
+
+        infoLayout = new QHBoxLayout;
+
+        info = new QLabel ("Règles");
+
+        infoLayout -> addWidget(info);
+        infoBox -> setLayout(infoLayout);
+
+    layout -> addWidget(infoBox, 0,0,1,3);
+
+
+    tabInside = new QWidget;
+    tabInside -> setObjectName("tabInside");
+    tabInsideLayout = new QGridLayout;
+    tabInsideLayout -> setSpacing(0);
+    tabInsideLayout -> setMargin(0);
+    tabInsideLayout -> setContentsMargins(30,0,30,0);
+
+
+
     ruEffect = new QGraphicsDropShadowEffect(this);
     ruEffect -> setBlurRadius(5);
     ruEffect -> setXOffset(0);
     ruEffect -> setYOffset(5);
     ruEffect -> setColor(QColor(0,0,0,150));
 
-    setGraphicsEffect(ruEffect);
+    tabInside -> setGraphicsEffect(ruEffect);
+
+
+
 
         // Tab box ............................................................
 
@@ -53,7 +88,7 @@ RuleTab::RuleTab (){
         tabBox -> setLayout(tabLayout);
 
 
-    layout -> addWidget(tabBox, 0, 0, 1, 1);
+    tabInsideLayout -> addWidget(tabBox, 0, 0, 1, 1);
 
 
 
@@ -170,7 +205,11 @@ RuleTab::RuleTab (){
         ruleLayout -> setCurrentWidget(persoScroll);
         ruleBox -> setLayout(ruleLayout);
 
-    layout -> addWidget(ruleBox, 1, 0, 1, 2);
+    tabInsideLayout -> addWidget(ruleBox, 1, 0, 1, 2);
+
+    tabInside -> setLayout(tabInsideLayout);
+
+    layout -> addWidget(tabInside, 1,1,2,1);
 
     setLayout(layout);
 
@@ -197,6 +236,14 @@ RuleTab::~RuleTab (){
     delete ruleLayout;
 
     delete ruleBox;
+
+    delete tabInsideLayout;
+    delete tabInside;
+
+    delete info;
+    delete infoLayout;
+    delete iffect;
+    delete infoBox;
 
     delete layout;
 }

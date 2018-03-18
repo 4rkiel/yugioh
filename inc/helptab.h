@@ -39,6 +39,16 @@ class HelpTab : public QFrame {
     QGraphicsDropShadowEffect * helpEffect;
     QGridLayout * layout;
 
+    QWidget * infoBox;
+
+        QGraphicsDropShadowEffect * iffect;
+        QHBoxLayout * infoLayout;
+        QLabel * info;
+
+
+    QWidget * tabInside;
+    QGridLayout * tabInsideLayout;
+    
     QWidget * tabBox;
     QGridLayout * tabLayout;
 

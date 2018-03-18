@@ -39,6 +39,16 @@ class RuleTab : public QFrame {
     QGraphicsDropShadowEffect * ruEffect;
     QGridLayout * layout;
 
+    QWidget * infoBox;
+
+        QGraphicsDropShadowEffect * iffect;
+        QHBoxLayout * infoLayout;
+        QLabel * info;
+
+
+    QWidget * tabInside;
+    QGridLayout * tabInsideLayout;
+
     QWidget * tabBox;
     QGridLayout * tabLayout;
 

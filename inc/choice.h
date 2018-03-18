@@ -33,6 +33,13 @@ class Choice : public QFrame {
 
     private:
     QGridLayout * layout;
+
+    QWidget * infoBox;
+
+        QGraphicsDropShadowEffect * iffect;
+        QHBoxLayout * infoLayout;
+        QLabel * info;
+    
     QWidget * introBox;
     
         QVBoxLayout * box;

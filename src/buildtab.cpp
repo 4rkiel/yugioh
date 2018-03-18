@@ -6,13 +6,46 @@ BuildTab::BuildTab (){
     layout -> setSpacing(0);
     layout -> setMargin(0);
     
-    helpEffect = new QGraphicsDropShadowEffect(this);
-    helpEffect -> setBlurRadius(5);
-    helpEffect -> setXOffset(0);
-    helpEffect -> setYOffset(5);
-    helpEffect -> setColor(QColor(0,0,0,150));
+        infoBox = new QWidget;
+        infoBox -> setObjectName("infoBox");
+        infoBox -> setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Maximum);
 
-    setGraphicsEffect(helpEffect);
+        iffect = new QGraphicsDropShadowEffect;
+        iffect -> setBlurRadius(5);
+        iffect -> setXOffset(0);
+        iffect -> setYOffset(5);
+        iffect -> setColor(QColor(0,0,0,150));
+
+        infoBox -> setGraphicsEffect(iffect);
+
+        infoLayout = new QHBoxLayout;
+
+        info = new QLabel ("Decks");
+
+        infoLayout -> addWidget(info);
+        infoBox -> setLayout(infoLayout);
+
+    layout -> addWidget(infoBox, 0,0,1,3);
+
+
+    tabInside = new QWidget;
+    tabInside -> setObjectName("tabInside");
+    tabInsideLayout = new QGridLayout;
+    tabInsideLayout -> setSpacing(0);
+    tabInsideLayout -> setMargin(0);
+    tabInsideLayout -> setContentsMargins(30,0,30,0);
+
+
+
+    buildEffect = new QGraphicsDropShadowEffect(this);
+    buildEffect -> setBlurRadius(5);
+    buildEffect -> setXOffset(0);
+    buildEffect -> setYOffset(5);
+    buildEffect -> setColor(QColor(0,0,0,150));
+
+    tabInside -> setGraphicsEffect(buildEffect);
+
+
 
         // Tab box ............................................................
 
@@ -23,27 +56,27 @@ BuildTab::BuildTab (){
         tabLayout -> setMargin(0);
   
             exitButt = new ShadowButt("\uf00d", "");
-            exitButt -> setToolTip("Fermer l'aide");
+            exitButt -> setToolTip("Fermer le menu d'édition");
             connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));
             
             tabLayout -> addWidget(exitButt, 0, 4, 1, 1);
 
 
-            helpButt = new QPushButton;
-            helpButt -> setText("Aide");
-            helpButt -> setProperty("down", true);
-            connect(helpButt, SIGNAL(clicked()), this, SLOT(setHelp()));
+            deckButt = new QPushButton;
+            deckButt -> setText("Decks");
+            deckButt -> setProperty("down", true);
+            connect(deckButt, SIGNAL(clicked()), this, SLOT(setDeck()));
 
-            tabLayout -> addWidget(helpButt, 0, 0, 1, 1);
+            tabLayout -> addWidget(deckButt, 0, 0, 1, 1);
             
 
-            aboutButt = new QPushButton;
-            aboutButt -> setText("A Propos");
-            aboutButt -> setProperty("down", false);
-            connect(aboutButt, SIGNAL(clicked()), this, SLOT(setAbout()));
+            cardButt = new QPushButton;
+            cardButt -> setText("Cartes");
+            cardButt -> setProperty("down", false);
+            connect(cardButt, SIGNAL(clicked()), this, SLOT(setCard()));
 
-            tabLayout -> addWidget(aboutButt, 0, 1, 1, 1);
-            
+            tabLayout -> addWidget(cardButt, 0, 1, 1, 1);
+                       
 
             QSpacerItem * spacerButt = new QSpacerItem(1,1,
                     QSizePolicy::Expanding,QSizePolicy::Preferred);
@@ -53,98 +86,55 @@ BuildTab::BuildTab (){
         tabBox -> setLayout(tabLayout);
 
 
-    layout -> addWidget(tabBox, 0, 0, 1, 1);
+    tabInsideLayout -> addWidget(tabBox, 0, 0, 1, 1);
 
 
 
         // Label Box ..........................................................
 
-        helpBox = new QWidget;
-        helpBox -> setObjectName("helpBox");
+        buildBox = new QWidget;
+        buildBox -> setObjectName("buildBox");
         
-        helpLayout = new QStackedLayout;
-        helpLayout -> setSpacing(0);
-        helpLayout -> setMargin(0);
+        buildLayout = new QStackedLayout;
+        buildLayout -> setSpacing(0);
+        buildLayout -> setMargin(0);
 
 
             // Help ...........................................................
 
-            helpScroll = new QScrollArea;
-            helpScroll -> setFrameShape(QFrame::NoFrame);
-            helpScroll -> setWidgetResizable(true);
-            helpScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            helpScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-            helpScroll -> setFocusPolicy(Qt::NoFocus);
+            deckScroll = new QScrollArea;
+            deckScroll -> setFrameShape(QFrame::NoFrame);
+            deckScroll -> setWidgetResizable(true);
+            deckScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            deckScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+            deckScroll -> setFocusPolicy(Qt::NoFocus);
 
-                helpLabel = new QLabel;
 
-                    QFile hfile("i18n/fr_FR/help.text");
-
-                    QString htext = "";
-                    QString hline;
-                    if (hfile.open(QIODevice::ReadOnly | QIODevice::Text)){
-                        QTextStream hstream(&hfile);
-                        while (!hstream.atEnd()){
-                            hline = hstream.readLine();
-                            htext = htext + hline + "\n";
-                        }
-                    }
-                    hfile.close();
-
-                helpLabel -> setText(htext);
-                helpLabel -> setWordWrap(true);
-                helpLabel -> setTextInteractionFlags(Qt::TextSelectableByMouse);
-                helpLabel->setTextFormat(Qt::RichText);
-                helpLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
-                helpLabel->setOpenExternalLinks(true);
-
-                helpScroll -> setWidget(helpLabel);
-
-            helpLayout -> addWidget(helpScroll);
+            buildLayout -> addWidget(deckScroll);
 
            
 
 
             // About ..........................................................
 
-            aboutScroll = new QScrollArea;
-            aboutScroll -> setFrameShape(QFrame::NoFrame);
-            aboutScroll -> setWidgetResizable(true);
-            aboutScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            aboutScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+            cardScroll = new QScrollArea;
+            cardScroll -> setFrameShape(QFrame::NoFrame);
+            cardScroll -> setWidgetResizable(true);
+            cardScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            cardScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
 
-                aboutLabel = new QLabel;
-
-                    QFile file("i18n/fr_FR/about.text");
-
-                    QString text = "";
-                    QString line;
-                    if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
-                        QTextStream stream(&file);
-                        while (!stream.atEnd()){
-                            line = stream.readLine();
-                            text = text + line + "\n";
-                        }
-                    }
-                    file.close();
-
-                aboutLabel -> setText(text);
-                aboutLabel -> setWordWrap(true);
-                aboutLabel -> setTextInteractionFlags(Qt::TextSelectableByMouse);
-                aboutLabel->setTextFormat(Qt::RichText);
-                aboutLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
-                aboutLabel->setOpenExternalLinks(true);
-
-                aboutScroll -> setWidget(aboutLabel);
-
-            helpLayout -> addWidget(aboutScroll);
+            buildLayout -> addWidget(cardScroll);
 
 
-        helpLayout -> setCurrentWidget(helpScroll);
-        helpBox -> setLayout(helpLayout);
+        buildLayout -> setCurrentWidget(deckScroll);
+        buildBox -> setLayout(buildLayout);
 
-    layout -> addWidget(helpBox, 1, 0, 1, 2);
+    tabInsideLayout -> addWidget(buildBox, 1, 0, 1, 2);
+
+    tabInside -> setLayout(tabInsideLayout);
+
+    layout -> addWidget(tabInside,1,1,2,1);
 
     setLayout(layout);
 
@@ -153,32 +143,37 @@ BuildTab::BuildTab (){
 
 BuildTab::~BuildTab (){
     
+    delete buildEffect;
+    
+    delete cardScroll;
 
-    delete aboutLabel;
-    delete aboutScroll;
-
-    delete helpLabel;
-    delete helpScroll;
+    delete deckScroll;
 
         delete exitButt;
-        delete aboutButt;
-        delete helpButt;
+        delete deckButt;
+        delete cardButt;
     
-    delete helpLayout;
-    delete helpBox;
+    delete buildLayout;
+    delete buildBox;
     delete tabLayout;
     delete tabBox;
     
-    delete helpEffect;
-    
+    delete tabInsideLayout;
+    delete tabInside;
+
+    delete info;
+    delete infoLayout;
+    delete iffect;
+    delete infoBox;
+
     delete layout;
 }
 
 
 void BuildTab::init (){
 
-    currButt = helpButt;
-    helpButt -> setFocus();
+    currButt = deckButt;
+    deckButt -> setFocus();
 }
 
 void BuildTab::reInit (){
@@ -187,19 +182,19 @@ void BuildTab::reInit (){
 }
 
 
-void BuildTab::setHelp (){
+void BuildTab::setDeck (){
 
-    updateStyle(helpButt);
+    updateStyle(deckButt);
 
-    helpLayout -> setCurrentWidget(helpScroll);
+    buildLayout -> setCurrentWidget(deckScroll);
 }
 
 
-void BuildTab::setAbout (){
+void BuildTab::setCard (){
 
-    updateStyle(aboutButt);
+    updateStyle(cardButt);
 
-    helpLayout -> setCurrentWidget(aboutScroll);
+    buildLayout -> setCurrentWidget(cardScroll);
 }
 
 
