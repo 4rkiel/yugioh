@@ -3,7 +3,7 @@
 Essai::Essai(QWidget *parent)
     : QMainWindow(parent)
 {
-
+    env = new QPushButton("Env",this);
     serv = new QPushButton("Yolo",this);
     ok = new QPushButton("Swag",this);
     socket = new QTcpSocket(this);
@@ -12,6 +12,7 @@ Essai::Essai(QWidget *parent)
     yolo->setLayout(swag);
     swag->addWidget(serv);
     swag->addWidget(ok);
+    swag->addWidget(env);
     this->setCentralWidget(yolo);
     terrain_moi = new std::vector<Carte*>();
     terrain_adv = new std::vector<Carte*>();
@@ -65,6 +66,8 @@ std::cout << "MAIN:" << main2->size() << std::endl;
     connect(serv,SIGNAL(clicked(bool)),this,SLOT(go()));
     connect(ok,SIGNAL(clicked(bool)),this,SLOT(mondieu()));
     connect(socket, SIGNAL(connected()), this, SLOT(connecte()));
+    connect(socket, SIGNAL(readyRead()), this, SLOT(donneesRecues()));
+    connect(env,SIGNAL(clicked(bool)),this,SLOT(send()));
 }
 
 
@@ -216,11 +219,7 @@ void Essai::go()
 void Essai::nouvelleConnexion()
 {
 
-
-    QTcpSocket *nouveauClient = serveur->nextPendingConnection();
-    clients << nouveauClient;
-    connect(nouveauClient, SIGNAL(readyRead()), this, SLOT(donneesRecues()));
-    connect(nouveauClient, SIGNAL(disconnected()), this, SLOT(deconnexionClient()));
+     socket = serveur->nextPendingConnection();
       std::cout << "YEAAAAH MUNITION AU MAX!!" << std::endl;
 }
 
@@ -230,9 +229,64 @@ void Essai::mondieu()
     socket->connectToHost("127.0.0.1", 50885);
 }
 
+void Essai::donneesServ()
+{
+    std::cout << "je suis dans donnesRecues !!" << std::endl;
+    QTcpSocket *socket = qobject_cast<QTcpSocket *>(sender());
+    if (socket == 0) // Si par hasard on n'a pas trouvé le client à l'origine du signal, on arrête la méthode
+        return;
+
+    // Si tout va bien, on continue : on récupère le message
+    QDataStream in(socket);
+
+    if (tailleMessage2 == 0) // Si on ne connaît pas encore la taille du message, on essaie de la récupérer
+    {
+        if (socket->bytesAvailable() < (int)sizeof(quint16)) // On n'a pas reçu la taille du message en entier
+             return;
+
+        in >> tailleMessage2; // Si on a reçu la taille du message en entier, on la récupère
+    }
+
+    // Si on connaît la taille du message, on vérifie si on a reçu le message en entier
+    if (socket->bytesAvailable() < tailleMessage2) // Si on n'a pas encore tout reçu, on arrête la méthode
+        return;
+
+
+    // Si ces lignes s'exécutent, c'est qu'on a reçu tout le message : on peut le récupérer !
+    QString message;
+    in >> message;
+
+
+    // 2 : on renvoie le message à tous les clients
+    envoyer(message);
+    tailleMessage2 = 0;
+}
+
 void Essai::donneesRecues()
 {
-    return;
+     std::cout << "j'ai reçu dans donnes Recues ";
+    QDataStream in(socket);
+    if (tailleMessage == 0)
+    {
+        if (socket->bytesAvailable() < (int)sizeof(quint16))
+           {
+            std::cout << "Je return après verif bytes avaible < sizeof" << std::endl;
+            return;
+        }
+
+
+        in >> tailleMessage;
+    }
+
+    // Si on arrive jusqu'à cette ligne, on peut récupérer le message entier
+    QString messageRecu;
+    in >> messageRecu;
+
+    // On affiche le message sur la zone de Chat
+    std::cout << "j'ai reçu ceci " << messageRecu.toStdString() << std::endl;
+
+    // On remet la taille du message à 0 pour pouvoir recevoir de futurs messages
+    tailleMessage = 0;
 }
 
 void Essai::deconnexionClient()
@@ -243,6 +297,27 @@ void Essai::deconnexionClient()
 void Essai::connecte()
 {
     std::cout << "la fin négro" << std::endl;
+}
+
+void Essai::envoyer(const QString &message)
+{
+    std::cout << "JE VAIS ENVOYER " << std::endl;
+    QByteArray paquet;
+    QDataStream out(&paquet, QIODevice::WriteOnly);
+
+    out << (quint16) 0; // On écrit 0 au début du paquet pour réserver la place pour écrire la taille
+    out << message; // On ajoute le message à la suite
+    out.device()->seek(0); // On se replace au début du paquet
+    out << (quint16) (paquet.size() - sizeof(quint16)); // On écrase le 0 qu'on avait réservé par la longueur du message
+
+
+    // Envoi du paquet préparé à tous les clients connectés au serveur
+    socket->write(paquet);
+}
+
+void Essai::send()
+{
+    envoyer("YOLO PUTAIN ENVOIE CE MESSAGE BORDEL DE MERDE");
 }
 
 Carte::Carte(int a,int d)

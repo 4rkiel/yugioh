@@ -6,6 +6,7 @@
 #include <vector>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QHostAddress>
 class Carte
 {
 public:
@@ -25,12 +26,13 @@ public:
     Essai(QWidget *parent = 0);
     ~Essai();
     QTcpSocket *socket; // Représente le serveur
-    quint16 tailleMessage;
+    quint16 tailleMessage=0;
     QTcpServer *serveur;
     QList<QTcpSocket *> clients;
-    quint16 tailleMessage2;
+    quint16 tailleMessage2=0;
     QPushButton * serv;
     QPushButton * ok;
+    QPushButton * env;
     bool online;
     int tour;
     int phase=1;
@@ -52,7 +54,7 @@ public:
     void enlever_i(std::vector<Carte *> **vect, int i);
 
 
-    void envoyerATous(const QString &message);
+    void envoyer(const QString &message);
 
 
     std::vector<Carte *> * terrain_moi;
@@ -72,6 +74,8 @@ public slots:
     void go();
     void connecte();
     void mondieu();
+    void donneesServ();
+    void send();
 };
 
 
