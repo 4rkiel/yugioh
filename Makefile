@@ -53,7 +53,6 @@ OBJECTS_DIR   = obj/
 SOURCES       = src/field.cpp \
 		src/appIndicator.cpp \
 		src/slotCard.cpp \
-		src/slotDeck.cpp \
 		src/generique.cpp \
 		src/genProgress.cpp \
 		src/intro.cpp \
@@ -66,7 +65,6 @@ SOURCES       = src/field.cpp \
 		src/shadowButt.cpp obj/moc_field.cpp \
 		obj/moc_appIndicator.cpp \
 		obj/moc_slotCard.cpp \
-		obj/moc_slotDeck.cpp \
 		obj/moc_generique.cpp \
 		obj/moc_genProgress.cpp \
 		obj/moc_intro.cpp \
@@ -80,7 +78,6 @@ SOURCES       = src/field.cpp \
 OBJECTS       = obj/field.o \
 		obj/appIndicator.o \
 		obj/slotCard.o \
-		obj/slotDeck.o \
 		obj/generique.o \
 		obj/genProgress.o \
 		obj/intro.o \
@@ -94,7 +91,6 @@ OBJECTS       = obj/field.o \
 		obj/moc_field.o \
 		obj/moc_appIndicator.o \
 		obj/moc_slotCard.o \
-		obj/moc_slotDeck.o \
 		obj/moc_generique.o \
 		obj/moc_genProgress.o \
 		obj/moc_intro.o \
@@ -187,7 +183,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		yugioh.pro inc/field.h \
 		inc/appIndicator.h \
 		inc/slotCard.h \
-		inc/slotDeck.h \
 		inc/generique.h \
 		inc/genProgress.h \
 		inc/intro.h \
@@ -201,7 +196,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		inc/sleeper.h src/field.cpp \
 		src/appIndicator.cpp \
 		src/slotCard.cpp \
-		src/slotDeck.cpp \
 		src/generique.cpp \
 		src/genProgress.cpp \
 		src/intro.cpp \
@@ -405,8 +399,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents inc/field.h inc/appIndicator.h inc/slotCard.h inc/slotDeck.h inc/generique.h inc/genProgress.h inc/intro.h inc/choice.h inc/main.h inc/buildtab.h inc/optab.h inc/ruletab.h inc/helptab.h inc/shadowButt.h inc/sleeper.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/field.cpp src/appIndicator.cpp src/slotCard.cpp src/slotDeck.cpp src/generique.cpp src/genProgress.cpp src/intro.cpp src/choice.cpp src/main.cpp src/buildtab.cpp src/optab.cpp src/ruletab.cpp src/helptab.cpp src/shadowButt.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents inc/field.h inc/appIndicator.h inc/slotCard.h inc/generique.h inc/genProgress.h inc/intro.h inc/choice.h inc/main.h inc/buildtab.h inc/optab.h inc/ruletab.h inc/helptab.h inc/shadowButt.h inc/sleeper.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/field.cpp src/appIndicator.cpp src/slotCard.cpp src/generique.cpp src/genProgress.cpp src/intro.cpp src/choice.cpp src/main.cpp src/buildtab.cpp src/optab.cpp src/ruletab.cpp src/helptab.cpp src/shadowButt.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -437,14 +431,13 @@ compiler_moc_predefs_clean:
 obj/moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -m64 -pipe -std=c++0x -O2 -Wall -W -dM -E -o obj/moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: obj/moc_field.cpp obj/moc_appIndicator.cpp obj/moc_slotCard.cpp obj/moc_slotDeck.cpp obj/moc_generique.cpp obj/moc_genProgress.cpp obj/moc_intro.cpp obj/moc_choice.cpp obj/moc_main.cpp obj/moc_buildtab.cpp obj/moc_optab.cpp obj/moc_ruletab.cpp obj/moc_helptab.cpp obj/moc_shadowButt.cpp
+compiler_moc_header_make_all: obj/moc_field.cpp obj/moc_appIndicator.cpp obj/moc_slotCard.cpp obj/moc_generique.cpp obj/moc_genProgress.cpp obj/moc_intro.cpp obj/moc_choice.cpp obj/moc_main.cpp obj/moc_buildtab.cpp obj/moc_optab.cpp obj/moc_ruletab.cpp obj/moc_helptab.cpp obj/moc_shadowButt.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) obj/moc_field.cpp obj/moc_appIndicator.cpp obj/moc_slotCard.cpp obj/moc_slotDeck.cpp obj/moc_generique.cpp obj/moc_genProgress.cpp obj/moc_intro.cpp obj/moc_choice.cpp obj/moc_main.cpp obj/moc_buildtab.cpp obj/moc_optab.cpp obj/moc_ruletab.cpp obj/moc_helptab.cpp obj/moc_shadowButt.cpp
+	-$(DEL_FILE) obj/moc_field.cpp obj/moc_appIndicator.cpp obj/moc_slotCard.cpp obj/moc_generique.cpp obj/moc_genProgress.cpp obj/moc_intro.cpp obj/moc_choice.cpp obj/moc_main.cpp obj/moc_buildtab.cpp obj/moc_optab.cpp obj/moc_ruletab.cpp obj/moc_helptab.cpp obj/moc_shadowButt.cpp
 obj/moc_field.cpp: inc/shadowButt.h \
 		inc/sleeper.h \
 		inc/appIndicator.h \
 		inc/slotCard.h \
-		inc/slotDeck.h \
 		inc/field.h \
 		obj/moc_predefs.h \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
@@ -459,11 +452,6 @@ obj/moc_slotCard.cpp: inc/slotCard.h \
 		obj/moc_predefs.h \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) --include obj/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ark/qt/yugioh -I/home/ark/qt/yugioh -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include inc/slotCard.h -o obj/moc_slotCard.cpp
-
-obj/moc_slotDeck.cpp: inc/slotDeck.h \
-		obj/moc_predefs.h \
-		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) --include obj/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ark/qt/yugioh -I/home/ark/qt/yugioh -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include inc/slotDeck.h -o obj/moc_slotDeck.cpp
 
 obj/moc_generique.cpp: inc/genProgress.h \
 		inc/sleeper.h \
@@ -497,7 +485,6 @@ obj/moc_main.cpp: inc/field.h \
 		inc/sleeper.h \
 		inc/appIndicator.h \
 		inc/slotCard.h \
-		inc/slotDeck.h \
 		inc/intro.h \
 		inc/choice.h \
 		inc/generique.h \
@@ -563,8 +550,7 @@ obj/field.o: src/field.cpp inc/field.h \
 		inc/shadowButt.h \
 		inc/sleeper.h \
 		inc/appIndicator.h \
-		inc/slotCard.h \
-		inc/slotDeck.h
+		inc/slotCard.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/field.o src/field.cpp
 
 obj/appIndicator.o: src/appIndicator.cpp inc/appIndicator.h
@@ -572,9 +558,6 @@ obj/appIndicator.o: src/appIndicator.cpp inc/appIndicator.h
 
 obj/slotCard.o: src/slotCard.cpp inc/slotCard.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/slotCard.o src/slotCard.cpp
-
-obj/slotDeck.o: src/slotDeck.cpp inc/slotDeck.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/slotDeck.o src/slotDeck.cpp
 
 obj/generique.o: src/generique.cpp inc/generique.h \
 		inc/genProgress.h \
@@ -601,7 +584,6 @@ obj/main.o: src/main.cpp inc/main.h \
 		inc/sleeper.h \
 		inc/appIndicator.h \
 		inc/slotCard.h \
-		inc/slotDeck.h \
 		inc/intro.h \
 		inc/choice.h \
 		inc/generique.h \
@@ -644,9 +626,6 @@ obj/moc_appIndicator.o: obj/moc_appIndicator.cpp
 
 obj/moc_slotCard.o: obj/moc_slotCard.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_slotCard.o obj/moc_slotCard.cpp
-
-obj/moc_slotDeck.o: obj/moc_slotDeck.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_slotDeck.o obj/moc_slotDeck.cpp
 
 obj/moc_generique.o: obj/moc_generique.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_generique.o obj/moc_generique.cpp

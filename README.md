@@ -26,7 +26,7 @@ Implémentation du jeu de carte Yu-Gi-Oh!
 
  - [ ] Yu-Gi-Oh style qss
  - [ ] Contraste-full style
- - [ ] Dyschromatopsia style
+ - [ ] Dyschromatopsia style (http://jfly.iam.u-tokyo.ac.jp/color/#pallet)
  - [ ] Traduction FR - EN
  - [x] Indications Bar (Where-Am-I) dans les menus
 
@@ -164,6 +164,17 @@ minimum 0 Cartes max 15
 ....
 ```
 
+## Description du Terrain (field)
+
+```
+89 ---- 149 : main adverse
+82 - 88     : magie adverse
+75 - 81     : monstre adverse
+-------------
+00 - 06     : monstre self
+07 - 13     : magie self
+14 ---- 074 : main self
+```
 
 
 ## Elements Optionnels Interessants/WTF

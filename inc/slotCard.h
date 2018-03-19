@@ -19,17 +19,31 @@ class SlotCard : public QPushButton {
 Q_OBJECT
 
 public: 
-    SlotCard();
+    SlotCard(int p);
     ~SlotCard();
     void resizeEvent (QResizeEvent*);
-    void setPic(QString str);
 
-public slots:
+    void setPic(QString str);
+    void rmPic();
     void turn();
 
+    bool isAdv();
+    bool isMonst();
+    bool isMagic();
+    bool isHand();
+    bool isDeck();
+
+
+public slots:
+    void onClick();
+
+signals:
+    void clicked(int posi);
+
 private:
-    bool posi;
-    QString url;
+    int posi;
+    bool mode;
+    QString pic;
 
     QGridLayout * layout;
 

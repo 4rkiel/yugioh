@@ -358,7 +358,7 @@ int main(int argc, char *argv[]) {
     Window w(&app);
 
     w.setWindowTitle("Trading Card Game");
-    w.setWindowIcon(QIcon("img/card.svg"));
+    w.setWindowIcon(QIcon("img/icon.svg"));
 
     w.show();
 

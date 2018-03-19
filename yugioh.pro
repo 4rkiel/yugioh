@@ -28,7 +28,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 HEADERS += inc/field.h \
            inc/appIndicator.h \
            inc/slotCard.h \
-           inc/slotDeck.h \
            inc/generique.h \
            inc/genProgress.h \
            inc/intro.h \
@@ -43,7 +42,6 @@ HEADERS += inc/field.h \
 SOURCES += src/field.cpp \
            src/appIndicator.cpp \
            src/slotCard.cpp \
-           src/slotDeck.cpp \
            src/generique.cpp \
            src/genProgress.cpp \
            src/intro.cpp \

@@ -285,7 +285,8 @@ Field ShadowButt {
     font-size: 20px;
 }
 
-#leftBarBox #Card {
+#leftBarBox #Intel,
+#rightBarBox #Card {
     background: #3F51B5;
     color: #fff;
     padding: 10px;
@@ -375,25 +376,23 @@ Field ShadowButt {
     background: transparent;
     min-width: 50px;
     border: 0px outset transparent;
-    border-bottom: 5px outset #3E2723;
+    border-bottom: 6px outset #3E2723;
     border-right: 0px outset transparent;
     border-left: 0px outset transparent;
     border-top: 0px outset transparent;
-    border-radius: 5px;
+    border-radius: 6px;
 }
 
 #fieldDeckAdv {
-    border-right: 5px outset #4E342E;
+    border-right: 6px outset #4E342E;
 }
 
 #fieldDeckSlf {
-    border-left: 5px outset #4E342E;
+    border-left: 6px outset #4E342E;
 }
-
-
 
 
 #fieldDeckInside {
     background: transparent;
-    margin: 0 5px 5px 5px;
+    border-image: url(img/card.svg);
 }

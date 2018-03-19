@@ -31,45 +31,30 @@ Field::Field () {
             lifeAdv -> setText(strAdv);
             lifeAdv -> setObjectName("Life");
             leftBarLayout -> addWidget(lifeAdv, 0, 1, 1, 1);
-          
 
+            
+            
             QSpacerItem * spacerLeftTop = new QSpacerItem(3,1,
                 QSizePolicy::Preferred,QSizePolicy::Expanding);
             leftBarLayout -> addItem(spacerLeftTop, 1, 0);
 
 
-            card = new AppIndicator();
-            card -> setObjectName("Card");
-            card -> setWordWrap(true);
-            QString strCard = QString::fromUtf8(""
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-                "Morbi molestie arcu viverra urna faucibus tempor. "
-                "Mauris nulla elit, elementum a dolor eu, condimentum eleifend elit. "
-                "Nullam aliquet varius magna nec elementum. "
-                "Aliquam elementum dapibus justo, eget imperdiet arcu pretium sit amet. "
-                "Aenean vitae eros tortor. "
-                "Etiam interdum erat dolor, et lacinia purus vestibulum id. "
-                "Quisque pretium neque vel commodo tincidunt. "
-                "Sed in suscipit erat."
-                "\n\n"
-                "★ ★ 8"
-                "\n"
-                "ATK/2000"
-                "\n"
-                "DEF/2000"
-            );
-            card -> setText(strCard);
-            leftBarLayout -> addWidget(card, 2, 0, 1, 3);
-
-
+            intel = new AppIndicator();
+            intel -> setObjectName("Intel");
+            intel -> setWordWrap(true);
+            leftBarLayout -> addWidget(intel, 2, 0, 1, 3);
+            
+            
             QSpacerItem * spacerLeftBot = new QSpacerItem(3,1,
                 QSizePolicy::Preferred,QSizePolicy::Expanding);
             leftBarLayout -> addItem(spacerLeftBot, 3, 0);
 
 
+
             actionButt = new ShadowButt("\uf04b", "");
             actionButt -> setToolTip("Terminer le tour");
             leftBarLayout -> addWidget(actionButt, 4, 1, 1, 1);
+            connect(actionButt, SIGNAL(clicked()), this, SLOT(test()));
 
            
         leftBarBox -> setObjectName("leftBarBox");            
@@ -78,6 +63,9 @@ Field::Field () {
 
 
         // Arena ..............................................................
+
+        fieldStack = new std::vector<SlotCard *> (150, nullptr);
+
 
         arenaBox = new QWidget;
         arenaBox -> setObjectName("arenaBox");
@@ -97,22 +85,10 @@ Field::Field () {
                 advHandLayout -> setMargin(10);
                 advHandLayout -> setSpacing(10);
 
-                    advHand0 = new SlotDeck;
-                    advHand0 -> setObjectName("fieldDeckAdv");
-                    advHandLayout -> addWidget(advHand0);
-                    
-                    advHand1 = new SlotCard;
-                    advHandLayout -> addWidget(advHand1);
-                    advHand2 = new SlotCard;
-                    advHandLayout -> addWidget(advHand2);
-                    advHand3 = new SlotCard;
-                    advHandLayout -> addWidget(advHand3);
-                    advHand4 = new SlotCard;
-                    advHandLayout -> addWidget(advHand4);
-                    advHand5 = new SlotCard;
-                    advHandLayout -> addWidget(advHand5);
-                    advHand6 = new SlotCard;
-                    advHandLayout -> addWidget(advHand6);
+                    for (int k=89; k<=95; k++){
+                        fieldStack -> at(k) = new SlotCard(k);
+                        advHandLayout -> addWidget(fieldStack -> at(k));
+                    }
 
                 advHand -> setLayout(advHandLayout);
                 advLayout -> addWidget(advHand, 0,0,1,1);
@@ -122,21 +98,13 @@ Field::Field () {
                 advMagicLayout = new QHBoxLayout;
                 advMagicLayout -> setMargin(10);
                 advMagicLayout -> setSpacing(10);
-                
-                    advMagic0 = new SlotCard;
-                    advMagicLayout -> addWidget(advMagic0);
-                    advMagic1 = new SlotCard;
-                    advMagicLayout -> addWidget(advMagic1);
-                    advMagic2 = new SlotCard;
-                    advMagicLayout -> addWidget(advMagic2);
-                    advMagic3 = new SlotCard;
-                    advMagicLayout -> addWidget(advMagic3);
-                    advMagic4 = new SlotCard;
-                    advMagicLayout -> addWidget(advMagic4);
-                    advMagic5 = new SlotCard;
-                    advMagicLayout -> addWidget(advMagic5);
-                    advMagic6 = new SlotCard;
-                    advMagicLayout -> addWidget(advMagic6);
+ 
+                    for (int k=82; k<=88; k++){
+                        fieldStack -> at(k) = new SlotCard(k);
+                        advMagicLayout -> addWidget(fieldStack -> at(k));
+                    }
+               
+                    fieldStack -> at(82) -> setObjectName("fieldDeckAdv");
                
                 advMagic -> setLayout(advMagicLayout);
                 advLayout -> addWidget(advMagic, 1,0,1,1);
@@ -146,22 +114,12 @@ Field::Field () {
                 advMonstLayout = new QHBoxLayout;
                 advMonstLayout -> setMargin(10);
                 advMonstLayout -> setSpacing(10);
-
-                    advMonst0 = new SlotCard;
-                    advMonstLayout -> addWidget(advMonst0);
-                    advMonst1 = new SlotCard;
-                    advMonstLayout -> addWidget(advMonst1);
-                    advMonst2 = new SlotCard;
-                    advMonstLayout -> addWidget(advMonst2);
-                    advMonst3 = new SlotCard;
-                    advMonstLayout -> addWidget(advMonst3);
-                    advMonst4 = new SlotCard;
-                    advMonstLayout -> addWidget(advMonst4);
-                    advMonst5 = new SlotCard;
-                    advMonstLayout -> addWidget(advMonst5);
-                    advMonst6 = new SlotCard;
-                    advMonstLayout -> addWidget(advMonst6);
-                          
+ 
+                    for (int k=75; k<=81; k++){
+                        fieldStack -> at(k) = new SlotCard(k);
+                        advMonstLayout -> addWidget(fieldStack -> at(k));
+                    }
+               
                 advMonst -> setLayout(advMonstLayout);
                 advLayout -> addWidget(advMonst,2,0,1,1);
 
@@ -175,7 +133,6 @@ Field::Field () {
             slfLayout = new QGridLayout;
             slfLayout -> setMargin(0);
             slfLayout -> setSpacing(0);
-            //slfLayout -> setAlignment(Qt::AlignCenter);
             
                 slfMonst = new QWidget;
                 slfMonst -> setObjectName("slfMonst");
@@ -183,21 +140,11 @@ Field::Field () {
                 slfMonstLayout -> setMargin(10);
                 slfMonstLayout -> setSpacing(10);
      
-                    slfMonst0 = new SlotCard;
-                    slfMonstLayout -> addWidget(slfMonst0);
-                    slfMonst1 = new SlotCard;
-                    slfMonstLayout -> addWidget(slfMonst1);
-                    slfMonst2 = new SlotCard;
-                    slfMonstLayout -> addWidget(slfMonst2);
-                    slfMonst3 = new SlotCard;
-                    slfMonstLayout -> addWidget(slfMonst3);
-                    slfMonst4 = new SlotCard;
-                    slfMonstLayout -> addWidget(slfMonst4);
-                    slfMonst5 = new SlotCard;
-                    slfMonstLayout -> addWidget(slfMonst5);
-                    slfMonst6 = new SlotCard;
-                    slfMonstLayout -> addWidget(slfMonst6);
-                                     
+                    for (int k=0; k<=6; k++){
+                        fieldStack -> at(k) = new SlotCard(k);
+                        slfMonstLayout -> addWidget(fieldStack -> at(k));
+                    }
+                    
                 slfMonst -> setLayout(slfMonstLayout);
                 slfLayout -> addWidget(slfMonst, 0,0,1,1);
 
@@ -207,20 +154,12 @@ Field::Field () {
                 slfMagicLayout -> setMargin(10);
                 slfMagicLayout -> setSpacing(10);
      
-                    slfMagic0 = new SlotCard;
-                    slfMagicLayout -> addWidget(slfMagic0);
-                    slfMagic1 = new SlotCard;
-                    slfMagicLayout -> addWidget(slfMagic1);
-                    slfMagic2 = new SlotCard;
-                    slfMagicLayout -> addWidget(slfMagic2);
-                    slfMagic3 = new SlotCard;
-                    slfMagicLayout -> addWidget(slfMagic3);
-                    slfMagic4 = new SlotCard;
-                    slfMagicLayout -> addWidget(slfMagic4);
-                    slfMagic5 = new SlotCard;
-                    slfMagicLayout -> addWidget(slfMagic5);
-                    slfMagic6 = new SlotCard;
-                    slfMagicLayout -> addWidget(slfMagic6);
+                    for (int k=7; k<=13; k++){
+                        fieldStack -> at(k) = new SlotCard(k);
+                        slfMagicLayout -> addWidget(fieldStack -> at(k));
+                    }
+                    
+                    fieldStack -> at(13) -> setObjectName("fieldDeckSlf");
                 
                 slfMagic -> setLayout(slfMagicLayout);
                 slfLayout -> addWidget(slfMagic, 1,0,1,1);
@@ -231,23 +170,11 @@ Field::Field () {
                 slfHandLayout -> setMargin(10);
                 slfHandLayout -> setSpacing(10);
       
-                    slfHand0 = new SlotCard;
-                    slfHandLayout -> addWidget(slfHand0);
-                    slfHand1 = new SlotCard;
-                    slfHandLayout -> addWidget(slfHand1);
-                    slfHand2 = new SlotCard;
-                    slfHandLayout -> addWidget(slfHand2);
-                    slfHand3 = new SlotCard;
-                    slfHandLayout -> addWidget(slfHand3);
-                    slfHand4 = new SlotCard;
-                    slfHandLayout -> addWidget(slfHand4);
-                    slfHand5 = new SlotCard;
-                    slfHandLayout -> addWidget(slfHand5);
+                    for (int k=14; k<=20; k++){
+                        fieldStack -> at(k) = new SlotCard(k);
+                        slfHandLayout -> addWidget(fieldStack -> at(k));
+                    }
                     
-                    slfHand6 = new SlotDeck;
-                    slfHand6 -> setObjectName("fieldDeckSlf");
-                    slfHandLayout -> addWidget(slfHand6);
-               
                 slfHand -> setLayout(slfHandLayout);
                 slfLayout -> addWidget(slfHand, 2,0,1,1);
 
@@ -262,7 +189,7 @@ Field::Field () {
         // Right Bar ..........................................................
 
         rightBarBox = new QWidget;
-        rightBarLayout = new QVBoxLayout;
+        rightBarLayout = new QGridLayout;
         rightBarLayout -> setSpacing(0);
         rightBarLayout -> setMargin(0);
         rightBarLayout -> setAlignment(Qt::AlignCenter);
@@ -271,16 +198,23 @@ Field::Field () {
             menuButt = new ShadowButt("\uf0c9", "");
             menuButt -> setToolTip("Menu");
             connect(menuButt, SIGNAL(clicked()), this, SLOT(openMenu()));
-            rightBarLayout -> addWidget(menuButt);
+            rightBarLayout -> addWidget(menuButt, 0, 1, 1, 1);
            
 
-            rightBarLayout -> addStretch();
+            QSpacerItem * spacerRightTop = new QSpacerItem(3,1,
+                QSizePolicy::Preferred,QSizePolicy::Expanding);
+            rightBarLayout -> addItem(spacerRightTop, 1, 0);
+            
+            
+            fullCard = new AppIndicator();
+            fullCard -> setObjectName("Card");
+            fullCard -> setWordWrap(true);
+            rightBarLayout -> addWidget(fullCard, 2, 0, 1, 3);
 
 
-            // turn
-
-
-            rightBarLayout -> addStretch();
+            QSpacerItem * spacerRightBot = new QSpacerItem(3,1,
+                QSizePolicy::Preferred,QSizePolicy::Expanding);
+            rightBarLayout -> addItem(spacerRightBot, 3, 0);
 
 
             lifeSlf = new AppIndicator();
@@ -288,7 +222,7 @@ Field::Field () {
             lifeSlf -> setText(strSlf);
             lifeSlf -> setObjectName("Life");
 
-            rightBarLayout -> addWidget(lifeSlf);
+            rightBarLayout -> addWidget(lifeSlf, 4, 1, 1, 1);
            
 
 
@@ -403,76 +337,37 @@ Field::~Field (){
     delete popupOuter;
 
             delete menuButt;
+            delete fullCard;
             delete lifeSlf;
 
         delete rightBarLayout;
         delete rightBarBox;
-
-                    delete advHand0;
-                    delete advHand1;
-                    delete advHand2;
-                    delete advHand3;
-                    delete advHand4;
-                    delete advHand5;
-                    delete advHand6;
+ 
+        for (int k=0; k<150; k++){
+            if (fieldStack -> at(k) != nullptr){
+                delete fieldStack -> at(k);
+            }
+        }
+        
+        delete fieldStack;
 
                 delete advHandLayout;
                 delete advHand;
                 
-                    delete advMagic0;
-                    delete advMagic1;
-                    delete advMagic2;
-                    delete advMagic3;
-                    delete advMagic4;
-                    delete advMagic5;
-                    delete advMagic6;
-
                 delete advMagicLayout;
                 delete advMagic;
                 
-                    delete advMonst0;
-                    delete advMonst1;
-                    delete advMonst2;
-                    delete advMonst3;
-                    delete advMonst4;
-                    delete advMonst5;
-                    delete advMonst6;
-
                 delete advMonstLayout;
                 delete advMonst;
 
             delete advLayout;
             delete advBox;
 
-                    delete slfMonst0;
-                    delete slfMonst1;
-                    delete slfMonst2;
-                    delete slfMonst3;
-                    delete slfMonst4;
-                    delete slfMonst5;
-                    delete slfMonst6;
-
                 delete slfMonstLayout;
                 delete slfMonst;
                 
-                    delete slfMagic0;
-                    delete slfMagic1;
-                    delete slfMagic2;
-                    delete slfMagic3;
-                    delete slfMagic4;
-                    delete slfMagic5;
-                    delete slfMagic6;
-
                 delete slfMagicLayout;
                 delete slfMagic;
-                
-                    delete slfHand0;
-                    delete slfHand1;
-                    delete slfHand2;
-                    delete slfHand3;
-                    delete slfHand4;
-                    delete slfHand5;
-                    delete slfHand6;
                 
                 delete slfHandLayout;
                 delete slfHand;
@@ -482,10 +377,10 @@ Field::~Field (){
         
         delete arenaLayout;
         delete arenaBox;
-        
+
             delete actionButt;
+            delete intel;
             delete lifeAdv;
-            delete card;
 
         delete leftBarLayout;
         delete leftBarBox;
@@ -514,3 +409,33 @@ void Field::closeMenu (){
 }
 
 
+void Field::cardHover (){
+
+    QString strCard = QString::fromUtf8(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+        "Morbi molestie arcu viverra urna faucibus tempor. "
+        "Mauris nulla elit, elementum a dolor eu, condimentum eleifend elit. "
+        "Nullam aliquet varius magna nec elementum. "
+        "Aliquam elementum dapibus justo, eget imperdiet arcu pretium sit amet. "
+        "Aenean vitae eros tortor. "
+        "Etiam interdum erat dolor, et lacinia purus vestibulum id. "
+        "Quisque pretium neque vel commodo tincidunt. "
+        "Sed in suscipit erat."
+        "\n\n"
+        "★ ★ 8"
+        "\n"
+        "ATK/2000"
+        "\n"
+        "DEF/2000"
+    );
+    fullCard -> setText(strCard);
+
+}
+
+
+void Field::test (){
+
+    fieldStack -> at(3) -> setPic("img/cards/001/LOB-EN125-GaiatheDragonChampion.jpg");
+    fieldStack -> at(79) -> setPic("img/cards/001/LOB-EN125-GaiatheDragonChampion.jpg");
+
+}
