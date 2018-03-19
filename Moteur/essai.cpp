@@ -4,6 +4,15 @@ Essai::Essai(QWidget *parent)
     : QMainWindow(parent)
 {
 
+    serv = new QPushButton("Yolo",this);
+    ok = new QPushButton("Swag",this);
+    socket = new QTcpSocket(this);
+    QVBoxLayout * swag = new QVBoxLayout();
+    QWidget* yolo = new QWidget();
+    yolo->setLayout(swag);
+    swag->addWidget(serv);
+    swag->addWidget(ok);
+    this->setCentralWidget(yolo);
     terrain_moi = new std::vector<Carte*>();
     terrain_adv = new std::vector<Carte*>();
 
@@ -53,8 +62,12 @@ std::cout << "MAIN:" << main2->size() << std::endl;
     attaquer(1,2);
         std::cout << foeLife << std::endl;
        std::cout << "normalement j'affiche ça" << terrain_adv->at(2)->atk  << std::endl;
-
+    connect(serv,SIGNAL(clicked(bool)),this,SLOT(go()));
+    connect(ok,SIGNAL(clicked(bool)),this,SLOT(mondieu()));
+    connect(socket, SIGNAL(connected()), this, SLOT(connecte()));
 }
+
+
 
 void Essai::piocher(int n)
 {
@@ -188,6 +201,49 @@ void Essai::phase_suivante()
         phase++;
 }
 
+void Essai::go()
+{
+    serveur = new QTcpServer(this);
+    if(!serveur->listen(QHostAddress::Any, 50885))
+    std::cout << "je connecte PAS le serveur" << std::endl;
+    else
+         std::cout << "je connecte le serveur" << std::endl;
+    connect(serveur, SIGNAL(newConnection()), this, SLOT(nouvelleConnexion()));
+
+    tailleMessage2=0;
+}
+
+void Essai::nouvelleConnexion()
+{
+
+
+    QTcpSocket *nouveauClient = serveur->nextPendingConnection();
+    clients << nouveauClient;
+    connect(nouveauClient, SIGNAL(readyRead()), this, SLOT(donneesRecues()));
+    connect(nouveauClient, SIGNAL(disconnected()), this, SLOT(deconnexionClient()));
+      std::cout << "YEAAAAH MUNITION AU MAX!!" << std::endl;
+}
+
+void Essai::mondieu()
+{
+    socket->abort();
+    socket->connectToHost("127.0.0.1", 50885);
+}
+
+void Essai::donneesRecues()
+{
+    return;
+}
+
+void Essai::deconnexionClient()
+{
+    return;
+}
+
+void Essai::connecte()
+{
+    std::cout << "la fin négro" << std::endl;
+}
 
 Carte::Carte(int a,int d)
 {

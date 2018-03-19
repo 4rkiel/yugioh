@@ -4,7 +4,8 @@
 #include <QMainWindow>
 #include <iostream>
 #include <vector>
-
+#include <QPushButton>
+#include <QVBoxLayout>
 class Carte
 {
 public:
@@ -23,6 +24,13 @@ class Essai : public QMainWindow
 public:
     Essai(QWidget *parent = 0);
     ~Essai();
+    QTcpSocket *socket; // Représente le serveur
+    quint16 tailleMessage;
+    QTcpServer *serveur;
+    QList<QTcpSocket *> clients;
+    quint16 tailleMessage2;
+    QPushButton * serv;
+    QPushButton * ok;
     bool online;
     int tour;
     int phase=1;
@@ -42,6 +50,11 @@ public:
     void adversaire_piocher(int n);
     void switch_position_adv(int terrain_x);
     void enlever_i(std::vector<Carte *> **vect, int i);
+
+
+    void envoyerATous(const QString &message);
+
+
     std::vector<Carte *> * terrain_moi;
     std::vector<Carte *> * terrain_adv;
 
@@ -52,6 +65,13 @@ public:
     std::vector<Carte*> * d1;
     std::vector<Carte*> * d2;
 
+public slots:
+    void nouvelleConnexion();
+    void donneesRecues();
+    void deconnexionClient();
+    void go();
+    void connecte();
+    void mondieu();
 };
 
 
