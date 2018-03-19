@@ -16,6 +16,7 @@
 #include <QGraphicsDropShadowEffect>
 
 #include <vector>
+#include <iostream>
 
 #include "../inc/shadowButt.h"
 #include "../inc/appIndicator.h"
@@ -36,6 +37,7 @@ public slots:
     void openMenu();
     void closeMenu();
     void cardHover();
+    void cardClicked(int x);
 
 signals:
     void introStack();

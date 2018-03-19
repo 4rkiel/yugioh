@@ -88,6 +88,10 @@ Field::Field () {
                     for (int k=89; k<=95; k++){
                         fieldStack -> at(k) = new SlotCard(k);
                         advHandLayout -> addWidget(fieldStack -> at(k));
+                        connect(
+                            fieldStack -> at(k), SIGNAL(clicked(int)), 
+                            this, SLOT(cardClicked(int))
+                        );
                     }
 
                 advHand -> setLayout(advHandLayout);
@@ -102,6 +106,10 @@ Field::Field () {
                     for (int k=82; k<=88; k++){
                         fieldStack -> at(k) = new SlotCard(k);
                         advMagicLayout -> addWidget(fieldStack -> at(k));
+                        connect(
+                            fieldStack -> at(k), SIGNAL(clicked(int)),
+                            this, SLOT(cardClicked(int))
+                        );
                     }
                
                     fieldStack -> at(82) -> setObjectName("fieldDeckAdv");
@@ -118,6 +126,10 @@ Field::Field () {
                     for (int k=75; k<=81; k++){
                         fieldStack -> at(k) = new SlotCard(k);
                         advMonstLayout -> addWidget(fieldStack -> at(k));
+                        connect(
+                            fieldStack -> at(k), SIGNAL(clicked(int)),
+                            this, SLOT(cardClicked(int))
+                        );
                     }
                
                 advMonst -> setLayout(advMonstLayout);
@@ -143,6 +155,10 @@ Field::Field () {
                     for (int k=0; k<=6; k++){
                         fieldStack -> at(k) = new SlotCard(k);
                         slfMonstLayout -> addWidget(fieldStack -> at(k));
+                        connect(
+                            fieldStack -> at(k), SIGNAL(clicked(int)),
+                            this, SLOT(cardClicked(int))
+                        );
                     }
                     
                 slfMonst -> setLayout(slfMonstLayout);
@@ -157,6 +173,10 @@ Field::Field () {
                     for (int k=7; k<=13; k++){
                         fieldStack -> at(k) = new SlotCard(k);
                         slfMagicLayout -> addWidget(fieldStack -> at(k));
+                        connect(
+                            fieldStack -> at(k), SIGNAL(clicked(int)),
+                            this, SLOT(cardClicked(int))
+                        );
                     }
                     
                     fieldStack -> at(13) -> setObjectName("fieldDeckSlf");
@@ -173,6 +193,10 @@ Field::Field () {
                     for (int k=14; k<=20; k++){
                         fieldStack -> at(k) = new SlotCard(k);
                         slfHandLayout -> addWidget(fieldStack -> at(k));
+                        connect(
+                            fieldStack -> at(k), SIGNAL(clicked(int)),
+                            this, SLOT(cardClicked(int))
+                        );
                     }
                     
                 slfHand -> setLayout(slfHandLayout);
@@ -430,6 +454,10 @@ void Field::cardHover (){
     );
     fullCard -> setText(strCard);
 
+}
+
+void Field::cardClicked(int x){
+    std::cout << x << "\n"; 
 }
 
 
