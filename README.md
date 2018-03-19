@@ -132,7 +132,7 @@ Autant de cartes que l'on veut dans un fichier
 ID_CARTE (custom negatif) INTEGER
 (SET) (extention) (set custom) INTEGER
 GENRE_CARTE (0 monstre / 1 magie / 2 piege) INTEGER
-SOUS_TYPE (FUSION / RITUEL / EQUIPEMENT... numero par odre alphabetique ) INTEGER
+SOUS_TYPE (FUSION / RITUEL / EQUIPEMENT... numero par ordre alphabetique ) INTEGER
 NOM_CARTE STRING
 ATTRIBUT terre / lumiere.. INTEGER
 NIVEAUX (1 - 12) (que les cartes monstres, les petites étoiles) INTEGER
@@ -142,9 +142,9 @@ TYPE (rocher, démon, elfe...) INTEGER
 DESCRIPTION (texte purement visuel) STRING
 EFFET effet separé par {{ , fin d'effet}} INTEGER
 	exemple : {{effet 1 {{ effet 2 {{ effet 3 
-ATK 0 min INTEGER
-DEF 0 min INTEGER
-HASH (anti corruption) STRING QCryptographicHash::Sha1
+ATK (min: 0) INTEGER
+DEF (min: 0) INTEGER
+HASH (anti corruption) STRING
 ##YGO
 ```
 
