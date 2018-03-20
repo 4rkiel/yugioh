@@ -1,5 +1,13 @@
 #include "../inc/field.h"
 
+/******************************************************************************
+
+	Widget implémentant le plateau de jeu
+
+	Initialisé lors du lancement d'une partie
+
+******************************************************************************/
+
 Field::Field () {
 
     overLayout = new QGridLayout;

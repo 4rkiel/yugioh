@@ -1,5 +1,13 @@
 #include "../inc/optab.h"
 
+/******************************************************************************
+
+    Widget recréant un QTabWidget personnalisé
+
+	Permet d'afficher le sous-menu des Options
+
+******************************************************************************/
+
 OptionTab::OptionTab (){
 
     layout = new QGridLayout;

@@ -2,6 +2,15 @@
 
 #include <QHBoxLayout>
 
+/******************************************************************************
+
+	Widget du menu principal
+
+	Contient les différents boutons, renvoyant aux divers sous-menus
+
+******************************************************************************/
+
+
 Intro::Intro () {
 
     layout = new QGridLayout;

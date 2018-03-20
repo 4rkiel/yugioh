@@ -1,5 +1,12 @@
 #include "../inc/duplica.h"
 
+/******************************************************************************
+
+	Widget permettant d'afficher le contenu complet d'une carte,
+
+	en lien avec le survol de l'image sur le plateau de jeu
+
+******************************************************************************/
 
 Duplica::Duplica(){
 

@@ -1,5 +1,13 @@
 #include "../inc/ruletab.h"
 
+/******************************************************************************
+
+    Widget recréant un QTabWidget personnalisé
+	
+	Permet d'afficher le sous-menu des Règles (lecture et personnalisation)
+
+******************************************************************************/
+
 RuleTab::RuleTab (){
 
     layout = new QGridLayout;

@@ -1,5 +1,14 @@
 #include "../inc/helptab.h"
 
+/******************************************************************************
+
+	Widget recréant un QTabWidget personnalisé
+
+	Permet d'afficher le sous-menu d'aide
+
+******************************************************************************/
+		
+
 HelpTab::HelpTab (){
 
     layout = new QGridLayout;

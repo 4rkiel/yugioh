@@ -1,5 +1,13 @@
 #include "../inc/main.h"
 
+/******************************************************************************
+
+	Fonction Main et Class Window 
+
+	Permet de gérer les contenus affichés à l'utilisateur
+
+******************************************************************************/
+
 Window::Window (QApplication * q) {
 
     a = q;

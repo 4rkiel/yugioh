@@ -1,5 +1,13 @@
 #include "../inc/slotCard.h"
 
+/******************************************************************************
+
+	Widgets représentant les emplacements de cartes sur le terrain
+
+	Ne stock que les composants utiles au visuel
+
+******************************************************************************/
+
 SlotCard::SlotCard (int p){
 
     // Init cards values

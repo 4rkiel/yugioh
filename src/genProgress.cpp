@@ -1,5 +1,13 @@
 #include "../inc/genProgress.h"
 
+/******************************************************************************
+
+	Widget réimplémentant une barre de progression
+
+	Permet de visualiser le chargement de l'application
+
+******************************************************************************/
+
 GenProgress::GenProgress (){
 
     setMinimum(0);

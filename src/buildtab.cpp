@@ -1,5 +1,14 @@
 #include "../inc/buildtab.h"
 
+/******************************************************************************
+	
+	Widget recréant un QTabWidget personnalisé
+	
+	Implémente le sous-menu de Création de Deck/Edition de Cartes
+
+******************************************************************************/
+
+
 BuildTab::BuildTab (){
 
     layout = new QGridLayout;
