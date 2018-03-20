@@ -25,7 +25,7 @@ class Essai : public QMainWindow
 public:
     Essai(QWidget *parent = 0);
     ~Essai();
-    QTcpSocket *socket; // Représente le serveur
+    QTcpSocket *socket;
     quint16 tailleMessage=0;
     QTcpServer *serveur;
     QList<QTcpSocket *> clients;
@@ -52,7 +52,7 @@ public:
     void adversaire_piocher(int n);
     void switch_position_adv(int terrain_x);
     void enlever_i(std::vector<Carte *> **vect, int i);
-
+    void parser(std::string s);
 
     void envoyer(const QString &message);
 
@@ -76,6 +76,7 @@ public slots:
     void mondieu();
     void donneesServ();
     void send();
+    void attaque();
 };
 
 
