@@ -7,12 +7,14 @@ Essai::Essai(QWidget *parent)
     serv = new QPushButton("Yolo",this);
     ok = new QPushButton("Swag",this);
     socket = new QTcpSocket(this);
+    QPushButton * ataq = new QPushButton("Attaque",this);
     QVBoxLayout * swag = new QVBoxLayout();
     QWidget* yolo = new QWidget();
     yolo->setLayout(swag);
     swag->addWidget(serv);
     swag->addWidget(ok);
     swag->addWidget(env);
+    swag->addWidget(ataq);
     this->setCentralWidget(yolo);
     terrain_moi = new std::vector<Carte*>();
     terrain_adv = new std::vector<Carte*>();
@@ -68,6 +70,7 @@ std::cout << "MAIN:" << main2->size() << std::endl;
     connect(socket, SIGNAL(connected()), this, SLOT(connecte()));
     connect(socket, SIGNAL(readyRead()), this, SLOT(donneesRecues()));
     connect(env,SIGNAL(clicked(bool)),this,SLOT(send()));
+    connect(ataq,SIGNAL(clicked(bool)),this,SLOT(attaque()));
 }
 
 
@@ -221,6 +224,7 @@ void Essai::nouvelleConnexion()
 
      socket = serveur->nextPendingConnection();
       std::cout << "YEAAAAH MUNITION AU MAX!!" << std::endl;
+      connect(socket,SIGNAL(readyRead()),this,SLOT(donneesServ()));
 }
 
 void Essai::mondieu()
@@ -258,7 +262,7 @@ void Essai::donneesServ()
 
 
     // 2 : on renvoie le message à tous les clients
-    envoyer(message);
+    std::cout << message.toStdString() << std::endl;
     tailleMessage2 = 0;
 }
 
@@ -284,7 +288,7 @@ void Essai::donneesRecues()
 
     // On affiche le message sur la zone de Chat
     std::cout << "j'ai reçu ceci " << messageRecu.toStdString() << std::endl;
-
+    parser(messageRecu.toStdString());
     // On remet la taille du message à 0 pour pouvoir recevoir de futurs messages
     tailleMessage = 0;
 }
@@ -315,9 +319,20 @@ void Essai::envoyer(const QString &message)
     socket->write(paquet);
 }
 
+void Essai::parser(std::string s)
+{
+    if(s[0]=='a')
+        std::cout << "wooooow" << std::endl;
+}
+
 void Essai::send()
 {
     envoyer("YOLO PUTAIN ENVOIE CE MESSAGE BORDEL DE MERDE");
+}
+
+void Essai::attaque()
+{
+    envoyer("a1000-1");
 }
 
 Carte::Carte(int a,int d)
