@@ -86,12 +86,19 @@ BuildTab::BuildTab (){
             connect(cardButt, SIGNAL(clicked()), this, SLOT(setCard()));
 
             tabLayout -> addWidget(cardButt, 0, 1, 1, 1);
+
+            cardEditButt = new QPushButton;
+            cardEditButt -> setText("Editeur de Carte");
+            cardEditButt -> setProperty("down", false);
+            connect(cardEditButt, SIGNAL(clicked()), this, SLOT(setEditeurCarte()));
+
+            tabLayout -> addWidget(cardEditButt, 0, 2, 1, 1);
                        
 
             QSpacerItem * spacerButt = new QSpacerItem(1,1,
                     QSizePolicy::Expanding,QSizePolicy::Preferred);
             
-            tabLayout -> addItem(spacerButt, 0, 2);
+            tabLayout -> addItem(spacerButt, 0, 3);
 
         tabBox -> setLayout(tabLayout);
 
@@ -135,6 +142,21 @@ BuildTab::BuildTab (){
 
 
             buildLayout -> addWidget(cardScroll);
+
+
+
+            // cardEdit .......................................................
+
+            cardEditScroll = new QScrollArea;
+            cardEditScroll -> setFrameShape(QFrame::NoFrame);
+            cardEditScroll -> setWidgetResizable(true);
+            cardEditScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+            cardEditScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+
+            cardEditScroll->setWidget(new editeur_de_carte());
+
+            buildLayout -> addWidget(cardEditScroll);
+
 
 
         buildLayout -> setCurrentWidget(deckScroll);
@@ -205,6 +227,12 @@ void BuildTab::setCard (){
     updateStyle(cardButt);
 
     buildLayout -> setCurrentWidget(cardScroll);
+}
+
+void BuildTab::setEditeurCarte()
+{
+    updateStyle(cardEditButt);
+    buildLayout -> setCurrentWidget(cardEditScroll);
 }
 
 

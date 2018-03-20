@@ -21,6 +21,7 @@
 #include <QComboBox>
 
 #include "../inc/shadowButt.h"
+#include "../inc/editeur_de_carte.h"
 
 class BuildTab : public QFrame {
 
@@ -54,6 +55,7 @@ private:
 
     QPushButton * deckButt;
     QPushButton * cardButt;
+    QPushButton * cardEditButt;
     ShadowButt * exitButt;
 
     QWidget * buildBox;
@@ -63,6 +65,8 @@ private:
 
     QScrollArea * cardScroll;
 
+    QScrollArea * cardEditScroll;
+
     void updateStyle(QPushButton * b);
 
 
@@ -70,6 +74,7 @@ public slots:
     void emitClose();
     void setDeck();
     void setCard();
+    void setEditeurCarte();
 
 
 signals:

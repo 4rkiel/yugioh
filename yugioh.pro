@@ -38,7 +38,8 @@ HEADERS += inc/buildtab.h \
            inc/shadowLab.h \
            inc/duplica.h \
            inc/sleeper.h \
-           inc/slotCard.h
+           inc/slotCard.h \
+	   inc/editeur_de_carte.h
 
 SOURCES += src/buildtab.cpp \
            src/choice.cpp \
@@ -53,4 +54,5 @@ SOURCES += src/buildtab.cpp \
            src/shadowButt.cpp \
            src/shadowLab.cpp \
            src/duplica.cpp \
-           src/slotCard.cpp
+           src/slotCard.cpp \
+	   src/editeur_de_carte.cpp
