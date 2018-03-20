@@ -1,5 +1,13 @@
 #include "../inc/shadowButt.h"
 
+/******************************************************************************
+
+	Réimplémentation des QPushButton
+
+	Permet d'avoir un bouton avec ombre et icone/texte
+
+******************************************************************************/
+
 ShadowButt::ShadowButt (QString icoStr, QString textStr){
  
     // Button content

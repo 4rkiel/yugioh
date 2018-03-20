@@ -1,5 +1,13 @@
 #include "../inc/choice.h"
 
+/******************************************************************************
+
+    Widget recréant un QTabWidget personnalisé
+
+	Permet d'implémenter le sous-menu de choix de parties
+
+******************************************************************************/
+
 Choice::Choice () {
 
     layout = new QGridLayout;

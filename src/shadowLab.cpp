@@ -1,5 +1,13 @@
 #include "../inc/shadowLab.h"
 
+/******************************************************************************
+
+	Réimplémentation des QLabel
+
+	Avec ombre
+
+******************************************************************************/
+
 ShadowLab::ShadowLab (){
 
     setAlignment(Qt::AlignCenter);
