@@ -12,6 +12,7 @@
 #include <QPushButton>
 #include <QString>
 
+#include <QEvent>
 
 
 class SlotCard : public QPushButton {
@@ -32,13 +33,20 @@ public:
     bool isMagic();
     bool isHand();
     bool isDeck();
+    bool isField();
+    bool isGrave();
+    bool isFuse();
 
+    void leaveEvent(QEvent * event);
+    void enterEvent(QEvent * event);
 
 public slots:
     void onClick();
 
 signals:
     void clicked(int posi);
+    void entered(int posi);
+    void leaved(int posi);
 
 private:
     int posi;

@@ -19,8 +19,9 @@
 #include <iostream>
 
 #include "../inc/shadowButt.h"
-#include "../inc/appIndicator.h"
+#include "../inc/shadowLab.h"
 #include "../inc/slotCard.h"
+#include "../inc/duplica.h"
 
 
 class Field : public QFrame {
@@ -38,6 +39,8 @@ public slots:
     void closeMenu();
     void cardHover();
     void cardClicked(int x);
+    void cardEntered(int x);
+    void cardLeaved(int x);
 
 signals:
     void introStack();
@@ -54,8 +57,8 @@ private:
         QWidget * leftBarBox;
         QGridLayout * leftBarLayout;
     
-            AppIndicator * lifeAdv;
-            AppIndicator * intel;
+            ShadowLab * lifeAdv;
+            ShadowLab * intel;
             ShadowButt * actionButt;
 
 
@@ -91,8 +94,8 @@ private:
         QWidget * rightBarBox;
         QGridLayout * rightBarLayout;
 
-            AppIndicator * lifeSlf;
-            AppIndicator * fullCard;
+            ShadowLab * lifeSlf;
+            Duplica * fullCard;
             ShadowButt * menuButt;
 
     QWidget * popupOuter;

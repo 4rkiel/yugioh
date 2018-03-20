@@ -1,6 +1,6 @@
-#include "../inc/appIndicator.h"
+#include "../inc/shadowLab.h"
 
-AppIndicator::AppIndicator (){
+ShadowLab::ShadowLab (){
 
     setAlignment(Qt::AlignCenter);
 
@@ -18,7 +18,7 @@ AppIndicator::AppIndicator (){
 
 
 
-AppIndicator::~AppIndicator (){
+ShadowLab::~ShadowLab (){
 
     delete effect;
 }

@@ -1,7 +1,5 @@
 #include "../inc/slotCard.h"
 
-#include <iostream>
-
 SlotCard::SlotCard (int p){
 
     // Init cards values
@@ -13,7 +11,37 @@ SlotCard::SlotCard (int p){
 
     // Set properties
 
-    setObjectName("fieldCard");
+    if (isHand()){
+
+        setObjectName("handCard");
+
+    } else if (isMagic()){
+
+        setObjectName("magicCard");
+
+    } else if (isMonst()){
+
+        setObjectName("monstCard");
+
+    } else if (isDeck()){
+
+        setObjectName("deckCard");
+
+    } else if (isFuse()){
+
+        setObjectName("fuseCard");
+
+    } else if (isGrave()){
+
+        setObjectName("graveCard");
+
+    } else if (isField()){
+
+        setObjectName("fieldCard");
+
+    }
+
+
     
     setFlat(true);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -210,11 +238,11 @@ bool SlotCard::isAdv(){
 }
 
 bool SlotCard::isMonst(){
-    return ((posi >= 0 && posi <= 6)||(posi >= 75 && posi <=81));
+    return ((posi >= 1 && posi <= 5)||(posi >= 76 && posi <= 80));
 }
 
 bool SlotCard::isMagic(){
-    return ((posi >= 7 && posi <= 13)||(posi >= 82 && posi <= 88));
+    return ((posi >= 8 && posi <= 12)||(posi >= 83 && posi <= 87));
 }
 
 bool SlotCard::isHand(){
@@ -225,10 +253,34 @@ bool SlotCard::isDeck(){
     return ((posi == 13) || (posi == 82));
 }
 
+bool SlotCard::isField(){
+    return ((posi == 0) || (posi == 81));
+}
+
+bool SlotCard::isGrave(){
+    return ((posi == 6) || (posi == 75));
+}
+
+bool SlotCard::isFuse(){
+    return ((posi == 7) || (posi == 88));
+}
 
 
+// SIGNALS
 
 void SlotCard::onClick (){
 
     emit clicked(posi);
+}
+
+void SlotCard::enterEvent(QEvent * event){
+    
+    emit entered(posi);
+    QWidget::enterEvent(event);
+}
+
+void SlotCard::leaveEvent(QEvent * event){
+    
+    emit leaved(posi);
+    QWidget::leaveEvent(event);
 }

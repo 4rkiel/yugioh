@@ -279,6 +279,10 @@ RuleTab #ruleBox QComboBox {
 
 ******************************************************************/
 
+Field {
+    background: #263238;
+}
+
 Field ShadowButt {
     padding: 5px 10px;
     margin: 10px;
@@ -331,37 +335,13 @@ Field ShadowButt {
     background: #E0F2F1;
 }
 
-#arenaBox {
-    background: #263238;
-}
 
 
-#fieldCard {
+SlotCard {
     background: transparent;
     border-radius: 3px;
     min-width: 50px;
-}
-
-#advHand #fieldCard,
-#slfHand #fieldCard {
-    border: 2px solid rgba(255,255,255,100);
-}
-
-#advMagic #fieldCard,
-#slfMagic #fieldCard {
-    border: 2px solid rgba(0,150,136,100);
-}
-
-#advMonst #fieldCard,
-#slfMonst #fieldCard {
-    border: 2px solid rgba(121,85,72,100);
-}
-
-
-#fieldCard:hover,
-#fieldCard:focus,
-#fieldCard:pressed {
-    border: 2px solid white;
+    margin: 0 2px;
 }
 
 #fieldCardInside {
@@ -371,8 +351,57 @@ Field ShadowButt {
 }
 
 
-#fieldDeckAdv,
-#fieldDeckSlf {
+#handCard {
+    border: 2px solid rgba(255,255,255,100);
+}
+
+#handCard:hover {
+    border: 2px solid rgba(255,255,255,255);
+}
+
+#magicCard {
+    border: 2px solid rgba(0,150,136,100);
+}
+
+#magicCard:hover {
+    border: 2px solid rgba(0,150,136,255);
+}
+
+#fieldCard {
+    border: 2px solid rgba(76,175,80,100);
+}
+
+#fieldCard:hover {
+    border: 2px solid rgba(76,175,80,255);
+}
+
+#graveCard {
+    border: 2px solid rgba(158,158,158,100);
+}
+
+#graveCard:hover {
+    border: 2px solid rgba(158,158,158,255);
+}
+
+#fuseCard {
+    border: 2px solid rgba(156,39,176,100);
+}
+
+#fuseCard:hover {
+    border: 2px solid rgba(156,39,176,255);
+}
+
+#monstCard {
+    border: 2px solid rgba(121,85,72,100);
+}
+
+#monstCard:hover {
+    border: 2px solid rgba(121,85,72,255);
+}
+
+
+
+#deckCard {
     background: transparent;
     min-width: 50px;
     border: 0px outset transparent;
@@ -383,14 +412,13 @@ Field ShadowButt {
     border-radius: 6px;
 }
 
-#fieldDeckAdv {
+#advMagic #deckCard {
     border-right: 6px outset #4E342E;
 }
 
-#fieldDeckSlf {
+#slfMagic #deckCard {
     border-left: 6px outset #4E342E;
 }
-
 
 #fieldDeckInside {
     background: transparent;
