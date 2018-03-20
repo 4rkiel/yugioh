@@ -232,6 +232,7 @@ Field::Field () {
         rightBarLayout -> setSpacing(0);
         rightBarLayout -> setMargin(0);
         rightBarLayout -> setAlignment(Qt::AlignCenter);
+        rightBarLayout -> setContentsMargins(10, 10, 10, 10);
 
             
             menuButt = new ShadowButt("\uf0c9", "");

@@ -3,9 +3,12 @@
 
 #include <QFrame>
 
+#include <QGridLayout>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QLabel>
 #include <QGraphicsDropShadowEffect>
+#include <QWidget>
 
 class Duplica : public QFrame {
 
@@ -19,14 +22,18 @@ public:
 
 private:
 
-    QVBoxLayout * layout;
+    QGraphicsDropShadowEffect * gffect;
+    QGridLayout * layout;
     
     QLabel * title;
     QGraphicsDropShadowEffect * effect;
     
     QLabel * pic;
-    QLabel * desc;
-    QLabel * atk;
+
+    QWidget * descBox;
+    QVBoxLayout * descLayout;
+        QLabel * desc;
+        QLabel * atk;
 
 
 };

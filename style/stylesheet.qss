@@ -289,8 +289,7 @@ Field ShadowButt {
     font-size: 20px;
 }
 
-#leftBarBox #Intel,
-#rightBarBox #Card {
+#leftBarBox #Intel {
     background: #3F51B5;
     color: #fff;
     padding: 10px;
@@ -423,4 +422,27 @@ SlotCard {
 #fieldDeckInside {
     background: transparent;
     border-image: url(img/card.svg);
+}
+
+
+
+
+/***********************
+
+    Duplica
+
+*****************************/
+
+Duplica {
+    border-radius: 3px;
+}
+
+#replicaTitle {
+    border-left: 3px solid #ffff88;
+    border-top: 3px solid #ffff88;
+}
+
+#replicaPic {
+    margin: 10px;
+    padding: 10px;
 }

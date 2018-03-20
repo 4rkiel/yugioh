@@ -12,17 +12,23 @@
 #include <QList>
 #include <algorithm>
 
-using namespace std;
+#include <QAction>
+#include <QDialogButtonBox>
+#include <QGroupBox>
+#include <QLabel>
+#include <QLineEdit>
+#include <QMenu>
+#include <QMenuBar>
+#include <QPushButton>
+#include <QTextEdit>
+#include <QSpinBox>
+#include <QComboBox>
+#include <QGridLayout>
+#include <QVBoxLayout>
+#include <QCompleter>
+#include <QFileDialog>
 
-class QAction;
-class QDialogButtonBox;
-class QGroupBox;
-class QLabel;
-class QLineEdit;
-class QMenu;
-class QMenuBar;
-class QPushButton;
-class QTextEdit;
+using namespace std;
 
 enum GENRE
 {

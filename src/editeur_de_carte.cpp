@@ -1,5 +1,9 @@
 #include "../inc/editeur_de_carte.h"
 
+#include <QVBoxLayout>
+#include <QGridLayout>
+#include <QComboBox>
+
 #define name "editeur de carte V1"
 
 /**
