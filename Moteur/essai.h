@@ -1,3 +1,5 @@
+//TESTE POUR VOIR A QUOI RESSEMBLERA LE COMBAT EN RESEAU
+
 #ifndef ESSAI_H
 #define ESSAI_H
 #include <QtNetwork>
@@ -13,6 +15,9 @@ public:
     int atk;
     int def;
     bool pos;
+   //IL FAUDRAIT AJOUTER
+    //  un type
+    //
     Carte(int a,int d);
     Carte();
 

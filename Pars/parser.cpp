@@ -8,13 +8,17 @@ Parser::Parser(QWidget *parent)
     fichier.open(QFile::ReadOnly | QFile::Text);
      QTextStream in(&fichier);
       QString line = in.readLine();
+       Carte * plus;
        while(!line.isNull())
      {
 
         parser(line.toStdString());
         line = in.readLine();
+        if(etape==12)
+            plus = new Carte(nom);
      }
        fichier.close();
+        std::cout << "nom : " << plus->carte_nom.toStdString() << std::endl;
        std::cout << "ID " << id << "genre: " << genre << std::endl;
        std::vector<Carte *> * yolo = Parser::rechercher("or");
        std::cout << yolo->at(0)->carte_nom.toStdString() << std::endl;

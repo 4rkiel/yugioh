@@ -1,3 +1,5 @@
+//TESTE POUR VOIR A QUOI RESSEMBLERA LE COMBAT EN RESEAU
+
 #include "essai.h"
 
 Essai::Essai(QWidget *parent)
@@ -225,6 +227,7 @@ void Essai::nouvelleConnexion()
      socket = serveur->nextPendingConnection();
       std::cout << "YEAAAAH MUNITION AU MAX!!" << std::endl;
       connect(socket,SIGNAL(readyRead()),this,SLOT(donneesServ()));
+      connect(socket,SIGNAL(disconnected()),this,SLOT(deconnexionClient()));
 }
 
 void Essai::mondieu()
@@ -295,7 +298,7 @@ void Essai::donneesRecues()
 
 void Essai::deconnexionClient()
 {
-    return;
+    std::cout << "Grievous a quitté le navire" << std::endl;
 }
 
 void Essai::connecte()
@@ -327,7 +330,7 @@ void Essai::parser(std::string s)
 
 void Essai::send()
 {
-    envoyer("YOLO PUTAIN ENVOIE CE MESSAGE BORDEL DE MERDE");
+    envoyer("J'envoie ce magnifique message");
 }
 
 void Essai::attaque()
