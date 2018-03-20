@@ -4,6 +4,7 @@
 Duplica::Duplica(){
 
     layout = new QVBoxLayout;
+    layout->setSizeConstraint(QLayout::SetMinimumSize);
 
     QFont font = this -> font();
     font.setPointSize(10);
@@ -18,7 +19,7 @@ Duplica::Duplica(){
             title = new QLabel;
             title -> setText("Dragon Blanc aux Yeux Bleus");
             //title -> setFont(font);
-            title->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+//            title->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 
             //title -> setWordWrap(true);
 
@@ -50,7 +51,6 @@ Duplica::Duplica(){
 
         pic = new QLabel("");
         pic -> resize(pic->width(), pic->width());
-
         pic -> setStyleSheet(
             "border-image: url("
                 "img/cards/001/LOB-EN001-Blue-EyesWhiteDragon2ndart.jpg"
@@ -105,4 +105,5 @@ Duplica::~Duplica(){
 void Duplica::resizeEvent (QResizeEvent*){
 
         pic -> resize(pic->width(), pic->width());
+        pic -> adjustSize();
 }
