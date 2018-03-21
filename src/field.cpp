@@ -24,7 +24,7 @@ Field::Field () {
     sceneLayout -> setMargin(0);
 
 
-        // Left bar ...........................................................
+/*        // Left bar ...........................................................
 
         leftBarBox = new QWidget;
         leftBarLayout = new QGridLayout;
@@ -33,14 +33,7 @@ Field::Field () {
 
 
             // Text label
-
-            lifeAdv = new ShadowLab();
-            QString strAdv = QString::fromUtf8("8000");
-            lifeAdv -> setText(strAdv);
-            lifeAdv -> setObjectName("Life");
-            leftBarLayout -> addWidget(lifeAdv, 0, 1, 1, 1);
-
-            
+           
             
             QSpacerItem * spacerLeftTop = new QSpacerItem(3,1,
                 QSizePolicy::Preferred,QSizePolicy::Expanding);
@@ -58,16 +51,10 @@ Field::Field () {
             leftBarLayout -> addItem(spacerLeftBot, 3, 0);
 
 
-
-            actionButt = new ShadowButt("\uf04b", "");
-            actionButt -> setToolTip("Terminer le tour");
-            leftBarLayout -> addWidget(actionButt, 4, 1, 1, 1);
-            connect(actionButt, SIGNAL(clicked()), this, SLOT(test()));
-
            
         leftBarBox -> setObjectName("leftBarBox");            
         leftBarBox -> setLayout(leftBarLayout);
-
+*/
 
 
         // Arena ..............................................................
@@ -205,8 +192,13 @@ Field::Field () {
                 SlotCard * ptr = fieldStack -> at(k);
 
                 connect(
-                    ptr, SIGNAL(clicked(int)),
+                    ptr, SIGNAL(leftClick(int)),
                     this, SLOT(cardClicked(int))
+                );
+
+                connect(
+                    ptr, SIGNAL(rightClick(int)),
+                    this, SLOT(cardRightClicked(int))
                 );
 
                 connect(
@@ -234,14 +226,21 @@ Field::Field () {
         rightBarLayout -> setAlignment(Qt::AlignCenter);
         rightBarLayout -> setContentsMargins(10, 10, 10, 10);
 
+ 
+            lifeAdv = new ShadowLab();
+            QString strAdv = QString::fromUtf8("8000");
+            lifeAdv -> setText(strAdv);
+            lifeAdv -> setObjectName("Life");
+            rightBarLayout -> addWidget(lifeAdv, 0, 1, 1, 1);
+
             
             menuButt = new ShadowButt("\uf0c9", "");
             menuButt -> setToolTip("Menu");
             connect(menuButt, SIGNAL(clicked()), this, SLOT(openMenu()));
-            rightBarLayout -> addWidget(menuButt, 0, 1, 1, 1);
+            rightBarLayout -> addWidget(menuButt, 0, 3, 1, 1);
            
 
-            QSpacerItem * spacerRightTop = new QSpacerItem(3,1,
+            QSpacerItem * spacerRightTop = new QSpacerItem(5,1,
                 QSizePolicy::Preferred,QSizePolicy::Expanding);
             rightBarLayout -> addItem(spacerRightTop, 1, 0);
             
@@ -249,10 +248,10 @@ Field::Field () {
             fullCard = new Duplica();
 //            fullCard -> setObjectName("Card");
 //            fullCard -> setWordWrap(true);
-            rightBarLayout -> addWidget(fullCard, 2, 0, 1, 3);
+            rightBarLayout -> addWidget(fullCard, 2, 0, 1, 5);
 
 
-            QSpacerItem * spacerRightBot = new QSpacerItem(3,1,
+            QSpacerItem * spacerRightBot = new QSpacerItem(5,1,
                 QSizePolicy::Preferred,QSizePolicy::Expanding);
             rightBarLayout -> addItem(spacerRightBot, 3, 0);
 
@@ -261,8 +260,14 @@ Field::Field () {
             QString strSlf = QString::fromUtf8("8000");
             lifeSlf -> setText(strSlf);
             lifeSlf -> setObjectName("Life");
-
             rightBarLayout -> addWidget(lifeSlf, 4, 1, 1, 1);
+
+            actionButt = new ShadowButt("\uf04b", "");
+            actionButt -> setToolTip("Terminer le tour");
+            rightBarLayout -> addWidget(actionButt, 4, 3, 1, 1);
+            connect(actionButt, SIGNAL(clicked()), this, SLOT(test()));
+
+
            
 
 
@@ -271,9 +276,9 @@ Field::Field () {
         rightBarBox -> setLayout(rightBarLayout);
    
 
-    sceneLayout -> addWidget(leftBarBox, 0, 0, 3, 1);
-    sceneLayout -> addWidget(arenaBox, 0, 1, 3, 5);
-    sceneLayout -> addWidget(rightBarBox, 0, 6, 3, 1);
+//    sceneLayout -> addWidget(leftBarBox, 0, 0, 3, 1);
+    sceneLayout -> addWidget(arenaBox, 0, 0, 3, 7);
+    sceneLayout -> addWidget(rightBarBox, 0, 7, 3, 1);
     sceneBox -> setLayout(sceneLayout);
 
 
@@ -376,6 +381,8 @@ Field::~Field (){
     delete popupOuterLayout;
     delete popupOuter;
 
+            delete actionButt;
+            delete lifeAdv;
             delete menuButt;
             delete fullCard;
             delete lifeSlf;
@@ -417,14 +424,12 @@ Field::~Field (){
         
         delete arenaLayout;
         delete arenaBox;
-
-            delete actionButt;
+/*
             delete intel;
-            delete lifeAdv;
 
         delete leftBarLayout;
         delete leftBarBox;
-
+*/
     delete sceneLayout;
     delete sceneBox;
     
@@ -472,6 +477,10 @@ void Field::cardHover (){
 
 }
 
+
+void Field::cardRightClicked(int x){
+	std::cout << x << " Right Clicked \n";
+}
 
 void Field::cardClicked(int x){
     std::cout << x << " clicked \n"; 
