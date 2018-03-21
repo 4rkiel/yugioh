@@ -64,7 +64,7 @@ BuildTab::BuildTab (){
         tabLayout -> setSpacing(0);
         tabLayout -> setMargin(0);
   
-            exitButt = new ShadowButt("\uf060", "Retour");
+            exitButt = new ShadowButt("\uf060", tr("Retour"));
             exitButt -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
             exitButt -> setToolTip("Fermer le menu d'édition");
             connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));

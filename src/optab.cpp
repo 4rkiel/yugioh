@@ -28,7 +28,7 @@ OptionTab::OptionTab (){
 
         infoLayout = new QHBoxLayout;
 
-        info = new QLabel ("Paramètres");
+        info = new QLabel (QString::fromUtf8("Paramètres"));
 
         infoLayout -> addWidget(info);
         infoBox -> setLayout(infoLayout);
@@ -67,7 +67,7 @@ OptionTab::OptionTab (){
 
             exitButt = new ShadowButt("\uf060", "Retour");
             exitButt -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
-            exitButt -> setToolTip("Fermer les paramètres");
+            exitButt -> setToolTip(QString::fromUtf8("Fermer les paramètres"));
             connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));
             
             tabLayout -> addWidget(exitButt, 0, 4, 1, 1);
@@ -82,7 +82,7 @@ OptionTab::OptionTab (){
             
 
             accessButt = new QPushButton;
-            accessButt -> setText("Accessibilité");
+            accessButt -> setText(QString::fromUtf8("Accessibilité"));
             accessButt -> setProperty("down", false);
             connect(accessButt, SIGNAL(clicked()), this, SLOT(setAccess()));
             tabLayout -> addWidget(accessButt, 0, 1, 1, 1);
@@ -141,7 +141,7 @@ OptionTab::OptionTab (){
                 shareDesc = new QLabel;
                 shareDesc -> setWordWrap(true);
                 shareDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
-                shareDesc -> setText("Partage les données d'utilisation");
+                shareDesc -> setText(QString::fromUtf8("Partage les données d'utilisation"));
                 optPaneLayout -> addWidget(shareDesc);
 
 
@@ -149,8 +149,9 @@ OptionTab::OptionTab (){
                 
                 langInput = new QComboBox;
                 langInput -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-                langInput -> addItem("Français");
+                langInput -> addItem(QString::fromUtf8("Français"));
                 langInput -> addItem("English");
+                connect(langInput,SIGNAL(currentIndexChanged(QString)),this,SLOT(langageChange()));
                 optPaneLayout -> addWidget(langInput);
 
                 langDesc = new QLabel;
@@ -376,6 +377,14 @@ void OptionTab::loadOptSettings (){
         shareChck -> setCheckState(Qt::Checked);
     }
 
+
+    QString val = settings.value("langage", "fr_FR").toString();
+
+    if (val == "fr_FR"){
+        langInput -> setCurrentIndex(langInput -> findData(QString::fromUtf8("Français")));
+    } else if (val == "en_US"){
+        langInput -> setCurrentIndex(langInput -> findData("English"));
+    }
 }
 
 
@@ -388,7 +397,6 @@ void OptionTab::shareChange (){
 }
 
 
-
 void OptionTab::contrasteChange (){
 
     QSettings settings;
@@ -397,7 +405,17 @@ void OptionTab::contrasteChange (){
     emit newSettings();
 }
 
+void OptionTab::langageChange(){
 
+    QSettings settings;
+    if(langInput -> currentText()==QString::fromUtf8("Français"))
+        settings.setValue("langage", "fr_FR");
+
+    if(langInput -> currentText()=="English")
+        settings.setValue("langage", "en_US");
+
+    emit newSettings();
+}
 
 void OptionTab::achromaChange (){
 

@@ -332,6 +332,21 @@ void Window::readConfSettings (){
     
     a -> setStyleSheet(styleSheet);
 
+
+
+    // Gestion des traductions
+
+    QString val = settings.value("langage", QLocale::system().name()).toString();
+
+    QTranslator qtTranslator;
+    qtTranslator.load("qt_"+val, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    a->installTranslator(&qtTranslator);
+
+    QTranslator YugiTranslator;
+    YugiTranslator.load("i18n/"+val+"/yugi_"+val);
+    a->installTranslator(&YugiTranslator);
+
+
 }
 
 

@@ -1,4 +1,6 @@
 #include "../inc/helptab.h"
+#include <iostream>
+
 
 /******************************************************************************
 
@@ -156,11 +158,11 @@ HelpTab::HelpTab (){
             aboutScroll -> setWidgetResizable(true);
             aboutScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
             aboutScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+            readLangage();
 
 
                 aboutLabel = new QLabel;
-
-                    QFile file("i18n/fr_FR/about.text");
+                    QFile file("i18n/"+valeur+"/about.text");
 
                     QString text = "";
                     QString line;
@@ -277,4 +279,8 @@ void HelpTab::emitClose (){
     emit introStack();
 }
 
+void HelpTab::readLangage(){
+    QSettings settings;
+    valeur = settings.value("langage", QLocale::system().name()).toString();
+}
 

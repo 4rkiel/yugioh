@@ -186,7 +186,7 @@ RuleTab::RuleTab (){
 
                 ruleLabel = new QLabel;
 
-                    QFile file("i18n/fr_FR/rules.text");
+                    QFile file("i18n/"+QLocale::system().name()+"/rules.text");
 
                     QString text = "";
                     QString line;
