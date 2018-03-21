@@ -46,6 +46,7 @@ class Choice : public QFrame {
         QGraphicsDropShadowEffect * effect;
 
         ShadowButt * intro;
+        ShadowButt * host;
         ShadowButt * group;
         ShadowButt * online;
         ShadowButt * local;

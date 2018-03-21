@@ -8,9 +8,6 @@ class zButt : public QPushButton {
 
     Q_OBJECT
 
-public:
-	virtual ~zButt() {};
-
 signals:
     void rightClicked();
 

@@ -64,18 +64,29 @@ Choice::Choice () {
             connect(local, SIGNAL(clicked()), this, SLOT(emitLocal()));
             box -> addWidget(local);
 
-            box -> addStretch(1);
+            box -> addStretch(3);
            
 
-            // Private Online Button
+            // Private Host Button
           
-            QString strPrivate = QString::fromUtf8("Privée");
+            QString strHost = QString::fromUtf8("Serveur Privée");
+            host = new ShadowButt("\uf0c0", strHost);
+            host -> setToolTip("Héberger une Partie Privée");
+            connect(host, SIGNAL(clicked()), this, SLOT(emitLocal()));
+            box -> addWidget(host);
+
+            box -> addStretch(1);
+
+
+            // Private Join Button
+          
+            QString strPrivate = QString::fromUtf8("Partie Privée");
             group = new ShadowButt("\uf0c0", strPrivate);
-            group -> setToolTip("Commencer une Partie Privée");
+            group -> setToolTip("Rejoindre une Partie Privée");
             connect(group, SIGNAL(clicked()), this, SLOT(emitLocal()));
             box -> addWidget(group);
 
-            box -> addStretch(1);
+            box -> addStretch(3);
            
 
             // MatchMaking Button
