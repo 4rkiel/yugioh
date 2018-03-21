@@ -58,43 +58,43 @@ Choice::Choice () {
 
             // Local Button
           
-            QString strLocal = QString::fromUtf8("Local");
+            QString strLocal = QString::fromUtf8("Jouer en Local");
             local = new ShadowButt("\uf007", strLocal);
             local -> setToolTip("Commencer une Partie Solo");
             connect(local, SIGNAL(clicked()), this, SLOT(emitLocal()));
             box -> addWidget(local);
-
-            box -> addStretch(3);
-           
-
-            // Private Host Button
-          
-            QString strHost = QString::fromUtf8("Serveur Privée");
-            host = new ShadowButt("\uf0c0", strHost);
-            host -> setToolTip("Héberger une Partie Privée");
-            connect(host, SIGNAL(clicked()), this, SLOT(emitLocal()));
-            box -> addWidget(host);
 
             box -> addStretch(1);
 
 
             // Private Join Button
           
-            QString strPrivate = QString::fromUtf8("Partie Privée");
-            group = new ShadowButt("\uf0c0", strPrivate);
+            QString strPrivate = QString::fromUtf8("Rejoindre Partie Privée");
+            group = new ShadowButt("\uf1eb", strPrivate);
             group -> setToolTip("Rejoindre une Partie Privée");
-            connect(group, SIGNAL(clicked()), this, SLOT(emitLocal()));
+            connect(group, SIGNAL(clicked()), this, SLOT(emitJoin()));
             box -> addWidget(group);
 
-            box -> addStretch(3);
-           
+            box -> addStretch(1);
+          
+
+            // Private Host Button
+          
+            QString strHost = QString::fromUtf8("Héberger Partie Privée");
+            host = new ShadowButt("\uf233", strHost);
+            host -> setToolTip("Héberger une Partie Privée");
+            connect(host, SIGNAL(clicked()), this, SLOT(emitHost()));
+            box -> addWidget(host);
+
+            box -> addStretch(1);
+
 
             // MatchMaking Button
           
-            QString strOnline = QString::fromUtf8("Online");
+            QString strOnline = QString::fromUtf8("Trouver une Partie");
             online = new ShadowButt("\uf0ac", strOnline);
             online -> setToolTip("Commencer une Partie Online");
-            connect(online, SIGNAL(clicked()), this, SLOT(emitLocal()));
+            connect(online, SIGNAL(clicked()), this, SLOT(emitNet()));
             box -> addWidget(online);
 
             box -> addStretch(20);
@@ -152,5 +152,17 @@ void Choice::emitIntro (){
 
 void Choice::emitLocal (){
     emit localStack();
+}
+
+void Choice::emitJoin (){
+    emit joinStack();
+}
+
+void Choice::emitHost (){
+    emit hostStack();
+}
+
+void Choice::emitNet (){
+    emit netStack();
 }
 

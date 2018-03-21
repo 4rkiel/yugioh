@@ -63,6 +63,19 @@ Window::~Window (){
 		case 7:
 			delete choice;
 			break;
+
+        case 8:
+            delete joinChoice;
+            break;
+
+        case 9:
+            delete hostChoice;
+            break;
+
+        case 10:
+            delete netChoice;
+            break;
+
     }
 
     delete stackedLayout;
@@ -87,21 +100,6 @@ void Window::introStack (){
 
     intro -> init();
     currentLayout = 1;
-}
-
-void Window::choiceStack (){
-	
-	choice = new Choice;
-	
-    connect(choice, SIGNAL(introStack()), this, SLOT(introStack()));
-    connect(choice, SIGNAL(localStack()), this, SLOT(fieldStack()));
-	
-	stackedLayout -> addWidget(choice);
-	stackedLayout -> setCurrentWidget(choice);
-
-	cleanStack();
-
-	currentLayout = 7;
 }
 
 void Window::fieldStack (){
@@ -177,6 +175,70 @@ void Window::helpStack (){
 }
 
 
+void Window::choiceStack (){
+	
+	choice = new Choice;
+	
+    connect(choice, SIGNAL(introStack()), this, SLOT(introStack()));
+    connect(choice, SIGNAL(joinStack()), this, SLOT(joinStack()));
+    connect(choice, SIGNAL(hostStack()), this, SLOT(hostStack()));
+    connect(choice, SIGNAL(netStack()), this, SLOT(netStack()));
+    connect(choice, SIGNAL(localStack()), this, SLOT(fieldStack()));
+	
+	stackedLayout -> addWidget(choice);
+	stackedLayout -> setCurrentWidget(choice);
+
+	cleanStack();
+
+	currentLayout = 7;
+}
+
+
+void Window::joinStack (){
+
+    joinChoice = new JoinChoice;
+
+    connect(joinChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
+
+    stackedLayout -> addWidget(joinChoice);
+    stackedLayout -> setCurrentWidget(joinChoice);
+
+    cleanStack();
+    
+    currentLayout = 8;
+}
+
+
+void Window::hostStack (){
+
+    hostChoice = new HostChoice;
+
+    connect(hostChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
+
+    stackedLayout -> addWidget(hostChoice);
+    stackedLayout -> setCurrentWidget(hostChoice);
+
+    cleanStack();
+    
+    currentLayout = 9;
+}
+
+
+void Window::netStack (){
+
+    netChoice = new NetChoice;
+
+    connect(netChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
+
+    stackedLayout -> addWidget(netChoice);
+    stackedLayout -> setCurrentWidget(netChoice);
+
+    cleanStack();
+    
+    currentLayout = 10;
+}
+
+
 
 
 void Window::changeSettings(){
@@ -249,6 +311,28 @@ void Window::cleanStack (){
 			delete choice;
 
 			break;
+
+		case 8:
+
+			stackedLayout -> removeWidget(joinChoice);
+			delete joinChoice;
+
+			break;
+
+		case 9:
+
+			stackedLayout -> removeWidget(hostChoice);
+			delete hostChoice;
+
+			break;
+
+		case 10:
+
+			stackedLayout -> removeWidget(netChoice);
+			delete netChoice;
+
+			break;
+
     }
 }
 

@@ -1,4 +1,4 @@
-#include "../inc/choice.h"
+#include "../inc/joinChoice.h"
 
 /******************************************************************************
 
@@ -8,7 +8,7 @@
 
 ******************************************************************************/
 
-Choice::Choice () {
+JoinChoice::JoinChoice () {
 
     layout = new QGridLayout;
     layout -> setAlignment(Qt::AlignCenter);
@@ -29,7 +29,7 @@ Choice::Choice () {
 
         infoLayout = new QHBoxLayout;
 
-        info = new QLabel ("Mode de Jeu");
+        info = new QLabel ("Partie Privée : Rejoindre");
 
         infoLayout -> addWidget(info);
         infoBox -> setLayout(infoLayout);
@@ -56,46 +56,13 @@ Choice::Choice () {
             box -> addStretch(1);
 
 
-            // Local Button
-          
-            QString strLocal = QString::fromUtf8("Local");
-            local = new ShadowButt("\uf007", strLocal);
-            local -> setToolTip("Commencer une Partie Solo");
-            connect(local, SIGNAL(clicked()), this, SLOT(emitLocal()));
-            box -> addWidget(local);
-
-            box -> addStretch(1);
-           
-
-            // Private Online Button
-          
-            QString strPrivate = QString::fromUtf8("Privée");
-            group = new ShadowButt("\uf0c0", strPrivate);
-            group -> setToolTip("Commencer une Partie Privée");
-            connect(group, SIGNAL(clicked()), this, SLOT(emitLocal()));
-            box -> addWidget(group);
-
-            box -> addStretch(1);
-           
-
-            // MatchMaking Button
-          
-            QString strOnline = QString::fromUtf8("Online");
-            online = new ShadowButt("\uf0ac", strOnline);
-            online -> setToolTip("Commencer une Partie Online");
-            connect(online, SIGNAL(clicked()), this, SLOT(emitLocal()));
-            box -> addWidget(online);
-
-            box -> addStretch(20);
-            
-
             // Back Button
 
             QString strIntro = QString::fromUtf8("Retour");
-            intro = new ShadowButt("\uf060", strIntro);
-            intro -> setToolTip("Retour au Menu");
-            connect(intro, SIGNAL(clicked()), this, SLOT(emitIntro()));
-            box -> addWidget(intro);
+            choice = new ShadowButt("\uf060", strIntro);
+            choice -> setToolTip("Retour au Menu");
+            connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
+            box -> addWidget(choice);
             
             box -> addStretch(1);
 
@@ -108,12 +75,9 @@ Choice::Choice () {
 }
 
     
-Choice::~Choice (){
+JoinChoice::~JoinChoice (){
 
-    delete intro;
-    delete online;
-    delete group;
-    delete local;
+    delete choice;
 
     delete effect;
 
@@ -129,17 +93,12 @@ Choice::~Choice (){
 }
 
 
-void Choice::init (){
-    local -> setFocus();
+void JoinChoice::init (){
+   // local -> setFocus();
 }
 
 
-
-void Choice::emitIntro (){
-    emit introStack();
-}
-
-void Choice::emitLocal (){
-    emit localStack();
+void JoinChoice::emitChoice (){
+    emit choiceStack();
 }
 

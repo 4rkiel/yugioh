@@ -26,6 +26,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += inc/buildtab.h \
            inc/choice.h \
+           inc/joinChoice.h \
+           inc/hostChoice.h \
+           inc/netChoice.h \
            inc/field.h \
            inc/generique.h \
            inc/genProgress.h \
@@ -44,6 +47,9 @@ HEADERS += inc/buildtab.h \
 
 SOURCES += src/buildtab.cpp \
            src/choice.cpp \
+           src/joinChoice.cpp \
+           src/hostChoice.cpp \
+           src/netChoice.cpp \
            src/field.cpp \
            src/generique.cpp \
            src/genProgress.cpp \

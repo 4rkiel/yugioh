@@ -1,5 +1,5 @@
-#ifndef CHOICE
-#define CHOICE
+#ifndef JOINCHOICE
+#define JOINCHOICE
 
 #include <QApplication>
 #include <QFrame>
@@ -14,28 +14,20 @@
 
 #include "../inc/shadowButt.h"
 
-class Choice : public QFrame {
+class JoinChoice : public QFrame {
 
     Q_OBJECT
     
     public:
-    Choice();
-    ~Choice();
+    JoinChoice();
+    ~JoinChoice();
     void init();
 
     public slots:
-    void emitIntro();
-    void emitLocal();
-    void emitJoin();
-    void emitHost();
-    void emitNet();
+    void emitChoice();
 
     signals:
-    void introStack();
-    void localStack();
-    void joinStack();
-    void hostStack();
-    void netStack();
+    void choiceStack();
 
     private:
     QGridLayout * layout;
@@ -51,11 +43,7 @@ class Choice : public QFrame {
         QVBoxLayout * box;
         QGraphicsDropShadowEffect * effect;
 
-        ShadowButt * intro;
-        ShadowButt * host;
-        ShadowButt * group;
-        ShadowButt * online;
-        ShadowButt * local;
+        ShadowButt * choice;
 
 };
 
