@@ -4,6 +4,7 @@
 #include <QGridLayout>
 #include <QComboBox>
 
+
 #define name "editeur de carte V1"
 
 /**
@@ -12,39 +13,25 @@
 
 editeur_de_carte::editeur_de_carte()
 {
-    createMenu();
     createFormGroupBox();
 
     bigEditor = new QTextEdit;
     bigEditor->setPlainText(QString::fromUtf8("Description / Effet de la carte..."));
 
-    buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok
-                                     | QDialogButtonBox::Cancel);
+    buttonBox = new QFrame;
 
-  //  connect(buttonBox, SIGNAL(accepted()), this, SLOT(sauvegarder()));
-    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    ShadowButt *buttonSave = new ShadowButt("", "Enregistrer");
+    connect(buttonSave, SIGNAL(clicked()), this, SLOT(sauvegarder()));
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
-    mainLayout->setMenuBar(menuBar);
     mainLayout->addWidget(formGroupBox);
     mainLayout->addWidget(bigEditor);
-    mainLayout->addWidget(buttonBox);
+    mainLayout->addWidget(buttonSave);
 
     setLayout(mainLayout);
 
     setWindowTitle(tr("Basic Layouts"));
-}
-
-void editeur_de_carte::createMenu()
-{
-    menuBar = new QMenuBar;
-
-    fileMenu = new QMenu(tr("&File"), this);
-    exitAction = fileMenu->addAction(tr("E&xit"));
-    menuBar->addMenu(fileMenu);
-
-    connect(exitAction, SIGNAL(triggered()), this, SLOT(sauvegarder()));
 }
 
 void editeur_de_carte::createFormGroupBox()
@@ -61,11 +48,11 @@ void editeur_de_carte::createFormGroupBox()
     typePrimaire = new QComboBox;
     typeSecondaire = new QComboBox;
     attribut = new QComboBox;
+    effectBox = new QComboBox;
     nom = new QLineEdit;
     image = new QPushButton;
-    addComboBox = new QPushButton;
-    deleteComboBox = new QPushButton;
     imageUrl = new QLineEdit;
+
 
     QStringList imgList = QDir(imgRep).entryList();
 
@@ -76,6 +63,8 @@ void editeur_de_carte::createFormGroupBox()
 
     QStringList typeSecondaireList;
     typeSecondaireList << "Effet" << "Normal" << "Fusion" << "Toon" << "Rituel";
+
+    QStringList effectList = {"Piocher", "Detruire Monstre", "Detruire Magie/piege", "Detruire", "TOUT DETRUIRE !", "gagner 1000 life point", "+1000 attaque"};
 
     QCompleter *completerImg = new QCompleter(imgList, this);
     completerImg->setCaseSensitivity(Qt::CaseInsensitive);
@@ -128,10 +117,20 @@ void editeur_de_carte::createFormGroupBox()
         typeSecondaire->addItem(typeSecondaireList.at(i), i);
     }
 
+    for(int i=0; i<effectList.size(); i++)
+    {
+        effectBox->addItem(effectList.at(i), i);
+    }
+
 
 
     QObject::connect(genreCarte, SIGNAL(currentIndexChanged(int)), this,SLOT(slotAttribut()));
     slotAttribut();
+
+    QObject::connect(typeSecondaire, SIGNAL(currentIndexChanged(int)), this,SLOT(slotNormal()));
+    slotAttribut();
+
+
     genreCarte->setCurrentIndex(rand()%3);
 
     QLabel *font = new QLabel;
@@ -159,6 +158,8 @@ void editeur_de_carte::createFormGroupBox()
 
     QGridLayout *layout = new QGridLayout;
 
+    // ... placement ...................................................
+
     layout->addWidget(new QLabel("Nom:"), i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(nom, i, 2, 1, 22);
     layout->addWidget(new QLabel("ID:"), ++i, 0, 1, 2, Qt::AlignCenter);
@@ -182,26 +183,54 @@ void editeur_de_carte::createFormGroupBox()
     layout->addWidget(spinDefense, i, 2, 1, 10);
     layout->addWidget(new QLabel("Image URL:"), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(imageUrl, i, 2, 1, 10);
+    layout->addWidget(new QLabel("Effet:"), ++i, 0, 1, 2, Qt::AlignCenter);
+    layout->addWidget(effectBox, i, 2, 1, 10);
 
     formGroupBox->setLayout(layout);
 }
 
 void editeur_de_carte::sauvegarder()
 {
-    QString yolo = "guilg";
-    QString file = QFileDialog::getSaveFileName();
-    qDebug() << (file);
+    QString file = QCoreApplication::applicationDirPath()+"/sets/"+QString::number(nrSet->currentIndex())+".set";
+    qDebug() << "SAVE: URL FICHIER ECRITURE CARTE: "+file;
 
-
+    QString imgURL = QCoreApplication::applicationDirPath()+"/img/cards/"+QString::number(nrSet->currentIndex()) +"/"+QString::number(ID->value());
+    qDebug() << "SAVE: URL FICHIER ECRITURE IMG: "+imgURL;
     QFile *myfile = new QFile(file);
-    myfile->open(QFile::WriteOnly | QFile::Text);
+    QFile *imgFile = new QFile(imgURL);
 
+    //CHECK QDir.mkpath()
+
+    if(!QDir("/sets/"+QString::number(nrSet->currentIndex())).exists())
+        QDir().mkdir("/sets/"+QString::number(nrSet->currentIndex()));
+
+    if(!QDir("/img/cards/"+QString::number(nrSet->currentIndex())).exists())
+        QDir().mkdir("/img/cards/"+QString::number(nrSet->currentIndex()));
+
+    if(!myfile->open(QFile::WriteOnly | QFile::Text | QFile::Append))
+    {// chemin  corrompue
+        QMessageBox *msgError = new QMessageBox();
+        msgError->setStandardButtons(QMessageBox::Ok);
+        connect(msgError, SIGNAL(accepted()), this, SLOT(reject()));
+    }
+    QFile::copy(imgRep+imageUrl->text(), imgURL);
     QTextStream in(myfile);
-    in << yolo << endl;
-    in << spinAttaque->value() << endl;
 
+    QString text = QString("##YGO\n") + QString::number(ID->value()) + "\n" +QString::number(nrSet->currentIndex())+"\n"+QString::number(genreCarte->currentIndex())+"\n"+
+            QString::number(typePrimaire->currentIndex())+"\n"+QString::number(typeSecondaire->currentIndex())+"\n"+nom->text()+"\n"+QString::number(attribut->currentIndex())+"\n"+
+            QString::number(niveau->value())+"\n" +QString::number(type->currentIndex())+"\n"+bigEditor->toPlainText()+QString::number(effectBox->currentIndex())+"\n"+
+            QString::number(spinAttaque->value())+"\n"+QString::number(spinDefense->value())+"\n"+"##YGO";
+
+    QString text4Hash = QString("##YGO") + QString::number(ID->value())+QString::number(nrSet->currentIndex())+QString::number(genreCarte->currentIndex())+
+            QString::number(typePrimaire->currentIndex())+QString::number(typeSecondaire->currentIndex())+nom->text()+QString::number(attribut->currentIndex())+
+            QString::number(niveau->value())+QString::number(type->currentIndex())+bigEditor->toPlainText()+QString::number(effectBox->currentIndex())+QString::number(spinAttaque->value())+
+            QString::number(spinDefense->value())+"##YGO";
+    // TODO: verifier que l'id est unique (sauvegarde ou selection ?)
+    in << text << endl;
+    in << QString("%1").arg(QString(QCryptographicHash::hash(text4Hash.toUtf8(),QCryptographicHash::Sha1).toHex())) << endl;
 
     myfile->close();
+    imgFile->close();
 }
 
 void editeur_de_carte::selectImg()
@@ -257,7 +286,6 @@ void editeur_de_carte::slotAttribut()
             attribut->setItemIcon(6, QIcon(imgRep + "DIVIN"));
 
             attribut->setCurrentIndex(rand()%7);
-
             spinAttaque->setDisabled(false);
             spinDefense->setDisabled(false);
             typePrimaire->setDisabled(false);
@@ -306,6 +334,14 @@ void editeur_de_carte::slotAttribut()
             typeSecondaire->setDisabled(true);
             niveau->setDisabled(true);
     }
+}
+
+void editeur_de_carte::slotNormal()
+{
+    if(typeSecondaire->currentIndex() == 1) // si monstre normal
+        effectBox->setDisabled(true);
+    else
+        effectBox->setEnabled(true);
 }
 
 

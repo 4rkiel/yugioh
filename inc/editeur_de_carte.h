@@ -11,7 +11,8 @@
 #include <ctime>
 #include <QList>
 #include <algorithm>
-
+#include <fstream>
+#include <QFrame>
 #include <QAction>
 #include <QDialogButtonBox>
 #include <QGroupBox>
@@ -27,6 +28,7 @@
 #include <QVBoxLayout>
 #include <QCompleter>
 #include <QFileDialog>
+#include "shadowButt.h"
 
 using namespace std;
 
@@ -59,6 +61,7 @@ public slots:
         void sauvegarder();
         void selectImg();
         void slotAttribut();
+        void slotNormal();
         void updateImg();
 
 private:
@@ -67,15 +70,12 @@ private:
         void createGridGroupBox();
         void createFormGroupBox();
 
-        QString imgRep = QCoreApplication::applicationDirPath()+"/img/img_attr/";
+        const QString imgRep = QCoreApplication::applicationDirPath()+"/img/img_attr/";
 
-        QMenuBar *menuBar;
-        QGroupBox *horizontalGroupBox;
-        QGroupBox *gridGroupBox;
         QGroupBox *formGroupBox;
-        QTextEdit *smallEditor;
         QTextEdit *bigEditor;
-        QDialogButtonBox *buttonBox;
+        QFrame *buttonBox;
+
         QLineEdit *nom;
         QLineEdit *description;
         QLineEdit *imageUrl;
@@ -86,21 +86,15 @@ private:
         QComboBox *attribut;
         QComboBox *type;
         QComboBox *nrSet;
+        QComboBox *effectBox;
 
         QPushButton *image;
-        QPushButton *addComboBox;
-        QPushButton *deleteComboBox;
-
 
         QSpinBox *ID;        
         QSpinBox *spinAttaque;
         QSpinBox *spinDefense;
         QSpinBox *niveau;
 
-        QComboBox *cb_categorie;
-        QComboBox *cb_type;
-
-        QMenu *fileMenu;
         QAction *exitAction;
 };
 
