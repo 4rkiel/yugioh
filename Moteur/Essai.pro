@@ -13,6 +13,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        essai.cpp
+        essai.cpp \
+    noyau.cpp \
+    carte.cpp \
+    reseau.cpp
 
-HEADERS  += essai.h
+HEADERS  += essai.h \
+    noyau.h \
+    carte.h \
+    reseau.h
