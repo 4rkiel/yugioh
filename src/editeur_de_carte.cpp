@@ -3,7 +3,7 @@
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QComboBox>
-
+#include <QMessageBox>
 
 #define name "editeur de carte V1"
 
