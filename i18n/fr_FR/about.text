@@ -21,22 +21,25 @@
 
 <table border="none">
     <tr>
-        <td rowspan="3" style="padding: 0 30px">
+        <td rowspan="6" style="padding: 0 30px">
             <img src="img/friendship.png" width="150" height="150" />
         </td>
         
+    </tr>
+    <tr>
         <td><a href="https://github.com/4rkiel">4rkiel</a></td>
     </tr>
     <tr>
         <td><a href="https://github.com/Wargamme">Wargamme</a></td>
+    </tr>
     <tr>
         <td><a href="https://github.com/VictorCostantino">Costantino</a></td>
     </tr>
     <tr>
-        <td><a href="https://github.com/schott97l">Lucas SCHOTT</a></td>
+        <td><a href="https://github.com/schott97l">Lucas Schott</a></td>
     </tr>
     <tr>
-        <td><a href="https://github.com/Skytrock">Mathieu HALLER</a></td>
+        <td><a href="https://github.com/Skytrock">Mathieu Haller</a></td>
     </tr>
 </table>
 
