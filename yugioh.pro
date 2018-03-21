@@ -34,6 +34,7 @@ HEADERS += inc/buildtab.h \
            inc/main.h \
            inc/optab.h \
            inc/ruletab.h \
+           inc/zButt.h \
            inc/shadowButt.h \
            inc/shadowLab.h \
            inc/duplica.h \
@@ -51,6 +52,7 @@ SOURCES += src/buildtab.cpp \
            src/main.cpp \
            src/optab.cpp \
            src/ruletab.cpp \
+           src/zButt.cpp \
            src/shadowButt.cpp \
            src/shadowLab.cpp \
            src/duplica.cpp \

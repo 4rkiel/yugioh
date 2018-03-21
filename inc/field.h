@@ -38,6 +38,7 @@ public slots:
     void openMenu();
     void closeMenu();
     void cardHover();
+    void cardRightClicked(int x);
     void cardClicked(int x);
     void cardEntered(int x);
     void cardLeaved(int x);
