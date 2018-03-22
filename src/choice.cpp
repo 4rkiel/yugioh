@@ -58,22 +58,22 @@ Choice::Choice () {
 
             // 1 Local playerButton
           
-            QString strLocal = QString::fromUtf8("Partie Locale Solo");
-            local = new ShadowButt("\uf007", strLocal);
-            local -> setToolTip("Commencer une partie solo contre une IA");
-            connect(local, SIGNAL(clicked()), this, SLOT(emitLocal()));
-            box -> addWidget(local);
+            QString strSolo = QString::fromUtf8("Partie Locale Solo");
+            solo = new ShadowButt("\uf007", strSolo);
+            solo -> setToolTip("Commencer une partie solo contre une IA");
+            connect(solo, SIGNAL(clicked()), this, SLOT(emitSolo()));
+            box -> addWidget(solo);
 
             box -> addStretch(1);
 
 
             // 2 Local players Button
           
-            QString strLocal = QString::fromUtf8("Partie Locale Multijoueur");
-            local = new ShadowButt("\uf007", strLocal);
-            local -> setToolTip("Commencer une partie à deux joeur en local");
-            connect(local, SIGNAL(clicked()), this, SLOT(emitLocal()));
-            box -> addWidget(local);
+            QString strMultiPlayer = QString::fromUtf8("Partie Locale Multijoueur");
+            multiplayer = new ShadowButt("\uf007", strMultiPlayer);
+            multiplayer -> setToolTip("Commencer une partie à deux joeur en local");
+            connect(multiplayer, SIGNAL(clicked()), this, SLOT(emitMultiPlayer()));
+            box -> addWidget(multiplayer);
 
             box -> addStretch(1);
 
@@ -135,7 +135,8 @@ Choice::~Choice (){
     delete intro;
     delete online;
     delete group;
-    delete local;
+    delete solo;
+    delete multiplayer;
 
     delete effect;
 
@@ -152,7 +153,7 @@ Choice::~Choice (){
 
 
 void Choice::init (){
-    local -> setFocus();
+    solo -> setFocus();
 }
 
 
@@ -161,8 +162,12 @@ void Choice::emitIntro (){
     emit introStack();
 }
 
-void Choice::emitLocal (){
-    emit localStack();
+void Choice::emitSolo (){
+    emit soloStack();
+}
+
+void Choice::emitMultiPlayer (){
+    emit multiplayerStack();
 }
 
 void Choice::emitJoin (){
