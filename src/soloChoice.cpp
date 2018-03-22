@@ -30,7 +30,7 @@ SoloChoice::SoloChoice () {
 
         infoLayout = new QHBoxLayout;
 
-        info = new QLabel ("Partie Solo: difficulté de l'IA");
+        info = new QLabel ("Partie Solo: difficulte de l'IA");
 
         infoLayout -> addWidget(info);
         infoBox -> setLayout(infoLayout);
@@ -65,10 +65,25 @@ SoloChoice::SoloChoice () {
 
             box -> addWidget(choice, 7,0,1,3);
 
-           
             // Text
 
+            box -> setRowStretch(0,10);
+
+            intro = new QLabel;
+            intro -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+            QString strIntro = QString::fromUtf8(
+                "Quelle IA ?"
+            );
+            intro -> setText(strIntro);
+            intro -> setWordWrap(true);
+            intro -> setContentsMargins(30,0,30,0);
+
+            box -> addWidget(intro,1,1,1,1);
             
+            box -> setRowStretch(2,10);
+
+            //end
+
             box -> setRowStretch(6,25);
             box -> setRowStretch(8,1);
 
