@@ -4,7 +4,8 @@
 #include <QWidget>
 #include <iostream>
 #include "carte.h"
-
+#include <string>
+#include <sstream>
 class Reseau : public QWidget
 {
     Q_OBJECT
@@ -29,6 +30,7 @@ public slots:
      void send();
      void attaque();
      void piocher();
+     void poser(int main_x,int terrain_x,bool def);
 signals:
     void a_parser(QString chaine);
 

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QObject>
 #include <QWidget>
+#include <cstring>
 #include "carte.h"
 #include "reseau.h"
 
@@ -32,7 +33,8 @@ public:
     void adversaire_piocher(int n);
     void switch_position_adv(int terrain_x);
     void enlever_i(std::vector<Carte *> **vect, int i);
-
+    Carte * trouver(int x);
+    int perfect_position(int zone);
 
     std::vector<Carte *> * terrain;
     std::vector<Carte *> * main1;
@@ -58,6 +60,7 @@ signals:
     void emit_send();
     void emit_attaque();
     void je_pioche();
+    void je_pose(int main_x,int terrain_x,bool def);
 };
 
 

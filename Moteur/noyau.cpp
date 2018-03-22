@@ -31,7 +31,6 @@ Noyau::Noyau()
 
     main1= new std::vector<Carte *>();
     main2= new std::vector<Carte *>();
-
     //piocher(2);
    std::cout << "size deck " << d1->size() << std::endl;
   //  std::cout << main1->at(0)->atk << std::endl;
@@ -70,6 +69,7 @@ void Noyau::setReseau(bool b)
         connect(this,SIGNAL(emit_attaque()),res,SLOT(attaque()));
         connect(this,SIGNAL(je_pioche()),res,SLOT(piocher()));
         connect(res,SIGNAL(a_parser(QString)),this,SLOT(traiter(QString)));
+        connect(this,SIGNAL(je_pose(int,int,bool)),res,SLOT(poser(int,int,bool)));
     }
 }
 
@@ -79,6 +79,7 @@ void Noyau::piocher(int x)
     if(position>75)
     {
         std::cout << "le traitement du piochage allié en cours " << std::endl;
+        d1->front()->position_terrain = perfect_position(0);
         terrain->push_back(d1->front());
         enlever_i(&d1,0);
         //prevenir le voisin
@@ -87,10 +88,87 @@ void Noyau::piocher(int x)
     else
     {
         std::cout << "le traitement du piochage adverse en cours " << std::endl;
+        d2->front()->position_terrain = perfect_position(1);
         terrain->push_back(d2->front());
         enlever_i(&d2,0);
     }
 }
+
+//poser la carte
+void Noyau::poser(int main_x, int terrain_x, bool def)
+{
+    Carte * la_carte;
+    if(main_x < 75)
+    {
+        std::cout << "je traite mon posage" << std::endl;
+        la_carte = trouver(main_x);
+        la_carte->position_terrain=terrain_x;
+        la_carte->def = def;
+        emit je_pose(main_x,terrain_x,def);
+    }
+    else
+    {
+        std::cout << "je traite le posage adverse" << std::endl;
+        la_carte = trouver(main_x);
+        la_carte->position_terrain=terrain_x;
+         la_carte->def = def;
+
+    }
+}
+
+//trouve la carte qui a la position x
+Carte * Noyau::trouver(int x)
+{
+    if(terrain->size()==0)
+        return NULL;
+    int i;
+    for(i=0;i<terrain->size();i++)
+    {
+        if(terrain->at(i)->position_terrain == x)
+            return terrain->at(i);
+    }
+    return NULL;
+}
+
+//permet de trouver la position parfaite dans la main
+int Noyau::perfect_position(int zone)
+{
+
+    int begin_position,i,min=151,current_position;
+    if(zone==0)
+   {
+        begin_position=14;
+        if(terrain->size()==0)
+               return begin_position;
+        for(i=0;i<terrain->size();i++)
+        {
+             current_position = terrain->at(i)->position_terrain;
+             if((current_position > 13) && (current_position < 75))
+             {
+                 if(min>current_position)
+                        min = current_position;
+              }
+        }
+
+    }
+    else
+    {
+        begin_position=89;
+        if(terrain->size()==0)
+               return begin_position;
+        for(i=0;i<terrain->size();i++)
+        {
+             current_position = terrain->at(i)->position_terrain;
+             if((current_position > 88) && (current_position < 150))
+             {
+                 if(min>current_position)
+                        min = current_position;
+              }
+        }
+    }
+    return min;
+}
+
 
 /*void Noyau::poser(int main_x, int terrain_x, bool def)
 {
@@ -236,10 +314,57 @@ void Noyau::attaque()
 void Noyau::traiter(QString s)
 {
     std::cout << "S:" << s.toStdString() << std::endl;
-    if(s.compare(QString("pioche"))==0)
+    if(s.compare(QString("apioche"))==0)
     {
         std::cout << "oui l'adversaire pioche" << std::endl;
         piocher(100);
+    }
+    else if(s.compare(QString("jpioche"))==0)
+    {
+        std::cout << "oui je pioche" << std::endl;
+        piocher(1);
+    }
+    else if(s[0]=='p' && s[1]=='/')
+    {
+        int valeur;
+        std::vector<int> * les_valeurs = new std::vector<int>();
+        char * arg = new char[s.length()+1];
+           std::strcpy(arg,s.toStdString().c_str());
+         char * parcourir = std::strtok(arg,"/");
+         std::string vrai;
+         if(parcourir!=NULL)
+          vrai = parcourir;
+         while(parcourir!=NULL)
+         {
+             std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+             if(std::strcmp(parcourir,"p")!=0)
+             {
+                std::cout << "je traite l'int" << std::endl;
+                valeur = atoi(parcourir);
+                std::cout << "la valeur:" << valeur << std::endl;
+                les_valeurs->push_back(valeur);
+             }
+             parcourir = std::strtok(NULL,"/");
+
+
+             if(parcourir!=NULL)
+            vrai = parcourir;
+          }
+         std::cout << "size :" << les_valeurs->size() << std::endl;
+         bool le_bool = (les_valeurs->at(2)==1);
+         poser(les_valeurs->at(0),les_valeurs->at(1),le_bool);
+
+            delete(arg);
+         std::cout << "j'ai fini de parser" << std::endl;
+    }
+    else if(s.compare(QString("etat"))==0)
+    {
+           std::cout << "terrain_size:" << terrain->size() << std::endl;
+            int i;
+            for(i=0;i<terrain->size();i++)
+            {
+                std::cout << "atk:" << terrain->at(i)->atk << " terrain_position" << terrain->at(i)->position_terrain << std::endl;
+            }
     }
 
 }
