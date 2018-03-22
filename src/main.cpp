@@ -76,6 +76,13 @@ Window::~Window (){
             delete netChoice;
             break;
 
+        case 11:
+            delete soloChoice;
+            break;
+
+        case 12:
+            delete multiplayerChoice;
+            break;
     }
 
     delete stackedLayout;
@@ -183,7 +190,8 @@ void Window::choiceStack (){
     connect(choice, SIGNAL(joinStack()), this, SLOT(joinStack()));
     connect(choice, SIGNAL(hostStack()), this, SLOT(hostStack()));
     connect(choice, SIGNAL(netStack()), this, SLOT(netStack()));
-    connect(choice, SIGNAL(localStack()), this, SLOT(fieldStack()));
+    connect(choice, SIGNAL(soloStack()), this, SLOT(soloStack()));
+    connect(choice, SIGNAL(multiplayerStack()), this, SLOT(multiplayerStack()));
 	
 	stackedLayout -> addWidget(choice);
 	stackedLayout -> setCurrentWidget(choice);
@@ -239,6 +247,34 @@ void Window::netStack (){
 }
 
 
+void Window::soloStack (){
+
+    soloChoice = new SoloChoice;
+
+    connect(soloChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
+
+    stackedLayout -> addWidget(soloChoice);
+    stackedLayout -> setCurrentWidget(soloChoice);
+
+    cleanStack();
+    
+    currentLayout = 11;
+}
+
+
+void Window::multiplayerStack (){
+
+    multiplayerChoice = new MultiPlayerChoice;
+
+    connect(multiplayerChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
+
+    stackedLayout -> addWidget(multiplayerChoice);
+    stackedLayout -> setCurrentWidget(multiplayerChoice);
+
+    cleanStack();
+    
+    currentLayout = 12;
+}
 
 
 void Window::changeSettings(){
@@ -330,6 +366,20 @@ void Window::cleanStack (){
 
 			stackedLayout -> removeWidget(netChoice);
 			delete netChoice;
+
+			break;
+
+		case 11:
+
+			stackedLayout -> removeWidget(soloChoice);
+			delete soloChoice;
+
+			break;
+
+		case 12:
+
+			stackedLayout -> removeWidget(multiplayerChoice);
+			delete multiplayerChoice;
 
 			break;
 
