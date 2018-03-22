@@ -2,17 +2,7 @@
 #include "essai.h"
 Noyau::Noyau()
 {
-
-   // terrain_moi = new std::vector<Carte*>();
-    //terrain_adv = new std::vector<Carte*>();
     terrain = new std::vector<Carte *>();
-    int i;
-   /* for(i=0;i<5;i++)
-    {
-        terrain_moi->push_back(new Carte(-1,-1));
-        terrain_adv->push_back(new Carte(-1,-1));
-    }
-    std::cout << "size :" << terrain_moi->size() << std::endl;*/
     d1 = new std::vector<Carte*>();
     d2 = new std::vector<Carte*>();
 
@@ -28,26 +18,9 @@ Noyau::Noyau()
     d2->push_back(new Carte(600,100));
     d2->push_back(new Carte(800,100));
     d2->push_back(new Carte(1000,100));
-
-    main1= new std::vector<Carte *>();
-    main2= new std::vector<Carte *>();
-    //piocher(2);
    std::cout << "size deck " << d1->size() << std::endl;
-  //  std::cout << main1->at(0)->atk << std::endl;
-   // std::cout << main1->at(1)->atk << std::endl;
     std::cout << d1->front()->atk << std::endl;
 /*
-   poser(0,1,false);
-
-    // std::cout << "what" << main1->at(0)->atk << std::endl;
-    poser(0,2,false);
- //std::cout << "euh2 ?" << std::endl;
-    //std::cout << "yolo" << terrain_moi->at(1)->atk << std::endl;
-adversaire_piocher(2);
-adversaire_poser(0,1,false);
-std::cout << "MAIN:" << main2->size() << std::endl;
-adversaire_poser(0,2,false);
-std::cout << "MAIN:" << main2->size() << std::endl;
     attaquer(1,2);*/
         std::cout << foeLife << std::endl;
      //  std::cout << "normalement j'affiche ça" << terrain_adv->at(2)->atk  << std::endl;
@@ -187,7 +160,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                 {
                     if(atk->atk > def->def)
                     {
-                        //detruire le monstre
+                        detruire(adversaire_x);
                     }
                     else if(atk->atk < def->def)
                     {
@@ -198,17 +171,18 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                 {
                     if(atk->atk > def->atk)
                     {
-                        //detruire le monstre
-                        foeLife = foelife - (atk->atk - def->atk);
+                        detruire(adversaire_x);
+                        foeLife = foeLife - (atk->atk - def->atk);
                     }
                     else if(atk->atk < def->def)
                     {
-                        //detruire mon monstre
+                        detruire(attaquant_x);
                         selfLife = selfLife - (def->atk - atk->atk);
                     }
                     else
                     {
-                        //detruire les deux monstres
+                        detruire(adversaire_x);
+                        detruire(attaquant_x);
                     }
                 }
         }
@@ -217,26 +191,76 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
     //c'est l'autre qui attaque
     else
     {
-
+        Carte * atk = trouver(attaquant_x);
+        if(adversaire_x == -1)
+        {
+           selfLife = selfLife - atk->atk;
+        }
+        else
+        {
+                 Carte * def = trouver(adversaire_x);
+                 //le monstre est en position de défense
+                if(def->pos)
+                {
+                    if(atk->atk > def->def)
+                    {
+                        detruire(adversaire_x);
+                    }
+                    else if(atk->atk < def->def)
+                    {
+                        foeLife = foeLife - (def->def - atk->atk);
+                    }
+                }
+                else
+                {
+                    if(atk->atk > def->atk)
+                    {
+                        detruire(adversaire_x);
+                        selfLife = selfLife - (atk->atk - def->atk);
+                    }
+                    else if(atk->atk < def->def)
+                    {
+                        detruire(attaquant_x);
+                        foeLife = foeLife - (def->atk - atk->atk);
+                    }
+                    else
+                    {
+                       detruire(attaquant_x);
+                       detruire(adversaire_x);
+                    }
+                }
+        }
     }
 }
 
 
-/*void Noyau::poser(int main_x, int terrain_x, bool def)
+void Noyau::enlever_i(std::vector<Carte *>**vect,int i)
 {
-       terrain_moi->at(terrain_x)=main1->at(main_x);
-       terrain_moi->at(terrain_x)->pos=def;
-       enlever_i(&main1,main_x);
+    std::vector<Carte *>* res = new std::vector<Carte *>();
+    if((*vect)->size()==1)
+    {
+        *vect = res;
+        return;
+    }
+   int j;
+   for(j=0;j<i;j++)
+   {
+      res->push_back((*vect)->at(j));
+   }
+   for(j=i+1;j<(*vect)->size();j++)
+   {
+        res->push_back((*vect)->at(j));
+   }
+    *vect = res;
 }
 
-void Noyau::adversaire_poser(int main_x,int terrain_x, bool def)
-{
-    terrain_adv->at(terrain_x)=main2->at(main_x);
-    terrain_adv->at(terrain_x)->pos=def;
 
-    enlever_i(&main2,main_x);
+void Noyau::detruire(int x)
+{
+    enlever_x(&terrain,x);
 }
 
+/*
 void Noyau::poser(int sac1_x, int sac2_x, int main_x, int terrain_x, bool def)
 {
   detruire_moi(sac1_x);
@@ -246,54 +270,6 @@ void Noyau::poser(int sac1_x, int sac2_x, int main_x, int terrain_x, bool def)
 
 }
 
-void Noyau::adversaire_piocher(int n)
-{
-    int i;
-    for(i=0;i<n;i++)
-    {
-            Carte* debut = d2->front();
-            main2->push_back(debut);
-            enlever_i(&d2,0);
-    }
-    return;
-}
-
-
-void Noyau::attaquer(int moi_x, int adversaire_x)
-{
-    if(adversaire_x==-1)
-        std::cout << "You're already dead." << std::endl;
-    else
-    {
-           if(terrain_moi->at(moi_x)->atk > terrain_adv->at(adversaire_x)->def)
-           {
-
-                foeLife = foeLife - (terrain_moi->at(moi_x)->atk - terrain_adv->at(adversaire_x)->def);
-                detruire_adversaire(adversaire_x);
-
-           }
-           else
-                  return;
-    }
-}
-
-void Noyau::se_faire_attaquer(int adversaire_x,int moi_x)
-{
-    if(moi_x==-1)
-        std::cout << "You're already dead." << std::endl;
-    else
-    {
-           if(terrain_adv->at(adversaire_x)->atk > terrain_moi->at(moi_x)->def)
-           {
-
-                selfLife = selfLife - (terrain_adv->at(adversaire_x)->atk - terrain_moi->at(moi_x)->def);
-                detruire_adversaire(adversaire_x);
-
-           }
-           else
-                  return;
-    }
-}
 void Noyau::switch_position(int terrain_x)
 {
     terrain_moi->at(terrain_x)->pos = !(terrain_moi->at(terrain_x)->pos);
@@ -314,24 +290,28 @@ void Noyau::detruire_adversaire(int x)
     terrain_adv->at(x) = new Carte(-1,-1);
 }
 */
-void Noyau::enlever_i(std::vector<Carte *> **vect, int i)
+void Noyau::enlever_x(std::vector<Carte *> **vect, int x)
 {
-    std::vector<Carte *>* res = new std::vector<Carte *>();
+
+    std::vector<Carte *> * resultat = new std::vector<Carte *>();
     if((*vect)->size()==1)
     {
-        *vect = res;
+       * vect = resultat;
         return;
     }
-   int j;
-   for(j=0;j<i;j++)
-   {
-      res->push_back((*vect)->at(j));
-   }
-   for(j=i+1;j<(*vect)->size();j++)
-   {
-        res->push_back((*vect)->at(j));
-   }
-    *vect = res;
+    int i;
+    for(i=0;i<(*vect)->size();i++)
+    {
+        if((*vect)->at(i)->position_terrain != x)
+            resultat->push_back((*vect)->at(i));
+        else
+        {
+            (*vect)->at(i)->position_terrain = -1;
+            cimetiere.push_back((*vect)->at(i));
+        }
+    }
+    *vect = resultat;
+
 }
 
 void Noyau::phase_suivante()
@@ -417,6 +397,7 @@ void Noyau::traiter(QString s)
             {
                 std::cout << "atk:" << terrain->at(i)->atk << " terrain_position" << terrain->at(i)->position_terrain << std::endl;
             }
+            std::cout << "ma vie :" << selfLife << " vie adverse :" << foeLife << std::endl;
     }
 
 }
