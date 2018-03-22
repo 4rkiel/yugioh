@@ -25,14 +25,16 @@ class Choice : public QFrame {
 
     public slots:
     void emitIntro();
-    void emitLocal();
+    void emitSolo();
+    void emitMultiPlayer();
     void emitJoin();
     void emitHost();
     void emitNet();
 
     signals:
     void introStack();
-    void localStack();
+    void soloStack();
+    void multiplayerStack();
     void joinStack();
     void hostStack();
     void netStack();
@@ -55,7 +57,8 @@ class Choice : public QFrame {
         ShadowButt * host;
         ShadowButt * group;
         ShadowButt * online;
-        ShadowButt * local;
+        ShadowButt * solo;
+        ShadowButt * multiplayer;
 
 };
 
