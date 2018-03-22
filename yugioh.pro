@@ -6,6 +6,7 @@ QMAKE_CXXFLAGS += -std=c++0x
 
 CONFIG += console
 QT += widgets
+QT += network
 
 TEMPLATE = app
 TARGET = yugioh

@@ -11,6 +11,8 @@
 
 #include <QPushButton>
 #include <QString>
+#include <QLabel>
+#include <QNetworkInterface>
 
 #include "../inc/shadowButt.h"
 
@@ -40,9 +42,12 @@ class HostChoice : public QFrame {
     
     QWidget * introBox;
     
-        QVBoxLayout * box;
+        QGridLayout * box;
         QGraphicsDropShadowEffect * effect;
 
+        QLabel * intro;
+        QLabel * phrase;
+        QLabel * adr;
         ShadowButt * choice;
 
 };

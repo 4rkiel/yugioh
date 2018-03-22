@@ -29,7 +29,7 @@ NetChoice::NetChoice () {
 
         infoLayout = new QHBoxLayout;
 
-        info = new QLabel ("Mode de Jeu");
+        info = new QLabel ("Trouver une Partie");
 
         infoLayout -> addWidget(info);
         infoBox -> setLayout(infoLayout);
