@@ -1,9 +1,30 @@
 #include "parser.h"
 #include "carte.h"
-#include "carte_monstre.h"
+#include "QCoreApplication"
 Parser::Parser(QWidget *parent)
     : QWidget(parent)
 {
+    courante = new Carte();
+    all_cards = new std::vector<Carte*>();
+    QStringList list = QDir("/adhome/v/vc/vcostantino/Documents/IHM/PROJET/sets/").entryList();
+    int i;
+    std::cout << "je suis ici" << std::endl;
+    for(i=0;i<list.length();i++)
+    {
+
+        if((list.at(i).compare(QString("."))!=0) && (list.at(i).compare(QString(".."))!=0))
+        {
+            std::cout << "je parcours la list" << list.at(i).toStdString() << std::endl;
+            fichier_courant = list.at(i);
+        getAll();
+        }
+    }
+    for(i=0;i<all_cards->size();i++)
+    {
+        std::cout << "je parcours la list" << std::endl;
+            std::cout << all_cards->at(i)->nom.toStdString() << std::endl;
+    }
+    /*
     QFile fichier("/adhome/v/vc/vcostantino/Documents/IHM/PROJET/yugioh.set");
     fichier.open(QFile::ReadOnly | QFile::Text);
      QTextStream in(&fichier);
@@ -14,17 +35,36 @@ Parser::Parser(QWidget *parent)
 
         parser(line.toStdString());
         line = in.readLine();
-        if(etape==12)
-            plus = new Carte(nom);
+        //if(etape==12)
+     //       plus = new Carte(nom);
      }
        fichier.close();
-        std::cout << "nom : " << plus->carte_nom.toStdString() << std::endl;
+       std::cout << "nom : " << plus->carte_nom.toStdString() << std::endl;
        std::cout << "ID " << id << "genre: " << genre << std::endl;
        std::vector<Carte *> * yolo = Parser::rechercher("or");
        std::cout << yolo->at(0)->carte_nom.toStdString() << std::endl;
-       std::cout << yolo->at(1)->carte_nom.toStdString() << std::endl;
+       std::cout << yolo->at(1)->carte_nom.toStdString() << std::endl;*/
 }
 
+
+void Parser::getAll()
+{
+    QFile file(fichier_courant);
+    file.open(QFile::ReadOnly | QFile::Text);
+    QTextStream in(&file);
+    QString line = in.readLine();
+    while(!line.isNull())
+    {
+        Parser::parser(line.toStdString());
+        if(etape==12)
+        {
+             all_cards->push_back(courante);
+         }
+        line = in.readLine();
+     }
+     file.close();
+    return;
+}
 
 //PERMET DE RECUPERER LES EFFETS SOUS FORME DE STRING QUI DEVRONT ETRE EUX MEMES MODIFIES
 void Parser::recup_effet(std::string effets)
@@ -50,91 +90,87 @@ void Parser::recup_effet(std::string effets)
 
 
 //PARSE UNE LIGNE COMME IL FAUT
-int Parser::parser(std::string ligne)
+void Parser::parser(std::string ligne)
 {
     if(etape==12)
      {
         etape=0;
         effet="";
-        description="";
+        courante = new Carte();
     }
-    if(ligne.empty() || ligne.find(" ")==0)
-        return 0;
-    if(ligne.find("##")==std::string::npos)
-  {  std::cout << ligne << std::endl;
-    switch(etape)
-    {
-        case 0:
-            id= atoi(ligne.c_str());
-             break;
-        case 1:
-            genre=atoi(ligne.c_str());
-        break;
-    case 2:
-        sous_type=atoi(ligne.c_str());
-    break;
-    case 3:
-        nom=QString::fromStdString(ligne);
-    break;
-    case 4:
-        attr=(attribut) atoi(ligne.c_str());
-    break;
-    case 5:
-        niveau=atoi(ligne.c_str());
-    break;
-    case 6:
-        ty=(type) atoi(ligne.c_str());
-    break;
-    case 7:
-        if(ligne.find("{{")==std::string::npos)
-        {
-                description = description+ligne;
-                 etape--;
-        }
 
-        else
-          {  recup_effet(ligne);
-            etape++;
-          }
-    break;
-    case 8:
-        recup_effet(ligne);
-    break;
-     case 9:
-        atk=atoi(ligne.c_str());
-    break;
-    case 10:
-        def=atoi(ligne.c_str());
-        break;
-    default:
-        break;
-    }
+    if(ligne.empty() || ligne.find(" ")==0)
+        return;
+
+    if(ligne.find("##")==std::string::npos)
+    {
+        std::cout << ligne << std::endl;
+        switch(etape)
+        {
+            case 0:
+                courante->id = atoi(ligne.c_str());
+                //courante->image = truc du fichier + id;
+                //courante->set = truc
+                 break;
+            case 1:
+                courante->genre=atoi(ligne.c_str());
+                break;
+            case 2:
+                courante->sous_type=atoi(ligne.c_str());
+                break;
+            case 3:
+                courante->nom=QString::fromStdString(ligne);
+                break;
+            case 4:
+                courante->attribut=(Attribut) atoi(ligne.c_str());
+                break;
+            case 5:
+                courante->niveau=atoi(ligne.c_str());
+                break;
+            case 6:
+                courante->type=(Type) atoi(ligne.c_str());
+                break;
+            case 7:
+                if(ligne.find("{{")==std::string::npos)
+                {
+                        courante->description = courante->description+QString::fromStdString(ligne);
+                         etape--;
+                }
+                else
+                {
+                    recup_effet(ligne);
+                    etape++;
+                 }
+                break;
+            case 8:
+                recup_effet(ligne);
+                break;
+            case 9:
+                courante->atk=atoi(ligne.c_str());
+                courante->default_atk = courante->atk;
+                break;
+            case 10:
+                courante->def=atoi(ligne.c_str());
+                courante->default_def = courante->def;
+                break;
+            default:
+                break;
+         }
+
     etape++;
     }
 }
 
 //PERMET DE RECHERCHER DES CARTES DONT LE NOM EST NOM
-std::vector<Carte *> * Parser::rechercher(std::string nom)
+std::vector<Carte *> * Parser::rechercher_nom(std::string nom)
 {
     std::vector<Carte *> *resultat = new std::vector<Carte *>();
-    //INDIQUER LE BON ENDROIT DU FICHIER
-    QFile fichier("/adhome/v/vc/vcostantino/Documents/IHM/PROJET/yugioh.set");
-    fichier.open(QFile::ReadOnly | QFile::Text);
-     QTextStream in(&fichier);
-      QString line = in.readLine();
-       while(!line.isNull())
-     {
-
-        int yolo = Parser::parser(line.toStdString());
-        if(etape==12 && Parser::nom.toStdString().find(nom)!=std::string::npos)
-        {
-            if(Parser::genre==0)
-             resultat->push_back(new carte_monstre(Parser::nom,QString("yolo"),LUMIERE,DRAGON));
-             //GERER LES AUTRES CARTES (PIEGE,MAGIE,..)
-  }
-        line = in.readLine();
-     }
-       fichier.close();
+    int i;
+    for(i=0;i<all_cards->size();i++)
+    {
+        if(all_cards->at(i)->nom.compare(QString::fromStdString(nom))==0)
+            resultat->push_back(all_cards->at(i));
+    }
     return resultat;
 }
 Parser::~Parser()

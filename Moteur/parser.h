@@ -9,6 +9,7 @@
 #include <cstring>
 #include <vector>
 #include <carte.h>
+#include <QDir>
 
 class Parser : public QWidget
 {
@@ -17,29 +18,24 @@ class Parser : public QWidget
 public:
     Parser(QWidget *parent = 0);
 
+    QString fichier_courant;
     void recup_effet(std::string effets);
     ~Parser();
+
     int etape=0;
-    int id;
-    //std::string set;
-    int genre;
-    int sous_type;
-    QString nom;
-    attribut attr;
-    int niveau;
-    type ty ;
-    std::string description="";
+    int set;
     std::string effet="";
-    int atk;
-    int def;
-    bool verif = true;
 
+    Carte * courante;
+    void getAll();
     std::vector<Carte *> * all_cards;
+    std::vector<Carte *> * rechercher_nom(std::string nom);
+    std::vector<Carte *> * rechercher_type(int ty);
+    std::vector<Carte *> * rechercher_genre(int g);
+    std::vector<Carte *> * rechercher_atk(int a);
 
-    std::vector<Carte *> * rechercher(std::string nom);
-    std::vector<Carte *> * rechercher(std::string nom);
 
-    int parser(std::string ligne);
+    void parser(std::string ligne);
 };
 
 #endif // PARSER_H
