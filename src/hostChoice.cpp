@@ -8,6 +8,8 @@
 
 ******************************************************************************/
 
+#include <iostream>
+
 HostChoice::HostChoice () {
 
     layout = new QGridLayout;
@@ -62,7 +64,7 @@ HostChoice::HostChoice () {
             choice -> setToolTip("Retour au Menu");
             connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
 
-            box -> addWidget(choice, 7,0,1,3);
+            box -> addWidget(choice, 5,0,1,3);
 
            
             // Text
@@ -72,7 +74,9 @@ HostChoice::HostChoice () {
             intro = new QLabel;
             intro -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
             QString strIntro = QString::fromUtf8(
-                "En attente de connexion....................."
+                "Serveur personnel : initialisé"
+                "\n\n\n"
+                "En attente de connexion..."
             );
             intro -> setText(strIntro);
             intro -> setWordWrap(true);
@@ -85,43 +89,19 @@ HostChoice::HostChoice () {
             
             // IP
             
-            QString ip;
-
-            foreach (
-                const QHostAddress &address, 
-                QNetworkInterface::allAddresses()
-            ){
-                if (
-                    address.protocol() == QAbstractSocket::IPv4Protocol 
-                    && address != QHostAddress(QHostAddress::LocalHost)
-                ){
-                    ip = address.toString();
-                }
-            }
-             
             phrase = new QLabel;
-            ip = "Adresse IP : " + ip;
+            QString ip = "Adresse du serveur : \n\n" + getIP();
             phrase -> setText(ip);
             phrase -> setWordWrap(true);
             phrase -> setContentsMargins(30,0,30,0);
             phrase -> setTextInteractionFlags(Qt::TextSelectableByMouse); 
             box -> addWidget(phrase,3,1,1,1);
             
-            box -> setRowStretch(4,2);
+            box -> setRowStretch(4,25);
             
            
 
-            adr = new QLabel;
-            QString strPhrase = QString::fromUtf8("Port : 7777");
-            adr -> setText(strPhrase);
-            adr -> setWordWrap(true);
-            adr -> setContentsMargins(30,0,30,0);
-            adr -> setTextInteractionFlags(Qt::TextSelectableByMouse);
-            box -> addWidget(adr,5,1,1,1);    
-
-            
-            box -> setRowStretch(6,25);
-            box -> setRowStretch(8,1);
+            box -> setRowStretch(6,1);
 
 
         introBox -> setLayout(box);
@@ -136,7 +116,6 @@ HostChoice::~HostChoice (){
 
     delete intro;
     delete phrase;
-    delete adr;
     delete choice;
 
     delete effect;
@@ -163,3 +142,47 @@ void HostChoice::emitChoice (){
     emit choiceStack();
 }
 
+
+QString HostChoice::getIP(){
+
+    QNetworkAccessManager networkManager;
+
+    QString adr;
+    QUrl url("https://api.ipify.org/%22");
+
+    //the query used to add the parameter "format=json" to the request
+    QUrlQuery query;
+    query.addQueryItem("format", "json");
+    
+    //set the query on the url
+    url.setQuery(query);
+
+    //make a get request using the above url
+    QNetworkReply* reply = networkManager.get(QNetworkRequest(url));
+
+    QObject::connect(reply, &QNetworkReply::finished,[&](){
+        if(reply->error() != QNetworkReply::NoError) {
+            //failure
+            adr = "Erreur lors de l'analyse de l'ip";
+        
+        } else { //success
+
+            //parse the json reply to extract the IP address
+            QJsonObject jsonObject= QJsonDocument::fromJson(reply->readAll()).object();
+            QHostAddress ip(jsonObject["ip"].toString());
+           
+            bool conversionOK = false;
+            QHostAddress ip4Address(ip.toIPv4Address(&conversionOK));
+            if (conversionOK){
+                adr = ip4Address.toString();
+                std::cout << adr.toStdString() << "\n";
+            }
+
+        }
+    
+        //delete reply later to prevent memory leak
+        reply->deleteLater();
+    });
+
+    return adr;
+}
