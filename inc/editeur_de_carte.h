@@ -28,7 +28,9 @@
 #include <QVBoxLayout>
 #include <QCompleter>
 #include <QFileDialog>
+#include <iostream>
 #include "shadowButt.h"
+#include <sstream>
 
 using namespace std;
 
