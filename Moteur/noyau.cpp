@@ -20,6 +20,7 @@ Noyau::Noyau()
     d2->push_back(new Carte(1000,100));
    std::cout << "size deck " << d1->size() << std::endl;
     std::cout << d1->front()->atk << std::endl;
+
 /*
     attaquer(1,2);*/
         std::cout << foeLife << std::endl;
