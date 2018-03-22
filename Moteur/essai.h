@@ -26,7 +26,7 @@ public:
     QPushButton * ok;
     QPushButton * env;
     QLineEdit * ligne;
-
+    void getIp();
 public slots:
      void afficher();
      void commande();
