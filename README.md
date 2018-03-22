@@ -66,12 +66,12 @@ Implémentation du jeu de carte Yu-Gi-Oh!
  
  - [ ] Gestion des parties
     - [ ] Solo
-       - [ ] IA Random
-       - [ ] IA Optimisation
-       - [ ] Trained IA
+       - [ ] AI Random
+       - [ ] AI Optimisation
+       - [ ] Trained AI
     - [ ] Private Server
        - [ ] Créer
-       - [ ] Réjoindre
+       - [ ] Rejoindre
     - [ ] Online MatchMaking
 
 
