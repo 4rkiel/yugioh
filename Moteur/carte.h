@@ -9,28 +9,42 @@ enum Etat
     VERSO
 };
 
-enum Archetype
-{
-    DRAGON_BLANC,
-    DRAGON_NOIR,
-    MAGICIEN_SOMBRE,
-    EXODIA,
-    NONE // default
-};
-
 enum Attribut
 {
     LUMIERE,
-    TENEBRE
+    TENEBRE,
+    TERRE,
+    EAU,
+    FEU,
+    VENT,
+    DIVIN
 };
 
 enum Type
 {
-    GUERRIER,
-    MAGICIEN,
+    AQUA,
+    BETE,
+    BETE_AILEE,
+    BETE_DIVINE,
+    BETE_GUERRIER,
+    DEMON,
+    DINOSAURE,
     DRAGON,
-    DEMON
-};
+    ELFE,
+    GUERRIER,
+    INSECTE,
+    MACHINE,
+    MAGICIEN,
+    PLANTE,
+    POISSON,
+    PYRO,
+    ROCHER,
+    REPTILE,
+    SERPENT_DE_MER,
+    TONNERRE,
+    WYRM,
+    ZOMBIE
+ };
 
 //FORMULE DES POSITIONS : (x+75)%150
 
@@ -38,6 +52,7 @@ enum Type
 class Carte : public QWidget
 {
 public:
+    int id;
     int atk;
     int default_atk;
     int def;
@@ -45,13 +60,13 @@ public:
     bool pos;
     QString nom;
     QString image;
-    Archetype carte_archetype = NONE;
     Etat etat;
-    int genre; // (magie,piege,monstre..)
+    int genre; // (magie 1 ,piege 2,monstre 0)
     Type type; // (rocher,démon,..)
     int sous_type; // (fusion,continue,...)
     Attribut attribut; // (lumière,feu,...)
     QString description;
+    int niveau;
 
     static int correspondant(int position);
     //Effet effet; comment implenter ça ??
