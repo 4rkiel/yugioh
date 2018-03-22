@@ -216,17 +216,26 @@ void editeur_de_carte::sauvegarder()
     QFile::copy(imgRep+imageUrl->text(), imgURL);
     QTextStream in(myfile);
 
-    QString text = QString("##YGO\n") + QString::number(ID->value()) + "\n" +QString::number(nrSet->currentIndex())+"\n"+QString::number(genreCarte->currentIndex())+"\n"+
-            QString::number(typePrimaire->currentIndex())+"\n"+QString::number(typeSecondaire->currentIndex())+"\n"+nom->text()+"\n"+QString::number(attribut->currentIndex())+"\n"+
-            QString::number(niveau->value())+"\n" +QString::number(type->currentIndex())+"\n"+bigEditor->toPlainText()+QString::number(effectBox->currentIndex())+"\n"+
-            QString::number(spinAttaque->value())+"\n"+QString::number(spinDefense->value())+"\n"+"##YGO";
+    std::stringstream t;
+    std::cout << "h" << 3 << std::endl;
+//    QString text = QString("##YGO\n") + QString::number(ID->value()) + "\n" +QString::number(nrSet->currentIndex())+"\n"+QString::number(genreCarte->currentIndex())+"\n"+
+//            QString::number(typePrimaire->currentIndex())+"\n"+QString::number(typeSecondaire->currentIndex())+"\n"+nom->text()+"\n"+QString::number(attribut->currentIndex())+"\n"+
+//            QString::number(niveau->value())+"\n" +QString::number(type->currentIndex())+"\n"+bigEditor->toPlainText()+QString::number(effectBox->currentIndex())+"\n"+
+//            QString::number(spinAttaque->value())+"\n"+QString::number(spinDefense->value())+"\n"+"##YGO";
 
-    QString text4Hash = QString("##YGO") + QString::number(ID->value())+QString::number(nrSet->currentIndex())+QString::number(genreCarte->currentIndex())+
+    t << "##YGO" << std::endl << ID->value() << std::endl << nrSet->currentIndex() << std::endl << genreCarte->currentIndex() << std::endl << typePrimaire->currentIndex() << std::endl\
+              << typeSecondaire->currentIndex() << std::endl << typeSecondaire->currentIndex() << std::endl << nom->text().toStdString() << std::endl << attribut->currentIndex()\
+              << std::endl << niveau->value() << std::endl << type->currentIndex() << std::endl /*<< bigEditor->toPlainText().toStdString()*/ << std::endl << effectBox->currentIndex()\
+              << std::endl << spinAttaque->value() << std::endl << spinDefense->value() << std::endl << "##YGO" << std::endl;
+
+    std::cout << t.str();
+
+    QString text4Hash = QString::number(ID->value())+QString::number(nrSet->currentIndex())+QString::number(genreCarte->currentIndex())+
             QString::number(typePrimaire->currentIndex())+QString::number(typeSecondaire->currentIndex())+nom->text()+QString::number(attribut->currentIndex())+
             QString::number(niveau->value())+QString::number(type->currentIndex())+bigEditor->toPlainText()+QString::number(effectBox->currentIndex())+QString::number(spinAttaque->value())+
-            QString::number(spinDefense->value())+"##YGO";
+            QString::number(spinDefense->value());
     // TODO: verifier que l'id est unique (sauvegarde ou selection ?)
-    in << text << endl;
+//    in << text << endl;
     in << QString("%1").arg(QString(QCryptographicHash::hash(text4Hash.toUtf8(),QCryptographicHash::Sha1).toHex())) << endl;
 
     myfile->close();
