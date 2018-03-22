@@ -23,8 +23,7 @@ public:
     void poser(int main_x, int terrain_x, bool def);
     void poser(int sac_x,int main_x,int terrain_x, bool def);
     void poser(int sac1_x, int sac2_x, int main_x, int terrain_x,bool def);
-    void attaquer(int moi_x, int adversaire_x=-1);
-    void se_faire_attaquer(int adversaire_x,int moi_x=-1);
+    void attaquer(int attaquant_x, int adversaire_x=-1);
     void switch_position(int terrain_x);
     void detruire_moi(int x);
     void phase_suivante();
@@ -61,6 +60,7 @@ signals:
     void emit_attaque();
     void je_pioche();
     void je_pose(int main_x,int terrain_x,bool def);
+    void j_attaque(int attaquant_x,int adversaire_x);
 };
 
 

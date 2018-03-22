@@ -169,6 +169,58 @@ int Noyau::perfect_position(int zone)
     return min;
 }
 
+void Noyau::attaquer(int attaquant_x, int adversaire_x)
+{
+    //c'est moi qui attaque
+    if(attaquant_x < 75)
+    {
+        Carte * atk = trouver(attaquant_x);
+        if(adversaire_x == -1)
+        {
+            foeLife = foeLife - atk->atk;
+        }
+        else
+        {
+                 Carte * def = trouver(adversaire_x);
+                 //le monstre est en position de défense
+                if(def->pos)
+                {
+                    if(atk->atk > def->def)
+                    {
+                        //detruire le monstre
+                    }
+                    else if(atk->atk < def->def)
+                    {
+                        selfLife = selfLife - (def->def - atk->atk);
+                    }
+                }
+                else
+                {
+                    if(atk->atk > def->atk)
+                    {
+                        //detruire le monstre
+                        foeLife = foelife - (atk->atk - def->atk);
+                    }
+                    else if(atk->atk < def->def)
+                    {
+                        //detruire mon monstre
+                        selfLife = selfLife - (def->atk - atk->atk);
+                    }
+                    else
+                    {
+                        //detruire les deux monstres
+                    }
+                }
+        }
+        emit j_attaque(attaquant_x,adversaire_x);
+    }
+    //c'est l'autre qui attaque
+    else
+    {
+
+    }
+}
+
 
 /*void Noyau::poser(int main_x, int terrain_x, bool def)
 {
