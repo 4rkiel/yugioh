@@ -5,9 +5,9 @@
 Essai::Essai(QWidget *parent)
     : QMainWindow(parent)
 {
-    env = new QPushButton("Env",this);
-    serv = new QPushButton("Yolo",this);
-    ok = new QPushButton("Swag",this);
+    env = new QPushButton("Envoyer un message",this);
+    serv = new QPushButton(QString::fromUtf8("Créer un serveur"),this);
+    ok = new QPushButton("Connecter la socket",this);
     ligne = new QLineEdit(this);
     QPushButton * ataq = new QPushButton("Attaque",this);
     QVBoxLayout * swag = new QVBoxLayout();
@@ -22,7 +22,6 @@ Essai::Essai(QWidget *parent)
 
     Noyau * test = new Noyau();
     test->setReseau(true);
-
     connect(serv,SIGNAL(clicked(bool)),test,SLOT(go()));
     connect(ok,SIGNAL(clicked(bool)),test,SLOT(mondieu()));
   //  connect(test->socket, SIGNAL(connected()), test, SLOT(connecte()));

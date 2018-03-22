@@ -121,11 +121,12 @@ void Reseau::envoyer(const QString &message)
     socket->write(paquet);
 }
 
+//obsolète
 void Reseau::parser(std::string s)
 {
     if(s[0]=='a')
         std::cout << "wooooow" << std::endl;
-    else if(s.compare("pioche"))
+    else if(s.compare("jpioche"))
         std::cout << "JE PIOCHE" << std::endl;
 
 }
@@ -146,7 +147,24 @@ void Reseau::attaque()
     envoyer("a1000-1");
 }
 
+void Reseau::poser(int main_x, int terrain_x, bool def)
+{
+    QString chaine ="p/";
+    std::stringstream ss2;
+    ss2 << Carte::correspondant(main_x);
+    ss2 << "/";
+    ss2 << Carte::correspondant(terrain_x);
+    ss2 << "/";
+    std::string fin = ss2.str();
+    chaine = chaine + QString(fin.c_str());
+    if(def)
+      chaine = chaine + "1";
+    else
+        chaine = chaine + "0";
+    envoyer(chaine);
+}
+
 void Reseau::piocher()
 {
-    envoyer("pioche");
+    envoyer("apioche");
 }
