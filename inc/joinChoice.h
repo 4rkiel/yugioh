@@ -12,6 +12,8 @@
 #include <QPushButton>
 #include <QString>
 
+#include <QLineEdit>
+
 #include "../inc/shadowButt.h"
 
 class JoinChoice : public QFrame {
@@ -40,10 +42,11 @@ class JoinChoice : public QFrame {
     
     QWidget * introBox;
     
-        QVBoxLayout * box;
+        QGridLayout * box;
         QGraphicsDropShadowEffect * effect;
 
         ShadowButt * choice;
+        QLineEdit * input;
 
 };
 
