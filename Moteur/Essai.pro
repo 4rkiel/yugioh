@@ -16,9 +16,11 @@ SOURCES += main.cpp\
         essai.cpp \
     noyau.cpp \
     carte.cpp \
-    reseau.cpp
+    reseau.cpp \
+    parser.cpp
 
 HEADERS  += essai.h \
     noyau.h \
     carte.h \
-    reseau.h
+    reseau.h \
+    parser.h

@@ -25,7 +25,7 @@ Noyau::Noyau()
     attaquer(1,2);*/
         std::cout << foeLife << std::endl;
      //  std::cout << "normalement j'affiche ça" << terrain_adv->at(2)->atk  << std::endl;
-
+    connect(this,SIGNAL(emit_init_deck(QString)),this,SLOT(init_deck(QString)));
 }
 
 
@@ -261,6 +261,8 @@ void Noyau::detruire(int x)
     enlever_x(&terrain,x);
 }
 
+
+
 /*
 void Noyau::poser(int sac1_x, int sac2_x, int main_x, int terrain_x, bool def)
 {
@@ -400,7 +402,18 @@ void Noyau::traiter(QString s)
             }
             std::cout << "ma vie :" << selfLife << " vie adverse :" << foeLife << std::endl;
     }
+    else if(s.startsWith("mondeck:"))
+    {
+          emit emit_init_deck(s);
+    }
 
 }
+
+void Noyau::init_deck(QString nom)
+{
+    std::cout << "tu vas parser le string " << nom.toStdString() << " puis le fichier" << std::endl;
+}
+
+
 
 

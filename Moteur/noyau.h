@@ -51,11 +51,14 @@ public slots:
     void attaque();
     void traiter(QString s);
     void setReseau(bool b);
+    void init_deck(QString nom);
 signals:
     void emit_go();
     void emit_mondieu();
     void emit_send();
     void emit_attaque();
+    void emit_charge_deck(QString contenu);
+    void emit_init_deck(QString nom);
     void je_pioche();
     void je_pose(int main_x,int terrain_x,bool def);
     void j_attaque(int attaquant_x,int adversaire_x);
