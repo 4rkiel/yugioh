@@ -56,11 +56,22 @@ Choice::Choice () {
             box -> addStretch(1);
 
 
-            // Local Button
+            // 1 Local playerButton
           
-            QString strLocal = QString::fromUtf8("Jouer en Local");
+            QString strLocal = QString::fromUtf8("Partie Locale Solo");
             local = new ShadowButt("\uf007", strLocal);
-            local -> setToolTip("Commencer une Partie Solo");
+            local -> setToolTip("Commencer une partie solo contre une IA");
+            connect(local, SIGNAL(clicked()), this, SLOT(emitLocal()));
+            box -> addWidget(local);
+
+            box -> addStretch(1);
+
+
+            // 2 Local players Button
+          
+            QString strLocal = QString::fromUtf8("Partie Locale Multijoueur");
+            local = new ShadowButt("\uf007", strLocal);
+            local -> setToolTip("Commencer une partie à deux joeur en local");
             connect(local, SIGNAL(clicked()), this, SLOT(emitLocal()));
             box -> addWidget(local);
 
