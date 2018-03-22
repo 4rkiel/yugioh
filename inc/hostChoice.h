@@ -1,6 +1,7 @@
 #ifndef HOSTCHOICE
 #define HOSTCHOICE
 
+#include <QtCore>
 #include <QApplication>
 #include <QFrame>
 
@@ -12,7 +13,8 @@
 #include <QPushButton>
 #include <QString>
 #include <QLabel>
-#include <QNetworkInterface>
+#include <QtNetwork>
+
 
 #include "../inc/shadowButt.h"
 
@@ -24,6 +26,7 @@ class HostChoice : public QFrame {
     HostChoice();
     ~HostChoice();
     void init();
+    QString getIP();
 
     public slots:
     void emitChoice();
