@@ -73,10 +73,10 @@ private:
         void createFormGroupBox();
 
         const QString imgRep = QCoreApplication::applicationDirPath()+"/img/img_attr/";
+        QString absoluteUrlImage = imgRep + "DEFAULT.jpg";
 
         QGroupBox *formGroupBox;
         QTextEdit *bigEditor;
-        QFrame *buttonBox;
 
         QLineEdit *nom;
         QLineEdit *description;
@@ -86,7 +86,6 @@ private:
         QComboBox *typePrimaire;
         QComboBox *typeSecondaire;
         QComboBox *attribut;
-        QComboBox *type;
         QComboBox *nrSet;
         QComboBox *effectBox;
 

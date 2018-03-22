@@ -18,8 +18,6 @@ editeur_de_carte::editeur_de_carte()
     bigEditor = new QTextEdit;
     bigEditor->setPlainText(QString::fromUtf8("Description / Effet de la carte..."));
 
-    buttonBox = new QFrame;
-
     ShadowButt *buttonSave = new ShadowButt("", "Enregistrer");
     connect(buttonSave, SIGNAL(clicked()), this, SLOT(sauvegarder()));
 
@@ -191,21 +189,25 @@ void editeur_de_carte::createFormGroupBox()
 
 void editeur_de_carte::sauvegarder()
 {
+    string fileName = absoluteUrlImage.toStdString();
+    std::cout << "test" << fileName << std::endl;
+
+    string ext (fileName.substr(fileName.find_last_of(".") + 1));
+
+    std::cout << ext << std::endl;
+
     QString file = QCoreApplication::applicationDirPath()+"/sets/"+QString::number(nrSet->currentIndex())+".set";
     qDebug() << "SAVE: URL FICHIER ECRITURE CARTE: "+file;
 
-    QString imgURL = QCoreApplication::applicationDirPath()+"/img/cards/"+QString::number(nrSet->currentIndex()) +"/"+QString::number(ID->value());
+
+
+    QString imgURL = QCoreApplication::applicationDirPath()+"/img/cards/"+QString::number(nrSet->currentIndex())+"/"+QString::number(ID->value())+"."+QString::fromStdString(ext);
     qDebug() << "SAVE: URL FICHIER ECRITURE IMG: "+imgURL;
     QFile *myfile = new QFile(file);
     QFile *imgFile = new QFile(imgURL);
 
-    //CHECK QDir.mkpath()
-
-    if(!QDir("/sets/"+QString::number(nrSet->currentIndex())).exists())
-        QDir().mkdir("/sets/"+QString::number(nrSet->currentIndex()));
-
-    if(!QDir("/img/cards/"+QString::number(nrSet->currentIndex())).exists())
-        QDir().mkdir("/img/cards/"+QString::number(nrSet->currentIndex()));
+    QDir init;
+    init.mkpath(QCoreApplication::applicationDirPath()+"/img/cards/"+QString::number(nrSet->currentIndex()));
 
     if(!myfile->open(QFile::WriteOnly | QFile::Text | QFile::Append))
     {// chemin  corrompue
@@ -213,30 +215,21 @@ void editeur_de_carte::sauvegarder()
         msgError->setStandardButtons(QMessageBox::Ok);
         connect(msgError, SIGNAL(accepted()), this, SLOT(reject()));
     }
-    QFile::copy(imgRep+imageUrl->text(), imgURL);
+    QFile::copy(absoluteUrlImage, imgURL);
     QTextStream in(myfile);
 
     std::stringstream t;
-    std::cout << "h" << 3 << std::endl;
-//    QString text = QString("##YGO\n") + QString::number(ID->value()) + "\n" +QString::number(nrSet->currentIndex())+"\n"+QString::number(genreCarte->currentIndex())+"\n"+
-//            QString::number(typePrimaire->currentIndex())+"\n"+QString::number(typeSecondaire->currentIndex())+"\n"+nom->text()+"\n"+QString::number(attribut->currentIndex())+"\n"+
-//            QString::number(niveau->value())+"\n" +QString::number(type->currentIndex())+"\n"+bigEditor->toPlainText()+QString::number(effectBox->currentIndex())+"\n"+
-//            QString::number(spinAttaque->value())+"\n"+QString::number(spinDefense->value())+"\n"+"##YGO";
+    QString text = QString("##YGO\n") + QString::number(ID->value()) + "\n" +QString::number(nrSet->currentIndex())+"\n"+QString::number(genreCarte->currentIndex())+"\n"+
+            QString::number(typePrimaire->currentIndex())+"\n"+QString::number(typeSecondaire->currentIndex())+"\n"+nom->text()+"\n"+QString::number(attribut->currentIndex())+"\n"+
+            QString::number(niveau->value())+"\n"+bigEditor->toPlainText()+QString::number(effectBox->currentIndex())+"\n"+
+            QString::number(spinAttaque->value())+"\n"+QString::number(spinDefense->value())+"\n";
 
     t << "##YGO" << std::endl << ID->value() << std::endl << nrSet->currentIndex() << std::endl << genreCarte->currentIndex() << std::endl << typePrimaire->currentIndex() << std::endl\
               << typeSecondaire->currentIndex() << std::endl << typeSecondaire->currentIndex() << std::endl << nom->text().toStdString() << std::endl << attribut->currentIndex()\
-              << std::endl << niveau->value() << std::endl << type->currentIndex() << std::endl /*<< bigEditor->toPlainText().toStdString()*/ << std::endl << effectBox->currentIndex()\
+              << std::endl << niveau->value() << std::endl << bigEditor->toPlainText().toStdString() << std::endl << effectBox->currentIndex()\
               << std::endl << spinAttaque->value() << std::endl << spinDefense->value() << std::endl << "##YGO" << std::endl;
 
-    std::cout << t.str();
-
-    QString text4Hash = QString::number(ID->value())+QString::number(nrSet->currentIndex())+QString::number(genreCarte->currentIndex())+
-            QString::number(typePrimaire->currentIndex())+QString::number(typeSecondaire->currentIndex())+nom->text()+QString::number(attribut->currentIndex())+
-            QString::number(niveau->value())+QString::number(type->currentIndex())+bigEditor->toPlainText()+QString::number(effectBox->currentIndex())+QString::number(spinAttaque->value())+
-            QString::number(spinDefense->value());
-    // TODO: verifier que l'id est unique (sauvegarde ou selection ?)
-//    in << text << endl;
-    in << QString("%1").arg(QString(QCryptographicHash::hash(text4Hash.toUtf8(),QCryptographicHash::Sha1).toHex())) << endl;
+    in << text;
 
     myfile->close();
     imgFile->close();
@@ -249,7 +242,11 @@ void editeur_de_carte::selectImg()
     qDebug() << (fileName);
 
     if(!fileName.isNull())
+    {
         image->setStyleSheet("border-image: url(" + fileName + "); margin: 2px");
+        imageUrl->setText(fileName);
+        absoluteUrlImage = fileName;
+    }
 }
 
 void editeur_de_carte::updateImg()
@@ -269,6 +266,7 @@ void editeur_de_carte::updateImg()
     else
     {
         image->setStyleSheet("border-image: url(" + imgRep + imageUrl->text() + "); margin: 2px");
+        absoluteUrlImage = imgRep + imageUrl->text();
     }
 }
 
