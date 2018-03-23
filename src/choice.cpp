@@ -56,24 +56,13 @@ Choice::Choice () {
             box -> addStretch(1);
 
 
-            // 1 Local playerButton
+            // Local playerButton
           
-            QString strSolo = QString::fromUtf8("Partie Locale Solo");
+            QString strSolo = QString::fromUtf8("Partie Solo");
             solo = new ShadowButt("\uf007", strSolo);
             solo -> setToolTip("Commencer une partie solo contre une IA");
             connect(solo, SIGNAL(clicked()), this, SLOT(emitSolo()));
             box -> addWidget(solo);
-
-            box -> addStretch(1);
-
-
-            // 2 Local players Button
-          
-            QString strMultiPlayer = QString::fromUtf8("Partie Locale Multijoueur");
-            multiplayer = new ShadowButt("\uf007", strMultiPlayer);
-            multiplayer -> setToolTip("Commencer une partie à deux joeur en local");
-            connect(multiplayer, SIGNAL(clicked()), this, SLOT(emitMultiPlayer()));
-            box -> addWidget(multiplayer);
 
             box -> addStretch(1);
 
@@ -136,7 +125,6 @@ Choice::~Choice (){
     delete online;
     delete group;
     delete solo;
-    delete multiplayer;
 
     delete effect;
 
@@ -164,10 +152,6 @@ void Choice::emitIntro (){
 
 void Choice::emitSolo (){
     emit soloStack();
-}
-
-void Choice::emitMultiPlayer (){
-    emit multiplayerStack();
 }
 
 void Choice::emitJoin (){
