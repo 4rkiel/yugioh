@@ -3,6 +3,7 @@
 
 #include<QString>
 #include <QWidget>
+#include <iostream>
 enum Etat
 {
     RECTO,
@@ -76,7 +77,7 @@ public:
     Carte(int a,int d);
     Carte();
 
-
+    void afficher_infos();
 };
 
 #endif // CARTE_H
