@@ -1,5 +1,7 @@
 #include "../inc/slotCard.h"
 
+#include <QDebug>
+
 /******************************************************************************
 
 	Widgets représentant les emplacements de cartes sur le terrain
@@ -70,7 +72,7 @@ SlotCard::SlotCard (int p){
     view -> setScene(scene);
 
     
-    imgButt = new QPushButton;
+    imgButt = new zButt;
 
     if (isDeck()){
     
@@ -115,9 +117,10 @@ SlotCard::SlotCard (int p){
     scaleAnim -> setDuration(500);
 
 
-    
-    connect(this, SIGNAL(clicked()), this, SLOT(onClick()));
-    connect(imgButt, SIGNAL(clicked()), this, SLOT(onClick()));
+	connect(this, SIGNAL(clicked()), this, SLOT(leftClicked()));
+	connect(imgButt, SIGNAL(clicked()), this, SLOT(leftClicked()));
+	connect(imgButt, SIGNAL(rightClicked()), this, SLOT(rightClicked()));
+
 }
 
 
@@ -276,10 +279,62 @@ bool SlotCard::isFuse(){
 
 // SIGNALS
 
-void SlotCard::onClick (){
-
-    emit clicked(posi);
+void SlotCard::rightClicked(){
+	emit rightClick(posi);
 }
+
+void SlotCard::leftClicked(){
+	emit leftClick(posi);
+
+/*        switch( event->button() ){
+            
+            case Qt::LeftButton:
+            emit( leftClicked(posi) );
+            break;
+            
+            case Qt::MidButton:
+            break;
+            
+            case Qt::RightButton:
+            emit( rightClicked(posi) );
+            break;
+            
+            default:
+            break;
+        }
+
+*/
+}
+
+
+/*
+void SlotCard::mouseReleaseEvent(QMouseEvent * event){
+
+	if(event->button() == Qt::RightButton){
+		emit rightClicked(posi);
+	}
+	
+
+		switch( event->button() ){
+			
+			case Qt::LeftButton:
+			emit( leftClicked(posi) );
+			break;
+			
+			case Qt::MidButton:
+			break;
+			
+			case Qt::RightButton:
+			emit( rightClicked(posi) );
+			break;
+			
+			default:
+			break;
+		}
+
+		
+}
+*/
 
 void SlotCard::enterEvent(QEvent * event){
     

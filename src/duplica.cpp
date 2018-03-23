@@ -34,7 +34,8 @@ Duplica::Duplica(){
             
             title = new QLabel;
             title -> setText("Dragon Blanc aux Yeux Bleus");
-            title -> setFont(font);
+            title -> setWordWrap(true);
+			title -> setFont(font);
             title -> setContentsMargins(10, 10, 10, 10);
             title -> setObjectName("replicaTitle");
 

@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="en_US">
+<TS version="2.0" language="fr_FR">
 <context>
     <name>BuildTab</name>
     <message>
         <location filename="../../src/buildtab.cpp" line="67"/>
         <source>Retour</source>
-        <translation>Return</translation>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Intro</name>
+    <message>
+        <location filename="../../src/intro.cpp" line="82"/>
+        <source>RÃ¨gles</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

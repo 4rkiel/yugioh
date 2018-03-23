@@ -1,5 +1,5 @@
-#ifndef CHOICE
-#define CHOICE
+#ifndef NETCHOICE
+#define NETCHOICE
 
 #include <QApplication>
 #include <QFrame>
@@ -14,30 +14,20 @@
 
 #include "../inc/shadowButt.h"
 
-class Choice : public QFrame {
+class NetChoice : public QFrame {
 
     Q_OBJECT
     
     public:
-    Choice();
-    ~Choice();
+    NetChoice();
+    ~NetChoice();
     void init();
 
     public slots:
-    void emitIntro();
-    void emitSolo();
-    void emitMultiPlayer();
-    void emitJoin();
-    void emitHost();
-    void emitNet();
+    void emitChoice();
 
     signals:
-    void introStack();
-    void soloStack();
-    void multiplayerStack();
-    void joinStack();
-    void hostStack();
-    void netStack();
+    void choiceStack();
 
     private:
     QGridLayout * layout;
@@ -53,12 +43,7 @@ class Choice : public QFrame {
         QVBoxLayout * box;
         QGraphicsDropShadowEffect * effect;
 
-        ShadowButt * intro;
-        ShadowButt * host;
-        ShadowButt * group;
-        ShadowButt * online;
-        ShadowButt * solo;
-        ShadowButt * multiplayer;
+        ShadowButt * choice;
 
 };
 

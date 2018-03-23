@@ -13,6 +13,9 @@
 #include <QString>
 
 #include <QEvent>
+#include <QMouseEvent>
+
+#include "../inc/zButt.h"
 
 
 class SlotCard : public QPushButton {
@@ -41,10 +44,12 @@ public:
     void enterEvent(QEvent * event);
 
 public slots:
-    void onClick();
+	void rightClicked();
+	void leftClicked();
 
 signals:
-    void clicked(int posi);
+    void leftClick(int posi);
+    void rightClick(int posi);
     void entered(int posi);
     void leaved(int posi);
 
@@ -59,7 +64,7 @@ private:
     QGraphicsScene * scene;
     QGraphicsProxyWidget * proxy;
 
-    QPushButton * imgButt;
+    zButt * imgButt;
     
     QPropertyAnimation * rotAnim;
     QPropertyAnimation * scaleAnim;

@@ -2,11 +2,26 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="en_US">
 <context>
+    <name></name>
+    <message>
+        <source>RÃ¨gles</source>
+        <translation type="obsolete">Rules</translation>
+    </message>
+</context>
+<context>
     <name>BuildTab</name>
     <message>
         <location filename="../../src/buildtab.cpp" line="67"/>
         <source>Retour</source>
         <translation>Return</translation>
+    </message>
+</context>
+<context>
+    <name>Intro</name>
+    <message>
+        <location filename="../../src/intro.cpp" line="82"/>
+        <source>RÃ¨gles</source>
+        <translation type="unfinished">Rules</translation>
     </message>
 </context>
 <context>

@@ -32,7 +32,7 @@ Intro::Intro () {
         
         infoLayout = new QHBoxLayout;
 
-        info = new QLabel ("Menu Principal");
+        info = new QLabel (tr("Menu Principal"));
 
         infoLayout -> addWidget(info);
         infoBox -> setLayout(infoLayout);
@@ -59,9 +59,9 @@ Intro::Intro () {
 
             // New Game Button
           
-            QString strButton = QString::fromUtf8("Duel");
+            QString strButton = tr("Duel");
             choice = new ShadowButt("\uf439", strButton);
-            choice -> setToolTip("Commencer une partie");
+            choice -> setToolTip(tr("Commencer une partie"));
             connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
             box -> addWidget(choice);
 
@@ -69,7 +69,7 @@ Intro::Intro () {
 
             // Decks Button
 
-            QString strDeck = QString::fromUtf8("Decks");
+            QString strDeck = tr("Decks");
             decks = new ShadowButt("\uf02d", strDeck);
             decks -> setToolTip("Gestion des decks");
             connect(decks, SIGNAL(clicked()), this, SLOT(emitDeck()));
@@ -79,7 +79,7 @@ Intro::Intro () {
 
             // Regles Button
 
-            QString strRules = QString::fromUtf8("Règles");
+            QString strRules = tr("Règles");
             rules = new ShadowButt("\uf24e", strRules);
             rules -> setToolTip("Gestion de l'arbitrage");
             connect(rules, SIGNAL(clicked()), this, SLOT(emitRule()));
@@ -89,7 +89,7 @@ Intro::Intro () {
 
             // Options Button
 
-            QString strOptions = QString::fromUtf8("Paramètres");
+            QString strOptions = tr("Paramètres");
             options = new ShadowButt("\uf085", strOptions);
             options -> setToolTip("Gestion des options");
             connect(options, SIGNAL(clicked()), this, SLOT(emitOpt()));
@@ -99,7 +99,7 @@ Intro::Intro () {
 
             // Options Button
 
-            QString strHelp = QString::fromUtf8("Aide");
+            QString strHelp = tr("Aide");
             help = new ShadowButt("\uf059", strHelp);
             help -> setToolTip("Besoin d'aide ?");
             connect(help, SIGNAL(clicked()), this, SLOT(emitHelp()));
@@ -110,7 +110,7 @@ Intro::Intro () {
 
             // Quit Button
 
-            QString strQuit = QString::fromUtf8("Quitter");
+            QString strQuit = tr("Quitter");
             quit = new ShadowButt("\uf011", strQuit);
             quit -> setToolTip("Quitter l'application");
             connect(quit, SIGNAL(clicked()), qApp, SLOT(quit()));
@@ -173,4 +173,5 @@ void Intro::emitOpt (){
 void Intro::emitHelp (){
     emit helpStack();
 }
+
 

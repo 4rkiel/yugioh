@@ -133,12 +133,22 @@ Generique QProgressBar::chunk {
 ******************************************************************************/
 
 Intro,
-Choice {
+Choice,
+SoloChoice,
+MultiPlayerChoice,
+JoinChoice,
+HostChoice,
+NetChoice {
     margin: 0px 0px 30px 0px;
 }
 
 Intro #introBox,
-Choice #introBox {
+Choice #introBox,
+SoloChoice #introBox,
+MultiPlayerChoice #introBox,
+JoinChoice #introBox,
+HostChoice #introBox,
+NetChoice #introBox {
     margin: 0px 30px;
     border-radius: 2px;
     background: #E0F2F1;
@@ -146,22 +156,41 @@ Choice #introBox {
 }
 
 Intro ShadowButt,
-Choice ShadowButt {
+Choice ShadowButt,
+SoloChoice ShadowButt,
+MultiPlayerChoice ShadowButt,
+JoinChoice ShadowButt,
+HostChoice ShadowButt,
+NetChoice ShadowButt {
     margin: 10px 30px;
     padding: 5px 10px;
 } 
 
 Intro ShadowButt > *,
-Choice ShadowButt > * {
+Choice ShadowButt > *,
+SoloChoice ShadowButt > *,
+MultiPlayerChoice ShadowButt > *,
+JoinChoice ShadowButt > *,
+HostChoice ShadowButt > *,
+NetChoice ShadowButt > * {
     margin: 0px 30px;
 }
 
+
 Intro ShadowButt QToolTip,
-Choice ShadowButt QToolTip {
+Choice ShadowButt QToolTip,
+SoloChoice ShadowButt QToolTip,
+MultiPlayerChoice ShadowButt QToolTip,
+JoinChoice ShadowButt QToolTip,
+HostChoice ShadowButt QToolTip,
+NetChoice ShadowButt QToolTip {
     margin: 0px;
     padding: 5px 10px;
 }
 
+HostChoice #introBox > QLabel {
+    qproperty-alignment: AlignCenter;
+}
 
 
 /******************************************************************************

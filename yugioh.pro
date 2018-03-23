@@ -5,7 +5,10 @@
 QMAKE_CXXFLAGS += -std=c++0x
 
 CONFIG += console
+CONFIG += c++11
+
 QT += widgets
+QT += network
 
 TEMPLATE = app
 TARGET = yugioh
@@ -26,6 +29,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += inc/buildtab.h \
            inc/choice.h \
+           inc/soloChoice.h \
+           inc/multiplayerChoice.h \
+           inc/joinChoice.h \
+           inc/hostChoice.h \
+           inc/netChoice.h \
            inc/field.h \
            inc/generique.h \
            inc/genProgress.h \
@@ -34,6 +42,7 @@ HEADERS += inc/buildtab.h \
            inc/main.h \
            inc/optab.h \
            inc/ruletab.h \
+           inc/zButt.h \
            inc/shadowButt.h \
            inc/shadowLab.h \
            inc/duplica.h \
@@ -43,6 +52,11 @@ HEADERS += inc/buildtab.h \
 
 SOURCES += src/buildtab.cpp \
            src/choice.cpp \
+           src/soloChoice.cpp \
+           src/multiplayerChoice.cpp \
+           src/joinChoice.cpp \
+           src/hostChoice.cpp \
+           src/netChoice.cpp \
            src/field.cpp \
            src/generique.cpp \
            src/genProgress.cpp \
@@ -51,6 +65,7 @@ SOURCES += src/buildtab.cpp \
            src/main.cpp \
            src/optab.cpp \
            src/ruletab.cpp \
+           src/zButt.cpp \
            src/shadowButt.cpp \
            src/shadowLab.cpp \
            src/duplica.cpp \
@@ -58,5 +73,5 @@ SOURCES += src/buildtab.cpp \
 	   src/editeur_de_carte.cpp
 
 TRANSLATIONS += \
-        i18n/en_US/yugi_en_US \
-        i18n/fr_FR/yugi_fr_FR
+        i18n/en_US/yugi_en_US.ts \
+        i18n/fr_FR/yugi_fr_FR.ts
