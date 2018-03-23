@@ -8,9 +8,11 @@
 
 ******************************************************************************/
 
-Window::Window (QApplication * q) {
+Window::Window (QApplication * q,QTranslator* montr,QTranslator* montr2) {
 
     a = q;
+    montranslator=montr;
+    montranslator2=montr2;
 
     currentLayout = 0;
     
@@ -439,6 +441,17 @@ void Window::readConfSettings (){
     
     a -> setStyleSheet(styleSheet);
 
+    //trad
+    QString val = settings.value("langage", QLocale::system().name()).toString();
+
+    montranslator->load("qt_"+val, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    a->installTranslator(montranslator);
+
+    montranslator2->load("i18n/"+val+"/yugi_"+val);
+    a->installTranslator(montranslator2);
+
+
+
 }
 
 
@@ -467,7 +480,7 @@ int main(int argc, char *argv[]) {
     app.setOrganizationDomain("Yu.Gi.Oh");
     app.setApplicationName("Yu-Gi-Oh");
 
-    // trad au lancement
+    // trad de depart
     QSettings settings;
     QString val = settings.value("langage", QLocale::system().name()).toString();
 
@@ -485,7 +498,7 @@ int main(int argc, char *argv[]) {
 
     // Load main widget
 
-    Window w(&app);
+    Window w(&app,&qtTranslator,&YugiTranslator);
 
     w.setWindowTitle("Trading Card Game");
     w.setWindowIcon(QIcon("img/icon.svg"));
