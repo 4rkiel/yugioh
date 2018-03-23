@@ -1,5 +1,4 @@
 #include "carte.h"
-
 Carte::Carte()
 {
     id = 0;
@@ -18,14 +17,37 @@ Carte::Carte()
     description="";
     niveau=0;
     set=-1;
-    position_deck=0;
-    position_terrain=0;
+    position_deck=-1;
+    position_terrain=-1;
 }
 
 int Carte::correspondant(int position)
 {
     return (position+75)%150;
 }
+
+void Carte::afficher_infos()
+{
+    std::cout << "id:" << id << std::endl;
+    std::cout << "atk:" << atk << std::endl;
+    std::cout << "default_atk:" << default_atk << std::endl;
+    std::cout << "def:" << def << std::endl;
+    std::cout << "default_def:" << default_def << std::endl;
+    std::cout << "pos:" << pos << std::endl;
+    std::cout << "nom:" << nom.toStdString() << std::endl;
+    std::cout << "image:"<< image.toStdString() << std::endl;
+    std::cout << "etat:" <<  etat << std::endl;
+    std::cout << "genre:" << genre << std::endl;
+    std::cout << "type:" << type << std::endl;
+    std::cout << "sous_type:" << sous_type << std::endl;
+    std::cout << "attribut:"<< attribut << std::endl;
+    std::cout << "description:" << description.toStdString() << std::endl;
+    std::cout << "niveau:" << niveau << std::endl;
+    std::cout << "set:"<< set << std::endl;
+    std::cout << "position_deck:"<< position_deck<< std::endl;
+    std::cout << "position_terrain:" << position_terrain << std::endl;
+}
+
 Carte::Carte(int a,int d)
 {
     atk=a;

@@ -13,7 +13,6 @@
 #include <QPushButton>
 #include <QString>
 #include <QLabel>
-#include <QtNetwork>
 
 
 #include "../inc/shadowButt.h"
@@ -26,10 +25,10 @@ class HostChoice : public QFrame {
     HostChoice();
     ~HostChoice();
     void init();
-    QString getIP();
 
     public slots:
     void emitChoice();
+	void setIP(QString str);
 
     signals:
     void choiceStack();

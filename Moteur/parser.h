@@ -33,6 +33,8 @@ public:
     std::vector<Carte *> * rechercher_type(int ty);
     std::vector<Carte *> * rechercher_genre(int g);
     std::vector<Carte *> * rechercher_atk(int a);
+    std::vector<Carte *> * rechercher_def(int d);
+    std::vector<Carte *> * rechercher_attribut(int a);
 
 
     void parser(std::string ligne);

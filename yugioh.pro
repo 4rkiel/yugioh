@@ -30,7 +30,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 HEADERS += inc/buildtab.h \
            inc/choice.h \
            inc/soloChoice.h \
-           inc/multiplayerChoice.h \
            inc/joinChoice.h \
            inc/hostChoice.h \
            inc/netChoice.h \
@@ -48,12 +47,12 @@ HEADERS += inc/buildtab.h \
            inc/duplica.h \
            inc/sleeper.h \
            inc/slotCard.h \
-	   inc/editeur_de_carte.h
+	       inc/editeur_de_carte.h \
+           inc/extAdr.h
 
 SOURCES += src/buildtab.cpp \
            src/choice.cpp \
            src/soloChoice.cpp \
-           src/multiplayerChoice.cpp \
            src/joinChoice.cpp \
            src/hostChoice.cpp \
            src/netChoice.cpp \
@@ -70,8 +69,10 @@ SOURCES += src/buildtab.cpp \
            src/shadowLab.cpp \
            src/duplica.cpp \
            src/slotCard.cpp \
-	   src/editeur_de_carte.cpp
+           src/editeur_de_carte.cpp \
+           src/extAdr.cpp
 
 TRANSLATIONS += \
         i18n/en_US/yugi_en_US.ts \
         i18n/fr_FR/yugi_fr_FR.ts
+

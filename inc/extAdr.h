@@ -7,12 +7,12 @@
 #include <QNetworkReply>
 #include <QString>
 
-class TestExternalAddress : public QObject
+class ExtAdr : public QObject
 {
     Q_OBJECT
 
 public:
-    TestExternalAddress();
+    ExtAdr();
 
 signals:
 	void getIP(QString str);

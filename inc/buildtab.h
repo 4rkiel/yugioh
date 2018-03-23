@@ -20,6 +20,8 @@
 #include <QSpacerItem>
 #include <QComboBox>
 
+#include <QString>
+
 #include "../inc/shadowButt.h"
 #include "../inc/editeur_de_carte.h"
 

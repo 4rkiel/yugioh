@@ -6,7 +6,7 @@ Parser::Parser(QWidget *parent)
 {
     courante = new Carte();
     all_cards = new std::vector<Carte*>();
-    QStringList list = QDir("/media/victor/Test/Version22/yugioh/sets/").entryList();
+    QStringList list = QDir("/adhome/v/vc/vcostantino/DocumentsLinux/Documents/IHM/PROJET/sets/").entryList();
     int i;
     std::cout << "je suis ici" << std::endl;
     for(i=0;i<list.length();i++)
@@ -15,15 +15,19 @@ Parser::Parser(QWidget *parent)
         if((list.at(i).compare(QString("."))!=0) && (list.at(i).compare(QString(".."))!=0))
         {
             std::cout << "je parcours la list" << list.at(i).toStdString() << std::endl;
-            fichier_courant = "/media/victor/Test/Version22/yugioh/sets/"+list.at(i);
+            fichier_courant = "/adhome/v/vc/vcostantino/DocumentsLinux/Documents/IHM/PROJET/sets/"+list.at(i);
         getAll();
         }
     }
     for(i=0;i<all_cards->size();i++)
     {
         std::cout << "je parcours la list" << std::endl;
-            std::cout << all_cards->at(i)->nom.toStdString() << std::endl;
+           all_cards->at(i)->afficher_infos();
     }
+       std::vector<Carte *> * search = rechercher_nom("Drag");
+       std::cout << "J'AI TROUVE" << std::endl;
+       for(i=0;i<search->size();i++)
+           search->at(i)->afficher_infos();
     /*
     QFile fichier("/adhome/v/vc/vcostantino/Documents/IHM/PROJET/yugioh.set");
     fichier.open(QFile::ReadOnly | QFile::Text);
@@ -168,7 +172,67 @@ std::vector<Carte *> * Parser::rechercher_nom(std::string nom)
     int i;
     for(i=0;i<all_cards->size();i++)
     {
-        if(all_cards->at(i)->nom.compare(QString::fromStdString(nom))==0)
+        if(all_cards->at(i)->nom.contains(QString::fromStdString(nom)))
+            resultat->push_back(all_cards->at(i));
+    }
+    return resultat;
+}
+
+std::vector<Carte *> * Parser::rechercher_type(int ty)
+{
+    std::vector<Carte *> *resultat = new std::vector<Carte *>();
+    int i;
+    for(i=0;i<all_cards->size();i++)
+    {
+        if(all_cards->at(i)->type == ty)
+            resultat->push_back(all_cards->at(i));
+    }
+    return resultat;
+}
+
+std::vector<Carte *> * Parser::rechercher_genre(int g)
+{
+    std::vector<Carte *> *resultat = new std::vector<Carte *>();
+    int i;
+    for(i=0;i<all_cards->size();i++)
+    {
+        if(all_cards->at(i)->genre == g)
+            resultat->push_back(all_cards->at(i));
+    }
+    return resultat;
+}
+
+std::vector<Carte *> * Parser::rechercher_atk(int a)
+{
+    std::vector<Carte *> *resultat = new std::vector<Carte *>();
+    int i;
+    for(i=0;i<all_cards->size();i++)
+    {
+        if(all_cards->at(i)->atk >= a)
+            resultat->push_back(all_cards->at(i));
+    }
+    return resultat;
+}
+
+std::vector<Carte *> * Parser::rechercher_def(int d)
+{
+    std::vector<Carte *> *resultat = new std::vector<Carte *>();
+    int i;
+    for(i=0;i<all_cards->size();i++)
+    {
+        if(all_cards->at(i)->def >= d)
+            resultat->push_back(all_cards->at(i));
+    }
+    return resultat;
+}
+
+std::vector<Carte *> * Parser::rechercher_attribut(int a)
+{
+    std::vector<Carte *> *resultat = new std::vector<Carte *>();
+    int i;
+    for(i=0;i<all_cards->size();i++)
+    {
+        if(all_cards->at(i)->attribut == a)
             resultat->push_back(all_cards->at(i));
     }
     return resultat;
