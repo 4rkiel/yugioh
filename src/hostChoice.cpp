@@ -11,6 +11,7 @@
 #include <QDebug>
 #include <iostream>
 #include <string>
+#include "../inc/ExtAdr.h"
 
 HostChoice::HostChoice () {
 
@@ -90,45 +91,14 @@ HostChoice::HostChoice () {
             
            
             // GET IP
-            
-//    QNetworkAccessManager networkManager;
+           
+			ExtAdr * addr = new ExtAdr;
+			connect(addr, SIGNAL(getIP(QString)), this, SLOT(setIP(QString)));
 
-
-
-   QNetworkAccessManager networkManager;
-
-    QUrl url("https://api.ipify.org/");
-//    QUrl url("https://api.ipify.org?format=json");
-    //the query used to add the parameter "format=json" to the request
-    QUrlQuery query;
-    query.addQueryItem("format", "json");
-    //set the query on the url
-    url.setQuery(query);
-
-    //make a get request using the above url
-    QNetworkReply* reply = networkManager.get(QNetworkRequest(url));
-
-    QObject::connect(reply, &QNetworkReply::finished,
-                     [&](){
-        if(reply->error() != QNetworkReply::NoError) {
-            //failure
-            qDebug() << "error: " << reply->error();
-        } else { //success
-            //parse the json reply to extract the IP address
-            QJsonObject jsonObject= QJsonDocument::fromJson(reply->readAll()).object();
-            QHostAddress ip(jsonObject["ip"].toString());
-            //do whatever you want with the ip
-            qDebug() << "external ip: " << ip;
-
-            std::cout << "ip" << ip.toString().toStdString() << "\n";
-        }
-        //delete reply later to prevent memory leak
-        reply->deleteLater();
-    });
             // IP
             
             phrase = new QLabel;
-            QString ip = "Adresse du serveur : \n\n" + getIP();
+            QString ip = "Adresse du serveur : \n\n";
             phrase -> setText(ip);
             phrase -> setWordWrap(true);
             phrase -> setContentsMargins(30,0,30,0);
@@ -181,36 +151,8 @@ void HostChoice::emitChoice (){
 }
 
 
-QString HostChoice::getIP(){
+void HostChoice::setIP(QString str){
 
-   /* 
-    QNetworkAccessManager networkManager;
+	std::cout << str.toStdString() << "\n";
 
-    QUrl url("https://api.ipify.org/%22");
-    //the query used to add the parameter "format=json" to the request
-    QUrlQuery query;
-    query.addQueryItem("format", "json");
-    //set the query on the url
-    url.setQuery(query);
-
-    //make a get request using the above url
-    QNetworkReply* reply = networkManager.get(QNetworkRequest(url));
-
-    QObject::connect(reply, &QNetworkReply::finished,
-                     [&](){
-        if(reply->error() != QNetworkReply::NoError) {
-            //failure
-            qDebug() << "error: " << reply->error();
-        } else { //success
-            //parse the json reply to extract the IP address
-            QJsonObject jsonObject= QJsonDocument::fromJson(reply->readAll()).object();
-            QHostAddress ip(jsonObject["ip"].toString());
-            //do whatever you want with the ip
-            qDebug() << "external ip: " << ip;
-        }
-        //delete reply later to prevent memory leak
-        reply->deleteLater();
-    });
-*/    
-    return "yo";
 }
