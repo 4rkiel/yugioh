@@ -13,28 +13,28 @@
 
 editeur_de_carte::editeur_de_carte()
 {
+    ShadowButt *buttonSave = new ShadowButt("", "Enregistrer");
     createFormGroupBox();
 
     bigEditor = new QTextEdit;
     bigEditor->setPlainText(QString::fromUtf8("Description / Effet de la carte..."));
 
-    ShadowButt *buttonSave = new ShadowButt("", "Enregistrer");
+
     connect(buttonSave, SIGNAL(clicked()), this, SLOT(sauvegarder()));
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QGridLayout *mainLayout = new QGridLayout;
 
-    mainLayout->addWidget(formGroupBox);
-    mainLayout->addWidget(bigEditor);
-    mainLayout->addWidget(buttonSave);
+    mainLayout->addWidget(buttonSave, 2, 0);
+    mainLayout->addWidget(formGroupBox, 0, 0);
+    mainLayout->addWidget(bigEditor, 1, 0);
+
 
     setLayout(mainLayout);
-
-    setWindowTitle(tr("Basic Layouts"));
 }
 
 void editeur_de_carte::createFormGroupBox()
 {
-    formGroupBox = new QGroupBox(tr("Form layout"));
+    formGroupBox = new QGroupBox();
 
     int i = 0;
     srand(time(NULL));
@@ -51,6 +51,7 @@ void editeur_de_carte::createFormGroupBox()
     image = new QPushButton;
     imageUrl = new QLineEdit;
 
+    ShadowButt *searchImg = new ShadowButt("\uf07c", "");
 
     QStringList imgList = QDir(imgRep).entryList();
 
@@ -72,7 +73,6 @@ void editeur_de_carte::createFormGroupBox()
     imageUrl->setCompleter(completerImg);
     QObject::connect(imageUrl, SIGNAL(returnPressed()), this, SLOT(updateImg()));
 
-
     nom->setText("Magicien Blanc aux Yeux Rouge du Lustre Noir");
 
     ID = new QSpinBox;
@@ -93,7 +93,6 @@ void editeur_de_carte::createFormGroupBox()
     nrSet->addItem("Custom", 666);
     nrSet->setCurrentIndex(0);
 
-
     genreCarte->addItem("Monstre", 0);
     genreCarte->addItem("Magie", 1);
     genreCarte->addItem("Piege", 2);
@@ -104,6 +103,7 @@ void editeur_de_carte::createFormGroupBox()
 
     genreCarte->setItemData(1, QBrush(Qt::darkCyan), Qt::TextColorRole);
     genreCarte->setItemData(2, QBrush(Qt::magenta), Qt::TextColorRole);
+    genreCarte->setFocusPolicy( Qt::StrongFocus );
 
     for(int i=0; i<typePrimaireList.size(); i++)
     {
@@ -120,14 +120,11 @@ void editeur_de_carte::createFormGroupBox()
         effectBox->addItem(effectList.at(i), i);
     }
 
-
-
     QObject::connect(genreCarte, SIGNAL(currentIndexChanged(int)), this,SLOT(slotAttribut()));
     slotAttribut();
 
     QObject::connect(typeSecondaire, SIGNAL(currentIndexChanged(int)), this,SLOT(slotNormal()));
     slotAttribut();
-
 
     genreCarte->setCurrentIndex(rand()%3);
 
@@ -136,6 +133,7 @@ void editeur_de_carte::createFormGroupBox()
     image->setStyleSheet("border-image: url("+imgRep + "DEFAULT"+"); margin: 2px");
 
     QObject::connect(image, SIGNAL(clicked()), this,SLOT(selectImg()));
+    QObject::connect(searchImg, SIGNAL(clicked()), this,SLOT(selectImg()));
 
 
     spinAttaque -> setSingleStep(500);
@@ -158,6 +156,7 @@ void editeur_de_carte::createFormGroupBox()
 
     // ... placement ...................................................
 
+    layout->addWidget(searchImg, 8, 0, 1, 2);
     layout->addWidget(new QLabel("Nom:"), i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(nom, i, 2, 1, 22);
     layout->addWidget(new QLabel("ID:"), ++i, 0, 1, 2, Qt::AlignCenter);
@@ -180,7 +179,7 @@ void editeur_de_carte::createFormGroupBox()
     layout->addWidget(new QLabel("Defense:"), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(spinDefense, i, 2, 1, 10);
     layout->addWidget(new QLabel("Image URL:"), ++i, 0, 1, 2, Qt::AlignCenter);
-    layout->addWidget(imageUrl, i, 2, 1, 10);
+    layout->addWidget(imageUrl, i, 2, 1, 8);
     layout->addWidget(new QLabel("Effet:"), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(effectBox, i, 2, 1, 10);
 
@@ -190,21 +189,15 @@ void editeur_de_carte::createFormGroupBox()
 void editeur_de_carte::sauvegarder()
 {
     string fileName = absoluteUrlImage.toStdString();
-    std::cout << "test" << fileName << std::endl;
-
     string ext (fileName.substr(fileName.find_last_of(".") + 1));
-
-    std::cout << ext << std::endl;
 
     QString file = QCoreApplication::applicationDirPath()+"/sets/"+QString::number(nrSet->currentIndex())+".set";
     qDebug() << "SAVE: URL FICHIER ECRITURE CARTE: "+file;
 
-
-
     QString imgURL = QCoreApplication::applicationDirPath()+"/img/cards/"+QString::number(nrSet->currentIndex())+"/"+QString::number(ID->value())+"."+QString::fromStdString(ext);
     qDebug() << "SAVE: URL FICHIER ECRITURE IMG: "+imgURL;
+
     QFile *myfile = new QFile(file);
-    QFile *imgFile = new QFile(imgURL);
 
     QDir init;
     init.mkpath(QCoreApplication::applicationDirPath()+"/img/cards/"+QString::number(nrSet->currentIndex()));
@@ -218,21 +211,14 @@ void editeur_de_carte::sauvegarder()
     QFile::copy(absoluteUrlImage, imgURL);
     QTextStream in(myfile);
 
-    std::stringstream t;
     QString text = QString("##YGO\n") + QString::number(ID->value()) + "\n" +QString::number(nrSet->currentIndex())+"\n"+QString::number(genreCarte->currentIndex())+"\n"+
             QString::number(typePrimaire->currentIndex())+"\n"+QString::number(typeSecondaire->currentIndex())+"\n"+nom->text()+"\n"+QString::number(attribut->currentIndex())+"\n"+
-            QString::number(niveau->value())+"\n"+bigEditor->toPlainText()+QString::number(effectBox->currentIndex())+"\n"+
+            QString::number(niveau->value())+"\n"+bigEditor->toPlainText()+"\n"+QString::number(effectBox->currentIndex())+"\n"+
             QString::number(spinAttaque->value())+"\n"+QString::number(spinDefense->value())+"\n";
-
-    t << "##YGO" << std::endl << ID->value() << std::endl << nrSet->currentIndex() << std::endl << genreCarte->currentIndex() << std::endl << typePrimaire->currentIndex() << std::endl\
-              << typeSecondaire->currentIndex() << std::endl << typeSecondaire->currentIndex() << std::endl << nom->text().toStdString() << std::endl << attribut->currentIndex()\
-              << std::endl << niveau->value() << std::endl << bigEditor->toPlainText().toStdString() << std::endl << effectBox->currentIndex()\
-              << std::endl << spinAttaque->value() << std::endl << spinDefense->value() << std::endl << "##YGO" << std::endl;
 
     in << text;
 
     myfile->close();
-    imgFile->close();
 }
 
 void editeur_de_carte::selectImg()
@@ -350,20 +336,3 @@ void editeur_de_carte::slotNormal()
     else
         effectBox->setEnabled(true);
 }
-
-
-
-
-//int main(int argc, char *argv[]) {
-
-//    QApplication app(argc, argv);
-
-//    editeur_de_carte w;
-//    w.resize(500, 700);
-//    w.setWindowTitle(name);
-
-//    w.show();
-
-
-//    return app.exec();
-//}
