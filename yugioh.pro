@@ -30,7 +30,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 HEADERS += inc/buildtab.h \
            inc/choice.h \
            inc/soloChoice.h \
-           inc/multiplayerChoice.h \
            inc/joinChoice.h \
            inc/hostChoice.h \
            inc/netChoice.h \
@@ -54,7 +53,6 @@ HEADERS += inc/buildtab.h \
 SOURCES += src/buildtab.cpp \
            src/choice.cpp \
            src/soloChoice.cpp \
-           src/multiplayerChoice.cpp \
            src/joinChoice.cpp \
            src/hostChoice.cpp \
            src/netChoice.cpp \

@@ -14,7 +14,6 @@
 #include "../inc/intro.h"
 #include "../inc/choice.h"
 #include "../inc/soloChoice.h"
-#include "../inc/multiplayerChoice.h"
 #include "../inc/joinChoice.h"
 #include "../inc/hostChoice.h"
 #include "../inc/netChoice.h"
@@ -36,7 +35,6 @@ class Window : public QWidget {
     void introStack();
 	void choiceStack();
     void soloStack();
-    void multiplayerStack();
 	void joinStack();
 	void hostStack();
 	void netStack();
@@ -55,7 +53,6 @@ class Window : public QWidget {
     Intro * intro;
 	Choice * choice;
     SoloChoice * soloChoice;
-    MultiPlayerChoice * multiplayerChoice;
 	JoinChoice * joinChoice;
 	HostChoice * hostChoice;
 	NetChoice * netChoice;
