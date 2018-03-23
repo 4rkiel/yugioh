@@ -337,10 +337,19 @@ void Window::readConfSettings (){
     // Gestion des traductions
 
     QString val = settings.value("langage", QLocale::system().name()).toString();
+    QString val2;
+    if(val=="fr_FR")
+	val2="en_US";
+    else
+	val2="fr_FR";
 
     QTranslator qtTranslator;
     qtTranslator.load("qt_"+val, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     a->installTranslator(&qtTranslator);
+
+    QTranslator YugiTranslator2;
+    YugiTranslator2.load("i18n/"+val2+"/yugi_"+val);
+    a->removeTranslator(&YugiTranslator2);
 
     QTranslator YugiTranslator;
     YugiTranslator.load("i18n/"+val+"/yugi_"+val);

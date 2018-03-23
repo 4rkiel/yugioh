@@ -56,3 +56,7 @@ SOURCES += src/buildtab.cpp \
            src/duplica.cpp \
            src/slotCard.cpp \
 	   src/editeur_de_carte.cpp
+
+TRANSLATIONS += \
+        i18n/en_US/yugi_en_US \
+        i18n/fr_FR/yugi_fr_FR

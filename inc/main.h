@@ -9,6 +9,8 @@
 #include <QIcon>
 
 #include <QFile>
+#include <QTranslator>
+#include <QString>
 
 #include "../inc/field.h"
 #include "../inc/intro.h"
