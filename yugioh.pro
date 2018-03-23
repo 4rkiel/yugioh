@@ -5,6 +5,8 @@
 QMAKE_CXXFLAGS += -std=c++0x
 
 CONFIG += console
+CONFIG += c++11
+
 QT += widgets
 QT += network
 

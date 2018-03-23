@@ -1,5 +1,5 @@
 //TESTE POUR VOIR A QUOI RESSEMBLERA LE COMBAT EN RESEAU
-
+#include "TestExternalAddress.h"
 #include "essai.h"
 #include "noyau.h"
 #include "parser.h"
@@ -38,6 +38,7 @@ connect(ataq,SIGNAL(clicked(bool)),this,SLOT(afficher()));
 //connect(this,SIGNAL(emit_aff(Carte*)),test,SLOT(afficher(Carte*)));
 */
     Parser* yolo = new Parser();
+    TestExternalAddress * ad = new TestExternalAddress();
 }
 
 void Essai::commande()
