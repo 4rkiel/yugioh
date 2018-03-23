@@ -49,7 +49,7 @@ HEADERS += inc/buildtab.h \
            inc/sleeper.h \
            inc/slotCard.h \
 	       inc/editeur_de_carte.h \
-           inc/ExtAdr.h
+           inc/extAdr.h
 
 SOURCES += src/buildtab.cpp \
            src/choice.cpp \
@@ -72,4 +72,4 @@ SOURCES += src/buildtab.cpp \
            src/duplica.cpp \
            src/slotCard.cpp \
 	       src/editeur_de_carte.cpp \
-           src/ExtAdr.cpp
+           src/extAdr.cpp
