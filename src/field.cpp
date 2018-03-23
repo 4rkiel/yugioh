@@ -263,7 +263,7 @@ Field::Field () {
             rightBarLayout -> addWidget(lifeSlf, 4, 1, 1, 1);
 
             actionButt = new ShadowButt("\uf04b", "");
-            actionButt -> setToolTip("Terminer le tour");
+            actionButt -> setToolTip(tr("Terminer le tour"));
             rightBarLayout -> addWidget(actionButt, 4, 3, 1, 1);
             connect(actionButt, SIGNAL(clicked()), this, SLOT(test()));
 
@@ -329,15 +329,15 @@ Field::Field () {
         menuLayout -> setAlignment(Qt::AlignCenter);
 
 
-            quit = new ShadowButt("\uf00d", "Abandonner");
+            quit = new ShadowButt("\uf00d", tr("Abandonner"));
             quit -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-            quit -> setToolTip("Quitter le Duel");
+            quit -> setToolTip(tr("Quitter le Duel"));
             connect(quit, SIGNAL(clicked()), this, SLOT(emitIntroStack()));
             menuLayout -> addWidget(quit);
 
-            back = new ShadowButt("\uf078", "Fermer");
+            back = new ShadowButt("\uf078", tr("Fermer"));
             back -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-            back -> setToolTip("Retour au Duel");
+            back -> setToolTip(tr("Retour au Duel"));
             connect(back, SIGNAL(clicked()), this, SLOT(closeMenu()));
             menuLayout -> addWidget(back);
 

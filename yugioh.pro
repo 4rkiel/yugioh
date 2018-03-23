@@ -48,7 +48,7 @@ HEADERS += inc/buildtab.h \
            inc/sleeper.h \
            inc/slotCard.h \
 	       inc/editeur_de_carte.h \
-           inc/ExtAdr.h
+           inc/extAdr.h
 
 SOURCES += src/buildtab.cpp \
            src/choice.cpp \
@@ -69,5 +69,10 @@ SOURCES += src/buildtab.cpp \
            src/shadowLab.cpp \
            src/duplica.cpp \
            src/slotCard.cpp \
-	       src/editeur_de_carte.cpp \
-           src/ExtAdr.cpp
+           src/editeur_de_carte.cpp \
+           src/extAdr.cpp
+
+TRANSLATIONS += \
+        i18n/en_US/yugi_en_US.ts \
+        i18n/fr_FR/yugi_fr_FR.ts
+

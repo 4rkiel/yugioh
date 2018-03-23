@@ -11,7 +11,7 @@
 #include <QDebug>
 #include <iostream>
 #include <string>
-#include "../inc/ExtAdr.h"
+#include "../inc/extAdr.h"
 
 HostChoice::HostChoice () {
 
@@ -77,9 +77,9 @@ HostChoice::HostChoice () {
             intro = new QLabel;
             intro -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
             QString strIntro = QString::fromUtf8(
-                "Serveur personnel : initialisé"
-                "\n\n\n"
-                "En attente de connexion..."
+                "Serveur personnel initialisé."
+                "\n\n"
+                "En attente de connexion de l'adversaire..."
             );
             intro -> setText(strIntro);
             intro -> setWordWrap(true);
@@ -89,22 +89,26 @@ HostChoice::HostChoice () {
             
             box -> setRowStretch(2,10);
             
-           
-            // GET IP
-           
-			ExtAdr * addr = new ExtAdr;
-			connect(addr, SIGNAL(getIP(QString)), this, SLOT(setIP(QString)));
-
-            // IP
+            
+			// IP
             
             phrase = new QLabel;
-            QString ip = "Adresse du serveur : \n\n";
+            QString ip = "Adresse du serveur : \n\nPatientez...";
             phrase -> setText(ip);
             phrase -> setWordWrap(true);
             phrase -> setContentsMargins(30,0,30,0);
             phrase -> setTextInteractionFlags(Qt::TextSelectableByMouse); 
             box -> addWidget(phrase,3,1,1,1);
-            
+          
+ 
+            // GET IP
+           
+			ExtAdr * addr = new ExtAdr;
+			connect(addr, SIGNAL(getIP(QString)), this, SLOT(setIP(QString)));
+
+
+
+
             box -> setRowStretch(4,25);
             
            
@@ -153,6 +157,7 @@ void HostChoice::emitChoice (){
 
 void HostChoice::setIP(QString str){
 
-	std::cout << str.toStdString() << "\n";
+	QString ip = "Adresse du serveur : \n\n" + str;
+	phrase -> setText(ip);
 
 }

@@ -98,6 +98,7 @@ class OptionTab : public QFrame {
     void contrasteChange();
     void achromaChange();
     void largeChange();
+    void langageChange();
 
     signals:
     void introStack();

@@ -1,5 +1,5 @@
 #include "../inc/main.h"
-
+#include <iostream>
 /******************************************************************************
 
 	Fonction Main et Class Window 
@@ -467,6 +467,21 @@ int main(int argc, char *argv[]) {
     app.setOrganizationDomain("Yu.Gi.Oh");
     app.setApplicationName("Yu-Gi-Oh");
 
+    // trad au lancement
+    QSettings settings;
+    QString val = settings.value("langage", QLocale::system().name()).toString();
+
+    QTranslator qtTranslator;
+    qtTranslator.load("qt_"+val, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    app.installTranslator(&qtTranslator);
+
+    QTranslator YugiTranslator;
+    YugiTranslator.load("i18n/"+val+"/yugi_"+val);
+    app.installTranslator(&YugiTranslator);
+
+    // set UTF8
+
+    QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
 
     // Load main widget
 
