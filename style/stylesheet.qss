@@ -135,6 +135,7 @@ Generique QProgressBar::chunk {
 Intro,
 Choice,
 SoloChoice,
+MultiPlayerChoice,
 JoinChoice,
 HostChoice,
 NetChoice {
@@ -144,6 +145,7 @@ NetChoice {
 Intro #introBox,
 Choice #introBox,
 SoloChoice #introBox,
+MultiPlayerChoice #introBox,
 JoinChoice #introBox,
 HostChoice #introBox,
 NetChoice #introBox {
@@ -156,6 +158,7 @@ NetChoice #introBox {
 Intro ShadowButt,
 Choice ShadowButt,
 SoloChoice ShadowButt,
+MultiPlayerChoice ShadowButt,
 JoinChoice ShadowButt,
 HostChoice ShadowButt,
 NetChoice ShadowButt {
@@ -166,6 +169,7 @@ NetChoice ShadowButt {
 Intro ShadowButt > *,
 Choice ShadowButt > *,
 SoloChoice ShadowButt > *,
+MultiPlayerChoice ShadowButt > *,
 JoinChoice ShadowButt > *,
 HostChoice ShadowButt > *,
 NetChoice ShadowButt > * {
@@ -176,6 +180,7 @@ NetChoice ShadowButt > * {
 Intro ShadowButt QToolTip,
 Choice ShadowButt QToolTip,
 SoloChoice ShadowButt QToolTip,
+MultiPlayerChoice ShadowButt QToolTip,
 JoinChoice ShadowButt QToolTip,
 HostChoice ShadowButt QToolTip,
 NetChoice ShadowButt QToolTip {
