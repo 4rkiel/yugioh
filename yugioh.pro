@@ -30,6 +30,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # Input
 HEADERS += inc/buildtab.h \
            inc/master.h \
+           inc/selector.h \
+           inc/choice.h \
+           inc/soloChoice.h \
+           inc/joinChoice.h \
+           inc/hostChoice.h \
+           inc/netChoice.h \
            inc/duplica.h \
            inc/editeur_de_carte.h \
            inc/extAdr.h \
@@ -48,6 +54,12 @@ HEADERS += inc/buildtab.h \
            inc/zButt.h 
 SOURCES += src/buildtab.cpp \
            src/master.cpp \
+           src/selector.cpp \
+           src/choice.cpp \
+           src/soloChoice.cpp \
+           src/joinChoice.cpp \
+           src/hostChoice.cpp \
+           src/netChoice.cpp \
            src/duplica.cpp \
            src/editeur_de_carte.cpp \
            src/extAdr.cpp \

@@ -183,6 +183,7 @@ NetChoice ShadowButt QToolTip {
     padding: 5px 10px;
 }
 
+SoloChoice #introBox > QLabel, 
 HostChoice #introBox > QLabel {
     qproperty-alignment: AlignCenter;
 }

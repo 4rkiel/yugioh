@@ -2,26 +2,46 @@
 
 Master::Master (){
 
-    layout = new QStackedLayout;
+    layout = new QGridLayout;
+    layout -> setMargin(0);
+    layout -> setSpacing(0);
 
-    field = new Field;
+    stacked = new QStackedWidget;
 
-    connect(field, SIGNAL(introStack()), this, SLOT(emitIntro()));
+        
+        // Selector
+
+        selector = new Selector;
+
+        connect(selector, SIGNAL(introStack()), this, SLOT(emitIntro()));
+        connect(selector, SIGNAL(gameStack(int)), this, SLOT(loadField(int)));
+
+    stacked -> addWidget(selector);
 
 
-    layout -> addWidget(field);
+        // Field
 
-    layout -> setCurrentWidget(field);
+        field = new Field;
+        
+        connect(field, SIGNAL(introStack()), this, SLOT(emitIntro()));
+        
+
+
+
+    stacked -> setCurrentWidget(selector);
+
+    layout -> addWidget(stacked);
+
     setLayout(layout);
-
-    
 
 }
 
 
 Master::~Master (){
 
+    delete selector;
     delete field;
+    delete stacked;
     delete layout;
 }
 
@@ -30,4 +50,10 @@ Master::~Master (){
 void Master::emitIntro (){
 
     emit introStack();
+}
+
+void Master::loadField (int x){
+
+    stacked -> addWidget(field);
+    stacked -> setCurrentWidget(field);
 }

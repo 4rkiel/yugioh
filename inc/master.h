@@ -1,9 +1,11 @@
 #ifndef MASTER
 #define MASTER
 
-#include <QStackedLayout>
+#include <QStackedWidget>
+#include <QGridLayout>
 
 #include "../inc/field.h"
+#include "../inc/selector.h"
 
 class Master : public QFrame {
 
@@ -18,7 +20,7 @@ public:
 public slots:
 
     void emitIntro();
-
+    void loadField(int);
 
 signals:
 
@@ -27,9 +29,10 @@ signals:
 
 private:
 
-    QStackedLayout * layout;
+    QStackedWidget * stacked;
+    QGridLayout * layout;
     Field * field;
-
+    Selector * selector;
 
 };
 
