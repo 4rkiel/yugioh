@@ -65,6 +65,7 @@ public slots:
         void slotAttribut();
         void slotNormal();
         void updateImg();
+        void nameRandom();
 
 private:
         void createMenu();
@@ -90,6 +91,7 @@ private:
         QComboBox *effectBox;
 
         QPushButton *image;
+        ShadowButt *buttonSave;
 
         QSpinBox *ID;        
         QSpinBox *spinAttaque;

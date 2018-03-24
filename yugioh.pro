@@ -9,6 +9,7 @@ CONFIG += c++11
 
 QT += widgets
 QT += network
+QT += core
 
 TEMPLATE = app
 TARGET = yugioh
