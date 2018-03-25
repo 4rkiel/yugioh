@@ -29,8 +29,12 @@ public slots:
      void donneesServ();
      void send();
      void attaque();
+     void attaquer(int x,int y);
+     void gagne();
      void piocher();
+     void env_deck(int d);
      void poser(int main_x,int terrain_x,bool def);
+     void change_pos(int x);
 signals:
     void a_parser(QString chaine);
 

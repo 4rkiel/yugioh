@@ -32,6 +32,7 @@ public:
     void switch_position_adv(int terrain_x);
     void enlever_x(std::vector<Carte *> **vect, int x);
     void enlever_i(std::vector<Carte *> **vect, int i);
+    void chargerDeck(int x);
     Carte * trouver(int x);
     int perfect_position(int zone);
 
@@ -42,7 +43,7 @@ public:
     std::vector<Carte*> * d2;
     std::vector<Carte *> cimetiere;
     Reseau * res;
-
+    void deckAdverse(int x);
 public slots:
     void piocher(int x);
     void go();
@@ -52,6 +53,7 @@ public slots:
     void traiter(QString s);
     void setReseau(bool b);
     void init_deck(QString nom);
+
 signals:
     void emit_go();
     void emit_mondieu();
@@ -59,9 +61,12 @@ signals:
     void emit_attaque();
     void emit_charge_deck(QString contenu);
     void emit_init_deck(QString nom);
+    void switch_pos(int x);
     void je_pioche();
     void je_pose(int main_x,int terrain_x,bool def);
     void j_attaque(int attaquant_x,int adversaire_x);
+    void je_gagne();
+    void e_deck(int x);
 };
 
 

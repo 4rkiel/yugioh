@@ -1,31 +1,9 @@
 #include "noyau.h"
 #include "essai.h"
+#include "parser.h"
 Noyau::Noyau()
 {
     terrain = new std::vector<Carte *>();
-    d1 = new std::vector<Carte*>();
-    d2 = new std::vector<Carte*>();
-
-    d1->push_back(new Carte(1000,100));
-    d1->push_back(new Carte(200,100));
-    d1->push_back(new Carte(300,100));
-    d1->push_back(new Carte(400,100));
-    d1->push_back(new Carte(500,100));
-
-
-    d2->push_back(new Carte(200,100));
-    d2->push_back(new Carte(400,100));
-    d2->push_back(new Carte(600,100));
-    d2->push_back(new Carte(800,100));
-    d2->push_back(new Carte(1000,100));
-   std::cout << "size deck " << d1->size() << std::endl;
-    std::cout << d1->front()->atk << std::endl;
-
-/*
-    attaquer(1,2);*/
-        std::cout << foeLife << std::endl;
-     //  std::cout << "normalement j'affiche ça" << terrain_adv->at(2)->atk  << std::endl;
-    connect(this,SIGNAL(emit_init_deck(QString)),this,SLOT(init_deck(QString)));
 }
 
 
@@ -44,9 +22,25 @@ void Noyau::setReseau(bool b)
         connect(this,SIGNAL(je_pioche()),res,SLOT(piocher()));
         connect(res,SIGNAL(a_parser(QString)),this,SLOT(traiter(QString)));
         connect(this,SIGNAL(je_pose(int,int,bool)),res,SLOT(poser(int,int,bool)));
+        connect(this,SIGNAL(j_attaque(int,int)),res,SLOT(attaquer(int,int)));
+        connect(this,SIGNAL(je_gagne()),res,SLOT(gagne()));
+        connect(this,SIGNAL(e_deck(int)),res,SLOT(env_deck(int)));
+        connect(this,SIGNAL(switch_pos(int)),res,SLOT(change_pos(int)));
     }
 }
 
+void Noyau::chargerDeck(int x)
+{
+    Parser * yolo = new Parser();
+    d1 = yolo->rechercher_set(x);
+    emit e_deck(x);
+}
+
+void Noyau::deckAdverse(int x)
+{
+    Parser * yolo = new Parser();
+    d2 = yolo->rechercher_set(x);
+}
 void Noyau::piocher(int x)
 {
     int position = Carte::correspondant(x);
@@ -140,6 +134,8 @@ int Noyau::perfect_position(int zone)
               }
         }
     }
+    if(min==151)
+        min = begin_position;
     return min;
 }
 
@@ -152,6 +148,8 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
         if(adversaire_x == -1)
         {
             foeLife = foeLife - atk->atk;
+            if(foeLife <=0)
+                emit je_gagne();
         }
         else
         {
@@ -174,6 +172,8 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     {
                         detruire(adversaire_x);
                         foeLife = foeLife - (atk->atk - def->atk);
+                        if(foeLife <=0)
+                            emit je_gagne();
                     }
                     else if(atk->atk < def->def)
                     {
@@ -210,6 +210,8 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     else if(atk->atk < def->def)
                     {
                         foeLife = foeLife - (def->def - atk->atk);
+                        if(foeLife <=0)
+                            emit je_gagne();
                     }
                 }
                 else
@@ -223,6 +225,8 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     {
                         detruire(attaquant_x);
                         foeLife = foeLife - (def->atk - atk->atk);
+                        if(foeLife <=0)
+                            emit je_gagne();
                     }
                     else
                     {
@@ -273,10 +277,7 @@ void Noyau::poser(int sac1_x, int sac2_x, int main_x, int terrain_x, bool def)
 
 }
 
-void Noyau::switch_position(int terrain_x)
-{
-    terrain_moi->at(terrain_x)->pos = !(terrain_moi->at(terrain_x)->pos);
-}
+
 
 void Noyau::switch_position_adv(int terrain_x)
 {
@@ -293,6 +294,21 @@ void Noyau::detruire_adversaire(int x)
     terrain_adv->at(x) = new Carte(-1,-1);
 }
 */
+void Noyau::switch_position(int terrain_x)
+{
+    int i;
+    for(i=0;i<terrain->size();i++)
+    {
+        if(terrain->at(i)->position_terrain == terrain_x)
+        {
+            terrain->at(i)->pos = !(terrain->at(i)->pos);
+            if(terrain_x<75)
+                emit switch_pos(terrain_x);
+            return;
+        }
+    }
+}
+
 void Noyau::enlever_x(std::vector<Carte *> **vect, int x)
 {
 
@@ -398,13 +414,107 @@ void Noyau::traiter(QString s)
             int i;
             for(i=0;i<terrain->size();i++)
             {
-                std::cout << "atk:" << terrain->at(i)->atk << " terrain_position" << terrain->at(i)->position_terrain << std::endl;
+                std::cout << "atk:" << terrain->at(i)->atk << " terrain_position" << terrain->at(i)->position_terrain << " pos:" << (terrain->at(i)->pos ? 1 : 0) << std::endl;
             }
             std::cout << "ma vie :" << selfLife << " vie adverse :" << foeLife << std::endl;
+    }
+    else if(s.startsWith(QString("deck:")))
+    {
+        char * arg = new char[s.length()+1];
+           std::strcpy(arg,s.toStdString().c_str());
+         char * parcourir = std::strtok(arg,":");
+         std::string vrai;
+         if(parcourir!=NULL)
+          vrai = parcourir;
+         while(parcourir!=NULL)
+         {
+             std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+             parcourir = std::strtok(NULL,"/");
+             if(parcourir!=NULL)
+            vrai = parcourir;
+          }
+         delete(arg);
+         chargerDeck(atoi(vrai.c_str()));
     }
     else if(s.startsWith("mondeck:"))
     {
           emit emit_init_deck(s);
+    }
+    else if(s.startsWith("a/"))
+    {
+        int valeur;
+        std::vector<int> * les_valeurs = new std::vector<int>();
+        char * arg = new char[s.length()+1];
+           std::strcpy(arg,s.toStdString().c_str());
+         char * parcourir = std::strtok(arg,"/");
+         std::string vrai;
+         if(parcourir!=NULL)
+          vrai = parcourir;
+         while(parcourir!=NULL)
+         {
+             std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+             if(std::strcmp(parcourir,"a")!=0)
+             {
+                std::cout << "je traite l'int" << std::endl;
+                valeur = atoi(parcourir);
+                std::cout << "la valeur:" << valeur << std::endl;
+                les_valeurs->push_back(valeur);
+             }
+             parcourir = std::strtok(NULL,"/");
+
+
+             if(parcourir!=NULL)
+            vrai = parcourir;
+          }
+         std::cout << "size :" << les_valeurs->size() << std::endl;
+         attaquer(les_valeurs->at(0),les_valeurs->at(1));
+
+            delete(arg);
+         std::cout << "j'ai fini de parser" << std::endl;
+    }
+    else if(s.compare(QString::fromStdString("g"))==0)
+    {
+        std::cout << "j'ai perdu" << std::endl;
+    }
+    else if(s.startsWith("d/"))
+    {
+        int valeur;
+        char * arg = new char[s.length()+1];
+           std::strcpy(arg,s.toStdString().c_str());
+         char * parcourir = std::strtok(arg,"/");
+         std::string vrai;
+         if(parcourir!=NULL)
+          vrai = parcourir;
+         while(parcourir!=NULL)
+         {
+             std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+             parcourir = std::strtok(NULL,"/");
+             if(parcourir!=NULL)
+            vrai = parcourir;
+          }
+         delete(arg);
+         valeur = atoi(vrai.c_str());
+         deckAdverse(valeur);
+    }
+    else if(s.startsWith("swap/"))
+    {
+        int valeur;
+        char * arg = new char[s.length()+1];
+           std::strcpy(arg,s.toStdString().c_str());
+         char * parcourir = std::strtok(arg,"/");
+         std::string vrai;
+         if(parcourir!=NULL)
+          vrai = parcourir;
+         while(parcourir!=NULL)
+         {
+             std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+             parcourir = std::strtok(NULL,"/");
+             if(parcourir!=NULL)
+            vrai = parcourir;
+          }
+         delete(arg);
+         valeur = atoi(vrai.c_str());
+         switch_position(valeur);
     }
 
 }
@@ -412,6 +522,7 @@ void Noyau::traiter(QString s)
 void Noyau::init_deck(QString nom)
 {
     std::cout << "tu vas parser le string " << nom.toStdString() << " puis le fichier" << std::endl;
+
 }
 
 
