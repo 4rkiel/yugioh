@@ -27,7 +27,7 @@ namespace MiniDNN {
 ///
 class Network
 {
-private:
+public:
     typedef Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic> Matrix;
     typedef Eigen::RowVectorXi IntegerVector;
 
@@ -122,7 +122,7 @@ private:
         }
     }
 
-public:
+
     ///
     /// Default constructor that creates an empty neural network
     ///

@@ -45,7 +45,7 @@ int main()
     net.init(0, 0.01, 123);
 
     // Fit the model with a batch size of 100, running 10 epochs with random seed 123
-    net.fit(opt, x, y, 100, 10, 123);
+    net.fit(opt, x, y, 100, 1000, 1);
 
     // Obtain prediction -- each column is an observation
     Matrix pred = net.predict(x);
