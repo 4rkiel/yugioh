@@ -1,0 +1,5 @@
+
+deckEdit::deckEdit(QWidget *parent)
+{
+
+}

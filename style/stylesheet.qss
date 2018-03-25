@@ -14,18 +14,20 @@ QToolTip {
 editeur_de_carte
 {
 	border: none;
-    outline: none;
-    border-radius: 2px;
-    background: #607D8B;
+	outline: none;
+	border-radius: 3px;
+	background: #607D8B;
 }
 
-editeur_de_carte QComboBox
+QComboBox 
 {
+	color: #263238;
 	border: 1px solid gray;
-    border-radius: 3px;
-    padding: 1px 18px 1px 3px;
-    min-width: 6em;
+	border-radius: 3px;
+	padding: 1px 18px 1px 3px;
+	min-width: 6em;
 }
+
 
 /*****************************************************************
 

@@ -21,8 +21,7 @@ editeur_de_carte::editeur_de_carte()
 
     bigEditor = new QTextEdit;
     bigEditor->setPlainText(tr("Description / Effet de la carte..."));
-    setStyleSheet("background-color: #607D8B;");
-
+    //setStyleSheet("background-color: #607D8B");
     connect(buttonSave, SIGNAL(clicked()), this, SLOT(sauvegarder()));
 
     QGridLayout *mainLayout = new QGridLayout;
@@ -234,9 +233,15 @@ void editeur_de_carte::sauvegarder()
     QFile::copy(absoluteUrlImage, imgURL);
     QTextStream in(myfile);
 
+    QString eff = bigEditor->toPlainText();
+    if(bigEditor->toPlainText().toStdString() == "")
+    {
+        eff = "YOLO";
+    }
+
     QString text = QString("##YGO\n") + QString::number(ID->value()) + "\n" +QString::number(nrSet->currentIndex())+"\n"+QString::number(genreCarte->currentIndex())+"\n"+
             QString::number(typePrimaire->currentIndex())+"\n"+QString::number(typeSecondaire->currentIndex())+"\n"+nom->text()+"\n"+QString::number(attribut->currentIndex())+"\n"+
-            QString::number(niveau->value())+"\n"+bigEditor->toPlainText()+"\n"+QString::number(effectBox->currentIndex())+"\n"+
+            QString::number(niveau->value())+"\n"+eff+"\n{{"+QString::number(effectBox->currentIndex())+"\n"+
             QString::number(spinAttaque->value())+"\n"+QString::number(spinDefense->value())+"\n";
 
     in << text;
