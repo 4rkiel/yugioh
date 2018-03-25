@@ -6,7 +6,7 @@ Parser::Parser(QWidget *parent)
 {
     courante = new Carte();
     all_cards = new std::vector<Carte*>();
-    QStringList list = QDir("/adhome/v/vc/vcostantino/DocumentsLinux/Documents/IHM/PROJET/sets/").entryList();
+    QStringList list = QDir("/media/victor/Test/Version25/yugioh/sets/").entryList();
     int i;
     std::cout << "je suis ici" << std::endl;
     for(i=0;i<list.length();i++)
@@ -15,7 +15,7 @@ Parser::Parser(QWidget *parent)
         if((list.at(i).compare(QString("."))!=0) && (list.at(i).compare(QString(".."))!=0))
         {
             std::cout << "je parcours la list" << list.at(i).toStdString() << std::endl;
-            fichier_courant = "/adhome/v/vc/vcostantino/DocumentsLinux/Documents/IHM/PROJET/sets/"+list.at(i);
+            fichier_courant = "/media/victor/Test/Version25/yugioh/sets/"+list.at(i);
         getAll();
         }
     }
@@ -28,26 +28,30 @@ Parser::Parser(QWidget *parent)
        std::cout << "J'AI TROUVE" << std::endl;
        for(i=0;i<search->size();i++)
            search->at(i)->afficher_infos();
-    /*
-    QFile fichier("/adhome/v/vc/vcostantino/Documents/IHM/PROJET/yugioh.set");
-    fichier.open(QFile::ReadOnly | QFile::Text);
-     QTextStream in(&fichier);
-      QString line = in.readLine();
-       Carte * plus;
-       while(!line.isNull())
-     {
+}
 
-        parser(line.toStdString());
-        line = in.readLine();
-        //if(etape==12)
-     //       plus = new Carte(nom);
-     }
-       fichier.close();
-       std::cout << "nom : " << plus->carte_nom.toStdString() << std::endl;
-       std::cout << "ID " << id << "genre: " << genre << std::endl;
-       std::vector<Carte *> * yolo = Parser::rechercher("or");
-       std::cout << yolo->at(0)->carte_nom.toStdString() << std::endl;
-       std::cout << yolo->at(1)->carte_nom.toStdString() << std::endl;*/
+std::string Parser::getSet(std::string nom)
+{
+    char * arg = new char[nom.length()+1];
+    std::strcpy(arg,nom.c_str());
+    char * parcourir = std::strtok(arg,"/");
+    std::string vrai;
+    if(parcourir!=NULL)
+         vrai = parcourir;
+    while(parcourir!=NULL)
+    {
+       std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+        parcourir = std::strtok(NULL,"/");
+        if(parcourir!=NULL)
+            vrai = parcourir;
+    }
+    delete(arg);
+    arg = new char[vrai.length()+1];
+    std::strcpy(arg,vrai.c_str());
+    parcourir = std::strtok(arg,".");
+    vrai = parcourir;
+    delete(arg);
+    return vrai;
 }
 
 
@@ -89,13 +93,16 @@ void Parser::recup_effet(std::string effets)
                    vrai = parcourir;
 
     }
+
     delete(arg);
+
 }
 
 
 //PARSE UNE LIGNE COMME IL FAUT
 void Parser::parser(std::string ligne)
 {
+    std::string image ="/media/victor/Test/Version25/yugioh/img/cards/";
     if(etape==12)
      {
         etape=0;
@@ -113,8 +120,12 @@ void Parser::parser(std::string ligne)
         {
             case 0:
                 courante->id = atoi(ligne.c_str());
-                //courante->image = truc du fichier + id;
-                //courante->set = truc
+                image ="/media/victor/Test/Version25/yugioh/img/cards/";
+                image = image + getSet(fichier_courant.toStdString());
+                image = image + "/";
+                image = image + std::to_string(courante->id);
+                courante->image = QString::fromStdString(image);
+                courante->set = atoi(getSet(fichier_courant.toStdString()).c_str());
                  break;
             case 1:
                 courante->genre=atoi(ligne.c_str());
@@ -237,6 +248,43 @@ std::vector<Carte *> * Parser::rechercher_attribut(int a)
     }
     return resultat;
 }
+
+std::vector<Carte *> * Parser::rechercher_set(int s)
+{
+    std::vector<Carte *> *resultat = new std::vector<Carte *>();
+    int i;
+    for(i=0;i<all_cards->size();i++)
+    {
+        if(all_cards->at(i)->set == s)
+            resultat->push_back(all_cards->at(i));
+    }
+    return resultat;
+}
+
+std::vector<Carte *> * Parser::rechercher_sous_type(int ty)
+{
+    std::vector<Carte *> *resultat = new std::vector<Carte *>();
+    int i;
+    for(i=0;i<all_cards->size();i++)
+    {
+        if(all_cards->at(i)->sous_type == ty)
+            resultat->push_back(all_cards->at(i));
+    }
+    return resultat;
+}
+
+std::vector<Carte *> * Parser::rechercher_niveau(int n)
+{
+    std::vector<Carte *> *resultat = new std::vector<Carte *>();
+    int i;
+    for(i=0;i<all_cards->size();i++)
+    {
+        if(all_cards->at(i)->niveau >= n)
+            resultat->push_back(all_cards->at(i));
+    }
+    return resultat;
+}
+
 Parser::~Parser()
 {
 

@@ -28,14 +28,19 @@ public:
 
     Carte * courante;
     void getAll();
+
+    std::string getSet(std::string nom);
+
     std::vector<Carte *> * all_cards;
     std::vector<Carte *> * rechercher_nom(std::string nom);
+    std::vector<Carte *> * rechercher_sous_type(int ty);
     std::vector<Carte *> * rechercher_type(int ty);
     std::vector<Carte *> * rechercher_genre(int g);
     std::vector<Carte *> * rechercher_atk(int a);
     std::vector<Carte *> * rechercher_def(int d);
     std::vector<Carte *> * rechercher_attribut(int a);
-
+    std::vector<Carte *> * rechercher_set(int s);
+    std::vector<Carte *> * rechercher_niveau(int n);
 
     void parser(std::string ligne);
 };
