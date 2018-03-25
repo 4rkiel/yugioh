@@ -1,9 +1,12 @@
 #include "noyau.h"
 #include "essai.h"
 #include "parser.h"
+
 Noyau::Noyau()
 {
     terrain = new std::vector<Carte *>();
+    cimetiere1 = new std::vector<Carte *>();
+    cimetiere2 = new std::vector<Carte *>();
 }
 
 
@@ -29,6 +32,7 @@ void Noyau::setReseau(bool b)
     }
 }
 
+//charge le deck qui te correspond
 void Noyau::chargerDeck(int x)
 {
     Parser * yolo = new Parser();
@@ -36,20 +40,29 @@ void Noyau::chargerDeck(int x)
     emit e_deck(x);
 }
 
+//charge le deck de l'adversaire
 void Noyau::deckAdverse(int x)
 {
     Parser * yolo = new Parser();
     d2 = yolo->rechercher_set(x);
 }
+
+//gère le piochage
 void Noyau::piocher(int x)
 {
     int position = Carte::correspondant(x);
+    //si c'est moi qui pioche
     if(position>75)
     {
+        //on met la position de la carte qui est au sommet du deck là où il faut dans la main
+        //on place la carte dans au bon endroit
+        //on enleve la carte du deck
+
         std::cout << "le traitement du piochage allié en cours " << std::endl;
         d1->front()->position_terrain = perfect_position(0);
         terrain->push_back(d1->front());
         enlever_i(&d1,0);
+
         //prevenir le voisin
         emit je_pioche();
     }
@@ -259,41 +272,13 @@ void Noyau::enlever_i(std::vector<Carte *>**vect,int i)
     *vect = res;
 }
 
-
+//detruit la carte à la position x et la place au cimetière
 void Noyau::detruire(int x)
 {
     enlever_x(&terrain,x);
 }
 
-
-
-/*
-void Noyau::poser(int sac1_x, int sac2_x, int main_x, int terrain_x, bool def)
-{
-  detruire_moi(sac1_x);
-   detruire_moi(sac2_x);
-   terrain_moi->at(terrain_x) = main1->at(main_x);
-   main1->erase(main1->begin()+main_x-1);
-
-}
-
-
-
-void Noyau::switch_position_adv(int terrain_x)
-{
-    terrain_adv->at(terrain_x)->pos = !(terrain_adv->at(terrain_x)->pos);
-}
-
-void Noyau::detruire_moi(int x)
-{
-       terrain_moi->at(x) = new Carte(-1,-1);
-}
-
-void Noyau::detruire_adversaire(int x)
-{
-    terrain_adv->at(x) = new Carte(-1,-1);
-}
-*/
+//change la position (atk/def) d'une carte
 void Noyau::switch_position(int terrain_x)
 {
     int i;
@@ -309,6 +294,7 @@ void Noyau::switch_position(int terrain_x)
     }
 }
 
+//enlever la carte ayant la position x sur le terrain dans le vector donné
 void Noyau::enlever_x(std::vector<Carte *> **vect, int x)
 {
 
@@ -326,7 +312,10 @@ void Noyau::enlever_x(std::vector<Carte *> **vect, int x)
         else
         {
             (*vect)->at(i)->position_terrain = -1;
-            cimetiere.push_back((*vect)->at(i));
+            if(x<75)
+                cimetiere1->push_back((*vect)->at(i));
+            else
+                cimetiere2->push_back((*vect)->at(i));
         }
     }
     *vect = resultat;
@@ -362,6 +351,9 @@ void Noyau::attaque()
     emit Noyau::emit_attaque();
 }
 
+/***************************************************************/
+//FONCTION ULTIME
+//ELLE GERE TOUS LES CAS D'ACTIONS
 void Noyau::traiter(QString s)
 {
     std::cout << "S:" << s.toStdString() << std::endl;
@@ -435,10 +427,6 @@ void Noyau::traiter(QString s)
           }
          delete(arg);
          chargerDeck(atoi(vrai.c_str()));
-    }
-    else if(s.startsWith("mondeck:"))
-    {
-          emit emit_init_deck(s);
     }
     else if(s.startsWith("a/"))
     {
@@ -518,12 +506,8 @@ void Noyau::traiter(QString s)
     }
 
 }
+/******************************************/
 
-void Noyau::init_deck(QString nom)
-{
-    std::cout << "tu vas parser le string " << nom.toStdString() << " puis le fichier" << std::endl;
-
-}
 
 
 
