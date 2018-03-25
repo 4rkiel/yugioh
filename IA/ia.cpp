@@ -33,7 +33,7 @@ void play(Network net, Optimizer& opt,
     if(nlayer <= 0)
         return;
 
-    opt.reset();
+    //opt.reset();
 
     std::vector<XType> x_batches;                                           
     std::vector<YType> y_batches;                                           
@@ -63,10 +63,10 @@ int main()
     int nb_2layer_neurons=100;
     int nb_actions_output=10;
 
-    // Predictors -- each column is an observation
-    Matrix x = Matrix::Random(100, 100);
+    // Predictors -- each column is an observation 
+    Matrix x = Matrix::Random(50, 1);
     // Response variables -- each column is an observation
-    Matrix y = Matrix::Random(100, 100);
+    Matrix y = Matrix::Random(10, 1);
 
     // Construct a network object
     Network net;
@@ -85,7 +85,7 @@ int main()
     net.add_layer(layer3);
 
     // Set output layer
-    net.set_output(new RegressionMSE());
+    //net.set_output(new RegressionMSE());
 
     // Create optimizer object
     RMSProp opt;
@@ -96,7 +96,7 @@ int main()
     ////net.set_callback(callback);
 
     // Initialize parameters with N(0, 0.01^2) using random seed 123
-    net.init(0, 0.01, 123);
+    //net.init(0, 0.01, 123);
 
     // Fit the model with a batch size of 100, running 10 epochs with random seed 123
     ////net.fit(opt, x, y, 100, 10, 123);
