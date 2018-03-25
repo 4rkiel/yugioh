@@ -62,7 +62,7 @@ Intro::Intro () {
             QString strButton = tr("Duel");
             choice = new ShadowButt("\uf439", strButton);
             choice -> setToolTip(tr("Commencer une partie"));
-            connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
+            connect(choice, SIGNAL(clicked()), this, SLOT(emitMaster()));
             box -> addWidget(choice);
 
             box -> addStretch(1);
@@ -154,8 +154,8 @@ void Intro::init (){
 }
 
 
-void Intro::emitChoice (){
-    emit choiceStack();
+void Intro::emitMaster (){
+    emit masterStack();
 }
 
 void Intro::emitDeck (){

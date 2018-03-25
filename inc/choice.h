@@ -29,7 +29,6 @@ class Choice : public QFrame {
     void emitJoin();
     void emitHost();
     void emitNet();
-    void emitMultiPlayer();
 
     signals:
     void introStack();
@@ -37,7 +36,6 @@ class Choice : public QFrame {
     void joinStack();
     void hostStack();
     void netStack();
-    void multiplayerStack();
 
     private:
     QGridLayout * layout;
@@ -58,7 +56,6 @@ class Choice : public QFrame {
         ShadowButt * group;
         ShadowButt * online;
         ShadowButt * solo;
-        ShadowButt * multiplayer;
 
 };
 

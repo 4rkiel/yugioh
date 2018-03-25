@@ -22,6 +22,9 @@
 #include "../inc/shadowLab.h"
 #include "../inc/slotCard.h"
 #include "../inc/duplica.h"
+#include "../inc/stats.h"
+#include "../inc/history.h"
+#include "../inc/chat.h"
 
 
 class Field : public QFrame {
@@ -32,6 +35,7 @@ public:
 
     Field();
     ~Field();
+    void init();
 
 public slots:
     void emitIntroStack();
@@ -48,21 +52,15 @@ signals:
 
 public slots:
     void test();
-
+    void setChat();
+    void setHisto();
+    void setStats();
 
 private:
     QGridLayout * overLayout;
     QWidget * sceneBox;
     QGridLayout * sceneLayout;
     
-        QWidget * leftBarBox;
-        QGridLayout * leftBarLayout;
-    
-            ShadowLab * lifeAdv;
-            ShadowLab * intel;
-            ShadowButt * actionButt;
-
-
         std::vector<SlotCard *> * fieldStack;
         
         QWidget * arenaBox;
@@ -94,10 +92,30 @@ private:
 
         QWidget * rightBarBox;
         QGridLayout * rightBarLayout;
+    
+            ShadowLab * lifeAdv;
+            ShadowLab * intel;
+            ShadowButt * actionButt;
 
             ShadowLab * lifeSlf;
-            Duplica * fullCard;
             ShadowButt * menuButt;
+
+            QWidget * sideTool;
+            QGridLayout * sideToolLayout;
+
+                QPushButton * statsButt;
+                QPushButton * histoButt;
+                QPushButton * chatButt;
+
+            QWidget * side;
+            QGridLayout * sidebar;
+
+                QWidget * currentSide;
+                Duplica * fullCard;
+                Stats * stats;
+                History * history;
+                Chat * chat;
+
 
     QWidget * popupOuter;
     QGridLayout * popupOuterLayout;

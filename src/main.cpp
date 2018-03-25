@@ -1,5 +1,5 @@
 #include "../inc/main.h"
-#include <iostream>
+
 /******************************************************************************
 
 	Fonction Main et Class Window 
@@ -8,11 +8,11 @@
 
 ******************************************************************************/
 
-Window::Window (QApplication * q,QTranslator* montr,QTranslator* montr2) {
+Window::Window (QApplication * q, QTranslator * montr, QTranslator * montr2) {
 
     a = q;
-    montranslator=montr;
-    montranslator2=montr2;
+    montranslator = montr;
+    montranslator2 = montr2;
 
     currentLayout = 0;
     
@@ -43,7 +43,7 @@ Window::~Window (){
             break;
 
         case 2 :
-            delete field;
+            delete master;
             break;
 
         case 3:
@@ -61,26 +61,6 @@ Window::~Window (){
         case 6 :
             delete help;
             break;
-
-		case 7:
-			delete choice;
-			break;
-
-        case 8:
-            delete joinChoice;
-            break;
-
-        case 9:
-            delete hostChoice;
-            break;
-
-        case 10:
-            delete netChoice;
-            break;
-
-        case 11:
-            delete soloChoice;
-            break;
     }
 
     delete stackedLayout;
@@ -92,7 +72,7 @@ Window::~Window (){
 void Window::introStack (){
 
     intro = new Intro;
-    connect(intro, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
+    connect(intro, SIGNAL(masterStack()), this, SLOT(masterStack()));
     connect(intro, SIGNAL(buildStack()), this, SLOT(buildStack()));
     connect(intro, SIGNAL(ruleStack()), this, SLOT(ruleStack()));
     connect(intro, SIGNAL(optStack()), this, SLOT(optStack()));
@@ -107,13 +87,13 @@ void Window::introStack (){
     currentLayout = 1;
 }
 
-void Window::fieldStack (){
+void Window::masterStack (){
 
-    field = new Field;
-    connect(field, SIGNAL(introStack()), this, SLOT(introStack()));
+    master = new Master;
+    connect(master, SIGNAL(introStack()), this, SLOT(introStack()));
 
-    stackedLayout -> addWidget(field);
-    stackedLayout -> setCurrentWidget(field);
+    stackedLayout -> addWidget(master);
+    stackedLayout -> setCurrentWidget(master);
 
     cleanStack();
 
@@ -180,84 +160,6 @@ void Window::helpStack (){
 }
 
 
-void Window::choiceStack (){
-	
-	choice = new Choice;
-	
-    connect(choice, SIGNAL(introStack()), this, SLOT(introStack()));
-    connect(choice, SIGNAL(joinStack()), this, SLOT(joinStack()));
-    connect(choice, SIGNAL(hostStack()), this, SLOT(hostStack()));
-    connect(choice, SIGNAL(netStack()), this, SLOT(netStack()));
-    connect(choice, SIGNAL(soloStack()), this, SLOT(soloStack()));
-	
-	stackedLayout -> addWidget(choice);
-	stackedLayout -> setCurrentWidget(choice);
-
-	cleanStack();
-
-	currentLayout = 7;
-}
-
-
-void Window::joinStack (){
-
-    joinChoice = new JoinChoice;
-
-    connect(joinChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
-
-    stackedLayout -> addWidget(joinChoice);
-    stackedLayout -> setCurrentWidget(joinChoice);
-
-    cleanStack();
-    
-    currentLayout = 8;
-}
-
-
-void Window::hostStack (){
-
-    hostChoice = new HostChoice;
-
-    connect(hostChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
-
-    stackedLayout -> addWidget(hostChoice);
-    stackedLayout -> setCurrentWidget(hostChoice);
-
-    cleanStack();
-    
-    currentLayout = 9;
-}
-
-
-void Window::netStack (){
-
-    netChoice = new NetChoice;
-
-    connect(netChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
-
-    stackedLayout -> addWidget(netChoice);
-    stackedLayout -> setCurrentWidget(netChoice);
-
-    cleanStack();
-    
-    currentLayout = 10;
-}
-
-
-void Window::soloStack (){
-
-    soloChoice = new SoloChoice;
-
-    connect(soloChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
-
-    stackedLayout -> addWidget(soloChoice);
-    stackedLayout -> setCurrentWidget(soloChoice);
-
-    cleanStack();
-    
-    currentLayout = 11;
-}
-
 
 void Window::changeSettings(){
     readConfSettings();
@@ -290,8 +192,8 @@ void Window::cleanStack (){
 
         case 2:
  
-            stackedLayout -> removeWidget(field);
-            delete field;
+            stackedLayout -> removeWidget(master);
+            delete master;
             
             break;
 
@@ -322,41 +224,6 @@ void Window::cleanStack (){
             delete help;
             
             break;
-
-		case 7:
-
-			stackedLayout -> removeWidget(choice);
-			delete choice;
-
-			break;
-
-		case 8:
-
-			stackedLayout -> removeWidget(joinChoice);
-			delete joinChoice;
-
-			break;
-
-		case 9:
-
-			stackedLayout -> removeWidget(hostChoice);
-			delete hostChoice;
-
-			break;
-
-		case 10:
-
-			stackedLayout -> removeWidget(netChoice);
-			delete netChoice;
-
-			break;
-
-		case 11:
-
-			stackedLayout -> removeWidget(soloChoice);
-			delete soloChoice;
-
-			break;
 
     }
 }

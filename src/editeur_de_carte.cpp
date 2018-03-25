@@ -5,6 +5,9 @@
 #include <QComboBox>
 #include <QMessageBox>
 
+#include <inc/editeur_de_carte.h>
+#include <inc/editeur_de_carte.h>
+
 #define name "editeur de carte V1"
 
 /**
@@ -13,7 +16,7 @@
 
 editeur_de_carte::editeur_de_carte()
 {
-    ShadowButt *buttonSave = new ShadowButt("", tr("Enregistrer"));
+    buttonSave = new ShadowButt("", tr("Enregistrer"));
     createFormGroupBox();
 
     bigEditor = new QTextEdit;
@@ -52,6 +55,7 @@ void editeur_de_carte::createFormGroupBox()
     imageUrl = new QLineEdit;
 
     ShadowButt *searchImg = new ShadowButt("\uf07c", "");
+    ShadowButt *genRdmName = new ShadowButt("\uf074", "");
 
     QStringList imgList = QDir(imgRep).entryList();
 
@@ -73,7 +77,9 @@ void editeur_de_carte::createFormGroupBox()
     imageUrl->setCompleter(completerImg);
     QObject::connect(imageUrl, SIGNAL(returnPressed()), this, SLOT(updateImg()));
 
-    nom->setText("Magicien Blanc aux Yeux Rouge du Lustre Noir");
+
+    nameRandom();
+    QObject::connect(genRdmName, SIGNAL(clicked()), this, SLOT(nameRandom()));
 
     ID = new QSpinBox;
     ID->setSingleStep(1);
@@ -156,9 +162,10 @@ void editeur_de_carte::createFormGroupBox()
 
     // ... placement ...................................................
 
-    layout->addWidget(searchImg, 8, 0, 1, 2);
+    layout->addWidget(searchImg, 8, 11, 1, 1);
+    layout->addWidget(genRdmName, 0, 23, 1, 1);
     layout->addWidget(new QLabel(tr("Nom:")), i, 0, 1, 2, Qt::AlignCenter);
-    layout->addWidget(nom, i, 2, 1, 22);
+    layout->addWidget(nom, i, 2, 1, 21);
     layout->addWidget(new QLabel("ID:"), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(ID, i, 2, 1, 22);
     layout->addWidget(new QLabel("Set:"), ++i, 0, 1, 2, Qt::AlignCenter);
@@ -179,7 +186,7 @@ void editeur_de_carte::createFormGroupBox()
     layout->addWidget(new QLabel(tr("Defense:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(spinDefense, i, 2, 1, 10);
     layout->addWidget(new QLabel("Image URL:"), ++i, 0, 1, 2, Qt::AlignCenter);
-    layout->addWidget(imageUrl, i, 2, 1, 8);
+    layout->addWidget(imageUrl, i, 2, 1, 9);
     layout->addWidget(new QLabel(tr("Effet:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(effectBox, i, 2, 1, 10);
 
@@ -221,6 +228,21 @@ void editeur_de_carte::sauvegarder()
     myfile->close();
 }
 
+void editeur_de_carte::nameRandom()
+{
+    vector<QString> one;
+    one = {"Dragon", "Magicien", "Guerrier", "Tigre", "Vampire", "Archer", "Serpent", "Soldat", "Singe Mutant"};
+
+    vector<QString> two;
+    two ={"noir", "rouge", "blanc", "eradicateur", "invincible", "destructeur", "mangeur d ames", "scrumMaster", "malefique"};
+
+    vector<QString> tree;
+    tree = {"du chaos", "des tenebres", "de la lumiere", "invisible", "des landes", "myr", "gobelin", "du ciel", "millenaire", "jeune", "debutant", "innofensif"
+           , "radieu", "grognon", "Json", "DEADJOE", "imperial"};
+
+    nom->setText(one.at(rand()%one.size()) + " " + two.at(rand()%two.size()) + " " + tree.at(rand()%tree.size()));
+}
+
 void editeur_de_carte::selectImg()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Selectionner une image"), imgRep,
@@ -230,8 +252,9 @@ void editeur_de_carte::selectImg()
     if(!fileName.isNull())
     {
         image->setStyleSheet("border-image: url(" + fileName + "); margin: 2px");
-        imageUrl->setText(fileName);
+        imageUrl->setText(fileName.section('/', -1));
         absoluteUrlImage = fileName;
+        buttonSave->setDisabled(false);
     }
 }
 
@@ -242,17 +265,21 @@ void editeur_de_carte::updateImg()
 
     if(std::find(extension.begin(), extension.end(), (fileName.substr(fileName.find_last_of(".") + 1))) == extension.end())
     {// extension incorrecte
-        return;
+        imageUrl->setText(imageUrl->text() + "\t extension incorrect");
+        buttonSave->setDisabled(true);
+
     }
 
-    if(!QFileInfo(imgRep + imageUrl->text()).exists())
+    else if(!QFileInfo(imgRep + imageUrl->text()).exists())
     {// fichier incorrecte
-        imageUrl->setText(imageUrl->text() + tr("\t n'est pas un fichier valide"));
+        imageUrl->setText(imageUrl->text() + tr("\t n'existe pas"));
+        buttonSave->setDisabled(true);
     }
     else
     {
         image->setStyleSheet("border-image: url(" + imgRep + imageUrl->text() + "); margin: 2px");
         absoluteUrlImage = imgRep + imageUrl->text();
+        buttonSave->setDisabled(false);
     }
 }
 

@@ -30,7 +30,7 @@ SoloChoice::SoloChoice () {
 
         infoLayout = new QHBoxLayout;
 
-        info = new QLabel (tr("Partie Solo: difficulte de l'IA"));
+        info = new QLabel (tr("Partie Solo"));
 
         infoLayout -> addWidget(info);
         infoBox -> setLayout(infoLayout);
@@ -61,29 +61,50 @@ SoloChoice::SoloChoice () {
             QString strBack = tr("Retour");
             choice = new ShadowButt("\uf060", strBack);
             choice -> setToolTip(tr("Retour au Menu"));
-            connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
+
+            connect(choice, SIGNAL(clicked()), this, SLOT(emitBack()));
 
             box -> addWidget(choice, 7,0,1,3);
 
-            // Text
+            
+             
+            // Hard
+            
+            QString strHard = tr("Difficile");
+            hard = new ShadowButt("\uf445", strHard);
+            hard -> setToolTip(tr("Adversaire expert"));
+            connect(hard, SIGNAL(clicked()), this, SLOT(emitHard()));
 
-            box -> setRowStretch(0,10);
+            box -> addWidget(hard, 5,0,1,3);
+
+
+           
+            // Easy
+            
+            QString strEasy = tr("Facile");
+            easy = new ShadowButt("\uf443", strEasy);
+            easy -> setToolTip(tr("Adversaire débutant"));
+            connect(easy, SIGNAL(clicked()), this, SLOT(emitEasy()));
+
+            box -> addWidget(easy, 3,0,1,3);
+
+            
+
+            // Text
 
             intro = new QLabel;
             intro -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-            QString strIntro = tr(
-                "Quelle IA ?"
-            );
+            QString strIntro = tr("Choix de la difficulté :");
             intro -> setText(strIntro);
             intro -> setWordWrap(true);
             intro -> setContentsMargins(30,0,30,0);
-
             box -> addWidget(intro,1,1,1,1);
-            
+           
+
+
+            box -> setRowStretch(0,10);
             box -> setRowStretch(2,10);
-
-            //end
-
+            box -> setRowStretch(4,1);
             box -> setRowStretch(6,25);
             box -> setRowStretch(8,1);
 
@@ -99,6 +120,8 @@ SoloChoice::SoloChoice () {
 SoloChoice::~SoloChoice (){
 
     delete intro;
+    delete easy;
+    delete hard;
     delete choice;
 
     delete effect;
@@ -121,7 +144,16 @@ void SoloChoice::init (){
 
 
 
-void SoloChoice::emitChoice (){
+void SoloChoice::emitBack (){
     emit choiceStack();
 }
 
+
+void SoloChoice::emitEasy (){
+    emit gameStack(11);
+}
+
+
+void SoloChoice::emitHard (){
+    emit gameStack(12);
+}
