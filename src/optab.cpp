@@ -28,7 +28,7 @@ OptionTab::OptionTab (){
 
         infoLayout = new QHBoxLayout;
 
-        info = new QLabel (QString::fromUtf8("Paramètres"));
+        info = new QLabel (tr("Paramètres"));
 
         infoLayout -> addWidget(info);
         infoBox -> setLayout(infoLayout);
@@ -65,9 +65,9 @@ OptionTab::OptionTab (){
         tabLayout -> setSpacing(0);
         tabLayout -> setMargin(0);
 
-            exitButt = new ShadowButt("\uf060", "Retour");
+            exitButt = new ShadowButt("\uf060", tr("Retour"));
             exitButt -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
-            exitButt -> setToolTip(QString::fromUtf8("Fermer les paramètres"));
+            exitButt -> setToolTip(tr("Fermer les paramètres"));
             connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));
             
             tabLayout -> addWidget(exitButt, 0, 4, 1, 1);
@@ -82,7 +82,7 @@ OptionTab::OptionTab (){
             
 
             accessButt = new QPushButton;
-            accessButt -> setText(QString::fromUtf8("Accessibilité"));
+            accessButt -> setText(tr("Accessibilité"));
             accessButt -> setProperty("down", false);
             connect(accessButt, SIGNAL(clicked()), this, SLOT(setAccess()));
             tabLayout -> addWidget(accessButt, 0, 1, 1, 1);
@@ -134,14 +134,14 @@ OptionTab::OptionTab (){
                 
                 shareChck = new QCheckBox;
                 shareChck -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-                shareChck -> setText("Partage");
+                shareChck -> setText(tr("Partage"));
                 connect(shareChck, SIGNAL(toggled(bool)), this, SLOT(shareChange())); 
                 optPaneLayout -> addWidget(shareChck);
 
                 shareDesc = new QLabel;
                 shareDesc -> setWordWrap(true);
                 shareDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
-                shareDesc -> setText(QString::fromUtf8("Partage les données d'utilisation"));
+                shareDesc -> setText(tr("Partage les données d'utilisation"));
                 optPaneLayout -> addWidget(shareDesc);
 
 
@@ -156,7 +156,7 @@ OptionTab::OptionTab (){
 
                 langDesc = new QLabel;
                 langDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
-                langDesc -> setText("Langue de l'interface");
+                langDesc -> setText(tr("Langue de l'interface"));
                 optPaneLayout -> addWidget(langDesc);
 
 
@@ -188,42 +188,42 @@ OptionTab::OptionTab (){
                 // Large text
                 
                 largeChck = new QCheckBox;
-                largeChck -> setText("Large texte");
+                largeChck -> setText(tr("Large texte"));
                 connect(largeChck, SIGNAL(toggled(bool)), this, SLOT(largeChange())); 
                 accPaneLayout -> addWidget(largeChck);
 
                 largeDesc = new QLabel;
                 largeDesc -> setWordWrap(true);
                 largeDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
-                largeDesc -> setText("Textes de grande taille");
+                largeDesc -> setText(tr("Textes de grande taille"));
                 accPaneLayout -> addWidget(largeDesc);
 
 
                 // Contraste
                 
                 contrasteChck = new QCheckBox;
-                contrasteChck -> setText("Contraste élevé");
+                contrasteChck -> setText(tr("Contraste élevé"));
                 connect(contrasteChck, SIGNAL(toggled(bool)), this, SLOT(contrasteChange())); 
                 accPaneLayout -> addWidget(contrasteChck);
 
                 contrasteDesc = new QLabel;
                 contrasteDesc -> setWordWrap(true);
                 contrasteDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
-                contrasteDesc -> setText("Augmenter les contrastes de l'application");
+                contrasteDesc -> setText(tr("Augmenter les contrastes de l'application"));
                 accPaneLayout -> addWidget(contrasteDesc);
 
 
                 // Achromatopsie
                 
                 achromaChck = new QCheckBox;
-                achromaChck -> setText("Couleurs pour Dyschromatopsie");
+                achromaChck -> setText(tr("Couleurs pour Dyschromatopsie"));
                 connect(achromaChck, SIGNAL(toggled(bool)), this, SLOT(achromaChange())); 
                 accPaneLayout -> addWidget(achromaChck);
 
                 achromaDesc = new QLabel;
                 achromaDesc -> setWordWrap(true);
                 achromaDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
-                achromaDesc -> setText("Adapter l'affichage des couleurs");
+                achromaDesc -> setText(tr("Adapter l'affichage des couleurs"));
                 accPaneLayout -> addWidget(achromaDesc);
 
                
@@ -435,5 +435,23 @@ void OptionTab::largeChange (){
     emit newSettings();
 }
 
-
+void OptionTab::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+        info->setText(tr("Paramètres"));
+        exitButt->setText(tr("Retour"));
+        exitButt -> setToolTip(tr("Fermer les paramètres"));
+        accessButt -> setText(tr("Accessibilité"));
+        shareChck -> setText(tr("Partage"));
+        shareDesc -> setText(tr("Partage les données d'utilisation"));
+        langDesc -> setText(tr("Langue de l'interface"));
+        largeChck -> setText(tr("Large texte"));
+        largeDesc -> setText(tr("Textes de grande taille"));
+        contrasteChck -> setText(tr("Contraste élevé"));
+        contrasteDesc -> setText(tr("Augmenter les contrastes de l'application"));
+        achromaChck -> setText(tr("Couleurs pour Dyschromatopsie"));
+        achromaDesc -> setText(tr("Adapter l'affichage des couleurs"));
+    } else
+        QWidget::changeEvent(event);
+}
 

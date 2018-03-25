@@ -10,6 +10,7 @@
 
 RuleTab::RuleTab (){
 
+    readLangage();
     layout = new QGridLayout;
     layout -> setSpacing(0);
     layout -> setMargin(0);
@@ -29,7 +30,7 @@ RuleTab::RuleTab (){
 
         infoLayout = new QHBoxLayout;
 
-        info = new QLabel ("Règles");
+        info = new QLabel (tr("Règles"));
 
         infoLayout -> addWidget(info);
         infoBox -> setLayout(infoLayout);
@@ -65,16 +66,16 @@ RuleTab::RuleTab (){
         tabLayout -> setSpacing(0);
         tabLayout -> setMargin(0);
   
-            exitButt = new ShadowButt("\uf060", "Retour");
+            exitButt = new ShadowButt("\uf060", tr("Retour"));
             exitButt -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
-            exitButt -> setToolTip("Fermer les règles");
+            exitButt -> setToolTip(tr("Fermer les règles"));
             connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));
             
             tabLayout -> addWidget(exitButt, 0, 4, 1, 1);
 
 
             persoButt = new QPushButton;
-            persoButt -> setText("Personnalisation");
+            persoButt -> setText(tr("Personnalisation"));
             persoButt -> setProperty("down", true);
             connect(persoButt, SIGNAL(clicked()), this, SLOT(setPerso()));
 
@@ -82,7 +83,7 @@ RuleTab::RuleTab (){
             
 
             rulesButt = new QPushButton;
-            rulesButt -> setText("Règles du Jeu");
+            rulesButt -> setText(tr("Règles du Jeu"));
             rulesButt -> setProperty("down", false);
             connect(rulesButt, SIGNAL(clicked()), this, SLOT(setRules()));
             
@@ -186,7 +187,7 @@ RuleTab::RuleTab (){
 
                 ruleLabel = new QLabel;
 
-                    QFile file("i18n/"+QLocale::system().name()+"/rules.text");
+                    QFile file("i18n/"+valeur+"/rules.text");
 
                     QString text = "";
                     QString line;
@@ -350,3 +351,7 @@ void RuleTab::largeChange (){
 
 */
 
+void RuleTab::readLangage(){
+    QSettings settings;
+    valeur = settings.value("langage", QLocale::system().name()).toString();
+}
