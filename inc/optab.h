@@ -22,6 +22,7 @@
 #include <QCheckBox>
 #include <QSpacerItem>
 #include <QComboBox>
+#include <QEvent>
 
 #include "../inc/shadowButt.h"
 
@@ -87,6 +88,7 @@ class OptionTab : public QFrame {
     void updateStyle(QPushButton * b);
     void loadOptSettings();
     void loadAccSettings();
+    void changeEvent(QEvent *event);
 
 
     public slots:

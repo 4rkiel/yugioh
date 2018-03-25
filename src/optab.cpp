@@ -435,5 +435,23 @@ void OptionTab::largeChange (){
     emit newSettings();
 }
 
-
+void OptionTab::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+        info->setText(tr("Paramètres"));
+        exitButt->setText(tr("Retour"));
+        exitButt -> setToolTip(tr("Fermer les paramètres"));
+        accessButt -> setText(tr("Accessibilité"));
+        shareChck -> setText(tr("Partage"));
+        shareDesc -> setText(tr("Partage les données d'utilisation"));
+        langDesc -> setText(tr("Langue de l'interface"));
+        largeChck -> setText(tr("Large texte"));
+        largeDesc -> setText(tr("Textes de grande taille"));
+        contrasteChck -> setText(tr("Contraste élevé"));
+        contrasteDesc -> setText(tr("Augmenter les contrastes de l'application"));
+        achromaChck -> setText(tr("Couleurs pour Dyschromatopsie"));
+        achromaDesc -> setText(tr("Adapter l'affichage des couleurs"));
+    } else
+        QWidget::changeEvent(event);
+}
 

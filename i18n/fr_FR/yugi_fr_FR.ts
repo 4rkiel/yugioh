@@ -313,66 +313,79 @@ Patientez...</source>
     <name>OptionTab</name>
     <message>
         <location filename="../../src/optab.cpp" line="31"/>
+        <location filename="../../src/optab.cpp" line="441"/>
         <source>Paramètres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="68"/>
+        <location filename="../../src/optab.cpp" line="442"/>
         <source>Retour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="70"/>
+        <location filename="../../src/optab.cpp" line="443"/>
         <source>Fermer les paramètres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="85"/>
+        <location filename="../../src/optab.cpp" line="444"/>
         <source>Accessibilité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="137"/>
+        <location filename="../../src/optab.cpp" line="445"/>
         <source>Partage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="144"/>
+        <location filename="../../src/optab.cpp" line="446"/>
         <source>Partage les données d&apos;utilisation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="159"/>
+        <location filename="../../src/optab.cpp" line="447"/>
         <source>Langue de l&apos;interface</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="191"/>
+        <location filename="../../src/optab.cpp" line="448"/>
         <source>Large texte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="198"/>
+        <location filename="../../src/optab.cpp" line="449"/>
         <source>Textes de grande taille</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="205"/>
+        <location filename="../../src/optab.cpp" line="450"/>
         <source>Contraste élevé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="212"/>
+        <location filename="../../src/optab.cpp" line="451"/>
         <source>Augmenter les contrastes de l&apos;application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="219"/>
+        <location filename="../../src/optab.cpp" line="452"/>
         <source>Couleurs pour Dyschromatopsie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="226"/>
+        <location filename="../../src/optab.cpp" line="453"/>
         <source>Adapter l&apos;affichage des couleurs</source>
         <translation type="unfinished"></translation>
     </message>
