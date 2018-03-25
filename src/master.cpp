@@ -56,4 +56,5 @@ void Master::loadField (int x){
 
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
+    field -> init();
 }

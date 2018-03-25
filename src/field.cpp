@@ -24,38 +24,6 @@ Field::Field () {
     sceneLayout -> setMargin(0);
 
 
-/*        // Left bar ...........................................................
-
-        leftBarBox = new QWidget;
-        leftBarLayout = new QGridLayout;
-        leftBarLayout -> setSpacing(0);
-        leftBarLayout -> setMargin(0);
-
-
-            // Text label
-           
-            
-            QSpacerItem * spacerLeftTop = new QSpacerItem(3,1,
-                QSizePolicy::Preferred,QSizePolicy::Expanding);
-            leftBarLayout -> addItem(spacerLeftTop, 1, 0);
-
-
-            intel = new ShadowLab();
-            intel -> setObjectName("Intel");
-            intel -> setWordWrap(true);
-            leftBarLayout -> addWidget(intel, 2, 0, 1, 3);
-            
-            
-            QSpacerItem * spacerLeftBot = new QSpacerItem(3,1,
-                QSizePolicy::Preferred,QSizePolicy::Expanding);
-            leftBarLayout -> addItem(spacerLeftBot, 3, 0);
-
-
-           
-        leftBarBox -> setObjectName("leftBarBox");            
-        leftBarBox -> setLayout(leftBarLayout);
-*/
-
 
         // Arena ..............................................................
 
@@ -245,26 +213,77 @@ Field::Field () {
             rightBarLayout -> addItem(spacerRightTop, 1, 0);
             
             
-            fullCard = new Duplica();
-//            fullCard -> setObjectName("Card");
-//            fullCard -> setWordWrap(true);
-            rightBarLayout -> addWidget(fullCard, 2, 0, 1, 5);
+            // Sidebar
+
+            sideTool = new QWidget;
+            sideTool -> setStyleSheet("background: green");
+            sideToolLayout = new QGridLayout;
+
+                statsButt = new QPushButton;
+                statsButt -> setText(tr("Duel"));
+                connect(statsButt, SIGNAL(clicked()), this, SLOT(setStats()));
+                sideToolLayout -> addWidget(statsButt, 0, 0);
+
+                histoButt = new QPushButton;
+                histoButt -> setText(tr("Historique"));
+                connect(histoButt, SIGNAL(clicked()), this, SLOT(setHisto()));
+                sideToolLayout -> addWidget(histoButt, 0, 1);
+                
+                chatButt = new QPushButton;
+                chatButt -> setText(tr("Chat"));
+                connect(chatButt, SIGNAL(clicked()), this, SLOT(setChat()));
+                sideToolLayout -> addWidget(chatButt, 0, 2);
+
+            sideTool -> setLayout(sideToolLayout);
+                
+            rightBarLayout -> addWidget(sideTool, 2, 0, 1, 5);
+
+
+            side = new QWidget;
+            side -> setStyleSheet("background: blue");
+            side -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+            sidebar = new QGridLayout;   
+
+                fullCard = new Duplica;
+                fullCard -> setVisible(false);
+                sidebar -> addWidget(fullCard, 0, 0);
+
+                stats = new Stats;
+                stats -> setVisible(false);
+                sidebar -> addWidget(stats, 0, 0);
+
+                history = new History;
+                history -> setVisible(false);
+                sidebar -> addWidget(history, 0, 0);
+
+                chat = new Chat;
+                chat -> setVisible(false);
+                sidebar -> addWidget(chat, 0, 0);
+
+
+
+                QSpacerItem * spacerSide = new QSpacerItem(5,5,
+                    QSizePolicy::Preferred,QSizePolicy::Expanding);
+                sidebar -> addItem(spacerSide, 1, 0);
+
+            side -> setLayout(sidebar);
+            rightBarLayout -> addWidget(side, 3, 0, 1, 5);
 
 
             QSpacerItem * spacerRightBot = new QSpacerItem(5,1,
                 QSizePolicy::Preferred,QSizePolicy::Expanding);
-            rightBarLayout -> addItem(spacerRightBot, 3, 0);
+            rightBarLayout -> addItem(spacerRightBot, 4, 0);
 
 
             lifeSlf = new ShadowLab();
             QString strSlf = QString::fromUtf8("8000");
             lifeSlf -> setText(strSlf);
             lifeSlf -> setObjectName("Life");
-            rightBarLayout -> addWidget(lifeSlf, 4, 1, 1, 1);
+            rightBarLayout -> addWidget(lifeSlf, 5, 1, 1, 1);
 
             actionButt = new ShadowButt("\uf04b", "");
             actionButt -> setToolTip(tr("Terminer le tour"));
-            rightBarLayout -> addWidget(actionButt, 4, 3, 1, 1);
+            rightBarLayout -> addWidget(actionButt, 5, 3, 1, 1);
             connect(actionButt, SIGNAL(clicked()), this, SLOT(test()));
 
 
@@ -276,10 +295,12 @@ Field::Field () {
         rightBarBox -> setLayout(rightBarLayout);
    
 
-//    sceneLayout -> addWidget(leftBarBox, 0, 0, 3, 1);
     sceneLayout -> addWidget(arenaBox, 0, 0, 3, 7);
     sceneLayout -> addWidget(rightBarBox, 0, 7, 3, 1);
     sceneBox -> setLayout(sceneLayout);
+
+
+
 
 
     /**************************************************************************
@@ -381,10 +402,26 @@ Field::~Field (){
     delete popupOuterLayout;
     delete popupOuter;
 
+
+            delete statsButt;
+            delete histoButt;
+            delete chatButt;
+
+            delete sideToolLayout;
+            delete sideTool;
+
+            delete stats;
+            delete history;
+            delete chat;
+
+            delete fullCard;
+            
+            delete sidebar;
+            delete side;
+
             delete actionButt;
             delete lifeAdv;
             delete menuButt;
-            delete fullCard;
             delete lifeSlf;
 
         delete rightBarLayout;
@@ -424,16 +461,17 @@ Field::~Field (){
         
         delete arenaLayout;
         delete arenaBox;
-/*
-            delete intel;
-
-        delete leftBarLayout;
-        delete leftBarBox;
-*/
-    delete sceneLayout;
+    
+        delete sceneLayout;
     delete sceneBox;
     
     delete overLayout;
+}
+
+
+void Field::init(){
+    chat -> setVisible(false);
+    currentSide = chat;
 }
 
 
@@ -456,23 +494,6 @@ void Field::closeMenu (){
 
 void Field::cardHover (){
 
-    QString strCard = QString::fromUtf8(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-        "Morbi molestie arcu viverra urna faucibus tempor. "
-        "Mauris nulla elit, elementum a dolor eu, condimentum eleifend elit. "
-        "Nullam aliquet varius magna nec elementum. "
-        "Aliquam elementum dapibus justo, eget imperdiet arcu pretium sit amet. "
-        "Aenean vitae eros tortor. "
-        "Etiam interdum erat dolor, et lacinia purus vestibulum id. "
-        "Quisque pretium neque vel commodo tincidunt. "
-        "Sed in suscipit erat."
-        "\n\n"
-        "★ ★ 8"
-        "\n"
-        "ATK/2000"
-        "\n"
-        "DEF/2000"
-    );
 //    fullCard -> setText(strCard);
 
 }
@@ -493,6 +514,31 @@ void Field::cardEntered(int x){
 void Field::cardLeaved(int x){
     std::cout << x << " leaved \n";
 }
+
+
+
+void Field::setStats(){
+
+    currentSide -> setVisible(false);
+    stats -> setVisible(true);
+    currentSide = stats;
+}
+
+void Field::setHisto(){
+    
+    currentSide -> setVisible(false);
+    history -> setVisible(true);
+    currentSide = history;
+}
+
+void Field::setChat(){
+    
+    currentSide -> setVisible(false);
+    chat -> setVisible(true);
+    currentSide = chat;
+}
+
+
 
 
 
