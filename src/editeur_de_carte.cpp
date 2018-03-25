@@ -21,15 +21,31 @@ editeur_de_carte::editeur_de_carte()
 
     bigEditor = new QTextEdit;
     bigEditor->setPlainText(tr("Description / Effet de la carte..."));
-
+    setStyleSheet("background-color: #607D8B;");
 
     connect(buttonSave, SIGNAL(clicked()), this, SLOT(sauvegarder()));
 
     QGridLayout *mainLayout = new QGridLayout;
 
-    mainLayout->addWidget(buttonSave, 2, 0);
-    mainLayout->addWidget(formGroupBox, 0, 0);
-    mainLayout->addWidget(bigEditor, 1, 0);
+        QFrame *wSpacer = new QFrame;
+        QHBoxLayout *lSpacer = new QHBoxLayout();
+        lSpacer->setStretch(0, 1);
+        wSpacer->setLayout(lSpacer);
+
+        mainLayout->addWidget(wSpacer, 0, 0, 1, 1);
+
+        QFrame *intermediate = new QFrame;
+        QGridLayout *midLayout = new QGridLayout;
+
+            intermediate->setLayout(midLayout);
+            intermediate->setStyleSheet("background-color: #ECEFF1");
+
+            midLayout->addWidget(buttonSave, 2, 0);
+            midLayout->addWidget(formGroupBox, 0, 0);
+            midLayout->addWidget(bigEditor, 1, 0);
+
+        mainLayout->addWidget(intermediate, 0, 1, 1, 3);
+        mainLayout->addWidget(wSpacer, 0, 4, 1, 1);
 
 
     setLayout(mainLayout);

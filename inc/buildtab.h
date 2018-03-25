@@ -58,6 +58,7 @@ private:
     QPushButton * deckButt;
     QPushButton * cardButt;
     QPushButton * cardEditButt;
+    QPushButton * deckEditButt;
     ShadowButt * exitButt;
 
     QWidget * buildBox;
