@@ -43,51 +43,41 @@
     </message>
     <message>
         <location filename="../../src/choice.cpp" line="72"/>
-        <source>Partie Locale Multijoueur</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/choice.cpp" line="74"/>
-        <source>Commencer une partie à deux joeur en local</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/choice.cpp" line="83"/>
         <source>Rejoindre Partie Privée</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/choice.cpp" line="85"/>
+        <location filename="../../src/choice.cpp" line="74"/>
         <source>Rejoindre une Partie Privée</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/choice.cpp" line="94"/>
+        <location filename="../../src/choice.cpp" line="83"/>
         <source>Héberger Partie Privée</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/choice.cpp" line="96"/>
+        <location filename="../../src/choice.cpp" line="85"/>
         <source>Héberger une Partie Privée</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/choice.cpp" line="105"/>
+        <location filename="../../src/choice.cpp" line="94"/>
         <source>Trouver une Partie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/choice.cpp" line="107"/>
+        <location filename="../../src/choice.cpp" line="96"/>
         <source>Commencer une Partie Online</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/choice.cpp" line="116"/>
+        <location filename="../../src/choice.cpp" line="105"/>
         <source>Retour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/choice.cpp" line="118"/>
+        <location filename="../../src/choice.cpp" line="107"/>
         <source>Retour au Menu</source>
         <translation type="unfinished"></translation>
     </message>
@@ -95,27 +85,42 @@
 <context>
     <name>Field</name>
     <message>
-        <location filename="../../src/field.cpp" line="266"/>
+        <location filename="../../src/field.cpp" line="223"/>
+        <source>Duel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/field.cpp" line="228"/>
+        <source>Historique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/field.cpp" line="233"/>
+        <source>Chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/field.cpp" line="285"/>
         <source>Terminer le tour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/field.cpp" line="332"/>
+        <location filename="../../src/field.cpp" line="353"/>
         <source>Abandonner</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/field.cpp" line="334"/>
+        <location filename="../../src/field.cpp" line="355"/>
         <source>Quitter le Duel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/field.cpp" line="338"/>
+        <location filename="../../src/field.cpp" line="359"/>
         <source>Fermer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/field.cpp" line="340"/>
+        <location filename="../../src/field.cpp" line="361"/>
         <source>Retour au Duel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -422,7 +427,7 @@ Patientez...</source>
     <name>SoloChoice</name>
     <message>
         <location filename="../../src/soloChoice.cpp" line="33"/>
-        <source>Partie Solo: difficulte de l&apos;IA</source>
+        <source>Partie Solo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -436,307 +441,327 @@ Patientez...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/soloChoice.cpp" line="74"/>
-        <source>Quelle IA ?</source>
+        <location filename="../../src/soloChoice.cpp" line="73"/>
+        <source>Difficile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/soloChoice.cpp" line="75"/>
+        <source>Adversaire expert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/soloChoice.cpp" line="84"/>
+        <source>Facile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/soloChoice.cpp" line="86"/>
+        <source>Adversaire débutant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/soloChoice.cpp" line="97"/>
+        <source>Choix de la difficulté :</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>editeur_de_carte</name>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="16"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="19"/>
         <source>Enregistrer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="20"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="23"/>
         <source>Description / Effet de la carte...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="59"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="63"/>
         <source>Aqua</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="59"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="63"/>
         <source>Bete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="59"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="63"/>
         <source>Bete Ailee</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="59"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="63"/>
         <source>Bete-Divine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="59"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="63"/>
         <source>Bete-Guerrier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="59"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="63"/>
         <source>Demon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="59"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="63"/>
         <source>Dinosaure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="59"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="63"/>
         <source>Dragon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="59"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="63"/>
         <source>Elfe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="60"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="64"/>
         <source>Guerrier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="60"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="64"/>
         <source>Insecte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="60"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="64"/>
         <source>Machine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="60"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="64"/>
         <source>Magicien</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="60"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="64"/>
         <source>Plante</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="60"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="64"/>
         <source>Poisson</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="60"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="64"/>
         <source>Pyro</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="60"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="64"/>
         <source>Rocher</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="60"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="64"/>
         <source>Reptile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="61"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="65"/>
         <source>Serpent de Mer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="61"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="65"/>
         <source>Tonnerre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="61"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="65"/>
         <source>Wyrm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="61"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="65"/>
         <source>Zombie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="64"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="68"/>
         <source>Effet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="64"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="68"/>
         <source>Rituel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="66"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="70"/>
         <source>Piocher</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="66"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="70"/>
         <source>Detruire Monstre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="66"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="70"/>
         <source>Detruire Magie/piege</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="66"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="70"/>
         <source>Detruire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="66"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="70"/>
         <source>TOUT DETRUIRE !</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="66"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="70"/>
         <source>gagner 1000 life point</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="66"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="70"/>
         <source>+1000 attaque</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="96"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="102"/>
         <source>Monstre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="97"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="103"/>
         <source>Magie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="98"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="104"/>
         <source>Piege</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="160"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="167"/>
         <source>Nom:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="166"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="173"/>
         <source>genre:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="170"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="177"/>
         <source>attribut:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="174"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="181"/>
         <source>Niveau:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="177"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="184"/>
         <source>Attaque:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="179"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="186"/>
         <source>Defense:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="183"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="190"/>
         <source>Effet:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="226"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="248"/>
         <source>Selectionner une image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="250"/>
-        <source>	 n&apos;est pas un fichier valide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="265"/>
-        <source>Lumière</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="266"/>
-        <source>Tenebre</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="267"/>
-        <source>Terre</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="268"/>
-        <source>Eau</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="269"/>
-        <source>Feu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="270"/>
-        <source>Vent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="271"/>
-        <source>Divin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="290"/>
-        <location filename="../../src/editeur_de_carte.cpp" line="314"/>
-        <source>Normal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="291"/>
-        <location filename="../../src/editeur_de_carte.cpp" line="315"/>
-        <source>Continue</source>
+        <location filename="../../src/editeur_de_carte.cpp" line="275"/>
+        <source>	 n&apos;existe pas</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/editeur_de_carte.cpp" line="292"/>
-        <source>Equipement</source>
+        <source>Lumière</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/editeur_de_carte.cpp" line="293"/>
-        <source>Jeu-Rapide</source>
+        <source>Tenebre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/editeur_de_carte.cpp" line="294"/>
-        <source>Rituelle</source>
+        <source>Terre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/editeur_de_carte.cpp" line="295"/>
+        <source>Eau</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/editeur_de_carte.cpp" line="296"/>
+        <source>Feu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/editeur_de_carte.cpp" line="297"/>
+        <source>Vent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/editeur_de_carte.cpp" line="298"/>
+        <source>Divin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/editeur_de_carte.cpp" line="317"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="341"/>
+        <source>Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/editeur_de_carte.cpp" line="318"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="342"/>
+        <source>Continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/editeur_de_carte.cpp" line="319"/>
+        <source>Equipement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/editeur_de_carte.cpp" line="320"/>
+        <source>Jeu-Rapide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/editeur_de_carte.cpp" line="321"/>
+        <source>Rituelle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/editeur_de_carte.cpp" line="322"/>
         <source>Terrain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/editeur_de_carte.cpp" line="316"/>
+        <location filename="../../src/editeur_de_carte.cpp" line="343"/>
         <source>Contre</source>
         <translation type="unfinished"></translation>
     </message>
