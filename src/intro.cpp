@@ -71,7 +71,7 @@ Intro::Intro () {
 
             QString strDeck = tr("Decks");
             decks = new ShadowButt("\uf02d", strDeck);
-            decks -> setToolTip("Gestion des decks");
+            decks -> setToolTip(tr("Gestion des decks"));
             connect(decks, SIGNAL(clicked()), this, SLOT(emitDeck()));
             box -> addWidget(decks);
 
@@ -81,7 +81,7 @@ Intro::Intro () {
 
             QString strRules = tr("Règles");
             rules = new ShadowButt("\uf24e", strRules);
-            rules -> setToolTip("Gestion de l'arbitrage");
+            rules -> setToolTip(tr("Gestion de l'arbitrage"));
             connect(rules, SIGNAL(clicked()), this, SLOT(emitRule()));
             box -> addWidget(rules);
 
@@ -91,7 +91,7 @@ Intro::Intro () {
 
             QString strOptions = tr("Paramètres");
             options = new ShadowButt("\uf085", strOptions);
-            options -> setToolTip("Gestion des options");
+            options -> setToolTip(tr("Gestion des options"));
             connect(options, SIGNAL(clicked()), this, SLOT(emitOpt()));
             box -> addWidget(options);
 
@@ -101,7 +101,7 @@ Intro::Intro () {
 
             QString strHelp = tr("Aide");
             help = new ShadowButt("\uf059", strHelp);
-            help -> setToolTip("Besoin d'aide ?");
+            help -> setToolTip(tr("Besoin d'aide ?"));
             connect(help, SIGNAL(clicked()), this, SLOT(emitHelp()));
             box -> addWidget(help);
 
@@ -112,7 +112,7 @@ Intro::Intro () {
 
             QString strQuit = tr("Quitter");
             quit = new ShadowButt("\uf011", strQuit);
-            quit -> setToolTip("Quitter l'application");
+            quit -> setToolTip(tr("Quitter l'application"));
             connect(quit, SIGNAL(clicked()), qApp, SLOT(quit()));
             box -> addWidget(quit);
 

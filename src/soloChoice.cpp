@@ -30,7 +30,7 @@ SoloChoice::SoloChoice () {
 
         infoLayout = new QHBoxLayout;
 
-        info = new QLabel ("Partie Solo: difficulte de l'IA");
+        info = new QLabel (tr("Partie Solo: difficulte de l'IA"));
 
         infoLayout -> addWidget(info);
         infoBox -> setLayout(infoLayout);
@@ -58,9 +58,9 @@ SoloChoice::SoloChoice () {
 
             // Back Button
             
-            QString strBack = QString::fromUtf8("Retour");
+            QString strBack = tr("Retour");
             choice = new ShadowButt("\uf060", strBack);
-            choice -> setToolTip("Retour au Menu");
+            choice -> setToolTip(tr("Retour au Menu"));
             connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
 
             box -> addWidget(choice, 7,0,1,3);
@@ -71,7 +71,7 @@ SoloChoice::SoloChoice () {
 
             intro = new QLabel;
             intro -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-            QString strIntro = QString::fromUtf8(
+            QString strIntro = tr(
                 "Quelle IA ?"
             );
             intro -> setText(strIntro);
