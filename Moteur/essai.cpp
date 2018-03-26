@@ -1,5 +1,4 @@
 //TESTE POUR VOIR A QUOI RESSEMBLERA LE COMBAT EN RESEAU
-#include "TestExternalAddress.h"
 #include "essai.h"
 #include "noyau.h"
 #include "parser.h"
