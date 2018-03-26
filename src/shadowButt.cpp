@@ -113,8 +113,8 @@ ShadowButt::~ShadowButt (){
 void ShadowTask::buttLoop (){
 
     Sleeper::msleep(42);
-
-    emit newState();
+    
+	emit newState();
 
 }
 
@@ -135,6 +135,10 @@ void ShadowButt::buttonReleased(){
     emit newState();
 }
 
+
+void ShadowButt::setText (QString str){
+	txt -> setText(str);
+}
 
 
 void ShadowButt::runNewState (){

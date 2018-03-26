@@ -29,8 +29,10 @@
 #include <QCompleter>
 #include <QFileDialog>
 #include <iostream>
-#include "shadowButt.h"
 #include <sstream>
+
+#include "../inc/carte.h"
+#include "../inc/shadowButt.h"
 
 using namespace std;
 
@@ -40,7 +42,7 @@ enum GENRE
     MAGIE,
     PIEGE
 };
-
+/*
 enum ATTRIBUT
 {
     LUMIERE,
@@ -51,7 +53,7 @@ enum ATTRIBUT
     VENT,
     DIVIN
 };
-
+*/
 class editeur_de_carte : public QFrame
 {
     Q_OBJECT

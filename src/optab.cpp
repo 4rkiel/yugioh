@@ -435,14 +435,14 @@ void OptionTab::largeChange (){
     emit newSettings();
 }
 
-//fonction qui met à jour la traduction dynamiquement après chgt de langage
+//fonction qui change dynamiquement la langue
 void OptionTab::changeEvent(QEvent *event)
 {
     if (event->type() == QEvent::LanguageChange) {
         info->setText(tr("Paramètres"));
-        exitButt->setText(tr("Retour"));
+		exitButt->setText(tr("Retour"));
         exitButt -> setToolTip(tr("Fermer les paramètres"));
-        accessButt -> setText(tr("Accessibilité"));
+		accessButt -> setText(tr("Accessibilité"));
         shareChck -> setText(tr("Partage"));
         shareDesc -> setText(tr("Partage les données d'utilisation"));
         langDesc -> setText(tr("Langue de l'interface"));

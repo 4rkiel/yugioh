@@ -2,6 +2,11 @@
 
 Master::Master (){
 
+	mode = 0;
+
+	Reseau * network = new Reseau;
+
+
     layout = new QGridLayout;
     layout -> setMargin(0);
     layout -> setSpacing(0);
@@ -15,17 +20,18 @@ Master::Master (){
 
         connect(selector, SIGNAL(introStack()), this, SLOT(emitIntro()));
         connect(selector, SIGNAL(gameStack(int)), this, SLOT(loadField(int)));
+        connect(selector, SIGNAL(createHost(QString)), network, SLOT(go(QString)));
+
+		connect(network, SIGNAL(hostReady(int)), this, SLOT(loadField(int)));
+		connect(selector, SIGNAL(sendIP(QString)), network, SLOT(mondieu(QString)));
+
+		connect(network, SIGNAL(connectOK(int)), this, SLOT(loadField(int)));
+		connect(network, SIGNAL(connectKO()), this, SLOT(sendErr()));
+	
 
     stacked -> addWidget(selector);
-
-
-        // Field
-
-        field = new Field;
-        
-        connect(field, SIGNAL(introStack()), this, SLOT(emitIntro()));
-        
-
+       
+	
 
 
     stacked -> setCurrentWidget(selector);
@@ -39,9 +45,16 @@ Master::Master (){
 
 Master::~Master (){
 
-    delete selector;
-    delete field;
-    delete stacked;
+	if (mode == 0){
+
+    	delete selector;
+	
+	} else {
+
+    	delete field;
+	}
+    
+	delete stacked;
     delete layout;
 }
 
@@ -54,7 +67,21 @@ void Master::emitIntro (){
 
 void Master::loadField (int x){
 
+
+	// Field
+
+    field = new Field;
+        
+    connect(field, SIGNAL(introStack()), this, SLOT(emitIntro()));
+ 
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
-    field -> init();
+
+	delete selector;
+	
+	field -> init();
+}
+
+void Master::sendErr(){
+
 }
