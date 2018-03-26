@@ -285,6 +285,34 @@ std::vector<Carte *> * Parser::rechercher_niveau(int n)
     return resultat;
 }
 
+std::vector<Carte *> * Parser::deck(QString s)
+{
+    int i;
+    std::vector<Carte *> * resultat = new std::vector<Carte *>();
+    QFile file(s);
+    file.open(QFile::ReadOnly | QFile::Text);
+    QTextStream in(&file);
+    QString line = in.readLine();
+    while(!line.isNull())
+    {
+        if(!line.contains("#"))
+        {
+            for(i=0;i<all_cards->size();i++)
+            {
+                if(all_cards->at(i)->id == line.toInt())
+                {
+                   resultat->push_back(all_cards->at(i));
+                   break;
+                 }
+            }
+         }
+        line = in.readLine();
+     }
+     file.close();
+    return resultat;
+
+}
+
 Parser::~Parser()
 {
 
