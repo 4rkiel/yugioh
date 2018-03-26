@@ -29,6 +29,7 @@ signals:
 
 private:
 
+	int mode;
     QStackedWidget * stacked;
     QGridLayout * layout;
     Field * field;

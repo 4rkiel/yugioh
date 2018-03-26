@@ -2,6 +2,8 @@
 
 Master::Master (){
 
+	mode = 0;
+
     layout = new QGridLayout;
     layout -> setMargin(0);
     layout -> setSpacing(0);
@@ -18,13 +20,7 @@ Master::Master (){
 
     stacked -> addWidget(selector);
 
-
-        // Field
-
-        field = new Field;
-        
-        connect(field, SIGNAL(introStack()), this, SLOT(emitIntro()));
-        
+       
 
 
 
@@ -39,9 +35,16 @@ Master::Master (){
 
 Master::~Master (){
 
-    delete selector;
-    delete field;
-    delete stacked;
+	if (mode == 0){
+
+    	delete selector;
+	
+	} else {
+
+    	delete field;
+	}
+    
+	delete stacked;
     delete layout;
 }
 
@@ -54,6 +57,12 @@ void Master::emitIntro (){
 
 void Master::loadField (int x){
 
+	// Field
+
+    field = new Field;
+        
+    connect(field, SIGNAL(introStack()), this, SLOT(emitIntro()));
+ 
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
     field -> init();
