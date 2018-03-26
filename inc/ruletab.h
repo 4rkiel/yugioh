@@ -22,6 +22,7 @@
 #include <QCheckBox>
 #include <QSpacerItem>
 #include <QComboBox>
+#include <QEvent>
 
 #include "../inc/shadowButt.h"
 
@@ -36,6 +37,7 @@ class RuleTab : public QFrame {
     void reInit();
 
     private:
+    QString valeur;
     QGraphicsDropShadowEffect * ruEffect;
     QGridLayout * layout;
 
@@ -79,6 +81,7 @@ class RuleTab : public QFrame {
 
     void updateStyle(QPushButton * b);
     void loadPersoSettings();
+    void readLangage();
 
     public slots:
     void setPerso();

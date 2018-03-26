@@ -31,7 +31,7 @@ HelpTab::HelpTab (){
 
         infoLayout = new QHBoxLayout;
 
-        info = new QLabel ("Aide");
+        info = new QLabel (tr("Aide"));
 
         infoLayout -> addWidget(info);
         infoBox -> setLayout(infoLayout);
@@ -67,7 +67,7 @@ HelpTab::HelpTab (){
         tabLayout -> setSpacing(0);
         tabLayout -> setMargin(0);
   
-            exitButt = new ShadowButt("\uf060", "Retour");
+            exitButt = new ShadowButt("\uf060", tr("Retour"));
             exitButt -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
             exitButt -> setToolTip("Fermer l'aide");
             connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));
@@ -76,7 +76,7 @@ HelpTab::HelpTab (){
 
 
             helpButt = new QPushButton;
-            helpButt -> setText("Informations");
+            helpButt -> setText(tr("Informations"));
             helpButt -> setProperty("down", true);
             connect(helpButt, SIGNAL(clicked()), this, SLOT(setHelp()));
 
@@ -84,7 +84,7 @@ HelpTab::HelpTab (){
             
 
             aboutButt = new QPushButton;
-            aboutButt -> setText("A Propos");
+            aboutButt -> setText(tr("A Propos"));
             aboutButt -> setProperty("down", false);
             connect(aboutButt, SIGNAL(clicked()), this, SLOT(setAbout()));
 

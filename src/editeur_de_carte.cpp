@@ -16,20 +16,35 @@
 
 editeur_de_carte::editeur_de_carte()
 {
-    buttonSave = new ShadowButt("", "Enregistrer");
+    buttonSave = new ShadowButt("", tr("Enregistrer"));
     createFormGroupBox();
 
     bigEditor = new QTextEdit;
-    bigEditor->setPlainText(QString::fromUtf8("Description / Effet de la carte..."));
-
-
+    bigEditor->setPlainText(tr("Description / Effet de la carte..."));
+    //setStyleSheet("background-color: #607D8B");
     connect(buttonSave, SIGNAL(clicked()), this, SLOT(sauvegarder()));
 
     QGridLayout *mainLayout = new QGridLayout;
 
-    mainLayout->addWidget(buttonSave, 2, 0);
-    mainLayout->addWidget(formGroupBox, 0, 0);
-    mainLayout->addWidget(bigEditor, 1, 0);
+        QFrame *wSpacer = new QFrame;
+        QHBoxLayout *lSpacer = new QHBoxLayout();
+        lSpacer->setStretch(0, 1);
+        wSpacer->setLayout(lSpacer);
+
+        mainLayout->addWidget(wSpacer, 0, 0, 1, 1);
+
+        QFrame *intermediate = new QFrame;
+        QGridLayout *midLayout = new QGridLayout;
+
+            intermediate->setLayout(midLayout);
+            intermediate->setStyleSheet("background-color: #ECEFF1");
+
+            midLayout->addWidget(buttonSave, 2, 0);
+            midLayout->addWidget(formGroupBox, 0, 0);
+            midLayout->addWidget(bigEditor, 1, 0);
+
+        mainLayout->addWidget(intermediate, 0, 1, 1, 3);
+        mainLayout->addWidget(wSpacer, 0, 4, 1, 1);
 
 
     setLayout(mainLayout);
@@ -60,14 +75,14 @@ void editeur_de_carte::createFormGroupBox()
     QStringList imgList = QDir(imgRep).entryList();
 
     QStringList typePrimaireList;
-    typePrimaireList << "Aqua" << "Bete" << "Bete Ailee" << "Bete-Divine" << "Bete-Guerrier" << "Demon" << "Dinosaure" <<"Dragon"  << "Elfe"
-             << "Guerrier" << "Insecte" << "Machine" << "Magicien" << "Plante" << "Poisson" << "Pyro" << "Rocher" << "Reptile"
-             << "Serpent de Mer" << "Tonnerre" << "Wyrm" <<"Zombie";
+    typePrimaireList << tr("Aqua") << tr("Bete") << tr("Bete Ailee") << tr("Bete-Divine") << tr("Bete-Guerrier") << tr("Demon") << tr("Dinosaure") <<tr("Dragon")  << tr("Elfe")
+             << tr("Guerrier") << tr("Insecte") << tr("Machine") << tr("Magicien") << tr("Plante") << tr("Poisson") << tr("Pyro") << tr("Rocher") << tr("Reptile")
+             << tr("Serpent de Mer") << tr("Tonnerre") << tr("Wyrm") <<tr("Zombie");
 
     QStringList typeSecondaireList;
-    typeSecondaireList << "Effet" << "Normal" << "Fusion" << "Toon" << "Rituel";
+    typeSecondaireList << tr("Effet") << "Normal" << "Fusion" << "Toon" << tr("Rituel");
 
-    QStringList effectList = {"Piocher", "Detruire Monstre", "Detruire Magie/piege", "Detruire", "TOUT DETRUIRE !", "gagner 1000 life point", "+1000 attaque"};
+    QStringList effectList = {tr("Piocher"), tr("Detruire Monstre"), tr("Detruire Magie/piege"), tr("Detruire"), tr("TOUT DETRUIRE !"), tr("gagner 1000 life point"), tr("+1000 attaque")};
 
     QCompleter *completerImg = new QCompleter(imgList, this);
     completerImg->setCaseSensitivity(Qt::CaseInsensitive);
@@ -99,9 +114,9 @@ void editeur_de_carte::createFormGroupBox()
     nrSet->addItem("Custom", 666);
     nrSet->setCurrentIndex(0);
 
-    genreCarte->addItem("Monstre", 0);
-    genreCarte->addItem("Magie", 1);
-    genreCarte->addItem("Piege", 2);
+    genreCarte->addItem(tr("Monstre"), 0);
+    genreCarte->addItem(tr("Magie"), 1);
+    genreCarte->addItem(tr("Piege"), 2);
 
     genreCarte->setItemIcon(0, QIcon(imgRep + "Level"));
     genreCarte->setItemIcon(1, QIcon(imgRep + "SPELL"));
@@ -164,31 +179,30 @@ void editeur_de_carte::createFormGroupBox()
 
     layout->addWidget(searchImg, 8, 11, 1, 1);
     layout->addWidget(genRdmName, 0, 23, 1, 1);
-    layout->addWidget(new QLabel("Nom:"), i, 0, 1, 2, Qt::AlignCenter);
+    layout->addWidget(new QLabel(tr("Nom:")), i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(nom, i, 2, 1, 21);
-
     layout->addWidget(new QLabel("ID:"), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(ID, i, 2, 1, 22);
     layout->addWidget(new QLabel("Set:"), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(nrSet, i, 2, 1, 22);
-    layout->addWidget(new QLabel("genre:"), ++i, 0, 1, 2, Qt::AlignCenter);
+    layout->addWidget(new QLabel(tr("genre:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(genreCarte, i, 2, 1, 7);
     layout->addWidget(typePrimaire, i, 9, 1, 7);
     layout->addWidget(typeSecondaire, i, 16, 1, 8);
-    layout->addWidget(new QLabel("attribut:"), ++i, 0, 1, 2, Qt::AlignCenter);
+    layout->addWidget(new QLabel(tr("attribut:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(attribut, i, 2, 1, 10);
     layout->addWidget(font, i, 12, 5, 12);
     layout->addWidget(image, i, 12, 5, 12);
-    layout->addWidget(new QLabel("Niveau:"), ++i, 0, 1, 2, Qt::AlignCenter);
+    layout->addWidget(new QLabel(tr("Niveau:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(niveau, i, 2, 1, 10);
 
-    layout->addWidget(new QLabel("Attaque:"), ++i, 0, 1, 2, Qt::AlignCenter);
+    layout->addWidget(new QLabel(tr("Attaque:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(spinAttaque, i, 2, 1, 10);
-    layout->addWidget(new QLabel("Defense:"), ++i, 0, 1, 2, Qt::AlignCenter);
+    layout->addWidget(new QLabel(tr("Defense:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(spinDefense, i, 2, 1, 10);
     layout->addWidget(new QLabel("Image URL:"), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(imageUrl, i, 2, 1, 9);
-    layout->addWidget(new QLabel("Effet:"), ++i, 0, 1, 2, Qt::AlignCenter);
+    layout->addWidget(new QLabel(tr("Effet:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(effectBox, i, 2, 1, 10);
 
     formGroupBox->setLayout(layout);
@@ -219,9 +233,15 @@ void editeur_de_carte::sauvegarder()
     QFile::copy(absoluteUrlImage, imgURL);
     QTextStream in(myfile);
 
+    QString eff = bigEditor->toPlainText();
+    if(bigEditor->toPlainText().toStdString() == "")
+    {
+        eff = "YOLO";
+    }
+
     QString text = QString("##YGO\n") + QString::number(ID->value()) + "\n" +QString::number(nrSet->currentIndex())+"\n"+QString::number(genreCarte->currentIndex())+"\n"+
             QString::number(typePrimaire->currentIndex())+"\n"+QString::number(typeSecondaire->currentIndex())+"\n"+nom->text()+"\n"+QString::number(attribut->currentIndex())+"\n"+
-            QString::number(niveau->value())+"\n"+bigEditor->toPlainText()+"\n"+QString::number(effectBox->currentIndex())+"\n"+
+            QString::number(niveau->value())+"\n"+eff+"\n{{"+QString::number(effectBox->currentIndex())+"\n"+
             QString::number(spinAttaque->value())+"\n"+QString::number(spinDefense->value())+"\n";
 
     in << text;
@@ -247,7 +267,7 @@ void editeur_de_carte::nameRandom()
 void editeur_de_carte::selectImg()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Selectionner une image"), imgRep,
-                                                    tr("Images (*.png *.xpm *.jpg)"));
+                                                    "Images (*.png *.xpm *.jpg)");
     qDebug() << (fileName);
 
     if(!fileName.isNull())
@@ -273,7 +293,7 @@ void editeur_de_carte::updateImg()
 
     else if(!QFileInfo(imgRep + imageUrl->text()).exists())
     {// fichier incorrecte
-        imageUrl->setText(imageUrl->text() + "\t n'existe pas");
+        imageUrl->setText(imageUrl->text() + tr("\t n'existe pas"));
         buttonSave->setDisabled(true);
     }
     else
@@ -290,13 +310,13 @@ void editeur_de_carte::slotAttribut()
     switch(genreCarte->currentIndex())
     {
         case MONSTRE:
-            attribut->addItem(QString::fromUtf8("Lumière"), 0);
-            attribut->addItem("Tenebre", 1);
-            attribut->addItem("Terre", 2);
-            attribut->addItem("Eau", 3);
-            attribut->addItem("Feu", 4);
-            attribut->addItem("Vent", 5);
-            attribut->addItem("Divin", 6);
+            attribut->addItem(tr("Lumière"), 0);
+            attribut->addItem(tr("Tenebre"), 1);
+            attribut->addItem(tr("Terre"), 2);
+            attribut->addItem(tr("Eau"), 3);
+            attribut->addItem(tr("Feu"), 4);
+            attribut->addItem(tr("Vent"), 5);
+            attribut->addItem(tr("Divin"), 6);
 
             attribut->setItemIcon(0, QIcon(imgRep + "LUMIERE"));
             attribut->setItemIcon(1, QIcon(imgRep + "TENEBRE"));
@@ -315,12 +335,12 @@ void editeur_de_carte::slotAttribut()
         break;
 
         case MAGIE:
-            attribut->addItem("Normal", 0);
-            attribut->addItem("Continue", 1);
-            attribut->addItem("Equipement", 2);
-            attribut->addItem("Jeu-Rapide", 3);
-            attribut->addItem("Rituelle", 4);
-            attribut->addItem("Terrain", 5);
+            attribut->addItem(tr("Normal"), 0);
+            attribut->addItem(tr("Continue"), 1);
+            attribut->addItem(tr("Equipement"), 2);
+            attribut->addItem(tr("Jeu-Rapide"), 3);
+            attribut->addItem(tr("Rituelle"), 4);
+            attribut->addItem(tr("Terrain"), 5);
 
             attribut->setItemIcon(0, QIcon(imgRep + "Normal-N"));
             attribut->setItemIcon(1, QIcon(imgRep + "Continuous"));
@@ -339,9 +359,9 @@ void editeur_de_carte::slotAttribut()
         break;
 
         case PIEGE:
-            attribut->addItem("Normal", 0);
-            attribut->addItem("Continue", 1);
-            attribut->addItem("Contre", 2);
+            attribut->addItem(tr("Normal"), 0);
+            attribut->addItem(tr("Continue"), 1);
+            attribut->addItem(tr("Contre"), 2);
 
             attribut->setItemIcon(0, QIcon(imgRep + "Normal-N"));
             attribut->setItemIcon(1, QIcon(imgRep + "Continuous"));

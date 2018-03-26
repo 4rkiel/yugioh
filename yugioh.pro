@@ -56,7 +56,8 @@ HEADERS += inc/buildtab.h \
            inc/shadowLab.h \
            inc/sleeper.h \
            inc/slotCard.h \
-           inc/zButt.h 
+           inc/zButt.h \ 
+    inc/deckedit.h
 SOURCES += src/buildtab.cpp \
            src/master.cpp \
            src/selector.cpp \
@@ -83,7 +84,8 @@ SOURCES += src/buildtab.cpp \
            src/shadowButt.cpp \
            src/shadowLab.cpp \
            src/slotCard.cpp \
-           src/zButt.cpp
+           src/zButt.cpp \
+    src/deckedit.cpp
 
            
 TRANSLATIONS += i18n/en_US/yugi_en_US.ts i18n/fr_FR/yugi_fr_FR.ts

@@ -6,7 +6,7 @@
 Essai::Essai(QWidget *parent)
     : QMainWindow(parent)
 {
-  /*  env = new QPushButton("Envoyer un message",this);
+   env = new QPushButton("Envoyer un message",this);
     serv = new QPushButton(QString::fromUtf8("Créer un serveur"),this);
     ok = new QPushButton("Connecter la socket",this);
     ligne = new QLineEdit(this);
@@ -36,9 +36,11 @@ Essai::Essai(QWidget *parent)
 connect(ataq,SIGNAL(clicked(bool)),this,SLOT(afficher()));
 
 //connect(this,SIGNAL(emit_aff(Carte*)),test,SLOT(afficher(Carte*)));
-*/
-    Parser* yolo = new Parser();
-    TestExternalAddress * ad = new TestExternalAddress();
+
+    //Parser* yolo = new Parser();
+  // std::vector<Carte *> * what = yolo->rechercher_nom("magicien blanc");
+   //std::cout << "description:" << what->at(0)->description.toStdString()<< std::endl;
+    //TestExternalAddress * ad = new TestExternalAddress();
 }
 
 void Essai::commande()

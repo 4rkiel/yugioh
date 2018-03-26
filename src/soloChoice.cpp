@@ -61,6 +61,7 @@ SoloChoice::SoloChoice () {
             QString strBack = tr("Retour");
             choice = new ShadowButt("\uf060", strBack);
             choice -> setToolTip(tr("Retour au Menu"));
+
             connect(choice, SIGNAL(clicked()), this, SLOT(emitBack()));
 
             box -> addWidget(choice, 7,0,1,3);

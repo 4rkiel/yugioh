@@ -52,7 +52,7 @@ enum ATTRIBUT
     DIVIN
 };
 
-class editeur_de_carte : public QDialog
+class editeur_de_carte : public QFrame
 {
     Q_OBJECT
 

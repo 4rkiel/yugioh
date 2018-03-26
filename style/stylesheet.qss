@@ -7,6 +7,30 @@ QToolTip {
 
 /*****************************************************************
 
+    editeur_de_carte
+
+******************************************************************/
+
+editeur_de_carte
+{
+	border: none;
+	outline: none;
+	border-radius: 3px;
+	background: #607D8B;
+}
+
+QComboBox 
+{
+	color: #263238;
+	border: 1px solid gray;
+	border-radius: 3px;
+	padding: 1px 18px 1px 3px;
+	min-width: 6em;
+}
+
+
+/*****************************************************************
+
     Shadow Button
 
 ******************************************************************/

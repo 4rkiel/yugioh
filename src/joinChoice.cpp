@@ -29,7 +29,7 @@ JoinChoice::JoinChoice () {
 
         infoLayout = new QHBoxLayout;
 
-        info = new QLabel ("Partie Privée : Rejoindre");
+        info = new QLabel (tr("Partie Privée : Rejoindre"));
 
         infoLayout -> addWidget(info);
         infoBox -> setLayout(infoLayout);
@@ -56,9 +56,9 @@ JoinChoice::JoinChoice () {
 
             // Back Button
 
-            QString strIntro = QString::fromUtf8("Retour");
+            QString strIntro = tr("Retour");
             choice = new ShadowButt("\uf060", strIntro);
-            choice -> setToolTip("Retour au Menu");
+            choice -> setToolTip(tr("Retour au Menu"));
             connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
             
             box -> addWidget(choice, 3, 0, 1, 3);
