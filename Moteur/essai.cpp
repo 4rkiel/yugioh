@@ -1,5 +1,4 @@
 //TESTE POUR VOIR A QUOI RESSEMBLERA LE COMBAT EN RESEAU
-#include "TestExternalAddress.h"
 #include "essai.h"
 #include "noyau.h"
 #include "parser.h"
@@ -40,7 +39,7 @@ connect(ataq,SIGNAL(clicked(bool)),this,SLOT(afficher()));
     //Parser* yolo = new Parser();
   // std::vector<Carte *> * what = yolo->rechercher_nom("magicien blanc");
    //std::cout << "description:" << what->at(0)->description.toStdString()<< std::endl;
-    //TestExternalAddress * ad = new TestExternalAddress();
+
 }
 
 void Essai::commande()

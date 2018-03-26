@@ -1,5 +1,5 @@
-#include "noyau.h"
-#include "parser.h"
+#include "../inc/noyau.h"
+#include "../inc/parser.h"
 
 Noyau::Noyau()
 {
@@ -102,7 +102,7 @@ Carte * Noyau::trouver(int x)
     if(terrain->size()==0)
         return NULL;
     int i;
-    for(i=0;i<terrain->size();i++)
+    for(i=0;i<(signed) terrain->size();i++)
     {
         if(terrain->at(i)->position_terrain == x)
             return terrain->at(i);
@@ -120,7 +120,7 @@ int Noyau::perfect_position(int zone)
         begin_position=14;
         if(terrain->size()==0)
                return begin_position;
-        for(i=0;i<terrain->size();i++)
+        for(i=0;i<(signed)terrain->size();i++)
         {
              current_position = terrain->at(i)->position_terrain;
              if((current_position > 13) && (current_position < 75))
@@ -136,7 +136,7 @@ int Noyau::perfect_position(int zone)
         begin_position=89;
         if(terrain->size()==0)
                return begin_position;
-        for(i=0;i<terrain->size();i++)
+        for(i=0;i<(signed)terrain->size();i++)
         {
              current_position = terrain->at(i)->position_terrain;
              if((current_position > 88) && (current_position < 150))
@@ -264,7 +264,7 @@ void Noyau::enlever_i(std::vector<Carte *>**vect,int i)
    {
       res->push_back((*vect)->at(j));
    }
-   for(j=i+1;j<(*vect)->size();j++)
+   for(j=i+1;j<(signed)(*vect)->size();j++)
    {
         res->push_back((*vect)->at(j));
    }
@@ -281,7 +281,7 @@ void Noyau::detruire(int x)
 void Noyau::switch_position(int terrain_x)
 {
     int i;
-    for(i=0;i<terrain->size();i++)
+    for(i=0;i<(signed)terrain->size();i++)
     {
         if(terrain->at(i)->position_terrain == terrain_x)
         {
@@ -304,7 +304,7 @@ void Noyau::enlever_x(std::vector<Carte *> **vect, int x)
         return;
     }
     int i;
-    for(i=0;i<(*vect)->size();i++)
+    for(i=0;i<(signed)(*vect)->size();i++)
     {
         if((*vect)->at(i)->position_terrain != x)
             resultat->push_back((*vect)->at(i));
@@ -403,7 +403,7 @@ void Noyau::traiter(QString s)
     {
            std::cout << "terrain_size:" << terrain->size() << std::endl;
             int i;
-            for(i=0;i<terrain->size();i++)
+            for(i=0;i<(signed)terrain->size();i++)
             {
                 std::cout << "atk:" << terrain->at(i)->atk << " terrain_position" << terrain->at(i)->position_terrain << " pos:" << (terrain->at(i)->pos ? 1 : 0) << std::endl;
             }
@@ -506,8 +506,3 @@ void Noyau::traiter(QString s)
 
 }
 /******************************************/
-
-
-
-
-
