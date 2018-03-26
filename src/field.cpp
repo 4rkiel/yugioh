@@ -364,13 +364,13 @@ Field::Field () {
             connect(quitno, SIGNAL(clicked()), this, SLOT(closeQuit()));
             quitLayout -> addWidget(quitno, 1,0,1,1);
 
-            quitya = new ShadowButt("\uf078", tr("Abandonner"));
+            quitya = new ShadowButt("\uf00c", tr("Abandonner"));
             quitya -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
             quitya -> setToolTip(tr("Abandonner le duel"));
             connect(quitya, SIGNAL(clicked()), this, SLOT(emitIntroStack()));
             quitLayout -> addWidget(quitya, 1,1,1,1);
 
-            quitLabel = new QLabel(tr("Voulez vous abandonner"));
+            quitLabel = new QLabel(tr("Voulez-vous abandonner ?"));
             quitLayout -> addWidget(quitLabel, 0,0,1,2);
 
         quitBox -> setLayout(quitLayout);
@@ -385,7 +385,7 @@ Field::Field () {
         menuLayout -> setAlignment(Qt::AlignCenter);
 
 
-            quit = new ShadowButt("\uf00d", tr("Abandonner"));
+            quit = new ShadowButt("\uf256", tr("Abandonner"));
             quit -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
             quit -> setToolTip(tr("Quitter le Duel"));
             connect(quit, SIGNAL(clicked()), this, SLOT(openQuit()));
@@ -539,6 +539,8 @@ void Field::openMenu (){
 }
 
 void Field::closeMenu (){
+    quitBox -> setVisible(false);
+    menuBox -> setVisible(true);
     popupOuter -> setVisible(false);
     menuButt -> setEnabled(true);
     menuButt -> setFocus();
@@ -557,15 +559,21 @@ void Field::previewClicked(){
 void Field::cardRightClicked(int x){
 	std::cout << x << " Right Clicked \n";
 
-    if (lockPreview){
+    if (
+        (! fieldStack -> at(x) -> isDeck() ) &&
+        (! fieldStack -> at(x) -> isFuse() ) &&
+        (! fieldStack -> at(x) -> isGrave() )
+    ){
+        if (lockPreview){
 
-        lockPreview = false;
-        cardHover();
+            lockPreview = false;
+            cardHover();
 
-    } else {
+        } else {
 
-        cardHover();
-        lockPreview = true;
+            cardHover();
+            lockPreview = true;
+        }
     }
 }
 

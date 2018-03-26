@@ -378,7 +378,7 @@ Field ShadowButt {
 }
 
 
-#menuBox {
+#popupBox {
     border-radius: 2px;
     background: #E0F2F1;
 }
