@@ -32,7 +32,7 @@ Intro::Intro () {
         
         infoLayout = new QHBoxLayout;
 
-        info = new QLabel ("Menu Principal");
+        info = new QLabel (tr("Menu Principal"));
 
         infoLayout -> addWidget(info);
         infoBox -> setLayout(infoLayout);
@@ -59,19 +59,19 @@ Intro::Intro () {
 
             // New Game Button
           
-            QString strButton = QString::fromUtf8("Duel");
+            QString strButton = tr("Duel");
             choice = new ShadowButt("\uf439", strButton);
-            choice -> setToolTip("Commencer une partie");
-            connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
+            choice -> setToolTip(tr("Commencer une partie"));
+            connect(choice, SIGNAL(clicked()), this, SLOT(emitMaster()));
             box -> addWidget(choice);
 
             box -> addStretch(1);
 
             // Decks Button
 
-            QString strDeck = QString::fromUtf8("Decks");
+            QString strDeck = tr("Decks");
             decks = new ShadowButt("\uf02d", strDeck);
-            decks -> setToolTip("Gestion des decks");
+            decks -> setToolTip(tr("Gestion des decks"));
             connect(decks, SIGNAL(clicked()), this, SLOT(emitDeck()));
             box -> addWidget(decks);
 
@@ -79,9 +79,9 @@ Intro::Intro () {
 
             // Regles Button
 
-            QString strRules = QString::fromUtf8("Règles");
+            QString strRules = tr("Règles");
             rules = new ShadowButt("\uf24e", strRules);
-            rules -> setToolTip("Gestion de l'arbitrage");
+            rules -> setToolTip(tr("Gestion de l'arbitrage"));
             connect(rules, SIGNAL(clicked()), this, SLOT(emitRule()));
             box -> addWidget(rules);
 
@@ -89,9 +89,9 @@ Intro::Intro () {
 
             // Options Button
 
-            QString strOptions = QString::fromUtf8("Paramètres");
+            QString strOptions = tr("Paramètres");
             options = new ShadowButt("\uf085", strOptions);
-            options -> setToolTip("Gestion des options");
+            options -> setToolTip(tr("Gestion des options"));
             connect(options, SIGNAL(clicked()), this, SLOT(emitOpt()));
             box -> addWidget(options);
 
@@ -99,9 +99,9 @@ Intro::Intro () {
 
             // Options Button
 
-            QString strHelp = QString::fromUtf8("Aide");
+            QString strHelp = tr("Aide");
             help = new ShadowButt("\uf059", strHelp);
-            help -> setToolTip("Besoin d'aide ?");
+            help -> setToolTip(tr("Besoin d'aide ?"));
             connect(help, SIGNAL(clicked()), this, SLOT(emitHelp()));
             box -> addWidget(help);
 
@@ -110,9 +110,9 @@ Intro::Intro () {
 
             // Quit Button
 
-            QString strQuit = QString::fromUtf8("Quitter");
+            QString strQuit = tr("Quitter");
             quit = new ShadowButt("\uf011", strQuit);
-            quit -> setToolTip("Quitter l'application");
+            quit -> setToolTip(tr("Quitter l'application"));
             connect(quit, SIGNAL(clicked()), qApp, SLOT(quit()));
             box -> addWidget(quit);
 
@@ -154,8 +154,8 @@ void Intro::init (){
 }
 
 
-void Intro::emitChoice (){
-    emit choiceStack();
+void Intro::emitMaster (){
+    emit masterStack();
 }
 
 void Intro::emitDeck (){
@@ -173,4 +173,5 @@ void Intro::emitOpt (){
 void Intro::emitHelp (){
     emit helpStack();
 }
+
 

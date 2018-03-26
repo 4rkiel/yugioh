@@ -31,7 +31,7 @@ void Reseau::nouvelleConnexion()
 void Reseau::mondieu()
 {
     socket->abort();
-    socket->connectToHost("127.0.0.1", 50885);
+    socket->connectToHost("130.79.7.1", 50885);
 }
 
 void Reseau::donneesServ()
@@ -164,7 +164,47 @@ void Reseau::poser(int main_x, int terrain_x, bool def)
     envoyer(chaine);
 }
 
+void Reseau::attaquer(int x,int y)
+{
+    QString chaine ="a/";
+    std::stringstream ss2;
+    ss2 << Carte::correspondant(x);
+    ss2 << "/";
+    ss2 << Carte::correspondant(y);
+    std::string fin = ss2.str();
+    chaine = chaine + QString(fin.c_str());
+
+    envoyer(chaine);
+}
+
+void Reseau::gagne()
+{
+    envoyer("g");
+}
+
 void Reseau::piocher()
 {
     envoyer("apioche");
+}
+
+void Reseau::env_deck(int d)
+{
+    QString chaine ="d/";
+    std::stringstream ss2;
+    ss2 << d;
+    std::string fin = ss2.str();
+    chaine = chaine + QString(fin.c_str());
+
+    envoyer(chaine);
+}
+
+void Reseau::change_pos(int x)
+{
+    QString chaine ="swap/";
+    std::stringstream ss2;
+    ss2 << Carte::correspondant(x);
+    std::string fin = ss2.str();
+    chaine = chaine + QString(fin.c_str());
+
+    envoyer(chaine);
 }

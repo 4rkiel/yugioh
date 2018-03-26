@@ -27,14 +27,14 @@ class Intro : public QFrame {
     void init();
 
     public slots:
-    void emitChoice();
+    void emitMaster();
     void emitDeck();
     void emitRule();
     void emitOpt();
     void emitHelp();
 
     signals:
-    void choiceStack();
+    void masterStack();
     void buildStack();
     void ruleStack();
     void optStack();

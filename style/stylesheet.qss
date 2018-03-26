@@ -7,6 +7,30 @@ QToolTip {
 
 /*****************************************************************
 
+    editeur_de_carte
+
+******************************************************************/
+
+editeur_de_carte
+{
+	border: none;
+	outline: none;
+	border-radius: 3px;
+	background: #607D8B;
+}
+
+QComboBox 
+{
+	color: #263238;
+	border: 1px solid gray;
+	border-radius: 3px;
+	padding: 1px 18px 1px 3px;
+	min-width: 6em;
+}
+
+
+/*****************************************************************
+
     Shadow Button
 
 ******************************************************************/
@@ -135,7 +159,6 @@ Generique QProgressBar::chunk {
 Intro,
 Choice,
 SoloChoice,
-MultiPlayerChoice,
 JoinChoice,
 HostChoice,
 NetChoice {
@@ -145,7 +168,6 @@ NetChoice {
 Intro #introBox,
 Choice #introBox,
 SoloChoice #introBox,
-MultiPlayerChoice #introBox,
 JoinChoice #introBox,
 HostChoice #introBox,
 NetChoice #introBox {
@@ -158,7 +180,6 @@ NetChoice #introBox {
 Intro ShadowButt,
 Choice ShadowButt,
 SoloChoice ShadowButt,
-MultiPlayerChoice ShadowButt,
 JoinChoice ShadowButt,
 HostChoice ShadowButt,
 NetChoice ShadowButt {
@@ -169,7 +190,6 @@ NetChoice ShadowButt {
 Intro ShadowButt > *,
 Choice ShadowButt > *,
 SoloChoice ShadowButt > *,
-MultiPlayerChoice ShadowButt > *,
 JoinChoice ShadowButt > *,
 HostChoice ShadowButt > *,
 NetChoice ShadowButt > * {
@@ -180,7 +200,6 @@ NetChoice ShadowButt > * {
 Intro ShadowButt QToolTip,
 Choice ShadowButt QToolTip,
 SoloChoice ShadowButt QToolTip,
-MultiPlayerChoice ShadowButt QToolTip,
 JoinChoice ShadowButt QToolTip,
 HostChoice ShadowButt QToolTip,
 NetChoice ShadowButt QToolTip {
@@ -188,6 +207,7 @@ NetChoice ShadowButt QToolTip {
     padding: 5px 10px;
 }
 
+SoloChoice #introBox > QLabel, 
 HostChoice #introBox > QLabel {
     qproperty-alignment: AlignCenter;
 }
@@ -358,7 +378,7 @@ Field ShadowButt {
 }
 
 
-#menuBox {
+#popupBox {
     border-radius: 2px;
     background: #E0F2F1;
 }

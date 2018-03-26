@@ -29,7 +29,7 @@ Choice::Choice () {
 
         infoLayout = new QHBoxLayout;
 
-        info = new QLabel ("Mode de Jeu");
+        info = new QLabel (tr("Mode de Jeu"));
 
         infoLayout -> addWidget(info);
         infoBox -> setLayout(infoLayout);
@@ -56,33 +56,22 @@ Choice::Choice () {
             box -> addStretch(1);
 
 
-            // 1 Local playerButton
+            // Local playerButton
           
-            QString strSolo = QString::fromUtf8("Partie Locale Solo");
+            QString strSolo = tr("Partie Locale Solo");
             solo = new ShadowButt("\uf007", strSolo);
-            solo -> setToolTip("Commencer une partie solo contre une IA");
+            solo -> setToolTip(tr("Commencer une partie solo contre une IA"));
             connect(solo, SIGNAL(clicked()), this, SLOT(emitSolo()));
             box -> addWidget(solo);
 
             box -> addStretch(1);
 
 
-            // 2 Local players Button
-          
-            QString strMultiPlayer = QString::fromUtf8("Partie Locale Multijoueur");
-            multiplayer = new ShadowButt("\uf007", strMultiPlayer);
-            multiplayer -> setToolTip("Commencer une partie à deux joeur en local");
-            connect(multiplayer, SIGNAL(clicked()), this, SLOT(emitMultiPlayer()));
-            box -> addWidget(multiplayer);
-
-            box -> addStretch(1);
-
-
             // Private Join Button
           
-            QString strPrivate = QString::fromUtf8("Rejoindre Partie Privée");
+            QString strPrivate = tr("Rejoindre Partie Privée");
             group = new ShadowButt("\uf1eb", strPrivate);
-            group -> setToolTip("Rejoindre une Partie Privée");
+            group -> setToolTip(tr("Rejoindre une Partie Privée"));
             connect(group, SIGNAL(clicked()), this, SLOT(emitJoin()));
             box -> addWidget(group);
 
@@ -91,9 +80,9 @@ Choice::Choice () {
 
             // Private Host Button
           
-            QString strHost = QString::fromUtf8("Héberger Partie Privée");
+            QString strHost = tr("Héberger Partie Privée");
             host = new ShadowButt("\uf233", strHost);
-            host -> setToolTip("Héberger une Partie Privée");
+            host -> setToolTip(tr("Héberger une Partie Privée"));
             connect(host, SIGNAL(clicked()), this, SLOT(emitHost()));
             box -> addWidget(host);
 
@@ -102,9 +91,9 @@ Choice::Choice () {
 
             // MatchMaking Button
           
-            QString strOnline = QString::fromUtf8("Trouver une Partie");
+            QString strOnline = tr("Trouver une Partie");
             online = new ShadowButt("\uf0ac", strOnline);
-            online -> setToolTip("Commencer une Partie Online");
+            online -> setToolTip(tr("Commencer une Partie Online"));
             connect(online, SIGNAL(clicked()), this, SLOT(emitNet()));
             box -> addWidget(online);
 
@@ -113,9 +102,9 @@ Choice::Choice () {
 
             // Back Button
 
-            QString strIntro = QString::fromUtf8("Retour");
+            QString strIntro = tr("Retour");
             intro = new ShadowButt("\uf060", strIntro);
-            intro -> setToolTip("Retour au Menu");
+            intro -> setToolTip(tr("Retour au Menu"));
             connect(intro, SIGNAL(clicked()), this, SLOT(emitIntro()));
             box -> addWidget(intro);
             
@@ -136,7 +125,6 @@ Choice::~Choice (){
     delete online;
     delete group;
     delete solo;
-    delete multiplayer;
 
     delete effect;
 
@@ -164,10 +152,6 @@ void Choice::emitIntro (){
 
 void Choice::emitSolo (){
     emit soloStack();
-}
-
-void Choice::emitMultiPlayer (){
-    emit multiplayerStack();
 }
 
 void Choice::emitJoin (){

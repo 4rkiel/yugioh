@@ -1,4 +1,4 @@
-#include "../inc/ExtAdr.h"
+#include "../inc/extAdr.h"
 
 ExtAdr::ExtAdr(){
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);

@@ -38,6 +38,7 @@ class ShadowButt : public QPushButton {
     public: 
     ShadowButt(QString icoStr, QString txtStr);
     ~ShadowButt();
+	void setText(QString str);
 
     public slots:
     void buttonPressed();
@@ -45,7 +46,7 @@ class ShadowButt : public QPushButton {
     void runNewState();
 
     private:
-    QHBoxLayout * layout;
+	QHBoxLayout * layout;
     QLabel * ico;
     QLabel * txt;
     QGraphicsDropShadowEffect * effectButt;

@@ -6,9 +6,11 @@
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QScrollArea>
 #include <QLabel>
 #include <QGraphicsDropShadowEffect>
 #include <QWidget>
+#include <QPushButton>
 
 class Duplica : public QFrame {
 
@@ -18,9 +20,19 @@ public:
     
     Duplica();
     ~Duplica();
-    void resizeEvent (QResizeEvent*);
+    void setTitle(QString str);
+    void setPic(QString str);
+    void setDesc(QString str);
+    void setStat(QString strAtk, QString strDef);
+    //    void resizeEvent (QResizeEvent*);
+
+signals:
+
+    void clicked();
 
 private:
+
+    void mousePressEvent (QMouseEvent *);
 
     QGraphicsDropShadowEffect * gffect;
     QGridLayout * layout;
@@ -30,7 +42,7 @@ private:
     
     QLabel * pic;
 
-    QWidget * descBox;
+    QScrollArea * descBox;
     QVBoxLayout * descLayout;
         QLabel * desc;
         QLabel * atk;

@@ -56,7 +56,7 @@ Generique::Generique () {
 
         state = new QLabel;
 
-        QString str = QString::fromUtf8("Initialisation...");
+        QString str = tr("Initialisation...");
         state -> setText(str);
         state -> setWordWrap(true);
 
@@ -117,13 +117,13 @@ void Generique::newLabel (){
 
     switch (labelCount){
         case 1:
-            str = QString::fromUtf8("Chargement de l'amitié");
+            str = tr("Chargement de l'amitié");
             break;
         case 2:
-            str = QString::fromUtf8("Synchronisation de l'heure du D-D-D-D-D-Duel");
+            str = tr("Synchronisation de l'heure du D-D-D-D-D-Duel");
             break;
         case 3:
-            str = QString::fromUtf8("Configuration de l'âme des cartes");
+            str = tr("Configuration de l'âme des cartes");
             break;
         default:
             break;

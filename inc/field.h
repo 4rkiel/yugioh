@@ -19,9 +19,13 @@
 #include <iostream>
 
 #include "../inc/shadowButt.h"
+#include "../inc/flatButt.h"
 #include "../inc/shadowLab.h"
 #include "../inc/slotCard.h"
 #include "../inc/duplica.h"
+#include "../inc/stats.h"
+#include "../inc/history.h"
+#include "../inc/chat.h"
 
 
 class Field : public QFrame {
@@ -32,12 +36,16 @@ public:
 
     Field();
     ~Field();
+    void init();
 
 public slots:
     void emitIntroStack();
+    void openQuit();
+    void closeQuit();
     void openMenu();
     void closeMenu();
-    void cardHover();
+
+    void previewClicked();
     void cardRightClicked(int x);
     void cardClicked(int x);
     void cardEntered(int x);
@@ -48,21 +56,21 @@ signals:
 
 public slots:
     void test();
-
+    void setChat();
+    void setHisto();
+    void setStats();
 
 private:
+    
+    void cardHover();
+    void cardOut();
+
+    bool lockPreview;
+
     QGridLayout * overLayout;
     QWidget * sceneBox;
     QGridLayout * sceneLayout;
     
-        QWidget * leftBarBox;
-        QGridLayout * leftBarLayout;
-    
-            ShadowLab * lifeAdv;
-            ShadowLab * intel;
-            ShadowButt * actionButt;
-
-
         std::vector<SlotCard *> * fieldStack;
         
         QWidget * arenaBox;
@@ -94,24 +102,52 @@ private:
 
         QWidget * rightBarBox;
         QGridLayout * rightBarLayout;
+    
+            ShadowLab * lifeAdv;
+            ShadowLab * intel;
+            ShadowButt * actionButt;
 
             ShadowLab * lifeSlf;
-            Duplica * fullCard;
             ShadowButt * menuButt;
+
+            QWidget * sideTool;
+            QGridLayout * sideToolLayout;
+
+                FlatButt * statsButt;
+                FlatButt * histoButt;
+                FlatButt * chatButt;
+
+            QWidget * side;
+            QGridLayout * sidebar;
+
+                QWidget * currentSide;
+                Duplica * fullCard;
+                Stats * stats;
+                History * history;
+                Chat * chat;
+
 
     QWidget * popupOuter;
     QGridLayout * popupOuterLayout;
     QPushButton * popupShadow;
     QWidget * popupBox;
+    QGraphicsDropShadowEffect * popupEffect;
+    
     QStackedLayout * popupLayout;
     
         QWidget * menuOuter;
         QGridLayout * menuOuterLayout;
 
+        QWidget * quitBox;
+        QGridLayout * quitLayout;
+
+            ShadowButt * quitno;
+            ShadowButt * quitya;
+            QLabel * quitLabel;
+
         QWidget * menuBox;
         QVBoxLayout * menuLayout;
 
-            QGraphicsDropShadowEffect * popupEffect;
             ShadowButt * quit;
             ShadowButt * back;
 };

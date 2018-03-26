@@ -23,7 +23,8 @@ Carte::Carte()
 
 int Carte::correspondant(int position)
 {
-    return (position+75)%150;
+    if(position>=0)
+        return (position+75)%150;
 }
 
 void Carte::afficher_infos()

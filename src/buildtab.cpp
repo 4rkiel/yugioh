@@ -64,9 +64,9 @@ BuildTab::BuildTab (){
         tabLayout -> setSpacing(0);
         tabLayout -> setMargin(0);
   
-            exitButt = new ShadowButt("\uf060", "Retour");
+            exitButt = new ShadowButt("\uf060", tr("Retour"));
             exitButt -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
-            exitButt -> setToolTip("Fermer le menu d'édition");
+            exitButt -> setToolTip(tr("Fermer le menu d'édition"));
             connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));
             
             tabLayout -> addWidget(exitButt, 0, 4, 1, 1);
@@ -81,14 +81,14 @@ BuildTab::BuildTab (){
             
 
             cardButt = new QPushButton;
-            cardButt -> setText("Cartes");
+            cardButt -> setText(tr("Cartes"));
             cardButt -> setProperty("down", false);
             connect(cardButt, SIGNAL(clicked()), this, SLOT(setCard()));
 
             tabLayout -> addWidget(cardButt, 0, 1, 1, 1);
 
             cardEditButt = new QPushButton;
-            cardEditButt -> setText("Editeur de Carte");
+            cardEditButt -> setText(tr("Editeur de Carte"));
             cardEditButt -> setProperty("down", false);
             connect(cardEditButt, SIGNAL(clicked()), this, SLOT(setEditeurCarte()));
 
@@ -126,6 +126,7 @@ BuildTab::BuildTab (){
             deckScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
             deckScroll -> setFocusPolicy(Qt::NoFocus);
 
+            deckScroll->setWidget(new deckEdit);
 
             buildLayout -> addWidget(deckScroll);
 

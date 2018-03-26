@@ -20,8 +20,11 @@
 #include <QSpacerItem>
 #include <QComboBox>
 
+#include <QString>
+
 #include "../inc/shadowButt.h"
 #include "../inc/editeur_de_carte.h"
+#include "../inc/deckedit.h"
 
 class BuildTab : public QFrame {
 
@@ -56,6 +59,7 @@ private:
     QPushButton * deckButt;
     QPushButton * cardButt;
     QPushButton * cardEditButt;
+    QPushButton * deckEditButt;
     ShadowButt * exitButt;
 
     QWidget * buildBox;

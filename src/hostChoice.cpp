@@ -11,7 +11,7 @@
 #include <QDebug>
 #include <iostream>
 #include <string>
-#include "../inc/ExtAdr.h"
+#include "../inc/extAdr.h"
 
 HostChoice::HostChoice () {
 
@@ -34,7 +34,7 @@ HostChoice::HostChoice () {
 
         infoLayout = new QHBoxLayout;
 
-        info = new QLabel ("Partie Privée : Hébergement");
+        info = new QLabel (tr("Partie Privée : Hébergement"));
 
         infoLayout -> addWidget(info);
         infoBox -> setLayout(infoLayout);
@@ -62,9 +62,9 @@ HostChoice::HostChoice () {
 
             // Back Button
             
-            QString strBack = QString::fromUtf8("Retour");
+            QString strBack = tr("Retour");
             choice = new ShadowButt("\uf060", strBack);
-            choice -> setToolTip("Retour au Menu");
+            choice -> setToolTip(tr("Retour au Menu"));
             connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
 
             box -> addWidget(choice, 5,0,1,3);
@@ -76,10 +76,10 @@ HostChoice::HostChoice () {
 
             intro = new QLabel;
             intro -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-            QString strIntro = QString::fromUtf8(
-                "Serveur personnel : initialisé"
-                "\n\n\n"
-                "En attente de connexion..."
+            QString strIntro = tr(
+                "Serveur personnel initialisé."
+                "\n\n"
+                "En attente de connexion de l'adversaire..."
             );
             intro -> setText(strIntro);
             intro -> setWordWrap(true);
@@ -89,22 +89,26 @@ HostChoice::HostChoice () {
             
             box -> setRowStretch(2,10);
             
-           
-            // GET IP
-           
-			ExtAdr * addr = new ExtAdr;
-			connect(addr, SIGNAL(getIP(QString)), this, SLOT(setIP(QString)));
-
-            // IP
+            
+			// IP
             
             phrase = new QLabel;
-            QString ip = "Adresse du serveur : \n\n";
+            QString ip = tr("Adresse du serveur : \n\nPatientez...");
             phrase -> setText(ip);
             phrase -> setWordWrap(true);
             phrase -> setContentsMargins(30,0,30,0);
             phrase -> setTextInteractionFlags(Qt::TextSelectableByMouse); 
             box -> addWidget(phrase,3,1,1,1);
-            
+          
+ 
+            // GET IP
+           
+			ExtAdr * addr = new ExtAdr;
+			connect(addr, SIGNAL(getIP(QString)), this, SLOT(setIP(QString)));
+
+
+
+
             box -> setRowStretch(4,25);
             
            
@@ -153,6 +157,8 @@ void HostChoice::emitChoice (){
 
 void HostChoice::setIP(QString str){
 
-	std::cout << str.toStdString() << "\n";
+    QString ip = tr("Adresse du serveur : \n\n") + str;
+	phrase -> setText(ip);
 
+	emit createHost(str);
 }

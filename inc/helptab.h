@@ -36,6 +36,7 @@ class HelpTab : public QFrame {
     void reInit();
 
     private:
+    QString valeur;
     QGraphicsDropShadowEffect * helpEffect;
     QGridLayout * layout;
 
@@ -68,6 +69,7 @@ class HelpTab : public QFrame {
     QLabel * aboutLabel;
 
     void updateStyle(QPushButton * b);
+    void readLangage();
 
     public slots:
     void setHelp();

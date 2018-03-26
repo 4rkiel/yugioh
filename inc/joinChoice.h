@@ -27,9 +27,11 @@ class JoinChoice : public QFrame {
 
     public slots:
     void emitChoice();
+	void connectIP();
 
     signals:
-    void choiceStack();
+	void sendIP(QString);
+	void choiceStack();
 
     private:
     QGridLayout * layout;

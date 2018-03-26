@@ -26,10 +26,13 @@ class SoloChoice : public QFrame {
     void init();
 
     public slots:
-    void emitChoice();
+    void emitBack();
+    void emitEasy();
+    void emitHard();
 
     signals:
     void choiceStack();
+    void gameStack(int);
 
     private:
     QGridLayout * layout;
@@ -46,6 +49,8 @@ class SoloChoice : public QFrame {
         QGraphicsDropShadowEffect * effect;
 
         QLabel * intro;
+        ShadowButt * easy;
+        ShadowButt * hard;
         ShadowButt * choice;
 
 };
