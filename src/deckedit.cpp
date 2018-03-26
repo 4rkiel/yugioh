@@ -9,19 +9,27 @@ deckEdit::deckEdit()
     for(int i=0; i<NBR_BUTTON_DECK_EDIT; i++)
     {
         tabBut[i] = new QPushButton;
+        tabBut[i]->setText(buttonName.at(i));
+        tabBut[i]->setMinimumWidth(10);
     }
 
     QGridLayout *mainLayout = new QGridLayout;
-    //{
+
+
         // ... selecteur / creation de Deck ....................................
 
         QFrame *editCreate = new QFrame;
-        editCreate->setStyleSheet("background-color: #F44336);");
+        editCreate->setFrameStyle(QFrame::Box);
+        mainLayout->addWidget(editCreate, 0, 0, 1, 4);
+        editCreate->setStyleSheet("background-color: blue);");
         QGridLayout *editCreateLayout = new QGridLayout;
         editCreate->setLayout(editCreateLayout);
-        //{
+
+
             // ... selecteur de Deck ...........................................
+
             QStringList deckList = QDir(deckRep).entryList({"*.deck"});
+
 
             /* on tronc l'extension ".deck" avant de placer dans la QComboBox */
             foreach (QString str, deckList)
@@ -31,19 +39,51 @@ deckEdit::deckEdit()
             }
 
             QFormLayout *formulaire = new QFormLayout;
-            formulaire->addRow("Deck: ", selectDeck);
-
             editCreateLayout->addLayout(formulaire, 0, 0);
 
-            // ... name a deck .................................................
-            tabBut[QUITTER]->setText(tr("Quitter"));
-            formulaire->addRow(tabBut[QUITTER], newDeck);
+                formulaire->addRow("Deck: ", selectDeck);
 
-            //TODO signal qui crée le deck
-        //}
 
-        mainLayout->addWidget(editCreate);
+                // ... name a deck .............................................
 
-    //}
+                tabBut[QUITTER]->setText(tr("Quitter"));
+                formulaire->addRow(tabBut[QUITTER], newDeck);
+
+
+                //TODO signal qui crée le deck
+
+
+            // ... boutons horizontaux .........................................
+
+            QHBoxLayout *buttonH = new QHBoxLayout;
+            editCreateLayout->addLayout(buttonH, 1, 0, 1, 3);
+
+                buttonH->addWidget(tabBut[MELANGER]);
+                buttonH->addWidget(tabBut[TRIER]);
+                buttonH->addWidget(tabBut[EFFACER]);
+
+
+            // ... boutons verticaux ...........................................
+
+            QVBoxLayout *buttonV = new QVBoxLayout;
+            editCreateLayout->addLayout(buttonV, 2, 1, 3, 1);
+
+                buttonV->addWidget(tabBut[SAUVER]);
+                buttonV->addWidget(tabBut[CREER]);
+                buttonV->addWidget(tabBut[SUPPRIMER]);
+
+
+        // ... Compteur de cartes / visualisateur de Deck ......................
+
+        QVBoxLayout *deckVisuLayout = new QVBoxLayout;
+        mainLayout->addLayout(deckVisuLayout, 1, 0, 4, 3);
+
+
+            // ... compteur de cartes ..........................................
+
+
+
+
+
     setLayout(mainLayout);
 }
