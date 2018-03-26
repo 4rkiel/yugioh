@@ -435,7 +435,6 @@ void OptionTab::largeChange (){
     emit newSettings();
 }
 
-//fonction qui met à jour la traduction dynamiquement après chgt de langage
 void OptionTab::changeEvent(QEvent *event)
 {
     if (event->type() == QEvent::LanguageChange) {
