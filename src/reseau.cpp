@@ -31,10 +31,15 @@ void Reseau::nouvelleConnexion()
 	 emit hostReady(2);
 }
 
-void Reseau::mondieu()
+void Reseau::mondieu(QString str)
 {
     socket->abort();
-    socket->connectToHost("127.0.0.1", 50885);
+	
+	connect(socket, SIGNAL(hostFound()), this, SLOT(sendOK()));
+	connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), 
+		this, SLOT(sendERR(QAbstractSocket::SocketError)));
+
+    socket->connectToHost(str, 50885);
 }
 
 void Reseau::donneesServ()
@@ -105,7 +110,7 @@ void Reseau::deconnexionClient()
 
 void Reseau::connecte()
 {
-    std::cout << "la fin négro" << std::endl;
+    std::cout << "le début négro" << std::endl;
 }
 
 void Reseau::envoyer(const QString &message)
@@ -212,3 +217,12 @@ void Reseau::change_pos(int x)
     envoyer(chaine);
 }
 
+
+
+void Reseau::sendOK(){
+	emit connectOK(2);
+}
+
+void Reseau::sendERR(QAbstractSocket::SocketError){
+	emit connectKO();
+}

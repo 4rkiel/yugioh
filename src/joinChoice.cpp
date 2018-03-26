@@ -66,7 +66,7 @@ JoinChoice::JoinChoice () {
 			
 			ShadowButt * valid = new ShadowButt("","Valider");
 			box -> addWidget(valid, 2,1,1,1);
-
+			connect(valid, SIGNAL(clicked()), this, SLOT(connectIP()));
 
 // http://www.qtcentre.org/threads/42456-How-to-connect-QLineEdit-to-quot-ENTER-quot-key-press-form-keyboard
 
@@ -125,3 +125,7 @@ void JoinChoice::emitChoice (){
     emit choiceStack();
 }
 
+void JoinChoice::connectIP(){
+
+	emit sendIP(input->text());
+}

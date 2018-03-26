@@ -22,6 +22,7 @@ public slots:
 
     void emitIntro();
     void loadField(int);
+	void sendErr();
 
 signals:
 

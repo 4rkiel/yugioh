@@ -19,13 +19,15 @@ public:
      void envoyer(const QString &message);
      void parser(std::string s);
 public slots:
+	 void sendOK();
+	 void sendERR(QAbstractSocket::SocketError);
      void afficher(Carte* c);
      void nouvelleConnexion();
      void donneesRecues();
      void deconnexionClient();
      void go(QString);
      void connecte();
-     void mondieu();
+     void mondieu(QString);
      void donneesServ();
      void send();
      void attaque();
@@ -38,7 +40,8 @@ public slots:
 signals:
     void a_parser(QString chaine);
 	void hostReady(int);
-
+	void connectOK(int);
+	void connectKO();
 };
 
 #endif // RESEAU_H

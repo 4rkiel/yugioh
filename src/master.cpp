@@ -21,7 +21,13 @@ Master::Master (){
         connect(selector, SIGNAL(introStack()), this, SLOT(emitIntro()));
         connect(selector, SIGNAL(gameStack(int)), this, SLOT(loadField(int)));
         connect(selector, SIGNAL(createHost(QString)), network, SLOT(go(QString)));
+
 		connect(network, SIGNAL(hostReady(int)), this, SLOT(loadField(int)));
+		connect(selector, SIGNAL(sendIP(QString)), network, SLOT(mondieu(QString)));
+
+		connect(network, SIGNAL(connectOK(int)), this, SLOT(loadField(int)));
+		connect(network, SIGNAL(connectKO()), this, SLOT(sendErr()));
+	
 
     stacked -> addWidget(selector);
        
@@ -61,6 +67,7 @@ void Master::emitIntro (){
 
 void Master::loadField (int x){
 
+
 	// Field
 
     field = new Field;
@@ -69,6 +76,12 @@ void Master::loadField (int x){
  
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
-    field -> init();
+
+	delete selector;
+	
+	field -> init();
 }
 
+void Master::sendErr(){
+
+}
