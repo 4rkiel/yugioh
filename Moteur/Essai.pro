@@ -17,10 +17,18 @@ SOURCES += main.cpp\
     noyau.cpp \
     carte.cpp \
     reseau.cpp \
+<<<<<<< HEAD
+    parser.cpp
+=======
     parser.cpp 
+>>>>>>> dbbd98e5d0f793580ec640a1b97a28edd8ca8256
 
 HEADERS  += essai.h \
     noyau.h \
     carte.h \
     reseau.h \
+<<<<<<< HEAD
+    parser.h
+=======
     parser.h 
+>>>>>>> dbbd98e5d0f793580ec640a1b97a28edd8ca8256
