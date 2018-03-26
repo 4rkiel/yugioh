@@ -10,6 +10,7 @@
 #include <vector>
 #include <carte.h>
 #include <QDir>
+#include <sstream>
 
 class Parser : public QWidget
 {
@@ -41,6 +42,8 @@ public:
     std::vector<Carte *> * rechercher_attribut(int a);
     std::vector<Carte *> * rechercher_set(int s);
     std::vector<Carte *> * rechercher_niveau(int n);
+
+    std::vector<Carte *> * deck(QString s);
 
     void parser(std::string ligne);
 };
