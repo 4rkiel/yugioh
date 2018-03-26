@@ -17,12 +17,10 @@ SOURCES += main.cpp\
     noyau.cpp \
     carte.cpp \
     reseau.cpp \
-    parser.cpp \
-    TestExternalAddress.cpp
+    parser.cpp 
 
 HEADERS  += essai.h \
     noyau.h \
     carte.h \
     reseau.h \
-    parser.h \
-    TestExternalAddress.h
+    parser.h 
