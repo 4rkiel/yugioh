@@ -4,6 +4,7 @@
 #include <QStackedWidget>
 #include <QGridLayout>
 
+#include "../inc/reseau.h"
 #include "../inc/field.h"
 #include "../inc/selector.h"
 

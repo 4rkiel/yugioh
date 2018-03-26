@@ -4,6 +4,9 @@ Master::Master (){
 
 	mode = 0;
 
+	Reseau * network = new Reseau;
+
+
     layout = new QGridLayout;
     layout -> setMargin(0);
     layout -> setSpacing(0);
@@ -17,11 +20,12 @@ Master::Master (){
 
         connect(selector, SIGNAL(introStack()), this, SLOT(emitIntro()));
         connect(selector, SIGNAL(gameStack(int)), this, SLOT(loadField(int)));
+        connect(selector, SIGNAL(createHost(QString)), network, SLOT(go(QString)));
+		connect(network, SIGNAL(hostReady(int)), this, SLOT(loadField(int)));
 
     stacked -> addWidget(selector);
-
        
-
+	
 
 
     stacked -> setCurrentWidget(selector);
@@ -67,3 +71,4 @@ void Master::loadField (int x){
     stacked -> setCurrentWidget(field);
     field -> init();
 }
+

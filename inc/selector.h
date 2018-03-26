@@ -22,6 +22,7 @@ public:
 
 public slots:
 
+	void transmitHost(QString);
     void emitIntro();
     void emitGame(int);
     void choiceStack();
@@ -33,6 +34,7 @@ public slots:
 
 signals:
 
+	void createHost(QString);
     void introStack();
     void gameStack(int);
 

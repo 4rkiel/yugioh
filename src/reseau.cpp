@@ -7,14 +7,16 @@ Reseau::Reseau()
      connect(socket, SIGNAL(readyRead()), this, SLOT(donneesRecues()));
 }
 
-void Reseau::go()
+void Reseau::go(QString str)
 {
     serveur = new QTcpServer(this);
-    if(!serveur->listen(QHostAddress::Any, 50885))
-    std::cout << "je connecte PAS le serveur" << std::endl;
-    else
-         std::cout << "je connecte le serveur" << std::endl;
-    connect(serveur, SIGNAL(newConnection()), this, SLOT(nouvelleConnexion()));
+    if(!serveur->listen(QHostAddress(str), 50885)){
+
+//    std::cout << "je connecte PAS le serveur" << std::endl;
+		return;
+	}
+    
+	connect(serveur, SIGNAL(newConnection()), this, SLOT(nouvelleConnexion()));
 
     tailleMessage2=0;
 }
@@ -23,9 +25,10 @@ void Reseau::nouvelleConnexion()
 {
 
      socket = serveur->nextPendingConnection();
-      std::cout << "YEAAAAH MUNITION AU MAX!!" << std::endl;
-      connect(socket,SIGNAL(readyRead()),this,SLOT(donneesRecues()));
-      connect(socket,SIGNAL(disconnected()),this,SLOT(deconnexionClient()));
+     //std::cout << "YEAAAAH MUNITION AU MAX!!" << std::endl;
+     connect(socket,SIGNAL(readyRead()),this,SLOT(donneesRecues()));
+     connect(socket,SIGNAL(disconnected()),this,SLOT(deconnexionClient()));
+	 emit hostReady(2);
 }
 
 void Reseau::mondieu()

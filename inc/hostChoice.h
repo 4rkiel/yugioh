@@ -32,6 +32,7 @@ class HostChoice : public QFrame {
 
     signals:
     void choiceStack();
+	void createHost(QString str);
 
     private:
     QGridLayout * layout;

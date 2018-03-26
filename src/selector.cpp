@@ -183,6 +183,7 @@ void Selector::hostStack(){
     hostChoice = new HostChoice;
         
     connect(hostChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
+    connect(hostChoice, SIGNAL(createHost(QString)), this, SLOT(transmitHost(QString)));
         
     stacked -> addWidget(hostChoice);
 
@@ -208,6 +209,11 @@ void Selector::netStack(){
 
 
     stacked -> setCurrentWidget(netChoice);
+}
+
+
+void Selector::transmitHost(QString str){
+	emit createHost(str);
 }
 
 
