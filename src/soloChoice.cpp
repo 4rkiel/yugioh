@@ -30,7 +30,7 @@ SoloChoice::SoloChoice () {
 
         infoLayout = new QHBoxLayout;
 
-        info = new QLabel ("Partie Solo");
+        info = new QLabel (tr("Partie Solo"));
 
         infoLayout -> addWidget(info);
         infoBox -> setLayout(infoLayout);
@@ -93,7 +93,7 @@ SoloChoice::SoloChoice () {
 
             intro = new QLabel;
             intro -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-            QString strIntro = tr("Choix de la difficulté :");
+            QString strIntro = tr("Choix de la difficulté");
             intro -> setText(strIntro);
             intro -> setWordWrap(true);
             intro -> setContentsMargins(30,0,30,0);
@@ -138,7 +138,7 @@ SoloChoice::~SoloChoice (){
 
 
 void SoloChoice::init (){
-//    local -> setFocus();
+    easy -> setFocus();
 }
 
 

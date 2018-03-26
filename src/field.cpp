@@ -10,6 +10,8 @@
 
 Field::Field () {
 
+    lockPreview = false;
+
     overLayout = new QGridLayout;
     overLayout -> setSpacing(0);
     overLayout -> setMargin(0);
@@ -192,7 +194,7 @@ Field::Field () {
         rightBarLayout -> setSpacing(0);
         rightBarLayout -> setMargin(0);
         rightBarLayout -> setAlignment(Qt::AlignCenter);
-        rightBarLayout -> setContentsMargins(10, 10, 10, 10);
+        rightBarLayout -> setContentsMargins(10, 0, 10, 0);
 
  
             lifeAdv = new ShadowLab();
@@ -207,88 +209,91 @@ Field::Field () {
             connect(menuButt, SIGNAL(clicked()), this, SLOT(openMenu()));
             rightBarLayout -> addWidget(menuButt, 0, 3, 1, 1);
            
-
+/*
             QSpacerItem * spacerRightTop = new QSpacerItem(5,1,
                 QSizePolicy::Preferred,QSizePolicy::Expanding);
             rightBarLayout -> addItem(spacerRightTop, 1, 0);
-            
+*/            
             
             // Sidebar
 
-            sideTool = new QWidget;
-            sideTool -> setStyleSheet("background: green");
-            sideToolLayout = new QGridLayout;
-
-                statsButt = new QPushButton;
-                statsButt -> setText(tr("Duel"));
-                connect(statsButt, SIGNAL(clicked()), this, SLOT(setStats()));
-                sideToolLayout -> addWidget(statsButt, 0, 0);
-
-                histoButt = new QPushButton;
-                histoButt -> setText(tr("Historique"));
-                connect(histoButt, SIGNAL(clicked()), this, SLOT(setHisto()));
-                sideToolLayout -> addWidget(histoButt, 0, 1);
-                
-                chatButt = new QPushButton;
-                chatButt -> setText(tr("Chat"));
-                connect(chatButt, SIGNAL(clicked()), this, SLOT(setChat()));
-                sideToolLayout -> addWidget(chatButt, 0, 2);
-
-            sideTool -> setLayout(sideToolLayout);
-                
-            rightBarLayout -> addWidget(sideTool, 2, 0, 1, 5);
-
-
             side = new QWidget;
-            side -> setStyleSheet("background: blue");
-            side -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+            side -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+            side -> setStyleSheet("background: #546E7A");
             sidebar = new QGridLayout;   
+
+                sideTool = new QWidget;
+                sideToolLayout = new QGridLayout;
+                sideToolLayout -> setMargin(0);
+                sideToolLayout -> setSpacing(0);
+
+                    statsButt = new FlatButt("\uf277","");
+                    statsButt -> setToolTip(tr("Duel"));
+                    connect(statsButt, SIGNAL(clicked()), this, SLOT(setStats()));
+                    sideToolLayout -> addWidget(statsButt, 0, 0);
+
+                    histoButt = new FlatButt("\uf03c","");
+                    histoButt -> setToolTip(tr("Historique"));
+                    connect(histoButt, SIGNAL(clicked()), this, SLOT(setHisto()));
+                    sideToolLayout -> addWidget(histoButt, 0, 1);
+                    
+                    chatButt = new FlatButt("\uf086","");
+                    chatButt -> setToolTip(tr("Chat"));
+                    connect(chatButt, SIGNAL(clicked()), this, SLOT(setChat()));
+                    sideToolLayout -> addWidget(chatButt, 0, 2);
+
+                sideTool -> setLayout(sideToolLayout);
+                    
+                sidebar -> addWidget(sideTool, 0, 0, 1, 1);
+
 
                 fullCard = new Duplica;
                 fullCard -> setVisible(false);
-                sidebar -> addWidget(fullCard, 0, 0);
+                connect(fullCard, SIGNAL(clicked()), this, SLOT(previewClicked()));
+                sidebar -> addWidget(fullCard, 0, 0, 10, 1);
+
 
                 stats = new Stats;
                 stats -> setVisible(false);
-                sidebar -> addWidget(stats, 0, 0);
+                sidebar -> addWidget(stats, 1, 0, 9, 1);
 
                 history = new History;
                 history -> setVisible(false);
-                sidebar -> addWidget(history, 0, 0);
+                sidebar -> addWidget(history, 1, 0, 9, 1);
 
                 chat = new Chat;
                 chat -> setVisible(false);
-                sidebar -> addWidget(chat, 0, 0);
+                sidebar -> addWidget(chat, 1, 0, 9, 1);
+
+                currentSide = chat;
 
 
-
-                QSpacerItem * spacerSide = new QSpacerItem(5,5,
+/*                QSpacerItem * spacerSide = new QSpacerItem(5,5,
                     QSizePolicy::Preferred,QSizePolicy::Expanding);
                 sidebar -> addItem(spacerSide, 1, 0);
-
+*/
             side -> setLayout(sidebar);
-            rightBarLayout -> addWidget(side, 3, 0, 1, 5);
+            rightBarLayout -> addWidget(side, 2, 0, 1, 5);
 
-
+/*
             QSpacerItem * spacerRightBot = new QSpacerItem(5,1,
                 QSizePolicy::Preferred,QSizePolicy::Expanding);
-            rightBarLayout -> addItem(spacerRightBot, 4, 0);
-
+            rightBarLayout -> addItem(spacerRightBot, 3, 0);
+*/
 
             lifeSlf = new ShadowLab();
             QString strSlf = QString::fromUtf8("8000");
             lifeSlf -> setText(strSlf);
             lifeSlf -> setObjectName("Life");
-            rightBarLayout -> addWidget(lifeSlf, 5, 1, 1, 1);
+            rightBarLayout -> addWidget(lifeSlf, 4, 1, 1, 1);
 
             actionButt = new ShadowButt("\uf04b", "");
             actionButt -> setToolTip(tr("Terminer le tour"));
-            rightBarLayout -> addWidget(actionButt, 5, 3, 1, 1);
+            rightBarLayout -> addWidget(actionButt, 4, 3, 1, 1);
             connect(actionButt, SIGNAL(clicked()), this, SLOT(test()));
 
 
            
-
 
 
         rightBarBox -> setObjectName("rightBarBox");
@@ -344,6 +349,36 @@ Field::Field () {
         menuOuter = new QWidget;
         menuOuterLayout = new QGridLayout;
 
+    
+        // Quit Safety
+
+        quitBox = new QWidget;
+        quitBox -> setObjectName("quitBox");
+        quitLayout = new QGridLayout;
+        quitLayout -> setAlignment(Qt::AlignCenter);
+
+
+            quitno = new ShadowButt("\uf00d", tr("Non"));
+            quitno -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+            quitno -> setToolTip(tr("Croire en l'âme des cartes"));
+            connect(quitno, SIGNAL(clicked()), this, SLOT(closeQuit()));
+            quitLayout -> addWidget(quitno, 1,0,1,1);
+
+            quitya = new ShadowButt("\uf078", tr("Abandonner"));
+            quitya -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+            quitya -> setToolTip(tr("Abandonner le duel"));
+            connect(quitya, SIGNAL(clicked()), this, SLOT(emitIntroStack()));
+            quitLayout -> addWidget(quitya, 1,1,1,1);
+
+            quitLabel = new QLabel(tr("Voulez vous abandonner"));
+            quitLayout -> addWidget(quitLabel, 0,0,1,2);
+
+        quitBox -> setLayout(quitLayout);
+        quitBox -> setVisible(false);
+        menuOuterLayout -> addWidget(quitBox, 0, 0, 1, 1);
+       
+
+
         menuBox = new QWidget;
         menuBox -> setObjectName("menuBox");
         menuLayout = new QVBoxLayout;
@@ -353,7 +388,7 @@ Field::Field () {
             quit = new ShadowButt("\uf00d", tr("Abandonner"));
             quit -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
             quit -> setToolTip(tr("Quitter le Duel"));
-            connect(quit, SIGNAL(clicked()), this, SLOT(emitIntroStack()));
+            connect(quit, SIGNAL(clicked()), this, SLOT(openQuit()));
             menuLayout -> addWidget(quit);
 
             back = new ShadowButt("\uf078", tr("Fermer"));
@@ -366,7 +401,7 @@ Field::Field () {
 
         menuBox -> setLayout(menuLayout);
         
-        menuOuterLayout -> addWidget(menuBox);
+        menuOuterLayout -> addWidget(menuBox, 0, 0, 1, 1);
         menuOuter -> setLayout(menuOuterLayout);
 
     popupLayout -> addWidget(menuOuter);
@@ -386,6 +421,13 @@ Field::Field () {
 
     
 Field::~Field (){
+
+            delete quitno;
+            delete quitya;
+            delete quitLabel;
+
+        delete quitLayout;
+        delete quitBox;
 
             delete quit;
             delete back;
@@ -471,12 +513,23 @@ Field::~Field (){
 
 void Field::init(){
     chat -> setVisible(false);
-    currentSide = chat;
 }
 
 
 void Field::emitIntroStack (){
     emit introStack();
+}
+
+void Field::openQuit (){
+    menuBox -> setVisible(false);
+    quitBox -> setVisible(true);
+    quitno -> setFocus();
+}
+
+void Field::closeQuit (){
+    quitBox -> setVisible(false);
+    menuBox -> setVisible(true);
+    back -> setFocus();
 }
 
 void Field::openMenu (){
@@ -492,15 +545,28 @@ void Field::closeMenu (){
 }
 
 
-void Field::cardHover (){
+void Field::previewClicked(){
 
-//    fullCard -> setText(strCard);
+    if (lockPreview){
 
+        lockPreview = false;
+        cardOut();
+    }
 }
-
 
 void Field::cardRightClicked(int x){
 	std::cout << x << " Right Clicked \n";
+
+    if (lockPreview){
+
+        lockPreview = false;
+        cardHover();
+
+    } else {
+
+        cardHover();
+        lockPreview = true;
+    }
 }
 
 void Field::cardClicked(int x){
@@ -509,10 +575,14 @@ void Field::cardClicked(int x){
 
 void Field::cardEntered(int x){
     std::cout << x << " entered \n";
+    
+    cardHover();
 }
 
 void Field::cardLeaved(int x){
     std::cout << x << " leaved \n";
+
+    cardOut();
 }
 
 
@@ -538,6 +608,33 @@ void Field::setChat(){
     currentSide = chat;
 }
 
+void Field::cardHover (){
+
+    fullCard -> setTitle("Dragon Blanc aux Yeux Bleus");
+    fullCard -> setPic("img/cards/001/LOB-EN001-Blue-EyesWhiteDragon2ndart.jpg");
+    fullCard -> setDesc(
+        "Ce dragon légendaire est un puissant "
+        "moteur de destruction. Rares sont ceux qui ont survécus à cette "
+        "surpuissante créature quasiment invincible pour en parler."
+    );
+    fullCard -> setStat("3000","2500");
+
+    if (!lockPreview){
+        sideTool -> setVisible(false);
+        currentSide -> setVisible(false);
+        fullCard -> setVisible(true);
+    }
+}
+
+void Field::cardOut (){
+
+    if (!lockPreview){
+        fullCard -> setVisible(false);
+        currentSide -> setVisible(true);
+        sideTool -> setVisible(true);
+    }
+}
+
 
 
 
@@ -547,6 +644,6 @@ void Field::test (){
     fieldStack -> at(3) -> setPic("img/cards/001/LOB-EN125-GaiatheDragonChampion.jpg");
     fieldStack -> at(79) -> setPic("img/cards/001/LOB-EN125-GaiatheDragonChampion.jpg");
 
-    cardHover();
+//    cardHover();
 
 }

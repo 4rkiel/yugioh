@@ -72,6 +72,7 @@ SOURCES       = src/buildtab.cpp \
 		src/main.cpp \
 		src/optab.cpp \
 		src/ruletab.cpp \
+		src/flatButt.cpp \
 		src/shadowButt.cpp \
 		src/shadowLab.cpp \
 		src/slotCard.cpp \
@@ -97,6 +98,7 @@ SOURCES       = src/buildtab.cpp \
 		obj/moc_main.cpp \
 		obj/moc_optab.cpp \
 		obj/moc_ruletab.cpp \
+		obj/moc_flatButt.cpp \
 		obj/moc_shadowButt.cpp \
 		obj/moc_shadowLab.cpp \
 		obj/moc_slotCard.cpp \
@@ -123,6 +125,7 @@ OBJECTS       = obj/buildtab.o \
 		obj/main.o \
 		obj/optab.o \
 		obj/ruletab.o \
+		obj/flatButt.o \
 		obj/shadowButt.o \
 		obj/shadowLab.o \
 		obj/slotCard.o \
@@ -149,6 +152,7 @@ OBJECTS       = obj/buildtab.o \
 		obj/moc_main.o \
 		obj/moc_optab.o \
 		obj/moc_ruletab.o \
+		obj/moc_flatButt.o \
 		obj/moc_shadowButt.o \
 		obj/moc_shadowLab.o \
 		obj/moc_slotCard.o \
@@ -254,6 +258,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		inc/main.h \
 		inc/optab.h \
 		inc/ruletab.h \
+		inc/flatButt.h \
 		inc/shadowButt.h \
 		inc/shadowLab.h \
 		inc/sleeper.h \
@@ -280,6 +285,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/main.cpp \
 		src/optab.cpp \
 		src/ruletab.cpp \
+		src/flatButt.cpp \
 		src/shadowButt.cpp \
 		src/shadowLab.cpp \
 		src/slotCard.cpp \
@@ -479,8 +485,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents inc/buildtab.h inc/master.h inc/selector.h inc/choice.h inc/soloChoice.h inc/joinChoice.h inc/hostChoice.h inc/netChoice.h inc/duplica.h inc/stats.h inc/history.h inc/chat.h inc/editeur_de_carte.h inc/extAdr.h inc/field.h inc/generique.h inc/genProgress.h inc/helptab.h inc/intro.h inc/main.h inc/optab.h inc/ruletab.h inc/shadowButt.h inc/shadowLab.h inc/sleeper.h inc/slotCard.h inc/zButt.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/buildtab.cpp src/master.cpp src/selector.cpp src/choice.cpp src/soloChoice.cpp src/joinChoice.cpp src/hostChoice.cpp src/netChoice.cpp src/duplica.cpp src/stats.cpp src/history.cpp src/chat.cpp src/editeur_de_carte.cpp src/extAdr.cpp src/field.cpp src/generique.cpp src/genProgress.cpp src/helptab.cpp src/intro.cpp src/main.cpp src/optab.cpp src/ruletab.cpp src/shadowButt.cpp src/shadowLab.cpp src/slotCard.cpp src/zButt.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents inc/buildtab.h inc/master.h inc/selector.h inc/choice.h inc/soloChoice.h inc/joinChoice.h inc/hostChoice.h inc/netChoice.h inc/duplica.h inc/stats.h inc/history.h inc/chat.h inc/editeur_de_carte.h inc/extAdr.h inc/field.h inc/generique.h inc/genProgress.h inc/helptab.h inc/intro.h inc/main.h inc/optab.h inc/ruletab.h inc/flatButt.h inc/shadowButt.h inc/shadowLab.h inc/sleeper.h inc/slotCard.h inc/zButt.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/buildtab.cpp src/master.cpp src/selector.cpp src/choice.cpp src/soloChoice.cpp src/joinChoice.cpp src/hostChoice.cpp src/netChoice.cpp src/duplica.cpp src/stats.cpp src/history.cpp src/chat.cpp src/editeur_de_carte.cpp src/extAdr.cpp src/field.cpp src/generique.cpp src/genProgress.cpp src/helptab.cpp src/intro.cpp src/main.cpp src/optab.cpp src/ruletab.cpp src/flatButt.cpp src/shadowButt.cpp src/shadowLab.cpp src/slotCard.cpp src/zButt.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents i18n/en_US/yugi_en_US.ts i18n/fr_FR/yugi_fr_FR.ts $(DISTDIR)/
 
 
@@ -512,9 +518,9 @@ compiler_moc_predefs_clean:
 obj/moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -m64 -pipe -std=c++0x -O2 -std=gnu++11 -Wall -W -dM -E -o obj/moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: obj/moc_buildtab.cpp obj/moc_master.cpp obj/moc_selector.cpp obj/moc_choice.cpp obj/moc_soloChoice.cpp obj/moc_joinChoice.cpp obj/moc_hostChoice.cpp obj/moc_netChoice.cpp obj/moc_duplica.cpp obj/moc_stats.cpp obj/moc_history.cpp obj/moc_chat.cpp obj/moc_editeur_de_carte.cpp obj/moc_extAdr.cpp obj/moc_field.cpp obj/moc_generique.cpp obj/moc_genProgress.cpp obj/moc_helptab.cpp obj/moc_intro.cpp obj/moc_main.cpp obj/moc_optab.cpp obj/moc_ruletab.cpp obj/moc_shadowButt.cpp obj/moc_shadowLab.cpp obj/moc_slotCard.cpp obj/moc_zButt.cpp
+compiler_moc_header_make_all: obj/moc_buildtab.cpp obj/moc_master.cpp obj/moc_selector.cpp obj/moc_choice.cpp obj/moc_soloChoice.cpp obj/moc_joinChoice.cpp obj/moc_hostChoice.cpp obj/moc_netChoice.cpp obj/moc_duplica.cpp obj/moc_stats.cpp obj/moc_history.cpp obj/moc_chat.cpp obj/moc_editeur_de_carte.cpp obj/moc_extAdr.cpp obj/moc_field.cpp obj/moc_generique.cpp obj/moc_genProgress.cpp obj/moc_helptab.cpp obj/moc_intro.cpp obj/moc_main.cpp obj/moc_optab.cpp obj/moc_ruletab.cpp obj/moc_flatButt.cpp obj/moc_shadowButt.cpp obj/moc_shadowLab.cpp obj/moc_slotCard.cpp obj/moc_zButt.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) obj/moc_buildtab.cpp obj/moc_master.cpp obj/moc_selector.cpp obj/moc_choice.cpp obj/moc_soloChoice.cpp obj/moc_joinChoice.cpp obj/moc_hostChoice.cpp obj/moc_netChoice.cpp obj/moc_duplica.cpp obj/moc_stats.cpp obj/moc_history.cpp obj/moc_chat.cpp obj/moc_editeur_de_carte.cpp obj/moc_extAdr.cpp obj/moc_field.cpp obj/moc_generique.cpp obj/moc_genProgress.cpp obj/moc_helptab.cpp obj/moc_intro.cpp obj/moc_main.cpp obj/moc_optab.cpp obj/moc_ruletab.cpp obj/moc_shadowButt.cpp obj/moc_shadowLab.cpp obj/moc_slotCard.cpp obj/moc_zButt.cpp
+	-$(DEL_FILE) obj/moc_buildtab.cpp obj/moc_master.cpp obj/moc_selector.cpp obj/moc_choice.cpp obj/moc_soloChoice.cpp obj/moc_joinChoice.cpp obj/moc_hostChoice.cpp obj/moc_netChoice.cpp obj/moc_duplica.cpp obj/moc_stats.cpp obj/moc_history.cpp obj/moc_chat.cpp obj/moc_editeur_de_carte.cpp obj/moc_extAdr.cpp obj/moc_field.cpp obj/moc_generique.cpp obj/moc_genProgress.cpp obj/moc_helptab.cpp obj/moc_intro.cpp obj/moc_main.cpp obj/moc_optab.cpp obj/moc_ruletab.cpp obj/moc_flatButt.cpp obj/moc_shadowButt.cpp obj/moc_shadowLab.cpp obj/moc_slotCard.cpp obj/moc_zButt.cpp
 obj/moc_buildtab.cpp: inc/shadowButt.h \
 		inc/sleeper.h \
 		inc/editeur_de_carte.h \
@@ -526,6 +532,7 @@ obj/moc_buildtab.cpp: inc/shadowButt.h \
 obj/moc_master.cpp: inc/field.h \
 		inc/shadowButt.h \
 		inc/sleeper.h \
+		inc/flatButt.h \
 		inc/shadowLab.h \
 		inc/slotCard.h \
 		inc/zButt.h \
@@ -625,6 +632,7 @@ obj/moc_extAdr.cpp: inc/extAdr.h \
 
 obj/moc_field.cpp: inc/shadowButt.h \
 		inc/sleeper.h \
+		inc/flatButt.h \
 		inc/shadowLab.h \
 		inc/slotCard.h \
 		inc/zButt.h \
@@ -668,6 +676,7 @@ obj/moc_main.cpp: inc/master.h \
 		inc/field.h \
 		inc/shadowButt.h \
 		inc/sleeper.h \
+		inc/flatButt.h \
 		inc/shadowLab.h \
 		inc/slotCard.h \
 		inc/zButt.h \
@@ -707,6 +716,11 @@ obj/moc_ruletab.cpp: inc/shadowButt.h \
 		obj/moc_predefs.h \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) --include obj/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ark/qt/yugioh -I/home/ark/qt/yugioh -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include inc/ruletab.h -o obj/moc_ruletab.cpp
+
+obj/moc_flatButt.cpp: inc/flatButt.h \
+		obj/moc_predefs.h \
+		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) --include obj/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/ark/qt/yugioh -I/home/ark/qt/yugioh -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include inc/flatButt.h -o obj/moc_flatButt.cpp
 
 obj/moc_shadowButt.cpp: inc/sleeper.h \
 		inc/shadowButt.h \
@@ -754,6 +768,7 @@ obj/master.o: src/master.cpp inc/master.h \
 		inc/field.h \
 		inc/shadowButt.h \
 		inc/sleeper.h \
+		inc/flatButt.h \
 		inc/shadowLab.h \
 		inc/slotCard.h \
 		inc/zButt.h \
@@ -828,6 +843,7 @@ obj/extAdr.o: src/extAdr.cpp inc/extAdr.h
 obj/field.o: src/field.cpp inc/field.h \
 		inc/shadowButt.h \
 		inc/sleeper.h \
+		inc/flatButt.h \
 		inc/shadowLab.h \
 		inc/slotCard.h \
 		inc/zButt.h \
@@ -861,6 +877,7 @@ obj/main.o: src/main.cpp inc/main.h \
 		inc/field.h \
 		inc/shadowButt.h \
 		inc/sleeper.h \
+		inc/flatButt.h \
 		inc/shadowLab.h \
 		inc/slotCard.h \
 		inc/zButt.h \
@@ -893,6 +910,9 @@ obj/ruletab.o: src/ruletab.cpp inc/ruletab.h \
 		inc/shadowButt.h \
 		inc/sleeper.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/ruletab.o src/ruletab.cpp
+
+obj/flatButt.o: src/flatButt.cpp inc/flatButt.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/flatButt.o src/flatButt.cpp
 
 obj/shadowButt.o: src/shadowButt.cpp inc/shadowButt.h \
 		inc/sleeper.h
@@ -973,6 +993,9 @@ obj/moc_optab.o: obj/moc_optab.cpp
 
 obj/moc_ruletab.o: obj/moc_ruletab.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_ruletab.o obj/moc_ruletab.cpp
+
+obj/moc_flatButt.o: obj/moc_flatButt.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_flatButt.o obj/moc_flatButt.cpp
 
 obj/moc_shadowButt.o: obj/moc_shadowButt.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/moc_shadowButt.o obj/moc_shadowButt.cpp

@@ -38,6 +38,10 @@ signals:
 
 private:
 
+    void clean();
+
+    int mode;
+
     QStackedWidget * stacked;
     QGridLayout * layout;
 

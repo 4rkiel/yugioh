@@ -1,5 +1,7 @@
 #include "../inc/duplica.h"
 
+#include <iostream>
+
 /******************************************************************************
 
 	Widget permettant d'afficher le contenu complet d'une carte,
@@ -9,7 +11,8 @@
 ******************************************************************************/
 
 Duplica::Duplica(){
- 
+
+
     gffect = new QGraphicsDropShadowEffect;
     gffect -> setBlurRadius(5);
     gffect -> setYOffset(5);
@@ -18,6 +21,10 @@ Duplica::Duplica(){
 
     setGraphicsEffect(gffect);
 
+    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    QSizePolicy sp = sizePolicy();
+    sp.setRetainSizeWhenHidden(true);
+    setSizePolicy(sp);
 
     QFont font = this -> font();
     font.setPointSize(10);
@@ -33,7 +40,7 @@ Duplica::Duplica(){
             // Titre
             
             title = new QLabel;
-            title -> setText("Dragon Blanc aux Yeux Bleus");
+            title -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
             title -> setWordWrap(true);
 			title -> setFont(font);
             title -> setContentsMargins(10, 10, 10, 10);
@@ -59,24 +66,37 @@ Duplica::Duplica(){
         
         // Image
 
+        QWidget * picBox = new QWidget;
+        picBox -> setStyleSheet("background: rgba(100,100,100,100)");
+        picBox -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        QGridLayout * picLayout = new QGridLayout;
+        picLayout -> setMargin(0);
+        picLayout -> setSpacing(0);
+
         pic = new QLabel;
+        pic -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         pic -> setObjectName("replicaPic");
-        pic -> setStyleSheet(
-            "border-image:url("
-                "img/cards/001/LOB-EN001-Blue-EyesWhiteDragon2ndart.jpg"
-            ");"
-        );
+        pic -> setMinimumHeight(100);
+        pic -> setMinimumWidth(100);
         
-        pic -> setMinimumHeight(pic -> width());
-        pic -> setMaximumHeight(pic -> width());
+//        pic -> setMinimumHeight(pic -> width());
+//        pic -> setMaximumHeight(pic -> width());
         
-        layout -> addWidget(pic, 1, 0, 2, 1);
+        picLayout -> addWidget(pic);
+        picBox -> setLayout(picLayout);
+        layout -> addWidget(picBox, 1, 0, 5, 1);
         
         
 
         // Description Box
         
-        descBox = new QWidget;
+        descBox = new QScrollArea;
+        descBox -> setFrameShape(QFrame::NoFrame);
+        descBox -> setWidgetResizable(true);
+        descBox -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        descBox -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        descBox -> setFocusPolicy(Qt::NoFocus);
+        
         descBox -> setObjectName("replicaDesc");
         descBox -> setStyleSheet(
                 "border: 3px solid #795548;"
@@ -85,14 +105,11 @@ Duplica::Duplica(){
         descLayout = new QVBoxLayout;
         descLayout -> setContentsMargins(10, 10, 10, 10);
         
+        
 
             // Description 
 
-            desc = new QLabel(
-                "Ce dragon légendaire est un puissant "
-                "moteur de destruction. Rares sont ceux qui ont survécus à cette "
-                "surpuissante créature quasiment invincible pour en parler."
-            );
+            desc = new QLabel;
             desc -> setContentsMargins(0, 0, 0, 10);
             desc -> setStyleSheet(
                 "border: none;"
@@ -107,7 +124,7 @@ Duplica::Duplica(){
 
             // Atk/Def
 
-            atk = new QLabel("ATK 3000 / DEF 2500");
+            atk = new QLabel;
             atk -> setFont(font);
             atk -> setAlignment(Qt::AlignRight);
             atk -> setStyleSheet(
@@ -119,7 +136,7 @@ Duplica::Duplica(){
 
         descBox -> setLayout(descLayout);
 
-        layout -> addWidget(descBox,3,0,2,1);
+        layout -> addWidget(descBox,7,0,2,1);
 
 
     setLayout(layout);
@@ -143,8 +160,40 @@ Duplica::~Duplica(){
 }
 
 
-void Duplica::resizeEvent (QResizeEvent*){
- 
-        pic -> setMinimumHeight(pic -> width());
-        pic -> setMaximumHeight(pic -> width());
+void Duplica::mousePressEvent (QMouseEvent *){
+    
+    emit clicked();
 }
+
+
+void Duplica::setTitle (QString str){
+    
+    title -> setText(str);
+}
+
+
+void Duplica::setPic (QString str){
+    
+    pic -> setStyleSheet(
+        "border-image:url("+ str +");"
+    );
+}
+
+
+void Duplica::setDesc (QString str){
+    
+    desc -> setText(str);
+}
+
+
+void Duplica::setStat (QString strAtk, QString strDef){
+    
+    atk -> setText("ATK " + strAtk + "/ DEF " + strDef);
+}
+
+
+//void Duplica::resizeEvent (QResizeEvent*){
+ 
+//        pic -> setMinimumHeight(pic -> width());
+//        pic -> setMaximumHeight(pic -> width());
+//}

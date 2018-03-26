@@ -19,6 +19,7 @@
 #include <iostream>
 
 #include "../inc/shadowButt.h"
+#include "../inc/flatButt.h"
 #include "../inc/shadowLab.h"
 #include "../inc/slotCard.h"
 #include "../inc/duplica.h"
@@ -39,9 +40,12 @@ public:
 
 public slots:
     void emitIntroStack();
+    void openQuit();
+    void closeQuit();
     void openMenu();
     void closeMenu();
-    void cardHover();
+
+    void previewClicked();
     void cardRightClicked(int x);
     void cardClicked(int x);
     void cardEntered(int x);
@@ -57,6 +61,12 @@ public slots:
     void setStats();
 
 private:
+    
+    void cardHover();
+    void cardOut();
+
+    bool lockPreview;
+
     QGridLayout * overLayout;
     QWidget * sceneBox;
     QGridLayout * sceneLayout;
@@ -103,9 +113,9 @@ private:
             QWidget * sideTool;
             QGridLayout * sideToolLayout;
 
-                QPushButton * statsButt;
-                QPushButton * histoButt;
-                QPushButton * chatButt;
+                FlatButt * statsButt;
+                FlatButt * histoButt;
+                FlatButt * chatButt;
 
             QWidget * side;
             QGridLayout * sidebar;
@@ -121,15 +131,23 @@ private:
     QGridLayout * popupOuterLayout;
     QPushButton * popupShadow;
     QWidget * popupBox;
+    QGraphicsDropShadowEffect * popupEffect;
+    
     QStackedLayout * popupLayout;
     
         QWidget * menuOuter;
         QGridLayout * menuOuterLayout;
 
+        QWidget * quitBox;
+        QGridLayout * quitLayout;
+
+            ShadowButt * quitno;
+            ShadowButt * quitya;
+            QLabel * quitLabel;
+
         QWidget * menuBox;
         QVBoxLayout * menuLayout;
 
-            QGraphicsDropShadowEffect * popupEffect;
             ShadowButt * quit;
             ShadowButt * back;
 };
