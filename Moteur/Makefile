@@ -2139,6 +2139,26 @@ noyau.o: noyau.cpp noyau.h \
 		/usr/include/qt5/QtWidgets/QWidget \
 		carte.h \
 		reseau.h \
+<<<<<<< HEAD
+=======
+		essai.h \
+		/usr/include/qt5/QtWidgets/QPushButton \
+		/usr/include/qt5/QtWidgets/qpushbutton.h \
+		/usr/include/qt5/QtWidgets/qabstractbutton.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtNetwork/QHostAddress \
+		/usr/include/qt5/QtWidgets/QLineEdit \
+		/usr/include/qt5/QtWidgets/qlineedit.h \
+		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtGui/qtextcursor.h \
+		/usr/include/qt5/QtGui/qtextformat.h \
+		/usr/include/qt5/QtGui/qpen.h \
+		/usr/include/qt5/QtGui/qtextoption.h \
+>>>>>>> dbbd98e5d0f793580ec640a1b97a28edd8ca8256
 		parser.h \
 		/usr/include/qt5/QtCore/QFile \
 		/usr/include/qt5/QtCore/QTextStream \

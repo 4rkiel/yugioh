@@ -126,6 +126,7 @@ BuildTab::BuildTab (){
             deckScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
             deckScroll -> setFocusPolicy(Qt::NoFocus);
 
+            deckScroll->setWidget(new deckEdit);
 
             buildLayout -> addWidget(deckScroll);
 

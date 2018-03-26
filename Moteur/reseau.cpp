@@ -31,7 +31,7 @@ void Reseau::nouvelleConnexion()
 void Reseau::mondieu()
 {
     socket->abort();
-    socket->connectToHost("127.0.0.1", 50885);
+    socket->connectToHost("130.79.7.1", 50885);
 }
 
 void Reseau::donneesServ()
