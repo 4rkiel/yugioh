@@ -6,7 +6,7 @@ Parser::Parser(QWidget *parent)
 {
     courante = new Carte();
     all_cards = new std::vector<Carte*>();
-    QStringList list = QDir("/media/victor/Test/Version25/yugioh/sets/").entryList();
+    QStringList list = QDir("/adhome/v/vc/vcostantino/Documents/IHM/PROJET/Version26/yugioh/sets/").entryList();
     int i;
     std::cout << "je suis ici" << std::endl;
     for(i=0;i<list.length();i++)
@@ -15,7 +15,7 @@ Parser::Parser(QWidget *parent)
         if((list.at(i).compare(QString("."))!=0) && (list.at(i).compare(QString(".."))!=0))
         {
             std::cout << "je parcours la list" << list.at(i).toStdString() << std::endl;
-            fichier_courant = "/media/victor/Test/Version25/yugioh/sets/"+list.at(i);
+            fichier_courant = "/adhome/v/vc/vcostantino/Documents/IHM/PROJET/Version26/yugioh/sets/"+list.at(i);
         getAll();
         }
     }
@@ -103,6 +103,7 @@ void Parser::recup_effet(std::string effets)
 void Parser::parser(std::string ligne)
 {
     std::string image ="/media/victor/Test/Version25/yugioh/img/cards/";
+    std::stringstream ss2 ;
     if(etape==12)
      {
         etape=0;
@@ -122,8 +123,7 @@ void Parser::parser(std::string ligne)
                 courante->id = atoi(ligne.c_str());
                 image ="/media/victor/Test/Version25/yugioh/img/cards/";
                 image = image + getSet(fichier_courant.toStdString());
-                image = image + "/";
-                image = image + std::to_string(courante->id);
+                image = image + "/"+ligne.c_str();
                 courante->image = QString::fromStdString(image);
                 courante->set = atoi(getSet(fichier_courant.toStdString()).c_str());
                  break;
@@ -283,6 +283,34 @@ std::vector<Carte *> * Parser::rechercher_niveau(int n)
             resultat->push_back(all_cards->at(i));
     }
     return resultat;
+}
+
+std::vector<Carte *> * Parser::deck(QString s)
+{
+    int i;
+    std::vector<Carte *> * resultat = new std::vector<Carte *>();
+    QFile file(s);
+    file.open(QFile::ReadOnly | QFile::Text);
+    QTextStream in(&file);
+    QString line = in.readLine();
+    while(!line.isNull())
+    {
+        if(!line.contains("#"))
+        {
+            for(i=0;i<all_cards->size();i++)
+            {
+                if(all_cards->at(i)->id == line.toInt())
+                {
+                   resultat->push_back(all_cards->at(i));
+                   break;
+                 }
+            }
+         }
+        line = in.readLine();
+     }
+     file.close();
+    return resultat;
+
 }
 
 Parser::~Parser()
