@@ -18,15 +18,26 @@ Master::Master (){
 
         selector = new Selector;
 
+        // Go back signal
         connect(selector, SIGNAL(introStack()), this, SLOT(emitIntro()));
+        
+        // Load Solo Game
         connect(selector, SIGNAL(gameStack(int)), this, SLOT(loadField(int)));
+
+        // Ask for being server
         connect(selector, SIGNAL(createHost(QString)), network, SLOT(go(QString)));
 
+        // Load Host Game
 		connect(network, SIGNAL(hostReady(int)), this, SLOT(loadField(int)));
-		connect(selector, SIGNAL(sendIP(QString)), network, SLOT(mondieu(QString)));
+		
+        // Ask for being host
+        connect(selector, SIGNAL(sendIP(QString)), network, SLOT(mondieu(QString)));
 
+        // Load Joined Game
 		connect(network, SIGNAL(connectOK(int)), this, SLOT(loadField(int)));
-		connect(network, SIGNAL(connectKO()), this, SLOT(sendErr()));
+		
+        // Host not found
+        connect(network, SIGNAL(connectKO()), this, SLOT(sendErr()));
 	
 
     stacked -> addWidget(selector);
@@ -65,8 +76,10 @@ void Master::emitIntro (){
     emit introStack();
 }
 
+
 void Master::loadField (int x){
 
+    mode = x;
 
 	// Field
 

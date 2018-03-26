@@ -34,8 +34,9 @@ void Reseau::nouvelleConnexion()
 void Reseau::mondieu(QString str)
 {
     socket->abort();
-	
-	connect(socket, SIGNAL(hostFound()), this, SLOT(sendOK()));
+
+    // connect(socket, SIGNAL(hostFound()), this, SLOT(sendOK()));
+	//connect(socket, SIGNAL(connected()), this, SLOT(sendOK()));
 	connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), 
 		this, SLOT(sendERR(QAbstractSocket::SocketError)));
 
@@ -111,6 +112,8 @@ void Reseau::deconnexionClient()
 void Reseau::connecte()
 {
     std::cout << "le début négro" << std::endl;
+
+	emit connectOK(2);
 }
 
 void Reseau::envoyer(const QString &message)
