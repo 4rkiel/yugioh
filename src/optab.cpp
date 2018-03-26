@@ -435,6 +435,7 @@ void OptionTab::largeChange (){
     emit newSettings();
 }
 
+//fonction qui change dynamiquement la langue
 void OptionTab::changeEvent(QEvent *event)
 {
     if (event->type() == QEvent::LanguageChange) {
