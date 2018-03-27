@@ -7,10 +7,26 @@ Reseau::Reseau()
      connect(socket, SIGNAL(readyRead()), this, SLOT(donneesRecues()));
 }
 
+QString Reseau::getIp()
+{
+    QHostInfo hostInfo = QHostInfo::fromName(QHostInfo::localHostName());
+    QList<QHostAddress> interfaceAddressList = QNetworkInterface::allAddresses();
+
+    QString hostIpStr;
+    foreach(QHostAddress addr, interfaceAddressList){
+    if(addr.protocol() == QAbstractSocket::IPv6Protocol && !addr.toString().startsWith("fe80")){
+            hostIpStr = addr.toString();
+        }
+    }
+    std::cout << "au final j'ai " << hostIpStr.toStdString() << std::endl;
+return hostIpStr;
+}
+
 void Reseau::go()
 {
+
     serveur = new QTcpServer(this);
-    if(!serveur->listen(QHostAddress("2a01:cb10:118:7b00:66a:3a6e:ddad:4f7e"), 50885))
+    if(!serveur->listen(QHostAddress(getIp()), 50885))
     std::cout << "je connecte PAS le serveur" << std::endl;
     else
          std::cout << "je connecte le serveur" << std::endl;
@@ -31,7 +47,7 @@ void Reseau::nouvelleConnexion()
 void Reseau::mondieu()
 {
     socket->abort();
-    socket->connectToHost(QHostAddress("2a01:cb10:118:7b00:66a:3a6e:ddad:4f7e"), 50885);
+    socket->connectToHost(QHostAddress(getIp()), 50885);
 }
 
 void Reseau::donneesServ()
