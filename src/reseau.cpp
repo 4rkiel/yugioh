@@ -29,7 +29,7 @@ void Reseau::nouvelleConnexion()
      //std::cout << "YEAAAAH MUNITION AU MAX!!" << std::endl;
      connect(socket,SIGNAL(readyRead()),this,SLOT(donneesRecues()));
      connect(socket,SIGNAL(disconnected()),this,SLOT(deconnexionClient()));
-	 emit hostReady(2);
+	 emit hostReady(21);
 }
 
 void Reseau::mondieu(QString str)
@@ -222,9 +222,9 @@ void Reseau::change_pos(int x)
 
 
 void Reseau::sendOK(){
-	emit connectOK(2);
+	emit connectOK(22);
 }
 
 void Reseau::sendERR(QAbstractSocket::SocketError){
-	emit connectKO();
+	emit connectKO(23);
 }

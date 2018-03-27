@@ -36,7 +36,7 @@ private:
     QGridLayout * layout;
     Field * field;
     Selector * selector;
-
+    Reseau * network;
 };
 
 #endif
