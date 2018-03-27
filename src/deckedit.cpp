@@ -21,7 +21,7 @@ deckEdit::deckEdit()
         QFrame *editCreate = new QFrame;
         editCreate->setFrameStyle(QFrame::Box);
         mainLayout->addWidget(editCreate, 0, 0, 1, 4);
-        editCreate->setStyleSheet("background-color: blue);");
+        editCreate->setStyleSheet("background-color: #ECEFF1");
         QGridLayout *editCreateLayout = new QGridLayout;
         editCreate->setLayout(editCreateLayout);
 
@@ -39,7 +39,7 @@ deckEdit::deckEdit()
             }
 
             QFormLayout *formulaire = new QFormLayout;
-            editCreateLayout->addLayout(formulaire, 0, 0);
+            editCreateLayout->addLayout(formulaire, 0, 0, 1, 1);
 
                 formulaire->addRow("Deck: ", selectDeck);
 
@@ -56,31 +56,51 @@ deckEdit::deckEdit()
             // ... boutons horizontaux .........................................
 
             QHBoxLayout *buttonH = new QHBoxLayout;
-            editCreateLayout->addLayout(buttonH, 1, 0, 1, 3);
+            editCreateLayout->addLayout(buttonH, 1, 0, 1, 1);
 
                 buttonH->addWidget(tabBut[MELANGER]);
                 buttonH->addWidget(tabBut[TRIER]);
                 buttonH->addWidget(tabBut[EFFACER]);
+                buttonH->addStretch();
 
 
             // ... boutons verticaux ...........................................
 
             QVBoxLayout *buttonV = new QVBoxLayout;
-            editCreateLayout->addLayout(buttonV, 2, 1, 3, 1);
+            editCreateLayout->addLayout(buttonV, 0, 1, 2, 1);
 
+                buttonV->addStretch();
                 buttonV->addWidget(tabBut[SAUVER]);
                 buttonV->addWidget(tabBut[CREER]);
                 buttonV->addWidget(tabBut[SUPPRIMER]);
 
 
+
         // ... Compteur de cartes / visualisateur de Deck ......................
 
         QVBoxLayout *deckVisuLayout = new QVBoxLayout;
-        mainLayout->addLayout(deckVisuLayout, 1, 0, 4, 3);
+        mainLayout->addLayout(deckVisuLayout, 1, 0, 4, 4);
 
 
             // ... compteur de cartes ..........................................
 
+            QFrame *cardInfo = new QFrame;
+            editCreate->setFrameStyle(QFrame::Box);
+            cardInfo->setStyleSheet("background-color: #ECEFF1");
+            QHBoxLayout *layoutInfo = new QHBoxLayout;
+            cardInfo->setLayout(layoutInfo);
+
+                QLabel *deckLabel = new QLabel();
+                deckLabel->setText(tr("Nombre de carte: "));
+
+                QLabel *infoLabel = new QLabel();
+                infoLabel->setText(tr("Monstre: \tMagie:  \tPiège: "));
+
+                layoutInfo->addWidget(deckLabel);
+                layoutInfo->addWidget(infoLabel);
+
+
+            deckVisuLayout->addWidget(cardInfo);
 
 
 
