@@ -15,7 +15,8 @@ class Noyau : public QWidget
 public:
     Noyau();
     bool online;
-    int tour;
+    bool qui;
+    int tour=1;
     int phase=1;
     int selfLife=4000;
     int foeLife=4000;
@@ -26,10 +27,6 @@ public:
     void attaquer(int attaquant_x, int adversaire_x=-1);
     void switch_position(int terrain_x);
     void detruire(int x);
-    void phase_suivante();
-    void adversaire_poser(int main_x,int terrain_x, bool def);
-    void adversaire_piocher(int n);
-    void switch_position_adv(int terrain_x);
     void enlever_x(std::vector<Carte *> **vect, int x);
     void enlever_i(std::vector<Carte *> **vect, int i);
     void chargerDeck(int x);
@@ -46,6 +43,7 @@ public:
     std::vector<Carte *> *cimetiere2;
     Reseau * res;
     void deckAdverse(int x);
+        void next_phase();
 public slots:
     void piocher(int x);
     void go();
@@ -67,6 +65,8 @@ signals:
     void j_attaque(int attaquant_x,int adversaire_x);
     void je_gagne();
     void e_deck(int x);
+    void phase_suivante();
+    void a_ton_tour();
 };
 
 

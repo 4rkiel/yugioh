@@ -8,7 +8,7 @@
 
 Stats::Stats(){
  
-    setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QSizePolicy sp = sizePolicy();
     sp.setRetainSizeWhenHidden(true);
     setSizePolicy(sp);
@@ -16,10 +16,32 @@ Stats::Stats(){
     layout = new QGridLayout;
     layout -> setContentsMargins(10,10,10,10);
 
+        title = new QLabel;
+        title -> setText(tr("Informations"));
 
-    label = new QLabel("yo");
+    layout -> addWidget(title, 0, 0, 1, 3);
 
-    layout -> addWidget(label);
+        tour = new QLabel;
+
+    layout -> addWidget(tour, 1, 0, 1, 3);
+
+        phase = new QLabel;
+        phase -> setText(tr("Phase : "));
+
+        ph1 = tr("Phase de Pioche");
+        ph2 = tr("Phase Principale");
+        ph3 = tr("Phase de Combat");
+        ph4 = tr("Phase de Fin");
+
+
+    layout -> addWidget(phase, 2, 0, 1, 3);
+
+        txtPhase = new QLabel;
+
+    layout -> addWidget(txtPhase, 3, 0, 1, 3);
+
+
+
 
     setLayout(layout);
 }
@@ -27,7 +49,41 @@ Stats::Stats(){
 
 Stats::~Stats(){
 
-    delete label;
+    delete tour;
+    delete phase;
+    delete txtPhase;
+    delete title;
     delete layout;
+}
+
+
+void Stats::setTour(int x){
+    tour -> setText("Tour : " + QString::number(x));
+}
+
+
+void Stats::setPhase(int x){
+
+    switch(x){
+        
+        case 1:
+            txtPhase -> setText(ph1);
+            break;
+
+        case 2:
+
+            txtPhase -> setText(ph2);
+            break;
+
+        case 3:
+
+            txtPhase -> setText(ph3);
+            break;
+
+        case 4:
+
+            txtPhase -> setText(ph4);
+            break;
+    }
 }
 
