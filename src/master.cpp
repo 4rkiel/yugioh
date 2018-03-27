@@ -4,7 +4,7 @@ Master::Master (){
 
 	mode = 0;
 
-	Reseau * network = new Reseau;
+	network = new Reseau;
 
 
     layout = new QGridLayout;
@@ -62,6 +62,10 @@ Master::~Master (){
 	
 	} else {
 
+        if (mode < 10 || mode > 19){
+            delete network; 
+        }
+
     	delete field;
 	}
     
@@ -80,6 +84,10 @@ void Master::emitIntro (){
 void Master::loadField (int x){
 
     mode = x;
+
+    if (mode >= 10 && mode <= 19){
+        delete network;
+    }
 
 	// Field
 
