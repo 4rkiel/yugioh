@@ -76,7 +76,7 @@ JoinChoice::JoinChoice () {
             input = new QLineEdit;
             input -> setContentsMargins(30,0,30,0);
             input -> setAlignment(Qt::AlignCenter);
-            input -> setPlaceholderText("192.168.0.1:7777");
+            input -> setPlaceholderText("192.168.0.1");
             input -> setStyleSheet("padding: 5px");
 
             box -> addWidget(input, 1, 1, 1, 1);

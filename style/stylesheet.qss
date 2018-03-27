@@ -273,7 +273,6 @@ RuleTab #ruleTab .QPushButton[down="true"] {
     border-bottom: 5px solid #009688;
 }
 
-BuildTab #buildTab ShadowButt,
 OptionTab #optionTab ShadowButt,
 HelpTab #helpTab ShadowButt,
 RuleTab #ruleTab ShadowButt {
@@ -288,7 +287,6 @@ HelpTab #helpBox {
     background: #E0F2F1;
 }
 
-BuildTab #buildBox > QScrollArea,
 OptionTab #optBox > QScrollArea,
 HelpTab #helpBox > QScrollArea,
 RuleTab #ruleBox > QScrollArea {
@@ -296,14 +294,12 @@ RuleTab #ruleBox > QScrollArea {
     background: #E0F2F1;
 }
 
-BuildTab #buildBox > QScrollArea QWidget,
 OptionTab #optBox > QScrollArea QWidget,
 HelpTab #helpBox > QScrollArea QWidget,
 RuleTab #ruleBox > QScrollArea QWidget {
     background: #E0F2F1;
 }
 
-BuildTab #buildBox QLabel,
 OptionTab #optBox QLabel,
 HelpTab #helpBox QLabel,
 RuleTab #ruleBox QLabel {
@@ -312,7 +308,6 @@ RuleTab #ruleBox QLabel {
     border-bottom: 1px solid #CFD8DC;
 }
 
-BuildTab #buildBox QComboBox,
 OptionTab #optBox QComboBox,
 HelpTab #helpBox QComboBox,
 RuleTab #ruleBox QComboBox {

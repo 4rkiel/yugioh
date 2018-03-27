@@ -19,7 +19,8 @@
 #include <algorithm>
 #include <QMargins>
 
-
+#define NBR_CARTE_DECK_VISU 60 // multiple de 10
+#define NBR_CARTE_EXTRA_DECK 15
 class deckEdit : public QWidget
 {
     enum buttonDeckEdit
@@ -52,6 +53,8 @@ class deckEdit : public QWidget
         QComboBox *selectDeck;
         QLineEdit *newDeck;
         QPushButton *tabBut[NBR_BUTTON_DECK_EDIT];
+        QPushButton *tabCardVisu[NBR_CARTE_DECK_VISU];
+        QPushButton *tabExtraDeck[NBR_CARTE_EXTRA_DECK];
 
     signals:
 
