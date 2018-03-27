@@ -7,41 +7,58 @@ Reseau::Reseau()
      connect(socket, SIGNAL(readyRead()), this, SLOT(donneesRecues()));
 }
 
-void Reseau::go(QString str)
+QString Reseau::getIp()
 {
-    serveur = new QTcpServer(this);
-    if(!serveur->listen(QHostAddress(str), 50885)){
+    QHostInfo hostInfo = QHostInfo::fromName(QHostInfo::localHostName());
+    QList<QHostAddress> interfaceAddressList = QNetworkInterface::allAddresses();
 
-//    std::cout << "je connecte PAS le serveur" << std::endl;
-		return;
-	}
-    
-	connect(serveur, SIGNAL(newConnection()), this, SLOT(nouvelleConnexion()));
-
-    tailleMessage2=0;
+    QString hostIpStr;
+    foreach(QHostAddress addr, interfaceAddressList){
+    if(addr.protocol() == QAbstractSocket::IPv6Protocol && !addr.toString().startsWith("fe80")){
+            hostIpStr = addr.toString();
+        }
+    }
+    std::cout << "au final j'ai " << hostIpStr.toStdString() << std::endl;
+return hostIpStr;
 }
 
+void Reseau::go(QString str)
+{
+
+    std::cout << "YO" << "\n";
+    serveur = new QTcpServer(this);
+    if(!serveur->listen(QHostAddress(str), 50885)){
+        std::cout << "je connecte PAS le serveur" << std::endl;
+    } else {
+        std::cout << "je connecte le serveur" << std::endl;
+    }
+
+    connect(serveur, SIGNAL(newConnection()), this, SLOT(nouvelleConnexion()));
+    tailleMessage2=0;
+}
 
 void Reseau::nouvelleConnexion()
 {
 
      socket = serveur->nextPendingConnection();
-     //std::cout << "YEAAAAH MUNITION AU MAX!!" << std::endl;
-     connect(socket,SIGNAL(readyRead()),this,SLOT(donneesRecues()));
-     connect(socket,SIGNAL(disconnected()),this,SLOT(deconnexionClient()));
-	 emit hostReady(21);
+      std::cout << "YEAAAAH MUNITION AU MAX!!" << std::endl;
+      connect(socket,SIGNAL(readyRead()),this,SLOT(donneesRecues()));
+      connect(socket,SIGNAL(disconnected()),this,SLOT(deconnexionClient()));
+     // emit a_parser(QString("tt"));
+    
+    emit hostReady(21);
 }
 
 void Reseau::mondieu(QString str)
 {
     socket->abort();
+    
+    connect(socket, SIGNAL(connected()), this, SLOT(sendOK()));
+    connect(socket, SIGNAL(error(QAbstractSocket::SocketError)),
+                    this, SLOT(sendERR(QAbstractSocket::SocketError)));
 
-    connect(socket, SIGNAL(hostFound()), this, SLOT(sendOK()));
-	connect(socket, SIGNAL(connected()), this, SLOT(sendOK()));
-	connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), 
-		this, SLOT(sendERR(QAbstractSocket::SocketError)));
-
-    socket->connectToHost(str, 50885);
+    socket->connectToHost(QHostAddress(str), 50885);
+    //socket->connectToHost(QHostAddress(getIp()), 50885);
 }
 
 void Reseau::donneesServ()
@@ -112,7 +129,7 @@ void Reseau::deconnexionClient()
 
 void Reseau::connecte()
 {
-    std::cout << "le début négro" << std::endl;
+    std::cout << "la fin négro" << std::endl;
 }
 
 void Reseau::envoyer(const QString &message)
@@ -219,12 +236,21 @@ void Reseau::change_pos(int x)
     envoyer(chaine);
 }
 
+void Reseau::prochaine_phase()
+{
+    envoyer("np");
+}
+
+void Reseau::ton_tour()
+{
+    envoyer("tt");
+}
 
 
 void Reseau::sendOK(){
-	emit connectOK(22);
+    emit connectOK(22);
 }
 
 void Reseau::sendERR(QAbstractSocket::SocketError){
-	emit connectKO(23);
+    emit connectKO(23);
 }

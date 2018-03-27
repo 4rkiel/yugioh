@@ -8,6 +8,9 @@
 #include "../inc/field.h"
 #include "../inc/selector.h"
 
+#include <iostream>
+#include <QString>
+
 class Master : public QFrame {
 
 Q_OBJECT
@@ -22,7 +25,8 @@ public slots:
 
     void emitIntro();
     void loadField(int);
-	void sendErr();
+	void sendErr(int);
+    void test(QString);
 
 signals:
 

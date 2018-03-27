@@ -37,13 +37,20 @@ public:
     ~Field();
     void init();
 
+
+public slots:
+
+    void test();
+
+    void setChat();
+    void setStats();
+
     void setCarte(QString, int);
     void poseCarte(QString, int);
     void maskCarte(int);
     void rmCarte(int);
 
 
-public slots:
     void emitIntroStack();
     void openQuit();
     void closeQuit();
@@ -59,12 +66,6 @@ public slots:
 
 signals:
     void introStack();
-
-
-public slots:
-    void test();
-    void setChat();
-    void setStats();
 
 
 private:

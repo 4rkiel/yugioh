@@ -26,6 +26,7 @@ Master::Master (){
 
         // Ask for being server
         connect(selector, SIGNAL(createHost(QString)), network, SLOT(go(QString)));
+        connect(selector, SIGNAL(createHost(QString)), this, SLOT(test(QString)));
 
         // Load Host Game
 		connect(network, SIGNAL(hostReady(int)), this, SLOT(loadField(int)));
@@ -37,7 +38,7 @@ Master::Master (){
 		connect(network, SIGNAL(connectOK(int)), this, SLOT(loadField(int)));
 		
         // Host not found
-        connect(network, SIGNAL(connectKO()), this, SLOT(sendErr()));
+        connect(network, SIGNAL(connectKO(int)), this, SLOT(sendErr(int)));
 	
 
     stacked -> addWidget(selector);
@@ -103,6 +104,10 @@ void Master::loadField (int x){
 	field -> init();
 }
 
-void Master::sendErr(){
+void Master::sendErr(int){
 
+}
+
+void Master::test(QString str){
+    std::cout << str.toStdString() << "\n";
 }
