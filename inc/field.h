@@ -37,6 +37,12 @@ public:
     ~Field();
     void init();
 
+    void setCarte(QString, int);
+    void poseCarte(QString, int);
+    void maskCarte(int);
+    void rmCarte(int);
+
+
 public slots:
     void emitIntroStack();
     void openQuit();
@@ -50,13 +56,16 @@ public slots:
     void cardEntered(int x);
     void cardLeaved(int x);
 
+
 signals:
     void introStack();
+
 
 public slots:
     void test();
     void setChat();
     void setStats();
+
 
 private:
     

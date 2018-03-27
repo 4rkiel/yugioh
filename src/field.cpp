@@ -582,22 +582,6 @@ void Field::cardLeaved(int x){
     cardOut();
 }
 
-
-
-void Field::setStats(){
-
-    currentSide -> setVisible(false);
-    stats -> setVisible(true);
-    currentSide = stats;
-}
-
-void Field::setChat(){
-    
-    currentSide -> setVisible(false);
-    chat -> setVisible(true);
-    currentSide = chat;
-}
-
 void Field::cardHover (){
 
     fullCard -> setTitle("Dragon Blanc aux Yeux Bleus");
@@ -628,12 +612,55 @@ void Field::cardOut (){
 
 
 
+void Field::setStats(){
+
+    currentSide -> setVisible(false);
+    stats -> setVisible(true);
+    currentSide = stats;
+}
+
+void Field::setChat(){
+    
+    currentSide -> setVisible(false);
+    chat -> setVisible(true);
+    currentSide = chat;
+}
+
+
+void Field::setCarte(QString img, int x){
+    fieldStack -> at(x) -> setPic(img);
+}
+
+void Field::poseCarte(QString img, int x){
+    fieldStack -> at(x) -> setPic(img);
+}
+
+void Field::maskCarte(int x){
+    fieldStack -> at(x) -> maskPic();
+}
+
+void Field::rmCarte(int x){
+    fieldStack -> at(x) -> rmPic();
+}
+
+
+
+
+
+
+
 
 void Field::test (){
 
+    fieldStack -> at(3) -> posePic();
+    fieldStack -> at(3) -> rmPic();
+    
     fieldStack -> at(3) -> setPic("img/cards/001/LOB-EN125-GaiatheDragonChampion.jpg");
     fieldStack -> at(79) -> setPic("img/cards/001/LOB-EN125-GaiatheDragonChampion.jpg");
 
-//    cardHover();
+
+    fieldStack -> at(77) -> posePic();
+
+    fieldStack -> at(10) -> maskPic();
 
 }

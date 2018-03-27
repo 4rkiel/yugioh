@@ -1,7 +1,5 @@
 #include "../inc/slotCard.h"
 
-#include <QDebug>
-
 /******************************************************************************
 
 	Widgets représentant les emplacements de cartes sur le terrain
@@ -215,8 +213,6 @@ void SlotCard::turn (){
 
 void SlotCard::setPic(QString str){
    
-    mode = true;
-    
     pic = str;
     imgButt -> setStyleSheet("border-image: url(" + pic + ");");
 
@@ -236,13 +232,36 @@ void SlotCard::setPic(QString str){
 }
 
 
+void SlotCard::maskPic(){
+
+    imgButt -> setStyleSheet("border-image: url(\"img/card.svg\");");
+    
+}
+
+
+void SlotCard::posePic(){
+
+    imgButt -> setStyleSheet("border-image: url(\"img/card.svg\");");
+    
+    if (mode){
+        turn();
+    }
+
+}
 
 void SlotCard::rmPic(){
 
     imgButt -> setStyleSheet("border-image: none");
+    
+    if (!mode){
+        turn();
+    }
+
 }
 
 
+
+// TESTS
 
 bool SlotCard::isAdv(){
     return (posi >= 75);
@@ -277,6 +296,7 @@ bool SlotCard::isFuse(){
 }
 
 
+
 // SIGNALS
 
 void SlotCard::rightClicked(){
@@ -285,56 +305,7 @@ void SlotCard::rightClicked(){
 
 void SlotCard::leftClicked(){
 	emit leftClick(posi);
-
-/*        switch( event->button() ){
-            
-            case Qt::LeftButton:
-            emit( leftClicked(posi) );
-            break;
-            
-            case Qt::MidButton:
-            break;
-            
-            case Qt::RightButton:
-            emit( rightClicked(posi) );
-            break;
-            
-            default:
-            break;
-        }
-
-*/
 }
-
-
-/*
-void SlotCard::mouseReleaseEvent(QMouseEvent * event){
-
-	if(event->button() == Qt::RightButton){
-		emit rightClicked(posi);
-	}
-	
-
-		switch( event->button() ){
-			
-			case Qt::LeftButton:
-			emit( leftClicked(posi) );
-			break;
-			
-			case Qt::MidButton:
-			break;
-			
-			case Qt::RightButton:
-			emit( rightClicked(posi) );
-			break;
-			
-			default:
-			break;
-		}
-
-		
-}
-*/
 
 void SlotCard::enterEvent(QEvent * event){
     

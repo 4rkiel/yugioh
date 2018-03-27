@@ -41,7 +41,7 @@ signals:
     void a_parser(QString chaine);
 	void hostReady(int);
 	void connectOK(int);
-	void connectKO();
+	void connectKO(int);
 };
 
 #endif // RESEAU_H
