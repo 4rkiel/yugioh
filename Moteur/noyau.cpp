@@ -530,6 +530,7 @@ void Noyau::traiter(QString s)
     }
     else if(s.compare(QString("tt"))==0)
     {
+        //UN TT EN TROP AU DEBUT
         qui = true;
         phase = 1;
         tour++;

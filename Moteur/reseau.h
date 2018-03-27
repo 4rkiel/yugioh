@@ -19,6 +19,7 @@ public:
      quint16 tailleMessage2=0;
      void envoyer(const QString &message);
      void parser(std::string s);
+     QString getIp();
 public slots:
      void afficher(Carte* c);
      void nouvelleConnexion();
