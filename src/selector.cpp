@@ -1,5 +1,8 @@
 #include "../inc/selector.h"
 
+#include <iostream>
+#include <QString>
+
 Selector::Selector (){
 
     mode = 0;
@@ -184,7 +187,7 @@ void Selector::hostStack(){
     hostChoice = new HostChoice;
         
     connect(hostChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
-    connect(hostChoice, SIGNAL(createHost(QString)), this, SLOT(transmitHost(QString)));
+    connect(hostChoice, SIGNAL(createHostChoice(QString)), this, SLOT(transmitHost(QString)));
         
     stacked -> addWidget(hostChoice);
 
@@ -213,13 +216,17 @@ void Selector::netStack(){
 }
 
 
+
 void Selector::transmitHost(QString str){
+    std::cout << "yo\n";
 	emit createHost(str);
 }
+
 
 void Selector::connectIP(QString str){
 	emit sendIP(str);
 }
+
 
 void Selector::emitGame(int x){
     emit gameStack(x);
