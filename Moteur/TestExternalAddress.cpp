@@ -8,6 +8,6 @@ TestExternalAddress::TestExternalAddress(){
 
 void TestExternalAddress::gotReply(QNetworkReply* networkReply){
     networkReply->deleteLater();
-    emit getIP(QHostAddress(QJsonDocument::fromJson(networkReply->readAll()).object().value("ip").toString()).toString());
+    emit getIP(QHostAddress(QJsonDocument::fromJson(networkReply->readAll()).object().value("ip").toString()));
 }
 

@@ -61,9 +61,12 @@ JoinChoice::JoinChoice () {
             choice -> setToolTip(tr("Retour au Menu"));
             connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
             
-            box -> addWidget(choice, 3, 0, 1, 3);
+            box -> addWidget(choice, 4, 0, 1, 3);
 
-
+			
+			ShadowButt * valid = new ShadowButt("","Valider");
+			box -> addWidget(valid, 2,1,1,1);
+			connect(valid, SIGNAL(clicked()), this, SLOT(connectIP()));
 
 // http://www.qtcentre.org/threads/42456-How-to-connect-QLineEdit-to-quot-ENTER-quot-key-press-form-keyboard
 
@@ -80,8 +83,8 @@ JoinChoice::JoinChoice () {
 
 
             box -> setRowStretch(0,20);
-            box -> setRowStretch(2,20);
-            box -> setRowStretch(4,1);
+            box -> setRowStretch(3,20);
+            box -> setRowStretch(5,1);
 
 
 
@@ -122,3 +125,7 @@ void JoinChoice::emitChoice (){
     emit choiceStack();
 }
 
+void JoinChoice::connectIP(){
+
+	emit sendIP(input->text());
+}

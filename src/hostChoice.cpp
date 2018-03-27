@@ -160,4 +160,5 @@ void HostChoice::setIP(QString str){
     QString ip = tr("Adresse du serveur : \n\n") + str;
 	phrase -> setText(ip);
 
+	emit createHost(str);
 }

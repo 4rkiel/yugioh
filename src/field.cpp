@@ -231,16 +231,11 @@ Field::Field () {
                     statsButt -> setToolTip(tr("Duel"));
                     connect(statsButt, SIGNAL(clicked()), this, SLOT(setStats()));
                     sideToolLayout -> addWidget(statsButt, 0, 0);
-
-                    histoButt = new FlatButt("\uf03c","");
-                    histoButt -> setToolTip(tr("Historique"));
-                    connect(histoButt, SIGNAL(clicked()), this, SLOT(setHisto()));
-                    sideToolLayout -> addWidget(histoButt, 0, 1);
                     
                     chatButt = new FlatButt("\uf086","");
                     chatButt -> setToolTip(tr("Chat"));
                     connect(chatButt, SIGNAL(clicked()), this, SLOT(setChat()));
-                    sideToolLayout -> addWidget(chatButt, 0, 2);
+                    sideToolLayout -> addWidget(chatButt, 0, 1);
 
                 sideTool -> setLayout(sideToolLayout);
                     
@@ -257,15 +252,11 @@ Field::Field () {
                 stats -> setVisible(false);
                 sidebar -> addWidget(stats, 1, 0, 9, 1);
 
-                history = new History;
-                history -> setVisible(false);
-                sidebar -> addWidget(history, 1, 0, 9, 1);
-
                 chat = new Chat;
                 chat -> setVisible(false);
                 sidebar -> addWidget(chat, 1, 0, 9, 1);
 
-                currentSide = chat;
+                currentSide = stats;
 
 
 /*                QSpacerItem * spacerSide = new QSpacerItem(5,5,
@@ -287,7 +278,7 @@ Field::Field () {
             lifeSlf -> setObjectName("Life");
             rightBarLayout -> addWidget(lifeSlf, 4, 1, 1, 1);
 
-            actionButt = new ShadowButt("\uf04b", "");
+            actionButt = new ShadowButt("\uf079", "");
             actionButt -> setToolTip(tr("Terminer le tour"));
             rightBarLayout -> addWidget(actionButt, 4, 3, 1, 1);
             connect(actionButt, SIGNAL(clicked()), this, SLOT(test()));
@@ -446,14 +437,12 @@ Field::~Field (){
 
 
             delete statsButt;
-            delete histoButt;
             delete chatButt;
 
             delete sideToolLayout;
             delete sideTool;
 
             delete stats;
-            delete history;
             delete chat;
 
             delete fullCard;
@@ -512,7 +501,7 @@ Field::~Field (){
 
 
 void Field::init(){
-    chat -> setVisible(false);
+    stats -> setVisible(true);
 }
 
 
@@ -600,13 +589,6 @@ void Field::setStats(){
     currentSide -> setVisible(false);
     stats -> setVisible(true);
     currentSide = stats;
-}
-
-void Field::setHisto(){
-    
-    currentSide -> setVisible(false);
-    history -> setVisible(true);
-    currentSide = history;
 }
 
 void Field::setChat(){

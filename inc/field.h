@@ -24,7 +24,6 @@
 #include "../inc/slotCard.h"
 #include "../inc/duplica.h"
 #include "../inc/stats.h"
-#include "../inc/history.h"
 #include "../inc/chat.h"
 
 
@@ -57,7 +56,6 @@ signals:
 public slots:
     void test();
     void setChat();
-    void setHisto();
     void setStats();
 
 private:
@@ -114,7 +112,6 @@ private:
             QGridLayout * sideToolLayout;
 
                 FlatButt * statsButt;
-                FlatButt * histoButt;
                 FlatButt * chatButt;
 
             QWidget * side;
@@ -123,7 +120,6 @@ private:
                 QWidget * currentSide;
                 Duplica * fullCard;
                 Stats * stats;
-                History * history;
                 Chat * chat;
 
 

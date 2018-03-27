@@ -1,5 +1,5 @@
-#include "noyau.h"
-#include "parser.h"
+#include "../inc/noyau.h"
+#include "../inc/parser.h"
 
 Noyau::Noyau()
 {
@@ -506,8 +506,4 @@ void Noyau::traiter(QString s)
 
 }
 /******************************************/
-
-
-
-
 

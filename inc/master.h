@@ -4,6 +4,7 @@
 #include <QStackedWidget>
 #include <QGridLayout>
 
+#include "../inc/reseau.h"
 #include "../inc/field.h"
 #include "../inc/selector.h"
 
@@ -21,6 +22,7 @@ public slots:
 
     void emitIntro();
     void loadField(int);
+	void sendErr();
 
 signals:
 
@@ -29,6 +31,7 @@ signals:
 
 private:
 
+	int mode;
     QStackedWidget * stacked;
     QGridLayout * layout;
     Field * field;

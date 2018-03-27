@@ -17,21 +17,23 @@
 #include <QStringList>
 #include <QDebug>
 #include <algorithm>
+#include <QMargins>
 
-enum buttonDeckEdit
-{
-    QUITTER,
-    MELANGER,
-    TRIER,
-    EFFACER,
-    SAUVER,
-    CREER,
-    SUPPRIMER,
-    NBR_BUTTON_DECK_EDIT
-};
 
 class deckEdit : public QWidget
 {
+    enum buttonDeckEdit
+    {
+        QUITTER,
+        MELANGER,
+        TRIER,
+        EFFACER,
+        SAUVER,
+        CREER,
+        SUPPRIMER,
+        NBR_BUTTON_DECK_EDIT
+    };
+
     Q_OBJECT
 
     public:
@@ -40,6 +42,9 @@ class deckEdit : public QWidget
         const QString appPath = QCoreApplication::applicationDirPath();
         const QString imgRep = appPath+"/img/img_attr/";
         const QString deckRep = appPath+"/deck/";
+        const QStringList buttonName = {tr("Quitter"), tr("Mélanger"), tr("Trier"),
+                                        tr("Effacer"), tr("Sauvegarder"), tr("Créer"),
+                                        tr("Supprimer")};
 
     private:
         void createEdit();
