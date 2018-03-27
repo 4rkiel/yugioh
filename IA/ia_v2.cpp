@@ -1,9 +1,15 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+//#include <Eigen/Core>
 #include <eigen-git-mirror/Eigen/Core>
 #include <vector>
 #include <tuple>
+
+#define NB_INPUT 26
+#define NB_LAYER1 60
+#define NB_LAYER2 20
+#define NB_OUTPUT 10
 
 using namespace Eigen;
 using namespace std;
@@ -19,6 +25,10 @@ class Network
         Matrix<float,20,60> input_synaps;
         Matrix<float,60,60> hidden_synaps;
         Matrix<float,60,10> output_synaps;
+
+        Matrix<float,20,60> input_deltas;
+        Matrix<float,60,60> hidden_deltas;
+        Matrix<float,60,10> output_deltas;
         
         /*memory of the neural network
          * matrix associated with his previous computated Q_value
@@ -107,8 +117,8 @@ class Network
         
         int play_learn(Matrix<float,1,20> game_state)
         {
-            Matrix<float,1,20> target_states[20];
-            float q_targets[20];
+            Matrix<float,1,20> target_states[10];
+            float q_targets[10];
             
             Matrix<float,1,10> q_values = compute_choices(game_state);
             
@@ -122,14 +132,35 @@ class Network
                 //and futures possibles actions
                 //TODO: q_targets[action] = compute_q_value(target_states[action]);
             }
-
-            int i;
-            float cost=0;
-            for(i=0;i<20;i++)
-                cost += pow(q_targets[i]-q_values(i),2);
-            cost /= 2;
-
+            
+            int i,j;
+            float local_cost=0;
+            float global_cost=0;
+            float delta, udelta;
+            float output;
+            
             //TODO: backpropagation : update the weights
+            ////////////////////////////////////////////
+            for(i=0;i<10;i++)
+            {
+                output=q_values(i);
+                local_cost=( q_targets[i] - q_values(i) ) *
+                    q_values(i) * ( 1 - q_values(i) );
+                global_cost += pow(q_targets[i] - q_values(i),2);
+                
+                //update the weights
+                ///////////////////
+                for(j=0;j<60;j++)
+                {
+                    delta=output_deltas(j,i);
+                    udelta = local_cost * output_synaps(j,i) + delta;
+                    output_synaps(j,i) += udelta;
+                    output_deltas(j,i) = udelta;
+                    //TODO: sum += .........
+                }
+                ///////////////////
+            }
+            ////////////////////////////////////////////
             
             int played_action = choose_action(q_values);
             return played_action;
