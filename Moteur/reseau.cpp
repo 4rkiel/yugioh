@@ -15,7 +15,6 @@ void Reseau::go()
     else
          std::cout << "je connecte le serveur" << std::endl;
     connect(serveur, SIGNAL(newConnection()), this, SLOT(nouvelleConnexion()));
-
     tailleMessage2=0;
 }
 
@@ -26,12 +25,13 @@ void Reseau::nouvelleConnexion()
       std::cout << "YEAAAAH MUNITION AU MAX!!" << std::endl;
       connect(socket,SIGNAL(readyRead()),this,SLOT(donneesRecues()));
       connect(socket,SIGNAL(disconnected()),this,SLOT(deconnexionClient()));
+      emit a_parser(QString("tt"));
 }
 
 void Reseau::mondieu()
 {
     socket->abort();
-    socket->connectToHost("130.79.7.91", 50885);
+    socket->connectToHost("127.0.0.1", 50885);
 }
 
 void Reseau::donneesServ()
@@ -207,4 +207,14 @@ void Reseau::change_pos(int x)
     chaine = chaine + QString(fin.c_str());
 
     envoyer(chaine);
+}
+
+void Reseau::prochaine_phase()
+{
+    envoyer("np");
+}
+
+void Reseau::ton_tour()
+{
+    envoyer("tt");
 }
