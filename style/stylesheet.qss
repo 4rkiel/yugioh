@@ -45,7 +45,7 @@ ShadowButt {
 
 ShadowButt QLabel {
     color: #000;
-    /*margin: 0 10px;*/
+    margin: 0 10px;
 }
 
 ShadowButt:hover {

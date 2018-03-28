@@ -256,6 +256,7 @@ Field::Field () {
                 chat -> setVisible(false);
                 sidebar -> addWidget(chat, 1, 0, 9, 1);
 
+                connect(chat, SIGNAL(msgSent(QString)), this, SLOT(sendMsg(QString)));
                 currentSide = stats;
 
 
@@ -625,6 +626,11 @@ void Field::setChat(){
     chat -> setVisible(true);
     currentSide = chat;
 }
+
+void Field::sendMsg(QString str){
+    chat -> addText(str);
+}
+
 
 
 void Field::setCarte(QString img, int x){

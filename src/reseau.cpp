@@ -25,7 +25,6 @@ return hostIpStr;
 void Reseau::go(QString str)
 {
 
-    std::cout << "YO" << "\n";
     serveur = new QTcpServer(this);
     if(!serveur->listen(QHostAddress(str), 50885)){
         std::cout << "je connecte PAS le serveur" << std::endl;

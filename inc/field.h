@@ -44,6 +44,7 @@ public slots:
 
     void setChat();
     void setStats();
+    void sendMsg(QString);
 
     void setCarte(QString, int);
     void poseCarte(QString, int);

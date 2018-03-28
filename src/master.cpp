@@ -26,12 +26,12 @@ Master::Master (){
 
         // Ask for being server
         connect(selector, SIGNAL(createHost(QString)), network, SLOT(go(QString)));
-        connect(selector, SIGNAL(createHost(QString)), this, SLOT(test(QString)));
 
         // Load Host Game
 		connect(network, SIGNAL(hostReady(int)), this, SLOT(loadField(int)));
 		
         // Ask for being host
+        connect(selector, SIGNAL(sendIP(QString)), this, SLOT(test(QString)));
         connect(selector, SIGNAL(sendIP(QString)), network, SLOT(mondieu(QString)));
 
         // Load Joined Game
@@ -67,6 +67,7 @@ Master::~Master (){
             delete network; 
         }
 
+        delete noyau;
     	delete field;
 	}
     
@@ -92,6 +93,7 @@ void Master::loadField (int x){
 
 	// Field
 
+    noyau = new Noyau;
     field = new Field;
         
     connect(field, SIGNAL(introStack()), this, SLOT(emitIntro()));

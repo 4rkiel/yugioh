@@ -34,11 +34,13 @@ public slots:
 signals:
     
     void choiceStack();
-	void createHostChoice(QString);
+	void createHost(QString);
 
 private:
 	
-    void setIP(QString str);
+    QString ip;
+    
+    void setIP(QString);
     
     QGridLayout * layout;
 

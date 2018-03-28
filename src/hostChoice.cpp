@@ -8,8 +8,6 @@
 
 ******************************************************************************/
 
-#include <iostream>
-
 HostChoice::HostChoice () {
 
     layout = new QGridLayout;
@@ -92,20 +90,13 @@ HostChoice::HostChoice () {
             phrase = new QLabel;
             QString ipTxt = tr("Adresse du serveur : \n\n");
             Reseau r;
-            QString ip = r.getIp();
+            ip = r.getIp();
             phrase -> setText(ipTxt + ip);
-            setIP(ip);
             phrase -> setWordWrap(true);
             phrase -> setContentsMargins(30,0,30,0);
             phrase -> setTextInteractionFlags(Qt::TextSelectableByMouse); 
             box -> addWidget(phrase,3,1,1,1);
           
- 
-            // GET IP
-           
-//			connect(addr, SIGNAL(getIP(QString)), this, SLOT(setIP(QString)));
-
-
 
 
             box -> setRowStretch(4,25);
@@ -145,16 +136,20 @@ HostChoice::~HostChoice (){
 
 
 void HostChoice::init (){
-//    local -> setFocus();
+
+    choice -> setFocus();
+    setIP(ip);
 }
 
 
 
 void HostChoice::emitChoice (){
+    
     emit choiceStack();
 }
 
 
 void HostChoice::setIP(QString str){
-    emit createHostChoice(str);
+
+    emit createHost(str);
 }

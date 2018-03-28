@@ -2,8 +2,11 @@
 #define CHATBOX
 
 #include <QFrame>
+#include <QWidget>
 
 #include <QGridLayout>
+#include <QScrollArea>
+#include <QVBoxLayout>
 
 #include <QLabel>
 #include <QString>
@@ -22,11 +25,24 @@ public:
     ~Chat();
     void addText(QString);
 
+signals:
+
+    void msgSent(QString);
+
+
+public slots:
+
+    void sendMsg();
+    void moveScrollBarToBottom(int,int);
+
 private:
 
     QGridLayout * layout;
 
     QLabel * title;
+    QScrollArea * labelBox;
+    QWidget * labInner;
+    QVBoxLayout * labLayout;
     QLabel * label;
     QLineEdit * input;
     FlatButt * send;
