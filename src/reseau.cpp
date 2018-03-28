@@ -147,6 +147,11 @@ void Reseau::envoyer(const QString &message)
     socket->write(paquet);
 }
 
+void Reseau::transmettre(QString chaine)
+{
+        envoyer(chaine);
+}
+
 //obsolète
 void Reseau::parser(std::string s)
 {

@@ -634,7 +634,15 @@ void Field::setChat(){
 }
 
 void Field::sendMsg(QString str){
-    chat -> addText(str);
+
+    if(str.startsWith("#"))
+    {
+        transmettre(str);
+        QStringRef * decoupe = new QStringRef(&str,1,str.length()-1);
+        chat->addText(decoupe->toString());
+    }
+    else
+        chat -> addText(str);
 }
 
 

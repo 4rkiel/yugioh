@@ -69,7 +69,7 @@ public slots:
 
 signals:
     void introStack();
-
+    void transmettre(QString);
 
 private:
     

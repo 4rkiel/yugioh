@@ -43,6 +43,7 @@ public slots:
      void change_pos(int x);
      void prochaine_phase();
      void ton_tour();
+     void transmettre(QString chaine);
 
 signals:
     void a_parser(QString chaine);

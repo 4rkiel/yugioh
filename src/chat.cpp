@@ -100,7 +100,7 @@ void Chat::sendMsg(){
 	}
 
 	if (check){
-		emit msgSent(input -> text());
+        emit msgSent("#"+input -> text());
 	}
 
 	input -> setText("");    

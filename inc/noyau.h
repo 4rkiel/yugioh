@@ -67,6 +67,8 @@ signals:
     void j_attaque(int attaquant_x,int adversaire_x);
     void je_gagne();
     void e_deck(int x);
+    void destruction(int x);
+    void chat(QString);
 };
 
 

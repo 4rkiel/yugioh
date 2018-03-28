@@ -318,6 +318,7 @@ void Noyau::enlever_x(std::vector<Carte *> **vect, int x)
         }
     }
     *vect = resultat;
+    emit destruction(x);
 
 }
 
@@ -503,6 +504,12 @@ void Noyau::traiter(QString s)
          delete(arg);
          valeur = atoi(vrai.c_str());
          switch_position(valeur);
+    }
+    else if(s.startsWith("#"))
+    {
+        std::cout << "chat marche" << std::endl;
+        QStringRef* cut = new QStringRef(&s,1,s.length()-1);
+            emit chat(cut->toString());
     }
 
 }

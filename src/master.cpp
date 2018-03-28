@@ -97,9 +97,12 @@ void Master::loadField (int x){
 
     connect(field, SIGNAL(introStack()), this, SLOT(emitIntro()));
 
-	// send Msg // TODO traiter() -> Check if chat message + emit
+        connect(noyau, SIGNAL(chat(QString)), field, SLOT(sendMsg(QString)));
+    connect(network,SIGNAL(a_parser(QString)),noyau,SLOT(traiter(QString)));
 
-//	connect(noyau, SIGNAL(chat(QString)), field, SLOT(sendMsg(QString)));
+	// send Msg // TODO traiter() -> Check if chat message + emit
+  connect(field,SIGNAL(transmettre(QString)),network,SLOT(transmettre(QString)));
+
 
 
 
@@ -110,7 +113,7 @@ void Master::loadField (int x){
 
 	// pose carte
 
-//	connect(noyau, SIGNAL(___(int)), field, SLOT(poseCarte(int)));
+//	connect(noyau, SIGNAL(je_pose(QString,int,int,bool,bool)), field, SLOT(poseCarte(QString,int,int,bool,bool)));
 
 	// mask carte
 
@@ -118,7 +121,7 @@ void Master::loadField (int x){
 
 	// rm carte
 
-//	connect(noyau, SIGNAL(___(int)), field, SLOT(rmCarte(int)));
+//	connect(noyau, SIGNAL(destruction(int)), field, SLOT(rmCarte(int)));
 
 
     stacked -> addWidget(field);
