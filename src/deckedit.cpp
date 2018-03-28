@@ -4,6 +4,9 @@
 deckEdit::deckEdit()
 {
     selectDeck = new QComboBox;
+    choixGenre = new QComboBox;
+    choixSousGenre  = new QComboBox;
+
     newDeck = new QLineEdit;
 
     for(int i=0; i<NBR_BUTTON_DECK_EDIT; i++)
@@ -11,24 +14,26 @@ deckEdit::deckEdit()
         tabBut[i] = new QPushButton;
         tabBut[i]->setStyleSheet("background: red");
         tabBut[i]->setText(buttonName.at(i));
-        tabBut[i]->setMinimumWidth(10);
     }
 
     for(int i=0; i<NBR_CARTE_DECK_VISU; i++)
     {
         tabCardVisu[i] = new QPushButton;
-        tabCardVisu[i]->setStyleSheet("background: purple");
-        tabCardVisu[i]->setText("card");
-        tabCardVisu[i]->setMinimumWidth(10);
+        tabCardVisu[i]->setStyleSheet("border-image: url(" + defaultImage + ");"
+                            "margin: 1px ;border: 1px solid black");
+        tabCardVisu[i]->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     }
 
     for(int i=0; i<NBR_CARTE_EXTRA_DECK; i++)
     {
         tabExtraDeck[i] = new QPushButton;
-        tabExtraDeck[i]->setStyleSheet("background: cyan");
-        tabExtraDeck[i]->setText("card");
-        tabExtraDeck[i]->setMinimumWidth(10);
+        tabExtraDeck[i]->setStyleSheet("border-image: url(" + defaultImage + ");"
+                             "margin: 1px ;border: 1px solid black");
+        tabCardVisu[i]->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     }
+
+    choixGenre->addItems(genreList);
+    choixSousGenre->addItems(sousGenreList);
 
     QGridLayout *mainLayout = new QGridLayout;
 
@@ -37,6 +42,7 @@ deckEdit::deckEdit()
         //TODO refactorer le code
 
         QFrame *editCreate = new QFrame;
+        editCreate->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
         editCreate->setStyleSheet("border: 1px solid blue");
         mainLayout->addWidget(editCreate, 0, 0, 1, 4);
         editCreate->setStyleSheet("background-color: #ECEFF1");
@@ -120,9 +126,10 @@ deckEdit::deckEdit()
                 layoutInfo->addWidget(infoLabel);
 
 
-            // ... visualiteur de Deck ............
+            // ... visualiteur de Deck .........................................
 
             QFrame *deckVisu = new QFrame;
+            deckVisu->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
             deckVisu->setObjectName("frameVisu");
             deckVisu->setStyleSheet("#frameVisu{border: 1px solid green}");
 
@@ -138,18 +145,20 @@ deckEdit::deckEdit()
             }
 
 
-            // ... visualiteur d'extra Deck ............
+            // ... visualiteur d'extra Deck ....................................
 
             QFrame *extraDeckVisu = new QFrame;
+            extraDeckVisu->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
             extraDeckVisu->setObjectName("extraDeckVisu");
-            extraDeckVisu->setStyleSheet("#extraDeckVisu{border: 1px solid green}");
+            extraDeckVisu->setStyleSheet("#extraDeckVisu"
+                                         "{border: 1px solid green}");
 
-            QGridLayout *layoutExtraCard = new QGridLayout;
-            deckVisu->setLayout(layoutExtraCard);
+            QHBoxLayout *layoutExtraCard = new QHBoxLayout;
+            extraDeckVisu->setLayout(layoutExtraCard);
 
             for(int i=0; i<NBR_CARTE_EXTRA_DECK; i++)
             {
-                    layoutExtraCard->addWidget(tabExtraDeck[i], 0, i, 1, 1);
+                    layoutExtraCard->addWidget(tabExtraDeck[i]);
             }
 
 
@@ -159,6 +168,55 @@ deckEdit::deckEdit()
             deckVisuLayout->addWidget(cardInfo);
             deckVisuLayout->addWidget(deckVisu);
             deckVisuLayout->addWidget(extraDeckVisu);
+
+
+        // ... recherche de cartes .............................................
+
+        QFrame *cardFilter = new QFrame;
+        cardFilter->setStyleSheet("border: 1px solid blue");
+        mainLayout->addWidget(cardFilter, 0, 4, 1, 7);
+        cardFilter->setStyleSheet("background-color: #ECEFF1");
+        QHBoxLayout *colonne = new QHBoxLayout;
+        cardFilter->setLayout(colonne);
+
+
+            // ... recherche par propriétés ....................................
+
+            QFrame *propFilter = new QFrame;
+            propFilter->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
+            propFilter->setObjectName("propFilter");
+            propFilter->setStyleSheet("#propFilter"
+                                         "{border: 1px solid green}");
+
+            QFormLayout *propForm = new QFormLayout;
+            propFilter->setLayout(propForm);
+
+
+                // ... Genre ...................................................
+
+                QHBoxLayout *genreColonne = new QHBoxLayout;
+                genreColonne->addWidget(choixGenre);
+                genreColonne->addWidget(choixSousGenre);
+
+                propForm->addRow("Genre: ", genreColonne);
+
+
+                // ... Sous-genre ..............................................
+
+
+                // ... Attribut ................................................
+
+
+                // ... Type ....................................................
+
+
+                // ... Niveau ..................................................
+
+            colonne->addWidget(propFilter);
+
+
+            // ... recherche approfondis + bouttons ............................
+
 
 
 
