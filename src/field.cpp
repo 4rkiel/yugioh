@@ -502,6 +502,7 @@ Field::~Field (){
 
 
 void Field::init(){
+	fullCard -> setVisible(false);
     stats -> setVisible(true);
 }
 

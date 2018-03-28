@@ -18,6 +18,7 @@ Chat::Chat(){
 
 
         title = new QLabel;
+		title -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
         title -> setText(tr("Chat"));
 
     layout -> addWidget(title, 0, 0, 1, 4);
@@ -31,17 +32,16 @@ Chat::Chat(){
         labelBox -> setFocusPolicy(Qt::NoFocus);
 
             labInner = new QWidget;
-            labInner -> setStyleSheet("background: red;");
             labLayout = new QVBoxLayout;
             labLayout -> setMargin(0);
             labLayout -> setSpacing(0);
             layout -> setContentsMargins(0,0,0,0);
 
             label = new QLabel;
-            label -> setStyleSheet("background: green");
-
-            labLayout -> addWidget(label);
-            labInner -> setLayout(labLayout);
+            
+			labLayout -> addWidget(label);
+            
+			labInner -> setLayout(labLayout);
         labelBox -> setWidget(labInner);
 
     layout -> addWidget(labelBox, 1, 0, 3, 4);
@@ -86,11 +86,24 @@ void Chat::addText(QString str){
     QString tmp = label -> text();
     tmp.append("\n\n" + time + " : " + str);
     label -> setText(tmp);
-    
 }
 
 void Chat::sendMsg(){
-    emit msgSent(input -> text());
+
+	bool check = false;
+	for (int i=0; i < input -> text().length(); i++){
+		QChar c = input -> text()[i];
+
+		if (c != ' ' && c != '\n' && c != '\r'){
+			check = true;
+		}
+	}
+
+	if (check){
+		emit msgSent(input -> text());
+	}
+
+	input -> setText("");    
 }
 
 

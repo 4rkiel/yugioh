@@ -4,3 +4,4 @@ moc_*
 Makefile
 yugioh
 *.swp
+*.pro.*
