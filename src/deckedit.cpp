@@ -6,8 +6,15 @@ deckEdit::deckEdit()
     selectDeck = new QComboBox;
     choixGenre = new QComboBox;
     choixSousGenre  = new QComboBox;
+    choixAttribut = new QComboBox;
+    choixType = new QComboBox;
 
     newDeck = new QLineEdit;
+    textSearch = new QLineEdit;
+
+    spinAtk = new QSpinBox;
+    spinDef = new QSpinBox;
+    spinNiveau = new QSpinBox;
 
     for(int i=0; i<NBR_BUTTON_DECK_EDIT; i++)
     {
@@ -21,15 +28,17 @@ deckEdit::deckEdit()
         tabCardVisu[i] = new QPushButton;
         tabCardVisu[i]->setStyleSheet("border-image: url(" + defaultImage + ");"
                             "margin: 1px ;border: 1px solid black");
-        tabCardVisu[i]->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        tabCardVisu[i]->setSizePolicy(QSizePolicy::Minimum,
+                                      QSizePolicy::Minimum);
     }
 
     for(int i=0; i<NBR_CARTE_EXTRA_DECK; i++)
     {
         tabExtraDeck[i] = new QPushButton;
-        tabExtraDeck[i]->setStyleSheet("border-image: url(" + defaultImage + ");"
-                             "margin: 1px ;border: 1px solid black");
-        tabCardVisu[i]->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        tabExtraDeck[i]->setStyleSheet("border-image: url(" + defaultImage +
+                                      ");margin: 1px ;border: 1px solid black");
+        tabCardVisu[i]->setSizePolicy(QSizePolicy::Minimum,
+                                      QSizePolicy::Minimum);
     }
 
     choixGenre->addItems(genreList);
@@ -87,6 +96,8 @@ deckEdit::deckEdit()
                 buttonH->addWidget(tabBut[EFFACER]);
                 buttonH->addStretch();
 
+                //TODO signaux
+
 
             // ... boutons verticaux ...........................................
 
@@ -97,6 +108,8 @@ deckEdit::deckEdit()
                 buttonV->addWidget(tabBut[SAUVER]);
                 buttonV->addWidget(tabBut[CREER]);
                 buttonV->addWidget(tabBut[SUPPRIMER]);
+
+                //TODO signaux
 
 
 
@@ -125,8 +138,10 @@ deckEdit::deckEdit()
                 layoutInfo->addWidget(deckLabel);
                 layoutInfo->addWidget(infoLabel);
 
+                //TODO signaux
 
-            // ... visualiteur de Deck .........................................
+
+            // ... visualiseur de Deck .........................................
 
             QFrame *deckVisu = new QFrame;
             deckVisu->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
@@ -144,11 +159,14 @@ deckEdit::deckEdit()
                 }
             }
 
+            //TODO signaux
 
-            // ... visualiteur d'extra Deck ....................................
+
+            // ... visualiseur d'extra Deck ....................................
 
             QFrame *extraDeckVisu = new QFrame;
-            extraDeckVisu->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
+            extraDeckVisu->setSizePolicy(QSizePolicy::Minimum,
+                                         QSizePolicy::Maximum);
             extraDeckVisu->setObjectName("extraDeckVisu");
             extraDeckVisu->setStyleSheet("#extraDeckVisu"
                                          "{border: 1px solid green}");
@@ -162,12 +180,9 @@ deckEdit::deckEdit()
             }
 
 
-
-
-
-            deckVisuLayout->addWidget(cardInfo);
-            deckVisuLayout->addWidget(deckVisu);
-            deckVisuLayout->addWidget(extraDeckVisu);
+        deckVisuLayout->addWidget(cardInfo);
+        deckVisuLayout->addWidget(deckVisu);
+        deckVisuLayout->addWidget(extraDeckVisu);
 
 
         // ... recherche de cartes .............................................
@@ -176,14 +191,14 @@ deckEdit::deckEdit()
         cardFilter->setStyleSheet("border: 1px solid blue");
         mainLayout->addWidget(cardFilter, 0, 4, 1, 7);
         cardFilter->setStyleSheet("background-color: #ECEFF1");
-        QHBoxLayout *colonne = new QHBoxLayout;
-        cardFilter->setLayout(colonne);
+        QHBoxLayout *colonne = new QHBoxLayout;        
 
 
             // ... recherche par propriétés ....................................
 
             QFrame *propFilter = new QFrame;
-            propFilter->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
+            propFilter->setSizePolicy(QSizePolicy::Minimum,
+                                      QSizePolicy::Maximum);
             propFilter->setObjectName("propFilter");
             propFilter->setStyleSheet("#propFilter"
                                          "{border: 1px solid green}");
@@ -192,7 +207,7 @@ deckEdit::deckEdit()
             propFilter->setLayout(propForm);
 
 
-                // ... Genre ...................................................
+                // ... Genre / Sous-genre ......................................
 
                 QHBoxLayout *genreColonne = new QHBoxLayout;
                 genreColonne->addWidget(choixGenre);
@@ -201,25 +216,165 @@ deckEdit::deckEdit()
                 propForm->addRow("Genre: ", genreColonne);
 
 
-                // ... Sous-genre ..............................................
+
+                    // ... Attribut ............................................
+
+                    propForm->addRow("Attribut: ", choixAttribut);
 
 
-                // ... Attribut ................................................
+
+                    // ... Type ................................................
+
+                    propForm->addRow(tr("Type: "), choixType);
 
 
-                // ... Type ....................................................
+
+                    // ... Niveau ..............................................
+
+                    spinNiveau->setAccelerated(true);
+                    spinNiveau->setSingleStep(1);
+                    spinNiveau->setMinimum(1);
+                    spinNiveau->setMaximum(12);
 
 
-                // ... Niveau ..................................................
+                propForm->addRow(tr("Niveau"), spinNiveau);
+
+
+
+                // ... recherche approfondis + bouttons ........................
+
+                QVBoxLayout *prop2Vmain = new QVBoxLayout;
+
+                    QHBoxLayout *prop2H = new QHBoxLayout;
+
+
+
+                        // ... Atk / Def .......................................
+
+                        QVBoxLayout *propAtkDef = new QVBoxLayout;
+
+
+                            QFormLayout *atkDefForm = new QFormLayout;
+
+                            atkDefForm->addRow(tr("Attaque: "), spinAtk);
+                            atkDefForm->addRow(tr("Défense: "), spinDef);
+
+
+                        propAtkDef->addLayout(atkDefForm);
+
+
+
+                        // ... Effect Box ......................................
+
+                        effectBoxBut = new QPushButton;
+                        effectBoxBut->setText("Effets");
+                        effectBoxBut->setSizePolicy(QSizePolicy::Minimum,
+                                                    QSizePolicy::Minimum);
+
+
+                    prop2H->addLayout(propAtkDef);
+                    prop2H->addWidget(effectBoxBut);
+
+
+
+                    // ... Annuler recherche / filrer ..........................
+
+                    QVBoxLayout *deleteSearch = new QVBoxLayout;
+
+
+                    deleteSearch->addWidget(tabBut[ANNULER_RECHERCHE]);
+
+                    //TODO: connect
+
+                    deleteSearch->addWidget(tabBut[FILTRER]);
+
+                    //TODO: connect
+
+
+
+                prop2Vmain->addLayout(prop2H);
+                prop2Vmain->addLayout(deleteSearch);
+
 
             colonne->addWidget(propFilter);
+            colonne->addLayout(prop2Vmain);
 
 
-            // ... recherche approfondis + bouttons ............................
-
-
-
+        cardFilter->setLayout(colonne);
 
 
     setLayout(mainLayout);
+}
+
+void deckEdit::slotAttribut()
+{
+    choixAttribut->clear();
+    switch(choixType->currentIndex())
+    {
+        case MONSTRE:
+            choixAttribut->addItem(tr("Lumière"), 0);
+            choixAttribut->addItem(tr("Tenebre"), 1);
+            choixAttribut->addItem(tr("Terre"), 2);
+            choixAttribut->addItem(tr("Eau"), 3);
+            choixAttribut->addItem(tr("Feu"), 4);
+            choixAttribut->addItem(tr("Vent"), 5);
+            choixAttribut->addItem(tr("Divin"), 6);
+
+            choixAttribut->setItemIcon(0, QIcon(imgRep + "LUMIERE"));
+            choixAttribut->setItemIcon(1, QIcon(imgRep + "TENEBRE"));
+            choixAttribut->setItemIcon(2, QIcon(imgRep + "TERRE"));
+            choixAttribut->setItemIcon(3, QIcon(imgRep + "EAU"));
+            choixAttribut->setItemIcon(4, QIcon(imgRep + "FEU"));
+            choixAttribut->setItemIcon(5, QIcon(imgRep + "VENT"));
+            choixAttribut->setItemIcon(6, QIcon(imgRep + "DIVIN"));
+
+            choixAttribut->setCurrentIndex(rand()%7);
+            spinAtk->setDisabled(false);
+            spinDef->setDisabled(false);
+            choixGenre->setDisabled(false);
+            choixSousGenre->setDisabled(false);
+            spinNiveau->setDisabled(false);
+        break;
+
+        case MAGIE:
+            choixAttribut->addItem(tr("Normal"), 0);
+            choixAttribut->addItem(tr("Continue"), 1);
+            choixAttribut->addItem(tr("Equipement"), 2);
+            choixAttribut->addItem(tr("Jeu-Rapide"), 3);
+            choixAttribut->addItem(tr("Rituelle"), 4);
+            choixAttribut->addItem(tr("Terrain"), 5);
+
+            choixAttribut->setItemIcon(0, QIcon(imgRep + "Normal-N"));
+            choixAttribut->setItemIcon(1, QIcon(imgRep + "Continuous"));
+            choixAttribut->setItemIcon(2, QIcon(imgRep + "Equip"));
+            choixAttribut->setItemIcon(3, QIcon(imgRep + "Quick-Play"));
+            choixAttribut->setItemIcon(4, QIcon(imgRep + "Ritual"));
+            choixAttribut->setItemIcon(5, QIcon(imgRep + "Field"));
+
+            choixAttribut->setCurrentIndex(rand()%6);
+
+            spinAtk->setDisabled(true);
+            spinDef->setDisabled(true);
+            choixGenre->setDisabled(true);
+            choixSousGenre->setDisabled(true);
+            spinNiveau->setDisabled(true);
+        break;
+
+        case PIEGE:
+            choixAttribut->addItem(tr("Normal"), 0);
+            choixAttribut->addItem(tr("Continue"), 1);
+            choixAttribut->addItem(tr("Contre"), 2);
+
+            choixAttribut->setItemIcon(0, QIcon(imgRep + "Normal-N"));
+            choixAttribut->setItemIcon(1, QIcon(imgRep + "Continuous"));
+            choixAttribut->setItemIcon(2, QIcon(imgRep + "Counter"));
+
+            choixAttribut->setCurrentIndex(rand()%3);
+
+            spinAtk->setDisabled(true);
+            spinDef->setDisabled(true);
+            choixGenre->setDisabled(true);
+            choixSousGenre->setDisabled(true);
+            spinNiveau->setDisabled(true);
+    }
 }

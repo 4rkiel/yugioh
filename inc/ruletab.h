@@ -76,6 +76,11 @@ class RuleTab : public QFrame {
         QLabel * shortcutDesc;
 */
 
+    QComboBox* lifePoints;
+    QLabel* lifeDesc;
+    QComboBox* cardDrawNumber;
+    QLabel* cardDrawDesc;
+
     QScrollArea * ruleScroll;
     QLabel * ruleLabel;
 
@@ -87,6 +92,8 @@ class RuleTab : public QFrame {
     void setPerso();
     void setRules();
     void emitClose();
+    void cardDrawNumberChange();
+    void lifeChange();
 /*
     void shareChange();   
     void contrasteChange();

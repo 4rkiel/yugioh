@@ -35,7 +35,7 @@ void Noyau::setReseau(bool b)
 void Noyau::chargerDeck(int x)
 {
     Parser * yolo = new Parser();
-    d1 = yolo->rechercher_set(x);
+    d1 = yolo->rechercher_set(x,NULL);
     emit e_deck(x);
 }
 
@@ -43,7 +43,7 @@ void Noyau::chargerDeck(int x)
 void Noyau::deckAdverse(int x)
 {
     Parser * yolo = new Parser();
-    d2 = yolo->rechercher_set(x);
+    d2 = yolo->rechercher_set(x,NULL);
 }
 
 //gère le piochage
