@@ -20,7 +20,7 @@ public:
     int selfLife=4000;
     int foeLife=4000;
     //void piocher(int n);
-    void poser(int main_x, int terrain_x, bool def);
+    void poser(int main_x, int terrain_x, bool def,bool vis);
     void poser(int sac_x,int main_x,int terrain_x, bool def);
     void poser(int sac1_x, int sac2_x, int main_x, int terrain_x,bool def);
     void attaquer(int attaquant_x, int adversaire_x=-1);
@@ -63,7 +63,7 @@ signals:
     void emit_charge_deck(QString contenu);
     void switch_pos(int x);
     void je_pioche();
-    void je_pose(int main_x,int terrain_x,bool def);
+    void je_pose(QString img,int main_x,int terrain_x,bool def,bool vis);
     void j_attaque(int attaquant_x,int adversaire_x);
     void je_gagne();
     void e_deck(int x);

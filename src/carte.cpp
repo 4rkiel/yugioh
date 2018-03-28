@@ -25,6 +25,8 @@ int Carte::correspondant(int position)
 {
     if(position>=0)
         return (position+75)%150;
+    else
+        return position;
 }
 
 void Carte::afficher_infos()

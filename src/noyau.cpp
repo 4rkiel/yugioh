@@ -394,7 +394,8 @@ void Noyau::traiter(QString s)
           }
          std::cout << "size :" << les_valeurs->size() << std::endl;
          bool le_bool = (les_valeurs->at(2)==1);
-         poser(les_valeurs->at(0),les_valeurs->at(1),le_bool);
+         bool face = (les_valeurs->at(3)==1);
+         poser(les_valeurs->at(0),les_valeurs->at(1),le_bool,face);
 
             delete(arg);
          std::cout << "j'ai fini de parser" << std::endl;
