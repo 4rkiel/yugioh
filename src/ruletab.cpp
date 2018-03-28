@@ -162,7 +162,47 @@ RuleTab::RuleTab (){
                 persoPaneLayout -> addWidget(shortcutDesc);
             
             */
-//
+
+                // life points
+
+                lifePoints = new QComboBox;
+                lifePoints -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+                lifePoints -> addItem("1000");
+                lifePoints -> addItem("2000");
+                lifePoints -> addItem("3000");
+                lifePoints -> addItem("4000");
+                lifePoints -> addItem("5000");
+                lifePoints -> addItem("6000");
+                lifePoints -> addItem("7000");
+                lifePoints -> addItem("8000");
+                lifePoints -> addItem("9000");
+                persoPaneLayout -> addWidget(lifePoints);
+                connect(lifePoints,SIGNAL(currentIndexChanged(QString)),this,SLOT(lifeChange()));
+
+                lifeDesc = new QLabel;
+                lifeDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
+                lifeDesc -> setText(tr("Nombre de points de vie"));
+                persoPaneLayout -> addWidget(lifeDesc);
+
+                // card draw number
+
+                cardDrawNumber=new QComboBox;
+                cardDrawNumber -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+                cardDrawNumber -> addItem("1");
+                cardDrawNumber -> addItem("2");
+                cardDrawNumber -> addItem("3");
+                cardDrawNumber -> addItem("4");
+                cardDrawNumber -> addItem("5");
+                cardDrawNumber -> addItem("6");
+                cardDrawNumber -> addItem("7");
+                persoPaneLayout -> addWidget(cardDrawNumber);
+                connect(cardDrawNumber,SIGNAL(currentIndexChanged(QString)),this,SLOT(cardDrawNumberChange()));
+
+                cardDrawDesc = new QLabel;
+                cardDrawDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
+                cardDrawDesc -> setText(tr("Nombre de cartes piochées en début de tour"));
+                persoPaneLayout -> addWidget(cardDrawDesc);
+
                 // load settings
 
                 loadPersoSettings();
@@ -232,6 +272,10 @@ RuleTab::~RuleTab (){
 
     delete ruleLabel;
     delete ruleScroll;
+    delete lifePoints;
+    delete lifeDesc;
+    delete cardDrawNumber;
+    delete cardDrawDesc;
 
     delete persoPaneLayout;
     delete persoScrollBox;
@@ -309,13 +353,16 @@ void RuleTab::emitClose (){
 
 
 void RuleTab::loadPersoSettings (){
-/*
+
     QSettings settings;
+    QString val1,val2;
+
+    val1=settings.value("lifePoints","4000").toString();
+    val2=settings.value("cardDrawNumber","1").toString();
     
-    if (settings.value("share", Qt::Unchecked).toBool()){
-        shareChck -> setCheckState(Qt::Checked);
-    }
-*/
+    lifePoints->setCurrentIndex(lifePoints->findText(val1));
+    cardDrawNumber->setCurrentIndex(cardDrawNumber->findText(val2));
+
 }
 
 /*
@@ -350,6 +397,21 @@ void RuleTab::largeChange (){
 }
 
 */
+
+void RuleTab::lifeChange(){
+
+    QSettings settings;
+    settings.setValue("lifePoints",lifePoints->currentText());
+
+}
+
+void RuleTab::cardDrawNumberChange(){
+
+    QSettings settings;
+    settings.setValue("cardDrawNumber",cardDrawNumber->currentText());
+
+}
+
 
 void RuleTab::readLangage(){
     QSettings settings;

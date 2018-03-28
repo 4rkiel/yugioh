@@ -57,20 +57,17 @@ Master::Master (){
 
 Master::~Master (){
 
-	if (mode == 0){
+	if (mode < 10 || mode > 19){
+        delete network; 
+    }
 
-    	delete selector;
-	
-	} else {
-
-        if (mode < 10 || mode > 19){
-            delete network; 
-        }
-
+	if (mode != 0){
         delete noyau;
-    	delete field;
-	}
-    
+   		delete field;
+    }
+
+
+	delete selector;
 	delete stacked;
     delete layout;
 }
@@ -101,7 +98,6 @@ void Master::loadField (int x){
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
 
-	delete selector;
 	
 	field -> init();
 }

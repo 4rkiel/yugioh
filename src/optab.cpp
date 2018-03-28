@@ -381,9 +381,9 @@ void OptionTab::loadOptSettings (){
     QString val = settings.value("langage", "fr_FR").toString();
 
     if (val == "fr_FR"){
-        langInput -> setCurrentIndex(langInput -> findData(QString::fromUtf8("Français")));
+        langInput -> setCurrentIndex(langInput -> findText(QString::fromUtf8("Français")));
     } else if (val == "en_US"){
-        langInput -> setCurrentIndex(langInput -> findData("English"));
+        langInput -> setCurrentIndex(langInput -> findText("English"));
     }
 }
 
