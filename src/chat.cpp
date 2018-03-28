@@ -94,12 +94,13 @@ void Chat::sendMsg(){
 	for (int i=0; i < input -> text().length(); i++){
 		QChar c = input -> text()[i];
 
-		if (c != ' ' && c != '\n' && c != '\r'){
+        if (c != ' ' && c != '\n' && c != '\r'){
 			check = true;
 		}
 	}
 
 	if (check){
+        if(!input->text().startsWith("#"))
         emit msgSent("#"+input -> text());
 	}
 
