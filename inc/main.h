@@ -78,7 +78,6 @@ class Window : public QWidget {
     HelpTab * help;
 
     void cleanStack();
-    bool event( QEvent* );
 
     protected:
     void closeEvent(QCloseEvent *);
