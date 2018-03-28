@@ -1,7 +1,5 @@
 #include "../inc/duplica.h"
 
-#include <iostream>
-
 /******************************************************************************
 
 	Widget permettant d'afficher le contenu complet d'une carte,

@@ -35,14 +35,16 @@ class deckEdit : public QWidget
         SAUVER,
         CREER,
         SUPPRIMER,
+        ANNULER_RECHERCHE,
+        FILTRER,
         NBR_BUTTON_DECK_EDIT
     };
 
-    enum buttonFiltre
+    enum GENRE
     {
-        EFFACER_RECHERCHE,
-        FILTRER,
-        NBR_BUTTON_FILTRE
+        MONSTRE,
+        MAGIE,
+        PIEGE
     };
 
     Q_OBJECT
@@ -53,11 +55,16 @@ class deckEdit : public QWidget
         const QString defaultImage = imgRep + "DEFAULT.jpg";
         const QString deckRep = appPath+"/deck/";
 
-        const QStringList buttonName = {tr("Quitter"), tr("Mélanger"), tr("Trier"),
-                                        tr("Effacer"), tr("Sauvegarder"), tr("Créer"),
-                                        tr("Supprimer")};
+        const QStringList buttonName = {tr("Quitter"), tr("Mélanger"),
+                                        tr("Trier"), tr("Effacer"),
+                                        tr("Sauvegarder"), tr("Créer"),
+                                        tr("Supprimer"), tr("Annuler"),
+                                        tr("Filtrer")};
         const QStringList genreList = {"Monstre", tr("Magie"), tr("Piège")};
-        const QStringList sousGenreList = {tr("Effet"), tr("Normal"), tr("Fusion"), tr("Toon"), tr("Rituel")};
+        const QStringList sousGenreList = {tr("Effet"), tr("Normal"),
+                                           tr("Fusion"), tr("Toon"),
+                                           tr("Rituel")};
+        const QStringList attributList = {};
 
         explicit deckEdit();
 
@@ -67,6 +74,7 @@ class deckEdit : public QWidget
         QComboBox *selectDeck;
         QComboBox *choixGenre;
         QComboBox *choixSousGenre;
+        QComboBox *choixAttribut;
         QComboBox *choixType;
         QShortcut *shortcut;
 
@@ -78,6 +86,8 @@ class deckEdit : public QWidget
         QSpinBox *spinDef;
 
 
+
+        QPushButton *effectBoxBut;
         QPushButton *tabBut[NBR_BUTTON_DECK_EDIT];
         QPushButton *tabCardVisu[NBR_CARTE_DECK_VISU];
         QPushButton *tabExtraDeck[NBR_CARTE_EXTRA_DECK];
@@ -85,6 +95,7 @@ class deckEdit : public QWidget
     signals:
 
     public slots:
+            void slotAttribut();
 };
 
 #endif // DECKEDIT_H

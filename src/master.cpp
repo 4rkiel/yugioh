@@ -92,9 +92,35 @@ void Master::loadField (int x){
 
     noyau = new Noyau;
     field = new Field;
-        
+
+	// Quit 
+
     connect(field, SIGNAL(introStack()), this, SLOT(emitIntro()));
- 
+
+	// send Msg // TODO traiter() -> Check if chat message + emit
+
+//	connect(noyau, SIGNAL(chat(QString)), field, SLOT(sendMsg(QString)));
+
+
+
+
+	// set carte
+
+//	connect(noyau, SIGNAL(___(QString, int)), field, SLOT(setCarte(QString, int)));
+
+	// pose carte
+
+//	connect(noyau, SIGNAL(___(int)), field, SLOT(poseCarte(int)));
+
+	// mask carte
+
+//	connect(noyau, SIGNAL(___(int)), field, SLOT(maskCarte(int)));
+
+	// rm carte
+
+//	connect(noyau, SIGNAL(___(int)), field, SLOT(rmCarte(int)));
+
+
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
 
@@ -109,3 +135,5 @@ void Master::sendErr(int){
 void Master::test(QString str){
     std::cout << str.toStdString() << "\n";
 }
+
+//void Master::cut(QString, int, int, bool, bool);

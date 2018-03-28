@@ -17,6 +17,7 @@ Stats::Stats(){
     layout -> setContentsMargins(10,10,10,10);
 
         title = new QLabel;
+        title -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
         title -> setText(tr("Informations"));
 
     layout -> addWidget(title, 0, 0, 1, 3);

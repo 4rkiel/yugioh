@@ -45,10 +45,11 @@ public slots:
 
     void setChat();
     void setStats();
-    void sendMsg(QString);
+
+	void sendMsg(QString);
 
     void setCarte(QString, int);
-    void poseCarte(QString, int);
+    void poseCarte(int);
     void maskCarte(int);
     void rmCarte(int);
 

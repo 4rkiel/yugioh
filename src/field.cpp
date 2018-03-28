@@ -507,6 +507,7 @@ Field::~Field (){
 
 
 void Field::init(){
+	fullCard -> setVisible(false);
     stats -> setVisible(true);
 }
 
@@ -642,8 +643,8 @@ void Field::setCarte(QString img, int x){
     fieldStack -> at(x) -> setPic(img);
 }
 
-void Field::poseCarte(QString img, int x){
-    fieldStack -> at(x) -> setPic(img);
+void Field::poseCarte(int x){
+    fieldStack -> at(x) -> posePic();
 }
 
 void Field::maskCarte(int x){

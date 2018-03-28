@@ -23,77 +23,77 @@ void Noyau::setReseau(bool b)
         connect(this,SIGNAL(emit_attaque()),res,SLOT(attaque()));
         connect(this,SIGNAL(je_pioche()),res,SLOT(piocher()));
         connect(res,SIGNAL(a_parser(QString)),this,SLOT(traiter(QString)));
-        connect(this,SIGNAL(je_pose(int,int,bool)),res,SLOT(poser(int,int,bool)));
-        connect(this,SIGNAL(j_attaque(int,int)),res,SLOT(attaquer(int,int)));
-        connect(this,SIGNAL(je_gagne()),res,SLOT(gagne()));
-        connect(this,SIGNAL(e_deck(int)),res,SLOT(env_deck(int)));
-        connect(this,SIGNAL(switch_pos(int)),res,SLOT(change_pos(int)));
-    }
+connect(this,SIGNAL(je_pose(int,int,bool)),res,SLOT(poser(int,int,bool)));
+connect(this,SIGNAL(j_attaque(int,int)),res,SLOT(attaquer(int,int)));
+connect(this,SIGNAL(je_gagne()),res,SLOT(gagne()));
+connect(this,SIGNAL(e_deck(int)),res,SLOT(env_deck(int)));
+connect(this,SIGNAL(switch_pos(int)),res,SLOT(change_pos(int)));
+}
 }
 
 //charge le deck qui te correspond
 void Noyau::chargerDeck(int x)
 {
-    Parser * yolo = new Parser();
-    d1 = yolo->rechercher_set(x,NULL);
-    emit e_deck(x);
+Parser * yolo = new Parser();
+d1 = yolo->rechercher_set(x,NULL);
+emit e_deck(x);
 }
 
 //charge le deck de l'adversaire
 void Noyau::deckAdverse(int x)
 {
-    Parser * yolo = new Parser();
-    d2 = yolo->rechercher_set(x,NULL);
+Parser * yolo = new Parser();
+d2 = yolo->rechercher_set(x,NULL);
 }
 
 //gère le piochage
 void Noyau::piocher(int x)
 {
-    int position = Carte::correspondant(x);
-    //si c'est moi qui pioche
-    if(position>75)
-    {
-        //on met la position de la carte qui est au sommet du deck là où il faut dans la main
-        //on place la carte dans au bon endroit
-        //on enleve la carte du deck
+int position = Carte::correspondant(x);
+//si c'est moi qui pioche
+if(position>75)
+{
+//on met la position de la carte qui est au sommet du deck là où il faut dans la main
+//on place la carte dans au bon endroit
+//on enleve la carte du deck
 
-        std::cout << "le traitement du piochage allié en cours " << std::endl;
-        d1->front()->position_terrain = perfect_position(0);
-        terrain->push_back(d1->front());
-        enlever_i(&d1,0);
+std::cout << "le traitement du piochage allié en cours " << std::endl;
+d1->front()->position_terrain = perfect_position(0);
+terrain->push_back(d1->front());
+enlever_i(&d1,0);
 
-        //prevenir le voisin
-        emit je_pioche();
-    }
-    else
-    {
-        std::cout << "le traitement du piochage adverse en cours " << std::endl;
-        d2->front()->position_terrain = perfect_position(1);
-        terrain->push_back(d2->front());
-        enlever_i(&d2,0);
-    }
+//prevenir le voisin
+emit je_pioche();
+}
+else
+{
+std::cout << "le traitement du piochage adverse en cours " << std::endl;
+d2->front()->position_terrain = perfect_position(1);
+terrain->push_back(d2->front());
+enlever_i(&d2,0);
+}
 }
 
 //poser la carte
-void Noyau::poser(int main_x, int terrain_x, bool def)
+void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
 {
-    Carte * la_carte;
-    if(main_x < 75)
-    {
-        std::cout << "je traite mon posage" << std::endl;
-        la_carte = trouver(main_x);
-        la_carte->position_terrain=terrain_x;
-        la_carte->def = def;
-        emit je_pose(main_x,terrain_x,def);
-    }
-    else
-    {
-        std::cout << "je traite le posage adverse" << std::endl;
-        la_carte = trouver(main_x);
-        la_carte->position_terrain=terrain_x;
-         la_carte->def = def;
+Carte * la_carte;
+if(main_x < 75)
+{
+std::cout << "je traite mon posage" << std::endl;
+la_carte = trouver(main_x);
+la_carte->position_terrain=terrain_x;
+la_carte->def = def;
+emit je_pose(la_carte->image,main_x,terrain_x,def,vis);
+}
+else
+{
+std::cout << "je traite le posage adverse" << std::endl;
+la_carte = trouver(main_x);
+la_carte->position_terrain=terrain_x;
+ la_carte->def = def;
 
-    }
+}
 }
 
 //trouve la carte qui a la position x
