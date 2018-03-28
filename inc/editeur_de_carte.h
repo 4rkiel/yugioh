@@ -30,6 +30,7 @@
 #include <QFileDialog>
 #include <iostream>
 #include <sstream>
+#include <QShortcut>
 
 #include "../inc/carte.h"
 #include "../inc/shadowButt.h"
@@ -84,7 +85,7 @@ private:
         QLineEdit *nom;
         QLineEdit *description;
         QLineEdit *imageUrl;
-
+        QShortcut *shortcut;
         QComboBox *genreCarte;
         QComboBox *typePrimaire;
         QComboBox *typeSecondaire;

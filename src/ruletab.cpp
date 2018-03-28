@@ -261,6 +261,10 @@ RuleTab::RuleTab (){
 
     layout -> addWidget(tabInside, 1,1,2,1);
 
+    //key shortcut
+    shortcut = new QShortcut(QKeySequence("Escape"), this);
+    connect(shortcut, SIGNAL(activated()), this, SLOT(emitClose()));
+
     setLayout(layout);
 
 }
@@ -269,6 +273,7 @@ RuleTab::RuleTab (){
 RuleTab::~RuleTab (){
 
     delete ruEffect;
+    delete shortcut;
 
     delete ruleLabel;
     delete ruleScroll;

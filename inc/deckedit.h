@@ -19,6 +19,7 @@
 #include <QDebug>
 #include <algorithm>
 #include <QMargins>
+#include <QShortcut>
 
 #define NBR_CARTE_DECK_VISU 60 // multiple de 10
 #define NBR_CARTE_EXTRA_DECK 15
@@ -67,6 +68,7 @@ class deckEdit : public QWidget
         QComboBox *choixGenre;
         QComboBox *choixSousGenre;
         QComboBox *choixType;
+        QShortcut *shortcut;
 
         QLineEdit *newDeck;
         QLineEdit *textSearch;

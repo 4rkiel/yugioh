@@ -7,6 +7,7 @@
 
 #include <QLabel>
 #include <QString>
+#include <QShortcut>
 
 class Stats : public QFrame {
 
@@ -23,6 +24,7 @@ public:
 private:
 
     QGridLayout * layout;
+    QShortcut *shortcut;
 
     QLabel * title;
     QLabel * tour;

@@ -119,6 +119,10 @@ Intro::Intro () {
             
             box -> addStretch(1);
 
+            //key shortcut
+            shortcut = new QShortcut(QKeySequence("Escape"), this);
+            connect(shortcut, SIGNAL(activated()), qApp, SLOT(quit()));
+
         introBox -> setLayout(box);
         layout -> addWidget(introBox, 2, 1, 1, 1);
 

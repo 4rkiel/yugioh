@@ -11,6 +11,7 @@
 
 #include <QPushButton>
 #include <QString>
+#include <QShortcut>
 
 #include "../inc/shadowButt.h"
 
@@ -31,6 +32,7 @@ class NetChoice : public QFrame {
 
     private:
     QGridLayout * layout;
+    QShortcut *shortcut;
 
     QWidget * infoBox;
 

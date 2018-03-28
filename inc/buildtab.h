@@ -21,6 +21,7 @@
 #include <QComboBox>
 
 #include <QString>
+#include <QShortcut>
 
 #include "../inc/shadowButt.h"
 #include "../inc/editeur_de_carte.h"

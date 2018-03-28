@@ -14,6 +14,7 @@
 #include <QString>
 
 #include <QTabWidget>
+#include <QShortcut>
 
 #include "../inc/shadowButt.h"
 
@@ -44,6 +45,7 @@ class Intro : public QFrame {
     QGridLayout * layout;
 
     QWidget * infoBox;
+    QShortcut *shortcut;
         
         QGraphicsDropShadowEffect * iffect;
         QHBoxLayout * infoLayout;

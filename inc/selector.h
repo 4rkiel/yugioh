@@ -3,6 +3,7 @@
 
 #include <QStackedWidget>
 #include <QGridLayout>
+#include <QShortcut>
 
 #include "../inc/choice.h"
 #include "../inc/soloChoice.h"
@@ -48,6 +49,7 @@ private:
 
     QStackedWidget * stacked;
     QGridLayout * layout;
+    QShortcut *shortcut;
 
     Choice * choice;
     SoloChoice * soloChoice;

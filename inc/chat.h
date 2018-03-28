@@ -12,6 +12,7 @@
 #include <QString>
 #include <QLineEdit>
 #include <QTime>
+#include <QShortcut>
 
 #include "../inc/flatButt.h"
 
@@ -38,6 +39,7 @@ public slots:
 private:
 
     QGridLayout * layout;
+    QShortcut *shortcut;
 
     QLabel * title;
     QScrollArea * labelBox;

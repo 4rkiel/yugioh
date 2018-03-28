@@ -11,6 +11,7 @@
 
 #include <QPushButton>
 #include <QString>
+#include <QShortcut>
 
 #include <QLineEdit>
 
@@ -35,6 +36,7 @@ class JoinChoice : public QFrame {
 
     private:
     QGridLayout * layout;
+    QShortcut *shortcut;
 
     QWidget * infoBox;
 

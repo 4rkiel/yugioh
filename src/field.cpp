@@ -406,6 +406,10 @@ Field::Field () {
     overLayout -> addWidget(sceneBox, 0, 0);
     overLayout -> addWidget(popupOuter, 0, 0);
 
+    // key shortcut
+    shortcut = new QShortcut(QKeySequence("Escape"), this);
+    connect(shortcut, SIGNAL(activated()), this, SLOT(openQuit()));
+
     this -> setLayout(overLayout);
 
 
@@ -417,6 +421,7 @@ Field::~Field (){
             delete quitno;
             delete quitya;
             delete quitLabel;
+        delete shortcut;
 
         delete quitLayout;
         delete quitBox;

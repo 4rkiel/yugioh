@@ -23,6 +23,7 @@
 #include <QSpacerItem>
 #include <QComboBox>
 #include <QEvent>
+#include <QShortcut>
 
 #include "../inc/shadowButt.h"
 
@@ -39,6 +40,7 @@ class OptionTab : public QFrame {
     private:
     QGraphicsDropShadowEffect * optEffect;
     QGridLayout * layout;
+    QShortcut *shortcut;
 
     QWidget * infoBox;
 

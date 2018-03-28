@@ -11,6 +11,7 @@
 
 #include <QPushButton>
 #include <QString>
+#include <QShortcut>
 
 #include "../inc/shadowButt.h"
 
@@ -41,7 +42,7 @@ class Choice : public QFrame {
     QGridLayout * layout;
 
     QWidget * infoBox;
-
+    QShortcut *shortcut;
         QGraphicsDropShadowEffect * iffect;
         QHBoxLayout * infoLayout;
         QLabel * info;

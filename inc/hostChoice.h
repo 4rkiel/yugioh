@@ -13,6 +13,7 @@
 #include <QPushButton>
 #include <QString>
 #include <QLabel>
+#include <QShortcut>
 
 #include "../inc/reseau.h"
 #include "../inc/shadowButt.h"
@@ -43,6 +44,7 @@ private:
     void setIP(QString);
     
     QGridLayout * layout;
+    QShortcut *shortcut;
 
     QWidget * infoBox;
 

@@ -114,6 +114,9 @@ Choice::Choice () {
         introBox -> setLayout(box);
         layout -> addWidget(introBox, 2, 1, 1, 1);
 
+        // key shortcuts
+        shortcut = new QShortcut(QKeySequence("Escape"), this);
+        connect(shortcut, SIGNAL(activated()), this, SLOT(emitIntro()));
 
     setLayout(layout);
 }
@@ -127,6 +130,7 @@ Choice::~Choice (){
     delete solo;
 
     delete effect;
+    delete shortcut;
 
     delete box;
     delete introBox;

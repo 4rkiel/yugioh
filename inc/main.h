@@ -15,6 +15,8 @@
 #include <QTranslator>
 #include <QString>
 #include <QTextCodec>
+#include <QShortcut>
+#include <QKeyEvent>
 
 #include "../inc/master.h"
 #include "../inc/field.h"
@@ -61,6 +63,7 @@ class Window : public QWidget {
     QTranslator* montranslator2;
     QStackedLayout * stackedLayout;
     Generique * generique;
+    QShortcut *shortcut;
     Intro * intro;
 //	Choice * choice;
 //    SoloChoice * soloChoice;
@@ -75,6 +78,7 @@ class Window : public QWidget {
     HelpTab * help;
 
     void cleanStack();
+    bool event( QEvent* );
 
     protected:
     void closeEvent(QCloseEvent *);

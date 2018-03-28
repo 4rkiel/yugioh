@@ -23,6 +23,7 @@
 #include <QSpacerItem>
 #include <QComboBox>
 #include <QEvent>
+#include <QShortcut>
 
 #include "../inc/shadowButt.h"
 
@@ -38,6 +39,7 @@ class RuleTab : public QFrame {
 
     private:
     QString valeur;
+    QShortcut *shortcut;
     QGraphicsDropShadowEffect * ruEffect;
     QGridLayout * layout;
 

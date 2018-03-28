@@ -347,6 +347,7 @@ int main(int argc, char *argv[]) {
     app.setOrganizationDomain("Yu.Gi.Oh");
     app.setApplicationName("Yu-Gi-Oh");
 
+
     // trad de depart
     QSettings settings;
     QString val = settings.value("langage", QLocale::system().name()).toString();

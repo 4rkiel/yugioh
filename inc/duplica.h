@@ -11,6 +11,7 @@
 #include <QGraphicsDropShadowEffect>
 #include <QWidget>
 #include <QPushButton>
+#include <QShortcut>
 
 class Duplica : public QFrame {
 
@@ -36,7 +37,7 @@ private:
 
     QGraphicsDropShadowEffect * gffect;
     QGridLayout * layout;
-    
+    QShortcut *shortcut;
     QLabel * title;
     QGraphicsDropShadowEffect * effect;
     

@@ -11,6 +11,7 @@
 
 #include <QString>
 #include <iostream>
+#include <QShortcut>
 
 class Master : public QFrame {
 
@@ -38,6 +39,7 @@ private:
 
 	int mode;
     QStackedWidget * stacked;
+    QShortcut *shortcut;
     QGridLayout * layout;
     Field * field;
     Selector * selector;

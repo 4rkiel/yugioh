@@ -17,6 +17,7 @@
 
 #include <vector>
 #include <iostream>
+#include <QShortcut>
 
 #include "../inc/shadowButt.h"
 #include "../inc/flatButt.h"
@@ -79,6 +80,7 @@ private:
     QGridLayout * overLayout;
     QWidget * sceneBox;
     QGridLayout * sceneLayout;
+    QShortcut *shortcut;
     
         std::vector<SlotCard *> * fieldStack;
         

@@ -196,6 +196,10 @@ HelpTab::HelpTab (){
 
     layout -> addWidget(tabInside, 1, 0, 1, 1);
 
+    // key shortcut
+    shortcut = new QShortcut(QKeySequence("Escape"), this);
+    connect(shortcut, SIGNAL(activated()), this, SLOT(emitClose()));
+
     setLayout(layout);
 
 }

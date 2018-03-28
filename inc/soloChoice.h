@@ -13,6 +13,7 @@
 #include <QString>
 #include <QLabel>
 #include <QNetworkInterface>
+#include <QShortcut>
 
 #include "../inc/shadowButt.h"
 
@@ -37,6 +38,7 @@ class SoloChoice : public QFrame {
 
     private:
     QGridLayout * layout;
+    QShortcut *shortcut;
 
     QWidget * infoBox;
 
