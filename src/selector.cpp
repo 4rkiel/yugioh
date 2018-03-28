@@ -180,12 +180,13 @@ void Selector::hostStack(){
 
     mode = 3;
 
-
     hostChoice = new HostChoice;
-        
+    
     connect(hostChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
     connect(hostChoice, SIGNAL(createHost(QString)), this, SLOT(transmitHost(QString)));
-        
+    
+    hostChoice -> init();
+
     stacked -> addWidget(hostChoice);
 
 
@@ -213,13 +214,16 @@ void Selector::netStack(){
 }
 
 
+
 void Selector::transmitHost(QString str){
 	emit createHost(str);
 }
 
+
 void Selector::connectIP(QString str){
-	emit sendIP(str);
+    emit sendIP(str);
 }
+
 
 void Selector::emitGame(int x){
     emit gameStack(x);

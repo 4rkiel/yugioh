@@ -1,6 +1,7 @@
 #ifndef RESEAU_H
 #define RESEAU_H
 #include <QtNetwork>
+#include <QHostAddress>
 #include <QWidget>
 #include <iostream>
 #include "carte.h"
@@ -18,6 +19,7 @@ public:
      quint16 tailleMessage2=0;
      void envoyer(const QString &message);
      void parser(std::string s);
+     QString getIp();
 public slots:
      void afficher(Carte* c);
      void nouvelleConnexion();
@@ -35,6 +37,8 @@ public slots:
      void env_deck(int d);
      void poser(int main_x,int terrain_x,bool def);
      void change_pos(int x);
+     void prochaine_phase();
+     void ton_tour();
 signals:
     void a_parser(QString chaine);
 

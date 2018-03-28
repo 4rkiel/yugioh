@@ -39,7 +39,6 @@ HEADERS += inc/buildtab.h \
            inc/netChoice.h \
            inc/duplica.h \
            inc/stats.h \
-           inc/history.h \
            inc/chat.h \
            inc/editeur_de_carte.h \
            inc/extAdr.h \
@@ -72,7 +71,6 @@ SOURCES += src/buildtab.cpp \
            src/netChoice.cpp \
            src/duplica.cpp \
            src/stats.cpp \
-           src/history.cpp \
            src/chat.cpp \
            src/editeur_de_carte.cpp \
            src/extAdr.cpp \

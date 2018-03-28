@@ -14,27 +14,34 @@
 #include <QString>
 #include <QLabel>
 
-
+#include "../inc/reseau.h"
 #include "../inc/shadowButt.h"
 
 class HostChoice : public QFrame {
 
-    Q_OBJECT
+Q_OBJECT
     
-    public:
+public:
+    
     HostChoice();
     ~HostChoice();
     void init();
 
-    public slots:
+public slots:
+
     void emitChoice();
-	void setIP(QString str);
 
-    signals:
+signals:
+    
     void choiceStack();
-	void createHost(QString str);
+	void createHost(QString);
 
-    private:
+private:
+	
+    QString ip;
+    
+    void setIP(QString);
+    
     QGridLayout * layout;
 
     QWidget * infoBox;

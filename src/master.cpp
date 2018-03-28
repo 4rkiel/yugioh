@@ -4,7 +4,7 @@ Master::Master (){
 
 	mode = 0;
 
-	Reseau * network = new Reseau;
+	network = new Reseau;
 
 
     layout = new QGridLayout;
@@ -18,15 +18,27 @@ Master::Master (){
 
         selector = new Selector;
 
+        // Go back signal
         connect(selector, SIGNAL(introStack()), this, SLOT(emitIntro()));
+        
+        // Load Solo Game
         connect(selector, SIGNAL(gameStack(int)), this, SLOT(loadField(int)));
+
+        // Ask for being server
         connect(selector, SIGNAL(createHost(QString)), network, SLOT(go(QString)));
 
+        // Load Host Game
 		connect(network, SIGNAL(hostReady(int)), this, SLOT(loadField(int)));
-		connect(selector, SIGNAL(sendIP(QString)), network, SLOT(mondieu(QString)));
+		
+        // Ask for being host
+        connect(selector, SIGNAL(sendIP(QString)), this, SLOT(test(QString)));
+        connect(selector, SIGNAL(sendIP(QString)), network, SLOT(mondieu(QString)));
 
+        // Load Joined Game
 		connect(network, SIGNAL(connectOK(int)), this, SLOT(loadField(int)));
-		connect(network, SIGNAL(connectKO()), this, SLOT(sendErr()));
+		
+        // Host not found
+        connect(network, SIGNAL(connectKO(int)), this, SLOT(sendErr(int)));
 	
 
     stacked -> addWidget(selector);
@@ -51,6 +63,11 @@ Master::~Master (){
 	
 	} else {
 
+        if (mode < 10 || mode > 19){
+            delete network; 
+        }
+
+        delete noyau;
     	delete field;
 	}
     
@@ -65,11 +82,18 @@ void Master::emitIntro (){
     emit introStack();
 }
 
+
 void Master::loadField (int x){
 
+    mode = x;
+
+    if (mode >= 10 && mode <= 19){
+        delete network;
+    }
 
 	// Field
 
+    noyau = new Noyau;
     field = new Field;
         
     connect(field, SIGNAL(introStack()), this, SLOT(emitIntro()));
@@ -82,6 +106,10 @@ void Master::loadField (int x){
 	field -> init();
 }
 
-void Master::sendErr(){
+void Master::sendErr(int){
 
+}
+
+void Master::test(QString str){
+    std::cout << str.toStdString() << "\n";
 }

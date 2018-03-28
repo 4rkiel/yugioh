@@ -66,10 +66,12 @@ private:
     QStackedLayout * buildLayout;
 
     QScrollArea * deckScroll;
+	deckEdit * deck;
 
     QScrollArea * cardScroll;
 
     QScrollArea * cardEditScroll;
+	editeur_de_carte * editeur;
 
     void updateStyle(QPushButton * b);
 

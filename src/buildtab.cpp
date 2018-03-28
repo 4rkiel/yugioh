@@ -126,7 +126,8 @@ BuildTab::BuildTab (){
             deckScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
             deckScroll -> setFocusPolicy(Qt::NoFocus);
 
-            deckScroll->setWidget(new deckEdit);
+			deck = new deckEdit;
+            deckScroll->setWidget(deck);
 
             buildLayout -> addWidget(deckScroll);
 
@@ -154,7 +155,8 @@ BuildTab::BuildTab (){
             cardEditScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
             cardEditScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
-            cardEditScroll->setWidget(new editeur_de_carte());
+			editeur = new editeur_de_carte();
+            cardEditScroll->setWidget(editeur);
 
             buildLayout -> addWidget(cardEditScroll);
 
@@ -177,9 +179,11 @@ BuildTab::BuildTab (){
 BuildTab::~BuildTab (){
     
     delete buildEffect;
-    
+
+	delete editeur;
     delete cardScroll;
 
+	delete deck;
     delete deckScroll;
 
         delete exitButt;

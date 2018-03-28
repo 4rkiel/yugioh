@@ -64,10 +64,10 @@ SoloChoice::SoloChoice () {
 
             connect(choice, SIGNAL(clicked()), this, SLOT(emitBack()));
 
-            box -> addWidget(choice, 7,0,1,3);
+            box -> addWidget(choice, 9,0,1,3);
 
             
-             
+              
             // Hard
             
             QString strHard = tr("Difficile");
@@ -75,7 +75,16 @@ SoloChoice::SoloChoice () {
             hard -> setToolTip(tr("Adversaire expert"));
             connect(hard, SIGNAL(clicked()), this, SLOT(emitHard()));
 
-            box -> addWidget(hard, 5,0,1,3);
+
+
+             
+            // Medium
+            
+            QString strMed = tr("Normal");
+            med = new ShadowButt("\uf447", strMed);
+            med -> setToolTip(tr("Adversaire expert"));
+            connect(med, SIGNAL(clicked()), this, SLOT(emitMed()));
+
 
 
            
@@ -87,6 +96,8 @@ SoloChoice::SoloChoice () {
             connect(easy, SIGNAL(clicked()), this, SLOT(emitEasy()));
 
             box -> addWidget(easy, 3,0,1,3);
+            box -> addWidget(med, 5,0,1,3);
+            box -> addWidget(hard, 7,0,1,3);
 
             
 
@@ -105,8 +116,9 @@ SoloChoice::SoloChoice () {
             box -> setRowStretch(0,10);
             box -> setRowStretch(2,10);
             box -> setRowStretch(4,1);
-            box -> setRowStretch(6,25);
-            box -> setRowStretch(8,1);
+            box -> setRowStretch(6,1);
+            box -> setRowStretch(8,25);
+            box -> setRowStretch(10,1);
 
 
         introBox -> setLayout(box);
@@ -121,6 +133,7 @@ SoloChoice::~SoloChoice (){
 
     delete intro;
     delete easy;
+    delete med;
     delete hard;
     delete choice;
 
@@ -154,6 +167,11 @@ void SoloChoice::emitEasy (){
 }
 
 
-void SoloChoice::emitHard (){
+void SoloChoice::emitMed (){
     emit gameStack(12);
+}
+
+
+void SoloChoice::emitHard (){
+    emit gameStack(13);
 }

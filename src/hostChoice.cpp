@@ -8,11 +8,6 @@
 
 ******************************************************************************/
 
-#include <QDebug>
-#include <iostream>
-#include <string>
-#include "../inc/extAdr.h"
-
 HostChoice::HostChoice () {
 
     layout = new QGridLayout;
@@ -93,20 +88,15 @@ HostChoice::HostChoice () {
 			// IP
             
             phrase = new QLabel;
-            QString ip = tr("Adresse du serveur : \n\nPatientez...");
-            phrase -> setText(ip);
+            QString ipTxt = tr("Adresse du serveur : \n\n");
+            Reseau r;
+            ip = r.getIp();
+            phrase -> setText(ipTxt + ip);
             phrase -> setWordWrap(true);
             phrase -> setContentsMargins(30,0,30,0);
             phrase -> setTextInteractionFlags(Qt::TextSelectableByMouse); 
             box -> addWidget(phrase,3,1,1,1);
           
- 
-            // GET IP
-           
-			ExtAdr * addr = new ExtAdr;
-			connect(addr, SIGNAL(getIP(QString)), this, SLOT(setIP(QString)));
-
-
 
 
             box -> setRowStretch(4,25);
@@ -121,6 +111,7 @@ HostChoice::HostChoice () {
 
 
     setLayout(layout);
+
 }
 
     
@@ -145,20 +136,20 @@ HostChoice::~HostChoice (){
 
 
 void HostChoice::init (){
-//    local -> setFocus();
+
+    choice -> setFocus();
+    setIP(ip);
 }
 
 
 
 void HostChoice::emitChoice (){
+    
     emit choiceStack();
 }
 
 
 void HostChoice::setIP(QString str){
 
-    QString ip = tr("Adresse du serveur : \n\n") + str;
-	phrase -> setText(ip);
-
-	emit createHost(str);
+    emit createHost(str);
 }

@@ -6,6 +6,8 @@ Noyau::Noyau()
     terrain = new std::vector<Carte *>();
     cimetiere1 = new std::vector<Carte *>();
     cimetiere2 = new std::vector<Carte *>();
+    qui = false;
+    phase = 1;
 }
 
 
@@ -28,6 +30,8 @@ void Noyau::setReseau(bool b)
         connect(this,SIGNAL(je_gagne()),res,SLOT(gagne()));
         connect(this,SIGNAL(e_deck(int)),res,SLOT(env_deck(int)));
         connect(this,SIGNAL(switch_pos(int)),res,SLOT(change_pos(int)));
+        connect(this,SIGNAL(phase_suivante()),res,SLOT(prochaine_phase()));
+        connect(this,SIGNAL(a_ton_tour()),res,SLOT(ton_tour()));
     }
 }
 
@@ -64,6 +68,8 @@ void Noyau::piocher(int x)
 
         //prevenir le voisin
         emit je_pioche();
+        next_phase();
+
     }
     else
     {
@@ -321,12 +327,24 @@ void Noyau::enlever_x(std::vector<Carte *> **vect, int x)
 
 }
 
-void Noyau::phase_suivante()
+void Noyau::next_phase()
 {
     if(phase==5)
+    {
         phase=1;
+        tour++;
+        if(qui)
+        {
+               qui = !qui;
+            emit a_ton_tour();
+        }
+    }
     else
+    {
         phase++;
+        if(qui)
+            emit phase_suivante();
+    }
 }
 
 
@@ -349,6 +367,7 @@ void Noyau::attaque()
 {
     emit Noyau::emit_attaque();
 }
+
 
 /***************************************************************/
 //FONCTION ULTIME
@@ -408,6 +427,8 @@ void Noyau::traiter(QString s)
                 std::cout << "atk:" << terrain->at(i)->atk << " terrain_position" << terrain->at(i)->position_terrain << " pos:" << (terrain->at(i)->pos ? 1 : 0) << std::endl;
             }
             std::cout << "ma vie :" << selfLife << " vie adverse :" << foeLife << std::endl;
+            std::cout << "mon tour: " << (qui? "oui" : "non") << std::endl;
+            std::cout << "phase:  " << phase << " tour: " << tour << std::endl;
     }
     else if(s.startsWith(QString("deck:")))
     {
@@ -502,6 +523,17 @@ void Noyau::traiter(QString s)
          delete(arg);
          valeur = atoi(vrai.c_str());
          switch_position(valeur);
+    }
+    else if(s.compare(QString("np"))==0)
+    {
+           next_phase();
+    }
+    else if(s.compare(QString("tt"))==0)
+    {
+        //UN TT EN TROP AU DEBUT
+        qui = true;
+        phase = 1;
+        tour++;
     }
 
 }

@@ -231,16 +231,11 @@ Field::Field () {
                     statsButt -> setToolTip(tr("Duel"));
                     connect(statsButt, SIGNAL(clicked()), this, SLOT(setStats()));
                     sideToolLayout -> addWidget(statsButt, 0, 0);
-
-                    histoButt = new FlatButt("\uf03c","");
-                    histoButt -> setToolTip(tr("Historique"));
-                    connect(histoButt, SIGNAL(clicked()), this, SLOT(setHisto()));
-                    sideToolLayout -> addWidget(histoButt, 0, 1);
                     
                     chatButt = new FlatButt("\uf086","");
                     chatButt -> setToolTip(tr("Chat"));
                     connect(chatButt, SIGNAL(clicked()), this, SLOT(setChat()));
-                    sideToolLayout -> addWidget(chatButt, 0, 2);
+                    sideToolLayout -> addWidget(chatButt, 0, 1);
 
                 sideTool -> setLayout(sideToolLayout);
                     
@@ -257,15 +252,12 @@ Field::Field () {
                 stats -> setVisible(false);
                 sidebar -> addWidget(stats, 1, 0, 9, 1);
 
-                history = new History;
-                history -> setVisible(false);
-                sidebar -> addWidget(history, 1, 0, 9, 1);
-
                 chat = new Chat;
                 chat -> setVisible(false);
                 sidebar -> addWidget(chat, 1, 0, 9, 1);
 
-                currentSide = chat;
+                connect(chat, SIGNAL(msgSent(QString)), this, SLOT(sendMsg(QString)));
+                currentSide = stats;
 
 
 /*                QSpacerItem * spacerSide = new QSpacerItem(5,5,
@@ -287,7 +279,7 @@ Field::Field () {
             lifeSlf -> setObjectName("Life");
             rightBarLayout -> addWidget(lifeSlf, 4, 1, 1, 1);
 
-            actionButt = new ShadowButt("\uf04b", "");
+            actionButt = new ShadowButt("\uf079", "");
             actionButt -> setToolTip(tr("Terminer le tour"));
             rightBarLayout -> addWidget(actionButt, 4, 3, 1, 1);
             connect(actionButt, SIGNAL(clicked()), this, SLOT(test()));
@@ -446,14 +438,12 @@ Field::~Field (){
 
 
             delete statsButt;
-            delete histoButt;
             delete chatButt;
 
             delete sideToolLayout;
             delete sideTool;
 
             delete stats;
-            delete history;
             delete chat;
 
             delete fullCard;
@@ -512,7 +502,7 @@ Field::~Field (){
 
 
 void Field::init(){
-    chat -> setVisible(false);
+    stats -> setVisible(true);
 }
 
 
@@ -593,29 +583,6 @@ void Field::cardLeaved(int x){
     cardOut();
 }
 
-
-
-void Field::setStats(){
-
-    currentSide -> setVisible(false);
-    stats -> setVisible(true);
-    currentSide = stats;
-}
-
-void Field::setHisto(){
-    
-    currentSide -> setVisible(false);
-    history -> setVisible(true);
-    currentSide = history;
-}
-
-void Field::setChat(){
-    
-    currentSide -> setVisible(false);
-    chat -> setVisible(true);
-    currentSide = chat;
-}
-
 void Field::cardHover (){
 
     fullCard -> setTitle("Dragon Blanc aux Yeux Bleus");
@@ -646,12 +613,60 @@ void Field::cardOut (){
 
 
 
+void Field::setStats(){
+
+    currentSide -> setVisible(false);
+    stats -> setVisible(true);
+    currentSide = stats;
+}
+
+void Field::setChat(){
+    
+    currentSide -> setVisible(false);
+    chat -> setVisible(true);
+    currentSide = chat;
+}
+
+void Field::sendMsg(QString str){
+    chat -> addText(str);
+}
+
+
+
+void Field::setCarte(QString img, int x){
+    fieldStack -> at(x) -> setPic(img);
+}
+
+void Field::poseCarte(QString img, int x){
+    fieldStack -> at(x) -> setPic(img);
+}
+
+void Field::maskCarte(int x){
+    fieldStack -> at(x) -> maskPic();
+}
+
+void Field::rmCarte(int x){
+    fieldStack -> at(x) -> rmPic();
+}
+
+
+
+
+
+
+
 
 void Field::test (){
 
+    fieldStack -> at(3) -> posePic();
+    fieldStack -> at(3) -> rmPic();
+    
     fieldStack -> at(3) -> setPic("img/cards/001/LOB-EN125-GaiatheDragonChampion.jpg");
     fieldStack -> at(79) -> setPic("img/cards/001/LOB-EN125-GaiatheDragonChampion.jpg");
 
-//    cardHover();
+
+    fieldStack -> at(77) -> posePic();
+
+    fieldStack -> at(10) -> maskPic();
 
 }

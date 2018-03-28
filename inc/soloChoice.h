@@ -28,6 +28,7 @@ class SoloChoice : public QFrame {
     public slots:
     void emitBack();
     void emitEasy();
+    void emitMed();
     void emitHard();
 
     signals:
@@ -50,6 +51,7 @@ class SoloChoice : public QFrame {
 
         QLabel * intro;
         ShadowButt * easy;
+        ShadowButt * med;
         ShadowButt * hard;
         ShadowButt * choice;
 

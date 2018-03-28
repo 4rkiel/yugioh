@@ -5,10 +5,12 @@
 #include <iostream>
 #include "../inc/carte.h"
 #include <string>
+#include <QString>
 #include <sstream>
 class Reseau : public QWidget
 {
     Q_OBJECT
+
 public:
     Reseau();
     QTcpSocket *socket;
@@ -17,7 +19,9 @@ public:
      QList<QTcpSocket *> clients;
      quint16 tailleMessage2=0;
      void envoyer(const QString &message);
+    QString getIp();
      void parser(std::string s);
+
 public slots:
 	 void sendOK();
 	 void sendERR(QAbstractSocket::SocketError);
@@ -37,11 +41,14 @@ public slots:
      void env_deck(int d);
      void poser(int main_x,int terrain_x,bool def);
      void change_pos(int x);
+     void prochaine_phase();
+     void ton_tour();
+
 signals:
     void a_parser(QString chaine);
 	void hostReady(int);
 	void connectOK(int);
-	void connectKO();
+	void connectKO(int);
 };
 
 #endif // RESEAU_H
