@@ -9,7 +9,7 @@ Parser::Parser(QWidget *parent)
     QStringList list = QDir("../sets/").entryList();
     int i;
     std::cout << "je suis ici" << std::endl;
-    for(i=0;i<list.length();i++)
+    for(i=0;i<(signed)list.length();i++)
     {
 
         if((list.at(i).compare(QString("."))!=0) && (list.at(i).compare(QString(".."))!=0))
@@ -19,14 +19,14 @@ Parser::Parser(QWidget *parent)
         getAll();
         }
     }
-    for(i=0;i<all_cards->size();i++)
+    for(i=0;i<(signed)all_cards->size();i++)
     {
         std::cout << "je parcours la list" << std::endl;
            all_cards->at(i)->afficher_infos();
     }
        std::vector<Carte *> * search = rechercher_nom("Drag");
        std::cout << "J'AI TROUVE" << std::endl;
-       for(i=0;i<search->size();i++)
+       for(i=0;i<(signed)search->size();i++)
            search->at(i)->afficher_infos();
 }
 
@@ -181,7 +181,7 @@ std::vector<Carte *> * Parser::rechercher_nom(std::string nom)
 {
     std::vector<Carte *> *resultat = new std::vector<Carte *>();
     int i;
-    for(i=0;i<all_cards->size();i++)
+    for(i=0;i<(signed)all_cards->size();i++)
     {
         if(all_cards->at(i)->nom.contains(QString::fromStdString(nom)))
             resultat->push_back(all_cards->at(i));
@@ -193,7 +193,7 @@ std::vector<Carte *> * Parser::rechercher_type(int ty)
 {
     std::vector<Carte *> *resultat = new std::vector<Carte *>();
     int i;
-    for(i=0;i<all_cards->size();i++)
+    for(i=0;i<(signed)all_cards->size();i++)
     {
         if(all_cards->at(i)->type == ty)
             resultat->push_back(all_cards->at(i));
@@ -205,7 +205,7 @@ std::vector<Carte *> * Parser::rechercher_genre(int g)
 {
     std::vector<Carte *> *resultat = new std::vector<Carte *>();
     int i;
-    for(i=0;i<all_cards->size();i++)
+    for(i=0;i<(signed)all_cards->size();i++)
     {
         if(all_cards->at(i)->genre == g)
             resultat->push_back(all_cards->at(i));
@@ -217,7 +217,7 @@ std::vector<Carte *> * Parser::rechercher_atk(int a)
 {
     std::vector<Carte *> *resultat = new std::vector<Carte *>();
     int i;
-    for(i=0;i<all_cards->size();i++)
+    for(i=0;i<(signed)all_cards->size();i++)
     {
         if(all_cards->at(i)->atk >= a)
             resultat->push_back(all_cards->at(i));
@@ -229,7 +229,7 @@ std::vector<Carte *> * Parser::rechercher_def(int d)
 {
     std::vector<Carte *> *resultat = new std::vector<Carte *>();
     int i;
-    for(i=0;i<all_cards->size();i++)
+    for(i=0;i<(signed)all_cards->size();i++)
     {
         if(all_cards->at(i)->def >= d)
             resultat->push_back(all_cards->at(i));
@@ -241,7 +241,7 @@ std::vector<Carte *> * Parser::rechercher_attribut(int a)
 {
     std::vector<Carte *> *resultat = new std::vector<Carte *>();
     int i;
-    for(i=0;i<all_cards->size();i++)
+    for(i=0;i<(signed)all_cards->size();i++)
     {
         if(all_cards->at(i)->attribut == a)
             resultat->push_back(all_cards->at(i));
@@ -253,7 +253,7 @@ std::vector<Carte *> * Parser::rechercher_set(int s)
 {
     std::vector<Carte *> *resultat = new std::vector<Carte *>();
     int i;
-    for(i=0;i<all_cards->size();i++)
+    for(i=0;i<(signed)all_cards->size();i++)
     {
         if(all_cards->at(i)->set == s)
             resultat->push_back(all_cards->at(i));
@@ -265,7 +265,7 @@ std::vector<Carte *> * Parser::rechercher_sous_type(int ty)
 {
     std::vector<Carte *> *resultat = new std::vector<Carte *>();
     int i;
-    for(i=0;i<all_cards->size();i++)
+    for(i=0;i<(signed)all_cards->size();i++)
     {
         if(all_cards->at(i)->sous_type == ty)
             resultat->push_back(all_cards->at(i));
@@ -277,7 +277,7 @@ std::vector<Carte *> * Parser::rechercher_niveau(int n)
 {
     std::vector<Carte *> *resultat = new std::vector<Carte *>();
     int i;
-    for(i=0;i<all_cards->size();i++)
+    for(i=0;i<(signed)all_cards->size();i++)
     {
         if(all_cards->at(i)->niveau >= n)
             resultat->push_back(all_cards->at(i));
@@ -297,7 +297,7 @@ std::vector<Carte *> * Parser::deck(QString s)
     {
         if(!line.contains("#"))
         {
-            for(i=0;i<all_cards->size();i++)
+            for(i=0;i<(signed)all_cards->size();i++)
             {
                 if(all_cards->at(i)->id == line.toInt())
                 {
