@@ -21,7 +21,7 @@ Intro::Intro () {
 
         infoBox = new QWidget;
         infoBox -> setObjectName("infoBox");
-        
+
         iffect = new QGraphicsDropShadowEffect;
         iffect -> setBlurRadius(5);
         iffect -> setXOffset(0);
@@ -31,8 +31,12 @@ Intro::Intro () {
         infoBox -> setGraphicsEffect(iffect);
         
         infoLayout = new QHBoxLayout;
-
-			// WAMI
+        infoLayout -> setContentsMargins(0,0,0,0);
+        infoLayout -> setSpacing(0);
+        infoLayout -> setMargin(0);
+        infoLayout -> setSizeConstraint(QLayout::SetMinimumSize);
+		
+            // WAMI
 
 	        info = new QLabel (tr("Menu Principal"));
 
@@ -44,8 +48,7 @@ Intro::Intro () {
 
             // Quit Button
 
-            QString strQuit = tr("Quitter");
-            quit = new FlatButt("\uf011", strQuit);
+            quit = new FlatButt("\uf011", "");
             quit -> setToolTip(tr("Quitter l'application"));
             connect(quit, SIGNAL(clicked()), qApp, SLOT(quit()));
             infoLayout -> addWidget(quit);

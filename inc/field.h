@@ -26,7 +26,7 @@
 #include "../inc/duplica.h"
 #include "../inc/stats.h"
 #include "../inc/chat.h"
-
+#include "../inc/popup.h"
 
 class Field : public QFrame {
 
@@ -53,12 +53,10 @@ public slots:
     void maskCarte(int);
     void rmCarte(int);
 
-
     void emitIntroStack();
-    void openQuit();
-    void closeQuit();
-    void openMenu();
-    void closeMenu();
+    void emitAtk();
+    void emitDef();
+    void openChoosePosi();
 
     void previewClicked();
     void cardDoubleClicked(int x);
@@ -69,8 +67,12 @@ public slots:
 
 
 signals:
+
     void introStack();
+    void sendAtk();
+    void sendDef();
     void transmettre(QString);
+    void biClick(int, int);
 
 private:
     
@@ -84,7 +86,8 @@ private:
     QGridLayout * overLayout;
     QWidget * sceneBox;
     QGridLayout * sceneLayout;
-    QShortcut *shortcut;
+    QShortcut * shortcut;
+    Popup * popup;
     
         std::vector<SlotCard *> * fieldStack;
         
@@ -140,29 +143,6 @@ private:
                 Chat * chat;
 
 
-    QWidget * popupOuter;
-    QGridLayout * popupOuterLayout;
-    QPushButton * popupShadow;
-    QWidget * popupBox;
-    QGraphicsDropShadowEffect * popupEffect;
-    
-    QStackedLayout * popupLayout;
-    
-        QWidget * menuOuter;
-        QGridLayout * menuOuterLayout;
-
-        QWidget * quitBox;
-        QGridLayout * quitLayout;
-
-            ShadowButt * quitno;
-            ShadowButt * quitya;
-            QLabel * quitLabel;
-
-        QWidget * menuBox;
-        QVBoxLayout * menuLayout;
-
-            ShadowButt * quit;
-            ShadowButt * back;
 };
 
 

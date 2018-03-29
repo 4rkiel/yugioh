@@ -193,15 +193,27 @@ Generique QProgressBar::chunk {
 }
 
 #infoBox > QLabel {
-    padding: 10px 30px 40px 30px;
     color: #fff;
+    margin: 0 0 30px 0;
+    padding: 20px; 
 }
 
 #infoBox > FlatButt {
-	margin: 0;
-	padding: 0;
+    margin: 0 0 30px 0;
+    padding: 20px;
+    background: transparent;
 }
 
+#infoBox > FlatButt QLabel {
+    color: #fff;
+    margin: 0 0 30px 0;
+    padding: 20px 0;
+}
+
+#infoBox > FlatButt QLabel:hover {
+    color: #000;
+    background: red;
+}
 
 /******************************************************************************
 
