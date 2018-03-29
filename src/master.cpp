@@ -109,19 +109,19 @@ void Master::loadField (int x){
 
 	// set carte
 
-//	connect(noyau, SIGNAL(___(QString, int)), field, SLOT(setCarte(QString, int)));
+    connect(noyau, SIGNAL(visible(QString, int)), field, SLOT(setCarte(QString, int)));
 
 	// pose carte
 
-//	connect(noyau, SIGNAL(je_pose(QString,int,int,bool,bool)), field, SLOT(poseCarte(QString,int,int,bool,bool)));
+    connect(noyau, SIGNAL(defens(int)), field, SLOT(poseCarte(int)));
 
 	// mask carte
 
-//	connect(noyau, SIGNAL(___(int)), field, SLOT(maskCarte(int)));
+    connect(noyau, SIGNAL(nonvis(int)), field, SLOT(maskCarte(int)));
 
 	// rm carte
 
-//	connect(noyau, SIGNAL(destruction(int)), field, SLOT(rmCarte(int)));
+    connect(noyau, SIGNAL(destruction(int)), field, SLOT(rmCarte(int)));
 
 
     stacked -> addWidget(field);

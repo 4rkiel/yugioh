@@ -69,6 +69,9 @@ signals:
     void e_deck(int x);
     void destruction(int x);
     void chat(QString);
+    void visible(QString s,int x);
+    void nonvis(int x);
+    void defens(int x);
 };
 
 

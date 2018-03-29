@@ -84,7 +84,29 @@ std::cout << "je traite mon posage" << std::endl;
 la_carte = trouver(main_x);
 la_carte->position_terrain=terrain_x;
 la_carte->def = def;
-emit je_pose(la_carte->image,main_x,terrain_x,def,vis);
+if(vis)
+    la_carte->etat = RECTO;
+else
+    la_carte->etat=VERSO;
+if(!def)
+{
+    if(vis)
+    {
+        emit visible(la_carte->image,terrain_x);
+    }
+    else
+    {
+        emit nonvis(terrain_x);
+    }
+}
+else
+{
+    if(!vis)
+    {
+        emit defens(terrain_x);
+    }
+}
+//emit je_pose(la_carte->image,main_x,terrain_x,def,vis);
 }
 else
 {
