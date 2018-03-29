@@ -83,27 +83,33 @@ void Master::emitIntro (){
 void Master::loadField (int x){
 
     mode = x;
+    // Field
+
+    noyau = new Noyau;
+    field = new Field;
 
     if (mode >= 10 && mode <= 19){
         delete network;
     }
+    else
+    {
+        if(network!=NULL)
+    connect(network,SIGNAL(a_parser(QString)),noyau,SLOT(traiter(QString)));
+        // send Msg // TODO traiter() -> Check if chat message + emit
+          if(network!=NULL)
+      connect(field,SIGNAL(transmettre(QString)),network,SLOT(transmettre(QString)));
 
-	// Field
+    }
 
-    noyau = new Noyau;
-    field = new Field;
+
 
 	// Quit 
 
     connect(field, SIGNAL(introStack()), this, SLOT(emitIntro()));
 
         connect(noyau, SIGNAL(chat(QString)), field, SLOT(sendMsg(QString)));
-        if(network!=NULL)
-    connect(network,SIGNAL(a_parser(QString)),noyau,SLOT(traiter(QString)));
 
-	// send Msg // TODO traiter() -> Check if chat message + emit
-        if(network!=NULL)
-  connect(field,SIGNAL(transmettre(QString)),network,SLOT(transmettre(QString)));
+
 
 
 
