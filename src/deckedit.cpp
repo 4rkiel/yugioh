@@ -1,7 +1,7 @@
 #include "../inc/deckedit.h"
 
 
-deckEdit::deckEdit()
+deckEdit::deckEdit(std::vector<Carte *> *allCard)
 {
     selectDeck = new QComboBox;
     choixGenre = new QComboBox;
@@ -15,6 +15,8 @@ deckEdit::deckEdit()
     spinAtk = new QSpinBox;
     spinDef = new QSpinBox;
     spinNiveau = new QSpinBox;
+
+    cardPreviewList = new std::vector<QHBoxLayout*>;
 
     for(int i=0; i<NBR_BUTTON_DECK_EDIT; i++)
     {
@@ -301,6 +303,40 @@ deckEdit::deckEdit()
 
 
         cardFilter->setLayout(colonne);
+
+        // ... scroll la liste des cartes recherchées ..........................
+
+        QScrollArea *deckScroll = new QScrollArea;
+        deckScroll -> setFrameShape(QFrame::NoFrame);
+        deckScroll -> setWidgetResizable(true);
+        deckScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        deckScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        deckScroll -> setFocusPolicy(Qt::NoFocus);
+
+        QVBoxLayout *scrollLayout = new QVBoxLayout;
+        for(unsigned int i=0; i<allCard->size(); i++)
+        {
+            Carte *carte = allCard->at(i);
+
+            QHBoxLayout preview;
+
+                QPushButton but;
+                but.setStyleSheet("background: "+carte->image);
+                preview.addWidget(&but);
+
+                QFormLayout textPreview;
+                textPreview.addRow(tr("Nom"), new QLabel(carte->nom));
+
+            preview.addLayout(&textPreview);
+
+            cardPreviewList->push_back(&preview);
+            // add previsu de la carte -> image + nom + atk def
+            scrollLayout->addLayout(cardPreviewList->at(i));
+        }
+
+        deckScroll->setLayout(scrollLayout);
+
+        mainLayout->addWidget(deckScroll, 1, 4, 1, 7);
 
 
     setLayout(mainLayout);
