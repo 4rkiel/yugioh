@@ -20,6 +20,9 @@
 #include <algorithm>
 #include <QMargins>
 #include <QShortcut>
+#include <vector>
+#include "parser.h"
+#include "duplica.h"
 
 #define NBR_CARTE_DECK_VISU 60 // multiple de 10
 #define NBR_CARTE_EXTRA_DECK 15
@@ -66,7 +69,9 @@ class deckEdit : public QWidget
                                            tr("Rituel")};
         const QStringList attributList = {};
 
-        explicit deckEdit();
+        std::vector<QHBoxLayout *> *cardPreviewList;
+
+        deckEdit(std::vector<Carte*> *allCard);
 
     private:
         void createEdit();

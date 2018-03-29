@@ -26,6 +26,7 @@
 #include "../inc/shadowButt.h"
 #include "../inc/editeur_de_carte.h"
 #include "../inc/deckedit.h"
+#include "../inc/parser.h"
 
 class BuildTab : public QFrame {
 

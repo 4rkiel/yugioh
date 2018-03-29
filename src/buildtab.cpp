@@ -116,6 +116,9 @@ BuildTab::BuildTab (){
         buildLayout -> setSpacing(0);
         buildLayout -> setMargin(0);
 
+            Parser *parserAllMighty = new Parser;
+            vector<Carte*> *allCard = parserAllMighty->all_cards;
+
 
             // Help ...........................................................
 
@@ -126,7 +129,7 @@ BuildTab::BuildTab (){
             deckScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
             deckScroll -> setFocusPolicy(Qt::NoFocus);
 
-			deck = new deckEdit;
+            deck = new deckEdit(allCard);
             deckScroll->setWidget(deck);
 
             buildLayout -> addWidget(deckScroll);
