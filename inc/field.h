@@ -61,6 +61,7 @@ public slots:
     void closeMenu();
 
     void previewClicked();
+    void cardDoubleClicked(int x);
     void cardRightClicked(int x);
     void cardClicked(int x);
     void cardEntered(int x);
@@ -75,6 +76,8 @@ private:
     
     void cardHover();
     void cardOut();
+
+    int retained;
 
     bool lockPreview;
 

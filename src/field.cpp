@@ -172,6 +172,11 @@ Field::Field () {
                 );
 
                 connect(
+                    ptr, SIGNAL(doubleClick(int)),
+                    this, SLOT(cardDoubleClicked(int))
+                );
+
+                connect(
                     ptr, SIGNAL(entered(int)),
                     this, SLOT(cardEntered(int))
                 );
@@ -573,8 +578,41 @@ void Field::cardRightClicked(int x){
     }
 }
 
+void Field::cardDoubleClicked(int x){
+    std::cout << x << " Double clicked \n"; 
+}
+
 void Field::cardClicked(int x){
-    std::cout << x << " clicked \n"; 
+    std::cout << x << " clicked \n";
+    
+    SlotCard * that = fieldStack -> at(x);
+
+    if (retained == x){
+        
+        retained = -1;
+
+    } else if (retained == -1){
+
+        if (
+            ! that -> isAdv() && 
+            ! that -> isDeck() && 
+            ! that -> isGrave() && 
+            ! that -> isFuse() 
+        ){
+            retained = x;
+        }
+
+    } else {
+
+        if (
+            ! that -> isDeck() &&
+            ! that -> isGrave() &&
+            ! that -> isFuse()
+        ){
+            std::cout << "biclicked: " << retained << " " << x << "\n";
+            emit biClick(retained, x);
+        }
+    }
 }
 
 void Field::cardEntered(int x){

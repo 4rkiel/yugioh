@@ -118,6 +118,7 @@ SlotCard::SlotCard (int p){
 	connect(this, SIGNAL(clicked()), this, SLOT(leftClicked()));
 	connect(imgButt, SIGNAL(clicked()), this, SLOT(leftClicked()));
 	connect(imgButt, SIGNAL(rightClicked()), this, SLOT(rightClicked()));
+	connect(imgButt, SIGNAL(doubleClicked()), this, SLOT(doubleClicked()));
 
 }
 
@@ -298,6 +299,10 @@ bool SlotCard::isFuse(){
 
 
 // SIGNALS
+
+void SlotCard::doubleClicked(){
+	emit doubleClick(posi);
+}
 
 void SlotCard::rightClicked(){
 	emit rightClick(posi);

@@ -10,9 +10,11 @@ class zButt : public QPushButton {
 
 signals:
     void rightClicked();
+    void doubleClicked();
 
 protected:
     void mousePressEvent(QMouseEvent *e);
+    void mouseDoubleClickEvent(QMouseEvent *e);
 
 };
 

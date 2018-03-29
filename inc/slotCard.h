@@ -46,12 +46,14 @@ public:
     void enterEvent(QEvent * event);
 
 public slots:
+	void doubleClicked();
 	void rightClicked();
 	void leftClicked();
 
 signals:
     void leftClick(int posi);
     void rightClick(int posi);
+    void doubleClick(int posi);
     void entered(int posi);
     void leaved(int posi);
 
