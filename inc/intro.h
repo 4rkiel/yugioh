@@ -16,7 +16,8 @@
 #include <QTabWidget>
 #include <QShortcut>
 
-#include "../inc/shadowButt.h"
+#include "../inc/flatButt.h"
+#include "../inc/flatExpButt.h"
 
 class Intro : public QFrame {
 
@@ -45,11 +46,12 @@ class Intro : public QFrame {
     QGridLayout * layout;
 
     QWidget * infoBox;
-    QShortcut *shortcut;
+    QShortcut * shortcut;
         
         QGraphicsDropShadowEffect * iffect;
         QHBoxLayout * infoLayout;
         QLabel * info;
+        FlatButt * quit;
 
     
     QWidget * introBox;
@@ -57,13 +59,16 @@ class Intro : public QFrame {
         QVBoxLayout * box;
         QGraphicsDropShadowEffect * effect;
 
-        ShadowButt * choice;
-        ShadowButt * decks;
-        ShadowButt * rules;
-        ShadowButt * options;
-        ShadowButt * help;
-        ShadowButt * quit;
+        FlatExpButt * choice;
+        FlatExpButt * decks;
+        FlatExpButt * rules;
+        FlatExpButt * options;
+        FlatExpButt * help;
 
+		QFrame * sep1;
+		QFrame * sep2;
+		QFrame * sep3;
+		QFrame * sep4;
 };
 
 

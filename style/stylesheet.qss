@@ -11,16 +11,14 @@ QToolTip {
 
 ******************************************************************/
 
-editeur_de_carte
-{
+editeur_de_carte {
 	border: none;
 	outline: none;
 	border-radius: 3px;
 	background: #607D8B;
 }
 
-QComboBox 
-{
+QComboBox {
 	color: #263238;
 	border: 1px solid gray;
 	border-radius: 3px;
@@ -57,6 +55,57 @@ ShadowButt:focus {
 }
 
 ShadowButt:pressed {
+    background: #0288D1;
+}
+
+
+/*****************************************************
+
+*/
+
+FlatButt {
+    border: none;
+    outline: none;
+    border-radius: 0px;
+	background: transparent;
+}
+
+FlatButt QLabel {
+    color: #000;
+    margin: 0;
+}
+
+FlatButt:hover,
+FlatButt:focus {
+    background: #80D8FF;
+}
+ 
+FlatButt:pressed {
+    background: #0288D1;
+}
+
+
+
+
+
+FlatExpButt {
+    border: none;
+    outline: none;
+    border-radius: 0px;
+	background: transparent;
+}
+
+FlatExpButt QLabel {
+    color: #000;
+    margin: 0 10px;
+}
+
+FlatExpButt:hover,
+FlatExpButt:focus {
+    background: #80D8FF;
+}
+ 
+FlatExpButt:pressed {
     background: #0288D1;
 }
 
@@ -143,11 +192,15 @@ Generique QProgressBar::chunk {
     background: #3F51B5;
 }
 
-#infoBox > * {
+#infoBox > QLabel {
     padding: 10px 30px 40px 30px;
     color: #fff;
 }
 
+#infoBox > FlatButt {
+	margin: 0;
+	padding: 0;
+}
 
 
 /******************************************************************************
@@ -177,35 +230,44 @@ NetChoice #introBox {
 	max-width: 500px;
 }
 
-Intro ShadowButt,
-Choice ShadowButt,
-SoloChoice ShadowButt,
-JoinChoice ShadowButt,
-HostChoice ShadowButt,
-NetChoice ShadowButt {
-    margin: 10px 30px;
-    padding: 5px 10px;
+Intro FlatExpButt,
+Choice FlatExpButt,
+SoloChoice FlatExpButt,
+JoinChoice FlatExpButt,
+HostChoice FlatExpButt,
+NetChoice FlatExpButt {
+    margin: 0px 30px;
+   	padding: 0px 10px;
 } 
 
-Intro ShadowButt > *,
-Choice ShadowButt > *,
-SoloChoice ShadowButt > *,
-JoinChoice ShadowButt > *,
-HostChoice ShadowButt > *,
-NetChoice ShadowButt > * {
+Intro FlatExpButt > *,
+Choice FlatExpButt > *,
+SoloChoice FlatExpButt > *,
+JoinChoice FlatExpButt > *,
+HostChoice FlatExpButt > *,
+NetChoice FlatExpButt > * {
     margin: 0px 30px;
 }
 
 
-Intro ShadowButt QToolTip,
-Choice ShadowButt QToolTip,
-SoloChoice ShadowButt QToolTip,
-JoinChoice ShadowButt QToolTip,
-HostChoice ShadowButt QToolTip,
-NetChoice ShadowButt QToolTip {
+Intro FlatExpButt QToolTip,
+Choice FlatExpButt QToolTip,
+SoloChoice FlatExpButt QToolTip,
+JoinChoice FlatExpButt QToolTip,
+HostChoice FlatExpButt QToolTip,
+NetChoice FlatExpButt QToolTip {
     margin: 0px;
     padding: 5px 10px;
 }
+
+Intro #introBox > QFrame {
+    margin: 0px 30px;
+    padding: 0px 10px;
+	border: 0px solid red;
+	border-bottom: 1px solid #aaa;
+}
+
+
 
 SoloChoice #introBox > QLabel, 
 HostChoice #introBox > QLabel {

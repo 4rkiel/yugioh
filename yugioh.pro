@@ -51,6 +51,7 @@ HEADERS += inc/buildtab.h \
            inc/optab.h \
            inc/ruletab.h \
            inc/flatButt.h \
+           inc/flatExpButt.h \
            inc/shadowButt.h \
            inc/shadowLab.h \
            inc/sleeper.h \
@@ -83,6 +84,7 @@ SOURCES += src/buildtab.cpp \
            src/optab.cpp \
            src/ruletab.cpp \
            src/flatButt.cpp \
+           src/flatExpButt.cpp \
            src/shadowButt.cpp \
            src/shadowLab.cpp \
            src/slotCard.cpp \

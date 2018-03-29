@@ -17,7 +17,7 @@ class FlatButt : public QPushButton {
     ~FlatButt();
 
     private:
-    QHBoxLayout * layout;
+	QHBoxLayout * layout;
     QLabel * ico;
     QLabel * txt;
 };
