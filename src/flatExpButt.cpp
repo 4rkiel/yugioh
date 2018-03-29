@@ -1,4 +1,4 @@
-#include "../inc/flatButt.h"
+#include "../inc/flatExpButt.h"
 
 /******************************************************************************
 
@@ -8,11 +8,18 @@
 
 ******************************************************************************/
 
-FlatButt::FlatButt (QString icoStr, QString textStr){
+FlatExpButt::FlatExpButt (QString icoStr, QString textStr){
  
     // Button content
 	
+	setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
+	vlay = new QVBoxLayout;
+	vlay -> setSizeConstraint(QLayout::SetMinimumSize);
+
+	wid = new QWidget;
+	wid -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
     layout = new QHBoxLayout;
+	layout -> setSizeConstraint(QLayout::SetMinimumSize);
 
     ico = nullptr;
     txt = nullptr;
@@ -49,12 +56,18 @@ FlatButt::FlatButt (QString icoStr, QString textStr){
         }
     }
 
-	setLayout(layout);
+    wid -> setLayout(layout);
+	
+	vlay -> addStretch();
+	vlay -> addWidget(wid);
+	vlay -> addStretch();
+
+	setLayout(vlay);
 }
 
 
 
-FlatButt::~FlatButt (){
+FlatExpButt::~FlatExpButt (){
 
     if (ico != nullptr){
         delete ico;
@@ -65,5 +78,7 @@ FlatButt::~FlatButt (){
     }
 
     delete layout;
+	delete wid;
+	delete vlay;
 }
 
