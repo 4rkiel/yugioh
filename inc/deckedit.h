@@ -20,6 +20,7 @@
 #include <algorithm>
 #include <QMargins>
 #include <QShortcut>
+#include <QScrollArea>
 #include <vector>
 #include "parser.h"
 #include "duplica.h"

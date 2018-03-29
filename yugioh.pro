@@ -62,7 +62,9 @@ HEADERS += inc/buildtab.h \
     inc/noyau.h \
     inc/parser.h \
     inc/carte.h \
-    inc/reseau.h
+    inc/reseau.h \
+    inc/cardlistpreview.h \
+    inc/cardpreview.h
 SOURCES += src/buildtab.cpp \
            src/master.cpp \
            src/selector.cpp \
@@ -95,7 +97,9 @@ SOURCES += src/buildtab.cpp \
     src/noyau.cpp \
     src/parser.cpp \
     src/carte.cpp \
-    src/reseau.cpp
+    src/reseau.cpp \
+    src/cardlistpreview.cpp \
+    src/cardpreview.cpp
 
            
 TRANSLATIONS += i18n/en_US/yugi_en_US.ts i18n/fr_FR/yugi_fr_FR.ts
