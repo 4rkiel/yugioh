@@ -320,7 +320,9 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
             QHBoxLayout preview;
 
-                preview.addWidget((new QPushButton)->setStyleSheet("background: "+carte->image.toStdString()));
+                QPushButton but;
+                but.setStyleSheet("background: "+carte->image);
+                preview.addWidget(&but);
 
                 QFormLayout textPreview;
                 textPreview.addRow(tr("Nom"), new QLabel(carte->nom));
