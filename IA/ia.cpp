@@ -11,12 +11,27 @@ using namespace Eigen;
 using namespace std;
 
 
+
+//function to calculate a random float between two floats
+float randomFloat(float a, float b)
+{
+    float random = ((float) rand()) / (float) RAND_MAX;
+    float diff = b - a;
+    float r = random * diff;
+    return a + r;
+}
+
+
+
+//main function, which does nothing
 int main()
 {
     return 0;
 }
 
 
+
+//a neuron
 class Neuron
 {
     public:
@@ -32,36 +47,39 @@ class Neuron
 };
 
 
+
+//the neural network
+/*neural netwrok
+ * 4 layers: 1 input layer, 2 hidden layers, 1 output layer
+ * synaps are the weights between neurons layer
+ */
 class Network
 {
     public:
         
-        /*neural netwrok
-         * 4 layers: 1 input layer, 2 hidden layers, 1 output layer
-         * synaps are the weights between neurons layer
-         */
+        //matrix of weights
         vector<Matrix<float,Dynamic,Dynamic>> hidden_weights;
         Matrix<float,Dynamic,10> output_weight;
         
+        //matrix of deltas, which are the difference between the current weight,
+        //and the previous weight, at each iteration
         vector<Matrix<float,Dynamic,Dynamic>> hidden_deltas;
         Matrix<float,Dynamic,10> output_delta;
         
+        //row-matrix of neurons (gain ang wgain)
         vector<Matrix<Neuron,1,Dynamic>> hidden_layers;
         Matrix<Neuron,1,10> output_layer;
         
+        //row-matrix of current neurons values
         vector<Matrix<float,1,Dynamic>> hidden_layers_values;
         Matrix<float,1,10> output_layer_values;
         
+        //matrix of next possible neurons values, according to the chosen action
         vector<Matrix<float,1,Dynamic>> test_hidden_layers_values;
         Matrix<float,1,10> test_output_layer_values;
         
+        //the number of neurons layer
         int nb_hidden_layer;
-        
-        /*memory of the neural network
-         * matrix associated with his previous computated Q_value
-         */
-        vector<tuple<Matrix<float,1,20>,float>> memory;
-        
         
         
         //constructor: neural network initialisation
@@ -161,16 +179,6 @@ class Network
         
         
         
-        float randomFloat(float a, float b)
-        {
-            float random = ((float) rand()) / (float) RAND_MAX;
-            float diff = b - a;
-            float r = random * diff;
-            return a + r;
-        }
-        
-        
-        
         /*
          * compute the actions' q_values vector
          * takes in input the game state
@@ -200,8 +208,8 @@ class Network
         
         
         /*
-         * choose the action to do, according to the actions' q_value calculated,
-         * more an action has a big q_value, more it has chance to be chosen
+         * Choose the action to do, according to the actions' q_value calculated.
+         * More an action has a big q_value, more it has chance to be chosen
          */
         int choose_action(Matrix<float,1,10> actions)
         {
@@ -310,13 +318,13 @@ class Network
         //give the next game state, if the action is played
         Matrix<float,1,20> play_simulation(Matrix<float,1,20> game_state, int action)
         {
-            //TODO: connect to the "Moteur"
+            //TODO: connect to "Moteur"
         }
         
         
         
         /*
-         * test if the game stae is a winning state or a losing state,
+         * test if the game state is a winning state, a losing state
          * or a neutral state
          */
         int test_win(Matrix<float,1,20> state)
@@ -386,3 +394,4 @@ class Network
         
         
 };
+
