@@ -11,6 +11,7 @@
 RuleTab::RuleTab (){
 
     readLangage();
+    
     layout = new QGridLayout;
     layout -> setSpacing(0);
     layout -> setMargin(0);
@@ -29,10 +30,21 @@ RuleTab::RuleTab (){
         infoBox -> setGraphicsEffect(iffect);
 
         infoLayout = new QHBoxLayout;
+        infoLayout -> setContentsMargins(0,0,0,0);
+        infoLayout -> setSpacing(0);
+        infoLayout -> setMargin(0);
+            
+            info = new QLabel (tr("Règles"));
+            
+            infoLayout -> addWidget(info);
 
-        info = new QLabel (tr("Règles"));
+            infoLayout -> addStretch(1);
 
-        infoLayout -> addWidget(info);
+            exitButt = new FlatButt("\uf060", "");
+            exitButt -> setToolTip(tr("Fermer les règles"));
+            connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));
+            infoLayout -> addWidget(exitButt);
+        
         infoBox -> setLayout(infoLayout);
 
     layout -> addWidget(infoBox, 0,0,1,3);
@@ -66,14 +78,7 @@ RuleTab::RuleTab (){
         tabLayout -> setSpacing(0);
         tabLayout -> setMargin(0);
   
-            exitButt = new ShadowButt("\uf060", tr("Retour"));
-            exitButt -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
-            exitButt -> setToolTip(tr("Fermer les règles"));
-            connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));
-            
-            tabLayout -> addWidget(exitButt, 0, 4, 1, 1);
-
-
+           
             persoButt = new QPushButton;
             persoButt -> setText(tr("Personnalisation"));
             persoButt -> setProperty("down", true);
@@ -89,10 +94,9 @@ RuleTab::RuleTab (){
             
             tabLayout -> addWidget(rulesButt, 0, 1, 1, 1);
 
-
             QSpacerItem * spacerButt = new QSpacerItem(1,1,
                     QSizePolicy::Expanding,QSizePolicy::Preferred);
-            
+
             tabLayout -> addItem(spacerButt, 0, 2);
 
         tabBox -> setLayout(tabLayout);
@@ -286,7 +290,6 @@ RuleTab::~RuleTab (){
     delete persoScrollBox;
     delete persoScroll;
 
-        delete exitButt;
         delete rulesButt;
         delete persoButt;
     
@@ -300,6 +303,7 @@ RuleTab::~RuleTab (){
     delete tabInside;
 
     delete info;
+    delete exitButt;
     delete infoLayout;
     delete iffect;
     delete infoBox;

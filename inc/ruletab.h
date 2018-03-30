@@ -25,7 +25,7 @@
 #include <QEvent>
 #include <QShortcut>
 
-#include "../inc/shadowButt.h"
+#include "../inc/flatButt.h"
 
 class RuleTab : public QFrame {
 
@@ -48,7 +48,7 @@ class RuleTab : public QFrame {
         QGraphicsDropShadowEffect * iffect;
         QHBoxLayout * infoLayout;
         QLabel * info;
-
+        FlatButt * exitButt;
 
     QWidget * tabInside;
     QGridLayout * tabInsideLayout;
@@ -60,7 +60,6 @@ class RuleTab : public QFrame {
 
     QPushButton * persoButt;
     QPushButton * rulesButt;
-    ShadowButt * exitButt;
 
     QWidget * ruleBox;
     QStackedLayout * ruleLayout;
