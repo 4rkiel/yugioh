@@ -11,6 +11,7 @@ Popup::Popup (){
     layout -> setAlignment(Qt::AlignCenter);
 
     popupShadow = new QPushButton;
+    popupShadow->setDefault(true);
     popupShadow -> setObjectName("popupShadow");
     popupShadow -> setFocusPolicy(Qt::NoFocus);
     popupShadow -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

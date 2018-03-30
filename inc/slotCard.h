@@ -15,10 +15,11 @@
 #include <QEvent>
 #include <QMouseEvent>
 
+#include "../inc/superButt.h"
 #include "../inc/zButt.h"
 
 
-class SlotCard : public QPushButton {
+class SlotCard : public SuperButt {
 
 Q_OBJECT
 

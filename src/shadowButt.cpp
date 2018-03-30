@@ -2,7 +2,7 @@
 
 /******************************************************************************
 
-	Réimplémentation des QPushButton
+    Réimplémentation des QPushButton
 
 	Permet d'avoir un bouton avec ombre et icone/texte
 

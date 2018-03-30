@@ -21,6 +21,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
     for(int i=0; i<NBR_BUTTON_DECK_EDIT; i++)
     {
         tabBut[i] = new QPushButton;
+        tabBut[i]->setDefault(true);
         tabBut[i]->setStyleSheet("background: red");
         tabBut[i]->setText(buttonName.at(i));
     }
@@ -28,6 +29,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
     for(int i=0; i<NBR_CARTE_DECK_VISU; i++)
     {
         tabCardVisu[i] = new QPushButton;
+        tabCardVisu[i]->setDefault(true);
         tabCardVisu[i]->setStyleSheet("border-image: url(" + defaultImage + ");"
                             "margin: 1px ;border: 1px solid black");
         tabCardVisu[i]->setSizePolicy(QSizePolicy::Minimum,
@@ -37,6 +39,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
     for(int i=0; i<NBR_CARTE_EXTRA_DECK; i++)
     {
         tabExtraDeck[i] = new QPushButton;
+        tabExtraDeck[i]->setDefault(true);
         tabExtraDeck[i]->setStyleSheet("border-image: url(" + defaultImage +
                                       ");margin: 1px ;border: 1px solid black");
         tabCardVisu[i]->setSizePolicy(QSizePolicy::Minimum,
@@ -269,6 +272,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
                         // ... Effect Box ......................................
 
                         effectBoxBut = new QPushButton;
+                        effectBoxBut->setDefault(true);
                         effectBoxBut->setText("Effets");
                         effectBoxBut->setSizePolicy(QSizePolicy::Minimum,
                                                     QSizePolicy::Minimum);

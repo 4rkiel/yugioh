@@ -7,8 +7,9 @@
 #include <QString>
 #include <QLabel>
 
+#include "../inc/superButt.h"
 
-class FlatButt : public QPushButton {
+class FlatButt : public SuperButt {
 
     Q_OBJECT
 

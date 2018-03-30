@@ -75,6 +75,7 @@ RuleTab::RuleTab (){
 
 
             persoButt = new QPushButton;
+            persoButt->setDefault(true);
             persoButt -> setText(tr("Personnalisation"));
             persoButt -> setProperty("down", true);
             connect(persoButt, SIGNAL(clicked()), this, SLOT(setPerso()));
@@ -83,6 +84,7 @@ RuleTab::RuleTab (){
             
 
             rulesButt = new QPushButton;
+            rulesButt->setDefault(true);
             rulesButt -> setText(tr("Règles du Jeu"));
             rulesButt -> setProperty("down", false);
             connect(rulesButt, SIGNAL(clicked()), this, SLOT(setRules()));
