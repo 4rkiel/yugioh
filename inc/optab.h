@@ -25,7 +25,7 @@
 #include <QEvent>
 #include <QShortcut>
 
-#include "../inc/shadowButt.h"
+#include "../inc/flatButt.h"
 
 class OptionTab : public QFrame {
 
@@ -47,6 +47,7 @@ class OptionTab : public QFrame {
         QGraphicsDropShadowEffect * iffect;
         QHBoxLayout * infoLayout;
         QLabel * info;
+        FlatButt * exitButt;
 
 
     QWidget * tabInside;
@@ -59,7 +60,6 @@ class OptionTab : public QFrame {
 
     QPushButton * optionButt;
     QPushButton * accessButt;
-    ShadowButt * exitButt;
 
     QWidget * optBox;
     QStackedLayout * optionLayout;

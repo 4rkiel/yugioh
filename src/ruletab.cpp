@@ -131,45 +131,8 @@ RuleTab::RuleTab (){
             persoPaneLayout = new QVBoxLayout;
             persoPaneLayout -> setAlignment(Qt::AlignTop);
 
-            /*
-                // Share
-                
-                shareChck = new QCheckBox;
-                shareChck -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-                shareChck -> setText("Partage");
-                connect(shareChck, SIGNAL(toggled(bool)), this, SLOT(shareChange())); 
-                persoPaneLayout -> addWidget(shareChck);
-
-                shareDesc = new QLabel;
-                shareDesc -> setWordWrap(tperse);
-                shareDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
-                shareDesc -> setText("Partage les données d'utilisation");
-                persoPaneLayout -> addWidget(shareDesc);
-
-
-                // Langage
-                
-                langInput = new QComboBox;
-                langInput -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-                langInput -> addItem("Français");
-                langInput -> addItem("English");
-                persoPaneLayout -> addWidget(langInput);
-
-                langDesc = new QLabel;
-                langDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
-                langDesc -> setText("Langue de l'interface");
-                persoPaneLayout -> addWidget(langDesc);
-
-                // Shortcut
-
-                shortcutDesc = new QLabel;
-                shortcutDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
-                shortcutDesc -> setText("Raccourcis Clavier");
-                persoPaneLayout -> addWidget(shortcutDesc);
             
-            */
-
-                // life points
+            // life points
 
                 lifePoints = new QComboBox;
                 lifePoints -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
@@ -202,7 +165,8 @@ RuleTab::RuleTab (){
                 cardDrawNumber -> addItem("6");
                 cardDrawNumber -> addItem("7");
                 persoPaneLayout -> addWidget(cardDrawNumber);
-                connect(cardDrawNumber,SIGNAL(currentIndexChanged(QString)),this,SLOT(cardDrawNumberChange()));
+                connect(cardDrawNumber,SIGNAL(currentIndexChanged(QString)),
+                        this,SLOT(cardDrawNumberChange()));
 
                 cardDrawDesc = new QLabel;
                 cardDrawDesc -> setTextInteractionFlags(Qt::NoTextInteraction);

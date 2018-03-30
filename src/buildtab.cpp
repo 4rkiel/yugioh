@@ -28,10 +28,22 @@ BuildTab::BuildTab (){
         infoBox -> setGraphicsEffect(iffect);
 
         infoLayout = new QHBoxLayout;
+        infoLayout -> setContentsMargins(0,0,0,0);
+        infoLayout -> setSpacing(0);
+        infoLayout -> setMargin(0);
 
-        info = new QLabel ("Decks");
+            info = new QLabel ("Decks");
 
-        infoLayout -> addWidget(info);
+            infoLayout -> addWidget(info);
+       
+            infoLayout -> addStretch(1);
+
+            exitButt = new FlatButt("\uf060", "");
+            exitButt -> setToolTip(tr("Fermer le menu d'édition"));
+            connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));
+            infoLayout -> addWidget(exitButt);
+
+        
         infoBox -> setLayout(infoLayout);
 
     layout -> addWidget(infoBox, 0,0,1,3);
@@ -63,15 +75,8 @@ BuildTab::BuildTab (){
         tabLayout = new QGridLayout;
         tabLayout -> setSpacing(0);
         tabLayout -> setMargin(0);
-  
-            exitButt = new ShadowButt("\uf060", tr("Retour"));
-            exitButt -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
-            exitButt -> setToolTip(tr("Fermer le menu d'édition"));
-            connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));
-            
-            tabLayout -> addWidget(exitButt, 0, 4, 1, 1);
 
-
+        
             deckButt = new QPushButton;
             deckButt->setDefault(true);
             deckButt -> setText("Decks");
@@ -192,7 +197,6 @@ BuildTab::~BuildTab (){
 	delete deck;
     delete deckScroll;
 
-        delete exitButt;
         delete deckButt;
         delete cardButt;
     
@@ -205,6 +209,7 @@ BuildTab::~BuildTab (){
     delete tabInside;
 
     delete info;
+    delete exitButt;
     delete infoLayout;
     delete iffect;
     delete infoBox;

@@ -24,7 +24,7 @@
 #include <QComboBox>
 #include <QShortcut>
 
-#include "../inc/shadowButt.h"
+#include "../inc/flatButt.h"
 
 class HelpTab : public QFrame {
 
@@ -47,6 +47,7 @@ class HelpTab : public QFrame {
         QGraphicsDropShadowEffect * iffect;
         QHBoxLayout * infoLayout;
         QLabel * info;
+        FlatButt * exitButt;
 
 
     QWidget * tabInside;
@@ -59,7 +60,6 @@ class HelpTab : public QFrame {
 
     QPushButton * helpButt;
     QPushButton * aboutButt;
-    ShadowButt * exitButt;
 
     QWidget * helpBox;
     QStackedLayout * helpLayout;

@@ -58,7 +58,16 @@ Master::Master (){
 Master::~Master (){
 
 	if (mode < 10 || mode > 19){
+        
         delete network; 
+
+    } else {
+
+        //!\ LUCAS !!!! Ici pour detruire l'IA a la fermeture
+        
+        // delete monPointeurIA
+
+
     }
 
 	if (mode != 0){
@@ -83,22 +92,43 @@ void Master::emitIntro (){
 void Master::loadField (int x){
 
     mode = x;
+
     // Field
 
     noyau = new Noyau;
     field = new Field;
 
     if (mode >= 10 && mode <= 19){
-        delete network;
-    }
-    else
-    {
-        if(network!=NULL)
-    connect(network,SIGNAL(a_parser(QString)),noyau,SLOT(traiter(QString)));
-        // send Msg // TODO traiter() -> Check if chat message + emit
-          if(network!=NULL)
-      connect(field,SIGNAL(transmettre(QString)),network,SLOT(transmettre(QString)));
 
+        delete network;
+
+
+        //!\ LUCAS !!! ICI POUR CREER L'IA :
+            
+        // monPointeurIA = new MaClassIA;
+
+
+        // Tu peux utiliser le (int x) pour le niveau de l'IA
+        // 11:easy
+        // 12:medium
+        // 13:hard
+
+
+        // NB : penser à rajouter dans le .h :
+        // MaClassIA * monPointeurIA;
+
+    } else {
+    
+        if (network != NULL){
+        
+            connect(network,SIGNAL(a_parser(QString)),noyau,SLOT(traiter(QString)));
+        
+        }
+            // send Msg // TODO traiter() -> Check if chat message + emit
+          
+        if (network != NULL){
+            connect(field,SIGNAL(transmettre(QString)),network,SLOT(transmettre(QString)));
+        }
     }
 
 
@@ -107,7 +137,10 @@ void Master::loadField (int x){
 
     connect(field, SIGNAL(introStack()), this, SLOT(emitIntro()));
 
-        connect(noyau, SIGNAL(chat(QString)), field, SLOT(sendMsg(QString)));
+    
+    // New chat msg
+
+    connect(noyau, SIGNAL(chat(QString)), field, SLOT(sendMsg(QString)));
 
 
 
@@ -130,6 +163,8 @@ void Master::loadField (int x){
 	// rm carte
 
     connect(noyau, SIGNAL(destruction(int)), field, SLOT(rmCarte(int)));
+
+
 
 
     stacked -> addWidget(field);

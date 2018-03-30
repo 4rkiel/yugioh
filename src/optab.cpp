@@ -27,10 +27,24 @@ OptionTab::OptionTab (){
         infoBox -> setGraphicsEffect(iffect);
 
         infoLayout = new QHBoxLayout;
+        infoLayout -> setContentsMargins(0,0,0,0);
+        infoLayout -> setSpacing(0);
+        infoLayout -> setMargin(0);
 
         info = new QLabel (tr("Paramètres"));
 
         infoLayout -> addWidget(info);
+
+        infoLayout -> addStretch(1);
+        
+        exitButt = new FlatButt("\uf060", "");
+        exitButt -> setToolTip(tr("Fermer les paramètres"));
+        connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));
+        infoLayout -> addWidget(exitButt);
+
+
+        
+        
         infoBox -> setLayout(infoLayout);
 
     layout -> addWidget(infoBox, 0,0,1,3);
@@ -64,14 +78,6 @@ OptionTab::OptionTab (){
         tabLayout = new QGridLayout;
         tabLayout -> setSpacing(0);
         tabLayout -> setMargin(0);
-
-            exitButt = new ShadowButt("\uf060", tr("Retour"));
-            exitButt -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
-            exitButt -> setToolTip(tr("Fermer les paramètres"));
-            connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));
-            
-            tabLayout -> addWidget(exitButt, 0, 4, 1, 1);
-
 
 
             optionButt = new QPushButton;
@@ -288,7 +294,6 @@ OptionTab::~OptionTab (){
     delete optionScrollBox;
     delete optionScroll;
 
-        delete exitButt;
         delete accessButt;
         delete optionButt;
     
@@ -302,6 +307,7 @@ OptionTab::~OptionTab (){
     delete tabInside;
 
     delete info;
+    delete exitButt;
     delete infoLayout;
     delete iffect;
     delete infoBox;

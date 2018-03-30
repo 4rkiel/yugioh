@@ -30,12 +30,23 @@ HelpTab::HelpTab (){
         infoBox -> setGraphicsEffect(iffect);
 
         infoLayout = new QHBoxLayout;
+        infoLayout -> setContentsMargins(0,0,0,0);
+        infoLayout -> setSpacing(0);
+        infoLayout -> setMargin(0);
+        
+            info = new QLabel (tr("Aide"));
 
-        info = new QLabel (tr("Aide"));
+            infoLayout -> addWidget(info);
 
-        infoLayout -> addWidget(info);
+            infoLayout -> addStretch(1);
+
+            exitButt = new FlatButt("\uf060", "");
+            exitButt -> setToolTip("Fermer l'aide");
+            connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));
+            infoLayout -> addWidget(exitButt);
+
+
         infoBox -> setLayout(infoLayout);
-
 
     layout -> addWidget(infoBox, 0,0,1,3);
     
@@ -66,15 +77,7 @@ HelpTab::HelpTab (){
         tabLayout = new QGridLayout;
         tabLayout -> setSpacing(0);
         tabLayout -> setMargin(0);
-  
-            exitButt = new ShadowButt("\uf060", tr("Retour"));
-            exitButt -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
-            exitButt -> setToolTip("Fermer l'aide");
-            connect(exitButt, SIGNAL(clicked()), this, SLOT(emitClose()));
-            
-            tabLayout -> addWidget(exitButt, 0, 4, 1, 1);
-
-
+ 
             helpButt = new QPushButton;
             helpButt->setDefault(true);
             helpButt -> setText(tr("Informations"));
@@ -217,7 +220,6 @@ HelpTab::~HelpTab (){
     delete helpLabel;
     delete helpScroll;
 
-        delete exitButt;
         delete aboutButt;
         delete helpButt;
     
@@ -230,6 +232,7 @@ HelpTab::~HelpTab (){
     delete tabInside;
 
     delete info;
+    delete exitButt;
     delete infoLayout;
     delete iffect;
     delete infoBox;

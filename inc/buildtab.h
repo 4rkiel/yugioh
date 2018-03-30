@@ -24,6 +24,7 @@
 #include <QShortcut>
 
 #include "../inc/shadowButt.h"
+#include "../inc/flatButt.h"
 #include "../inc/editeur_de_carte.h"
 #include "../inc/deckedit.h"
 #include "../inc/parser.h"
@@ -48,6 +49,7 @@ private:
         QGraphicsDropShadowEffect * iffect;
         QHBoxLayout * infoLayout;
         QLabel * info;
+        FlatButt * exitButt;
 
 
     QWidget * tabInside;
@@ -62,7 +64,6 @@ private:
     QPushButton * cardButt;
     QPushButton * cardEditButt;
     QPushButton * deckEditButt;
-    ShadowButt * exitButt;
 
     QWidget * buildBox;
     QStackedLayout * buildLayout;
