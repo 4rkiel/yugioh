@@ -82,7 +82,8 @@ class Network
                 {
                     for(j=0;j<60;j++)
                     {
-                        new_weights_m(i,j) = rand()%2;
+                        new_weights_m(i,j) =
+                            randomFloat(-1/sqrt(60),1/sqrt(60));
                     }
                 }
                 //initialise deltas
@@ -127,7 +128,8 @@ class Network
             {
                 for(j=0;j<10;j++)
                 {
-                    output_weight(i,j) = rand()%2;
+                    output_weight(i,j) =
+                            randomFloat(-1/sqrt(60),1/sqrt(60));
                 }
             }
             //initialise deltas
@@ -159,7 +161,21 @@ class Network
         
         
         
-        //compute the vector of actions q_values
+        float randomFloat(float a, float b)
+        {
+            float random = ((float) rand()) / (float) RAND_MAX;
+            float diff = b - a;
+            float r = random * diff;
+            return a + r;
+        }
+        
+        
+        
+        /*
+         * compute the actions' q_values vector
+         * takes in input the game state
+         * and outputs the vector of the actions do to
+         */
         void forward_propagation(Matrix<float,1,20> game_state)
         {
             hidden_layers_values.at(0) = game_state * hidden_weights.at(0);
@@ -169,7 +185,11 @@ class Network
         
         
         
-        //compute the vector of actions q_values
+        /*
+         * compute test actions' q_values vector
+         * takes in input the future possible state
+         * and outputs the vector of the actions it will be able to do
+         */
         void test_forward_propagation(Matrix<float,1,20> game_state)
         {
             test_hidden_layers_values.at(0) = game_state * hidden_weights.at(0);
@@ -179,9 +199,9 @@ class Network
         
         
         
-        /*choose the action to do, function of the actions' q_value calculated
-         * much an action has a big q_value, much more it has chance to be
-         * chosen
+        /*
+         * choose the action to do, according to the actions' q_value calculated,
+         * more an action has a big q_value, more it has chance to be chosen
          */
         int choose_action(Matrix<float,1,10> actions)
         {
@@ -215,9 +235,11 @@ class Network
         
         
         
-        //compare the output of the neural network with the previous
-        //calculated q_values of the different next possible state
-        //and update the weights of the neural network
+        /*
+         * compare the output of the neural network with the q_values of the
+         * different next possible state, and update the weights of the neural
+         * network
+         */
         void backward_propagation(float q_targets[10])
         {
             int i,j,k;
@@ -229,17 +251,23 @@ class Network
             
             
             //output_layer
+            //for each neuron in the output layer
             for(i=0;i<output_weight.rows();i++)
             {
-                //calcul local cost of this neuron
+                //calcul local and global cost of this neuron
                 output=output_layer_values(1,i);
                 local_cost=( q_targets[i] - output_layer_values(1,i) ) *
                     output_layer_values(1,i) * (1 - output_layer_values(1,i));
                 global_cost += pow(q_targets[i] - output_layer_values(1,i),2);
                 
-                //update the weights comming into this neuron
+                //update the weights comming into this neuron from the previous
+                //layer
+                //for each synaps comming into the neuron
                 for(j=0;j<output_weight.cols();j++)
                 {
+                    //update the weight, according to the local cost and the
+                    //update delta at the previous backpropagation
+                    //update the delta value, etc
                     delta=output_delta(i,j);
                     udelta = local_cost * output_weight(i,j) + delta;
                     output_weight(i,j) += udelta;
@@ -249,8 +277,13 @@ class Network
                 output_layer(1,i).wgain = local_cost * output_layer(1,i).gain;
             }
             
-            
-            //hidden_layers
+            /*
+             * do the same as for the output layer, but now multiplicated by
+             * the  sum of the previous localcost time the previous weights,
+             * and this for all the neurons in all the hidden layers
+             * so the cost is backpropagated to update all the neurons of the
+             * network
+             */
             for(i=hidden_weights.size();i>0;i--)
             {
                 for(j=0;j<hidden_weights.at(i).cols();j++)
@@ -274,14 +307,18 @@ class Network
         
         
         
-        //give the next game state, if this action is played
+        //give the next game state, if the action is played
         Matrix<float,1,20> play_simulation(Matrix<float,1,20> game_state, int action)
         {
-            //TODO
+            //TODO: connect to the "Moteur"
         }
         
         
         
+        /*
+         * test if the game stae is a winning state or a losing state,
+         * or a neutral state
+         */
         int test_win(Matrix<float,1,20> state)
         {
             return state(1,1);
@@ -289,13 +326,14 @@ class Network
         
         
         
+        //give the maximun q_value of the tested next state
         float max_output_test()
         {
             float max_value=0;
             int i;
             for(i=0;i<20;i++)
             {
-                max(max_value,test_output_layer_values(1,i));
+                max_value = max(max_value,test_output_layer_values(1,i));
             }
             return max_value;
         }
@@ -318,16 +356,16 @@ class Network
                 int test = test_win(target_states[action]);
                 if(test == 1)
                 {
-                    q_targets[action] = 1;
+                    q_targets[action] = 1; //good reward
                 }
                 else if(test == -1)
                 {
-                    q_targets[action] = -1;
+                    q_targets[action] = -1; //bad reward
                 }
                 else
                 {
-                    //compute the q_value of these states, according to the memory
-                    //and futures possibles actions
+                    //compute the q_value of these states, according to th
+                    //futur possibles actions
                     test_forward_propagation(target_states[action]);
                     q_targets[action] = max_output_test();
                 }
