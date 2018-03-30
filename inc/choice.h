@@ -13,7 +13,8 @@
 #include <QString>
 #include <QShortcut>
 
-#include "../inc/shadowButt.h"
+#include "../inc/flatButt.h"
+#include "../inc/flatExpButt.h"
 
 class Choice : public QFrame {
 
@@ -46,17 +47,21 @@ class Choice : public QFrame {
         QGraphicsDropShadowEffect * iffect;
         QHBoxLayout * infoLayout;
         QLabel * info;
+        FlatButt * intro;
     
     QWidget * introBox;
     
         QVBoxLayout * box;
         QGraphicsDropShadowEffect * effect;
 
-        ShadowButt * intro;
-        ShadowButt * host;
-        ShadowButt * group;
-        ShadowButt * online;
-        ShadowButt * solo;
+        FlatExpButt * host;
+        FlatExpButt * group;
+        FlatExpButt * online;
+        FlatExpButt * solo;
+
+        QFrame * sep1;
+        QFrame * sep2;
+        QFrame * sep3;
 
 };
 

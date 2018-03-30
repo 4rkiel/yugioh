@@ -11,7 +11,7 @@
 FlatButt::FlatButt (QString icoStr, QString textStr){
  
     // Button content
-    
+
     layout = new QHBoxLayout;
 
     ico = nullptr;

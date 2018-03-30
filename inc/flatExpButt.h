@@ -3,9 +3,10 @@
 
 #include <QPushButton>
 
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QWidget>
+//#include <QHBoxLayout>
+//#include <QVBoxLayout>
+#include <QGridLayout>
+//#include <QWidget>
 #include <QString>
 #include <QLabel>
 
@@ -19,9 +20,9 @@ class FlatExpButt : public QPushButton {
     ~FlatExpButt();
 
     private:
-	QVBoxLayout * vlay;
-	QWidget * wid;
-	QHBoxLayout * layout;
+//	QVBoxLayout * vlay;
+//	QWidget * wid;
+	QGridLayout * layout;
     QLabel * ico;
     QLabel * txt;
 };

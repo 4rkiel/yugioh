@@ -53,8 +53,8 @@ SlotCard::SlotCard (int p){
     
     setFlat(true);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setFocusPolicy(Qt::NoFocus);
 
-    
     // Creating clickable picture zone
 
     layout = new QGridLayout;

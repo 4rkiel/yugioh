@@ -6,9 +6,7 @@ QToolTip {
 }
 
 /*****************************************************************
-
     editeur_de_carte
-
 ******************************************************************/
 
 editeur_de_carte {
@@ -28,9 +26,7 @@ QComboBox {
 
 
 /*****************************************************************
-
     Shadow Button
-
 ******************************************************************/
 
 
@@ -59,9 +55,11 @@ ShadowButt:pressed {
 }
 
 
-/*****************************************************
 
-*/
+
+/*****************************************************************
+    Flat Button
+******************************************************************/
 
 FlatButt {
     border: none;
@@ -71,12 +69,11 @@ FlatButt {
 }
 
 FlatButt QLabel {
-    color: #000;
     margin: 0;
 }
 
 FlatButt:hover,
-FlatButt:focus {
+FlatButt::focus {
     background: #80D8FF;
 }
  
@@ -88,6 +85,10 @@ FlatButt:pressed {
 
 
 
+/*****************************************************************
+    Expanding Flat Button
+******************************************************************/
+
 FlatExpButt {
     border: none;
     outline: none;
@@ -97,38 +98,39 @@ FlatExpButt {
 
 FlatExpButt QLabel {
     color: #000;
-    margin: 0 10px;
+    margin: 0px 30px;
 }
+
 
 FlatExpButt:hover,
 FlatExpButt:focus {
-    background: #80D8FF;
+    background: #FFE082;
 }
  
 FlatExpButt:pressed {
-    background: #0288D1;
+    background: #FFD54F;
 }
 
 
 
 
 /*****************************************************************
-
     Main Window
-
 ******************************************************************/
 
 Window {
     background: #607D8B;
 }
 
+Window > QWidget {
+    border-image: url(img/wallpaper/wallpaper.png);
+}
+
 
 
 
 /*****************************************************************
-
     Introduction Generique
-
 ******************************************************************/
 
 Generique {
@@ -182,9 +184,7 @@ Generique QProgressBar::chunk {
 
 
 /******************************************************************************
-    
     BreadCrumb
-
 ******************************************************************************/
 
 #infoBox {
@@ -204,16 +204,23 @@ Generique QProgressBar::chunk {
     background: transparent;
 }
 
+
+#infoBox > FlatButt:hover,
+#infoBox > FlatButt:focus {
+    background: #283593;
+}
+
+#infoBox > FlatButt:Pressed {
+    background: #1A237E;
+}
+
+
 #infoBox > FlatButt QLabel {
     color: #fff;
     margin: 0 0 30px 0;
     padding: 20px 0;
 }
 
-#infoBox > FlatButt QLabel:hover {
-    color: #000;
-    background: red;
-}
 
 /******************************************************************************
 
@@ -227,7 +234,8 @@ SoloChoice,
 JoinChoice,
 HostChoice,
 NetChoice {
-    margin: 0px 0px 30px 0px;
+    margin: 0px 0px 0px 0px;
+    padding: 0 0 30px 0;
 }
 
 Intro #introBox,
@@ -239,7 +247,7 @@ NetChoice #introBox {
     margin: 0px 30px;
     border-radius: 2px;
     background: #E0F2F1;
-	max-width: 500px;
+    max-width: 600px;
 }
 
 Intro FlatExpButt,
@@ -272,11 +280,12 @@ NetChoice FlatExpButt QToolTip {
     padding: 5px 10px;
 }
 
-Intro #introBox > QFrame {
+Intro #introBox > QFrame,
+Choice #introBox > QFrame {
     margin: 0px 30px;
     padding: 0px 10px;
 	border: 0px solid red;
-	border-bottom: 1px solid #aaa;
+	border-bottom: 1px solid #CCC;
 }
 
 

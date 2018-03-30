@@ -156,7 +156,7 @@ SoloChoice::~SoloChoice (){
 
 
 void SoloChoice::init (){
-    easy -> setFocus();
+//    easy -> setFocus();
 }
 
 
