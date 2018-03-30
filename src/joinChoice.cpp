@@ -28,11 +28,21 @@ JoinChoice::JoinChoice () {
         infoBox -> setGraphicsEffect(iffect);
 
         infoLayout = new QHBoxLayout;
+        infoLayout -> setContentsMargins(0,0,0,0);
+        infoLayout -> setSpacing(0);
+        infoLayout -> setMargin(0);
+        
+            info = new QLabel (tr("Partie Privée : Rejoindre"));
+            infoLayout -> addWidget(info);
+       
+            infoLayout -> addStretch(1);
 
-        info = new QLabel (tr("Partie Privée : Rejoindre"));
-
-        infoLayout -> addWidget(info);
-        infoBox -> setLayout(infoLayout);
+            choice = new FlatButt("\uf060", "");
+            choice -> setToolTip(tr("Retour au Menu"));
+            connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
+            infoLayout -> addWidget(choice);
+        
+            infoBox -> setLayout(infoLayout);
 
         layout -> addWidget(infoBox, 0,0,1,3);
         
@@ -54,21 +64,12 @@ JoinChoice::JoinChoice () {
 
         box = new QGridLayout;
 
-            // Back Button
-
-            QString strIntro = tr("Retour");
-            choice = new ShadowButt("\uf060", strIntro);
-            choice -> setToolTip(tr("Retour au Menu"));
-            connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
-            
-            box -> addWidget(choice, 4, 0, 1, 3);
-
+            // Validation butt
 			
-			ShadowButt * valid = new ShadowButt("","Valider");
-			box -> addWidget(valid, 2,1,1,1);
+            valid = new ShadowButt("","Valider");
+            valid -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+            box -> addWidget(valid, 2,1,1,1);
 			connect(valid, SIGNAL(clicked()), this, SLOT(connectIP()));
-
-// http://www.qtcentre.org/threads/42456-How-to-connect-QLineEdit-to-quot-ENTER-quot-key-press-form-keyboard
 
 
             // IP 
@@ -76,17 +77,19 @@ JoinChoice::JoinChoice () {
             input = new QLineEdit;
             input -> setContentsMargins(30,0,30,0);
             input -> setAlignment(Qt::AlignCenter);
-            input -> setPlaceholderText("192.168.0.1");
+            input -> setPlaceholderText("0:0:0:0:0:0:0:0");
             input -> setStyleSheet("padding: 5px");
 
-            box -> addWidget(input, 1, 1, 1, 1);
+            box -> addWidget(input, 1, 0, 1, 3);
+            connect(input, SIGNAL(returnPressed()), this, SLOT(connectIP()));
 
 
             box -> setRowStretch(0,20);
             box -> setRowStretch(3,20);
-            box -> setRowStretch(5,1);
 
 
+        shortcut = new QShortcut(QKeySequence("Escape"), this);
+        connect(shortcut, SIGNAL(activated()), this, SLOT(emitChoice()));
 
 
         introBox -> setLayout(box);
@@ -99,8 +102,10 @@ JoinChoice::JoinChoice () {
     
 JoinChoice::~JoinChoice (){
 
-    delete choice;
+    delete shortcut;
+
     delete input;
+    delete valid;
 
     delete effect;
 
@@ -108,6 +113,7 @@ JoinChoice::~JoinChoice (){
     delete introBox;
 
     delete iffect;
+    delete choice;
     delete info;
     delete infoLayout;
     delete infoBox;
@@ -117,7 +123,7 @@ JoinChoice::~JoinChoice (){
 
 
 void JoinChoice::init (){
-   // local -> setFocus();
+    choice -> setFocus();
 }
 
 

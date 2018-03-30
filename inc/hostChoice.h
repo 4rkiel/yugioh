@@ -16,7 +16,7 @@
 #include <QShortcut>
 
 #include "../inc/reseau.h"
-#include "../inc/shadowButt.h"
+#include "../inc/flatButt.h"
 
 class HostChoice : public QFrame {
 
@@ -51,6 +51,7 @@ private:
         QGraphicsDropShadowEffect * iffect;
         QHBoxLayout * infoLayout;
         QLabel * info;
+        FlatButt * choice;
     
     QWidget * introBox;
     
@@ -60,7 +61,6 @@ private:
         QLabel * intro;
         QLabel * phrase;
         QLabel * adr;
-        ShadowButt * choice;
 
 };
 

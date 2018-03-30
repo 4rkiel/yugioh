@@ -69,8 +69,6 @@ Choice::Choice () {
         box -> setSpacing(0);
         box -> setMargin(0);
             
-            box -> addStretch(1);
-
 
             // Local playerButton
           
@@ -166,7 +164,7 @@ Choice::~Choice (){
 
 
 void Choice::init (){
-//    solo -> setFocus();
+    solo -> setFocus();
 }
 
 

@@ -5,6 +5,7 @@
 #include <QFrame>
 
 #include <QGridLayout>
+#include <QHBoxLayout>
 #include <QVBoxLayout>
 
 #include <QGraphicsDropShadowEffect>
@@ -15,7 +16,8 @@
 #include <QNetworkInterface>
 #include <QShortcut>
 
-#include "../inc/shadowButt.h"
+#include "../inc/flatExpButt.h"
+#include "../inc/flatButt.h"
 
 class SoloChoice : public QFrame {
 
@@ -45,17 +47,21 @@ class SoloChoice : public QFrame {
         QGraphicsDropShadowEffect * iffect;
         QHBoxLayout * infoLayout;
         QLabel * info;
+        FlatButt * choice;
     
     QWidget * introBox;
     
-        QGridLayout * box;
+        QVBoxLayout * box;
         QGraphicsDropShadowEffect * effect;
 
         QLabel * intro;
-        ShadowButt * easy;
-        ShadowButt * med;
-        ShadowButt * hard;
-        ShadowButt * choice;
+        FlatExpButt * easy;
+        FlatExpButt * med;
+        FlatExpButt * hard;
+
+        QFrame * sep1;
+        QFrame * sep2;
+
 
 };
 

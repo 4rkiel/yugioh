@@ -29,11 +29,24 @@ SoloChoice::SoloChoice () {
         infoBox -> setGraphicsEffect(iffect);
 
         infoLayout = new QHBoxLayout;
+        infoLayout -> setContentsMargins(0,0,0,0);
+        infoLayout -> setSpacing(0);
+        infoLayout -> setMargin(0);
+            
+            info = new QLabel (tr("Partie Solo"));
 
-        info = new QLabel (tr("Partie Solo"));
+            infoLayout -> addWidget(info);
 
-        infoLayout -> addWidget(info);
-        infoBox -> setLayout(infoLayout);
+            infoLayout -> addStretch(1);
+       
+            // Back Button
+            
+            choice = new FlatButt("\uf060", "");
+            choice -> setToolTip(tr("Retour au Menu"));
+            connect(choice, SIGNAL(clicked()), this, SLOT(emitBack()));
+            infoLayout -> addWidget(choice);
+            
+            infoBox -> setLayout(infoLayout);
 
         layout -> addWidget(infoBox, 0,0,1,3);
         
@@ -42,7 +55,6 @@ SoloChoice::SoloChoice () {
         // Intro Menu 
 
         introBox = new QWidget;
-        introBox -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         introBox -> setObjectName("introBox");
 
         effect = new QGraphicsDropShadowEffect(this);
@@ -53,78 +65,66 @@ SoloChoice::SoloChoice () {
 
         introBox -> setGraphicsEffect(effect);
 
-        box = new QGridLayout;
-
-
-            // Back Button
+        box = new QVBoxLayout;
+        box -> setContentsMargins(0,0,0,0);
+        box -> setSpacing(0);
+        box -> setMargin(0);
             
-            QString strBack = tr("Retour");
-            choice = new ShadowButt("\uf060", strBack);
-            choice -> setToolTip(tr("Retour au Menu"));
-
-            connect(choice, SIGNAL(clicked()), this, SLOT(emitBack()));
-
-            box -> addWidget(choice, 9,0,1,3);
-
-            
-              
-            // Hard
-            
-            QString strHard = tr("Difficile");
-            hard = new ShadowButt("\uf445", strHard);
-            hard -> setToolTip(tr("Adversaire expert"));
-            connect(hard, SIGNAL(clicked()), this, SLOT(emitHard()));
-
-
-
-             
-            // Medium
-            
-            QString strMed = tr("Normal");
-            med = new ShadowButt("\uf447", strMed);
-            med -> setToolTip(tr("Adversaire expert"));
-            connect(med, SIGNAL(clicked()), this, SLOT(emitMed()));
-
-
-
-           
-            // Easy
-            
-            QString strEasy = tr("Facile");
-            easy = new ShadowButt("\uf443", strEasy);
-            easy -> setToolTip(tr("Adversaire débutant"));
-            connect(easy, SIGNAL(clicked()), this, SLOT(emitEasy()));
-
-            box -> addWidget(easy, 3,0,1,3);
-            box -> addWidget(med, 5,0,1,3);
-            box -> addWidget(hard, 7,0,1,3);
-
-            
-
+ 
             // Text
 
             intro = new QLabel;
             intro -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
             QString strIntro = tr("Choix de la difficulté");
             intro -> setText(strIntro);
-            intro -> setWordWrap(true);
-            intro -> setContentsMargins(30,0,30,0);
-            box -> addWidget(intro,1,1,1,1);
-           
+            intro -> setContentsMargins(30,30,30,30);
+            box -> addWidget(intro);
+          
 
+            // Easy
+            
+            QString strEasy = tr("Facile");
+            easy = new FlatExpButt("\uf443", strEasy);
+            easy -> setToolTip(tr("Adversaire débutant"));
+            connect(easy, SIGNAL(clicked()), this, SLOT(emitEasy()));
+            box -> addWidget(easy);
 
-            box -> setRowStretch(0,10);
-            box -> setRowStretch(2,10);
-            box -> setRowStretch(4,1);
-            box -> setRowStretch(6,1);
-            box -> setRowStretch(8,25);
-            box -> setRowStretch(10,1);
+            sep1 = new QFrame;
+            sep1 -> setFixedHeight(1);
+            sep1 -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+            box -> addWidget(sep1);
+            
 
+            // Medium
+            
+            QString strMed = tr("Normal");
+            med = new FlatExpButt("\uf447", strMed);
+            med -> setToolTip(tr("Adversaire expert"));
+            connect(med, SIGNAL(clicked()), this, SLOT(emitMed()));
+            box -> addWidget(med);
+
+ 
+            sep2 = new QFrame;
+            sep2 -> setFixedHeight(1);
+            sep2 -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+            box -> addWidget(sep2);
+          
+              
+            // Hard
+            
+            QString strHard = tr("Difficile");
+            hard = new FlatExpButt("\uf445", strHard);
+            hard -> setToolTip(tr("Adversaire expert"));
+            connect(hard, SIGNAL(clicked()), this, SLOT(emitHard()));
+            box -> addWidget(hard);
 
         introBox -> setLayout(box);
-        layout -> addWidget(introBox, 2, 1, 1, 1);
 
-    //key shortcut
+        layout -> setRowStretch(1,1);
+        layout -> addWidget(introBox, 2, 1, 4, 1);
+        layout -> setRowStretch(6,1);
+
+        // key shortcut
         shortcut = new QShortcut(QKeySequence("Escape"), this);
         connect(shortcut, SIGNAL(activated()), this, SLOT(emitBack()));
 
@@ -134,12 +134,15 @@ SoloChoice::SoloChoice () {
     
 SoloChoice::~SoloChoice (){
 
+    delete shortcut;
+    
     delete intro;
     delete easy;
     delete med;
     delete hard;
-    delete choice;
-    delete shortcut;
+
+    delete sep1;
+    delete sep2;
 
     delete effect;
 
@@ -148,6 +151,7 @@ SoloChoice::~SoloChoice (){
 
     delete iffect;
     delete info;
+    delete choice;
     delete infoLayout;
     delete infoBox;
 
@@ -156,7 +160,7 @@ SoloChoice::~SoloChoice (){
 
 
 void SoloChoice::init (){
-//    easy -> setFocus();
+    choice -> setFocus();
 }
 
 

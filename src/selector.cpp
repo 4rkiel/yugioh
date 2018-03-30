@@ -2,7 +2,7 @@
 
 Selector::Selector (){
 
-    mode = 0;
+    mode = -1;
 
     layout = new QGridLayout;
     layout -> setMargin(0);
@@ -10,25 +10,11 @@ Selector::Selector (){
 
     stacked = new QStackedWidget;
 
-
-        choice = new Choice;
-
-        connect(choice, SIGNAL(introStack()), this, SLOT(emitIntro()));
-        connect(choice, SIGNAL(soloStack()), this, SLOT(soloStack()));
-        connect(choice, SIGNAL(joinStack()), this, SLOT(joinStack()));
-        connect(choice, SIGNAL(hostStack()), this, SLOT(hostStack()));
-        connect(choice, SIGNAL(netStack()), this, SLOT(netStack()));
-
-        stacked -> addWidget(choice);
-
-
-        stacked -> setCurrentWidget(choice);
-        choice -> init();
-
-
     layout -> addWidget(stacked);
 
     setLayout(layout);
+
+    choiceStack();
 }
 
 
@@ -107,24 +93,22 @@ void Selector::emitIntro (){
 
 void Selector::choiceStack(){
 
-    // General Choice
-
     choice = new Choice;
-    
+
     stacked -> addWidget(choice);
     stacked -> setCurrentWidget(choice);
-
+    
+    connect(choice, SIGNAL(introStack()), this, SLOT(emitIntro()));
     connect(choice, SIGNAL(soloStack()), this, SLOT(soloStack()));
     connect(choice, SIGNAL(joinStack()), this, SLOT(joinStack()));
     connect(choice, SIGNAL(hostStack()), this, SLOT(hostStack()));
     connect(choice, SIGNAL(netStack()), this, SLOT(netStack()));
-    connect(choice, SIGNAL(introStack()), this, SLOT(emitIntro()));
 
     choice -> init();
-    
+
     clean();
     mode = 0;
-    
+
 }
 
 
@@ -160,6 +144,7 @@ void Selector::joinStack(){
     connect(joinChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
 	connect(joinChoice, SIGNAL(sendIP(QString)), this, SLOT(connectIP(QString)));
 
+    joinChoice -> init();
 
     clean();
     mode = 2;
@@ -199,6 +184,8 @@ void Selector::netStack(){
     stacked -> setCurrentWidget(netChoice);
     
     connect(netChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
+
+
 
     clean();
     mode = 4;

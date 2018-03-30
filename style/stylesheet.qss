@@ -281,7 +281,8 @@ NetChoice FlatExpButt QToolTip {
 }
 
 Intro #introBox > QFrame,
-Choice #introBox > QFrame {
+Choice #introBox > QFrame, 
+SoloChoice #introBox > QFrame {
     margin: 0px 30px;
     padding: 0px 10px;
 	border: 0px solid red;

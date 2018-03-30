@@ -28,11 +28,28 @@ HostChoice::HostChoice () {
         infoBox -> setGraphicsEffect(iffect);
 
         infoLayout = new QHBoxLayout;
+        infoLayout -> setContentsMargins(0,0,0,0);
+        infoLayout -> setSpacing(0);
+        infoLayout -> setMargin(0);
+        
+            info = new QLabel (tr("Partie Privée : Hébergement"));
 
-        info = new QLabel (tr("Partie Privée : Hébergement"));
+            infoLayout -> addWidget(info);
 
-        infoLayout -> addWidget(info);
-        infoBox -> setLayout(infoLayout);
+            infoLayout -> addStretch(1);
+
+            // Back Button
+            
+            choice = new FlatButt("\uf060", "");
+            choice -> setToolTip(tr("Retour au Menu"));
+            connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
+
+            infoLayout -> addWidget(choice);
+
+       
+
+            
+            infoBox -> setLayout(infoLayout);
 
         layout -> addWidget(infoBox, 0,0,1,3);
         
@@ -54,16 +71,9 @@ HostChoice::HostChoice () {
 
         box = new QGridLayout;
 
-
-            // Back Button
-            
-            QString strBack = tr("Retour");
-            choice = new ShadowButt("\uf060", strBack);
-            choice -> setToolTip(tr("Retour au Menu"));
-            connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
-
-            box -> addWidget(choice, 5,0,1,3);
-
+        box -> setContentsMargins(0,0,0,0);
+        box -> setSpacing(0);
+        box -> setMargin(0);
            
             // Text
 
@@ -97,13 +107,9 @@ HostChoice::HostChoice () {
             phrase -> setTextInteractionFlags(Qt::TextSelectableByMouse); 
             box -> addWidget(phrase,3,1,1,1);
           
-
-
-            box -> setRowStretch(4,25);
-            
            
 
-            box -> setRowStretch(6,1);
+            box -> setRowStretch(4,10);
 
 
         introBox -> setLayout(box);
@@ -119,7 +125,6 @@ HostChoice::~HostChoice (){
 
     delete intro;
     delete phrase;
-    delete choice;
 
     delete effect;
 
@@ -128,6 +133,7 @@ HostChoice::~HostChoice (){
 
     delete iffect;
     delete info;
+    delete choice;
     delete infoLayout;
     delete infoBox;
 

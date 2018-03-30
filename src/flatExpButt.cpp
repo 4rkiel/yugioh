@@ -72,4 +72,3 @@ FlatExpButt::~FlatExpButt (){
 //	delete wid;
 //	delete vlay;
 }
-
