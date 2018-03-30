@@ -27,17 +27,16 @@ class CardPreview : public QWidget
 
     public:
 
-        CardPreview(const Carte carte);
+        CardPreview(const Carte *carte);
 
     private:
 
-//        const QStringList infoText = {tr("Nom: "), tr("Genre: "), tr("Niveau: ")
-//                                     ,tr("Attaque: "), tr("Défense: ")};
         QHBoxLayout *mainLayout;
 
         QLabel *tabInfoLabel[INFOLABEL_MAX];
 
     signals:
+
         void rightClicked();
         void clicked();
 
