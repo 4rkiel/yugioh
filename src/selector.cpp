@@ -109,23 +109,22 @@ void Selector::choiceStack(){
 
     // General Choice
 
-    clean();
-
-    mode = 0;
-
     choice = new Choice;
     
-    connect(choice, SIGNAL(introStack()), this, SLOT(emitIntro()));
+    stacked -> addWidget(choice);
+    stacked -> setCurrentWidget(choice);
+
     connect(choice, SIGNAL(soloStack()), this, SLOT(soloStack()));
     connect(choice, SIGNAL(joinStack()), this, SLOT(joinStack()));
     connect(choice, SIGNAL(hostStack()), this, SLOT(hostStack()));
     connect(choice, SIGNAL(netStack()), this, SLOT(netStack()));
+    connect(choice, SIGNAL(introStack()), this, SLOT(emitIntro()));
 
-    stacked -> addWidget(choice);
-
-
-    stacked -> setCurrentWidget(choice);
     choice -> init();
+    
+    clean();
+    mode = 0;
+    
 }
 
 
@@ -133,21 +132,19 @@ void Selector::soloStack(){
 
     // Solo Choice
 
-    clean();
-
-    mode = 1;
-
-
     soloChoice = new SoloChoice;
-    
+   
+    stacked -> addWidget(soloChoice);
+    stacked -> setCurrentWidget(soloChoice);
+ 
     connect(soloChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
     connect(soloChoice, SIGNAL(gameStack(int)), this, SLOT(emitGame(int)));
     
-    stacked -> addWidget(soloChoice);
-
-
-    stacked -> setCurrentWidget(soloChoice);
     soloChoice -> init();
+    
+    clean();
+    mode = 1;
+
 }
 
 
@@ -155,20 +152,19 @@ void Selector::joinStack(){
 
     // Join Choice
 
-    clean();
-
-    mode = 2;
-
-
     joinChoice = new JoinChoice;
+
+    stacked -> addWidget(joinChoice);
+    stacked -> setCurrentWidget(joinChoice);
     
     connect(joinChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
 	connect(joinChoice, SIGNAL(sendIP(QString)), this, SLOT(connectIP(QString)));
 
-    stacked -> addWidget(joinChoice);
+
+    clean();
+    mode = 2;
 
 
-    stacked -> setCurrentWidget(joinChoice);
 }
 
 
@@ -176,21 +172,20 @@ void Selector::hostStack(){
 
     // Host Choice
 
-    clean();
-
-    mode = 3;
-
     hostChoice = new HostChoice;
-    
+   
+    stacked -> addWidget(hostChoice);
+    stacked -> setCurrentWidget(hostChoice);
+ 
     connect(hostChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
     connect(hostChoice, SIGNAL(createHost(QString)), this, SLOT(transmitHost(QString)));
     
     hostChoice -> init();
 
-    stacked -> addWidget(hostChoice);
+    clean();
+    mode = 3;
 
 
-    stacked -> setCurrentWidget(hostChoice);
 }
 
 
@@ -198,19 +193,17 @@ void Selector::netStack(){
 
     // Net Choice
 
-    clean();
+    netChoice = new NetChoice;
+    
+    stacked -> addWidget(netChoice);
+    stacked -> setCurrentWidget(netChoice);
+    
+    connect(netChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
 
+    clean();
     mode = 4;
 
 
-    netChoice = new NetChoice;
-    
-    connect(netChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
-        
-    stacked -> addWidget(netChoice);
-
-
-    stacked -> setCurrentWidget(netChoice);
 }
 
 

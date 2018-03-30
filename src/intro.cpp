@@ -1,7 +1,5 @@
 #include "../inc/intro.h"
 
-#include <QHBoxLayout>
-
 /******************************************************************************
 
 	Widget du menu principal
@@ -9,7 +7,6 @@
 	Contient les différents boutons, renvoyant aux divers sous-menus
 
 ******************************************************************************/
-
 
 Intro::Intro () {
 
@@ -34,7 +31,7 @@ Intro::Intro () {
         infoLayout -> setContentsMargins(0,0,0,0);
         infoLayout -> setSpacing(0);
         infoLayout -> setMargin(0);
-        infoLayout -> setSizeConstraint(QLayout::SetMinimumSize);
+//        infoLayout -> setSizeConstraint(QLayout::SetMinimumSize);
 		
             // WAMI
 
@@ -146,16 +143,17 @@ Intro::Intro () {
             connect(help, SIGNAL(clicked()), this, SLOT(emitHelp()));
             box -> addWidget(help);
 
-/*
-           
-            box -> addStretch(1);
-*/
-            //key shortcut
-            shortcut = new QShortcut(QKeySequence("Escape"), this);
-            connect(shortcut, SIGNAL(activated()), qApp, SLOT(quit()));
+
 
         introBox -> setLayout(box);
-        layout -> addWidget(introBox, 2, 1, 1, 1);
+
+        layout -> setRowStretch(1,1);
+        layout -> addWidget(introBox, 2, 1, 4, 1);
+        layout -> setRowStretch(6,1);
+
+        //key shortcut
+        shortcut = new QShortcut(QKeySequence("Escape"), this);
+        connect(shortcut, SIGNAL(activated()), qApp, SLOT(quit()));
 
 
     setLayout(layout);
@@ -174,7 +172,7 @@ Intro::~Intro (){
     delete rules;
     delete options;
     delete help;
-//    delete quit;
+    delete quit;
 
     delete effect;
     delete box;
@@ -190,7 +188,7 @@ Intro::~Intro (){
 
 
 void Intro::init (){
-    choice -> setFocus();
+//    choice -> setFocus();
 }
 
 

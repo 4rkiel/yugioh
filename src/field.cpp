@@ -12,6 +12,8 @@ Field::Field () {
 
     lockPreview = false;
 
+    retained = -1;
+
     overLayout = new QGridLayout;
     overLayout -> setSpacing(0);
     overLayout -> setMargin(0);
@@ -476,6 +478,7 @@ void Field::cardClicked(int x){
         ){
             std::cout << "biclicked: " << retained << " " << x << "\n";
             emit biClick(retained, x);
+            retained = -1;
         }
     }
 }

@@ -11,16 +11,10 @@
 FlatExpButt::FlatExpButt (QString icoStr, QString textStr){
  
     // Button content
-	
-	setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
-	vlay = new QVBoxLayout;
-	vlay -> setSizeConstraint(QLayout::SetMinimumSize);
-
-	wid = new QWidget;
-	wid -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
-    layout = new QHBoxLayout;
+ 
+    layout = new QGridLayout;
 	layout -> setSizeConstraint(QLayout::SetMinimumSize);
-
+    
     ico = nullptr;
     txt = nullptr;
 
@@ -29,40 +23,37 @@ FlatExpButt::FlatExpButt (QString icoStr, QString textStr){
         ico -> setMargin(10);
         ico -> setFont(QFont("Font Awesome 5 Free", 12));
         ico -> setText(icoStr);
-   
-        if (textStr == ""){
-            setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
-            layout -> addStretch();
-            layout -> addWidget(ico, 0, Qt::AlignCenter);
-            layout -> addStretch();
+        if (textStr == ""){
+
+            layout -> setColumnStretch(0,1);
+            layout -> addWidget(ico, 1,1,1,1);
+            layout -> setColumnStretch(2,1);
         } else {
-            layout -> addWidget(ico, 0, Qt::AlignLeft);
+            layout -> addWidget(ico, 1,0,1,1 );
         }
     }
 
     if (textStr != ""){
         txt = new QLabel;
         txt -> setText(textStr);
-
-        layout -> addStretch(1);
             
-        layout -> addWidget(txt, 0, Qt::AlignRight);
         
         if (icoStr != ""){
-            layout -> addStretch(2);
+            layout -> setColumnStretch(1,1);
+            layout -> addWidget(txt, 1, 2, 1,1);
+            layout -> setColumnStretch(3,2);
         } else {
-            layout -> addStretch(1);
+            layout -> setColumnStretch(0,1);
+            layout -> addWidget(txt, 1,2,1,1);
+            layout -> setColumnStretch(2,1);
         }
     }
 
-    wid -> setLayout(layout);
-	
-	vlay -> addStretch();
-	vlay -> addWidget(wid);
-	vlay -> addStretch();
 
-	setLayout(vlay);
+    layout -> setRowStretch(0,1);
+    layout -> setRowStretch(2,1);
+	setLayout(layout);
 }
 
 
@@ -78,7 +69,7 @@ FlatExpButt::~FlatExpButt (){
     }
 
     delete layout;
-	delete wid;
-	delete vlay;
+//	delete wid;
+//	delete vlay;
 }
 

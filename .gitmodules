@@ -1,0 +1,3 @@
+[submodule "IA/lib_eigen"]
+	path = IA/lib_eigen
+	url = git://github.com/eigenteam/eigen-git-mirror

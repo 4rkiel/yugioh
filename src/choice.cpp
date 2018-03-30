@@ -28,11 +28,24 @@ Choice::Choice () {
         infoBox -> setGraphicsEffect(iffect);
 
         infoLayout = new QHBoxLayout;
+        infoLayout -> setContentsMargins(0,0,0,0);
+        infoLayout -> setSpacing(0);
+        infoLayout -> setMargin(0);
+        
+            info = new QLabel (tr("Mode de Jeu"));
 
-        info = new QLabel (tr("Mode de Jeu"));
+            infoLayout -> addWidget(info);
+            
+            infoLayout -> addStretch(1);
+ 
+            // Back Button
 
-        infoLayout -> addWidget(info);
-        infoBox -> setLayout(infoLayout);
+            intro = new FlatButt("\uf060", "");
+            intro -> setToolTip(tr("Retour au Menu"));
+            connect(intro, SIGNAL(clicked()), this, SLOT(emitIntro()));
+            infoLayout -> addWidget(intro);
+            
+            infoBox -> setLayout(infoLayout);
 
         layout -> addWidget(infoBox, 0,0,1,3);
         
@@ -52,67 +65,70 @@ Choice::Choice () {
         introBox -> setGraphicsEffect(effect);
 
         box = new QVBoxLayout;
-
+        box -> setContentsMargins(0,0,0,0);
+        box -> setSpacing(0);
+        box -> setMargin(0);
+            
             box -> addStretch(1);
 
 
             // Local playerButton
           
             QString strSolo = tr("Partie Locale Solo");
-            solo = new ShadowButt("\uf007", strSolo);
+            solo = new FlatExpButt("\uf007", strSolo);
             solo -> setToolTip(tr("Commencer une partie solo contre une IA"));
             connect(solo, SIGNAL(clicked()), this, SLOT(emitSolo()));
             box -> addWidget(solo);
 
-            box -> addStretch(1);
+            sep1 = new QFrame;
+            sep1 -> setFixedHeight(1);
+            sep1 -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+            box -> addWidget(sep1);
 
 
             // Private Join Button
           
             QString strPrivate = tr("Rejoindre Partie Privée");
-            group = new ShadowButt("\uf1eb", strPrivate);
+            group = new FlatExpButt("\uf1eb", strPrivate);
             group -> setToolTip(tr("Rejoindre une Partie Privée"));
             connect(group, SIGNAL(clicked()), this, SLOT(emitJoin()));
             box -> addWidget(group);
-
-            box -> addStretch(1);
           
+            sep2 = new QFrame;
+            sep2 -> setFixedHeight(1);
+            sep2 -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+            box -> addWidget(sep2);
+
 
             // Private Host Button
           
             QString strHost = tr("Héberger Partie Privée");
-            host = new ShadowButt("\uf233", strHost);
+            host = new FlatExpButt("\uf233", strHost);
             host -> setToolTip(tr("Héberger une Partie Privée"));
             connect(host, SIGNAL(clicked()), this, SLOT(emitHost()));
             box -> addWidget(host);
 
-            box -> addStretch(1);
+            sep3 = new QFrame;
+            sep3 -> setFixedHeight(1);
+            sep3 -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+            box -> addWidget(sep3);
 
 
             // MatchMaking Button
           
             QString strOnline = tr("Trouver une Partie");
-            online = new ShadowButt("\uf0ac", strOnline);
+            online = new FlatExpButt("\uf0ac", strOnline);
             online -> setToolTip(tr("Commencer une Partie Online"));
             connect(online, SIGNAL(clicked()), this, SLOT(emitNet()));
             box -> addWidget(online);
 
-            box -> addStretch(20);
-            
-
-            // Back Button
-
-            QString strIntro = tr("Retour");
-            intro = new ShadowButt("\uf060", strIntro);
-            intro -> setToolTip(tr("Retour au Menu"));
-            connect(intro, SIGNAL(clicked()), this, SLOT(emitIntro()));
-            box -> addWidget(intro);
-            
-            box -> addStretch(1);
 
 
         introBox -> setLayout(box);
-        layout -> addWidget(introBox, 2, 1, 1, 1);
+        
+        layout -> setRowStretch(1,1);
+        layout -> addWidget(introBox, 2, 1, 4, 1);
+        layout -> setRowStretch(6,1);
 
         // key shortcuts
         shortcut = new QShortcut(QKeySequence("Escape"), this);
@@ -124,8 +140,12 @@ Choice::Choice () {
     
 Choice::~Choice (){
 
-    delete intro;
+    delete sep1;
+    delete sep2;
+    delete sep3;
+    
     delete online;
+    delete host;
     delete group;
     delete solo;
 
@@ -136,6 +156,7 @@ Choice::~Choice (){
     delete introBox;
 
     delete iffect;
+    delete intro;
     delete info;
     delete infoLayout;
     delete infoBox;
@@ -145,7 +166,7 @@ Choice::~Choice (){
 
 
 void Choice::init (){
-    solo -> setFocus();
+//    solo -> setFocus();
 }
 
 
