@@ -6,18 +6,16 @@
 #include <vector>
 #include <tuple>
 
-#define NB_INPUT 26
-#define NB_LAYER1 60
-#define NB_LAYER2 20
-#define NB_OUTPUT 10
 
 using namespace Eigen;
 using namespace std;
+
 
 int main()
 {
     return 0;
 }
+
 
 class Neuron
 {
@@ -33,6 +31,7 @@ class Neuron
         }
 };
 
+
 class Network
 {
     public:
@@ -43,24 +42,29 @@ class Network
          */
         vector<Matrix<float,Dynamic,Dynamic>> hidden_weights;
         Matrix<float,Dynamic,10> output_weight;
-
+        
         vector<Matrix<float,Dynamic,Dynamic>> hidden_deltas;
         Matrix<float,Dynamic,10> output_delta;
         
         vector<Matrix<Neuron,1,Dynamic>> hidden_layers;
         Matrix<Neuron,1,10> output_layer;
-
+        
         vector<Matrix<float,1,Dynamic>> hidden_layers_values;
         Matrix<float,1,10> output_layer_values;
         
+        vector<Matrix<float,1,Dynamic>> test_hidden_layers_values;
+        Matrix<float,1,10> test_output_layer_values;
+        
         int nb_hidden_layer;
+        
         /*memory of the neural network
          * matrix associated with his previous computated Q_value
          */
         vector<tuple<Matrix<float,1,20>,float>> memory;
-
-
-        //neural network weights initialisation
+        
+        
+        
+        //constructor: neural network initialisation
         Network(int nb_hidden_layer)
         {
             int i,j,k;
@@ -68,9 +72,10 @@ class Network
             this->nb_hidden_layer = nb_hidden_layer;
             
             //hidden layers
+            ///////////////
             for(k=0;k<nb_hidden_layer;k++)
             {
-                //initialyse weights
+                //initialise weights
                 Matrix<float,60,60> new_weights_m;
                 hidden_weights.push_back(new_weights_m);
                 for(i=0;i<20;i++)
@@ -80,7 +85,6 @@ class Network
                         new_weights_m(i,j) = rand()%2;
                     }
                 }
-                
                 //initialise deltas
                 Matrix<float,60,60> new_deltas_m;
                 hidden_deltas.push_back(new_deltas_m);
@@ -91,8 +95,7 @@ class Network
                         new_deltas_m(i,j) = 0;
                     }
                 }
-                
-                //initialyse neurons
+                //initialise neurons
                 Matrix<Neuron,1,60> new_neurons_m;
                 hidden_layers.push_back(new_neurons_m);
                 for(i=0;i<60;i++)
@@ -100,19 +103,26 @@ class Network
                     Neuron new_neuron;
                     new_neurons_m(1,i) = new_neuron;
                 }
-                
-                //initialyse values
+                //initialise values
                 Matrix<float,1,60> new_values_m;
                 hidden_layers_values.push_back(new_values_m);
                 for(i=0;i<60;i++)
                 {
                     new_values_m(1,i) = 0;
                 }
-
+                //initialise test values
+                Matrix<float,1,60> new_test_values_m;
+                hidden_layers_values.push_back(new_test_values_m);
+                for(i=0;i<60;i++)
+                {
+                    new_test_values_m(1,i) = 0;
+                }
             }
+            //////////////
             
             //output layer
-            //initialyse weights
+            //////////////
+            //initialise weights
             for(i=0;i<60;i++)
             {
                 for(j=0;j<10;j++)
@@ -120,8 +130,7 @@ class Network
                     output_weight(i,j) = rand()%2;
                 }
             }
-            
-            //initialyse deltas
+            //initialise deltas
             for(i=0;i<60;i++)
             {
                 for(j=0;j<10;j++)
@@ -129,32 +138,45 @@ class Network
                     output_delta(i,j) = 0;
                 }
             }
-            
-            //initialyse neurons
+            //initialise neurons
             for(i=0;i<10;i++)
             {
                 Neuron new_neuron;
                 output_layer(1,i) = new_neuron;
             }
-            
-            //initialyse values
+            //initialise values
             for(i=0;i<10;i++)
             {
                 output_layer_values(1,i) = 0;
             }
-            
+            //initialise test values
+            for(i=0;i<10;i++)
+            {
+                test_output_layer_values(1,i) = 0;
+            }
+            //////////////
         }
+        
         
         
         //compute the vector of actions q_values
         void forward_propagation(Matrix<float,1,20> game_state)
         {
-            Matrix<float,1,10> actions;
-            
             hidden_layers_values.at(0) = game_state * hidden_weights.at(0);
             hidden_layers_values.at(1) = hidden_layers_values.at(0) * hidden_weights.at(1);
             output_layer_values = hidden_layers_values.at(1) * output_weight;
         }
+        
+        
+        
+        //compute the vector of actions q_values
+        void test_forward_propagation(Matrix<float,1,20> game_state)
+        {
+            test_hidden_layers_values.at(0) = game_state * hidden_weights.at(0);
+            test_hidden_layers_values.at(1) = test_hidden_layers_values.at(0) * hidden_weights.at(1);
+            test_output_layer_values = test_hidden_layers_values.at(1) * output_weight;
+        }
+        
         
         
         /*choose the action to do, function of the actions' q_value calculated
@@ -182,14 +204,20 @@ class Network
         }
         
         
+        
+        //play without learn
         int play(Matrix<float,1,20> game_state)
         {
             forward_propagation(game_state);
             int action = choose_action(output_layer_values);
             return action;
         }
-
-
+        
+        
+        
+        //compare the output of the neural network with the previous
+        //calculated q_values of the different next possible state
+        //and update the weights of the neural network
         void backward_propagation(float q_targets[10])
         {
             int i,j,k;
@@ -246,37 +274,77 @@ class Network
         
         
         
+        //give the next game state, if this action is played
+        Matrix<float,1,20> play_simulation(Matrix<float,1,20> game_state, int action)
+        {
+            //TODO
+        }
+        
+        
+        
+        int test_win(Matrix<float,1,20> state)
+        {
+            return state(1,1);
+        }
+        
+        
+        
+        float max_output_test()
+        {
+            float max_value=0;
+            int i;
+            for(i=0;i<20;i++)
+            {
+                max(max_value,test_output_layer_values(1,i));
+            }
+            return max_value;
+        }
+        
+        
         
         int play_learn(Matrix<float,1,20> game_state)
         {
             Matrix<float,1,20> target_states[10];
             float q_targets[10];
             
+            //compute the previous calculated q_values of the differents next
+            //possible states, depending on the chosen action
             int action;
             for(action=0;action<20;action++)
             {
                 //compute the next state if this action in chosen
-                //TODO: target_states[action] = play_simulation(game_state, action);
+                target_states[action] = play_simulation(game_state, action);
                 
-                //compute the q_value of these states, in function of the memory
-                //and futures possibles actions
-                //TODO: q_targets[action] = compute_q_value(target_states[action]);
+                int test = test_win(target_states[action]);
+                if(test == 1)
+                {
+                    q_targets[action] = 1;
+                }
+                else if(test == -1)
+                {
+                    q_targets[action] = -1;
+                }
+                else
+                {
+                    //compute the q_value of these states, according to the memory
+                    //and futures possibles actions
+                    test_forward_propagation(target_states[action]);
+                    q_targets[action] = max_output_test();
+                }
             }
             
+            //compute which action the neural network whant to play
+            forward_propagation(game_state);
             
-            int played_action = choose_action(output_layer_values);
-            return played_action;
+            //compare result of the neural network with the previous calculated
+            //q_values of the next possible states, and updates the weights
+            backward_propagation(q_targets);
+            
+            //choose the which action play
+            int chosen_action = choose_action(output_layer_values);
+            return chosen_action;
         }
         
         
         
-        /*
-        void upatde(last_reward, signal)
-        {
-            float new_state = tensor(signal);
-            memory.push(last_state,new_state,last_action,last_reward)
-        }
-        */
-
-
 };
