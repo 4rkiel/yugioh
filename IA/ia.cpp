@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 //#include <Eigen/Core>
-#include <eigen-git-mirror/Eigen/Core>
+#include <lib_eigen/Eigen/Core>
 #include <vector>
 #include <tuple>
 
