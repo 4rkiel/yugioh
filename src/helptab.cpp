@@ -76,6 +76,7 @@ HelpTab::HelpTab (){
 
 
             helpButt = new QPushButton;
+            helpButt->setDefault(true);
             helpButt -> setText(tr("Informations"));
             helpButt -> setProperty("down", true);
             connect(helpButt, SIGNAL(clicked()), this, SLOT(setHelp()));
@@ -84,6 +85,7 @@ HelpTab::HelpTab (){
             
 
             aboutButt = new QPushButton;
+            aboutButt->setDefault(true);
             aboutButt -> setText(tr("A Propos"));
             aboutButt -> setProperty("down", false);
             connect(aboutButt, SIGNAL(clicked()), this, SLOT(setAbout()));

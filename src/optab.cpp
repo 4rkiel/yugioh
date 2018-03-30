@@ -75,6 +75,7 @@ OptionTab::OptionTab (){
 
 
             optionButt = new QPushButton;
+            optionButt->setDefault(true);
             optionButt -> setText("Options");
             optionButt -> setProperty("down", true);
             connect(optionButt, SIGNAL(clicked()), this, SLOT(setOption()));
@@ -82,6 +83,7 @@ OptionTab::OptionTab (){
             
 
             accessButt = new QPushButton;
+            accessButt->setDefault(true);
             accessButt -> setText(tr("Accessibilité"));
             accessButt -> setProperty("down", false);
             connect(accessButt, SIGNAL(clicked()), this, SLOT(setAccess()));

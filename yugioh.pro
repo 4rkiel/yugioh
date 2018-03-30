@@ -54,6 +54,7 @@ HEADERS += inc/buildtab.h \
            inc/flatExpButt.h \
            inc/shadowButt.h \
            inc/shadowLab.h \
+           inc/superButt.h \
            inc/popup.h \
            inc/sleeper.h \
            inc/slotCard.h \
@@ -90,6 +91,7 @@ SOURCES += src/buildtab.cpp \
            src/flatExpButt.cpp \
            src/shadowButt.cpp \
            src/shadowLab.cpp \
+           src/superButt.cpp \
            src/popup.cpp \
            src/slotCard.cpp \
            src/zButt.cpp \

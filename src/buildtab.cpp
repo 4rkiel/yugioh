@@ -73,6 +73,7 @@ BuildTab::BuildTab (){
 
 
             deckButt = new QPushButton;
+            deckButt->setDefault(true);
             deckButt -> setText("Decks");
             deckButt -> setProperty("down", true);
             connect(deckButt, SIGNAL(clicked()), this, SLOT(setDeck()));
@@ -81,6 +82,7 @@ BuildTab::BuildTab (){
             
 
             cardButt = new QPushButton;
+            cardButt->setDefault(true);
             cardButt -> setText(tr("Cartes"));
             cardButt -> setProperty("down", false);
             connect(cardButt, SIGNAL(clicked()), this, SLOT(setCard()));
@@ -88,6 +90,7 @@ BuildTab::BuildTab (){
             tabLayout -> addWidget(cardButt, 0, 1, 1, 1);
 
             cardEditButt = new QPushButton;
+            cardEditButt->setDefault(true);
             cardEditButt -> setText(tr("Editeur de Carte"));
             cardEditButt -> setProperty("down", false);
             connect(cardEditButt, SIGNAL(clicked()), this, SLOT(setEditeurCarte()));

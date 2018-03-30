@@ -10,8 +10,9 @@
 #include <QString>
 #include <QLabel>
 
+#include "../inc/superButt.h"
 
-class FlatExpButt : public QPushButton {
+class FlatExpButt : public SuperButt {
 
     Q_OBJECT
 

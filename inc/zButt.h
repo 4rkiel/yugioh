@@ -3,8 +3,9 @@
 
 #include <QPushButton>
 #include <QMouseEvent>
+#include "../inc/superButt.h"
 
-class zButt : public QPushButton {
+class zButt : public SuperButt {
 
     Q_OBJECT
 

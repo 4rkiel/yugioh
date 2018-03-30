@@ -67,6 +67,7 @@ void editeur_de_carte::createFormGroupBox()
     effectBox = new QComboBox;
     nom = new QLineEdit;
     image = new QPushButton;
+    image->setDefault(true);
     imageUrl = new QLineEdit;
 
     ShadowButt *searchImg = new ShadowButt("\uf07c", "");

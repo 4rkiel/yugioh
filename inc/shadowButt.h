@@ -12,6 +12,7 @@
 
 #include <QThread>
 
+#include "../inc/superButt.h"
 #include "../inc/sleeper.h"
 
 
@@ -31,7 +32,7 @@ class ShadowTask : public QObject {
 
 
 
-class ShadowButt : public QPushButton {
+class ShadowButt : public SuperButt {
 
     Q_OBJECT
 
