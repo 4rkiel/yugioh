@@ -10,6 +10,9 @@
 #include <QGraphicsDropShadowEffect>
 #include <QColor>
 
+#include <QEvent>
+#include <QMouseEvent>
+
 #include <QThread>
 #include "../inc/sleeper.h"
 
@@ -36,18 +39,24 @@ class ShadowButt : public SuperButt {
 
     Q_OBJECT
 
-    public: 
+public: 
     ShadowButt(QString icoStr, QString txtStr);
     ~ShadowButt();
-	void setText(QString str);
+	
+    void enterEvent(QEvent * event);
 
-    public slots:
+    void setText(QString str);
+    
+
+public slots:
+
     void buttonPressed();
     void buttonReleased();
     void runNewState();
 
-    private:
-	QHBoxLayout * layout;
+private:
+
+    QHBoxLayout * layout;
     QLabel * ico;
     QLabel * txt;
     QGraphicsDropShadowEffect * effectButt;
@@ -56,7 +65,8 @@ class ShadowButt : public SuperButt {
     int lastPosi;
     int state;
 
-    signals:
+signals:
+
     void askWait();
     void newState();
 };

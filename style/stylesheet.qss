@@ -34,7 +34,7 @@ ShadowButt {
     border: none;
     outline: none;
     border-radius: 2px;
-    background: #FFE082;
+    background: #CFD8DC;
 }
 
 ShadowButt QLabel {
@@ -90,7 +90,7 @@ FlatExpButt {
     border: none;
     outline: none;
     border-radius: 0px;
-	background: transparent;
+	background: #E0F2F1;
 }
 
 FlatExpButt QLabel {

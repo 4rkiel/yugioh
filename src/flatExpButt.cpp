@@ -72,3 +72,12 @@ FlatExpButt::~FlatExpButt (){
 //	delete wid;
 //	delete vlay;
 }
+
+
+
+void FlatExpButt::enterEvent(QEvent * event){
+    
+    setFocus();
+
+    QWidget::enterEvent(event);
+}
