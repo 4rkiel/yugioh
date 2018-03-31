@@ -16,7 +16,6 @@
 #include <QGraphicsDropShadowEffect>
 
 #include <vector>
-#include <iostream>
 #include <QShortcut>
 
 #include "../inc/shadowButt.h"
@@ -27,6 +26,10 @@
 #include "../inc/stats.h"
 #include "../inc/chat.h"
 #include "../inc/popup.h"
+
+
+#include <iostream>
+
 
 class Field : public QFrame {
 
@@ -43,6 +46,7 @@ public slots:
 
     void test();
 
+    void setProgress();
     void setChat();
     void setStats();
 

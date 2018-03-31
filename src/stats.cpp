@@ -7,7 +7,9 @@
 ******************************************************************************/
 
 Stats::Stats(){
- 
+
+    state = 0;
+
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QSizePolicy sp = sizePolicy();
     sp.setRetainSizeWhenHidden(true);
@@ -40,6 +42,13 @@ Stats::Stats(){
         txtPhase = new QLabel;
 
     layout -> addWidget(txtPhase, 3, 0, 1, 3);
+    
+    
+        progress = new QProgressBar;
+        progress -> setRange(0,200);
+        progress -> setOrientation(Qt::Horizontal);
+
+    layout -> addWidget(progress, 4, 0, 1, 3);
 
 
 
@@ -50,6 +59,7 @@ Stats::Stats(){
 
 Stats::~Stats(){
 
+    delete progress;
     delete tour;
     delete phase;
     delete txtPhase;
@@ -58,12 +68,12 @@ Stats::~Stats(){
 }
 
 
-void Stats::setTour(int x){
+void Stats::setTour (int x){
     tour -> setText("Tour : " + QString::number(x));
 }
 
 
-void Stats::setPhase(int x){
+void Stats::setPhase (int x){
 
     switch(x){
         
@@ -88,3 +98,16 @@ void Stats::setPhase(int x){
     }
 }
 
+
+void Stats::resetProgress (){
+
+    state = 0;
+    progress -> reset();
+}
+
+
+void Stats::incProgress (){
+
+    state = (state + 1) % 200;
+    progress -> setValue(state);
+}

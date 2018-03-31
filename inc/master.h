@@ -13,6 +13,25 @@
 #include <iostream>
 #include <QShortcut>
 
+#include <QThread>
+#include "../inc/sleeper.h"
+
+
+class MasterTask : public QObject {
+
+Q_OBJECT;
+
+public slots:
+
+    void masterLoop();
+
+signals:
+    
+    void newTick();
+
+};
+
+
 class Master : public QFrame {
 
 Q_OBJECT
@@ -26,9 +45,13 @@ public:
 public slots:
 
     void emitIntro();
-    void loadField(int);
 	void sendErr(int);
-	void test(QString);
+    void loadField(int);
+	
+    void timeTicker();
+	
+    void test(QString);
+
 
 signals:
 
@@ -45,6 +68,9 @@ private:
     Selector * selector;
     Reseau * network;
     Noyau * noyau;
+
+    QThread * mThread;
+    MasterTask * mTask;
 };
 
 #endif

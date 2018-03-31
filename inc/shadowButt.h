@@ -11,9 +11,9 @@
 #include <QColor>
 
 #include <QThread>
+#include "../inc/sleeper.h"
 
 #include "../inc/superButt.h"
-#include "../inc/sleeper.h"
 
 
 class ShadowButt;

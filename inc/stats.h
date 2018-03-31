@@ -7,7 +7,7 @@
 
 #include <QLabel>
 #include <QString>
-#include <QShortcut>
+#include <QProgressBar>
 
 class Stats : public QFrame {
 
@@ -20,16 +20,22 @@ public:
     
     void setTour(int);
     void setPhase(int);
+    void resetProgress();
+    void incProgress();
+
 
 private:
 
+    int state;
+
     QGridLayout * layout;
-    QShortcut *shortcut;
 
     QLabel * title;
     QLabel * tour;
     QLabel * phase;
     QLabel * txtPhase;
+
+    QProgressBar * progress;
 
     QString ph1;
     QString ph2;

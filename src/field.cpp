@@ -525,6 +525,11 @@ void Field::cardOut (){
 
 
 
+
+void Field::setProgress(){
+    stats -> incProgress();
+}
+
 void Field::setStats(){
 
     currentSide -> setVisible(false);

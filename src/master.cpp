@@ -57,22 +57,25 @@ Master::Master (){
 
 Master::~Master (){
 
-	if (mode < 10 || mode > 19){
+    if (mode != 0){
+    
+        if (mode < 10 || mode > 19){
+            
+            delete network; 
+
+        } else {
+
+            //!\ LUCAS !!!! Ici pour detruire l'IA a la fermeture
+            
+            // delete monPointeurIA
+
+
+        }
         
-        delete network; 
-
-    } else {
-
-        //!\ LUCAS !!!! Ici pour detruire l'IA a la fermeture
-        
-        // delete monPointeurIA
-
-
-    }
-
-	if (mode != 0){
         delete noyau;
    		delete field;
+
+        mThread -> quit();
     }
 
 
@@ -87,6 +90,13 @@ void Master::emitIntro (){
 
     emit introStack();
 }
+
+
+
+void Master::sendErr(int){
+
+}
+
 
 
 void Master::loadField (int x){
@@ -170,13 +180,55 @@ void Master::loadField (int x){
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
 
-	
 	field -> init();
+
+
+
+    // Clock Thread
+
+    mThread = new QThread;
+    mTask = new MasterTask;
+    mTask -> moveToThread(mThread);
+
+
+    connect( mTask, SIGNAL(newTick()), this, SLOT(timeTicker()) );
+    connect( mTask, SIGNAL(newTick()), mTask, SLOT(masterLoop()) );
+
+    connect( mThread, SIGNAL(finished()), mTask, SLOT(deleteLater()) );
+    connect( mThread, SIGNAL(finished()), mThread, SLOT(deleteLater()) );
+
+
+
+    mThread -> start(); 
+    mTask -> masterLoop();
 }
 
-void Master::sendErr(int){
 
+void MasterTask::masterLoop (){
+
+    Sleeper::msleep(50);
+
+    emit newTick();
 }
+
+
+
+void Master::timeTicker(){
+    std::cout << "Tick\n";
+
+    field -> setProgress();
+}
+
+
+
+
+
+
+
+
+
+
+
 
 void Master::test(QString str){
     std::cout << str.toStdString() << "\n";

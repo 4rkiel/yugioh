@@ -34,7 +34,7 @@ ShadowButt {
     border: none;
     outline: none;
     border-radius: 2px;
-    background: #03A9F4;
+    background: #FFE082;
 }
 
 ShadowButt QLabel {
@@ -42,16 +42,13 @@ ShadowButt QLabel {
     margin: 0 10px;
 }
 
-ShadowButt:hover {
-    background: #80D8FF;
-}
- 
+ShadowButt:hover, 
 ShadowButt:focus {
-    background: #00BFA5;
+    background: #FFD54F;
 }
 
 ShadowButt:pressed {
-    background: #0288D1;
+    background: #FFCA28;
 }
 
 
