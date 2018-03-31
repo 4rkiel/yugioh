@@ -10,6 +10,7 @@
 #include "../inc/carte.h"
 #include <QDir>
 #include <sstream>
+#include <QCoreApplication>
 
 class Parser : public QWidget
 {

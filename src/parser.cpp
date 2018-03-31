@@ -7,7 +7,9 @@ Parser::Parser(QWidget *parent)
 {
     courante = new Carte();
     all_cards = new std::vector<Carte*>();
-    QStringList list = QDir("/adhome/v/vc/vcostantino/Documents/IHM/PROJET/Version26/yugioh/sets/").entryList();
+   // QStringList list = QDir("/adhome/v/vc/vcostantino/Documents/IHM/PROJET/Version26/yugioh/sets/").entryList();
+    QStringList list = QDir(QCoreApplication::applicationDirPath()+"/sets/").entryList();
+
     int i;
     std::cout << "je suis ici" << std::endl;
     for(i=0;i<(signed)list.length();i++)
@@ -16,7 +18,8 @@ Parser::Parser(QWidget *parent)
         if((list.at(i).compare(QString("."))!=0) && (list.at(i).compare(QString(".."))!=0))
         {
             std::cout << "je parcours la list" << list.at(i).toStdString() << std::endl;
-            fichier_courant = "/adhome/v/vc/vcostantino/Documents/IHM/PROJET/Version26/yugioh/sets/"+list.at(i);
+ //           fichier_courant = "/adhome/v/vc/vcostantino/Documents/IHM/PROJET/Version26/yugioh/sets/"+list.at(i);
+            fichier_courant = QCoreApplication::applicationDirPath()+"/sets/"+list.at(i);
         getAll();
         }
     }
@@ -103,7 +106,8 @@ void Parser::recup_effet(std::string effets)
 //PARSE UNE LIGNE COMME IL FAUT
 void Parser::parser(std::string ligne)
 {
-    std::string image ="/media/victor/Test/Version25/yugioh/img/cards/";
+   // std::string image ="/media/victor/Test/Version25/yugioh/img/cards/";
+    std::string image =QCoreApplication::applicationDirPath().toStdString()+"/img/cards/";
     std::stringstream ss2 ;
     if(etape==12)
      {
@@ -122,7 +126,8 @@ void Parser::parser(std::string ligne)
         {
             case 0:
                 courante->id = atoi(ligne.c_str());
-                image ="/media/victor/Test/Version25/yugioh/img/cards/";
+                //image ="/media/victor/Test/Version25/yugioh/img/cards/";
+                image = QCoreApplication::applicationDirPath().toStdString()+"img/cards/";
                 image = image + getSet(fichier_courant.toStdString());
                 image = image + "/"+ligne.c_str();
                 courante->image = QString::fromStdString(image);
