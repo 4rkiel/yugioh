@@ -43,6 +43,8 @@ public:
     ShadowButt(QString icoStr, QString txtStr);
     ~ShadowButt();
 	
+
+    void leaveEvent(QEvent * event);
     void enterEvent(QEvent * event);
 
     void setText(QString str);

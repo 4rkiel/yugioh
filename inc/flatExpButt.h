@@ -24,6 +24,7 @@ public:
     FlatExpButt(QString icoStr, QString txtStr);
     ~FlatExpButt();
     
+    void leaveEvent(QEvent * event);
     void enterEvent(QEvent * event);
 
 

@@ -183,6 +183,14 @@ void ShadowButt::runNewState (){
 
 
 
+void ShadowButt::leaveEvent(QEvent * event){
+
+    clearFocus();
+
+    QWidget::leaveEvent(event);
+}
+
+
 void ShadowButt::enterEvent(QEvent * event){
     
     setFocus();
