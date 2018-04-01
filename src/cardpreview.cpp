@@ -6,9 +6,9 @@ CardPreview::CardPreview(const Carte *carte)
 
     const QStringList genreList = {tr("Monstre"), tr("Magie"), tr("Piège")};
     const QStringList infoList = {carte->nom, genreList.at(carte->genre),
-                                 tr("Niveau ") + carte->niveau,
-                                 tr("Attaque: ") + carte->atk,
-                                 tr("Défense") + carte->def};
+                                 tr("Niveau: ") + QString::number(carte->niveau),
+                                 tr("Attaque: ") + QString::number(carte->atk),
+                                 tr("Défense: ") + QString::number(carte->def)};
 
     QVBoxLayout *info = new QVBoxLayout;
     QPixmap *image = new QPixmap(carte->image);
@@ -19,6 +19,8 @@ CardPreview::CardPreview(const Carte *carte)
     {
         tabInfoLabel[i] = new QLabel(infoList.at(i));
         info->addWidget(tabInfoLabel[i]);
+        if((i == GENRE && tabInfoLabel[GENRE]->text() != genreList.at(0)))
+            break; // si la carte n'est pas un monstre, on affiche pas ses stats
     }
 
     mainLayout->addWidget(imageLabel);
