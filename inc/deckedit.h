@@ -24,6 +24,7 @@
 #include <vector>
 #include "parser.h"
 #include "duplica.h"
+#include "cardlistpreview.h"
 
 #define NBR_CARTE_DECK_VISU 60 // multiple de 10
 #define NBR_CARTE_EXTRA_DECK 15
@@ -91,7 +92,7 @@ class deckEdit : public QWidget
         QSpinBox *spinAtk;
         QSpinBox *spinDef;
 
-
+        CardListPreview *cardList;
 
         QPushButton *effectBoxBut;
         QPushButton *tabBut[NBR_BUTTON_DECK_EDIT];

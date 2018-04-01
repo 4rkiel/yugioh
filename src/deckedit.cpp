@@ -316,29 +316,13 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
         deckScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         deckScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         deckScroll -> setFocusPolicy(Qt::NoFocus);
+        deckScroll->setBackgroundRole(QPalette::Light);
 
-        QVBoxLayout *scrollLayout = new QVBoxLayout;
-        for(unsigned int i=0; i<allCard->size(); i++)
-        {
-            Carte *carte = allCard->at(i);
+            Parser *parser = new Parser;
 
-            QHBoxLayout preview;
+            cardList = new CardListPreview(parser);
 
-                QPushButton but;
-                but.setStyleSheet("background: "+carte->image);
-                preview.addWidget(&but);
-
-                QFormLayout textPreview;
-                textPreview.addRow(tr("Nom"), new QLabel(carte->nom));
-
-            preview.addLayout(&textPreview);
-
-            cardPreviewList->push_back(&preview);
-            // add previsu de la carte -> image + nom + atk def
-            scrollLayout->addLayout(cardPreviewList->at(i));
-        }
-
-        deckScroll->setLayout(scrollLayout);
+            deckScroll->setWidget(cardList);
 
         mainLayout->addWidget(deckScroll, 1, 4, 1, 7);
 

@@ -127,7 +127,7 @@ void Parser::parser(std::string ligne)
             case 0:
                 courante->id = atoi(ligne.c_str());
                 //image ="/media/victor/Test/Version25/yugioh/img/cards/";
-                image = QCoreApplication::applicationDirPath().toStdString()+"img/cards/";
+                image = QCoreApplication::applicationDirPath().toStdString()+"/img/cards/";
                 image = image + getSet(fichier_courant.toStdString());
                 image = image + "/"+ligne.c_str();
                 courante->image = QString::fromStdString(image);

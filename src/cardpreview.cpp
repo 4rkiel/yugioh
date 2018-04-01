@@ -23,6 +23,8 @@ CardPreview::CardPreview(const Carte *carte)
 
     mainLayout->addWidget(imageLabel);
     mainLayout->addLayout(info);
+
+    setLayout(mainLayout);
 }
 
 void CardPreview::mousePressEvent (QMouseEvent * e)

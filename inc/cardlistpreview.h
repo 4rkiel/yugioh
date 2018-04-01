@@ -23,15 +23,18 @@
 #include <QShortcut>
 #include <QScrollArea>
 #include "carte.h"
-#include "parser.h"
 #include "cardpreview.h"
+#include "parser.h"
 
 class CardListPreview : public QWidget
 {
     Q_OBJECT
 
 public:
-    CardListPreview(std::vector<Carte *> cardList);
+
+    void updateSearch(std::vector<Carte *> *cardList);
+
+    CardListPreview(Parser *parser);
 
     QVBoxLayout *mainLayout;
 
