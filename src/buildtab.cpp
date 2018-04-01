@@ -128,7 +128,7 @@ BuildTab::BuildTab (){
             vector<Carte*> *allCard = parserAllMighty->all_cards;
 
 
-            // Help ...........................................................
+            // Deck Edit ......................................................
 
             deckScroll = new QScrollArea;
             deckScroll -> setFrameShape(QFrame::NoFrame);
@@ -166,7 +166,7 @@ BuildTab::BuildTab (){
             cardEditScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
             cardEditScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
-			editeur = new editeur_de_carte();
+			editeur = new editeur_de_carte;
             cardEditScroll->setWidget(editeur);
 
             buildLayout -> addWidget(cardEditScroll);

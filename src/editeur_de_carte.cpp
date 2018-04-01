@@ -10,12 +10,9 @@
 
 #define name "editeur de carte V1"
 
-/**
- *
- */
 
-editeur_de_carte::editeur_de_carte()
-{
+editeur_de_carte::editeur_de_carte(){
+
     buttonSave = new ShadowButt("", tr("Enregistrer"));
     createFormGroupBox();
 
@@ -24,17 +21,17 @@ editeur_de_carte::editeur_de_carte()
     //setStyleSheet("background-color: #607D8B");
     connect(buttonSave, SIGNAL(clicked()), this, SLOT(sauvegarder()));
 
-    QGridLayout *mainLayout = new QGridLayout;
+    mainLayout = new QGridLayout;
 
-        QFrame *wSpacer = new QFrame;
-        QHBoxLayout *lSpacer = new QHBoxLayout();
+        wSpacer = new QFrame;
+        lSpacer = new QHBoxLayout();
         lSpacer->setStretch(0, 1);
         wSpacer->setLayout(lSpacer);
 
         mainLayout->addWidget(wSpacer, 0, 0, 1, 1);
 
-        QFrame *intermediate = new QFrame;
-        QGridLayout *midLayout = new QGridLayout;
+        intermediate = new QFrame;
+        midLayout = new QGridLayout;
 
             intermediate->setLayout(midLayout);
             intermediate->setStyleSheet("background-color: #ECEFF1");
@@ -46,8 +43,8 @@ editeur_de_carte::editeur_de_carte()
         mainLayout->addWidget(intermediate, 0, 1, 1, 3);
         mainLayout->addWidget(wSpacer, 0, 4, 1, 1);
 
-
     setLayout(mainLayout);
+
 }
 
 void editeur_de_carte::createFormGroupBox()
@@ -376,6 +373,11 @@ void editeur_de_carte::slotAttribut()
             typeSecondaire->setDisabled(true);
             niveau->setDisabled(true);
     }
+}
+
+editeur_de_carte::~editeur_de_carte (){
+
+	
 }
 
 void editeur_de_carte::slotNormal()

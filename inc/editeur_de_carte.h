@@ -61,6 +61,7 @@ class editeur_de_carte : public QFrame
 
     public:
         editeur_de_carte();
+        ~editeur_de_carte();
 
 public slots:
         void sauvegarder();
@@ -81,6 +82,13 @@ private:
 
         QGroupBox *formGroupBox;
         QTextEdit *bigEditor;
+
+        QGridLayout * mainLayout;
+        QFrame *wSpacer;
+        QHBoxLayout *lSpacer;
+        
+        QFrame *intermediate;
+        QGridLayout *midLayout;
 
         QLineEdit *nom;
         QLineEdit *description;
