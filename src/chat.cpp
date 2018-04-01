@@ -14,11 +14,12 @@ Chat::Chat(){
     setSizePolicy(sp);
 
     layout = new QGridLayout;
-    layout -> setContentsMargins(10,10,10,10);
+    layout -> setContentsMargins(0,0,0,0);
 
 
         title = new QLabel;
-		title -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
+		title -> setObjectName("sideTitle");
+        title -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
         title -> setText(tr("Chat"));
 
     layout -> addWidget(title, 0, 0, 1, 4);
@@ -52,7 +53,7 @@ Chat::Chat(){
     layout -> addWidget(input, 4, 0, 1, 3);
 
         
-        send = new FlatButt("\uf1d8","");
+        send = new ShadowButt("\uf1d8","");
 
     layout -> addWidget(send, 4, 3, 1, 1);
 
@@ -80,7 +81,7 @@ Chat::~Chat(){
 }
 
 
-void Chat::addText(QString str, int what){
+void Chat::addText(QString str, int /* what */){
 
     // 0 histo
     // 1 self

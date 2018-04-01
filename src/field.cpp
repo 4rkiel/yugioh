@@ -348,6 +348,7 @@ Field::Field () {
                     currentButt = statsButt;
                     currentButt -> setProperty("down", true);
 
+                sideTool -> setVisible(false);
                 sideTool -> setLayout(sideToolLayout);
                     
                 sidebar -> addWidget(sideTool, 0, 0, 1, 1);
@@ -489,8 +490,11 @@ Field::~Field (){
 void Field::init(){
     fullCard -> setVisible(false);
     stats -> setVisible(true);
+    sideTool -> setVisible(true);
 }
 
+
+/* Popup functions */
 
 void Field::emitIntroStack (){
     emit introStack();
@@ -509,6 +513,7 @@ void Field::emitDef (){
 }
 
 
+/* Lock Preview */
 
 void Field::previewClicked(){
 
@@ -539,6 +544,40 @@ void Field::cardRightClicked(int x){
         }
     }
 }
+
+
+void Field::cardHover (){
+
+    fullCard -> setTitle("Dragon Blanc aux Yeux Bleus");
+    fullCard -> setPic("img/cards/001/LOB-EN001-Blue-EyesWhiteDragon2ndart.jpg");
+    fullCard -> setDesc(
+        "Ce dragon légendaire est un puissant "
+        "moteur de destruction. Rares sont ceux qui ont survécus à cette "
+        "surpuissante créature quasiment invincible pour en parler."
+    );
+
+    fullCard -> setStat("3000","2500");
+
+    if (!lockPreview){
+        sideTool -> setVisible(false);
+        currentSide -> setVisible(false);
+        fullCard -> setVisible(true);
+    }
+}
+
+
+void Field::cardOut (){
+
+    if (!lockPreview){
+        fullCard -> setVisible(false);
+        currentSide -> setVisible(true);
+        sideTool -> setVisible(true);
+    }
+}
+
+
+
+/* Field Actions */
 
 void Field::cardDoubleClicked(int x){
     std::cout << x << " Double clicked \n"; 
@@ -591,43 +630,9 @@ void Field::cardLeaved(int x){
 }
 
 
-void Field::cardHover (){
-
-    fullCard -> setTitle("Dragon Blanc aux Yeux Bleus");
-    fullCard -> setPic("img/cards/001/LOB-EN001-Blue-EyesWhiteDragon2ndart.jpg");
-    fullCard -> setDesc(
-        "Ce dragon légendaire est un puissant "
-        "moteur de destruction. Rares sont ceux qui ont survécus à cette "
-        "surpuissante créature quasiment invincible pour en parler."
-    );
-
-    fullCard -> setStat("3000","2500");
-
-    if (!lockPreview){
-        sideTool -> setVisible(false);
-        currentSide -> setVisible(false);
-        fullCard -> setVisible(true);
-    }
-}
-
-void Field::cardOut (){
-
-    if (!lockPreview){
-        fullCard -> setVisible(false);
-        currentSide -> setVisible(true);
-        sideTool -> setVisible(true);
-    }
-}
 
 
-
-
-
-void Field::setProgress(){
-    stats -> incProgress();
-}
-
-
+/* SideBar */
 
 void Field::setRightBox (QWidget * w, QWidget * b){
 
@@ -648,20 +653,22 @@ void Field::setRightBox (QWidget * w, QWidget * b){
 }
 
 
-void Field::setStats(){
+void Field::setStats (){
     
     setRightBox(stats, statsButt);
 }
 
-void Field::setChat(){
+void Field::setChat (){
 
     setRightBox(chat, chatButt);
 }
 
 
+void Field::setProgress (){
+    stats -> incProgress();
+}
 
-
-void Field::sendMsg(QString str){
+void Field::sendMsg (QString str){
 
     if(str.startsWith("#")){
         transmettre(str);
@@ -672,7 +679,16 @@ void Field::sendMsg(QString str){
     }
 }
 
+void Field::setTour (int x){
+    stats -> setTour(x);
+}
 
+void Field::setPhase (int x){
+    stats -> setPhase(x);
+}
+
+
+/* Card placements */
 
 void Field::setCarte(QString img, int x){
     fieldStack -> at(x) -> setPic(img);
@@ -699,15 +715,11 @@ void Field::rmCarte(int x){
 
 void Field::test (){
 
-    fieldStack -> at(3) -> posePic();
-    fieldStack -> at(3) -> rmPic();
-    
-    fieldStack -> at(3) -> setPic("img/cards/001/LOB-EN125-GaiatheDragonChampion.jpg");
     fieldStack -> at(79) -> setPic("img/cards/001/LOB-EN125-GaiatheDragonChampion.jpg");
-
-
-    fieldStack -> at(77) -> posePic();
-
+    fieldStack -> at(3) -> posePic();
     fieldStack -> at(10) -> maskPic();
+
+    setPhase(1);
+    setTour(1);
 
 }

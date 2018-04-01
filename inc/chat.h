@@ -14,7 +14,7 @@
 #include <QTime>
 #include <QShortcut>
 
-#include "../inc/flatButt.h"
+#include "../inc/shadowButt.h"
 
 class Chat : public QFrame {
 
@@ -41,7 +41,6 @@ private:
     QVector <QLabel> v;
 
     QGridLayout * layout;
-    QShortcut *shortcut;
 
     QLabel * title;
     QScrollArea * labelBox;
@@ -49,7 +48,7 @@ private:
     QVBoxLayout * labLayout;
     QLabel * label;
     QLineEdit * input;
-    FlatButt * send;
+    ShadowButt * send;
 
 };
 

@@ -433,35 +433,60 @@ Field #infoBox FlatButt QLabel {
     margin: 0px;
 }
 
+Field #infoBox QProgressBar,
+#rightBarBox QProgressBar {
+    margin: 10px;
+    border: none;
+    padding: 1px;
+    border-radius: 2px;
+    background: #E0F2F1;
+    text-align: center;
+}
+
+Field #infoBox QProgressBar::chunk,
+#rightBarBox QProgressBar::chunk {
+    background: #FFD54F;
+    border-radius: 2px;
+    border: none;
+}
+
+
 
 #rightBarBox {
     background: #607D8B;
 }
 
 #rightBarBox #sideSelector {
-    background: red;
     min-height: 40px;
     padding: 0;
     margin: 0;
+    border-radius: 0px;
 }
 
 #rightBarBox #sideSelector FlatButt {
-    background: blue;
-    border: 0px solid blue;
+    background: #CFD8DC;
+    border: 0px solid #3F51B5;
+    border-bottom: 2px solid #3F51B5;
     min-height: 40px;
 }
 
 #rightBarBox #sideSelector FlatButt[down="true"] {
-    border-bottom: 2px solid red;
+    border-bottom: 5px solid #FFC107;
 }
 
 #rightBarBox #sideSelector FlatButt QLabel {
-    background: green;
     min-height: 40px;
     margin: 0;
     padding: 0;
 }
 
+#rightBarBox #sideTitle {
+    padding: 15px 0 10px;
+    font-weight:bold;
+    qproperty-alignment: AlignCenter;
+    border: 0px solid #455A64;
+    border-bottom: 1px solid #455A64;
+}
 
 
 /********************************************************************

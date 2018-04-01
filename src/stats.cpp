@@ -18,17 +18,18 @@ Stats::Stats(){
     setSizePolicy(sp);
     
     layout = new QGridLayout;
-    layout -> setContentsMargins(10,10,10,10);
+    layout -> setContentsMargins(0,0,0,0);
 
         title = new QLabel;
+		title -> setObjectName("sideTitle");
         title -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
         title -> setText(tr("Informations"));
 
-    layout -> addWidget(title, 0, 0, 1, 3);
+    layout -> addWidget(title, 0, 0, 1, 4);
 
         tour = new QLabel;
 
-    layout -> addWidget(tour, 1, 0, 1, 3);
+    layout -> addWidget(tour, 1, 0, 1, 4);
 
         phase = new QLabel;
         phase -> setText(tr("Phase : "));
@@ -39,11 +40,11 @@ Stats::Stats(){
         ph4 = tr("Phase de Fin");
 
 
-    layout -> addWidget(phase, 2, 0, 1, 3);
+    layout -> addWidget(phase, 2, 0, 1, 4);
 
         txtPhase = new QLabel;
 
-    layout -> addWidget(txtPhase, 3, 0, 1, 3);
+    layout -> addWidget(txtPhase, 3, 0, 1, 4);
     
     
         progress = new QProgressBar;
@@ -52,7 +53,7 @@ Stats::Stats(){
         progress -> setOrientation(Qt::Horizontal);
         progress -> setTextVisible(false);
 
-    layout -> addWidget(progress, 4, 0, 1, 3);
+    layout -> addWidget(progress, 4, 0, 1, 4);
 
 
 
