@@ -6,16 +6,17 @@ Parser::Parser(QWidget *parent)
 {
     courante = new Carte();
     all_cards = new std::vector<Carte*>();
-    QStringList list = QDir("/adhome/v/vc/vcostantino/Documents/IHM/PROJET/Version26/yugioh/sets/").entryList();
+    QStringList list = QDir("/home/victor/Documents/IHM/PROJET/Version27/yugioh/sets/" 
+).entryList();
     int i;
-    std::cout << "je suis ici" << std::endl;
+    //std::cout << "je suis ici" << std::endl;
     for(i=0;i<(signed)list.length();i++)
     {
 
         if((list.at(i).compare(QString("."))!=0) && (list.at(i).compare(QString(".."))!=0))
         {
             std::cout << "je parcours la list" << list.at(i).toStdString() << std::endl;
-            fichier_courant = "/adhome/v/vc/vcostantino/Documents/IHM/PROJET/Version26/yugioh/sets/"+list.at(i);
+            fichier_courant = "/home/victor/Documents/IHM/PROJET/Version27/yugioh/sets/"+list.at(i);
         getAll();
         }
     }
@@ -23,11 +24,17 @@ Parser::Parser(QWidget *parent)
     {
         std::cout << "je parcours la list" << std::endl;
            all_cards->at(i)->afficher_infos();
+	std::cout << "FIN DE LA CARTE" << std::endl;
+std::cout << "FIN DE LA CARTE" << std::endl;
+std::cout << "FIN DE LA CARTE" << std::endl;
+std::cout << "FIN DE LA CARTE" << std::endl;
+std::cout << "FIN DE LA CARTE" << std::endl;
+
     }
-       std::vector<Carte *> * search = rechercher_nom("Drag",NULL);
+     /*  std::vector<Carte *> * search = rechercher_nom("Drag",NULL);
        std::cout << "J'AI TROUVE" << std::endl;
        for(i=0;i<(signed)search->size();i++)
-           search->at(i)->afficher_infos();
+           search->at(i)->afficher_infos();*/
 }
 
 std::string Parser::getSet(std::string nom)
@@ -40,7 +47,7 @@ std::string Parser::getSet(std::string nom)
          vrai = parcourir;
     while(parcourir!=NULL)
     {
-       std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+      // std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
         parcourir = std::strtok(NULL,"/");
         if(parcourir!=NULL)
             vrai = parcourir;
@@ -64,7 +71,7 @@ void Parser::getAll()
     while(!line.isNull())
     {
         Parser::parser(line.toStdString());
-        if(etape==12)
+        if(etape==11)
         {
              all_cards->push_back(courante);
          }
@@ -86,7 +93,7 @@ void Parser::recup_effet(std::string effets)
     while(parcourir!=NULL)
     {
 
-                std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+               // std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
                 effet=effet+vrai;
                 parcourir = std::strtok(NULL,"{{");
                 if(parcourir!=NULL)
@@ -104,7 +111,7 @@ void Parser::parser(std::string ligne)
 {
     std::string image ="/media/victor/Test/Version25/yugioh/img/cards/";
     std::stringstream ss2 ;
-    if(etape==12)
+    if(etape==11)
      {
         etape=0;
         effet="";
@@ -134,6 +141,7 @@ void Parser::parser(std::string ligne)
                 courante->sous_type=atoi(ligne.c_str());
                 break;
             case 3:
+	std::cout << "JE VAIS AJOUTER LE NOM : " << ligne << std::endl;
                 courante->nom=QString::fromStdString(ligne);
                 break;
             case 4:

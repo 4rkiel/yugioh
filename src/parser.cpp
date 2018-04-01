@@ -68,7 +68,7 @@ void Parser::getAll()
     while(!line.isNull())
     {
         Parser::parser(line.toStdString());
-        if(etape==12)
+        if(etape==11)
         {
              all_cards->push_back(courante);
          }
@@ -109,7 +109,7 @@ void Parser::parser(std::string ligne)
    // std::string image ="/media/victor/Test/Version25/yugioh/img/cards/";
     std::string image =QCoreApplication::applicationDirPath().toStdString()+"/img/cards/";
     std::stringstream ss2 ;
-    if(etape==12)
+    if(etape==11)
      {
         etape=0;
         effet="";
