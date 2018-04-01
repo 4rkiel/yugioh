@@ -130,7 +130,7 @@ Autant de cartes que l'on veut dans un fichier
 ```
 ##YGO (separe 2 cartes)
 ID_CARTE (custom negatif) INTEGER
-(SET) (extention) (set custom) INTEGER
+(SET) (extention) (set custom) INTEGER //plus necessaire 
 GENRE_CARTE (0 monstre / 1 magie / 2 piege) INTEGER
 SOUS_TYPE (FUSION / RITUEL / EQUIPEMENT... numero par ordre alphabetique ) INTEGER
 NOM_CARTE STRING
