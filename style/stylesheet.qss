@@ -415,14 +415,6 @@ Field ShadowButt {
     font-size: 20px;
 }
 
-#rightBarBox #Life {
-    background: #304FFE;
-    color: #fff;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 2px;
-    max-width: 100px;
-}
 
 Field #infoBox {
     margin: 0px;
@@ -432,10 +424,19 @@ Field #infoBox > * {
     margin: 0px;
 }
 
+Field #infoBox QProgressBar {
+    min-width: 150px;
+    max-width: 500px;
+}
+
 Field #infoBox FlatButt QLabel {
     margin: 0px;
 }
 
+
+#rightBarBox {
+    background: #607D8B;
+}
 
 #rightBarBox #sideSelector {
     background: red;

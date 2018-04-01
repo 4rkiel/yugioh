@@ -15,6 +15,9 @@
 
 #include <QGraphicsDropShadowEffect>
 
+#include <QSettings>
+#include <QProgressBar>
+
 #include <QStyle>
 
 #include <vector>
@@ -88,8 +91,9 @@ private:
     void setRightBox(QWidget *, QWidget *);
 
     int retained;
-
     bool lockPreview;
+    QString baseLife;
+    
 
     QGridLayout * layout;
 
@@ -97,9 +101,15 @@ private:
 
         QGraphicsDropShadowEffect * iffect;
         QHBoxLayout * infoLayout;
-        QLabel * info;
-        FlatButt * quit;
-    
+        QLabel * lifeAdv;
+        QLabel * icoAdv;
+        QProgressBar * progressAdv;
+        QLabel * lifeSlf;
+        QLabel * icoSlf;
+        QProgressBar * progressSlf;
+        FlatButt * menuButt;
+
+
     QWidget * overField;
     QGridLayout * overLayout;
     QWidget * sceneBox;
@@ -139,12 +149,8 @@ private:
         QWidget * rightBarBox;
         QGridLayout * rightBarLayout;
     
-            ShadowLab * lifeAdv;
             ShadowLab * intel;
             ShadowButt * actionButt;
-
-            ShadowLab * lifeSlf;
-            ShadowButt * menuButt;
 
             QWidget * sideTool;
             QGridLayout * sideToolLayout;

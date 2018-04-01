@@ -16,7 +16,6 @@ Field::Field () {
 
 
     layout = new QGridLayout;
-//    layout -> setAlignment(Qt::AlignCenter);
     layout -> setSpacing(0);
     layout -> setMargin(0);
 
@@ -37,30 +36,72 @@ Field::Field () {
         infoLayout -> setContentsMargins(0,0,0,0);
         infoLayout -> setSpacing(0);
         infoLayout -> setMargin(0);
-        
-            // WAMI
+       
 
-            info = new QLabel (tr("Menu Principal"));
+            // Info
 
-            infoLayout -> addWidget(info);
+            infoLayout -> addStretch(3);
 
-        
+            QSettings settings;
+            baseLife = settings.value("lifePoints", "8000").toString();
+            int bl = baseLife.toInt();
+
+            lifeSlf = new QLabel;
+            lifeSlf -> setText(baseLife);
+            infoLayout -> addWidget(lifeSlf);
+            
+            icoSlf = new QLabel;
+            icoSlf -> setFont(QFont("Font Awesome 5 Free", 12));
+            icoSlf -> setText("\uf103");
+            infoLayout -> addWidget(icoSlf);
+
+
+            progressSlf = new QProgressBar;
+            progressSlf -> setRange(0,bl);
+            progressSlf -> setOrientation(Qt::Horizontal);
+            progressSlf -> setTextVisible(false);
+            progressSlf -> setValue(bl);
+            infoLayout -> addWidget(progressSlf);
+
             infoLayout -> addStretch(1);
+
+            progressAdv = new QProgressBar;
+            progressAdv -> setRange(0,bl);
+            progressAdv -> invertedAppearance();
+            progressAdv -> setOrientation(Qt::Horizontal);
+            progressAdv -> setTextVisible(false);
+            progressAdv -> setValue(bl);
+            infoLayout -> addWidget(progressAdv);
+
+
+            icoAdv = new QLabel;
+            icoAdv -> setFont(QFont("Font Awesome 5 Free", 12));
+            icoAdv -> setText("\uf102");
+            infoLayout -> addWidget(icoAdv);
+
+            lifeAdv = new QLabel;
+            lifeAdv -> setText(baseLife);
+            infoLayout -> addWidget(lifeAdv);
+
+
+            
+            infoLayout -> addStretch(6);
 
 
             // Quit Button
+            
+            menuButt = new FlatButt("\uf0c9", "");
+            menuButt -> setToolTip("Menu");
+            infoLayout -> addWidget(menuButt);
 
-            quit = new FlatButt("\uf011", "");
-            quit -> setToolTip(tr("Quitter l'application"));
-            infoLayout -> addWidget(quit);
 
         infoBox -> setLayout(infoLayout);
 
-        layout -> addWidget(infoBox, 0,0,1,3);
+
 
 ///////////////////////////
 
-    overField = new QWidget;
+    overField = new QWidget; 
     overField -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     overLayout = new QGridLayout;
@@ -76,6 +117,8 @@ Field::Field () {
     connect(popup, SIGNAL(introStack()), this, SLOT(emitIntroStack()));
     connect(popup, SIGNAL(sendAtk()), this, SLOT(emitAtk()));
     connect(popup, SIGNAL(sendDef()), this, SLOT(emitDef()));
+
+    connect(menuButt, SIGNAL(clicked()), popup, SLOT(openMenu()));
 
 
 
@@ -262,21 +305,9 @@ Field::Field () {
         rightBarLayout -> setSpacing(0);
         rightBarLayout -> setMargin(0);
         rightBarLayout -> setAlignment(Qt::AlignCenter);
-        rightBarLayout -> setContentsMargins(10, 0, 10, 0);
+        rightBarLayout -> setContentsMargins(10, 10, 10, 0);
 
-
-            lifeAdv = new ShadowLab();
-            QString strAdv = QString::fromUtf8("8000");
-            lifeAdv -> setText(strAdv);
-            lifeAdv -> setObjectName("Life");
-            rightBarLayout -> addWidget(lifeAdv, 0, 1, 1, 1);
-
-            
-            menuButt = new ShadowButt("\uf0c9", "");
-            menuButt -> setToolTip("Menu");
-            connect(menuButt, SIGNAL(clicked()), popup, SLOT(openMenu()));
-            rightBarLayout -> addWidget(menuButt, 0, 3, 1, 1);
-           
+          
     /*
             QSpacerItem * spacerRightTop = new QSpacerItem(5,1,
                 QSizePolicy::Preferred,QSizePolicy::Expanding);
@@ -315,6 +346,7 @@ Field::Field () {
                     sideToolLayout -> addWidget(chatButt, 0, 1);
 
                     currentButt = statsButt;
+                    currentButt -> setProperty("down", true);
 
                 sideTool -> setLayout(sideToolLayout);
                     
@@ -338,24 +370,9 @@ Field::Field () {
                 connect(chat, SIGNAL(msgSent(QString)), this, SLOT(sendMsg(QString)));
                 currentSide = stats;
 
-    /*                QSpacerItem * spacerSide = new QSpacerItem(5,5,
-                    QSizePolicy::Preferred,QSizePolicy::Expanding);
-                sidebar -> addItem(spacerSide, 1, 0);
-    */
             side -> setLayout(sidebar);
             rightBarLayout -> addWidget(side, 2, 0, 1, 5);
 
-    /*
-            QSpacerItem * spacerRightBot = new QSpacerItem(5,1,
-                QSizePolicy::Preferred,QSizePolicy::Expanding);
-            rightBarLayout -> addItem(spacerRightBot, 3, 0);
-    */
-
-            lifeSlf = new ShadowLab();
-            QString strSlf = QString::fromUtf8("8000");
-            lifeSlf -> setText(strSlf);
-            lifeSlf -> setObjectName("Life");
-            rightBarLayout -> addWidget(lifeSlf, 4, 1, 1, 1);
 
             actionButt = new ShadowButt("\uf079", "");
             actionButt -> setToolTip(tr("Terminer le tour"));
@@ -375,12 +392,13 @@ Field::Field () {
 
 
     overLayout -> addWidget(sceneBox, 0, 0);
-    overLayout -> addWidget(popup, 0, 0);
 
     overField -> setLayout(overLayout);
 
 
-    layout -> addWidget(overField, 2, 1, 4, 1);
+    layout -> addWidget(overField, 1, 0, 4, 3);
+    layout -> addWidget(infoBox, 0,0,1,3);
+    layout -> addWidget(popup, 0, 0, 5, 3);
 
     setLayout(layout);
 
@@ -404,9 +422,6 @@ Field::~Field (){
             delete side;
 
             delete actionButt;
-            delete lifeAdv;
-            delete menuButt;
-            delete lifeSlf;
 
         delete rightBarLayout;
         delete rightBarBox;
@@ -455,7 +470,13 @@ Field::~Field (){
     
     delete overField;
 
-    delete info;
+    delete menuButt;
+    delete icoAdv;
+    delete lifeAdv;
+    delete progressAdv;
+    delete icoSlf;
+    delete lifeSlf;
+    delete progressSlf;
     delete infoLayout;
     delete iffect;
     delete infoBox;

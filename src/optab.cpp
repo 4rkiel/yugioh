@@ -207,6 +207,20 @@ OptionTab::OptionTab (){
                 accPaneLayout -> addWidget(largeDesc);
 
 
+                // Dyslexie
+                
+                dyslexChck = new QCheckBox;
+                dyslexChck -> setText(tr("Dyslexie"));
+                connect(dyslexChck, SIGNAL(toggled(bool)), this, SLOT(dyslexChange())); 
+                accPaneLayout -> addWidget(dyslexChck);
+
+                dyslexDesc = new QLabel;
+                dyslexDesc -> setWordWrap(true);
+                dyslexDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
+                dyslexDesc -> setText(tr("Textes adaptés à la dyslexie"));
+                accPaneLayout -> addWidget(dyslexDesc);
+
+
                 // Contraste
                 
                 contrasteChck = new QCheckBox;
@@ -275,7 +289,10 @@ OptionTab::~OptionTab (){
 
         delete achromaChck;
         delete achromaDesc;
-        
+
+        delete dyslexChck;
+        delete dyslexDesc;
+
         delete largeChck;
         delete largeDesc;
 
@@ -374,6 +391,10 @@ void OptionTab::loadAccSettings (){
         achromaChck -> setCheckState(Qt::Checked);
     }
 
+    if (settings.value("dyslexie", Qt::Unchecked).toBool()){
+        dyslexChck -> setCheckState(Qt::Checked);
+    }
+
     if (settings.value("large", Qt::Unchecked).toBool()){
         largeChck -> setCheckState(Qt::Checked);
     }
@@ -437,7 +458,13 @@ void OptionTab::achromaChange (){
     emit newSettings();
 }
 
+void OptionTab::dyslexChange (){
 
+    QSettings settings;
+    settings.setValue("dyslexie", dyslexChck -> isChecked());
+
+    emit newSettings();
+}
 
 void OptionTab::largeChange (){
 
@@ -452,7 +479,6 @@ void OptionTab::changeEvent(QEvent *event)
 {
     if (event->type() == QEvent::LanguageChange) {
         info->setText(tr("Paramètres"));
-		exitButt->setText(tr("Retour"));
         exitButt -> setToolTip(tr("Fermer les paramètres"));
 		accessButt -> setText(tr("Accessibilité"));
         shareChck -> setText(tr("Partage"));
@@ -462,6 +488,8 @@ void OptionTab::changeEvent(QEvent *event)
         largeDesc -> setText(tr("Textes de grande taille"));
         contrasteChck -> setText(tr("Contraste élevé"));
         contrasteDesc -> setText(tr("Augmenter les contrastes de l'application"));
+        dyslexChck -> setText(tr("Dyslexie"));
+        dyslexDesc -> setText(tr("Textes adaptés à la dyslexie"));
         achromaChck -> setText(tr("Couleurs pour Dyschromatopsie"));
         achromaDesc -> setText(tr("Adapter l'affichage des couleurs"));
     } else

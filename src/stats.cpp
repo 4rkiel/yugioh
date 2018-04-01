@@ -1,5 +1,7 @@
 #include "../inc/stats.h"
 
+#include <iostream>
+
 /******************************************************************************
 
 	Widget permettant d'afficher le contenu du chat
@@ -45,8 +47,10 @@ Stats::Stats(){
     
     
         progress = new QProgressBar;
-        progress -> setRange(0,200);
+        progress -> setMinimum(0);
+        progress -> setMaximum(200);
         progress -> setOrientation(Qt::Horizontal);
+        progress -> setTextVisible(false);
 
     layout -> addWidget(progress, 4, 0, 1, 3);
 
@@ -109,5 +113,7 @@ void Stats::resetProgress (){
 void Stats::incProgress (){
 
     state = (state + 1) % 200;
+
     progress -> setValue(state);
+    progress -> repaint();
 }

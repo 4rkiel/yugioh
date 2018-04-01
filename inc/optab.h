@@ -84,6 +84,9 @@ class OptionTab : public QFrame {
         QCheckBox * achromaChck;
         QLabel * achromaDesc;
 
+        QCheckBox * dyslexChck;
+        QLabel * dyslexDesc;
+
         QCheckBox * largeChck;
         QLabel * largeDesc;
 
@@ -100,6 +103,7 @@ class OptionTab : public QFrame {
 
     void shareChange();   
     void contrasteChange();
+    void dyslexChange();
     void achromaChange();
     void largeChange();
     void langageChange();

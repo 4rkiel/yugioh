@@ -253,19 +253,25 @@ void Window::readConfSettings (){
     
     // Load new font file
     
-    int id = QFontDatabase::addApplicationFont("font/Roboto-Thin.ttf");
-
-    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
-    QFont roboto;
-    roboto.setFamily(family);
+    int id;
     
-    if (settings.value("large", false).toBool()){
-        roboto.setPointSize(14);
+    if (settings.value("dyslexie", false).toBool()){
+        id = QFontDatabase::addApplicationFont("font/OpenDyslexic-Regular.otf");
     } else {
-        roboto.setPointSize(12);
+        id = QFontDatabase::addApplicationFont("font/Roboto-Thin.ttf");
     }
 
-    QApplication::setFont(roboto);
+    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
+    QFont font;
+    font.setFamily(family);
+    
+    if (settings.value("large", false).toBool()){
+        font.setPointSize(14);
+    } else {
+        font.setPointSize(11);
+    }
+
+    QApplication::setFont(font);
 
     QFontDatabase::addApplicationFont("font/FontAwesomeSolid.otf"); 
 
