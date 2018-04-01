@@ -15,6 +15,8 @@
 
 #include <QGraphicsDropShadowEffect>
 
+#include <QStyle>
+
 #include <vector>
 #include <QShortcut>
 
@@ -83,10 +85,22 @@ private:
     void cardHover();
     void cardOut();
 
+    void setRightBox(QWidget *, QWidget *);
+
     int retained;
 
     bool lockPreview;
 
+    QGridLayout * layout;
+
+    QWidget * infoBox;
+
+        QGraphicsDropShadowEffect * iffect;
+        QHBoxLayout * infoLayout;
+        QLabel * info;
+        FlatButt * quit;
+    
+    QWidget * overField;
     QGridLayout * overLayout;
     QWidget * sceneBox;
     QGridLayout * sceneLayout;
@@ -135,14 +149,15 @@ private:
             QWidget * sideTool;
             QGridLayout * sideToolLayout;
 
+                QWidget * currentButt;
                 FlatButt * statsButt;
                 FlatButt * chatButt;
 
             QWidget * side;
             QGridLayout * sidebar;
 
-                QWidget * currentSide;
                 Duplica * fullCard;
+                QWidget * currentSide;
                 Stats * stats;
                 Chat * chat;
 

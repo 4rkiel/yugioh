@@ -34,7 +34,7 @@ ShadowButt {
     border: none;
     outline: none;
     border-radius: 2px;
-    background: #FFE082;
+    background: #CFD8DC;
 }
 
 ShadowButt QLabel {
@@ -90,7 +90,7 @@ FlatExpButt {
     border: none;
     outline: none;
     border-radius: 0px;
-	background: transparent;
+	background: #E0F2F1;
 }
 
 FlatExpButt QLabel {
@@ -197,7 +197,7 @@ Generique QProgressBar::chunk {
 
 #infoBox > FlatButt {
     margin: 0 0 30px 0;
-    padding: 20px;
+    padding: 20px 10px;
     background: transparent;
 }
 
@@ -215,7 +215,7 @@ Generique QProgressBar::chunk {
 #infoBox > FlatButt QLabel {
     color: #fff;
     margin: 0 0 30px 0;
-    padding: 20px 0;
+    padding: 40px 0;
 }
 
 
@@ -415,18 +415,6 @@ Field ShadowButt {
     font-size: 20px;
 }
 
-#leftBarBox #Intel {
-    background: #3F51B5;
-    color: #fff;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 2px;
-    font-size: 12px;
-    min-width: 150px;
-    max-width: 200px;
-}
-
-#leftBarBox #Life,
 #rightBarBox #Life {
     background: #304FFE;
     color: #fff;
@@ -436,17 +424,48 @@ Field ShadowButt {
     max-width: 100px;
 }
 
-#leftBarBox > ShadowButt,
-#rightBarBox > ShadowButt {
-    max-width: 100px;
+Field #infoBox {
+    margin: 0px;
 }
 
-#rightBarBox > ShadowBox {
-    outline: none;
+Field #infoBox > * {
+    margin: 0px;
+}
+
+Field #infoBox FlatButt QLabel {
+    margin: 0px;
+}
+
+
+#rightBarBox #sideSelector {
+    background: red;
+    min-height: 40px;
+    padding: 0;
+    margin: 0;
+}
+
+#rightBarBox #sideSelector FlatButt {
+    background: blue;
+    border: 0px solid blue;
+    min-height: 40px;
+}
+
+#rightBarBox #sideSelector FlatButt[down="true"] {
+    border-bottom: 2px solid red;
+}
+
+#rightBarBox #sideSelector FlatButt QLabel {
+    background: green;
+    min-height: 40px;
+    margin: 0;
+    padding: 0;
 }
 
 
 
+/********************************************************************
+    Shadowed Popup
+********************************************************************/
 
 #popupShadow {
     outline: none;
@@ -461,6 +480,10 @@ Field ShadowButt {
 }
 
 
+
+/********************************************************************
+    Field Slots
+********************************************************************/
 
 SlotCard {
     background: transparent;

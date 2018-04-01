@@ -180,3 +180,20 @@ void ShadowButt::runNewState (){
         emit askWait();
     }
 }
+
+
+
+void ShadowButt::leaveEvent(QEvent * event){
+
+    clearFocus();
+
+    QWidget::leaveEvent(event);
+}
+
+
+void ShadowButt::enterEvent(QEvent * event){
+    
+    setFocus();
+
+    QWidget::enterEvent(event);
+}

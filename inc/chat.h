@@ -24,7 +24,7 @@ public:
     
     Chat();
     ~Chat();
-    void addText(QString);
+    void addText(QString, int);
 
 signals:
 
@@ -37,6 +37,8 @@ public slots:
     void moveScrollBarToBottom(int,int);
 
 private:
+
+    QVector <QLabel> v;
 
     QGridLayout * layout;
     QShortcut *shortcut;

@@ -2,9 +2,9 @@
 
 /******************************************************************************
 
-	Widget implémentant le plateau de jeu
+Widget implémentant le plateau de jeu
 
-	Initialisé lors du lancement d'une partie
+Initialisé lors du lancement d'une partie
 
 ******************************************************************************/
 
@@ -14,16 +14,65 @@ Field::Field () {
 
     retained = -1;
 
+
+    layout = new QGridLayout;
+//    layout -> setAlignment(Qt::AlignCenter);
+    layout -> setSpacing(0);
+    layout -> setMargin(0);
+
+
+        infoBox = new QWidget;
+        infoBox -> setObjectName("infoBox");
+        infoBox -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
+
+        iffect = new QGraphicsDropShadowEffect;
+        iffect -> setBlurRadius(5);
+        iffect -> setXOffset(0);
+        iffect -> setYOffset(5);
+        iffect -> setColor(QColor(0,0,0,150));
+
+        infoBox -> setGraphicsEffect(iffect);
+        
+        infoLayout = new QHBoxLayout;
+        infoLayout -> setContentsMargins(0,0,0,0);
+        infoLayout -> setSpacing(0);
+        infoLayout -> setMargin(0);
+        
+            // WAMI
+
+            info = new QLabel (tr("Menu Principal"));
+
+            infoLayout -> addWidget(info);
+
+        
+            infoLayout -> addStretch(1);
+
+
+            // Quit Button
+
+            quit = new FlatButt("\uf011", "");
+            quit -> setToolTip(tr("Quitter l'application"));
+            infoLayout -> addWidget(quit);
+
+        infoBox -> setLayout(infoLayout);
+
+        layout -> addWidget(infoBox, 0,0,1,3);
+
+///////////////////////////
+
+    overField = new QWidget;
+    overField -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
     overLayout = new QGridLayout;
     overLayout -> setSpacing(0);
     overLayout -> setMargin(0);
 
-  
+
 
     // Popup Menu
 
     popup = new Popup;
-   
+
     connect(popup, SIGNAL(introStack()), this, SLOT(emitIntroStack()));
     connect(popup, SIGNAL(sendAtk()), this, SLOT(emitAtk()));
     connect(popup, SIGNAL(sendDef()), this, SLOT(emitDef()));
@@ -78,7 +127,7 @@ Field::Field () {
                 advMagicLayout -> setMargin(0);
                 advMagicLayout -> setSpacing(0);
                 advMagicLayout -> setContentsMargins(0,2,0,2);
- 
+
                     for (int k=82; k<=88; k++){
                         fieldStack -> at(k) = new SlotCard(k);
                         advMagicLayout -> addWidget(fieldStack -> at(k));
@@ -93,7 +142,7 @@ Field::Field () {
                 advMonstLayout -> setMargin(0);
                 advMonstLayout -> setSpacing(0);
                 advMonstLayout -> setContentsMargins(0,2,0,2);
- 
+
                     for (int k=75; k<=81; k++){
                         fieldStack -> at(k) = new SlotCard(k);
                         advMonstLayout -> addWidget(fieldStack -> at(k));
@@ -207,13 +256,15 @@ Field::Field () {
         // Right Bar ..........................................................
 
         rightBarBox = new QWidget;
+        rightBarBox -> setObjectName("rightBarBox");
+        
         rightBarLayout = new QGridLayout;
         rightBarLayout -> setSpacing(0);
         rightBarLayout -> setMargin(0);
         rightBarLayout -> setAlignment(Qt::AlignCenter);
         rightBarLayout -> setContentsMargins(10, 0, 10, 0);
 
- 
+
             lifeAdv = new ShadowLab();
             QString strAdv = QString::fromUtf8("8000");
             lifeAdv -> setText(strAdv);
@@ -226,33 +277,44 @@ Field::Field () {
             connect(menuButt, SIGNAL(clicked()), popup, SLOT(openMenu()));
             rightBarLayout -> addWidget(menuButt, 0, 3, 1, 1);
            
-/*
+    /*
             QSpacerItem * spacerRightTop = new QSpacerItem(5,1,
                 QSizePolicy::Preferred,QSizePolicy::Expanding);
             rightBarLayout -> addItem(spacerRightTop, 1, 0);
-*/            
+    */            
             
             // Sidebar
 
             side = new QWidget;
+            side -> setObjectName("sidebar");
             side -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-            side -> setStyleSheet("background: #546E7A");
             sidebar = new QGridLayout;   
+            sidebar -> setSpacing(0);
+            sidebar -> setMargin(0);
+            sidebar -> setContentsMargins(0,0,0,0);
 
                 sideTool = new QWidget;
+                sideTool -> setObjectName("sideSelector");
+                sideTool -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
+
                 sideToolLayout = new QGridLayout;
                 sideToolLayout -> setMargin(0);
                 sideToolLayout -> setSpacing(0);
+                sideToolLayout -> setContentsMargins(0,0,0,0);
 
                     statsButt = new FlatButt("\uf277","");
-                    statsButt -> setToolTip(tr("Duel"));
+                    statsButt -> setToolTip(tr("Informations du Duel"));
+                    statsButt -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
                     connect(statsButt, SIGNAL(clicked()), this, SLOT(setStats()));
                     sideToolLayout -> addWidget(statsButt, 0, 0);
                     
                     chatButt = new FlatButt("\uf086","");
-                    chatButt -> setToolTip(tr("Chat"));
+                    chatButt -> setToolTip(tr("Chat et Historique"));
+                    chatButt -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
                     connect(chatButt, SIGNAL(clicked()), this, SLOT(setChat()));
                     sideToolLayout -> addWidget(chatButt, 0, 1);
+
+                    currentButt = statsButt;
 
                 sideTool -> setLayout(sideToolLayout);
                     
@@ -276,19 +338,18 @@ Field::Field () {
                 connect(chat, SIGNAL(msgSent(QString)), this, SLOT(sendMsg(QString)));
                 currentSide = stats;
 
-
-/*                QSpacerItem * spacerSide = new QSpacerItem(5,5,
+    /*                QSpacerItem * spacerSide = new QSpacerItem(5,5,
                     QSizePolicy::Preferred,QSizePolicy::Expanding);
                 sidebar -> addItem(spacerSide, 1, 0);
-*/
+    */
             side -> setLayout(sidebar);
             rightBarLayout -> addWidget(side, 2, 0, 1, 5);
 
-/*
+    /*
             QSpacerItem * spacerRightBot = new QSpacerItem(5,1,
                 QSizePolicy::Preferred,QSizePolicy::Expanding);
             rightBarLayout -> addItem(spacerRightBot, 3, 0);
-*/
+    */
 
             lifeSlf = new ShadowLab();
             QString strSlf = QString::fromUtf8("8000");
@@ -305,9 +366,8 @@ Field::Field () {
            
 
 
-        rightBarBox -> setObjectName("rightBarBox");
         rightBarBox -> setLayout(rightBarLayout);
-   
+
 
     sceneLayout -> addWidget(arenaBox, 0, 0, 3, 7);
     sceneLayout -> addWidget(rightBarBox, 0, 7, 3, 1);
@@ -317,12 +377,16 @@ Field::Field () {
     overLayout -> addWidget(sceneBox, 0, 0);
     overLayout -> addWidget(popup, 0, 0);
 
-    this -> setLayout(overLayout);
+    overField -> setLayout(overLayout);
 
+
+    layout -> addWidget(overField, 2, 1, 4, 1);
+
+    setLayout(layout);
 
 }
 
-    
+
 Field::~Field (){
 
             delete statsButt;
@@ -346,7 +410,7 @@ Field::~Field (){
 
         delete rightBarLayout;
         delete rightBarBox;
- 
+
         for (int k=0; k<150; k++){
             if (fieldStack -> at(k) != nullptr){
                 delete fieldStack -> at(k);
@@ -381,18 +445,28 @@ Field::~Field (){
         
         delete arenaLayout;
         delete arenaBox;
-    
+
         delete sceneLayout;
     delete sceneBox;
 
     delete popup;
 
     delete overLayout;
+    
+    delete overField;
+
+    delete info;
+    delete infoLayout;
+    delete iffect;
+    delete infoBox;
+    
+    delete layout;
+
 }
 
 
 void Field::init(){
-	fullCard -> setVisible(false);
+    fullCard -> setVisible(false);
     stats -> setVisible(true);
 }
 
@@ -425,7 +499,7 @@ void Field::previewClicked(){
 }
 
 void Field::cardRightClicked(int x){
-	std::cout << x << " Right Clicked \n";
+    std::cout << x << " Right Clicked \n";
 
     if (
         (! fieldStack -> at(x) -> isDeck() ) &&
@@ -451,7 +525,7 @@ void Field::cardDoubleClicked(int x){
 
 void Field::cardClicked(int x){
     std::cout << x << " clicked \n";
-    
+
     SlotCard * that = fieldStack -> at(x);
 
     if (retained == x){
@@ -485,7 +559,7 @@ void Field::cardClicked(int x){
 
 void Field::cardEntered(int x){
     std::cout << x << " entered \n";
-    
+
     cardHover();
 }
 
@@ -494,6 +568,7 @@ void Field::cardLeaved(int x){
 
     cardOut();
 }
+
 
 void Field::cardHover (){
 
@@ -504,6 +579,7 @@ void Field::cardHover (){
         "moteur de destruction. Rares sont ceux qui ont survécus à cette "
         "surpuissante créature quasiment invincible pour en parler."
     );
+
     fullCard -> setStat("3000","2500");
 
     if (!lockPreview){
@@ -530,30 +606,49 @@ void Field::setProgress(){
     stats -> incProgress();
 }
 
-void Field::setStats(){
+
+
+void Field::setRightBox (QWidget * w, QWidget * b){
 
     currentSide -> setVisible(false);
-    stats -> setVisible(true);
-    currentSide = stats;
+    currentButt -> setProperty("down", false);
+    w -> setVisible(true);
+    b -> setProperty("down", true);
+
+    currentButt -> style() -> unpolish(currentButt);
+    currentButt -> style() -> polish(currentButt);
+
+    b -> style() -> unpolish(b);
+    b -> style() -> polish(b);
+
+
+    currentButt = b;
+    currentSide = w;
+}
+
+
+void Field::setStats(){
+    
+    setRightBox(stats, statsButt);
 }
 
 void Field::setChat(){
-    
-    currentSide -> setVisible(false);
-    chat -> setVisible(true);
-    currentSide = chat;
+
+    setRightBox(chat, chatButt);
 }
+
+
+
 
 void Field::sendMsg(QString str){
 
-    if(str.startsWith("#"))
-    {
+    if(str.startsWith("#")){
         transmettre(str);
         QStringRef * decoupe = new QStringRef(&str,1,str.length()-1);
-        chat->addText(decoupe->toString());
+        chat->addText(decoupe->toString(), 2);
+    } else {
+        chat -> addText(str, 1);
     }
-    else
-        chat -> addText(str);
 }
 
 

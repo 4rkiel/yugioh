@@ -10,19 +10,26 @@
 #include <QString>
 #include <QLabel>
 
+#include <QEvent>
+#include <QMouseEvent>
+
 #include "../inc/superButt.h"
 
 class FlatExpButt : public SuperButt {
 
     Q_OBJECT
 
-    public: 
+public: 
+    
     FlatExpButt(QString icoStr, QString txtStr);
     ~FlatExpButt();
+    
+    void leaveEvent(QEvent * event);
+    void enterEvent(QEvent * event);
 
-    private:
-//	QVBoxLayout * vlay;
-//	QWidget * wid;
+
+private:
+
 	QGridLayout * layout;
     QLabel * ico;
     QLabel * txt;

@@ -13,6 +13,9 @@ FlatButt::FlatButt (QString icoStr, QString textStr){
     // Button content
 
     layout = new QHBoxLayout;
+    layout -> setMargin(0);
+    layout -> setSpacing(0);
+    layout -> setContentsMargins(0,0,0,0);
 
     ico = nullptr;
     txt = nullptr;
@@ -24,7 +27,7 @@ FlatButt::FlatButt (QString icoStr, QString textStr){
         ico -> setText(icoStr);
    
         if (textStr == ""){
-            setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+//            setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
             layout -> addStretch();
             layout -> addWidget(ico, 0, Qt::AlignCenter);

@@ -80,7 +80,11 @@ Chat::~Chat(){
 }
 
 
-void Chat::addText(QString str){
+void Chat::addText(QString str, int what){
+
+    // 0 histo
+    // 1 self
+    // 2 adv
 
     QString time = QTime::currentTime().toString("hh:mm");
     QString tmp = label -> text();
@@ -108,8 +112,7 @@ void Chat::sendMsg(){
 }
 
 
-void Chat::moveScrollBarToBottom(int min, int max)
-{
+void Chat::moveScrollBarToBottom(int min, int max){
     Q_UNUSED(min);
     labelBox -> verticalScrollBar()->setValue(max);
 }

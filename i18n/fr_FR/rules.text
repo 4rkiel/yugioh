@@ -1,3 +1,49 @@
 <h2>Livret de Règles</h2>
 
 <p><a href="http://www.yugioh-card.com/ygo_cms/ygo/all/uploads/Rulebook_v9_fr.pdf">Telecharger le livret de règles complet</a></p>
+
+<br/>
+
+
+<h2>Règles Rapides</h2>
+
+<p>Chaque Deck doit avoir au moins entre 40 et 60 cartes et commence la partie avec 5 cartes.</p>
+
+<p>Au début de son tour, un joueur pioche 1 carte.</p>
+
+<br/>
+
+
+<h3>Phase principale</h3>
+
+<p>Le joueur peut jouer sur le terrain un monstre de niveau 1 à 4, sacrifier 1 monstre déjà présent sur le terrain pour jouer un monstre de niveau 5 à 6, ou sacrifier 2 monstres pour invoquer un monstre de niveau superieur à 7.</p>
+
+<p>Le joueur peut poser un monstre de sa main en attaque face visible, ou en defense face masquée. Il peut aussi inverser une fois la position de chacun des monstres déjà présents.</p>
+
+<p>Le joueur peut jouer autant de cartes magiques qu'il le souhaite, face visible ou face masquée. Leur effet ne s'active que lorsqu'elles sont révélées.</p>
+
+<p>Le joueur peut jouer autant de cartes pieges qu'il le souhaite, face masquée. Elles peuvent être activées à tout moment, une fois la phase où elles ont été posées achevée.</p>
+
+<br/>
+
+
+<h3>Phase de Combat</h3>
+
+<p>Durant la phase de combat d'un joueur, chacun de ses monstres peuvent déclarer, l'un après l'autre, attaquer une cible (un monstre adverse ou le joueur adverse si celui-ci ne possède pas de monstres).</p>
+
+<p>Le monstre attaqué est détruit si les points d'attaque de l'attaquant sont supérieurs ou égaux à ses points d'attaque (s'il est en mode attaque) ou de défense (s'il est en mode défense). Si le monstre attaqué est en mode attaque et que ses points d'attaques sont supérieurs ou égaux à ceux du monstre attaquant, l'attaquant est détruit.</p>
+
+<p>Si le monstre perdant le combat est en mode attaque, son joueur perd des points de vies équivalents à la différences de points entre les deux monstres.</p>
+
+<p>Si le joueur attaqué n'a pas de monstre, il perds autant de points de vie que l'attaque du monstre attaquant.</p>
+
+<br/>
+
+
+<h3>Phase principale 2</h3>
+
+<p>Si le joueur n'a pas posé de monstre, il peut le faire durant cette phase.</p>
+
+<p>Le joueur peut également jouer ou poser de nouvelles cartes magies et poser de nouvelles cartes pièges.</p>
+
+<br/>
