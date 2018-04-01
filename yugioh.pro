@@ -40,7 +40,7 @@ HEADERS += inc/buildtab.h \
            inc/duplica.h \
            inc/stats.h \
            inc/chat.h \
-           inc/editeur_de_carte.h \
+           inc/cardEditor.h \
            inc/extAdr.h \
            inc/field.h \
            inc/generique.h \
@@ -56,6 +56,8 @@ HEADERS += inc/buildtab.h \
            inc/shadowLab.h \
            inc/superButt.h \
            inc/popup.h \
+           inc/combo.h \
+           inc/spin.h \
            inc/sleeper.h \
            inc/slotCard.h \
            inc/zButt.h \ 
@@ -77,7 +79,7 @@ SOURCES += src/buildtab.cpp \
            src/duplica.cpp \
            src/stats.cpp \
            src/chat.cpp \
-           src/editeur_de_carte.cpp \
+           src/cardEditor.cpp \
            src/extAdr.cpp \
            src/field.cpp \
            src/generique.cpp \
@@ -105,3 +107,6 @@ SOURCES += src/buildtab.cpp \
 
            
 TRANSLATIONS += i18n/en_US/yugi_en_US.ts i18n/fr_FR/yugi_fr_FR.ts
+
+CONFIG -= console
+QT.testlib.CONFIG -= console

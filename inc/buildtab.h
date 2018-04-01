@@ -25,7 +25,7 @@
 
 #include "../inc/shadowButt.h"
 #include "../inc/flatButt.h"
-#include "../inc/editeur_de_carte.h"
+#include "../inc/cardEditor.h"
 #include "../inc/deckedit.h"
 #include "../inc/parser.h"
 
@@ -74,7 +74,7 @@ private:
     QScrollArea * cardScroll;
 
     QScrollArea * cardEditScroll;
-	editeur_de_carte * editeur;
+	CardEditor * editeur;
 
     void updateStyle(QPushButton * b);
 

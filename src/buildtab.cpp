@@ -136,6 +136,7 @@ BuildTab::BuildTab (){
             deckScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
             deckScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
             deckScroll -> setFocusPolicy(Qt::NoFocus);
+            deckScroll -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
 
             deck = new deckEdit(allCard);
             deckScroll->setWidget(deck);
@@ -158,15 +159,16 @@ BuildTab::BuildTab (){
 
 
 
-            // cardEdit .......................................................
+            // Card Edit .......................................................
 
             cardEditScroll = new QScrollArea;
             cardEditScroll -> setFrameShape(QFrame::NoFrame);
             cardEditScroll -> setWidgetResizable(true);
             cardEditScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
             cardEditScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+            cardEditScroll -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
 
-			editeur = new editeur_de_carte;
+			editeur = new CardEditor;
             cardEditScroll->setWidget(editeur);
 
             buildLayout -> addWidget(cardEditScroll);

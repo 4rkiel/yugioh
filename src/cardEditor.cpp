@@ -1,67 +1,55 @@
-#include "../inc/editeur_de_carte.h"
+#include "../inc/cardEditor.h"
 
 #include <QVBoxLayout>
 #include <QGridLayout>
-#include <QComboBox>
 #include <QMessageBox>
 
-#include <inc/editeur_de_carte.h>
-#include <inc/editeur_de_carte.h>
-
-#define name "editeur de carte V1"
+// #define name "editeur de carte V1"
 
 
-editeur_de_carte::editeur_de_carte(){
+CardEditor::CardEditor(){
 
     buttonSave = new ShadowButt("", tr("Enregistrer"));
+    
     createFormGroupBox();
 
     bigEditor = new QTextEdit;
     bigEditor->setPlainText(tr("Description / Effet de la carte..."));
-    //setStyleSheet("background-color: #607D8B");
     connect(buttonSave, SIGNAL(clicked()), this, SLOT(sauvegarder()));
 
     mainLayout = new QGridLayout;
 
-        wSpacer = new QFrame;
-        lSpacer = new QHBoxLayout();
-        lSpacer->setStretch(0, 1);
-        wSpacer->setLayout(lSpacer);
+        mainLayout->addWidget(buttonSave, 2, 0);
+        mainLayout->addWidget(formGroupBox, 0, 0);
+        mainLayout->addWidget(bigEditor, 1, 0);
 
-        mainLayout->addWidget(wSpacer, 0, 0, 1, 1);
-
-        intermediate = new QFrame;
-        midLayout = new QGridLayout;
-
-            intermediate->setLayout(midLayout);
-            intermediate->setStyleSheet("background-color: #ECEFF1");
-
-            midLayout->addWidget(buttonSave, 2, 0);
-            midLayout->addWidget(formGroupBox, 0, 0);
-            midLayout->addWidget(bigEditor, 1, 0);
-
-        mainLayout->addWidget(intermediate, 0, 1, 1, 3);
-        mainLayout->addWidget(wSpacer, 0, 4, 1, 1);
 
     setLayout(mainLayout);
-
 }
 
-void editeur_de_carte::createFormGroupBox()
-{
+
+CardEditor::~CardEditor (){
+
+	
+}
+
+
+
+void CardEditor::createFormGroupBox (){
+
     formGroupBox = new QGroupBox();
 
     int i = 0;
     srand(time(NULL));
 
-    spinAttaque = new QSpinBox;
-    spinDefense = new QSpinBox;
-    niveau = new QSpinBox;
-    genreCarte = new QComboBox;
-    typePrimaire = new QComboBox;
-    typeSecondaire = new QComboBox;
-    attribut = new QComboBox;
-    effectBox = new QComboBox;
+    spinAttaque = new Spin;
+    spinDefense = new Spin;
+    niveau = new Spin;
+    genreCarte = new Combo;
+    typePrimaire = new Combo;
+    typeSecondaire = new Combo;
+    attribut = new Combo;
+    effectBox = new Combo;
     nom = new QLineEdit;
     image = new QPushButton;
     image->setDefault(true);
@@ -94,13 +82,13 @@ void editeur_de_carte::createFormGroupBox()
     nameRandom();
     QObject::connect(genRdmName, SIGNAL(clicked()), this, SLOT(nameRandom()));
 
-    ID = new QSpinBox;
+    ID = new Spin;
     ID->setSingleStep(1);
     ID->setAccelerated(true);
     ID->setMaximum(100000);
     ID->setValue(rand()%100000);
 
-    nrSet = new QComboBox;
+    nrSet = new Combo;
     vector<QString> extension;
     extension.push_back("Legende du Dragon Blanc aux yeux bleus");
     extension.push_back("Metal Raider");
@@ -147,8 +135,6 @@ void editeur_de_carte::createFormGroupBox()
 
     genreCarte->setCurrentIndex(rand()%3);
 
-    QLabel *font = new QLabel;
-    font->setStyleSheet("border: 2px solid black");
     image->setStyleSheet("border-image: url("+imgRep + "DEFAULT"+"); margin: 2px");
 
     QObject::connect(image, SIGNAL(clicked()), this,SLOT(selectImg()));
@@ -189,7 +175,6 @@ void editeur_de_carte::createFormGroupBox()
     layout->addWidget(typeSecondaire, i, 16, 1, 8);
     layout->addWidget(new QLabel(tr("attribut:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(attribut, i, 2, 1, 10);
-    layout->addWidget(font, i, 12, 5, 12);
     layout->addWidget(image, i, 12, 5, 12);
     layout->addWidget(new QLabel(tr("Niveau:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(niveau, i, 2, 1, 10);
@@ -206,8 +191,8 @@ void editeur_de_carte::createFormGroupBox()
     formGroupBox->setLayout(layout);
 }
 
-void editeur_de_carte::sauvegarder()
-{
+void CardEditor::sauvegarder (){
+
     string fileName = absoluteUrlImage.toStdString();
     string ext (fileName.substr(fileName.find_last_of(".") + 1));
 
@@ -247,8 +232,9 @@ void editeur_de_carte::sauvegarder()
     myfile->close();
 }
 
-void editeur_de_carte::nameRandom()
-{
+
+void CardEditor::nameRandom(){
+
     vector<QString> one;
     one = {"Dragon", "Magicien", "Guerrier", "Tigre", "Vampire", "Archer", "Serpent", "Soldat", "Singe Mutant"};
 
@@ -262,8 +248,9 @@ void editeur_de_carte::nameRandom()
     nom->setText(one.at(rand()%one.size()) + " " + two.at(rand()%two.size()) + " " + tree.at(rand()%tree.size()));
 }
 
-void editeur_de_carte::selectImg()
-{
+
+void CardEditor::selectImg(){
+
     QString fileName = QFileDialog::getOpenFileName(this, tr("Selectionner une image"), imgRep,
                                                     "Images (*.png *.xpm *.jpg)");
     qDebug() << (fileName);
@@ -277,8 +264,9 @@ void editeur_de_carte::selectImg()
     }
 }
 
-void editeur_de_carte::updateImg()
-{
+
+void CardEditor::updateImg (){
+    
     vector<string> extension = {"jpg", "xpm", "png"};
     string fileName = imgRep.toStdString() + imageUrl->text().toStdString();
 
@@ -302,11 +290,12 @@ void editeur_de_carte::updateImg()
     }
 }
 
-void editeur_de_carte::slotAttribut()
-{
+
+void CardEditor::slotAttribut(){
+
     attribut->clear();
-    switch(genreCarte->currentIndex())
-    {
+    switch(genreCarte->currentIndex()){
+
         case MONSTRE:
             attribut->addItem(tr("Lumière"), 0);
             attribut->addItem(tr("Tenebre"), 1);
@@ -375,15 +364,15 @@ void editeur_de_carte::slotAttribut()
     }
 }
 
-editeur_de_carte::~editeur_de_carte (){
 
-	
-}
+void CardEditor::slotNormal(){
 
-void editeur_de_carte::slotNormal()
-{
-    if(typeSecondaire->currentIndex() == 1) // si monstre normal
+    if (typeSecondaire->currentIndex() == 1){ // si monstre normal
+    
         effectBox->setDisabled(true);
-    else
+    
+    } else {
+        
         effectBox->setEnabled(true);
+    }
 }

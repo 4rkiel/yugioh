@@ -26,6 +26,7 @@
 #include <QShortcut>
 
 #include "../inc/flatButt.h"
+#include "../inc/combo.h"
 
 class OptionTab : public QFrame {
 
@@ -71,7 +72,7 @@ class OptionTab : public QFrame {
         QCheckBox * shareChck;
         QLabel * shareDesc;
 
-        QComboBox * langInput;
+        Combo * langInput;
         QLabel * langDesc;
 
     QScrollArea * accessScroll;

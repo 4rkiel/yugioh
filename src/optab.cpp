@@ -155,11 +155,12 @@ OptionTab::OptionTab (){
 
                 // Langage
                 
-                langInput = new QComboBox;
+                langInput = new Combo;
                 langInput -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
                 langInput -> addItem(QString::fromUtf8("Français"));
                 langInput -> addItem("English");
-                connect(langInput,SIGNAL(currentIndexChanged(QString)),this,SLOT(langageChange()));
+                connect(langInput,SIGNAL(currentIndexChanged(QString)),
+                        this,SLOT(langageChange()));
                 optPaneLayout -> addWidget(langInput);
 
                 langDesc = new QLabel;

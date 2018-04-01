@@ -22,8 +22,6 @@
 #include <QMenuBar>
 #include <QPushButton>
 #include <QTextEdit>
-#include <QSpinBox>
-#include <QComboBox>
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QCompleter>
@@ -33,6 +31,8 @@
 #include <QShortcut>
 
 #include "../inc/carte.h"
+#include "../inc/combo.h"
+#include "../inc/spin.h"
 #include "../inc/shadowButt.h"
 
 using namespace std;
@@ -55,13 +55,13 @@ enum ATTRIBUT
     DIVIN
 };
 */
-class editeur_de_carte : public QFrame
+class CardEditor : public QFrame
 {
     Q_OBJECT
 
     public:
-        editeur_de_carte();
-        ~editeur_de_carte();
+        CardEditor();
+        ~CardEditor();
 
 public slots:
         void sauvegarder();
@@ -84,30 +84,25 @@ private:
         QTextEdit *bigEditor;
 
         QGridLayout * mainLayout;
-        QFrame *wSpacer;
-        QHBoxLayout *lSpacer;
         
-        QFrame *intermediate;
-        QGridLayout *midLayout;
-
         QLineEdit *nom;
         QLineEdit *description;
         QLineEdit *imageUrl;
         QShortcut *shortcut;
-        QComboBox *genreCarte;
-        QComboBox *typePrimaire;
-        QComboBox *typeSecondaire;
-        QComboBox *attribut;
-        QComboBox *nrSet;
-        QComboBox *effectBox;
+        Combo *genreCarte;
+        Combo *typePrimaire;
+        Combo *typeSecondaire;
+        Combo *attribut;
+        Combo *nrSet;
+        Combo *effectBox;
 
         QPushButton *image;
         ShadowButt *buttonSave;
 
-        QSpinBox *ID;        
-        QSpinBox *spinAttaque;
-        QSpinBox *spinDefense;
-        QSpinBox *niveau;
+        Spin *ID;        
+        Spin *spinAttaque;
+        Spin *spinDefense;
+        Spin *niveau;
 
         QAction *exitAction;
 };
