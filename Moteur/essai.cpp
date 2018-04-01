@@ -5,7 +5,7 @@
 Essai::Essai(QWidget *parent)
     : QMainWindow(parent)
 {
-  env = new QPushButton("Envoyer un message",this);
+ /* env = new QPushButton("Envoyer un message",this);
     serv = new QPushButton(QString::fromUtf8("Créer un serveur"),this);
     ok = new QPushButton("Connecter la socket",this);
     ligne = new QLineEdit(this);
@@ -18,32 +18,32 @@ Essai::Essai(QWidget *parent)
     swag->addWidget(env);
     swag->addWidget(ataq);
     swag->addWidget(ligne);
-    this->setCentralWidget(yolo);
+    this->setCentralWidget(yolo);*/
 
-    Noyau * test = new Noyau();
+   /* Noyau * test = new Noyau();
     test->setReseau(true);
     connect(serv,SIGNAL(clicked(bool)),test,SLOT(go()));
-    connect(ok,SIGNAL(clicked(bool)),test,SLOT(mondieu()));
+    connect(ok,SIGNAL(clicked(bool)),test,SLOT(mondieu()));*/
   //  connect(test->socket, SIGNAL(connected()), test, SLOT(connecte()));
    // connect(test->socket, SIGNAL(readyRead()), test, SLOT(donneesRecues()));
-    connect(env,SIGNAL(clicked(bool)),test,SLOT(send()));
+   /* connect(env,SIGNAL(clicked(bool)),test,SLOT(send()));
     connect(ataq,SIGNAL(clicked(bool)),test,SLOT(attaque()));
     connect(ligne,SIGNAL(returnPressed()),this,SLOT(commande()));
-    connect(this,SIGNAL(emit_commande(QString)),test,SLOT(traiter(QString)));
+    connect(this,SIGNAL(emit_commande(QString)),test,SLOT(traiter(QString)));*/
 //QPushButton * but = new QPushButton("yolo",this);
 //this->setCentralWidget(but);
 //connect(ataq,SIGNAL(clicked(bool)),this,SLOT(afficher()));
 
 //connect(this,SIGNAL(emit_aff(Carte*)),test,SLOT(afficher(Carte*)));
 
-    /*Parser* yolo = new Parser();
-    std::vector<Carte *> * test = yolo->deck("/adhome/v/vc/vcostantino/Documents/IHM/PROJET/Version26/yugioh/deck/1.deck");
+    Parser* yolo = new Parser();
+    std::vector<Carte *> * test = yolo->deck("/home/victor/Documents/IHM/PROJET/Version27/yugioh/deck/1.deck");
     int i;
     for(i=0;i<test->size();i++)
     {
         std::cout << "JE PARCOURS LE DECK" << std::endl;
            test->at(i)->afficher_infos();
-    }*/
+    }
   // std::vector<Carte *> * what = yolo->rechercher_nom("magicien blanc");
    //std::cout << "description:" << what->at(0)->description.toStdString()<< std::endl;
 
