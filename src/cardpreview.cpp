@@ -12,8 +12,10 @@ CardPreview::CardPreview(const Carte *carte)
 
     QVBoxLayout *info = new QVBoxLayout;
     QPixmap *image = new QPixmap(carte->image);
+    qDebug() << carte->image;
     QLabel *imageLabel = new QLabel;
     imageLabel->setPixmap(*image);
+    imageLabel->setSizeIncrement(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
     for(int i=0; i<INFOLABEL_MAX; i++)
     {

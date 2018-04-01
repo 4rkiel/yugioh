@@ -10,6 +10,7 @@
 #include <QString>
 #include <QStringList>
 #include <QWidget>
+#include <QDebug>
 
 class CardPreview : public QWidget
 {
