@@ -460,6 +460,8 @@ Field #infoBox QProgressBar::chunk{
 
 
 
+
+
 #rightBarBox {
     background: #607D8B;
 }

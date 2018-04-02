@@ -40,9 +40,8 @@ Chat::Chat(){
 
             label = new QLabel;
             
-			labLayout -> addWidget(label);
-
             labLayout -> addStretch();
+			labLayout -> addWidget(label);
 
 			labInner -> setLayout(labLayout);
         
