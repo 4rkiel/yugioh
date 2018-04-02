@@ -67,6 +67,8 @@ Master::~Master (){
 
             //!\ LUCAS !!!! Ici pour detruire l'IA a la fermeture
             
+            delete ia;
+            
             // delete monPointeurIA
 
 
@@ -111,22 +113,16 @@ void Master::loadField (int x){
     if (mode >= 10 && mode <= 19){
 
         delete network;
-
-
-        //!\ LUCAS !!! ICI POUR CREER L'IA :
-            
-        // monPointeurIA = new MaClassIA;
-
-
+        
+        ia = new Ia(x);
+        
         // Tu peux utiliser le (int x) pour le niveau de l'IA
         // 11:easy
         // 12:medium
         // 13:hard
-
-
-        // NB : penser à rajouter dans le .h :
-        // MaClassIA * monPointeurIA;
-
+        // 14:learning
+        // 15:not trained
+        
     } else {
     
         if (network != NULL){
