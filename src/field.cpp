@@ -40,58 +40,75 @@ Field::Field () {
 
             // Info
 
-            infoLayout -> addStretch(3);
+//            infoLayout -> addStretch(3);
 
+            lifeBox = new QWidget;
+            lifeBox -> setObjectName("lifeBox");
+            lifeBox -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+            lifeLayout = new QHBoxLayout;
+
+            lifeLayout -> setSpacing(0);
+            lifeLayout -> setMargin(0);
+        
             QSettings settings;
             baseLife = settings.value("lifePoints", "8000").toString();
             int bl = baseLife.toInt();
 
             lifeSlf = new QLabel;
             lifeSlf -> setText(baseLife);
-            infoLayout -> addWidget(lifeSlf);
+            lifeLayout -> addWidget(lifeSlf);
             
             icoSlf = new QLabel;
             icoSlf -> setFont(QFont("Font Awesome 5 Free", 12));
             icoSlf -> setText("\uf103");
-            infoLayout -> addWidget(icoSlf);
+            lifeLayout -> addWidget(icoSlf);
 
 
             progressSlf = new QProgressBar;
             progressSlf -> setRange(0,bl);
+            progressSlf -> setInvertedAppearance(true);
             progressSlf -> setOrientation(Qt::Horizontal);
             progressSlf -> setTextVisible(false);
             progressSlf -> setValue(bl);
-            infoLayout -> addWidget(progressSlf);
+            lifeLayout -> addWidget(progressSlf);
+           
 
-            infoLayout -> addStretch(1);
+            icoLife = new QLabel;
+            icoLife -> setFont(QFont("Font Awesome 5 Free", 12));
+            icoLife -> setText("\uf0e7");
+            lifeLayout -> addWidget(icoLife);
+
+
+//            infoLayout -> addStretch(1);
 
             progressAdv = new QProgressBar;
             progressAdv -> setRange(0,bl);
-            progressAdv -> invertedAppearance();
             progressAdv -> setOrientation(Qt::Horizontal);
             progressAdv -> setTextVisible(false);
             progressAdv -> setValue(bl);
-            infoLayout -> addWidget(progressAdv);
+            lifeLayout -> addWidget(progressAdv);
 
 
             icoAdv = new QLabel;
             icoAdv -> setFont(QFont("Font Awesome 5 Free", 12));
             icoAdv -> setText("\uf102");
-            infoLayout -> addWidget(icoAdv);
+            lifeLayout -> addWidget(icoAdv);
 
             lifeAdv = new QLabel;
             lifeAdv -> setText(baseLife);
-            infoLayout -> addWidget(lifeAdv);
+            lifeLayout -> addWidget(lifeAdv);
 
+            lifeBox -> setLayout(lifeLayout);
+            infoLayout -> addWidget(lifeBox);
 
             
-            infoLayout -> addStretch(6);
 
 
             // Quit Button
             
             menuButt = new FlatButt("\uf0c9", "");
             menuButt -> setToolTip("Menu");
+            menuButt -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
             infoLayout -> addWidget(menuButt);
 
 
@@ -475,9 +492,14 @@ Field::~Field (){
     delete icoAdv;
     delete lifeAdv;
     delete progressAdv;
+    delete icoLife;
     delete icoSlf;
     delete lifeSlf;
     delete progressSlf;
+
+    delete lifeLayout;
+    delete lifeBox;
+
     delete infoLayout;
     delete iffect;
     delete infoBox;
@@ -709,6 +731,11 @@ void Field::rmCarte(int x){
 
 
 
+/* Change Life */
+
+
+
+
 
 
 
@@ -722,4 +749,10 @@ void Field::test (){
     setPhase(1);
     setTour(1);
 
+    QString lfe = "4000";
+    lifeAdv -> setText(lfe);
+    lifeSlf -> setText(lfe);
+
+    progressAdv -> setValue(lfe.toInt());
+    progressSlf -> setValue(lfe.toInt());
 }

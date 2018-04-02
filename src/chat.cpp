@@ -41,8 +41,11 @@ Chat::Chat(){
             label = new QLabel;
             
 			labLayout -> addWidget(label);
-            
+
+            labLayout -> addStretch();
+
 			labInner -> setLayout(labLayout);
+        
         labelBox -> setWidget(labInner);
 
     layout -> addWidget(labelBox, 1, 0, 3, 4);
@@ -58,6 +61,7 @@ Chat::Chat(){
     layout -> addWidget(send, 4, 3, 1, 1);
 
     connect(send, SIGNAL(clicked()), this, SLOT(sendMsg()));
+    connect(input, SIGNAL(returnPressed()), this, SLOT(sendMsg()));
     
     QScrollBar * scrollbar = labelBox -> verticalScrollBar();
     connect(scrollbar, SIGNAL(rangeChanged(int,int)), 

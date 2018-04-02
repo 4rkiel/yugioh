@@ -103,9 +103,13 @@ private:
 
         QGraphicsDropShadowEffect * iffect;
         QHBoxLayout * infoLayout;
+
+        QWidget * lifeBox;
+        QHBoxLayout * lifeLayout;
         QLabel * lifeAdv;
         QLabel * icoAdv;
         QProgressBar * progressAdv;
+        QLabel * icoLife;
         QLabel * lifeSlf;
         QLabel * icoSlf;
         QProgressBar * progressSlf;
