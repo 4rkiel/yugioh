@@ -10,6 +10,7 @@ Noyau::Noyau()
 
 
 // initialise le réseau
+// OBSOLETE depuis l'ajout du reseau dans un master
 void Noyau::setReseau(bool b)
 {
     if(b)
@@ -32,6 +33,8 @@ connect(this,SIGNAL(switch_pos(int)),res,SLOT(change_pos(int)));
 }
 
 //charge le deck qui te correspond
+//pour l'instant x est un int parce que les decks (situés dans le dossier deck) respectent le regex [0-9]*.deck
+//cela changera dans l'avenir certainement 
 void Noyau::chargerDeck(int x)
 {
 Parser * yolo = new Parser();
@@ -40,6 +43,8 @@ emit e_deck(x);
 }
 
 //charge le deck de l'adversaire
+//pour l'instant x est un int parce que les deck (situés dans le dossier deck) respectent le regex [0-9]*.deck
+//cela changera dans l'avenir certainement 
 void Noyau::deckAdverse(int x)
 {
 Parser * yolo = new Parser();
@@ -47,6 +52,7 @@ d2 = yolo->rechercher_set(x,NULL);
 }
 
 //gère le piochage
+// x vaut 1 si c'est moi qui pioche sinon x vaut 76
 void Noyau::piocher(int x)
 {
 int position = Carte::correspondant(x);
@@ -75,6 +81,7 @@ enlever_i(&d2,0);
 }
 
 //poser la carte
+//prends en argument la position de la carte dans la main, la position où on veut la poser, def est vrai si on veut la poser en mode defense , vis est vrai si on veut la mettre en mode face recto
 void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
 {
 Carte * la_carte;
@@ -119,6 +126,7 @@ la_carte->position_terrain=terrain_x;
 }
 
 //trouve la carte qui a la position x
+//SERT DE MANIERE INTERNE (peut être utile dans de nombreux cas)
 Carte * Noyau::trouver(int x)
 {
     if(terrain->size()==0)
@@ -133,6 +141,7 @@ Carte * Noyau::trouver(int x)
 }
 
 //permet de trouver la position parfaite dans la main
+//SERT DE MANIERE INTERNE
 int Noyau::perfect_position(int zone)
 {
 
@@ -173,6 +182,8 @@ int Noyau::perfect_position(int zone)
     return min;
 }
 
+//permet d'attaquer
+//prends en parametre la position de l'attaquant  et la position de l'attaqué, si le deuxieme argument n'est pas donné ou vaut -1 alors cela attaque l'adversaire directement (càd ses points de vie)
 void Noyau::attaquer(int attaquant_x, int adversaire_x)
 {
     //c'est moi qui attaque
@@ -272,7 +283,8 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
     }
 }
 
-
+//enleve la carte à la position i du point de vue vecteur
+//SERT DE MANIERE INTERNE
 void Noyau::enlever_i(std::vector<Carte *>**vect,int i)
 {
     std::vector<Carte *>* res = new std::vector<Carte *>();
@@ -294,12 +306,14 @@ void Noyau::enlever_i(std::vector<Carte *>**vect,int i)
 }
 
 //detruit la carte à la position x et la place au cimetière
+//prends en paramètre la position de la carte à detruire
 void Noyau::detruire(int x)
 {
     enlever_x(&terrain,x);
 }
 
 //change la position (atk/def) d'une carte
+//prends en paramètre la position de la carte
 void Noyau::switch_position(int terrain_x)
 {
     int i;
@@ -316,6 +330,7 @@ void Noyau::switch_position(int terrain_x)
 }
 
 //enlever la carte ayant la position x sur le terrain dans le vector donné
+//SERT DE MANIERE INTERNE NORMALEMENT
 void Noyau::enlever_x(std::vector<Carte *> **vect, int x)
 {
 
@@ -344,6 +359,7 @@ void Noyau::enlever_x(std::vector<Carte *> **vect, int x)
 
 }
 
+//PAS ENCORE BIEN IMPLEMENTE 
 void Noyau::phase_suivante()
 {
     if(phase==5)
@@ -352,22 +368,22 @@ void Noyau::phase_suivante()
         phase++;
 }
 
-
+//OBSOLETE
 void Noyau::go()
 {
     emit Noyau::emit_go();
 }
-
+//OBSOLETE
 void Noyau::mondieu()
 {
 emit Noyau::emit_mondieu();
 }
-
+//OBSOLETE
 void Noyau::send()
 {
     emit Noyau::emit_send();
 }
-
+//OBSOLETE
 void Noyau::attaque()
 {
     emit Noyau::emit_attaque();
@@ -376,6 +392,8 @@ void Noyau::attaque()
 /***************************************************************/
 //FONCTION ULTIME
 //ELLE GERE TOUS LES CAS D'ACTIONS
+//PERMET DE FAIRE FONCTIONNER LE JEU A L'AIDE DE "MESSAGES"
+//POUR PLUS D'AMPLES EXPLICATIONS, DEMANDER A L'OREILLE NOIRE
 void Noyau::traiter(QString s)
 {
     std::cout << "S:" << s.toStdString() << std::endl;
