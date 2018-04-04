@@ -1,6 +1,7 @@
 #include "../inc/noyau.h"
 #include "../inc/parser.h"
-
+#include <chrono>
+#include <thread>
 Noyau::Noyau()
 {
     terrain = new std::vector<Carte *>();
@@ -17,7 +18,8 @@ void Noyau::init()
     chargerDeck(0);
     deckAdverse(0);
     std::cout << "la taille de mon deck est : " << d1->size() << std::endl;
-    piocher(1);
+    //piocher(1);
+    //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     piocher(1);
 }
 
@@ -239,6 +241,29 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
         la_carte = trouver(main_x);
         la_carte->position_terrain=terrain_x;
          la_carte->def = def;
+         if(vis)
+             la_carte->etat = RECTO;
+         else
+             la_carte->etat=VERSO;
+         if(!def)
+         {
+             if(vis)
+             {
+                 emit visible(la_carte->image,terrain_x);
+             }
+             else
+             {
+                 emit nonvis(terrain_x);
+             }
+         }
+         else
+         {
+             if(!vis)
+             {
+                 emit defens(terrain_x);
+             }
+         }
+         emit destruction(main_x);
     }
 }
 
