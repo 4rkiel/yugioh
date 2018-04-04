@@ -5,7 +5,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
-#include <../AI/lib_eigen/Eigen/Core>
+#include <../IA/lib_eigen/Eigen/Core>
 #include <vector>
 
 using namespace Eigen;
