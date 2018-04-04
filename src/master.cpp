@@ -111,7 +111,7 @@ void Master::loadField (int x){
     field = new Field;
     noyau = new Noyau;
 
-    noyau->init();
+
 
     if (mode >= 10 && mode <= 19){
 
@@ -172,9 +172,16 @@ void Master::loadField (int x){
 	// rm carte
 
     connect(noyau, SIGNAL(destruction(int)), field, SLOT(rmCarte(int)));
+    connect(field,SIGNAL(sendAtk()),noyau,SLOT(poserAtk()));
+        connect(field,SIGNAL(sendDef()),noyau,SLOT(poserDef()));
 
 
 
+    //pop-up
+    connect(noyau,SIGNAL(dialogue()),field,SLOT(openChoosePosi()));
+
+    //pour poser une carte
+    connect(field,SIGNAL(doubleClicked(int)),noyau,SLOT(poser_test(int)));
 
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
@@ -200,6 +207,8 @@ void Master::loadField (int x){
 
     mThread -> start(); 
     mTask -> masterLoop();
+
+    noyau->init();
 }
 
 

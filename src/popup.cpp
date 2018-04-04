@@ -199,10 +199,12 @@ void Popup::closePosi (){
 
 void Popup::atkMode (){
     emit sendAtk();
+    closePosi();
 }
 
 void Popup::defMode (){
     emit sendDef();
+     closePosi();
 }
 
 void Popup::openQuit (){
