@@ -737,6 +737,7 @@ void Field::rmCarte(int x){
 }
 
 void Field::switchCarte(int x){
+ std::cout << "WOW : at " << x << std::endl;
 	fieldStack -> at(x) -> turn();
 }
 

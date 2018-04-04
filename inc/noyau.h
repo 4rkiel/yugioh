@@ -34,6 +34,7 @@ public:
     void enlever_x(std::vector<Carte *> **vect, int x);
     void enlever_i(std::vector<Carte *> **vect, int i);
     void chargerDeck(int x);
+    int perfect_terrain(int zone);
     Carte * trouver(int x);
     int perfect_position(int zone);
 
@@ -99,6 +100,8 @@ signals:
     void nonvis(int x);
     void defens(int x);
     void dialogue();
+    void change_position(int x);
+    //void met_en_defense(int x);
 };
 
 

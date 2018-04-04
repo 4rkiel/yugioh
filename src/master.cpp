@@ -183,6 +183,9 @@ void Master::loadField (int x){
     //pour poser une carte
     connect(field,SIGNAL(doubleClicked(int)),noyau,SLOT(poser_test(int)));
 
+    //pour switch
+    connect(noyau,SIGNAL(change_position(int)),field,SLOT(switchCarte(int)));
+
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
 
