@@ -692,7 +692,7 @@ void Field::setProgress (){
 
 void Field::sendMsg (QString str){
 
-    if(str.startsWith("#")){
+    if(str.startsWith("þ")){
         transmettre(str);
         QStringRef * decoupe = new QStringRef(&str,1,str.length()-1);
         chat->addText(decoupe->toString(), 2);

@@ -108,8 +108,8 @@ void Chat::sendMsg(){
 	}
 
 	if (check){
-        if(!input->text().startsWith("#"))
-        emit msgSent("#"+input -> text());
+        if(!input->text().startsWith("þ"))
+        emit msgSent("þ"+input -> text());
 	}
 
 	input -> setText("");    
