@@ -14,6 +14,7 @@ class Noyau : public QWidget
     Q_OBJECT
 public:
     Noyau();
+    void init();
     bool online;
     int tour;
     int phase=1;
