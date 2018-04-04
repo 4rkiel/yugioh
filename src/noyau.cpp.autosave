@@ -151,7 +151,7 @@ void Noyau::poser_test(int x)
     }
     else if(!isAdv(x) && isMonst(x) && trouver(x)!=NULL )
     {
-
+        
     }
 }
 

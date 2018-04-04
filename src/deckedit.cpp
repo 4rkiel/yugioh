@@ -49,7 +49,9 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
     choixGenre->addItems(genreList);
     choixSousGenre->addItems(sousGenreList);
 
-    QGridLayout *mainLayout = new QGridLayout;
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QHBoxLayout *mainL1 = new QHBoxLayout;
+    QHBoxLayout *mainL2 = new QHBoxLayout;
 
 
         // ... selecteur / creation de Deck ....................................
@@ -58,7 +60,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
         QFrame *editCreate = new QFrame;
         editCreate->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
         editCreate->setStyleSheet("border: 1px solid blue");
-        mainLayout->addWidget(editCreate, 0, 0, 1, 4);
+        mainL1->addWidget(editCreate);
         editCreate->setStyleSheet("background-color: #ECEFF1");
         QGridLayout *editCreateLayout = new QGridLayout;
         editCreate->setLayout(editCreateLayout);
@@ -121,7 +123,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
         // ... Compteur de cartes / visualisateur de Deck ......................
 
         QVBoxLayout *deckVisuLayout = new QVBoxLayout;
-        mainLayout->addLayout(deckVisuLayout, 1, 0, 4, 4);
+        mainL2->addLayout(deckVisuLayout);
 
 
             // ... compteur de cartes ..........................................
@@ -193,8 +195,10 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
         // ... recherche de cartes .............................................
 
         QFrame *cardFilter = new QFrame;
+        cardFilter->setSizePolicy(QSizePolicy::Minimum,
+                                  QSizePolicy::Maximum);
         cardFilter->setStyleSheet("border: 1px solid blue");
-        mainLayout->addWidget(cardFilter, 0, 4, 1, 7);
+        mainL1->addWidget(cardFilter);
         cardFilter->setStyleSheet("background-color: #ECEFF1");
         QHBoxLayout *colonne = new QHBoxLayout;        
 
@@ -317,16 +321,20 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
         deckScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         deckScroll -> setFocusPolicy(Qt::NoFocus);
         deckScroll->setBackgroundRole(QPalette::Light);
+        deckScroll->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
 
             Parser *parser = new Parser;
 
             cardList = new CardListPreview(parser);
+            cardList->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
             deckScroll->setWidget(cardList);
 
-        mainLayout->addWidget(deckScroll, 1, 4, 1, 7);
+        mainL2->addWidget(deckScroll);
 
 
+    mainLayout->addLayout(mainL1);
+    mainLayout->addLayout(mainL2);
     setLayout(mainLayout);
 }
 

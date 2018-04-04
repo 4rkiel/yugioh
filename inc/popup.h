@@ -86,7 +86,6 @@ private:
             ShadowButt * quit;
             ShadowButt * back;
     
-    QShortcut * shortcut;
 
 };
 

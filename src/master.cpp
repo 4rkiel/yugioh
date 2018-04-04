@@ -67,7 +67,7 @@ Master::~Master (){
 
             //!\ LUCAS !!!! Ici pour detruire l'IA a la fermeture
             
-            delete ai;
+            //delete ia;
             
             // delete monPointeurIA
 
@@ -107,14 +107,17 @@ void Master::loadField (int x){
 
     // Field
 
-    noyau = new Noyau;
+
     field = new Field;
+    noyau = new Noyau;
+
+
 
     if (mode >= 10 && mode <= 19){
 
         delete network;
         
-        ai = new Ai(x);
+       // ia = new Ia(x);
         
         // Tu peux utiliser le (int x) pour le niveau de l'IA
         // 11:easy
@@ -169,9 +172,16 @@ void Master::loadField (int x){
 	// rm carte
 
     connect(noyau, SIGNAL(destruction(int)), field, SLOT(rmCarte(int)));
+    connect(field,SIGNAL(sendAtk()),noyau,SLOT(poserAtk()));
+        connect(field,SIGNAL(sendDef()),noyau,SLOT(poserDef()));
 
 
 
+    //pop-up
+    connect(noyau,SIGNAL(dialogue()),field,SLOT(openChoosePosi()));
+
+    //pour poser une carte
+    connect(field,SIGNAL(doubleClicked(int)),noyau,SLOT(poser_test(int)));
 
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
@@ -197,6 +207,8 @@ void Master::loadField (int x){
 
     mThread -> start(); 
     mTask -> masterLoop();
+
+    noyau->init();
 }
 
 
@@ -210,7 +222,7 @@ void MasterTask::masterLoop (){
 
 
 void Master::timeTicker(){
-    std::cout << "Tick\n";
+   // std::cout << "Tick\n";
 
     field -> setProgress();
 }

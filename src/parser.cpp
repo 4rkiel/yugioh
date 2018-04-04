@@ -11,13 +11,13 @@ Parser::Parser(QWidget *parent)
     QStringList list = QDir(QCoreApplication::applicationDirPath()+"/sets/").entryList();
 
     int i;
-    std::cout << "je suis ici" << std::endl;
+    //std::cout << "je suis ici" << std::endl;
     for(i=0;i<(signed)list.length();i++)
     {
 
         if((list.at(i).compare(QString("."))!=0) && (list.at(i).compare(QString(".."))!=0))
         {
-            std::cout << "je parcours la list" << list.at(i).toStdString() << std::endl;
+           // std::cout << "je parcours la list" << list.at(i).toStdString() << std::endl;
  //           fichier_courant = "/adhome/v/vc/vcostantino/Documents/IHM/PROJET/Version26/yugioh/sets/"+list.at(i);
             fichier_courant = QCoreApplication::applicationDirPath()+"/sets/"+list.at(i);
         getAll();
@@ -25,11 +25,11 @@ Parser::Parser(QWidget *parent)
     }
     for(i=0;i<(signed)all_cards->size();i++)
     {
-        std::cout << "je parcours la list" << std::endl;
+       // std::cout << "je parcours la list" << std::endl;
            all_cards->at(i)->afficher_infos();
     }
        std::vector<Carte *> * search = rechercher_nom("Drag",NULL);
-       std::cout << "J'AI TROUVE" << std::endl;
+       //std::cout << "J'AI TROUVE" << std::endl;
        for(i=0;i<(signed)search->size();i++)
            search->at(i)->afficher_infos();
 }
@@ -44,7 +44,7 @@ std::string Parser::getSet(std::string nom)
          vrai = parcourir;
     while(parcourir!=NULL)
     {
-       std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+       //std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
         parcourir = std::strtok(NULL,"/");
         if(parcourir!=NULL)
             vrai = parcourir;
@@ -90,7 +90,7 @@ void Parser::recup_effet(std::string effets)
     while(parcourir!=NULL)
     {
 
-                std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+               // std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
                 effet=effet+vrai;
                 parcourir = std::strtok(NULL,"{{");
                 if(parcourir!=NULL)
@@ -121,7 +121,7 @@ void Parser::parser(std::string ligne)
 
     if(ligne.find("##")==std::string::npos)
     {
-        std::cout << ligne << std::endl;
+        //std::cout << ligne << std::endl;
         switch(etape)
         {
             case 0:

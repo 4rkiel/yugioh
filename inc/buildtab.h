@@ -51,7 +51,7 @@ private:
         QLabel * info;
         FlatButt * exitButt;
 
-
+    QShortcut* shortcut;
     QWidget * tabInside;
     QGridLayout * tabInsideLayout;
 
