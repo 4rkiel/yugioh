@@ -83,7 +83,8 @@ signals:
     void sendAtk();
     void sendDef();
     void transmettre(QString);
-    void biClick(int, int);
+	void doubleClicked(int);
+	void biClick(int, int);
 
 private:
     

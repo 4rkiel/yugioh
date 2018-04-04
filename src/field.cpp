@@ -607,6 +607,7 @@ void Field::cardOut (){
 
 void Field::cardDoubleClicked(int x){
     std::cout << x << " Double clicked \n"; 
+	emit doubleClicked(int);
 }
 
 void Field::cardClicked(int x){
