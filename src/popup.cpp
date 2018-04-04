@@ -142,17 +142,11 @@ Popup::Popup (){
     layout -> addWidget(popupBox, 1, 1, 1, 1);
 
     setLayout(layout);
-
-
-    shortcut = new QShortcut(QKeySequence("Escape"), this);
-    connect(shortcut, SIGNAL(activated()), this, SLOT(openQuit()));
 }
 
 
 Popup::~Popup (){
 
-    delete shortcut;
-    
             delete posiback;     
             delete posino;
             delete posiya;

@@ -418,6 +418,10 @@ Field::Field () {
     layout -> addWidget(infoBox, 0,0,1,3);
     layout -> addWidget(popup, 0, 0, 5, 3);
 
+    //key shortcut
+    shortcut = new QShortcut(QKeySequence("Escape"), this);
+    connect(shortcut, SIGNAL(activated()), popup, SLOT(openMenu()));
+
     setLayout(layout);
 
 }
