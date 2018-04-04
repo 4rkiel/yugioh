@@ -1,7 +1,7 @@
 #include "../inc/deckedit.h"
 
 
-deckEdit::deckEdit(std::vector<Carte *> *allCard)
+deckEdit::deckEdit(/*std::vector<Carte *> *allCard*/)
 {
     selectDeck = new QComboBox;
     choixGenre = new QComboBox;
@@ -16,6 +16,9 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
     spinDef = new QSpinBox;
     spinNiveau = new QSpinBox;
 
+    deck.reserve(NBR_CARTE_DECK_VISU);
+    tabCardVisu.reserve(NBR_CARTE_DECK_VISU);
+
 //    cardPreviewList = new std::vector<QHBoxLayout*>;
 
     for(int i=0; i<NBR_BUTTON_DECK_EDIT; i++)
@@ -27,7 +30,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
     for(int i=0; i<NBR_CARTE_DECK_VISU; i++)
     {
-        tabCardVisu[i] = new QPushButton;
+        tabCardVisu.push_back(new QPushButton);
         tabCardVisu[i]->setDefault(true);
 
         QSizePolicy sp_retain = tabCardVisu[i]->sizePolicy();
@@ -38,6 +41,9 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
         tabCardVisu[i]->setVisible(false);
 //        tabCardVisu[i]->setSizePolicy(QSizePolicy::Minimum,
 //                                      QSizePolicy::Minimum);
+
+        QObject::connect(tabCardVisu[i], SIGNAL(clicked()), this, SLOT(rmvCard2Deck()));
+
     }
 
     for(int i=0; i<NBR_CARTE_EXTRA_DECK; i++)
@@ -353,15 +359,52 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
     setLayout(mainLayout);
 }
 
+void deckEdit::updateDeckVisu()
+{
+    int i=0;
+    for(; i<indiceCarteDeck; i++)
+    {
+        tabCardVisu[i]->setStyleSheet("border-image: url(" + deck.at(i)->image + ");"
+                                                "margin: 1px ;border: 1px solid black");
+        tabCardVisu[i]->setVisible(true);
+    }
+    for(; i<NBR_CARTE_DECK_VISU; i++)
+    {
+        tabCardVisu[i]->setVisible(false);
+    }
+
+    deckLabel->setText(tr("Nombre de carte: ") +
+                       QString::number(nbrCarteMonstre
+                                       + nbrCarteMagie + nbrCartePiege));
+
+    infoMonstreLabel->setText(tr("Monstre: ") + QString::number(nbrCarteMonstre));
+    infoMagieLabel->setText(tr("\tMagie: ") + QString::number(nbrCarteMagie));
+    infoPiegeLabel->setText(tr("\tPiège: ") + QString::number(nbrCartePiege));
+}
+
+void deckEdit::updateDeckVisuLastCard()
+{
+    tabCardVisu[indiceCarteDeck]->setStyleSheet("border-image: url(" + deck.at(indiceCarteDeck)->image + ");"
+                                            "margin: 1px ;border: 1px solid black");
+    tabCardVisu[indiceCarteDeck]->setVisible(true);
+
+    deckLabel->setText(tr("Nombre de carte: ") +
+                       QString::number(nbrCarteMonstre
+                                       + nbrCarteMagie + nbrCartePiege));
+
+    infoMonstreLabel->setText(tr("Monstre: ") + QString::number(nbrCarteMonstre));
+    infoMagieLabel->setText(tr("\tMagie: ") + QString::number(nbrCarteMagie));
+    infoPiegeLabel->setText(tr("\tPiège: ") + QString::number(nbrCartePiege));
+}
+
+
+
 void deckEdit::addCard2Deck(Carte* carte)
 {
     if(indiceCarteDeck == 40)
         return;
 
-    tabCardVisu[indiceCarteDeck]->setStyleSheet("border-image: url(" + carte->image + ");"
-                                            "margin: 1px ;border: 1px solid black");
-    tabCardVisu[indiceCarteDeck]->setVisible(true);
-    indiceCarteDeck++;
+    deck.push_back(carte);
 
     switch(carte->genre)
     {
@@ -377,17 +420,22 @@ void deckEdit::addCard2Deck(Carte* carte)
             nbrCartePiege++;
     }
 
-    deckLabel->setText(tr("Nombre de carte: ") +
-                       QString::number(nbrCarteMonstre
-                                       + nbrCarteMagie + nbrCartePiege));
+    updateDeckVisuLastCard();
 
-    infoMonstreLabel->setText(tr("Monstre: ") + QString::number(nbrCarteMonstre));
-    infoMagieLabel->setText(tr("\tMagie: ") + QString::number(nbrCarteMagie));
-    infoPiegeLabel->setText(tr("\tPiège: ") + QString::number(nbrCartePiege));
+    indiceCarteDeck++;
+}
 
+void deckEdit::rmvCard2Deck()
+{
+    QPushButton* cardButton2Rmv = qobject_cast<QPushButton*>(sender());
 
+    size_t pos = std::find(tabCardVisu.begin(), tabCardVisu.end(), cardButton2Rmv) - tabCardVisu.begin();
 
+    deck.erase(deck.begin()+pos);
 
+    indiceCarteDeck--;
+
+    updateDeckVisu();
 }
 
 void deckEdit::slotAttribut()
