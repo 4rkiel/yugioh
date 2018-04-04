@@ -133,33 +133,26 @@ void Noyau::poserAtk()
 {
     //remplacer le 1 par la bonne position stp
     if(registre_0 > 6)
-    poser(registre_0,1,false,true);
+    poser(registre_0,perfect_terrain(0),false,true);
 }
 
 void Noyau::poserDef()
 {
      if(registre_0 > 6)
-    poser(registre_0,1,true,false);
+    poser(registre_0,perfect_terrain(0),true,false);
 }
 
 
 int Noyau::perfect_terrain(int zone)
 {
-     int begin_position,i,min=151,current_position;
+     int begin_position;
      if(zone==0)
        {
             begin_position=1;
             if(terrain->size()==0)
                    return begin_position;
-            for(i=0;i<(signed)terrain->size();i++)
-            {
-                 current_position = terrain->at(i)->position_terrain;
-                 if((current_position > 0) && (current_position < 6))
-                 {
-                     if(min>current_position)
-                            min = current_position;
-                  }
-            }
+            while(trouver(begin_position)!=NULL)
+                begin_position++;
 
         }
         else
@@ -167,19 +160,11 @@ int Noyau::perfect_terrain(int zone)
             begin_position=76;
             if(terrain->size()==0)
                    return begin_position;
-            for(i=0;i<(signed)terrain->size();i++)
-            {
-                 current_position = terrain->at(i)->position_terrain;
-                 if((current_position > 75) && (current_position < 81))
-                 {
-                     if(min>current_position)
-                            min = current_position;
-                  }
-            }
+            while(trouver(begin_position)!=NULL)
+                begin_position++;
+
         }
-        if(min==151)
-            min = begin_position;
-        return min;
+        return begin_position;
 }
 
 void Noyau::poser_test(int x)
@@ -262,7 +247,7 @@ Carte * Noyau::trouver(int x)
 int Noyau::perfect_position(int zone)
 {
 
-    int begin_position,i;//,min=151,current_position;
+    int begin_position;//,min=151,current_position;
     if(zone==0)
    {
         begin_position=14;
