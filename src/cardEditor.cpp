@@ -4,9 +4,6 @@
 #include <QGridLayout>
 #include <QMessageBox>
 
-// #define name "editeur de carte V1"
-
-
 CardEditor::CardEditor(){
 
     buttonSave = new ShadowButt("", tr("Enregistrer"));
@@ -29,6 +26,7 @@ CardEditor::CardEditor(){
 
 
 CardEditor::~CardEditor (){
+    // TODO
 
 	
 }
@@ -222,9 +220,9 @@ void CardEditor::sauvegarder (){
         eff = "YOLO";
     }
 
-    QString text = QString("##YGO\n") + QString::number(ID->value()) + "\n" +QString::number(nrSet->currentIndex())+"\n"+QString::number(genreCarte->currentIndex())+"\n"+
-            QString::number(typePrimaire->currentIndex())+"\n"+QString::number(typeSecondaire->currentIndex())+"\n"+nom->text()+"\n"+QString::number(attribut->currentIndex())+"\n"+
-            QString::number(niveau->value())+"\n"+eff+"\n{{"+QString::number(effectBox->currentIndex())+"\n"+
+    QString text = QString("##YGO\n") + QString::number(ID->value()) + "\n"+QString::number(genreCarte->currentIndex())
+            +"\n"+QString::number(typeSecondaire->currentIndex())+"\n"+nom->text()+"\n"+QString::number(attribut->currentIndex())+"\n"+
+            QString::number(niveau->value())+"\n"+QString::number(typePrimaire->currentIndex())+"\n"+eff+"\n{{"+QString::number(effectBox->currentIndex())+"\n"+
             QString::number(spinAttaque->value())+"\n"+QString::number(spinDefense->value())+"\n";
 
     in << text;
@@ -236,14 +234,14 @@ void CardEditor::sauvegarder (){
 void CardEditor::nameRandom(){
 
     vector<QString> one;
-    one = {"Dragon", "Magicien", "Guerrier", "Tigre", "Vampire", "Archer", "Serpent", "Soldat", "Singe Mutant"};
+    one = {tr("Dragon"), tr("Magicien"), "WizTiger", tr("Guerrier"), tr("Tigre"), tr("Vampire"), tr("Archer"), tr("Serpent"), tr("Soldat"), tr("Singe Mutant")};
 
     vector<QString> two;
-    two ={"noir", "rouge", "blanc", "eradicateur", "invincible", "destructeur", "mangeur d ames", "scrumMaster", "malefique"};
+    two ={tr("noir"), tr("rouge"), tr("blanc"), tr("eradicateur"), tr("invincible"), tr("destructeur"), tr("mangeur d'âmes"), tr("scrumMaster"), tr("malefique")};
 
     vector<QString> tree;
-    tree = {"du chaos", "des tenebres", "de la lumiere", "invisible", "des landes", "myr", "gobelin", "du ciel", "millenaire", "jeune", "debutant", "innofensif"
-           , "radieu", "grognon", "Json", "DEADJOE", "imperial"};
+    tree = {tr("du chaos"), tr("des tenebres"), tr("de la lumiere"), tr("invisible"), tr("des landes"), tr("myr"), tr("gobelin"), tr("du ciel"), tr("millenaire"), tr("jeune"), tr("debutant"),                             tr("innofensif")
+           , tr("radieu"), tr("grognon"), tr("Json"), tr("DEADJOE"), tr("imperial")};
 
     nom->setText(one.at(rand()%one.size()) + " " + two.at(rand()%two.size()) + " " + tree.at(rand()%tree.size()));
 }
