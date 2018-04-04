@@ -68,33 +68,40 @@ d2 = yolo->rechercher_set(x,NULL);
 // x vaut 1 si c'est moi qui pioche sinon x vaut 76
 void Noyau::piocher(int x)
 {
-int position = Carte::correspondant(x);
-//si c'est moi qui pioche
-if(position>75)
-{
-//on met la position de la carte qui est au sommet du deck là où il faut dans la main
-//on place la carte dans au bon endroit
-//on enleve la carte du deck
+    int position = Carte::correspondant(x);
+    //si c'est moi qui pioche
+    if(position>75)
+    {
+    //on met la position de la carte qui est au sommet du deck là où il faut dans la main
+    //on place la carte dans au bon endroit
+    //on enleve la carte du deck
 
-std::cout << "le traitement du piochage allié en cours " << std::endl;
-int dans_main = perfect_position(0);
-d1->front()->position_terrain = dans_main;
-terrain->push_back(d1->front());
+    std::cout << "le traitement du piochage allié en cours " << std::endl;
+    int dans_main = perfect_position(0);
+    d1->front()->position_terrain = dans_main;
+    terrain->push_back(d1->front());
 
-enlever_i(&d1,0);
+    enlever_i(&d1,0);
 
-//prevenir le voisin
-emit visible(trouver(dans_main)->image,dans_main);
-std::cout << "faut piocher " << trouver(dans_main)->image.toStdString() << " là " << dans_main << std::endl;
-emit je_pioche();
-}
-else
-{
-std::cout << "le traitement du piochage adverse en cours " << std::endl;
-d2->front()->position_terrain = perfect_position(1);
-terrain->push_back(d2->front());
-enlever_i(&d2,0);
-}
+    //prevenir le voisin
+    emit visible(trouver(dans_main)->image,dans_main);
+    std::cout << "faut piocher " << trouver(dans_main)->image.toStdString() << " là " << dans_main << std::endl;
+    if(online)
+    {
+        emit tiens("apioche");
+    }
+    emit je_pioche();
+    }
+    else
+    {
+    std::cout << "le traitement du piochage adverse en cours " << std::endl;
+    int dans_main = perfect_position(1);
+    std::cout << "l'adversaire pose en " << dans_main << std::endl;
+    d2->front()->position_terrain = dans_main;
+    terrain->push_back(d2->front());
+    enlever_i(&d2,0);
+    emit nonvis(dans_main);
+    }
 }
 
 bool Noyau::isAdv(int x){
@@ -142,7 +149,7 @@ void Noyau::poserDef()
     poser(registre_0,perfect_terrain(0),true,false);
 }
 
-
+//determine la position où poser la carte sur le terrain, zone = 0 si c'est moi qui pose sinon c'est 1
 int Noyau::perfect_terrain(int zone)
 {
      int begin_position;
@@ -185,46 +192,54 @@ void Noyau::poser_test(int x)
 //prends en argument la position de la carte dans la main, la position où on veut la poser, def est vrai si on veut la poser en mode defense , vis est vrai si on veut la mettre en mode face recto
 void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
 {
-Carte * la_carte;
-if(main_x < 75)
-{
-std::cout << "je traite mon posage" << std::endl;
-la_carte = trouver(main_x);
-la_carte->position_terrain=terrain_x;
-la_carte->def = def;
-if(vis)
-    la_carte->etat = RECTO;
-else
-    la_carte->etat=VERSO;
-if(!def)
-{
-    if(vis)
+    Carte * la_carte;
+    if(main_x < 75)
     {
-        emit visible(la_carte->image,terrain_x);
+        std::cout << "je traite mon posage" << std::endl;
+        la_carte = trouver(main_x);
+        la_carte->position_terrain=terrain_x;
+        la_carte->def = def;
+        if(vis)
+            la_carte->etat = RECTO;
+        else
+            la_carte->etat=VERSO;
+        if(!def)
+        {
+            if(vis)
+            {
+                emit visible(la_carte->image,terrain_x);
+            }
+            else
+            {
+                emit nonvis(terrain_x);
+            }
+        }
+        else
+        {
+            if(!vis)
+            {
+                emit defens(terrain_x);
+            }
+        }
+        emit destruction(main_x);
+        //emit je_pose(la_carte->image,main_x,terrain_x,def,vis);
+        if(online)
+        {
+            QString message = "p/";
+            std::stringstream s1;
+            s1 << Carte::correspondant(main_x) << "/" << Carte::correspondant(terrain_x) << "/" << (def? 1 : 0) << "/" << (vis? 1 : 0) ;
+            message.append(QString::fromStdString(s1.str()));
+            emit tiens(message);
+
+        }
     }
     else
     {
-        emit nonvis(terrain_x);
+        std::cout << "je traite le posage adverse" << std::endl;
+        la_carte = trouver(main_x);
+        la_carte->position_terrain=terrain_x;
+         la_carte->def = def;
     }
-}
-else
-{
-    if(!vis)
-    {
-        emit defens(terrain_x);
-    }
-}
-emit destruction(main_x);
-//emit je_pose(la_carte->image,main_x,terrain_x,def,vis);
-}
-else
-{
-std::cout << "je traite le posage adverse" << std::endl;
-la_carte = trouver(main_x);
-la_carte->position_terrain=terrain_x;
- la_carte->def = def;
-
-}
 }
 
 //trouve la carte qui a la position x
@@ -278,7 +293,7 @@ int Noyau::perfect_position(int zone)
                return begin_position;
         else
         {
-            while(trouver(begin_position)==NULL)
+            while(trouver(begin_position)!=NULL)
             {
                 begin_position++;
             }

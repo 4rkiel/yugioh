@@ -138,6 +138,9 @@ void Master::loadField (int x){
         if (network != NULL){
             connect(field,SIGNAL(transmettre(QString)),network,SLOT(transmettre(QString)));
         }
+        if (network != NULL){
+            connect(noyau,SIGNAL(tiens(QString)),network,SLOT(transmettre(QString)));
+        }
     }
 
 
