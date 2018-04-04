@@ -1,18 +1,17 @@
-#ifndef _IA_H
-#define _IA_H
+#ifndef _AI_H
+#define _AI_H
 
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
-//#include <Eigen/Core>
 #include <../IA/lib_eigen/Eigen/Core>
 #include <vector>
 
 using namespace Eigen;
 using namespace std;
 
-class Ia {
+class Ai {
 
     private:
         
@@ -41,8 +40,8 @@ class Ia {
         
     public:
         
-        Ia(int difficulty);
-        ~Ia();
+        Ai(int difficulty);
+        ~Ai();
         void save_ai();
         void initialise_random_ai();
         void load_trained_ai(int difficulty);
