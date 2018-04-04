@@ -15,14 +15,14 @@ Ai::Ai(int difficulty)
 {
     srand (time(NULL));
     nb_hidden_layer = 2;
-    if(difficulty == 15)
+    mode = difficulty;
+    if(mode == 5)
     {
-        mode = 0;
         initialise_random_ai();
     }
     else
     {
-        load_trained_ai(difficulty);
+        load_trained_ai();
     }
 }
 
@@ -31,7 +31,7 @@ Ai::Ai(int difficulty)
 //destructor
 Ai::~Ai()
 {
-    if(mode >= 11 && mode <= 14)
+    if(mode >= 1 && mode <= 4)
         save_ai();
 }
 
@@ -72,21 +72,21 @@ void Ai::save_ai()
         for(k=0;k<nb_hidden_layer;k++)
         {
             //save weights
-            for(i=0;i<20;i++)
+            for(i=0;i<60;i++)
             {
                 for(j=0;j<60;j++)
                 {
-                    ai_file << hidden_weights.at(k)(i,j);
+                    ai_file << hidden_weights.at(k)(i,j) << " ";
                 }
                 ai_file << endl;
             }
             ai_file << endl;
             //save deltas
-            for(i=0;i<20;i++)
+            for(i=0;i<60;i++)
             {
                 for(j=0;j<60;j++)
                 {
-                    ai_file << hidden_deltas.at(k)(i,j);
+                    ai_file << hidden_deltas.at(k)(i,j) << " ";
                 }
                 ai_file << endl;
             }
@@ -94,14 +94,14 @@ void Ai::save_ai()
             //save values
             for(i=0;i<60;i++)
             {
-                ai_file << hidden_layers_values.at(k)(1,i);
+                ai_file << hidden_layers_values.at(k)(0,i) << " ";
             }
             ai_file << endl;
             ai_file << endl;
             //save test values
             for(i=0;i<60;i++)
             {
-                ai_file << test_hidden_layers_values.at(k)(1,i);
+                ai_file << test_hidden_layers_values.at(k)(0,i) << " ";
             }
             ai_file << endl;
             ai_file << endl;
@@ -114,7 +114,7 @@ void Ai::save_ai()
         {
             for(j=0;j<10;j++)
             {
-                ai_file << output_weight(i,j);
+                ai_file << output_weight(i,j) << " ";
             }
             ai_file << endl;
         }
@@ -124,7 +124,7 @@ void Ai::save_ai()
         {
             for(j=0;j<10;j++)
             {
-                ai_file << output_delta(i,j);
+                ai_file << output_delta(i,j) << " ";
             }
             ai_file << endl;
         }
@@ -132,14 +132,14 @@ void Ai::save_ai()
         //initialise values
         for(i=0;i<10;i++)
         {
-            ai_file << output_layer_values(1,i);
+            ai_file << output_layer_values(0,i) << " ";
         }
         ai_file << endl;
         ai_file << endl;
         //initialise test values
         for(i=0;i<10;i++)
         {
-            ai_file << test_output_layer_values(1,i);
+            ai_file << test_output_layer_values(0,i) << " ";
         }
         //////////////
         ai_file.close();
@@ -151,27 +151,23 @@ void Ai::save_ai()
 
 
 //load a trained AI from a file, according to the chosen difficulty
-void Ai::load_trained_ai(int difficulty)
+void Ai::load_trained_ai()
 {
     int i,j,k;
     float number;
     ifstream ai_file;
-    switch(difficulty)
+    switch(mode)
     {
-        case 11:
-            mode=1;
+        case 1:
             ai_file.open("../IA/easy_ai.data");
             break;
-        case 12:
-            mode=2;
+        case 2:
             ai_file.open("../IA/medium_ai.data");
             break;
-        case 13:
-            mode=3;
+        case 3:
             ai_file.open("../IA/hard_ai.data");
             break;
-        case 14:
-            mode=4;
+        case 4:
             ai_file.open("../IA/learning_ai.data");
             break;
         default:
@@ -186,8 +182,7 @@ void Ai::load_trained_ai(int difficulty)
         {
             //initialise weights
             Matrix<float,60,60> new_weights_m;
-            hidden_weights.push_back(new_weights_m);
-            for(i=0;i<20;i++)
+            for(i=0;i<60;i++)
             {
                 for(j=0;j<60;j++)
                 {
@@ -195,10 +190,10 @@ void Ai::load_trained_ai(int difficulty)
                     new_weights_m(i,j) = number;
                 }
             }
+            hidden_weights.push_back(new_weights_m);
             //initialise deltas
             Matrix<float,60,60> new_deltas_m;
-            hidden_deltas.push_back(new_deltas_m);
-            for(i=0;i<20;i++)
+            for(i=0;i<60;i++)
             {
                 for(j=0;j<60;j++)
                 {
@@ -206,22 +201,23 @@ void Ai::load_trained_ai(int difficulty)
                     new_deltas_m(i,j) = number;
                 }
             }
+            hidden_deltas.push_back(new_deltas_m);
             //initialise values
             Matrix<float,1,60> new_values_m;
-            hidden_layers_values.push_back(new_values_m);
             for(i=0;i<60;i++)
             {
                 ai_file >> number;
-                new_values_m(1,i) = number;
+                new_values_m(0,i) = number;
             }
+            hidden_layers_values.push_back(new_values_m);
             //initialise test values
             Matrix<float,1,60> new_test_values_m;
-            hidden_layers_values.push_back(new_test_values_m);
             for(i=0;i<60;i++)
             {
                 ai_file >> number;
-                new_test_values_m(1,i) = number;
+                new_test_values_m(0,i) = number;
             }
+            test_hidden_layers_values.push_back(new_test_values_m);
         }
         //////////////
         //output layer
@@ -248,20 +244,20 @@ void Ai::load_trained_ai(int difficulty)
         for(i=0;i<10;i++)
         {
             ai_file >> number;
-            output_layer_values(1,i) = number;
+            output_layer_values(0,i) = number;
         }
         //initialise test values
         for(i=0;i<10;i++)
         {
             ai_file >> number;
-            test_output_layer_values(1,i) = number;
+            test_output_layer_values(0,i) = number;
         }
         //////////////
         ai_file.close();
     }
     else
     {
-        cout << "ERROR: cannot open ai file" << endl;
+        initialise_random_ai();
     }
 }
 
@@ -284,8 +280,7 @@ void Ai::initialise_random_ai()
     {
         //initialise weights
         Matrix<float,60,60> new_weights_m;
-        hidden_weights.push_back(new_weights_m);
-        for(i=0;i<20;i++)
+        for(i=0;i<60;i++)
         {
             for(j=0;j<60;j++)
             {
@@ -293,30 +288,31 @@ void Ai::initialise_random_ai()
                     randomFloat(-1/sqrt(60),1/sqrt(60));
             }
         }
+        hidden_weights.push_back(new_weights_m);
         //initialise deltas
         Matrix<float,60,60> new_deltas_m;
-        hidden_deltas.push_back(new_deltas_m);
-        for(i=0;i<20;i++)
+        for(i=0;i<60;i++)
         {
             for(j=0;j<60;j++)
             {
                 new_deltas_m(i,j) = 0;
             }
         }
+        hidden_deltas.push_back(new_deltas_m);
         //initialise values
         Matrix<float,1,60> new_values_m;
-        hidden_layers_values.push_back(new_values_m);
         for(i=0;i<60;i++)
         {
-            new_values_m(1,i) = 0;
+            new_values_m(0,i) = 0;
         }
+        hidden_layers_values.push_back(new_values_m);
         //initialise test values
         Matrix<float,1,60> new_test_values_m;
-        hidden_layers_values.push_back(new_test_values_m);
         for(i=0;i<60;i++)
         {
-            new_test_values_m(1,i) = 0;
+            new_test_values_m(0,i) = 0;
         }
+        test_hidden_layers_values.push_back(new_test_values_m);
     }
     //////////////
 
@@ -342,12 +338,12 @@ void Ai::initialise_random_ai()
     //initialise values
     for(i=0;i<10;i++)
     {
-        output_layer_values(1,i) = 0;
+        output_layer_values(0,i) = 0;
     }
     //initialise test values
     for(i=0;i<10;i++)
     {
-        test_output_layer_values(1,i) = 0;
+        test_output_layer_values(0,i) = 0;
     }
     //////////////
 }
@@ -366,7 +362,7 @@ void Ai::initialise_random_ai()
  * takes in input the game state
  * and outputs the vector of the actions do to
  */
-void Ai::forward_propagation(Matrix<float,1,20> game_state)
+void Ai::forward_propagation(Matrix<float,1,60> game_state)
 {
     hidden_layers_values.at(0) = game_state * hidden_weights.at(0);
     hidden_layers_values.at(1) = hidden_layers_values.at(0)
@@ -381,7 +377,7 @@ void Ai::forward_propagation(Matrix<float,1,20> game_state)
  * takes in input the future possible state
  * and outputs the vector of the actions it will be able to do
  */
-void Ai::test_forward_propagation(Matrix<float,1,20> game_state)
+void Ai::test_forward_propagation(Matrix<float,1,60> game_state)
 {
     test_hidden_layers_values.at(0) = game_state * hidden_weights.at(0);
     test_hidden_layers_values.at(1) = test_hidden_layers_values.at(0)
@@ -491,7 +487,7 @@ void Ai::backward_propagation(float q_targets[10])
  * test if the game state is a winning state, a losing state
  * or a neutral state
  */
-int Ai::test_win(Matrix<float,1,20> state)
+int Ai::test_win(Matrix<float,1,60> state)
 {
     return state(1,1);
 }
@@ -503,7 +499,7 @@ float Ai::max_output_test()
 {
     float max_value=0;
     int i;
-    for(i=0;i<20;i++)
+    for(i=0;i<60;i++)
     {
         max_value = max(max_value,test_output_layer_values(1,i));
     }
@@ -513,7 +509,7 @@ float Ai::max_output_test()
 
 
 //give the next game state, if the action is played
-Matrix<float,1,20> Ai::play_simulation(Matrix<float,1,20> game_state,
+Matrix<float,1,60> Ai::play_simulation(Matrix<float,1,60> game_state,
         int action)
 {
     //TODO: connect to "Moteur"
@@ -544,7 +540,7 @@ float randomFloat(float a, float b)
 
 
 //play without learn
-int Ai::play(Matrix<float,1,20> game_state)
+int Ai::play(Matrix<float,1,60> game_state)
 {
     forward_propagation(game_state);
     int action = choose_action(output_layer_values);
@@ -553,15 +549,15 @@ int Ai::play(Matrix<float,1,20> game_state)
 
 
 
-int Ai::play_learn(Matrix<float,1,20> game_state)
+int Ai::play_learn(Matrix<float,1,60> game_state)
 {
-    Matrix<float,1,20> target_states[10];
+    Matrix<float,1,60> target_states[10];
     float q_targets[10];
 
     //compute the previous calculated q_values of the differents next
     //possible states, depending on the chosen action
     int action;
-    for(action=0;action<20;action++)
+    for(action=0;action<10;action++)
     {
         //compute the next state if this action in chosen
         target_states[action] = play_simulation(game_state, action);

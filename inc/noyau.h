@@ -34,6 +34,7 @@ public:
     void enlever_x(std::vector<Carte *> **vect, int x);
     void enlever_i(std::vector<Carte *> **vect, int i);
     void chargerDeck(int x);
+    int perfect_terrain(int zone);
     Carte * trouver(int x);
     int perfect_position(int zone);
 
@@ -45,8 +46,31 @@ public:
 
     std::vector<Carte *> *cimetiere1;
     std::vector<Carte *> *cimetiere2;
+    //obsolète
     Reseau * res;
+
+    int registre_0;
     void deckAdverse(int x);
+
+
+    bool isAdv(int x);
+
+    bool isMonst(int x);
+
+    bool isMagic(int x);
+
+    bool isHand(int x);
+
+    bool isDeck(int x);
+
+    bool isField(int x);
+
+    bool isGrave(int x);
+
+    bool isFuse(int x);
+
+
+
 public slots:
     void piocher(int x);
     void go();
@@ -55,7 +79,9 @@ public slots:
     void attaque();
     void traiter(QString s);
     void setReseau(bool b);
-
+    void poser_test(int x);
+    void poserAtk();
+    void poserDef();
 signals:
     void emit_go();
     void emit_mondieu();
@@ -73,6 +99,9 @@ signals:
     void visible(QString s,int x);
     void nonvis(int x);
     void defens(int x);
+    void dialogue();
+    void change_position(int x);
+    //void met_en_defense(int x);
 };
 
 

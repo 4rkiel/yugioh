@@ -115,6 +115,9 @@ HostChoice::HostChoice () {
         introBox -> setLayout(box);
         layout -> addWidget(introBox, 2, 1, 1, 1);
 
+        //key shortcut
+        shortcut = new QShortcut(QKeySequence("Escape"), this);
+        connect(shortcut, SIGNAL(activated()), this, SLOT(emitChoice()));
 
     setLayout(layout);
 

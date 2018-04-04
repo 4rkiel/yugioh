@@ -182,6 +182,10 @@ BuildTab::BuildTab (){
 
     tabInside -> setLayout(tabInsideLayout);
 
+    //key shortcut
+    shortcut = new QShortcut(QKeySequence("Escape"), this);
+    connect(shortcut, SIGNAL(activated()), this, SLOT(emitClose()));
+
     layout -> addWidget(tabInside,1,1,2,1);
 
     setLayout(layout);

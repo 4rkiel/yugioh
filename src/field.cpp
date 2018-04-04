@@ -275,40 +275,7 @@ Field::Field () {
         arenaBox -> setLayout(arenaLayout);
         
 
-       // connect'ing cards to field
 
-        for (int k=0; k<150; k++){
-            if (fieldStack -> at(k) != nullptr){
-                
-                SlotCard * ptr = fieldStack -> at(k);
-
-                connect(
-                    ptr, SIGNAL(leftClick(int)),
-                    this, SLOT(cardClicked(int))
-                );
-
-                connect(
-                    ptr, SIGNAL(rightClick(int)),
-                    this, SLOT(cardRightClicked(int))
-                );
-
-                connect(
-                    ptr, SIGNAL(doubleClick(int)),
-                    this, SLOT(cardDoubleClicked(int))
-                );
-
-                connect(
-                    ptr, SIGNAL(entered(int)),
-                    this, SLOT(cardEntered(int))
-                );
-
-                connect(
-                    ptr, SIGNAL(leaved(int)),
-                    this, SLOT(cardLeaved(int))
-                );
-
-            }
-        }
 
 
 
@@ -418,6 +385,10 @@ Field::Field () {
     layout -> addWidget(infoBox, 0,0,1,3);
     layout -> addWidget(popup, 0, 0, 5, 3);
 
+    //key shortcut
+    shortcut = new QShortcut(QKeySequence("Escape"), this);
+    connect(shortcut, SIGNAL(activated()), popup, SLOT(openMenu()));
+
     setLayout(layout);
 
 }
@@ -513,6 +484,40 @@ void Field::init(){
     fullCard -> setVisible(false);
     stats -> setVisible(true);
     sideTool -> setVisible(true);
+    // connect'ing cards to field
+
+     for (int k=0; k<150; k++){
+         if (fieldStack -> at(k) != nullptr){
+
+             SlotCard * ptr = fieldStack -> at(k);
+
+             connect(
+                 ptr, SIGNAL(leftClick(int)),
+                 this, SLOT(cardClicked(int))
+             );
+
+             connect(
+                 ptr, SIGNAL(rightClick(int)),
+                 this, SLOT(cardRightClicked(int))
+             );
+
+             connect(
+                 ptr, SIGNAL(doubleClick(int)),
+                 this, SLOT(cardDoubleClicked(int))
+             );
+
+             connect(
+                 ptr, SIGNAL(entered(int)),
+                 this, SLOT(cardEntered(int))
+             );
+
+             connect(
+                 ptr, SIGNAL(leaved(int)),
+                 this, SLOT(cardLeaved(int))
+             );
+
+         }
+     }
 }
 
 
@@ -565,6 +570,7 @@ void Field::cardRightClicked(int x){
             lockPreview = true;
         }
     }
+
 }
 
 
@@ -603,6 +609,7 @@ void Field::cardOut (){
 
 void Field::cardDoubleClicked(int x){
     std::cout << x << " Double clicked \n"; 
+    emit doubleClicked(x);
 }
 
 void Field::cardClicked(int x){
@@ -729,6 +736,10 @@ void Field::rmCarte(int x){
     fieldStack -> at(x) -> rmPic();
 }
 
+void Field::switchCarte(int x){
+ std::cout << "WOW : at " << x << std::endl;
+	fieldStack -> at(x) -> turn();
+}
 
 
 
