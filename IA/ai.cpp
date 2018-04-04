@@ -1,15 +1,8 @@
-#include "../inc/ia.h"
+#include "../inc/ai.h"
 
 
-//function to calculate a random float between two floats
-float randomFloat(float a, float b)
-{
-    float random = ((float) rand()) / (float) RAND_MAX;
-    float diff = b - a;
-    float r = random * diff;
-    return a + r;
-}
-
+//CONSTRUCTOR DESTRUCTOR///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 
 //the neural network
@@ -18,7 +11,7 @@ float randomFloat(float a, float b)
  * synaps are the weights between neurons layer
  */
 //constructor: neural network initialisation
-Ia::Ia(int difficulty)
+Ai::Ai(int difficulty)
 {
     srand (time(NULL));
     nb_hidden_layer = 2;
@@ -36,16 +29,23 @@ Ia::Ia(int difficulty)
 
 
 //destructor
-Ia::~Ia()
+Ai::~Ai()
 {
     if(mode >= 11 && mode <= 14)
         save_ai();
 }
 
 
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
-//save the ia in a file according to the chosen mode
-void Ia::save_ai()
+
+//LOAD AND SAVE AI/////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+
+//save the ai in a file according to the chosen mode
+void Ai::save_ai()
 {
     int i,j,k;
     ofstream ai_file;
@@ -151,7 +151,7 @@ void Ia::save_ai()
 
 
 //load a trained AI from a file, according to the chosen difficulty
-void Ia::load_trained_ai(int difficulty)
+void Ai::load_trained_ai(int difficulty)
 {
     int i,j,k;
     float number;
@@ -178,7 +178,8 @@ void Ia::load_trained_ai(int difficulty)
             cout << "Error: no difficulty/mode selected" << endl;
             break;
     }
-    if(ai_file) {
+    if(ai_file)
+    {
         //hidden layers
         ///////////////
         for(k=0;k<nb_hidden_layer;k++)
@@ -257,16 +258,24 @@ void Ia::load_trained_ai(int difficulty)
         }
         //////////////
         ai_file.close();
-    } else {
+    }
+    else
+    {
         cout << "ERROR: cannot open ai file" << endl;
     }
 }
 
 
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+
+//INITIALISE///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 
 //start a new not trained AI
-void Ia::initialise_random_ai()
+void Ai::initialise_random_ai()
 {
     int i,j,k;
     //hidden layers
@@ -344,16 +353,24 @@ void Ia::initialise_random_ai()
 }
 
 
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+
+//INTERNAL FUNCTIONS///////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
 
 /*
  * compute the actions' q_values vector
  * takes in input the game state
  * and outputs the vector of the actions do to
  */
-void Ia::forward_propagation(Matrix<float,1,20> game_state)
+void Ai::forward_propagation(Matrix<float,1,20> game_state)
 {
     hidden_layers_values.at(0) = game_state * hidden_weights.at(0);
-    hidden_layers_values.at(1) = hidden_layers_values.at(0) * hidden_weights.at(1);
+    hidden_layers_values.at(1) = hidden_layers_values.at(0)
+        * hidden_weights.at(1);
     output_layer_values = hidden_layers_values.at(1) * output_weight;
 }
 
@@ -364,10 +381,11 @@ void Ia::forward_propagation(Matrix<float,1,20> game_state)
  * takes in input the future possible state
  * and outputs the vector of the actions it will be able to do
  */
-void Ia::test_forward_propagation(Matrix<float,1,20> game_state)
+void Ai::test_forward_propagation(Matrix<float,1,20> game_state)
 {
     test_hidden_layers_values.at(0) = game_state * hidden_weights.at(0);
-    test_hidden_layers_values.at(1) = test_hidden_layers_values.at(0) * hidden_weights.at(1);
+    test_hidden_layers_values.at(1) = test_hidden_layers_values.at(0)
+        * hidden_weights.at(1);
     test_output_layer_values = test_hidden_layers_values.at(1) * output_weight;
 }
 
@@ -377,7 +395,7 @@ void Ia::test_forward_propagation(Matrix<float,1,20> game_state)
  * Choose the action to do, according to the actions' q_value calculated.
  * More an action has a big q_value, more it has chance to be chosen
  */
-int Ia::choose_action(Matrix<float,1,10> actions)
+int Ai::choose_action(Matrix<float,1,10> actions)
 {
     srand (time(NULL));
     float choice = rand()%1;
@@ -399,22 +417,12 @@ int Ia::choose_action(Matrix<float,1,10> actions)
 
 
 
-//play without learn
-int Ia::play(Matrix<float,1,20> game_state)
-{
-    forward_propagation(game_state);
-    int action = choose_action(output_layer_values);
-    return action;
-}
-
-
-
 /*
  * compare the output of the neural network with the q_values of the
  * different next possible state, and update the weights of the neural
  * network
  */
-void Ia::backward_propagation(float q_targets[10])
+void Ai::backward_propagation(float q_targets[10])
 {
     int i,j,k;
     float local_cost=0;
@@ -479,23 +487,11 @@ void Ia::backward_propagation(float q_targets[10])
 
 
 
-//give the next game state, if the action is played
-Matrix<float,1,20> Ia::play_simulation(Matrix<float,1,20> game_state, int action)
-{
-    //TODO: connect to "Moteur"
-    if(action)
-    {
-    }
-    return game_state;
-}
-
-
-
 /*
  * test if the game state is a winning state, a losing state
  * or a neutral state
  */
-int Ia::test_win(Matrix<float,1,20> state)
+int Ai::test_win(Matrix<float,1,20> state)
 {
     return state(1,1);
 }
@@ -503,7 +499,7 @@ int Ia::test_win(Matrix<float,1,20> state)
 
 
 //give the maximun q_value of the tested next state
-float Ia::max_output_test()
+float Ai::max_output_test()
 {
     float max_value=0;
     int i;
@@ -516,7 +512,48 @@ float Ia::max_output_test()
 
 
 
-int Ia::play_learn(Matrix<float,1,20> game_state)
+//give the next game state, if the action is played
+Matrix<float,1,20> Ai::play_simulation(Matrix<float,1,20> game_state,
+        int action)
+{
+    //TODO: connect to "Moteur"
+    if(action)
+    {
+    }
+    return game_state;
+}
+
+
+
+//function to calculate a random float between two floats
+float randomFloat(float a, float b)
+{
+    float random = ((float) rand()) / (float) RAND_MAX;
+    float diff = b - a;
+    float r = random * diff;
+    return a + r;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+
+//USE AI///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+
+//play without learn
+int Ai::play(Matrix<float,1,20> game_state)
+{
+    forward_propagation(game_state);
+    int action = choose_action(output_layer_values);
+    return action;
+}
+
+
+
+int Ai::play_learn(Matrix<float,1,20> game_state)
 {
     Matrix<float,1,20> target_states[10];
     float q_targets[10];
@@ -528,7 +565,7 @@ int Ia::play_learn(Matrix<float,1,20> game_state)
     {
         //compute the next state if this action in chosen
         target_states[action] = play_simulation(game_state, action);
-
+        
         int test = test_win(target_states[action]);
         if(test == 1)
         {
@@ -559,3 +596,6 @@ int Ia::play_learn(Matrix<float,1,20> game_state)
     return chosen_action;
 }
 
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
