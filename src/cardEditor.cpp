@@ -197,7 +197,7 @@ void CardEditor::sauvegarder (){
     QString file = QCoreApplication::applicationDirPath()+"/sets/"+QString::number(nrSet->currentIndex())+".set";
     qDebug() << "SAVE: URL FICHIER ECRITURE CARTE: "+file;
 
-    QString imgURL = QCoreApplication::applicationDirPath()+"/img/cards/"+QString::number(nrSet->currentIndex())+"/"+QString::number(ID->value())+"."+QString::fromStdString(ext);
+    QString imgURL = QCoreApplication::applicationDirPath()+"/img/cards/"+QString::number(nrSet->currentIndex())+"/"+QString::number(ID->value());
     qDebug() << "SAVE: URL FICHIER ECRITURE IMG: "+imgURL;
 
     QFile *myfile = new QFile(file);

@@ -66,6 +66,8 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
         editCreate->setStyleSheet("border: 1px solid blue");
         mainL1->addWidget(editCreate);
         editCreate->setStyleSheet("background-color: #ECEFF1");
+        
+        
         QGridLayout *editCreateLayout = new QGridLayout;
         editCreate->setLayout(editCreateLayout);
 

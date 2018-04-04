@@ -34,15 +34,15 @@ Combo {
 	cardPreview 
 ******************************************************************/
 
-CardPreview #Monstre {
+#Monstre {
 	background: #FFC107;
 }
 
-CardPreview #Magie {
+#Magie {
 	background: #00BCD4;
 }
 
-CardPreview #Piege {
+#Piege {
 	background: #B39DDB;
 }
 

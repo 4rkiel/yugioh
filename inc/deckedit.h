@@ -26,7 +26,7 @@
 #include "duplica.h"
 #include "cardlistpreview.h"
 
-#define NBR_CARTE_DECK_VISU 60 // multiple de 10
+#define NBR_CARTE_DECK_VISU 40 // multiple de 10
 #define NBR_CARTE_EXTRA_DECK 15
 
 class deckEdit : public QWidget
@@ -71,12 +71,15 @@ class deckEdit : public QWidget
                                            tr("Rituel")};
         const QStringList attributList = {};
 
-        std::vector<QHBoxLayout *> *cardPreviewList;
-
         deckEdit(std::vector<Carte*> *allCard);
 
     private:
         void createEdit();
+
+        int indiceCarteDeck = 0;
+        int nbrCarteMonstre = 0;
+        int nbrCarteMagie = 0;
+        int nbrCartePiege = 0;
 
         QComboBox *selectDeck;
         QComboBox *choixGenre;
@@ -99,10 +102,16 @@ class deckEdit : public QWidget
         QPushButton *tabCardVisu[NBR_CARTE_DECK_VISU];
         QPushButton *tabExtraDeck[NBR_CARTE_EXTRA_DECK];
 
+        QLabel *deckLabel;
+        QLabel *infoMonstreLabel;
+        QLabel *infoMagieLabel;
+        QLabel *infoPiegeLabel;
+
     signals:
 
     public slots:
             void slotAttribut();
+            void addCard2Deck(Carte* carte);
 };
 
 #endif // DECKEDIT_H
