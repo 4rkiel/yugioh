@@ -714,6 +714,7 @@ void Field::setPhase (int x){
 
 void Field::setCarte(QString img, int x){
     fieldStack -> at(x) -> setPic(img);
+    std::cout << "WOW : " << img.toStdString() << " at " << x << std::endl;
 }
 
 void Field::poseCarte(int x){

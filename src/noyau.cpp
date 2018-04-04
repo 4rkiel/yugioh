@@ -6,6 +6,17 @@ Noyau::Noyau()
     terrain = new std::vector<Carte *>();
     cimetiere1 = new std::vector<Carte *>();
     cimetiere2 = new std::vector<Carte *>();
+
+}
+
+void Noyau::init()
+{
+    QSettings settings;
+    foeLife = settings.value("lifePoints","8000").toInt();
+    selfLife = foeLife;
+    chargerDeck(1);
+    deckAdverse(1);
+    piocher(1);
 }
 
 
@@ -64,11 +75,15 @@ if(position>75)
 //on enleve la carte du deck
 
 std::cout << "le traitement du piochage allié en cours " << std::endl;
-d1->front()->position_terrain = perfect_position(0);
+int dans_main = perfect_position(0);
+d1->front()->position_terrain = dans_main;
 terrain->push_back(d1->front());
+
 enlever_i(&d1,0);
 
 //prevenir le voisin
+emit visible(trouver(dans_main)->image,dans_main);
+std::cout << "faut piocher " << trouver(dans_main)->image.toStdString() << " là " << dans_main << std::endl;
 emit je_pioche();
 }
 else

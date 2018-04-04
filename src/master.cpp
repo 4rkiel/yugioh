@@ -67,7 +67,7 @@ Master::~Master (){
 
             //!\ LUCAS !!!! Ici pour detruire l'IA a la fermeture
             
-            delete ai;
+            //delete ia;
             
             // delete monPointeurIA
 
@@ -107,14 +107,17 @@ void Master::loadField (int x){
 
     // Field
 
-    noyau = new Noyau;
+
     field = new Field;
+    noyau = new Noyau;
+
+    noyau->init();
 
     if (mode >= 10 && mode <= 19){
 
         delete network;
         
-        ai = new Ai(x);
+       // ia = new Ia(x);
         
         // Tu peux utiliser le (int x) pour le niveau de l'IA
         // 11:easy
@@ -210,7 +213,7 @@ void MasterTask::masterLoop (){
 
 
 void Master::timeTicker(){
-    std::cout << "Tick\n";
+   // std::cout << "Tick\n";
 
     field -> setProgress();
 }
