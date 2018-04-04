@@ -107,8 +107,11 @@ void Master::loadField (int x){
 
     // Field
 
-    noyau = new Noyau;
     field = new Field;
+    noyau = new Noyau;
+
+	noyau -> init();
+
 
     if (mode >= 10 && mode <= 19){
 
