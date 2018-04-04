@@ -63,6 +63,7 @@ public slots:
     void poseCarte(int);
     void maskCarte(int);
     void rmCarte(int);
+	void switchCarte(int);
 
     void emitIntroStack();
     void emitAtk();

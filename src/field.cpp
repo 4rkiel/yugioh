@@ -736,6 +736,9 @@ void Field::rmCarte(int x){
     fieldStack -> at(x) -> rmPic();
 }
 
+void Field::switchCarte(int x){
+	fieldStack -> at(x) -> turn();
+}
 
 
 
