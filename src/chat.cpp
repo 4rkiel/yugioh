@@ -39,7 +39,10 @@ Chat::Chat(){
             layout -> setContentsMargins(0,0,0,0);
 
             label = new QLabel;
-            
+			label -> setWordWrap(true);
+			label->setMinimumWidth(1);
+
+
             labLayout -> addStretch();
 			labLayout -> addWidget(label);
 

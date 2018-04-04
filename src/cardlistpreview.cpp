@@ -9,6 +9,7 @@ CardListPreview::CardListPreview(Parser *parser)
 
     updateSearch(parser->all_cards);
     setLayout(mainLayout);
+    setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 }
 
 /* remplit le widget de CardPreview à partir d'un vecteur de carte */

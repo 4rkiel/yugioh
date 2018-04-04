@@ -12,6 +12,7 @@ CardPreview::CardPreview(const Carte *carte)
 
     QVBoxLayout *info = new QVBoxLayout;
     QPixmap *image = new QPixmap(carte->image);
+    *image = image->scaled (QSize(200, 180), Qt::KeepAspectRatio);
     qDebug() << carte->image;
     QLabel *imageLabel = new QLabel;
     imageLabel->setPixmap(*image);
@@ -20,10 +21,18 @@ CardPreview::CardPreview(const Carte *carte)
     for(int i=0; i<INFOLABEL_MAX; i++)
     {
         tabInfoLabel[i] = new QLabel(infoList.at(i));
+        tabInfoLabel[i]->setWordWrap(true);
         info->addWidget(tabInfoLabel[i]);
         if((i == GENRE && tabInfoLabel[GENRE]->text() != genreList.at(0)))
             break; // si la carte n'est pas un monstre, on affiche pas ses stats
     }
+
+    if(tabInfoLabel[GENRE]->text() == genreList.at(0))
+        setObjectName("Monstre");
+    else if(tabInfoLabel[GENRE]->text() == genreList.at(1))
+        setObjectName("Magie");
+    else
+        setObjectName("Piege");
 
     mainLayout->addWidget(imageLabel);
     mainLayout->addLayout(info);
