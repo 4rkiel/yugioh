@@ -67,7 +67,7 @@ Master::~Master (){
 
             //!\ LUCAS !!!! Ici pour detruire l'IA a la fermeture
             
-            delete ia;
+            delete ai;
             
             // delete monPointeurIA
 
@@ -107,14 +107,17 @@ void Master::loadField (int x){
 
     // Field
 
-    noyau = new Noyau;
     field = new Field;
+    noyau = new Noyau;
+
+	noyau -> init();
+
 
     if (mode >= 10 && mode <= 19){
 
         delete network;
         
-        ia = new Ia(x);
+        ai = new Ai(x);
         
         // Tu peux utiliser le (int x) pour le niveau de l'IA
         // 11:easy

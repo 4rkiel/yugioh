@@ -5,24 +5,47 @@ QToolTip {
     border: none;
 }
 
+
+
+
+
+
 /*****************************************************************
     editeur_de_carte
 ******************************************************************/
 
-editeur_de_carte {
+cardEditor {
 	border: none;
 	outline: none;
 	border-radius: 3px;
 	background: #607D8B;
 }
 
-QComboBox {
+Combo {
 	color: #263238;
 	border: 1px solid gray;
 	border-radius: 3px;
 	padding: 1px 18px 1px 3px;
 	min-width: 6em;
 }
+
+
+/******************************************************************
+	cardPreview 
+******************************************************************/
+
+CardPreview #Monstre {
+	background: #FFC107;
+}
+
+CardPreview #Magie {
+	background: #00BCD4;
+}
+
+CardPreview #Piege {
+	background: #B39DDB;
+}
+
 
 
 /*****************************************************************

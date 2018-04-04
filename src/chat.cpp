@@ -39,7 +39,10 @@ Chat::Chat(){
             layout -> setContentsMargins(0,0,0,0);
 
             label = new QLabel;
-            
+			label -> setWordWrap(true);
+			label->setMinimumWidth(1);
+
+
             labLayout -> addStretch();
 			labLayout -> addWidget(label);
 
@@ -108,8 +111,8 @@ void Chat::sendMsg(){
 	}
 
 	if (check){
-        if(!input->text().startsWith("#"))
-        emit msgSent("#"+input -> text());
+        if(!input->text().startsWith("þ"))
+        emit msgSent("þ"+input -> text());
 	}
 
 	input -> setText("");    
