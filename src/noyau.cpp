@@ -545,11 +545,13 @@ void Noyau::traiter(QString s)
          valeur = atoi(vrai.c_str());
          switch_position(valeur);
     }
-    else if(s.startsWith("#"))
+    else if(s.startsWith("þ"))
     {
         std::cout << "chat marche" << std::endl;
         QStringRef* cut = new QStringRef(&s,1,s.length()-1);
-            emit chat(cut->toString());
+        QString message = "Adversaire :";
+        message.append(cut->toString());
+            emit chat(message);
     }
 
 }
