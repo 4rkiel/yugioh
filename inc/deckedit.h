@@ -71,15 +71,21 @@ class deckEdit : public QWidget
                                            tr("Rituel")};
         const QStringList attributList = {};
 
-        deckEdit(std::vector<Carte*> *allCard);
+        deckEdit(/*std::vector<Carte*> *allCard*/);
 
     private:
         void createEdit();
+
+        void updateDeckVisu();
+
+        void updateDeckVisuLastCard();
 
         int indiceCarteDeck = 0;
         int nbrCarteMonstre = 0;
         int nbrCarteMagie = 0;
         int nbrCartePiege = 0;
+
+        std::vector<Carte*> deck;
 
         QComboBox *selectDeck;
         QComboBox *choixGenre;
@@ -99,7 +105,7 @@ class deckEdit : public QWidget
 
         QPushButton *effectBoxBut;
         QPushButton *tabBut[NBR_BUTTON_DECK_EDIT];
-        QPushButton *tabCardVisu[NBR_CARTE_DECK_VISU];
+        std::vector<QPushButton *> tabCardVisu;
         QPushButton *tabExtraDeck[NBR_CARTE_EXTRA_DECK];
 
         QLabel *deckLabel;
@@ -112,6 +118,7 @@ class deckEdit : public QWidget
     public slots:
             void slotAttribut();
             void addCard2Deck(Carte* carte);
+            void rmvCard2Deck();
 };
 
 #endif // DECKEDIT_H
