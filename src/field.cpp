@@ -289,80 +289,31 @@ Field::Field () {
         rightBarLayout -> setSpacing(0);
         rightBarLayout -> setMargin(0);
         rightBarLayout -> setAlignment(Qt::AlignCenter);
-        rightBarLayout -> setContentsMargins(10, 10, 10, 0);
+        rightBarLayout -> setContentsMargins(10, 10, 10, 10);
 
-          
-    /*
-            QSpacerItem * spacerRightTop = new QSpacerItem(5,1,
-                QSizePolicy::Preferred,QSizePolicy::Expanding);
-            rightBarLayout -> addItem(spacerRightTop, 1, 0);
-    */            
             
             // Sidebar
-
             side = new QWidget;
             side -> setObjectName("sidebar");
-            side -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+            side -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
             sidebar = new QGridLayout;   
             sidebar -> setSpacing(0);
             sidebar -> setMargin(0);
             sidebar -> setContentsMargins(0,0,0,0);
 
-                sideTool = new QWidget;
-                sideTool -> setObjectName("sideSelector");
-                sideTool -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
-
-                sideToolLayout = new QGridLayout;
-                sideToolLayout -> setMargin(0);
-                sideToolLayout -> setSpacing(0);
-                sideToolLayout -> setContentsMargins(0,0,0,0);
-
-                    statsButt = new FlatButt("\uf277","");
-                    statsButt -> setToolTip(tr("Informations du Duel"));
-                    statsButt -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-                    connect(statsButt, SIGNAL(clicked()), this, SLOT(setStats()));
-                    sideToolLayout -> addWidget(statsButt, 0, 0);
-                    
-                    chatButt = new FlatButt("\uf086","");
-                    chatButt -> setToolTip(tr("Chat et Historique"));
-                    chatButt -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-                    connect(chatButt, SIGNAL(clicked()), this, SLOT(setChat()));
-                    sideToolLayout -> addWidget(chatButt, 0, 1);
-
-                    currentButt = statsButt;
-                    currentButt -> setProperty("down", true);
-
-                sideTool -> setVisible(false);
-                sideTool -> setLayout(sideToolLayout);
-                    
-                sidebar -> addWidget(sideTool, 0, 0, 1, 1);
-
-
+            
                 fullCard = new Duplica;
                 fullCard -> setVisible(false);
                 connect(fullCard, SIGNAL(clicked()), this, SLOT(previewClicked()));
                 sidebar -> addWidget(fullCard, 0, 0, 10, 1);
 
-
-                stats = new Stats;
-                stats -> setVisible(false);
-                sidebar -> addWidget(stats, 1, 0, 9, 1);
-
                 chat = new Chat;
-                chat -> setVisible(false);
-                sidebar -> addWidget(chat, 1, 0, 9, 1);
+                sidebar -> addWidget(chat, 0, 0, 10, 1);
 
                 connect(chat, SIGNAL(msgSent(QString)), this, SLOT(sendMsg(QString)));
-                currentSide = stats;
 
             side -> setLayout(sidebar);
-            rightBarLayout -> addWidget(side, 2, 0, 1, 5);
-
-
-            actionButt = new ShadowButt("\uf079", "");
-            actionButt -> setToolTip(tr("Terminer le tour"));
-            rightBarLayout -> addWidget(actionButt, 4, 3, 1, 1);
-            connect(actionButt, SIGNAL(clicked()), this, SLOT(test()));
+            rightBarLayout -> addWidget(side, 0, 0, 1, 1);
 
 
            
@@ -396,21 +347,12 @@ Field::Field () {
 
 Field::~Field (){
 
-            delete statsButt;
-            delete chatButt;
-
-            delete sideToolLayout;
-            delete sideTool;
-
-            delete stats;
             delete chat;
 
             delete fullCard;
             
             delete sidebar;
             delete side;
-
-            delete actionButt;
 
         delete rightBarLayout;
         delete rightBarBox;
@@ -481,9 +423,9 @@ Field::~Field (){
 
 
 void Field::init(){
+    
     fullCard -> setVisible(false);
-    stats -> setVisible(true);
-    sideTool -> setVisible(true);
+    
     // connect'ing cards to field
 
      for (int k=0; k<150; k++){
@@ -521,6 +463,7 @@ void Field::init(){
 }
 
 
+
 /* Popup functions */
 
 void Field::emitIntroStack (){
@@ -538,6 +481,7 @@ void Field::emitAtk (){
 void Field::emitDef (){
     emit sendDef();
 }
+
 
 
 /* Lock Preview */
@@ -587,8 +531,7 @@ void Field::cardHover (){
     fullCard -> setStat("3000","2500");
 
     if (!lockPreview){
-        sideTool -> setVisible(false);
-        currentSide -> setVisible(false);
+        chat -> setVisible(false);
         fullCard -> setVisible(true);
     }
 }
@@ -598,8 +541,7 @@ void Field::cardOut (){
 
     if (!lockPreview){
         fullCard -> setVisible(false);
-        currentSide -> setVisible(true);
-        sideTool -> setVisible(true);
+        chat -> setVisible(true);
     }
 }
 
@@ -660,42 +602,7 @@ void Field::cardLeaved(int x){
 
 
 
-
 /* SideBar */
-
-void Field::setRightBox (QWidget * w, QWidget * b){
-
-    currentSide -> setVisible(false);
-    currentButt -> setProperty("down", false);
-    w -> setVisible(true);
-    b -> setProperty("down", true);
-
-    currentButt -> style() -> unpolish(currentButt);
-    currentButt -> style() -> polish(currentButt);
-
-    b -> style() -> unpolish(b);
-    b -> style() -> polish(b);
-
-
-    currentButt = b;
-    currentSide = w;
-}
-
-
-void Field::setStats (){
-    
-    setRightBox(stats, statsButt);
-}
-
-void Field::setChat (){
-
-    setRightBox(chat, chatButt);
-}
-
-
-void Field::setProgress (){
-    stats -> incProgress();
-}
 
 void Field::sendMsg (QString str){
 
@@ -708,20 +615,28 @@ void Field::sendMsg (QString str){
     }
 }
 
+
+
+/* Info */
+
+void Field::setProgress (){
+//    stats -> incProgress();
+}
+
 void Field::setTour (int x){
-    stats -> setTour(x);
+//    stats -> setTour(x);
 }
 
 void Field::setPhase (int x){
-    stats -> setPhase(x);
+//    stats -> setPhase(x);
 }
+
 
 
 /* Card placements */
 
 void Field::setCarte(QString img, int x){
     fieldStack -> at(x) -> setPic(img);
-    std::cout << "WOW : " << img.toStdString() << " at " << x << std::endl;
 }
 
 void Field::poseCarte(int x){
@@ -737,34 +652,7 @@ void Field::rmCarte(int x){
 }
 
 void Field::switchCarte(int x){
- std::cout << "WOW : at " << x << std::endl;
 	fieldStack -> at(x) -> turn();
 }
 
 
-
-/* Change Life */
-
-
-
-
-
-
-
-
-void Field::test (){
-
-    fieldStack -> at(79) -> setPic("img/cards/001/LOB-EN125-GaiatheDragonChampion.jpg");
-    fieldStack -> at(3) -> posePic();
-    fieldStack -> at(10) -> maskPic();
-
-    setPhase(1);
-    setTour(1);
-
-    QString lfe = "4000";
-    lifeAdv -> setText(lfe);
-    lifeSlf -> setText(lfe);
-
-    progressAdv -> setValue(lfe.toInt());
-    progressSlf -> setValue(lfe.toInt());
-}

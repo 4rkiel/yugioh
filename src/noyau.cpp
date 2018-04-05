@@ -715,11 +715,8 @@ void Noyau::traiter(QString s)
     }
     else if(s.startsWith("þ"))
     {
-        std::cout << "chat marche" << std::endl;
         QStringRef* cut = new QStringRef(&s,1,s.length()-1);
-        QString message = "Adversaire :";
-        message.append(cut->toString());
-            emit chat(message);
+        emit chat(cut->toString());
     }
 
 }

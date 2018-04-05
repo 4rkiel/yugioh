@@ -49,11 +49,7 @@ public:
 
 public slots:
 
-    void test();
-
     void setProgress();
-    void setChat();
-    void setStats();
 
     void setPhase(int);
     void setTour(int);
@@ -87,12 +83,11 @@ signals:
 	void doubleClicked(int);
 	void biClick(int, int);
 
+
 private:
     
     void cardHover();
     void cardOut();
-
-    void setRightBox(QWidget *, QWidget *);
 
     int retained;
     bool lockPreview;
@@ -157,24 +152,11 @@ private:
         QWidget * rightBarBox;
         QGridLayout * rightBarLayout;
     
-            ShadowLab * intel;
-            ShadowButt * actionButt;
-
-            QWidget * sideTool;
-            QGridLayout * sideToolLayout;
-
-                QWidget * currentButt;
-                FlatButt * statsButt;
-                FlatButt * chatButt;
-
             QWidget * side;
             QGridLayout * sidebar;
 
                 Duplica * fullCard;
-                QWidget * currentSide;
-                Stats * stats;
                 Chat * chat;
-
 
 };
 

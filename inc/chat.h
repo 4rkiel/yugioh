@@ -9,12 +9,13 @@
 #include <QVBoxLayout>
 
 #include <QLabel>
+#include <QTextEdit>
 #include <QString>
 #include <QLineEdit>
 #include <QTime>
 #include <QShortcut>
 
-#include "../inc/shadowButt.h"
+#include "../inc/darkButt.h"
 
 class Chat : public QFrame {
 
@@ -38,7 +39,7 @@ public slots:
 
 private:
 
-    QVector <QLabel> v;
+    int last;
 
     QGridLayout * layout;
 
@@ -46,9 +47,9 @@ private:
     QScrollArea * labelBox;
     QWidget * labInner;
     QVBoxLayout * labLayout;
-    QLabel * label;
+    QTextEdit * label;
     QLineEdit * input;
-    ShadowButt * send;
+    DarkButt * send;
 
 };
 

@@ -53,6 +53,7 @@ HEADERS += inc/buildtab.h \
            inc/flatButt.h \
            inc/flatExpButt.h \
            inc/shadowButt.h \
+           inc/darkButt.h \
            inc/shadowLab.h \
            inc/superButt.h \
            inc/popup.h \
@@ -92,6 +93,7 @@ SOURCES += src/buildtab.cpp \
            src/ruletab.cpp \
            src/flatButt.cpp \
            src/flatExpButt.cpp \
+           src/darkButt.cpp \
            src/shadowButt.cpp \
            src/shadowLab.cpp \
            src/superButt.cpp \

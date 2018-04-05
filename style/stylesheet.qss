@@ -53,6 +53,7 @@ Combo {
 ******************************************************************/
 
 
+DarkButt,
 ShadowButt {
     border: none;
     outline: none;
@@ -60,16 +61,20 @@ ShadowButt {
     background: #CFD8DC;
 }
 
+DarkButt QLabel,
 ShadowButt QLabel {
     color: #000;
     margin: 0 10px;
 }
 
+DarkButt:hover,
+DarkButt:focus,
 ShadowButt:hover, 
 ShadowButt:focus {
     background: #FFD54F;
 }
 
+DarkButt:pressed,
 ShadowButt:pressed {
     background: #FFCA28;
 }
@@ -432,6 +437,7 @@ Field {
     background: #263238;
 }
 
+Field DarkButt,
 Field ShadowButt {
     padding: 5px 10px;
     margin: 10px;
@@ -448,8 +454,7 @@ Field #infoBox > * {
 }
 
 Field #infoBox #lifeBox {
-    margin: 5px;
-    background: #ECEFF1;
+    background: #9FA8DA;
 }
 
 Field #infoBox #lifeBox QLabel {
@@ -468,15 +473,14 @@ Field #infoBox FlatButt QLabel {
 Field #infoBox QProgressBar {
     margin: 10px;
     border: 0px solid #5C6BC0;
-    border-bottom: 2px solid #5C6BC0;
     border-radius: 0px;
-    background: #ECEFF1;
+    background: #5C6BC0;
     text-align: center;
+    height: 3px;
 }
 
 Field #infoBox QProgressBar::chunk{
     background: #FFE082;
-    margin: 5px 0 0 0;
     border-radius: 0px;
     border: none;
 }
@@ -520,6 +524,8 @@ Field #infoBox QProgressBar::chunk{
     border: 0px solid #455A64;
     border-bottom: 1px solid #455A64;
 }
+
+
 
 
 #rightBarBox QProgressBar {

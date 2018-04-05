@@ -176,7 +176,7 @@ void Master::loadField (int x){
 
     connect(noyau, SIGNAL(destruction(int)), field, SLOT(rmCarte(int)));
     connect(field,SIGNAL(sendAtk()),noyau,SLOT(poserAtk()));
-        connect(field,SIGNAL(sendDef()),noyau,SLOT(poserDef()));
+    connect(field,SIGNAL(sendDef()),noyau,SLOT(poserDef()));
 
 
 
