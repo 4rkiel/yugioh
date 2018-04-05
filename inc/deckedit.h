@@ -27,7 +27,7 @@
 #include "cardlistpreview.h"
 
 #define NBR_CARTE_DECK_VISU 40 // multiple de 10
-#define NBR_CARTE_EXTRA_DECK 15
+#define NBR_CARTE_EXTRA_DECK 10
 
 class deckEdit : public QWidget
 {
@@ -80,12 +80,19 @@ class deckEdit : public QWidget
 
         void updateDeckVisuLastCard();
 
+        void updateExtraDeckVisu();
+
+        void updateExtraDeckVisuLastCard();
+
         int indiceCarteDeck = 0;
         int nbrCarteMonstre = 0;
         int nbrCarteMagie = 0;
         int nbrCartePiege = 0;
 
+        int indiceCarteExtraDeck = 0;
+
         std::vector<Carte*> deck;
+        std::vector<Carte*> extraDeck;
 
         QComboBox *selectDeck;
         QComboBox *choixGenre;
@@ -106,12 +113,13 @@ class deckEdit : public QWidget
         QPushButton *effectBoxBut;
         QPushButton *tabBut[NBR_BUTTON_DECK_EDIT];
         std::vector<QPushButton *> tabCardVisu;
-        QPushButton *tabExtraDeck[NBR_CARTE_EXTRA_DECK];
+        std::vector<QPushButton *> tabExtraDeck;
 
         QLabel *deckLabel;
         QLabel *infoMonstreLabel;
         QLabel *infoMagieLabel;
         QLabel *infoPiegeLabel;
+        QLabel *infoFusionLabel;
 
     signals:
 
