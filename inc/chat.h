@@ -43,7 +43,6 @@ private:
 
     QGridLayout * layout;
 
-    QLabel * title;
     QScrollArea * labelBox;
     QWidget * labInner;
     QVBoxLayout * labLayout;

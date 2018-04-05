@@ -19,13 +19,6 @@ Chat::Chat(){
     layout -> setContentsMargins(0,0,0,0);
 
 
-        title = new QLabel;
-		title -> setObjectName("sideTitle");
-        title -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
-        title -> setText(tr("Chat"));
-
-    layout -> addWidget(title, 0, 0, 1, 4);
-
 /*
         labelBox = new QScrollArea;
         labelBox -> setFrameShape(QFrame::NoFrame);
@@ -84,7 +77,6 @@ Chat::Chat(){
 
 Chat::~Chat(){
 
-    delete title;
     delete label;
 //    delete labLayout;
 //    delete labInner;
