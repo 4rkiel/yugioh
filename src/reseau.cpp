@@ -146,6 +146,8 @@ void Reseau::envoyer(const QString &message)
     // Envoi du paquet préparé à tous les clients connectés au serveur
     socket->write(paquet);
     socket->flush();
+
+    socket->waitForBytesWritten(-1);
 }
 
 void Reseau::transmettre(QString chaine)
