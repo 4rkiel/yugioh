@@ -489,7 +489,7 @@ void Field::init(){
 
              connect(
                  ptr, SIGNAL(leaved(int)),
-                 this, SLOT(cardLeaved(int))
+                 this, SLOT(cardLeaved())
              );
 
          }
