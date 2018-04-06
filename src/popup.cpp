@@ -105,7 +105,7 @@ Popup::Popup (){
         menuOuterLayout -> addWidget(quitBox, 0, 0, 1, 1);
 
 
-
+/*
         // Menu
 
         menuBox = new QWidget;
@@ -131,6 +131,10 @@ Popup::Popup (){
 
 
         menuOuterLayout -> addWidget(menuBox, 0, 0, 1, 1);
+
+*/
+        
+        
         menuOuter -> setLayout(menuOuterLayout);
 
 
@@ -162,11 +166,12 @@ Popup::~Popup (){
         delete quitLayout;
         delete quitBox;
 
-            delete quit;
-            delete back;
+        //    delete quit;
+        //    delete back;
 
-        delete menuLayout;
-        delete menuBox;
+        //delete menuLayout;
+        //delete menuBox;
+        
         delete menuOuterLayout;
         delete menuOuter;
 
@@ -187,14 +192,10 @@ void Popup::emitIntroStack (){
 
 
 void Popup::openPosi (){
-    setVisible(true);
+    
+    openMenu();
     posiBox -> setVisible(true);
     posino -> setFocus();
-}
-
-void Popup::closePosi (){
-    posiBox -> setVisible(false);
-    setVisible(false);
 }
 
 void Popup::atkMode (){
@@ -204,32 +205,34 @@ void Popup::atkMode (){
 
 void Popup::defMode (){
     emit sendDef();
-     closePosi();
+    closePosi();
 }
 
+void Popup::closePosi (){ 
+    closeMenu();
+}
+
+
 void Popup::openQuit (){
-    menuBox -> setVisible(false);
+    
+    openMenu();
     quitBox -> setVisible(true);
     quitno -> setFocus();
 }
 
 void Popup::closeQuit (){
-    quitBox -> setVisible(false);
-    menuBox -> setVisible(true);
-    back -> setFocus();
+    closeMenu();
 }
 
 
 void Popup::openMenu (){
     setVisible(true);
-    menuBox -> setVisible(true);
-    back -> setFocus();
 }
 
 void Popup::closeMenu (){
+    
     posiBox -> setVisible(false);
     quitBox -> setVisible(false);
-    menuBox -> setVisible(false);
     setVisible(false);
 }
 

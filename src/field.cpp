@@ -14,6 +14,7 @@ Field::Field () {
 
     retained = -1;
 
+    maxPhase = 20 * 10;
 
     layout = new QGridLayout;
     layout -> setSpacing(0);
@@ -40,29 +41,28 @@ Field::Field () {
 
             // Info
 
-//            infoLayout -> addStretch(3);
-
             lifeBox = new QWidget;
             lifeBox -> setObjectName("lifeBox");
             lifeBox -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-            lifeLayout = new QHBoxLayout;
-
+            lifeLayout = new QGridLayout;
             lifeLayout -> setSpacing(0);
             lifeLayout -> setMargin(0);
+            lifeLayout -> setContentsMargins(0,0,0,0);
         
             QSettings settings;
             baseLife = settings.value("lifePoints", "8000").toString();
             int bl = baseLife.toInt();
 
             lifeSlf = new QLabel;
+            lifeSlf -> setObjectName("lifeLabel");
             lifeSlf -> setText(baseLife);
-            lifeLayout -> addWidget(lifeSlf);
+            lifeSlf -> setAlignment(Qt::AlignCenter); 
+            lifeLayout -> addWidget(lifeSlf, 0,0,1,1);
             
             icoSlf = new QLabel;
-            icoSlf -> setFont(QFont("Font Awesome 5 Free", 12));
-            icoSlf -> setText("\uf103");
-            lifeLayout -> addWidget(icoSlf);
-
+            icoSlf -> setText(tr("Vous"));
+            icoSlf -> setAlignment(Qt::AlignVCenter|Qt::AlignLeft);
+            lifeLayout -> addWidget(icoSlf, 0,1,1,1);
 
             progressSlf = new QProgressBar;
             progressSlf -> setRange(0,bl);
@@ -70,33 +70,65 @@ Field::Field () {
             progressSlf -> setOrientation(Qt::Horizontal);
             progressSlf -> setTextVisible(false);
             progressSlf -> setValue(bl);
-            lifeLayout -> addWidget(progressSlf);
+            lifeLayout -> addWidget(progressSlf, 1,0,1,2);
            
-
+            //
+            
             icoLife = new QLabel;
-            icoLife -> setFont(QFont("Font Awesome 5 Free", 12));
-            icoLife -> setText("\uf0e7");
-            lifeLayout -> addWidget(icoLife);
+            icoLife -> setObjectName("phaseBox");
+            icoLife -> setText("Tour\n0");
+            icoLife -> setAlignment(Qt::AlignCenter);
+            lifeLayout -> addWidget(icoLife, 0,2,1,2);
+
+            
+            progressLeft = new QProgressBar;
+            progressLeft -> setObjectName("phaseLeft");
+            progressLeft -> setRange(0,maxPhase);
+            progressLeft -> setInvertedAppearance(true);
+            progressLeft -> setOrientation(Qt::Horizontal);
+            progressLeft -> setTextVisible(false);
+            progressLeft -> setValue(0);
+            progressLeft -> setMaximumWidth(50);
+            lifeLayout -> addWidget(progressLeft, 1,2,1,1);
 
 
-//            infoLayout -> addStretch(1);
+            progressRight = new QProgressBar;
+            progressRight -> setObjectName("phaseRight");
+            progressRight -> setRange(0,maxPhase);
+            progressRight -> setOrientation(Qt::Horizontal);
+            progressRight -> setTextVisible(false);
+            progressRight -> setValue(0);
+            progressRight -> setMaximumWidth(50);
+            lifeLayout -> addWidget(progressRight, 1,3,1,1);
 
+            //
+            
             progressAdv = new QProgressBar;
             progressAdv -> setRange(0,bl);
             progressAdv -> setOrientation(Qt::Horizontal);
             progressAdv -> setTextVisible(false);
             progressAdv -> setValue(bl);
-            lifeLayout -> addWidget(progressAdv);
+            lifeLayout -> addWidget(progressAdv, 1,4,1,2);
 
 
             icoAdv = new QLabel;
-            icoAdv -> setFont(QFont("Font Awesome 5 Free", 12));
-            icoAdv -> setText("\uf102");
-            lifeLayout -> addWidget(icoAdv);
+            icoAdv -> setText(tr("Adversaire"));
+            icoAdv -> setAlignment(Qt::AlignVCenter|Qt::AlignRight);
+            lifeLayout -> addWidget(icoAdv, 0,4,1,1);
 
             lifeAdv = new QLabel;
+            lifeAdv -> setObjectName("lifeLabel");
             lifeAdv -> setText(baseLife);
-            lifeLayout -> addWidget(lifeAdv);
+            lifeAdv -> setAlignment(Qt::AlignCenter);
+            lifeLayout -> addWidget(lifeAdv, 0,5,1,1);
+
+            lifeLayout -> setColumnStretch(0,5);
+            lifeLayout -> setColumnStretch(1,20);
+            lifeLayout -> setColumnStretch(2,1);
+            lifeLayout -> setColumnStretch(3,1);
+            lifeLayout -> setColumnStretch(4,20);
+            lifeLayout -> setColumnStretch(5,5);
+
 
             lifeBox -> setLayout(lifeLayout);
             infoLayout -> addWidget(lifeBox);
@@ -106,8 +138,8 @@ Field::Field () {
 
             // Quit Button
             
-            menuButt = new FlatButt("\uf0c9", "");
-            menuButt -> setToolTip("Menu");
+            menuButt = new FlatButt("\uf00d", "");
+            menuButt -> setToolTip(tr("Quitter la partie"));
             menuButt -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
             infoLayout -> addWidget(menuButt);
 
@@ -135,7 +167,7 @@ Field::Field () {
     connect(popup, SIGNAL(sendAtk()), this, SLOT(emitAtk()));
     connect(popup, SIGNAL(sendDef()), this, SLOT(emitDef()));
 
-    connect(menuButt, SIGNAL(clicked()), popup, SLOT(openMenu()));
+    connect(menuButt, SIGNAL(clicked()), popup, SLOT(openQuit()));
 
 
 
@@ -338,7 +370,7 @@ Field::Field () {
 
     //key shortcut
     shortcut = new QShortcut(QKeySequence("Escape"), this);
-    connect(shortcut, SIGNAL(activated()), popup, SLOT(openMenu()));
+    connect(shortcut, SIGNAL(activated()), popup, SLOT(openQuit()));
 
     setLayout(layout);
 
@@ -406,6 +438,8 @@ Field::~Field (){
     delete lifeAdv;
     delete progressAdv;
     delete icoLife;
+    delete progressRight;
+    delete progressLeft;
     delete icoSlf;
     delete lifeSlf;
     delete progressSlf;
@@ -615,13 +649,29 @@ void Field::sendMsg (QString str){
     }
 }
 
+void Field::sendInfo (QString str){
+    chat -> addText(str, 0);
+}
 
 
 /* Info */
 
 void Field::setProgress (){
-//    stats -> incProgress();
+    progressRight -> setValue((progressRight -> value() + 1)%maxPhase);
+    progressLeft -> setValue((progressLeft -> value() + 1)%maxPhase);
+
+    progressLeft -> repaint();
+    progressRight -> repaint();
 }
+
+void Field::resetProgress (){
+    progressRight -> reset();
+    progressLeft -> reset();
+
+    progressLeft -> repaint();
+    progressRight -> repaint();
+}
+
 
 void Field::setTour (int x){
 //    stats -> setTour(x);

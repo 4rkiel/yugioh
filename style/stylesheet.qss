@@ -457,13 +457,12 @@ Field #infoBox #lifeBox {
     background: #9FA8DA;
 }
 
-Field #infoBox #lifeBox QLabel {
-    margin: 0 15px;
+Field #infoBox #phaseBox {
+    background: #C5CAE9;
 }
 
-Field #infoBox QProgressBar {
-    min-width: 150px;
-    max-width: 500px;
+Field #infoBox #lifeBox #lifeLabel {
+    font-weight: bold;
 }
 
 Field #infoBox FlatButt QLabel {
@@ -471,18 +470,28 @@ Field #infoBox FlatButt QLabel {
 }
 
 Field #infoBox QProgressBar {
-    margin: 10px;
     border: 0px solid #5C6BC0;
     border-radius: 0px;
     background: #5C6BC0;
     text-align: center;
-    height: 3px;
+    min-height: 3px;
+    max-height: 3px;
 }
 
 Field #infoBox QProgressBar::chunk{
     background: #FFE082;
     border-radius: 0px;
     border: none;
+}
+
+Field #infoBox #phaseLeft,
+Field #infoBox #phaseRight {
+    background: #FFF8E1;
+}
+
+Field #infoBox #phaseLeft::chunk,
+Field #infoBox #phaseRight::chunk {
+    background: #FF8F00;
 }
 
 

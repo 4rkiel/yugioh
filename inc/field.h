@@ -50,10 +50,11 @@ public:
 public slots:
 
     void setProgress();
-
+    void resetProgress();
     void setPhase(int);
     void setTour(int);
 	void sendMsg(QString);
+	void sendInfo(QString);
 
     void setCarte(QString, int);
     void poseCarte(int);
@@ -90,6 +91,7 @@ private:
     void cardOut();
 
     int retained;
+    int maxPhase;
     bool lockPreview;
     QString baseLife;
     
@@ -102,11 +104,13 @@ private:
         QHBoxLayout * infoLayout;
 
         QWidget * lifeBox;
-        QHBoxLayout * lifeLayout;
+        QGridLayout * lifeLayout;
         QLabel * lifeAdv;
         QLabel * icoAdv;
         QProgressBar * progressAdv;
         QLabel * icoLife;
+        QProgressBar * progressLeft;
+        QProgressBar * progressRight;
         QLabel * lifeSlf;
         QLabel * icoSlf;
         QProgressBar * progressSlf;
