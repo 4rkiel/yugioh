@@ -382,6 +382,7 @@ deckEdit::deckEdit(/*std::vector<Carte *> *allCard*/)
     setLayout(mainLayout);
 
     connect(tabBut[SAUVER], SIGNAL(clicked()), this, SLOT(sauvegarder()));
+    connect(tabBut[CREER], SIGNAL(clicked()), this, SLOT(creer()));
 }
 
 void deckEdit::updateDeckVisu()
@@ -575,7 +576,7 @@ void deckEdit::sauvegarder()
     {// chemin  corrompue
         QMessageBox::information(this, tr("echec de la sauvegarde"), tr("Le deck ") +
                                  selectDeck->currentText() + tr(" n'a pas pu être sauvegardé."),
-                                     QMessageBox::Yes);
+                                     QMessageBox::Ok);
     }
 
     QTextStream in(myfile);
@@ -599,7 +600,34 @@ void deckEdit::sauvegarder()
 
     QMessageBox::information(this, tr("youpi !"), tr("Le deck ") +
                              selectDeck->currentText() + tr(" à était enregistré."),
-                                 QMessageBox::Yes);
+                             QMessageBox::Ok);
+}
+
+void deckEdit::creer()
+{
+    std::vector<QString> list;
+    for(auto i=0; i<selectDeck->count(); i++)
+    {
+        list.push_back(selectDeck->itemText(i));
+    }
+
+    if(std::find(list.begin(), list.end(), newDeck->text()) != list.end())
+    { // deck already exist
+        QMessageBox::information(this, tr("M-Masaka !"), tr("Impossible de créer le deck \"")
+                                + newDeck->text() +tr("\": le deck existe déjà."),
+                                    QMessageBox::Ok);
+          return;
+    }
+
+    QFile myfile(deckRep + newDeck->text() + QString(".deck"));
+    if(!myfile.open(QIODevice::WriteOnly | QIODevice::Append))
+    {// chemin  corrompue
+        QMessageBox::information(this, tr("echec de la sauvegarde"), tr("echec de la création du deck"),
+                                     QMessageBox::Ok);
+    }
+
+    selectDeck->addItem(newDeck->text());
+    selectDeck->setCurrentIndex(selectDeck->findText(newDeck->text()));
 }
 
 void deckEdit::slotAttribut()

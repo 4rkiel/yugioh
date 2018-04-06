@@ -23,6 +23,7 @@
 #include <QScrollArea>
 #include <vector>
 #include <QMessageBox>
+#include <QStringListModel>
 #include "parser.h"
 #include "duplica.h"
 #include "cardlistpreview.h"
@@ -128,6 +129,7 @@ class deckEdit : public QWidget
             void addCard2Deck(Carte* carte);
             void rmvCard2Deck();
             void sauvegarder();
+            void creer();
 };
 
 #endif // DECKEDIT_H
