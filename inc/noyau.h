@@ -52,7 +52,7 @@ public:
     Reseau * res;
 
     int registre_0;
-    void deckAdverse(int x);
+    void deckAdverse(int x, int ran);
 
 
     bool isAdv(int x);
