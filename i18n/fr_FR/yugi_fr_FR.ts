@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fr_FR">
+<TS version="2.1" language="fr_FR">
 <context>
     <name>BuildTab</name>
     <message>
         <location filename="../../src/buildtab.cpp" line="42"/>
-        <source>Fermer le menu d&apos;Ã©dition</source>
+        <source>Fermer le menu d&apos;édition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -22,299 +22,462 @@
 <context>
     <name>CardEditor</name>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="12"/>
+        <location filename="../../src/cardEditor.cpp" line="9"/>
         <source>Enregistrer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="17"/>
+        <location filename="../../src/cardEditor.cpp" line="14"/>
         <source>Description / Effet de la carte...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="64"/>
+        <location filename="../../src/cardEditor.cpp" line="62"/>
         <source>Aqua</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="64"/>
+        <location filename="../../src/cardEditor.cpp" line="62"/>
         <source>Bete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="64"/>
+        <location filename="../../src/cardEditor.cpp" line="62"/>
         <source>Bete Ailee</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="64"/>
+        <location filename="../../src/cardEditor.cpp" line="62"/>
         <source>Bete-Divine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="64"/>
+        <location filename="../../src/cardEditor.cpp" line="62"/>
         <source>Bete-Guerrier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="64"/>
+        <location filename="../../src/cardEditor.cpp" line="62"/>
         <source>Demon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="64"/>
+        <location filename="../../src/cardEditor.cpp" line="62"/>
         <source>Dinosaure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="64"/>
+        <location filename="../../src/cardEditor.cpp" line="62"/>
+        <location filename="../../src/cardEditor.cpp" line="237"/>
         <source>Dragon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="64"/>
+        <location filename="../../src/cardEditor.cpp" line="62"/>
         <source>Elfe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="65"/>
+        <location filename="../../src/cardEditor.cpp" line="63"/>
+        <location filename="../../src/cardEditor.cpp" line="237"/>
         <source>Guerrier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="65"/>
+        <location filename="../../src/cardEditor.cpp" line="63"/>
         <source>Insecte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="65"/>
+        <location filename="../../src/cardEditor.cpp" line="63"/>
         <source>Machine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="65"/>
+        <location filename="../../src/cardEditor.cpp" line="63"/>
+        <location filename="../../src/cardEditor.cpp" line="237"/>
         <source>Magicien</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="65"/>
+        <location filename="../../src/cardEditor.cpp" line="63"/>
         <source>Plante</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="65"/>
+        <location filename="../../src/cardEditor.cpp" line="63"/>
         <source>Poisson</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="65"/>
+        <location filename="../../src/cardEditor.cpp" line="63"/>
         <source>Pyro</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="65"/>
+        <location filename="../../src/cardEditor.cpp" line="63"/>
         <source>Rocher</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="65"/>
+        <location filename="../../src/cardEditor.cpp" line="63"/>
         <source>Reptile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="66"/>
+        <location filename="../../src/cardEditor.cpp" line="64"/>
         <source>Serpent de Mer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="66"/>
+        <location filename="../../src/cardEditor.cpp" line="64"/>
         <source>Tonnerre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="66"/>
+        <location filename="../../src/cardEditor.cpp" line="64"/>
         <source>Wyrm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="66"/>
+        <location filename="../../src/cardEditor.cpp" line="64"/>
         <source>Zombie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="69"/>
+        <location filename="../../src/cardEditor.cpp" line="67"/>
         <source>Effet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="69"/>
+        <location filename="../../src/cardEditor.cpp" line="67"/>
         <source>Rituel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="71"/>
+        <location filename="../../src/cardEditor.cpp" line="69"/>
         <source>Piocher</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="71"/>
+        <location filename="../../src/cardEditor.cpp" line="69"/>
         <source>Detruire Monstre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="71"/>
+        <location filename="../../src/cardEditor.cpp" line="69"/>
         <source>Detruire Magie/piege</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="71"/>
+        <location filename="../../src/cardEditor.cpp" line="69"/>
         <source>Detruire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="71"/>
+        <location filename="../../src/cardEditor.cpp" line="69"/>
         <source>TOUT DETRUIRE !</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="71"/>
+        <location filename="../../src/cardEditor.cpp" line="69"/>
         <source>gagner 1000 life point</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="71"/>
+        <location filename="../../src/cardEditor.cpp" line="69"/>
         <source>+1000 attaque</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="103"/>
+        <location filename="../../src/cardEditor.cpp" line="101"/>
         <source>Monstre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="104"/>
+        <location filename="../../src/cardEditor.cpp" line="102"/>
         <source>Magie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="105"/>
+        <location filename="../../src/cardEditor.cpp" line="103"/>
         <source>Piege</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="166"/>
+        <location filename="../../src/cardEditor.cpp" line="164"/>
         <source>Nom:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="172"/>
+        <location filename="../../src/cardEditor.cpp" line="170"/>
         <source>genre:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="176"/>
+        <location filename="../../src/cardEditor.cpp" line="174"/>
         <source>attribut:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="179"/>
+        <location filename="../../src/cardEditor.cpp" line="177"/>
         <source>Niveau:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="182"/>
+        <location filename="../../src/cardEditor.cpp" line="180"/>
         <source>Attaque:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="184"/>
+        <location filename="../../src/cardEditor.cpp" line="182"/>
         <source>Defense:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="188"/>
+        <location filename="../../src/cardEditor.cpp" line="186"/>
         <source>Effet:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="254"/>
+        <location filename="../../src/cardEditor.cpp" line="237"/>
+        <source>Tigre</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="237"/>
+        <source>Vampire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="237"/>
+        <source>Archer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="237"/>
+        <source>Serpent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="237"/>
+        <source>Soldat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="237"/>
+        <source>Singe Mutant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="240"/>
+        <source>noir</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="240"/>
+        <source>rouge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="240"/>
+        <source>blanc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="240"/>
+        <source>eradicateur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="240"/>
+        <source>invincible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="240"/>
+        <source>destructeur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="240"/>
+        <source>mangeur d&apos;âmes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="240"/>
+        <source>scrumMaster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="240"/>
+        <source>malefique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <source>du chaos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <source>des tenebres</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <source>de la lumiere</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <source>invisible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <source>des landes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <source>myr</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <source>gobelin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <source>du ciel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <source>millenaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <source>jeune</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <source>debutant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <source>innofensif</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="244"/>
+        <source>radieu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="244"/>
+        <source>grognon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="244"/>
+        <source>Json</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="244"/>
+        <source>DEADJOE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="244"/>
+        <source>imperial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="252"/>
         <source>Selectionner une image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="282"/>
+        <location filename="../../src/cardEditor.cpp" line="280"/>
         <source>	 n&apos;existe pas</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="300"/>
-        <source>LumiÃ¨re</source>
+        <location filename="../../src/cardEditor.cpp" line="298"/>
+        <source>Lumière</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="301"/>
+        <location filename="../../src/cardEditor.cpp" line="299"/>
         <source>Tenebre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="302"/>
+        <location filename="../../src/cardEditor.cpp" line="300"/>
         <source>Terre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="303"/>
+        <location filename="../../src/cardEditor.cpp" line="301"/>
         <source>Eau</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="304"/>
+        <location filename="../../src/cardEditor.cpp" line="302"/>
         <source>Feu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="305"/>
+        <location filename="../../src/cardEditor.cpp" line="303"/>
         <source>Vent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="306"/>
+        <location filename="../../src/cardEditor.cpp" line="304"/>
         <source>Divin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="325"/>
-        <location filename="../../src/cardEditor.cpp" line="349"/>
+        <location filename="../../src/cardEditor.cpp" line="323"/>
+        <location filename="../../src/cardEditor.cpp" line="347"/>
         <source>Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="326"/>
-        <location filename="../../src/cardEditor.cpp" line="350"/>
+        <location filename="../../src/cardEditor.cpp" line="324"/>
+        <location filename="../../src/cardEditor.cpp" line="348"/>
         <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="327"/>
+        <location filename="../../src/cardEditor.cpp" line="325"/>
         <source>Equipement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="328"/>
+        <location filename="../../src/cardEditor.cpp" line="326"/>
         <source>Jeu-Rapide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="329"/>
+        <location filename="../../src/cardEditor.cpp" line="327"/>
         <source>Rituelle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="330"/>
+        <location filename="../../src/cardEditor.cpp" line="328"/>
         <source>Terrain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="351"/>
+        <location filename="../../src/cardEditor.cpp" line="349"/>
         <source>Contre</source>
         <translation type="unfinished"></translation>
     </message>
@@ -322,41 +485,51 @@
 <context>
     <name>CardPreview</name>
     <message>
-        <location filename="../../src/cardpreview.cpp" line="7"/>
+        <location filename="../../src/cardpreview.cpp" line="9"/>
         <source>Monstre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardpreview.cpp" line="7"/>
+        <location filename="../../src/cardpreview.cpp" line="9"/>
         <source>Magie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardpreview.cpp" line="7"/>
-        <source>PiÃ¨ge</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../src/cardpreview.cpp" line="9"/>
-        <source>Niveau: </source>
+        <source>Piège</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/cardpreview.cpp" line="10"/>
-        <source>Attaque: </source>
+        <location filename="../../src/cardpreview.cpp" line="13"/>
+        <source>Défense: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/cardpreview.cpp" line="11"/>
-        <source>DÃ©fense: </source>
+        <source>Niveau: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardpreview.cpp" line="12"/>
+        <source>Attaque: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Chat</name>
     <message>
-        <location filename="../../src/chat.cpp" line="23"/>
-        <source>Chat</source>
+        <location filename="../../src/chat.cpp" line="102"/>
+        <source>Informations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/chat.cpp" line="108"/>
+        <source>Adversaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/chat.cpp" line="114"/>
+        <source>Vous</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -379,22 +552,22 @@
     </message>
     <message>
         <location filename="../../src/choice.cpp" line="89"/>
-        <source>Rejoindre Partie PrivÃ©e</source>
+        <source>Rejoindre Partie Privée</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/choice.cpp" line="91"/>
-        <source>Rejoindre une Partie PrivÃ©e</source>
+        <source>Rejoindre une Partie Privée</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/choice.cpp" line="103"/>
-        <source>HÃ©berger Partie PrivÃ©e</source>
+        <source>Héberger Partie Privée</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/choice.cpp" line="105"/>
-        <source>HÃ©berger une Partie PrivÃ©e</source>
+        <source>Héberger une Partie Privée</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -416,18 +589,18 @@
 <context>
     <name>Field</name>
     <message>
-        <location filename="../../src/field.cpp" line="354"/>
-        <source>Informations du Duel</source>
+        <location filename="../../src/field.cpp" line="63"/>
+        <source>Vous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/field.cpp" line="360"/>
-        <source>Chat et Historique</source>
+        <location filename="../../src/field.cpp" line="115"/>
+        <source>Adversaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/field.cpp" line="396"/>
-        <source>Terminer le tour</source>
+        <location filename="../../src/field.cpp" line="142"/>
+        <source>Quitter la partie</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -440,12 +613,12 @@
     </message>
     <message>
         <location filename="../../src/generique.cpp" line="120"/>
-        <source>Chargement de l&apos;amitiÃ©</source>
+        <source>Chargement de l&apos;amitié</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/generique.cpp" line="126"/>
-        <source>Configuration de l&apos;Ã¢me des cartes</source>
+        <source>Configuration de l&apos;âme des cartes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -476,7 +649,7 @@
     <name>HostChoice</name>
     <message>
         <location filename="../../src/hostChoice.cpp" line="35"/>
-        <source>Partie PrivÃ©e : HÃ©bergement</source>
+        <source>Partie Privée : Hébergement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -486,7 +659,7 @@
     </message>
     <message>
         <location filename="../../src/hostChoice.cpp" line="84"/>
-        <source>Serveur personnel initialisÃ©.
+        <source>Serveur personnel initialisé.
 
 En attente de connexion de l&apos;adversaire...</source>
         <translation type="unfinished"></translation>
@@ -528,17 +701,17 @@ En attente de connexion de l&apos;adversaire...</source>
     </message>
     <message>
         <location filename="../../src/intro.cpp" line="109"/>
-        <source>RÃ¨gles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/intro.cpp" line="124"/>
-        <source>ParamÃ¨tres</source>
+        <source>Règles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/intro.cpp" line="111"/>
         <source>Gestion de l&apos;arbitrage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/intro.cpp" line="124"/>
+        <source>Paramètres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -566,7 +739,7 @@ En attente de connexion de l&apos;adversaire...</source>
     <name>JoinChoice</name>
     <message>
         <location filename="../../src/joinChoice.cpp" line="35"/>
-        <source>Partie PrivÃ©e : Rejoindre</source>
+        <source>Partie Privée : Rejoindre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -604,25 +777,25 @@ En attente de connexion de l&apos;adversaire...</source>
     <message>
         <location filename="../../src/optab.cpp" line="34"/>
         <location filename="../../src/optab.cpp" line="482"/>
-        <source>ParamÃ¨tres</source>
+        <source>Paramètres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="41"/>
         <location filename="../../src/optab.cpp" line="483"/>
-        <source>Fermer les paramÃ¨tres</source>
+        <source>Fermer les paramètres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="93"/>
         <location filename="../../src/optab.cpp" line="484"/>
-        <source>AccessibilitÃ©</source>
+        <source>Accessibilité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="152"/>
         <location filename="../../src/optab.cpp" line="486"/>
-        <source>Partage les donnÃ©es d&apos;utilisation</source>
+        <source>Partage les données d&apos;utilisation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -652,13 +825,13 @@ En attente de connexion de l&apos;adversaire...</source>
     <message>
         <location filename="../../src/optab.cpp" line="221"/>
         <location filename="../../src/optab.cpp" line="493"/>
-        <source>Textes adaptÃ©s Ã  la dyslexie</source>
+        <source>Textes adaptés à la dyslexie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="228"/>
         <location filename="../../src/optab.cpp" line="490"/>
-        <source>Contraste Ã©levÃ©</source>
+        <source>Contraste élevé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -724,12 +897,11 @@ En attente de connexion de l&apos;adversaire...</source>
     </message>
     <message>
         <location filename="../../src/popup.cpp" line="88"/>
-        <source>Croire en l&apos;Ã¢me des cartes</source>
+        <source>Croire en l&apos;âme des cartes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/popup.cpp" line="92"/>
-        <location filename="../../src/popup.cpp" line="117"/>
         <source>Abandonner</source>
         <translation type="unfinished"></translation>
     </message>
@@ -743,32 +915,17 @@ En attente de connexion de l&apos;adversaire...</source>
         <source>Voulez-vous abandonner ?</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../../src/popup.cpp" line="119"/>
-        <source>Quitter le Duel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/popup.cpp" line="123"/>
-        <source>Fermer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/popup.cpp" line="125"/>
-        <source>Retour au Duel</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>RuleTab</name>
     <message>
         <location filename="../../src/ruletab.cpp" line="37"/>
-        <source>RÃ¨gles</source>
+        <source>Règles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/ruletab.cpp" line="44"/>
-        <source>Fermer les rÃ¨gles</source>
+        <source>Fermer les règles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -778,17 +935,17 @@ En attente de connexion de l&apos;adversaire...</source>
     </message>
     <message>
         <location filename="../../src/ruletab.cpp" line="93"/>
-        <source>RÃ¨gles du Jeu</source>
+        <source>Règles du Jeu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/ruletab.cpp" line="173"/>
+        <source>Nombre de cartes piochées en début de tour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/ruletab.cpp" line="153"/>
         <source>Nombre de points de vie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/ruletab.cpp" line="173"/>
-        <source>Nombre de cartes piochÃ©es en dÃ©but de tour</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -802,16 +959,6 @@ En attente de connexion de l&apos;adversaire...</source>
     <message>
         <location filename="../../src/soloChoice.cpp" line="45"/>
         <source>Retour au Menu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/soloChoice.cpp" line="78"/>
-        <source>Choix de la difficultÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/soloChoice.cpp" line="88"/>
-        <source>Adversaire dÃ©butant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -831,8 +978,18 @@ En attente de connexion de l&apos;adversaire...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/soloChoice.cpp" line="78"/>
+        <source>Choix de la difficulté</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../src/soloChoice.cpp" line="86"/>
         <source>Facile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/soloChoice.cpp" line="88"/>
+        <source>Adversaire débutant</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -873,13 +1030,8 @@ En attente de connexion de l&apos;adversaire...</source>
     <name>deckEdit</name>
     <message>
         <location filename="../../inc/deckedit.h" line="63"/>
-        <location filename="../../src/deckedit.cpp" line="87"/>
+        <location filename="../../src/deckedit.cpp" line="104"/>
         <source>Quitter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../inc/deckedit.h" line="63"/>
-        <source>MÃ©langer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -895,11 +1047,6 @@ En attente de connexion de l&apos;adversaire...</source>
     <message>
         <location filename="../../inc/deckedit.h" line="65"/>
         <source>Sauvegarder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../inc/deckedit.h" line="65"/>
-        <source>CrÃ©er</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -923,8 +1070,23 @@ En attente de connexion de l&apos;adversaire...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../inc/deckedit.h" line="63"/>
+        <source>Mélanger</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../inc/deckedit.h" line="65"/>
+        <source>Créer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../inc/deckedit.h" line="68"/>
-        <source>PiÃ¨ge</source>
+        <source>Piège</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../inc/deckedit.h" line="68"/>
+        <source>Monstre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -934,8 +1096,8 @@ En attente de connexion de l&apos;adversaire...</source>
     </message>
     <message>
         <location filename="../../inc/deckedit.h" line="69"/>
-        <location filename="../../src/deckedit.cpp" line="364"/>
-        <location filename="../../src/deckedit.cpp" line="388"/>
+        <location filename="../../src/deckedit.cpp" line="561"/>
+        <location filename="../../src/deckedit.cpp" line="585"/>
         <source>Normal</source>
         <translation type="unfinished"></translation>
     </message>
@@ -955,98 +1117,146 @@ En attente de connexion de l&apos;adversaire...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="138"/>
+        <location filename="../../src/deckedit.cpp" line="391"/>
         <source>Nombre de carte: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="141"/>
-        <source>Monstre: 	Magie:  	PiÃ¨ge: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/deckedit.cpp" line="233"/>
+        <location filename="../../src/deckedit.cpp" line="265"/>
         <source>Type: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="245"/>
+        <location filename="../../src/deckedit.cpp" line="277"/>
         <source>Niveau</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="264"/>
+        <location filename="../../src/deckedit.cpp" line="296"/>
         <source>Attaque: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="265"/>
-        <source>DÃ©fense: </source>
+        <location filename="../../src/deckedit.cpp" line="155"/>
+        <source>Deck vide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="339"/>
-        <source>LumiÃ¨re</source>
+        <location filename="../../src/deckedit.cpp" line="161"/>
+        <location filename="../../src/deckedit.cpp" line="394"/>
+        <location filename="../../src/deckedit.cpp" line="408"/>
+        <source>Monstre: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="340"/>
+        <location filename="../../src/deckedit.cpp" line="162"/>
+        <location filename="../../src/deckedit.cpp" line="395"/>
+        <location filename="../../src/deckedit.cpp" line="409"/>
+        <source>Magie: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="163"/>
+        <location filename="../../src/deckedit.cpp" line="396"/>
+        <location filename="../../src/deckedit.cpp" line="410"/>
+        <source>Piège: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="164"/>
+        <location filename="../../src/deckedit.cpp" line="428"/>
+        <source>Extra Deck vide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="297"/>
+        <source>Défense: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="308"/>
+        <source>Effets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="389"/>
+        <source>Main Deck vide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="405"/>
+        <source>Main Deck: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="430"/>
+        <location filename="../../src/deckedit.cpp" line="440"/>
+        <source>Extra Deck: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="536"/>
+        <source>Lumière</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="537"/>
         <source>Tenebre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="341"/>
+        <location filename="../../src/deckedit.cpp" line="538"/>
         <source>Terre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="342"/>
+        <location filename="../../src/deckedit.cpp" line="539"/>
         <source>Eau</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="343"/>
+        <location filename="../../src/deckedit.cpp" line="540"/>
         <source>Feu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="344"/>
+        <location filename="../../src/deckedit.cpp" line="541"/>
         <source>Vent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="345"/>
+        <location filename="../../src/deckedit.cpp" line="542"/>
         <source>Divin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="365"/>
-        <location filename="../../src/deckedit.cpp" line="389"/>
+        <location filename="../../src/deckedit.cpp" line="562"/>
+        <location filename="../../src/deckedit.cpp" line="586"/>
         <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="366"/>
+        <location filename="../../src/deckedit.cpp" line="563"/>
         <source>Equipement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="367"/>
+        <location filename="../../src/deckedit.cpp" line="564"/>
         <source>Jeu-Rapide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="368"/>
+        <location filename="../../src/deckedit.cpp" line="565"/>
         <source>Rituelle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="369"/>
+        <location filename="../../src/deckedit.cpp" line="566"/>
         <source>Terrain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="390"/>
+        <location filename="../../src/deckedit.cpp" line="587"/>
         <source>Contre</source>
         <translation type="unfinished"></translation>
     </message>
