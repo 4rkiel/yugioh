@@ -139,7 +139,7 @@ Field::Field () {
             // Quit Button
             
             menuButt = new FlatButt("\uf00d", "");
-            menuButt -> setToolTip("Menu");
+            menuButt -> setToolTip(tr("Quitter la partie"));
             menuButt -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
             infoLayout -> addWidget(menuButt);
 
