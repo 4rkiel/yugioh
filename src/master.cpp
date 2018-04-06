@@ -197,6 +197,17 @@ void Master::loadField (int x){
     //pour switch
     connect(noyau,SIGNAL(change_position(int)),field,SLOT(switchCarte(int)));
 
+
+
+	// ask preview
+	connect(field,SIGNAL(askPreview(int)),noyau,SLOT(donner_infos(int)));
+
+	// give preview
+	connect(noyau,SIGNAL(give_info(QString,int,int,QString,int,QString,int,int)),
+		field(SLOT(cardHover(QString,int,int,QString,int,QString,int,int)));
+
+
+
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
 

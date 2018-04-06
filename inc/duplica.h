@@ -21,11 +21,15 @@ public:
     
     Duplica();
     ~Duplica();
-    void setTitle(QString str);
-    void setPic(QString str);
-    void setDesc(QString str);
-    void setStat(QString strAtk, QString strDef);
-    //    void resizeEvent (QResizeEvent*);
+    void setTitle(QString);
+   	void setAttr(int);
+	void setLevel(int);
+	void setPic(QString);
+	void setType(int);
+    void setDesc(QString);
+    void setStat(QString, QString);
+	
+//    void resizeEvent (QResizeEvent*);
 
 signals:
 
