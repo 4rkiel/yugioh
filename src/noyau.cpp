@@ -187,7 +187,9 @@ void Noyau::poser_test(int x)
     else if(!isAdv(x) && isMonst(x) && trouver(x)!=NULL )
     {
         switch_position(x);
-        emit tiens("swap/"+x);
+        std::stringstream s1;
+        s1 << "swap/" << Carte::correspondant(x);
+        emit tiens(QString::fromStdString(s1.str()));
     }
 }
 
