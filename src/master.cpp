@@ -203,7 +203,7 @@ void Master::loadField (int x){
 	connect(field,SIGNAL(askPreview(int)),noyau,SLOT(donner_infos(int)));
 
 	// give preview
-	connect(noyau,SIGNAL(give_info(QString,int,int,QString,int,QString,int,int)),
+    connect(noyau,SIGNAL(give_infos(QString,int,int,QString,int,QString,int,int)),
 		field, SLOT(cardHover(QString,int,int,QString,int,QString,int,int)));
 
 

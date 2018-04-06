@@ -100,7 +100,12 @@ piocher(1);
 void Noyau::donner_infos(int x)
 {
     Carte * actuelle = trouver(x);
-    emit give_infos(actuelle->nom,actuelle->attribut,actuelle->niveau,actuelle->image,actuelle->type,actuelle->description,actuelle->atk,actuelle->def);
+    if(actuelle != NULL)
+     {
+
+        emit give_infos(actuelle->nom,actuelle->attribut,actuelle->niveau,actuelle->image,actuelle->type,actuelle->description,actuelle->atk,actuelle->def);
+        std::cout << "j'émit les infos : " << actuelle->nom.toStdString() << actuelle->attribut << actuelle->niveau << actuelle->image.toStdString() << actuelle->type << actuelle->description.toStdString() << actuelle->atk << actuelle->def << std::endl;
+    }
 }
 
 
