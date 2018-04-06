@@ -315,7 +315,7 @@ deckEdit::deckEdit(/*std::vector<Carte *> *allCard*/)
 
                         effectBoxBut = new QPushButton;
                         effectBoxBut->setDefault(true);
-                        effectBoxBut->setText("Effets");
+                        effectBoxBut->setText(tr("Effets"));
                         effectBoxBut->setSizePolicy(QSizePolicy::Minimum,
                                                     QSizePolicy::Minimum);
 
@@ -383,6 +383,9 @@ deckEdit::deckEdit(/*std::vector<Carte *> *allCard*/)
 
     connect(tabBut[SAUVER], SIGNAL(clicked()), this, SLOT(sauvegarder()));
     connect(tabBut[CREER], SIGNAL(clicked()), this, SLOT(creer()));
+    connect(tabBut[EFFACER], SIGNAL(clicked()), this, SLOT(effacerDeck()));
+    connect(tabBut[MELANGER], SIGNAL(clicked()), this, SLOT(melangerDeck()));
+    connect(tabBut[TRIER], SIGNAL(clicked()), this, SLOT(trierDeck()));
 }
 
 void deckEdit::updateDeckVisu()
@@ -628,6 +631,70 @@ void deckEdit::creer()
 
     selectDeck->addItem(newDeck->text());
     selectDeck->setCurrentIndex(selectDeck->findText(newDeck->text()));
+}
+
+void deckEdit::effacerDeck()
+{
+    deck.clear();
+    extraDeck.clear();
+
+    indiceCarteDeck = 0;
+    indiceCarteExtraDeck = 0;
+    nbrCarteMonstre = 0;
+    nbrCarteMagie = 0;
+    nbrCartePiege = 0;
+
+    updateDeckVisu();
+    updateExtraDeckVisu();
+}
+
+void deckEdit::melangerDeck()
+{
+    std::random_shuffle(deck.begin(), deck.end());
+    std::random_shuffle(extraDeck.begin(), extraDeck.end());
+
+    updateDeckVisu();
+    updateExtraDeckVisu();
+}
+
+struct compCarte
+{
+    bool operator()(Carte* c1, Carte* c2)
+    {
+        if (c1->genre != c2->genre)
+            return c1->genre < c2->genre;
+
+        // same genre
+
+        if(c1->genre != 0) // pas un monstre
+            return c1->nom < c2->nom;
+
+        // monstre
+
+        // sous genre diff
+        if(c1->sous_type != c2->sous_type)
+            return c1->sous_type > c2->sous_type;
+
+        if(c1->niveau != c2->niveau) // si pas le meme niveau
+            return c1->niveau > c2->niveau;
+
+        if(c1->atk != c2->atk) // si pas la meme atk
+            return c1->atk > c2->atk;
+
+        return c1->nom < c2->nom; // si meme niveau
+
+    }
+};
+
+
+
+void deckEdit::trierDeck()
+{
+    std::sort(deck.begin(), deck.end(), compCarte());
+    std::sort(extraDeck.begin(), extraDeck.end(), compCarte());
+
+    updateDeckVisu();
+    updateExtraDeckVisu();
 }
 
 void deckEdit::slotAttribut()

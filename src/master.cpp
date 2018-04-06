@@ -2,9 +2,9 @@
 
 Master::Master (){
 
-	mode = 0;
+    mode = 0;
 
-	network = new Reseau;
+    network = new Reseau;
 
 
     layout = new QGridLayout;
@@ -13,14 +13,14 @@ Master::Master (){
 
     stacked = new QStackedWidget;
 
-        
+
         // Selector
 
         selector = new Selector;
 
         // Go back signal
         connect(selector, SIGNAL(introStack()), this, SLOT(emitIntro()));
-        
+
         // Load Solo Game
         connect(selector, SIGNAL(gameStack(int)), this, SLOT(loadField(int)));
 
@@ -28,22 +28,22 @@ Master::Master (){
         connect(selector, SIGNAL(createHost(QString)), network, SLOT(go(QString)));
 
         // Load Host Game
-		connect(network, SIGNAL(hostReady(int)), this, SLOT(loadField(int)));
-		
+        connect(network, SIGNAL(hostReady(int)), this, SLOT(loadField(int)));
+
         // Ask for being host
         connect(selector, SIGNAL(sendIP(QString)), this, SLOT(test(QString)));
         connect(selector, SIGNAL(sendIP(QString)), network, SLOT(mondieu(QString)));
 
         // Load Joined Game
-		connect(network, SIGNAL(connectOK(int)), this, SLOT(loadField(int)));
-		
+        connect(network, SIGNAL(connectOK(int)), this, SLOT(loadField(int)));
+
         // Host not found
         connect(network, SIGNAL(connectKO(int)), this, SLOT(sendErr(int)));
-	
+
 
     stacked -> addWidget(selector);
-       
-	
+
+
 
 
     stacked -> setCurrentWidget(selector);
@@ -58,31 +58,31 @@ Master::Master (){
 Master::~Master (){
 
     if (mode != 0){
-    
+
         if (mode < 10 || mode > 19){
-            
-            delete network; 
+
+            delete network;
 
         } else {
 
             //!\ LUCAS !!!! Ici pour detruire l'IA a la fermeture
-            
+
             //delete ia;
-            
+
             // delete monPointeurIA
 
 
         }
-        
+
         delete noyau;
-   		delete field;
+        delete field;
 
         mThread -> quit();
     }
 
 
-	delete selector;
-	delete stacked;
+    delete selector;
+    delete stacked;
     delete layout;
 }
 
@@ -116,20 +116,20 @@ void Master::loadField (int x){
     if (mode >= 10 && mode <= 19){
 
         delete network;
-        
+
         // mode pour le niveau de l'IA
         // 11:easy
         // 12:medium
         // 13:hard
         // 14:learning
-        
+
         int ai_data;
 
         if(mode >= 11 && mode <= 13)
             ai_data = 1; //file ai.data
         else
             ai_data = 2; //file learning_ai.data
-        
+
         ai = new Ai(ai_data);
         
         //le noyau envoi un signal a l'ia pour lui dire de jouer
@@ -141,14 +141,14 @@ void Master::loadField (int x){
         //connect(ai,SIGNAL(piocher(int)),noyau,SLOT(piocher(int)));
         
     } else {
-    
+
         if (network != NULL){
-        
+
             connect(network,SIGNAL(a_parser(QString)),noyau,SLOT(traiter(QString)));
-        
+
         }
             // send Msg // TODO traiter() -> Check if chat message + emit
-          
+
         if (network != NULL){
             connect(field,SIGNAL(transmettre(QString)),network,SLOT(transmettre(QString)));
         }
@@ -159,11 +159,11 @@ void Master::loadField (int x){
 
 
 
-	// Quit 
+    // Quit
 
     connect(field, SIGNAL(introStack()), this, SLOT(emitIntro()));
 
-    
+
     // New chat msg
 
     connect(noyau, SIGNAL(chat(QString)), field, SLOT(sendMsg(QString)));
@@ -174,19 +174,19 @@ void Master::loadField (int x){
 
 
 
-	// set carte
+    // set carte
 
     connect(noyau, SIGNAL(visible(QString, int)), field, SLOT(setCarte(QString, int)));
 
-	// pose carte
+    // pose carte
 
     connect(noyau, SIGNAL(defens(int)), field, SLOT(poseCarte(int)));
 
-	// mask carte
+    // mask carte
 
     connect(noyau, SIGNAL(nonvis(int)), field, SLOT(maskCarte(int)));
 
-	// rm carte
+    // rm carte
 
     connect(noyau, SIGNAL(destruction(int)), field, SLOT(rmCarte(int)));
     connect(field,SIGNAL(sendAtk()),noyau,SLOT(poserAtk()));
@@ -203,10 +203,21 @@ void Master::loadField (int x){
     //pour switch
     connect(noyau,SIGNAL(change_position(int)),field,SLOT(switchCarte(int)));
 
+
+
+	// ask preview
+	connect(field,SIGNAL(askPreview(int)),noyau,SLOT(donner_infos(int)));
+
+	// give preview
+    connect(noyau,SIGNAL(give_infos(QString,int,int,QString,int,QString,int,int)),
+		field, SLOT(cardHover(QString,int,int,QString,int,QString,int,int)));
+
+
+
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
 
-	field -> init();
+    field -> init();
 
 
 
@@ -225,7 +236,7 @@ void Master::loadField (int x){
 
 
 
-    mThread -> start(); 
+    mThread -> start();
     mTask -> masterLoop();
 
     noyau->init();

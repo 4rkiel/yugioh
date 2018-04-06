@@ -1,6 +1,7 @@
 #ifndef RESEAU_H
 #define RESEAU_H
 #include <QtNetwork>
+#include <random>
 #include <QWidget>
 #include <iostream>
 #include "../inc/carte.h"
