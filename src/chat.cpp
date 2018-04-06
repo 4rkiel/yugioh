@@ -143,6 +143,7 @@ void Chat::sendMsg(){
 	}
 
     input -> setText("");
+    input -> setFocus();
 }
 
 
