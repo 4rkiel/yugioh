@@ -131,9 +131,15 @@ void Master::loadField (int x){
             ai_data = 2; //file learning_ai.data
 
         ai = new Ai(ai_data);
-
+        
+        //le noyau envoi un signal a l'ia pour lui dire de jouer
+        //connect(noyau,SIGNAL(au_tour_de_l_ia()),ai,SLOT(a_ton_tour()));
+        
+        //l'ia envoi un signal au noyau pour lui dire l'action qu'elle effectue
         connect(ai,SIGNAL(attaquer(int,int)),noyau,SLOT(attaquer(int,int)));
-
+        //connect(ai,SIGNAL(defendre(int),noyau,SLOT(defendre(int)));
+        //connect(ai,SIGNAL(piocher(int)),noyau,SLOT(piocher(int)));
+        
     } else {
 
         if (network != NULL){
