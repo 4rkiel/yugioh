@@ -187,6 +187,7 @@ void Noyau::poser_test(int x)
     else if(!isAdv(x) && isMonst(x) && trouver(x)!=NULL )
     {
         switch_position(x);
+        emit tiens("swap/"+x);
     }
 }
 
