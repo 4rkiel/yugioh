@@ -305,7 +305,7 @@ deckEdit::deckEdit(/*std::vector<Carte *> *allCard*/)
 
                         effectBoxBut = new QPushButton;
                         effectBoxBut->setDefault(true);
-                        effectBoxBut->setText("Effets");
+                        effectBoxBut->setText(tr("Effets"));
                         effectBoxBut->setSizePolicy(QSizePolicy::Minimum,
                                                     QSizePolicy::Minimum);
 

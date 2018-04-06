@@ -65,7 +65,7 @@ class deckEdit : public QWidget
                                         tr("Sauvegarder"), tr("Créer"),
                                         tr("Supprimer"), tr("Annuler"),
                                         tr("Filtrer")};
-        const QStringList genreList = {"Monstre", tr("Magie"), tr("Piège")};
+        const QStringList genreList = {tr("Monstre"), tr("Magie"), tr("Piège")};
         const QStringList sousGenreList = {tr("Effet"), tr("Normal"),
                                            tr("Fusion"), tr("Toon"),
                                            tr("Rituel")};
