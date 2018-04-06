@@ -204,7 +204,7 @@ void Master::loadField (int x){
 
 	// give preview
 	connect(noyau,SIGNAL(give_info(QString,int,int,QString,int,QString,int,int)),
-		field(SLOT(cardHover(QString,int,int,QString,int,QString,int,int)));
+		field, SLOT(cardHover(QString,int,int,QString,int,QString,int,int)));
 
 
 
