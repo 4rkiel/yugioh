@@ -169,6 +169,13 @@ void Duplica::setTitle (QString str){
     title -> setText(str);
 }
 
+void Duplica::setAttr (int x){
+
+}
+
+void Duplica::setLevel (int x){
+
+}
 
 void Duplica::setPic (QString str){
     
@@ -177,6 +184,10 @@ void Duplica::setPic (QString str){
     );
 }
 
+
+void Duplica::setType (int x){
+
+}
 
 void Duplica::setDesc (QString str){
     

@@ -68,11 +68,13 @@ public slots:
     void openChoosePosi();
 
     void previewClicked();
-    void cardDoubleClicked(int x);
-    void cardRightClicked(int x);
-    void cardClicked(int x);
-    void cardEntered(int x);
-    void cardLeaved(int x);
+    void cardDoubleClicked(int);
+    void cardRightClicked(int);
+    void cardClicked(int);
+    void cardEntered(int);
+    void cardLeaved();
+
+    void cardHover(QString, int, int, QString, int, QString, int, int);
 
 
 signals:
@@ -83,11 +85,11 @@ signals:
     void transmettre(QString);
 	void doubleClicked(int);
 	void biClick(int, int);
+	void askPreview(int);
 
 
 private:
     
-    void cardHover();
     void cardOut();
 
     int retained;
