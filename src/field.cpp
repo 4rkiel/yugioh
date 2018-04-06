@@ -167,7 +167,7 @@ Field::Field () {
     connect(popup, SIGNAL(sendAtk()), this, SLOT(emitAtk()));
     connect(popup, SIGNAL(sendDef()), this, SLOT(emitDef()));
 
-    connect(menuButt, SIGNAL(clicked()), popup, SLOT(openMenu()));
+    connect(menuButt, SIGNAL(clicked()), popup, SLOT(openQuit()));
 
 
 
@@ -370,7 +370,7 @@ Field::Field () {
 
     //key shortcut
     shortcut = new QShortcut(QKeySequence("Escape"), this);
-    connect(shortcut, SIGNAL(activated()), popup, SLOT(openMenu()));
+    connect(shortcut, SIGNAL(activated()), popup, SLOT(openQuit()));
 
     setLayout(layout);
 

@@ -38,6 +38,7 @@ public slots:
 
     void openQuit();
     void closeQuit();
+
     void openMenu();
     void closeMenu();
 
@@ -79,13 +80,13 @@ private:
             ShadowButt * quitno;
             ShadowButt * quitya;
             QLabel * quitLabel;
-
+/*
         QWidget * menuBox;
         QVBoxLayout * menuLayout;
 
             ShadowButt * quit;
             ShadowButt * back;
-    
+*/    
 
 };
 
