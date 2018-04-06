@@ -24,6 +24,7 @@
 #include <vector>
 #include <QMessageBox>
 #include <QStringListModel>
+#include "carte.h"
 #include "parser.h"
 #include "duplica.h"
 #include "cardlistpreview.h"
@@ -122,6 +123,7 @@ class deckEdit : public QWidget
         QLabel *infoPiegeLabel;
         QLabel *infoFusionLabel;
 
+
     signals:
 
     public slots:
@@ -130,6 +132,9 @@ class deckEdit : public QWidget
             void rmvCard2Deck();
             void sauvegarder();
             void creer();
+            void effacerDeck();
+            void melangerDeck();
+            void trierDeck();
 };
 
 #endif // DECKEDIT_H
