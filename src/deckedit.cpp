@@ -385,6 +385,7 @@ deckEdit::deckEdit(/*std::vector<Carte *> *allCard*/)
     connect(tabBut[CREER], SIGNAL(clicked()), this, SLOT(creer()));
     connect(tabBut[EFFACER], SIGNAL(clicked()), this, SLOT(effacerDeck()));
     connect(tabBut[MELANGER], SIGNAL(clicked()), this, SLOT(melangerDeck()));
+    connect(tabBut[TRIER], SIGNAL(clicked()), this, SLOT(trierDeck()));
 }
 
 void deckEdit::updateDeckVisu()
@@ -656,9 +657,44 @@ void deckEdit::melangerDeck()
     updateExtraDeckVisu();
 }
 
+struct compCarte
+{
+    bool operator()(Carte* c1, Carte* c2)
+    {
+        if (c1->genre != c2->genre)
+            return c1->genre < c2->genre;
+
+        // same genre
+
+        if(c1->genre != 0) // pas un monstre
+            return c1->nom < c2->nom;
+
+        // monstre
+
+        // sous genre diff
+        if(c1->sous_type != c2->sous_type)
+            return c1->sous_type > c2->sous_type;
+
+        if(c1->niveau != c2->niveau) // si pas le meme niveau
+            return c1->niveau > c2->niveau;
+
+        if(c1->atk != c2->atk) // si pas la meme atk
+            return c1->atk > c2->atk;
+
+        return c1->nom < c2->nom; // si meme niveau
+
+    }
+};
+
+
+
 void deckEdit::trierDeck()
 {
+    std::sort(deck.begin(), deck.end(), compCarte());
+    std::sort(extraDeck.begin(), extraDeck.end(), compCarte());
 
+    updateDeckVisu();
+    updateExtraDeckVisu();
 }
 
 void deckEdit::slotAttribut()
