@@ -22,6 +22,8 @@
 #include <QShortcut>
 #include <QScrollArea>
 #include <vector>
+#include <QMessageBox>
+#include <QStringListModel>
 #include "parser.h"
 #include "duplica.h"
 #include "cardlistpreview.h"
@@ -33,7 +35,6 @@ class deckEdit : public QWidget
 {
     enum buttonDeckEdit
     {
-        QUITTER,
         MELANGER,
         TRIER,
         EFFACER,
@@ -60,9 +61,9 @@ class deckEdit : public QWidget
         const QString defaultImage = imgRep + "DEFAULT.jpg";
         const QString deckRep = appPath+"/deck/";
 
-        const QStringList buttonName = {tr("Quitter"), tr("Mélanger"),
+        const QStringList buttonName = {tr("Mélanger"),
                                         tr("Trier"), tr("Effacer"),
-                                        tr("Sauvegarder"), tr("Créer"),
+                                        tr("Enregistrer"), tr("Créer"),
                                         tr("Supprimer"), tr("Annuler"),
                                         tr("Filtrer")};
         const QStringList genreList = {tr("Monstre"), tr("Magie"), tr("Piège")};
@@ -127,6 +128,8 @@ class deckEdit : public QWidget
             void slotAttribut();
             void addCard2Deck(Carte* carte);
             void rmvCard2Deck();
+            void sauvegarder();
+            void creer();
 };
 
 #endif // DECKEDIT_H

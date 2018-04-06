@@ -4,8 +4,9 @@
 int main()
 {
     cout << "init" << endl;
-    Ai * easy_ai = new Ai(1); //easy
+    //difficulty: 1 = easy, 2 = medium, 3 = hard, 4 = learning
+    Ai * ai = new Ai(1); 
     cout << "delete" << endl;
-    delete easy_ai;
+    delete ai;
     cout << "quit" << endl;
 }
