@@ -117,14 +117,22 @@ void Master::loadField (int x){
 
         delete network;
         
-       // ia = new Ia(x);
-        
-        // Tu peux utiliser le (int x) pour le niveau de l'IA
+        // mode pour le niveau de l'IA
         // 11:easy
         // 12:medium
         // 13:hard
         // 14:learning
-        // 15:not trained
+        
+        int ai_data;
+
+        if(mode >= 11 && mode <= 13)
+            ai_data = 1; //file ai.data
+        else
+            ai_data = 2; //file learning_ai.data
+        
+        ai = new Ai(ai_data);
+        
+        connect(ai,SIGNAL(attaquer(int,int)),noyau,SLOT(attaquer(int,int)));
         
     } else {
     

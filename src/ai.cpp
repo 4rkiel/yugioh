@@ -10,20 +10,16 @@
  * 4 layers: 1 input layer, 2 hidden layers, 1 output layer
  * synaps are the weights between neurons layer
  */
+
 //constructor: neural network initialisation
-Ai::Ai(int difficulty)
+//mode = 1 => file ai.data
+//mode = 2 => file learning_ai.data
+Ai::Ai(int mode)
 {
     srand (time(NULL));
     nb_hidden_layer = 2;
-    mode = difficulty;
-    if(mode == 5)
-    {
-        initialise_random_ai();
-    }
-    else
-    {
-        load_trained_ai();
-    }
+    this->mode = mode;
+    load_ai();
 }
 
 
@@ -31,7 +27,7 @@ Ai::Ai(int difficulty)
 //destructor
 Ai::~Ai()
 {
-    if(mode >= 1 && mode <= 4)
+    if(mode==2) //learning_ai
         save_ai();
 }
 
@@ -51,19 +47,12 @@ void Ai::save_ai()
     ofstream ai_file;
     switch(mode)
     {
-        case 1:
-            ai_file.open("../IA/easy_ai.data");
-            break;
         case 2:
-            ai_file.open("../IA/medium_ai.data");
-            break;
-        case 3:
-            ai_file.open("../IA/hard_ai.data");
-            break;
-        case 4:
             ai_file.open("../IA/learning_ai.data");
             break;
+        case 1:
         default:
+            ai_file.open("../IA/ai.data");
             break;
     }
     if(ai_file){
@@ -151,27 +140,19 @@ void Ai::save_ai()
 
 
 //load a trained AI from a file, according to the chosen difficulty
-void Ai::load_trained_ai()
+void Ai::load_ai()
 {
     int i,j,k;
     float number;
     ifstream ai_file;
     switch(mode)
     {
-        case 1:
-            ai_file.open("../IA/easy_ai.data");
-            break;
         case 2:
-            ai_file.open("../IA/medium_ai.data");
-            break;
-        case 3:
-            ai_file.open("../IA/hard_ai.data");
-            break;
-        case 4:
             ai_file.open("../IA/learning_ai.data");
             break;
+        case 1:
         default:
-            cout << "Error: no difficulty/mode selected" << endl;
+            ai_file.open("../IA/ai.data");
             break;
     }
     if(ai_file)
@@ -589,6 +570,8 @@ int Ai::play_learn(Matrix<float,1,60> game_state)
 
     //choose the which action play
     int chosen_action = choose_action(output_layer_values);
+
+    emit attaquer(1,2);
     return chosen_action;
 }
 
