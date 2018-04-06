@@ -383,6 +383,8 @@ deckEdit::deckEdit(/*std::vector<Carte *> *allCard*/)
 
     connect(tabBut[SAUVER], SIGNAL(clicked()), this, SLOT(sauvegarder()));
     connect(tabBut[CREER], SIGNAL(clicked()), this, SLOT(creer()));
+    connect(tabBut[EFFACER], SIGNAL(clicked()), this, SLOT(effacerDeck()));
+    connect(tabBut[MELANGER], SIGNAL(clicked()), this, SLOT(melangerDeck()));
 }
 
 void deckEdit::updateDeckVisu()
@@ -628,6 +630,35 @@ void deckEdit::creer()
 
     selectDeck->addItem(newDeck->text());
     selectDeck->setCurrentIndex(selectDeck->findText(newDeck->text()));
+}
+
+void deckEdit::effacerDeck()
+{
+    deck.clear();
+    extraDeck.clear();
+
+    indiceCarteDeck = 0;
+    indiceCarteExtraDeck = 0;
+    nbrCarteMonstre = 0;
+    nbrCarteMagie = 0;
+    nbrCartePiege = 0;
+
+    updateDeckVisu();
+    updateExtraDeckVisu();
+}
+
+void deckEdit::melangerDeck()
+{
+    std::random_shuffle(deck.begin(), deck.end());
+    std::random_shuffle(extraDeck.begin(), extraDeck.end());
+
+    updateDeckVisu();
+    updateExtraDeckVisu();
+}
+
+void deckEdit::trierDeck()
+{
+
 }
 
 void deckEdit::slotAttribut()

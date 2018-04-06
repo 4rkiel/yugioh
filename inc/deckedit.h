@@ -130,6 +130,9 @@ class deckEdit : public QWidget
             void rmvCard2Deck();
             void sauvegarder();
             void creer();
+            void effacerDeck();
+            void melangerDeck();
+            void trierDeck();
 };
 
 #endif // DECKEDIT_H
