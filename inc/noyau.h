@@ -84,6 +84,7 @@ public slots:
     void poser_test(int x);
     void poserAtk();
     void poserDef();
+    void donner_infos(int x);
 signals:
     void emit_go();
     void emit_mondieu();
@@ -104,6 +105,7 @@ signals:
     void dialogue();
     void change_position(int x);
     void tiens(QString);
+    void give_infos(QString,int,int,QString,int,QString,int,int);
     //void met_en_defense(int x);
 };
 

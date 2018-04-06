@@ -93,8 +93,16 @@ std::random_shuffle(d2->begin(),d2->end());
 int i;
 for(i=0;i<(signed)d2->size();i++)
     std::cout << "carte :" << d2->at(i)->id << std::endl;
+std::this_thread::sleep_for(std::chrono::milliseconds(rand()%100));
 piocher(1);
 }
+
+void Noyau::donner_infos(int x)
+{
+    Carte * actuelle = trouver(x);
+    emit give_infos(actuelle->nom,actuelle->attribut,actuelle->niveau,actuelle->image,actuelle->type,actuelle->description,actuelle->atk,actuelle->def);
+}
+
 
 //gère le piochage
 // x vaut 1 si c'est moi qui pioche sinon x vaut 76
