@@ -146,6 +146,9 @@ void Master::loadField (int x){
         if (network != NULL){
             connect(field,SIGNAL(transmettre(QString)),network,SLOT(transmettre(QString)));
         }
+        if (network != NULL){
+            connect(noyau,SIGNAL(tiens(QString)),network,SLOT(transmettre(QString)));
+        }
     }
 
 
@@ -181,7 +184,7 @@ void Master::loadField (int x){
 
     connect(noyau, SIGNAL(destruction(int)), field, SLOT(rmCarte(int)));
     connect(field,SIGNAL(sendAtk()),noyau,SLOT(poserAtk()));
-        connect(field,SIGNAL(sendDef()),noyau,SLOT(poserDef()));
+    connect(field,SIGNAL(sendDef()),noyau,SLOT(poserDef()));
 
 
 
@@ -190,6 +193,9 @@ void Master::loadField (int x){
 
     //pour poser une carte
     connect(field,SIGNAL(doubleClicked(int)),noyau,SLOT(poser_test(int)));
+
+    //pour switch
+    connect(noyau,SIGNAL(change_position(int)),field,SLOT(switchCarte(int)));
 
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);

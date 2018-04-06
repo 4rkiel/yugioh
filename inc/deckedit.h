@@ -22,18 +22,19 @@
 #include <QShortcut>
 #include <QScrollArea>
 #include <vector>
+#include <QMessageBox>
+#include <QStringListModel>
 #include "parser.h"
 #include "duplica.h"
 #include "cardlistpreview.h"
 
-#define NBR_CARTE_DECK_VISU 60 // multiple de 10
-#define NBR_CARTE_EXTRA_DECK 15
+#define NBR_CARTE_DECK_VISU 40 // multiple de 10
+#define NBR_CARTE_EXTRA_DECK 10
 
 class deckEdit : public QWidget
 {
     enum buttonDeckEdit
     {
-        QUITTER,
         MELANGER,
         TRIER,
         EFFACER,
@@ -60,9 +61,9 @@ class deckEdit : public QWidget
         const QString defaultImage = imgRep + "DEFAULT.jpg";
         const QString deckRep = appPath+"/deck/";
 
-        const QStringList buttonName = {tr("Quitter"), tr("Mélanger"),
+        const QStringList buttonName = {tr("Mélanger"),
                                         tr("Trier"), tr("Effacer"),
-                                        tr("Sauvegarder"), tr("Créer"),
+                                        tr("Enregistrer"), tr("Créer"),
                                         tr("Supprimer"), tr("Annuler"),
                                         tr("Filtrer")};
         const QStringList genreList = {"Monstre", tr("Magie"), tr("Piège")};
@@ -71,12 +72,28 @@ class deckEdit : public QWidget
                                            tr("Rituel")};
         const QStringList attributList = {};
 
-        std::vector<QHBoxLayout *> *cardPreviewList;
-
-        deckEdit(std::vector<Carte*> *allCard);
+        deckEdit(/*std::vector<Carte*> *allCard*/);
 
     private:
         void createEdit();
+
+        void updateDeckVisu();
+
+        void updateDeckVisuLastCard();
+
+        void updateExtraDeckVisu();
+
+        void updateExtraDeckVisuLastCard();
+
+        int indiceCarteDeck = 0;
+        int nbrCarteMonstre = 0;
+        int nbrCarteMagie = 0;
+        int nbrCartePiege = 0;
+
+        int indiceCarteExtraDeck = 0;
+
+        std::vector<Carte*> deck;
+        std::vector<Carte*> extraDeck;
 
         QComboBox *selectDeck;
         QComboBox *choixGenre;
@@ -96,13 +113,23 @@ class deckEdit : public QWidget
 
         QPushButton *effectBoxBut;
         QPushButton *tabBut[NBR_BUTTON_DECK_EDIT];
-        QPushButton *tabCardVisu[NBR_CARTE_DECK_VISU];
-        QPushButton *tabExtraDeck[NBR_CARTE_EXTRA_DECK];
+        std::vector<QPushButton *> tabCardVisu;
+        std::vector<QPushButton *> tabExtraDeck;
+
+        QLabel *deckLabel;
+        QLabel *infoMonstreLabel;
+        QLabel *infoMagieLabel;
+        QLabel *infoPiegeLabel;
+        QLabel *infoFusionLabel;
 
     signals:
 
     public slots:
             void slotAttribut();
+            void addCard2Deck(Carte* carte);
+            void rmvCard2Deck();
+            void sauvegarder();
+            void creer();
 };
 
 #endif // DECKEDIT_H

@@ -49,15 +49,12 @@ public:
 
 public slots:
 
-    void test();
-
     void setProgress();
-    void setChat();
-    void setStats();
-
+    void resetProgress();
     void setPhase(int);
     void setTour(int);
 	void sendMsg(QString);
+	void sendInfo(QString);
 
     void setCarte(QString, int);
     void poseCarte(int);
@@ -87,14 +84,14 @@ signals:
 	void doubleClicked(int);
 	void biClick(int, int);
 
+
 private:
     
     void cardHover();
     void cardOut();
 
-    void setRightBox(QWidget *, QWidget *);
-
     int retained;
+    int maxPhase;
     bool lockPreview;
     QString baseLife;
     
@@ -107,11 +104,13 @@ private:
         QHBoxLayout * infoLayout;
 
         QWidget * lifeBox;
-        QHBoxLayout * lifeLayout;
+        QGridLayout * lifeLayout;
         QLabel * lifeAdv;
         QLabel * icoAdv;
         QProgressBar * progressAdv;
         QLabel * icoLife;
+        QProgressBar * progressLeft;
+        QProgressBar * progressRight;
         QLabel * lifeSlf;
         QLabel * icoSlf;
         QProgressBar * progressSlf;
@@ -157,24 +156,11 @@ private:
         QWidget * rightBarBox;
         QGridLayout * rightBarLayout;
     
-            ShadowLab * intel;
-            ShadowButt * actionButt;
-
-            QWidget * sideTool;
-            QGridLayout * sideToolLayout;
-
-                QWidget * currentButt;
-                FlatButt * statsButt;
-                FlatButt * chatButt;
-
             QWidget * side;
             QGridLayout * sidebar;
 
                 Duplica * fullCard;
-                QWidget * currentSide;
-                Stats * stats;
                 Chat * chat;
-
 
 };
 

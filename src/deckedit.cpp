@@ -1,7 +1,9 @@
 #include "../inc/deckedit.h"
 
+#include <inc/deckedit.h>
 
-deckEdit::deckEdit(std::vector<Carte *> *allCard)
+
+deckEdit::deckEdit(/*std::vector<Carte *> *allCard*/)
 {
     selectDeck = new QComboBox;
     choixGenre = new QComboBox;
@@ -16,34 +18,49 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
     spinDef = new QSpinBox;
     spinNiveau = new QSpinBox;
 
-    cardPreviewList = new std::vector<QHBoxLayout*>;
+    deck.reserve(NBR_CARTE_DECK_VISU);
+    tabCardVisu.reserve(NBR_CARTE_DECK_VISU);
+
+//    cardPreviewList = new std::vector<QHBoxLayout*>;
 
     for(int i=0; i<NBR_BUTTON_DECK_EDIT; i++)
     {
         tabBut[i] = new QPushButton;
         tabBut[i]->setDefault(true);
-        tabBut[i]->setStyleSheet("background: red");
         tabBut[i]->setText(buttonName.at(i));
     }
 
     for(int i=0; i<NBR_CARTE_DECK_VISU; i++)
     {
-        tabCardVisu[i] = new QPushButton;
+        tabCardVisu.push_back(new QPushButton);
         tabCardVisu[i]->setDefault(true);
-        tabCardVisu[i]->setStyleSheet("border-image: url(" + defaultImage + ");"
-                            "margin: 1px ;border: 1px solid black");
-        tabCardVisu[i]->setSizePolicy(QSizePolicy::Minimum,
-                                      QSizePolicy::Minimum);
+
+        QSizePolicy sp_retain = tabCardVisu[i]->sizePolicy();
+        sp_retain.setRetainSizeWhenHidden(true);
+        sp_retain.setHorizontalPolicy(QSizePolicy::Minimum);
+        sp_retain.setVerticalPolicy(QSizePolicy::Minimum);
+        tabCardVisu[i]->setSizePolicy(sp_retain);
+        tabCardVisu[i]->setVisible(false);
+
+        QObject::connect(tabCardVisu[i], SIGNAL(clicked()),
+                         this, SLOT(rmvCard2Deck()));
+
     }
 
     for(int i=0; i<NBR_CARTE_EXTRA_DECK; i++)
     {
-        tabExtraDeck[i] = new QPushButton;
+        tabExtraDeck.push_back(new QPushButton);
         tabExtraDeck[i]->setDefault(true);
-        tabExtraDeck[i]->setStyleSheet("border-image: url(" + defaultImage +
-                                      ");margin: 1px ;border: 1px solid black");
-        tabCardVisu[i]->setSizePolicy(QSizePolicy::Minimum,
-                                      QSizePolicy::Minimum);
+
+        QSizePolicy sp_retain = tabCardVisu[i]->sizePolicy();
+        sp_retain.setRetainSizeWhenHidden(true);
+        sp_retain.setHorizontalPolicy(QSizePolicy::Minimum);
+        sp_retain.setVerticalPolicy(QSizePolicy::Minimum);
+        tabExtraDeck[i]->setSizePolicy(sp_retain);
+        tabExtraDeck[i]->setVisible(false);
+
+        QObject::connect(tabExtraDeck[i], SIGNAL(clicked()),
+                         this, SLOT(rmvCard2Deck()));
     }
 
     choixGenre->addItems(genreList);
@@ -58,11 +75,11 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
         //TODO refactorer le code
 
         QFrame *editCreate = new QFrame;
-        editCreate->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+        editCreate->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
         editCreate->setStyleSheet("border: 1px solid blue");
         mainL1->addWidget(editCreate);
         editCreate->setStyleSheet("background-color: #ECEFF1");
-        QGridLayout *editCreateLayout = new QGridLayout;
+        QVBoxLayout *editCreateLayout = new QVBoxLayout;
         editCreate->setLayout(editCreateLayout);
 
 
@@ -78,45 +95,50 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
                 selectDeck->addItem(str);
             }
 
+            QHBoxLayout *part1 = new QHBoxLayout;
+            QVBoxLayout *part2 = new QVBoxLayout;
+
+            part1->addLayout(part2);
+
             QFormLayout *formulaire = new QFormLayout;
-            editCreateLayout->addLayout(formulaire, 0, 0, 1, 1);
+            part2->addLayout(formulaire);
+
 
                 formulaire->addRow("Deck: ", selectDeck);
 
 
                 // ... name a deck .............................................
 
-                tabBut[QUITTER]->setText(tr("Quitter"));
-                formulaire->addRow(tabBut[QUITTER], newDeck);
+
+                formulaire->addRow(tabBut[CREER], newDeck);
 
 
                 //TODO signal qui crée le deck
 
+            // ... boutons verticaux ...........................................
+
+                QVBoxLayout *buttonV = new QVBoxLayout;
+                part1->addLayout(buttonV);
+
+
+                    buttonV->addWidget(tabBut[SAUVER]);
+                    buttonV->addWidget(tabBut[SUPPRIMER]);
+
+                //TODO signaux
+
+                editCreateLayout->addLayout(part1);
 
             // ... boutons horizontaux .........................................
 
             QHBoxLayout *buttonH = new QHBoxLayout;
-            editCreateLayout->addLayout(buttonH, 1, 0, 1, 1);
+            editCreateLayout->addLayout(buttonH);
 
                 buttonH->addWidget(tabBut[MELANGER]);
                 buttonH->addWidget(tabBut[TRIER]);
                 buttonH->addWidget(tabBut[EFFACER]);
-                buttonH->addStretch();
 
                 //TODO signaux
 
-
-            // ... boutons verticaux ...........................................
-
-            QVBoxLayout *buttonV = new QVBoxLayout;
-            editCreateLayout->addLayout(buttonV, 0, 1, 2, 1);
-
-                buttonV->addStretch();
-                buttonV->addWidget(tabBut[SAUVER]);
-                buttonV->addWidget(tabBut[CREER]);
-                buttonV->addWidget(tabBut[SUPPRIMER]);
-
-                //TODO signaux
 
 
 
@@ -136,16 +158,27 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
             QHBoxLayout *layoutInfo = new QHBoxLayout;
             cardInfo->setLayout(layoutInfo);
 
-                QLabel *deckLabel = new QLabel();
-                deckLabel->setText(tr("Nombre de carte: "));
+                deckLabel = new QLabel();
+                deckLabel->setText(tr("Deck vide"));
 
-                QLabel *infoLabel = new QLabel();
-                infoLabel->setText(tr("Monstre: \tMagie:  \tPiège: "));
+                infoMonstreLabel = new QLabel;
+                infoMagieLabel = new QLabel;
+                infoPiegeLabel = new QLabel;
+                infoFusionLabel = new QLabel;
+                infoMonstreLabel->setText(tr("Monstre: ") +
+                                          QString::number(nbrCarteMonstre));
+                infoMagieLabel->setText(tr("Magie: ") +
+                                        QString::number(nbrCarteMagie));
+                infoPiegeLabel->setText(tr("Piège: ") +
+                                        QString::number(nbrCartePiege));
+                infoFusionLabel->setText(tr("Extra Deck vide"));
 
                 layoutInfo->addWidget(deckLabel);
-                layoutInfo->addWidget(infoLabel);
+                layoutInfo->addWidget(infoMonstreLabel);
+                layoutInfo->addWidget(infoMagieLabel);
+                layoutInfo->addWidget(infoPiegeLabel);
+                layoutInfo->addWidget(infoFusionLabel);
 
-                //TODO signaux
 
 
             // ... visualiseur de Deck .........................................
@@ -171,25 +204,30 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
             // ... visualiseur d'extra Deck ....................................
 
-            QFrame *extraDeckVisu = new QFrame;
-            extraDeckVisu->setSizePolicy(QSizePolicy::Minimum,
-                                         QSizePolicy::Maximum);
-            extraDeckVisu->setObjectName("extraDeckVisu");
-            extraDeckVisu->setStyleSheet("#extraDeckVisu"
-                                         "{border: 1px solid green}");
+//            QFrame *extraDeckVisu = new QFrame;
+//            extraDeckVisu->setSizePolicy(QSizePolicy::Minimum,
+//                                         QSizePolicy::Maximum);
+//            extraDeckVisu->setObjectName("extraDeckVisu");
+//            extraDeckVisu->setStyleSheet("#extraDeckVisu"
+//                                         "{border: 1px solid green}");
 
-            QHBoxLayout *layoutExtraCard = new QHBoxLayout;
-            extraDeckVisu->setLayout(layoutExtraCard);
+//            QHBoxLayout *layoutExtraCard = new QHBoxLayout;
+//            extraDeckVisu->setLayout(layoutExtraCard);
+
+//            for(int i=0; i<NBR_CARTE_EXTRA_DECK; i++)
+//            {
+//                    layoutExtraCard->addWidget(tabExtraDeck[i]);
+//            }
 
             for(int i=0; i<NBR_CARTE_EXTRA_DECK; i++)
             {
-                    layoutExtraCard->addWidget(tabExtraDeck[i]);
+                    layoutCard->addWidget(tabExtraDeck[i], limit, i, 1, 1);
             }
 
 
         deckVisuLayout->addWidget(cardInfo);
         deckVisuLayout->addWidget(deckVisu);
-        deckVisuLayout->addWidget(extraDeckVisu);
+//        deckVisuLayout->addWidget(extraDeckVisu);
 
 
         // ... recherche de cartes .............................................
@@ -328,6 +366,12 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
             cardList = new CardListPreview(parser);
             cardList->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
+            for(CardPreview *cardPreviewCourante : (*cardList->cardPreviewList))
+            {
+                QObject::connect(cardPreviewCourante, SIGNAL(clicked(Carte*)),
+                                 this, SLOT(addCard2Deck(Carte*)));
+            }
+
             deckScroll->setWidget(cardList);
 
         mainL2->addWidget(deckScroll);
@@ -336,6 +380,254 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
     mainLayout->addLayout(mainL1);
     mainLayout->addLayout(mainL2);
     setLayout(mainLayout);
+
+    connect(tabBut[SAUVER], SIGNAL(clicked()), this, SLOT(sauvegarder()));
+    connect(tabBut[CREER], SIGNAL(clicked()), this, SLOT(creer()));
+}
+
+void deckEdit::updateDeckVisu()
+{
+    int i=0;
+    for(; i<indiceCarteDeck; i++)
+    {
+        tabCardVisu[i]->setStyleSheet("border-image: url("
+                                      + deck.at(i)->image + ");"
+                                      "margin: 1px ;border: 1px solid black");
+        tabCardVisu[i]->setVisible(true);
+    }
+    for(; i<NBR_CARTE_DECK_VISU; i++)
+    {
+        tabCardVisu[i]->setVisible(false);
+    }
+
+    if(!indiceCarteDeck)
+        deckLabel->setText(tr("Main Deck vide"));
+    else
+    deckLabel->setText(tr("Main Deck: ") +
+                       QString::number(indiceCarteDeck));
+
+    infoMonstreLabel->setText(tr("Monstre: ") +
+                              QString::number(nbrCarteMonstre));
+    infoMagieLabel->setText(tr("Magie: ") + QString::number(nbrCarteMagie));
+    infoPiegeLabel->setText(tr("Piège: ") + QString::number(nbrCartePiege));
+}
+
+void deckEdit::updateDeckVisuLastCard()
+{
+    tabCardVisu[indiceCarteDeck]->setStyleSheet("border-image: url(" +
+                                                deck.at(indiceCarteDeck)->image
+                                                + ");margin: 1px ;"
+                                                  "border: 1px solid black");
+    tabCardVisu[indiceCarteDeck]->setVisible(true);
+
+    deckLabel->setText(tr("Main Deck: ") +
+                       QString::number(indiceCarteDeck+1));
+
+    infoMonstreLabel->setText(tr("Monstre: ")
+                              + QString::number(nbrCarteMonstre));
+    infoMagieLabel->setText(tr("Magie: ") + QString::number(nbrCarteMagie));
+    infoPiegeLabel->setText(tr("Piège: ") + QString::number(nbrCartePiege));
+}
+
+void deckEdit::updateExtraDeckVisu()
+{
+    int i=0;
+    for(; i<indiceCarteExtraDeck; i++)
+    {
+        tabExtraDeck[i]->setStyleSheet("border-image: url("
+                                       + extraDeck.at(i)->image + ");"
+                                       "margin: 1px ;border: 1px solid black");
+        tabExtraDeck[i]->setVisible(true);
+    }
+    for(; i<NBR_CARTE_EXTRA_DECK; i++)
+    {
+        tabExtraDeck[i]->setVisible(false);
+    }
+
+    if(!indiceCarteExtraDeck)
+        infoFusionLabel->setText(tr("Extra Deck vide"));
+    else
+    infoFusionLabel->setText(tr("Extra Deck: ") +
+                       QString::number(indiceCarteExtraDeck));
+}
+
+void deckEdit::updateExtraDeckVisuLastCard()
+{
+    tabExtraDeck[indiceCarteExtraDeck]->setStyleSheet("border-image: url("
+                              + extraDeck.at(indiceCarteExtraDeck)->image + ");"
+                              "margin: 1px ;border: 1px solid black");
+    tabExtraDeck[indiceCarteExtraDeck]->setVisible(true);
+
+    infoFusionLabel->setText(tr("Extra Deck: ") +
+                             QString::number(indiceCarteExtraDeck+1));
+}
+
+
+void deckEdit::addCard2Deck(Carte* carte)
+{
+    if(indiceCarteDeck == NBR_CARTE_DECK_VISU &&
+            indiceCarteExtraDeck == NBR_CARTE_EXTRA_DECK)
+        return;
+
+
+
+    switch(carte->genre)
+    {
+        case 0:
+            if(carte->sous_type == 2) // carte fusion
+            {
+                if(indiceCarteExtraDeck == NBR_CARTE_EXTRA_DECK)
+                       return;
+
+                extraDeck.push_back(carte);
+                updateExtraDeckVisuLastCard();
+                indiceCarteExtraDeck++;
+                return;
+            }
+            if(indiceCarteDeck == NBR_CARTE_DECK_VISU)
+                return;
+            nbrCarteMonstre++;
+        break;
+
+        case 1:
+            if(indiceCarteDeck == NBR_CARTE_DECK_VISU)
+                return;
+            nbrCarteMagie++;
+        break;
+
+        case 2:
+            if(indiceCarteDeck == NBR_CARTE_DECK_VISU)
+                return;
+            nbrCartePiege++;
+    }
+
+    deck.push_back(carte);
+
+    updateDeckVisuLastCard();
+
+    indiceCarteDeck++;
+}
+
+void deckEdit::rmvCard2Deck()
+{
+    size_t pos;
+    QPushButton* cardButton2Rmv = qobject_cast<QPushButton*>(sender());
+    std::vector<QPushButton *>::iterator it = std::find(tabCardVisu.begin(),
+                                         tabCardVisu.end(), cardButton2Rmv);
+    if(it != tabCardVisu.end())
+    {
+        pos = it - tabCardVisu.begin();
+
+        switch(deck.at(pos)->genre)
+        {
+            case 0:
+                nbrCarteMonstre--;
+            break;
+
+            case 1:
+                nbrCarteMagie--;
+            break;
+
+            case 2:
+                nbrCartePiege--;
+        }
+
+        deck.erase(deck.begin()+pos);
+
+        indiceCarteDeck--;
+
+        updateDeckVisu();
+    }
+    else
+    {
+        pos = std::find(tabExtraDeck.begin(), tabExtraDeck.end(),
+                        cardButton2Rmv) - tabExtraDeck.begin();
+
+        extraDeck.erase((extraDeck.begin()+pos));
+
+        indiceCarteExtraDeck--;
+
+        updateExtraDeckVisu();
+    }
+}
+
+void deckEdit::sauvegarder()
+{
+    if(deck.size() != 40)
+    {
+        QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this, tr("M-Masaka !"), tr("Deck invalide: Souhaitez "
+                                    "vous tout de même sauvegarder ? Vous "
+                                    "pourrez éditer votre deck ultérieurement."),
+                                    QMessageBox::Yes|QMessageBox::No);
+        if (reply == QMessageBox::No)
+          return;
+    }
+
+    QString file = deckRep + selectDeck->currentText() + QString(".deck");
+    qDebug() << "SAVE: URL FICHIER ECRITURE DECK: "+file;
+
+
+
+
+    QFile *myfile = new QFile(file);
+
+    if(!myfile->open(QFile::WriteOnly | QFile::Text))
+    {// chemin  corrompue
+        QMessageBox::information(this, tr("echec de la sauvegarde"), tr("Le deck ") +
+                                 selectDeck->currentText() + tr(" n'a pas pu être sauvegardé."),
+                                     QMessageBox::Ok);
+    }
+
+    QTextStream in(myfile);
+
+
+
+    in << QString("#main_deck\n");
+
+    for(Carte* carte : deck)
+    {
+        in << QString::number(carte->id) + QString("\n");
+    }
+
+    in << QString("#extra_deck\n");
+    for(Carte* carte : extraDeck)
+    {
+        in << QString::number(carte->id);
+    }
+
+    myfile->close();
+
+    QMessageBox::information(this, tr("youpi !"), tr("Le deck ") +
+                             selectDeck->currentText() + tr(" à était enregistré."),
+                             QMessageBox::Ok);
+}
+
+void deckEdit::creer()
+{
+    std::vector<QString> list;
+    for(auto i=0; i<selectDeck->count(); i++)
+    {
+        list.push_back(selectDeck->itemText(i));
+    }
+
+    if(std::find(list.begin(), list.end(), newDeck->text()) != list.end())
+    { // deck already exist
+        QMessageBox::information(this, tr("M-Masaka !"), tr("Impossible de créer le deck \"")
+                                + newDeck->text() +tr("\": le deck existe déjà."),
+                                    QMessageBox::Ok);
+          return;
+    }
+
+    QFile myfile(deckRep + newDeck->text() + QString(".deck"));
+    if(!myfile.open(QIODevice::WriteOnly | QIODevice::Append))
+    {// chemin  corrompue
+        QMessageBox::information(this, tr("echec de la sauvegarde"), tr("echec de la création du deck"),
+                                     QMessageBox::Ok);
+    }
+
+    selectDeck->addItem(newDeck->text());
+    selectDeck->setCurrentIndex(selectDeck->findText(newDeck->text()));
 }
 
 void deckEdit::slotAttribut()

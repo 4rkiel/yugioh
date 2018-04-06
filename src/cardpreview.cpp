@@ -1,8 +1,10 @@
 #include "../inc/cardpreview.h"
 
-CardPreview::CardPreview(const Carte *carte)
+CardPreview::CardPreview(Carte *carte)
 {
     mainLayout = new QHBoxLayout;
+
+    maCarte = carte;
 
     const QStringList genreList = {tr("Monstre"), tr("Magie"), tr("Piège")};
     const QStringList infoList = {carte->nom, genreList.at(carte->genre),
@@ -28,7 +30,10 @@ CardPreview::CardPreview(const Carte *carte)
     }
 
     if(tabInfoLabel[GENRE]->text() == genreList.at(0))
+    {
+       // setStyleSheet("background: red");
         setObjectName("Monstre");
+    }
     else if(tabInfoLabel[GENRE]->text() == genreList.at(1))
         setObjectName("Magie");
     else
@@ -42,12 +47,8 @@ CardPreview::CardPreview(const Carte *carte)
 
 void CardPreview::mousePressEvent (QMouseEvent * e)
 {
-    if (e->button() == Qt::RightButton)
+    if (e->button() == Qt::LeftButton || e->button() == Qt::RightButton )
     {
-        emit rightClicked();
-    }
-    else if (e->button() == Qt::LeftButton)
-    {
-        emit clicked();
+        emit clicked(maCarte);
     }
 }

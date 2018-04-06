@@ -28,7 +28,8 @@ class CardPreview : public QWidget
 
     public:
 
-        CardPreview(const Carte *carte);
+        Carte *maCarte;
+        CardPreview(Carte *carte);
 
     private:
 
@@ -38,8 +39,7 @@ class CardPreview : public QWidget
 
     signals:
 
-        void rightClicked();
-        void clicked();
+        void clicked(Carte*);
 
     protected:
 

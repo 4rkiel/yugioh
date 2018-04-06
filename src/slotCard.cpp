@@ -160,6 +160,8 @@ void SlotCard::resizeEvent (QResizeEvent*){
 
         if (isAdv()){
             proxy -> setGeometry(QRect(w,0,w,h));
+        } else {
+            proxy -> setGeometry(QRect(0,h,w,h));
         }
 
         imgButt -> resize(QSize(h,w));

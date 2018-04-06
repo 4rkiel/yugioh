@@ -26,12 +26,12 @@ Parser::Parser(QWidget *parent)
     for(i=0;i<(signed)all_cards->size();i++)
     {
        // std::cout << "je parcours la list" << std::endl;
-           all_cards->at(i)->afficher_infos();
+          // all_cards->at(i)->afficher_infos();
     }
        std::vector<Carte *> * search = rechercher_nom("Drag",NULL);
        //std::cout << "J'AI TROUVE" << std::endl;
        for(i=0;i<(signed)search->size();i++)
-           search->at(i)->afficher_infos();
+        {}   //search->at(i)->afficher_infos();
 }
 
 std::string Parser::getSet(std::string nom)

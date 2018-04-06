@@ -7,7 +7,9 @@
 #include <cstring>
 #include "carte.h"
 #include "reseau.h"
-
+#include <string>
+#include <QString>
+#include <sstream>
 
 class Noyau : public QWidget
 {
@@ -34,6 +36,7 @@ public:
     void enlever_x(std::vector<Carte *> **vect, int x);
     void enlever_i(std::vector<Carte *> **vect, int i);
     void chargerDeck(int x);
+    int perfect_terrain(int zone);
     Carte * trouver(int x);
     int perfect_position(int zone);
 
@@ -89,7 +92,7 @@ signals:
     void emit_charge_deck(QString contenu);
     void switch_pos(int x);
     void je_pioche();
-    void je_pose(QString img,int main_x,int terrain_x,bool def,bool vis);
+    //void je_pose(QString img,int main_x,int terrain_x,bool def,bool vis);
     void j_attaque(int attaquant_x,int adversaire_x);
     void je_gagne();
     void e_deck(int x);
@@ -99,6 +102,9 @@ signals:
     void nonvis(int x);
     void defens(int x);
     void dialogue();
+    void change_position(int x);
+    void tiens(QString);
+    //void met_en_defense(int x);
 };
 
 
