@@ -128,13 +128,14 @@ RuleTab::RuleTab (){
             persoScroll -> setFocusPolicy(Qt::NoFocus);
 
             persoScrollBox = new QWidget;
+            persoScrollBox -> setObjectName("ruleScrollBox");
             persoPaneLayout = new QVBoxLayout;
             persoPaneLayout -> setAlignment(Qt::AlignTop);
 
             
             // life points
 
-                lifePoints = new QComboBox;
+                lifePoints = new Combo;
                 lifePoints -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
                 lifePoints -> addItem("1000");
                 lifePoints -> addItem("2000");
@@ -155,7 +156,7 @@ RuleTab::RuleTab (){
 
                 // card draw number
 
-                cardDrawNumber=new QComboBox;
+                cardDrawNumber = new Combo;
                 cardDrawNumber -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
                 cardDrawNumber -> addItem("1");
                 cardDrawNumber -> addItem("2");

@@ -42,13 +42,21 @@ private:
     QGraphicsDropShadowEffect * gffect;
     QGridLayout * layout;
     QShortcut *shortcut;
-    QLabel * title;
+   
+    QWidget * titleBox;
+    QHBoxLayout * titleLayout;
     QGraphicsDropShadowEffect * effect;
-    
+    QLabel * title;
+    QLabel * attr;
+
+    QWidget * typeBox;
+    QHBoxLayout * typeLayout;
+
     QLabel * pic;
 
     QScrollArea * descBox;
     QVBoxLayout * descLayout;
+        QLabel * type;
         QLabel * desc;
         QLabel * atk;
 

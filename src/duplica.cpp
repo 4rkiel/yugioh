@@ -27,25 +27,40 @@ Duplica::Duplica(){
     QFont font = this -> font();
     font.setPointSize(10);
 
-    setStyleSheet("background: #FDD835");
-
            
     layout = new QGridLayout;
     layout -> setContentsMargins(10,10,10,10);
 
         // Titre Box
-           
+    
+        titleBox = new QWidget;
+        titleBox -> setObjectName("replicaTitleBox");
+        titleBox -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
+
+        titleLayout = new QHBoxLayout;
+        titleLayout -> setContentsMargins(10,5,10,5);
+
             // Titre
-            
+           
             title = new QLabel;
             title -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
             title -> setWordWrap(true);
 			title -> setFont(font);
-            title -> setContentsMargins(10, 10, 10, 10);
             title -> setObjectName("replicaTitle");
 
+            titleLayout -> addWidget(title);
+        
+            attr = new QLabel;
+            attr -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+            attr -> setObjectName("replicaAttr");
+            attr -> setMinimumHeight(30);
+            attr -> setMaximumHeight(30);
+            attr -> setMinimumWidth(30);
+            attr -> setMaximumWidth(30);
+                  
+            titleLayout -> addWidget(attr);
 
-            // Titre Picture
+
 
 
         effect = new QGraphicsDropShadowEffect;
@@ -54,12 +69,27 @@ Duplica::Duplica(){
         effect -> setXOffset(2);
         effect -> setColor(QColor(0,0,0,50));
 
-        title -> setGraphicsEffect(effect);
+        titleBox -> setGraphicsEffect(effect);
 
-        layout-> addWidget(title, 0, 0, 1, 1);
+
+        titleBox -> setLayout(titleLayout);
+        
+        layout-> addWidget(titleBox, 0, 0, 1, 1);
 
         
         // Sous titre
+
+        typeBox = new QWidget;
+        typeBox -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
+        typeLayout = new QHBoxLayout;
+        typeLayout -> setMargin(0);
+        typeLayout -> setSpacing(0);
+        typeLayout -> setAlignment(Qt::AlignRight);
+
+
+        typeBox -> setLayout(typeLayout);
+        layout -> addWidget(typeBox, 1, 0, 1, 1);
+
 
         
         // Image
@@ -82,7 +112,7 @@ Duplica::Duplica(){
         
         picLayout -> addWidget(pic);
         picBox -> setLayout(picLayout);
-        layout -> addWidget(picBox, 1, 0, 5, 1);
+        layout -> addWidget(picBox, 2, 0, 5, 1);
         
         
 
@@ -96,14 +126,22 @@ Duplica::Duplica(){
         descBox -> setFocusPolicy(Qt::NoFocus);
         
         descBox -> setObjectName("replicaDesc");
-        descBox -> setStyleSheet(
-                "border: 3px solid #795548;"
-                "background: #FFF59D;"
-                );
         descLayout = new QVBoxLayout;
         descLayout -> setContentsMargins(10, 10, 10, 10);
         
-        
+ 
+            // Type
+
+            type = new QLabel;
+            type -> setFont(font);
+            type -> setAlignment(Qt::AlignLeft);
+            type -> setStyleSheet(
+                "border: none;"
+                "background: transparent;"
+            );
+            
+            descLayout-> addWidget(type);
+                   
 
             // Description 
 
@@ -111,14 +149,14 @@ Duplica::Duplica(){
             desc -> setContentsMargins(0, 0, 0, 10);
             desc -> setStyleSheet(
                 "border: none;"
-                "border-bottom: 1px solid #795548;"
                 "background: transparent;"
             );
             desc -> setWordWrap(true);
             desc -> setFont(font);
             
-            descLayout-> addWidget(desc);
+            descLayout -> addWidget(desc);
 
+            descLayout -> addStretch(1);
 
             // Atk/Def
 
@@ -127,14 +165,15 @@ Duplica::Duplica(){
             atk -> setAlignment(Qt::AlignRight);
             atk -> setStyleSheet(
                 "border: none;"
+                "border-top: 1px solid #795548;"
                 "background: transparent;"
             );
-            
-            descLayout-> addWidget(atk);
+           
+            descLayout -> addWidget(atk);
 
         descBox -> setLayout(descLayout);
 
-        layout -> addWidget(descBox,7,0,2,1);
+        layout -> addWidget(descBox,8,0,2,1);
 
 
     setLayout(layout);
@@ -147,13 +186,25 @@ Duplica::~Duplica(){
 
         delete atk;
         delete desc;
+        delete type;
     delete descLayout;
     delete descBox;
     
     delete pic;
 
-    delete effect;
+    while (auto item = typeLayout->takeAt(0)) {
+      delete item->widget();
+    }
+
+    delete typeLayout;
+    delete typeBox;
+
     delete title;
+    delete attr;
+    delete effect;
+    delete titleLayout;
+    delete titleBox;
+    
     delete layout;
 }
 
@@ -170,11 +221,34 @@ void Duplica::setTitle (QString str){
 }
 
 void Duplica::setAttr (int x){
-
+    
+    attr -> setStyleSheet(
+        "border-image:url(\"img/img_attr/DIVIN.png\");"
+    );
 }
 
 void Duplica::setLevel (int x){
 
+    while (auto item = typeLayout->takeAt(0)) {
+        delete item->widget();
+    }
+
+    for (int k=0; k<x; k++){
+        
+        QLabel * typeLabel = new QLabel;
+         
+        typeLabel -> setStyleSheet(
+            "border-image:url(\"img/img_attr/Level.png\");"
+        );
+
+        typeLabel -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+        typeLabel -> setObjectName("replicaAttr");
+        typeLabel -> setMinimumHeight(20);
+        typeLabel -> setMaximumHeight(20);
+        typeLabel -> setMinimumWidth(20);
+        typeLabel -> setMaximumWidth(20);
+        typeLayout -> addWidget(typeLabel);
+    }
 }
 
 void Duplica::setPic (QString str){
@@ -187,10 +261,23 @@ void Duplica::setPic (QString str){
 
 void Duplica::setType (int x){
 
+    type -> setText("[" + QString::number(x) + "]");
+
+    titleBox -> setStyleSheet( "#replicaTitleBox {"
+        "background: #FDD835;"
+        "border-left: 3px solid #ffff88;"
+        "border-top: 3px solid #ffff88;"
+    "}");
+    
+    descBox -> setStyleSheet(
+        "border: 3px solid #795548;"
+        "background: #FFF59D;"
+    );
+
+    setStyleSheet("background: #FDD835");
 }
 
 void Duplica::setDesc (QString str){
-    
     desc -> setText(str);
 }
 

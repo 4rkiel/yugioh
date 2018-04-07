@@ -44,8 +44,7 @@ SoloChoice::SoloChoice () {
             choice = new FlatButt("\uf060", "");
             choice -> setToolTip(tr("Retour au Menu"));
             connect(choice, SIGNAL(clicked()), this, SLOT(emitBack()));
-            infoLayout -> addWidget(choice);
-            
+            //infoLayout -> addWidget(choice);
             infoBox -> setLayout(infoLayout);
 
         layout -> addWidget(infoBox, 0,0,1,3);
@@ -161,6 +160,7 @@ SoloChoice::~SoloChoice (){
 
 void SoloChoice::init (){
     choice -> setFocus();
+    infoLayout -> addWidget(choice);
 }
 
 

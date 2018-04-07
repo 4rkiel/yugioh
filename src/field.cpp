@@ -538,11 +538,13 @@ void Field::cardRightClicked(int x){
         (! fieldStack -> at(x) -> isGrave() )
     ){
         if (lockPreview){
-
+            emit askPreview(x);            
+            fieldStack -> at(x) -> setProperty("down", false);
             lockPreview = false;
 
         } else {
 
+            fieldStack -> at(x) -> setProperty("down", true);
             lockPreview = true;
         }
     }
@@ -628,8 +630,10 @@ void Field::cardClicked(int x){
 }
 
 void Field::cardEntered(int x){
-
-	emit askPreview(x);
+    
+    if (!lockPreview){
+    	emit askPreview(x);
+    }
 }
 
 void Field::cardLeaved(){
