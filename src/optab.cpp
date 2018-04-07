@@ -159,6 +159,7 @@ OptionTab::OptionTab (){
                 langInput -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
                 langInput -> addItem(QString::fromUtf8("Français"));
                 langInput -> addItem("English");
+                langInput -> addItem("Arabic");
                 connect(langInput,SIGNAL(currentIndexChanged(QString)),
                         this,SLOT(langageChange()));
                 optPaneLayout -> addWidget(langInput);
@@ -447,6 +448,9 @@ void OptionTab::langageChange(){
 
     if(langInput -> currentText()=="English")
         settings.setValue("langage", "en_US");
+
+    if(langInput -> currentText()=="Arabic")
+        settings.setValue("langage", "ar_SA");
 
     emit newSettings();
 }

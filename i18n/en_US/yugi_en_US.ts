@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="en_US">
+<TS version="2.1" language="en_US">
 <context>
     <name></name>
     <message>
@@ -12,7 +12,13 @@
     <name>BuildTab</name>
     <message>
         <source>Retour</source>
-        <translation>Back</translation>
+        <translation type="vanished">Back</translation>
+    </message>
+    <message>
+        <location filename="../../src/buildtab.cpp" line="35"/>
+        <location filename="../../src/buildtab.cpp" line="82"/>
+        <source>Decks</source>
+        <translation>Decks</translation>
     </message>
     <message>
         <location filename="../../src/buildtab.cpp" line="42"/>
@@ -79,7 +85,7 @@
     </message>
     <message>
         <location filename="../../src/cardEditor.cpp" line="62"/>
-        <location filename="../../src/cardEditor.cpp" line="237"/>
+        <location filename="../../src/cardEditor.cpp" line="238"/>
         <source>Dragon</source>
         <translation></translation>
     </message>
@@ -90,7 +96,7 @@
     </message>
     <message>
         <location filename="../../src/cardEditor.cpp" line="63"/>
-        <location filename="../../src/cardEditor.cpp" line="237"/>
+        <location filename="../../src/cardEditor.cpp" line="238"/>
         <source>Guerrier</source>
         <translation>Warrior</translation>
     </message>
@@ -106,7 +112,7 @@
     </message>
     <message>
         <location filename="../../src/cardEditor.cpp" line="63"/>
-        <location filename="../../src/cardEditor.cpp" line="237"/>
+        <location filename="../../src/cardEditor.cpp" line="238"/>
         <source>Magicien</source>
         <translation>Spellcaster</translation>
     </message>
@@ -166,6 +172,16 @@
         <translation>Ritual</translation>
     </message>
     <message>
+        <location filename="../../src/cardEditor.cpp" line="67"/>
+        <source>Fusion</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="67"/>
+        <source>Toon</source>
+        <translation></translation>
+    </message>
+    <message>
         <location filename="../../src/cardEditor.cpp" line="69"/>
         <source>Piocher</source>
         <translation>Draw</translation>
@@ -201,6 +217,21 @@
         <translation>+1000 attack</translation>
     </message>
     <message>
+        <location filename="../../src/cardEditor.cpp" line="91"/>
+        <source>Legende du Dragon Blanc aux yeux bleus</source>
+        <translation>Legend of the Blue Eyes White Dragon</translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="92"/>
+        <source>Metal Raider</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="98"/>
+        <source>Custom</source>
+        <translation></translation>
+    </message>
+    <message>
         <location filename="../../src/cardEditor.cpp" line="101"/>
         <source>Monstre</source>
         <translation>Monster</translation>
@@ -219,6 +250,16 @@
         <location filename="../../src/cardEditor.cpp" line="164"/>
         <source>Nom:</source>
         <translation>Name:</translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="166"/>
+        <source>ID:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="168"/>
+        <source>Set:</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../src/cardEditor.cpp" line="170"/>
@@ -246,249 +287,260 @@
         <translation>Defense:</translation>
     </message>
     <message>
+        <location filename="../../src/cardEditor.cpp" line="184"/>
+        <source>Image URL:</source>
+        <translation></translation>
+    </message>
+    <message>
         <location filename="../../src/cardEditor.cpp" line="186"/>
         <source>Effet:</source>
         <translation>Effect:</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="237"/>
+        <location filename="../../src/cardEditor.cpp" line="211"/>
+        <source>Impossible de sauvegarder</source>
+        <translation>Impossible to save</translation>
+    </message>
+    <message>
+        <location filename="../../src/cardEditor.cpp" line="238"/>
         <source>Tigre</source>
         <translation>Tiger</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="237"/>
+        <location filename="../../src/cardEditor.cpp" line="238"/>
         <source>Vampire</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="237"/>
+        <location filename="../../src/cardEditor.cpp" line="238"/>
         <source>Archer</source>
         <translation>Bowman</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="237"/>
+        <location filename="../../src/cardEditor.cpp" line="238"/>
         <source>Serpent</source>
         <translation>Snake</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="237"/>
+        <location filename="../../src/cardEditor.cpp" line="238"/>
         <source>Soldat</source>
         <translation>Soldier</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="237"/>
+        <location filename="../../src/cardEditor.cpp" line="238"/>
         <source>Singe Mutant</source>
         <translation>Mutant Monkey</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="240"/>
+        <location filename="../../src/cardEditor.cpp" line="241"/>
         <source>noir</source>
         <translation>black</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="240"/>
+        <location filename="../../src/cardEditor.cpp" line="241"/>
         <source>rouge</source>
         <translation>red</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="240"/>
+        <location filename="../../src/cardEditor.cpp" line="241"/>
         <source>blanc</source>
         <translation>white</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="240"/>
+        <location filename="../../src/cardEditor.cpp" line="241"/>
         <source>eradicateur</source>
         <translation>eradicator</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="240"/>
+        <location filename="../../src/cardEditor.cpp" line="241"/>
         <source>invincible</source>
         <translation>invincible</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="240"/>
+        <location filename="../../src/cardEditor.cpp" line="241"/>
         <source>destructeur</source>
         <translation>destroyer</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="240"/>
+        <location filename="../../src/cardEditor.cpp" line="241"/>
         <source>mangeur d&apos;âmes</source>
         <translation>soul eater</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="240"/>
+        <location filename="../../src/cardEditor.cpp" line="241"/>
         <source>scrumMaster</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="240"/>
+        <location filename="../../src/cardEditor.cpp" line="241"/>
         <source>malefique</source>
         <translation>evil</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <location filename="../../src/cardEditor.cpp" line="244"/>
         <source>du chaos</source>
         <translation>of chaos</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <location filename="../../src/cardEditor.cpp" line="244"/>
         <source>des tenebres</source>
         <translation>of darkness</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <location filename="../../src/cardEditor.cpp" line="244"/>
         <source>de la lumiere</source>
         <translation>of light</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <location filename="../../src/cardEditor.cpp" line="244"/>
         <source>invisible</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <location filename="../../src/cardEditor.cpp" line="244"/>
         <source>des landes</source>
         <translation>of the landes</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <location filename="../../src/cardEditor.cpp" line="244"/>
         <source>myr</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <location filename="../../src/cardEditor.cpp" line="244"/>
         <source>gobelin</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <location filename="../../src/cardEditor.cpp" line="244"/>
         <source>du ciel</source>
         <translation>of the sky</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <location filename="../../src/cardEditor.cpp" line="244"/>
         <source>millenaire</source>
         <translation>ancient</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <location filename="../../src/cardEditor.cpp" line="244"/>
         <source>jeune</source>
         <translation>young</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <location filename="../../src/cardEditor.cpp" line="244"/>
         <source>debutant</source>
         <translation>beginner</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="243"/>
+        <location filename="../../src/cardEditor.cpp" line="244"/>
         <source>innofensif</source>
         <translation>harmless</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="244"/>
+        <location filename="../../src/cardEditor.cpp" line="245"/>
         <source>radieu</source>
         <translation>radiant</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="244"/>
+        <location filename="../../src/cardEditor.cpp" line="245"/>
         <source>grognon</source>
         <translation>grumpy</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="244"/>
+        <location filename="../../src/cardEditor.cpp" line="245"/>
         <source>Json</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="244"/>
+        <location filename="../../src/cardEditor.cpp" line="245"/>
         <source>DEADJOE</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="244"/>
+        <location filename="../../src/cardEditor.cpp" line="245"/>
         <source>imperial</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="252"/>
+        <location filename="../../src/cardEditor.cpp" line="253"/>
         <source>Selectionner une image</source>
         <translation>Select a picture</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="280"/>
+        <location filename="../../src/cardEditor.cpp" line="281"/>
         <source>	 n&apos;existe pas</source>
         <translation>	 doesn&apos;t exist</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="298"/>
+        <location filename="../../src/cardEditor.cpp" line="299"/>
         <source>Lumière</source>
         <translation>Light</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="299"/>
+        <location filename="../../src/cardEditor.cpp" line="300"/>
         <source>Tenebre</source>
         <translation>Dark</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="300"/>
+        <location filename="../../src/cardEditor.cpp" line="301"/>
         <source>Terre</source>
         <translation>Earth</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="301"/>
+        <location filename="../../src/cardEditor.cpp" line="302"/>
         <source>Eau</source>
         <translation>Water</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="302"/>
+        <location filename="../../src/cardEditor.cpp" line="303"/>
         <source>Feu</source>
         <translation>Fire</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="303"/>
+        <location filename="../../src/cardEditor.cpp" line="304"/>
         <source>Vent</source>
         <translation>Wind</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="304"/>
+        <location filename="../../src/cardEditor.cpp" line="305"/>
         <source>Divin</source>
         <translation>Divine</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="323"/>
-        <location filename="../../src/cardEditor.cpp" line="347"/>
+        <location filename="../../src/cardEditor.cpp" line="67"/>
+        <location filename="../../src/cardEditor.cpp" line="324"/>
+        <location filename="../../src/cardEditor.cpp" line="348"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="324"/>
-        <location filename="../../src/cardEditor.cpp" line="348"/>
+        <location filename="../../src/cardEditor.cpp" line="325"/>
+        <location filename="../../src/cardEditor.cpp" line="349"/>
         <source>Continue</source>
         <translation>Continuous</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="325"/>
+        <location filename="../../src/cardEditor.cpp" line="326"/>
         <source>Equipement</source>
         <translation>Equipment</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="326"/>
+        <location filename="../../src/cardEditor.cpp" line="327"/>
         <source>Jeu-Rapide</source>
         <translation>Quick-Play</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="327"/>
+        <location filename="../../src/cardEditor.cpp" line="328"/>
         <source>Rituelle</source>
         <translation>Ritual</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="328"/>
+        <location filename="../../src/cardEditor.cpp" line="329"/>
         <source>Terrain</source>
         <translation>Field</translation>
     </message>
     <message>
-        <location filename="../../src/cardEditor.cpp" line="349"/>
+        <location filename="../../src/cardEditor.cpp" line="350"/>
         <source>Contre</source>
         <translation>Counter</translation>
     </message>
@@ -563,11 +615,11 @@
     </message>
     <message>
         <source>Partie Locale Multijoueur</source>
-        <translation>Multiplayer Local Game</translation>
+        <translation type="vanished">Multiplayer Local Game</translation>
     </message>
     <message>
         <source>Commencer une partie à deux joeur en local</source>
-        <translation>Start a local two-players game</translation>
+        <translation type="vanished">Start a local two-players game</translation>
     </message>
     <message>
         <location filename="../../src/choice.cpp" line="89"/>
@@ -601,7 +653,7 @@
     </message>
     <message>
         <source>Retour</source>
-        <translation>Back</translation>
+        <translation type="vanished">Back</translation>
     </message>
     <message>
         <location filename="../../src/choice.cpp" line="44"/>
@@ -613,35 +665,35 @@
     <name>Field</name>
     <message>
         <source>Duel</source>
-        <translation>Duel</translation>
+        <translation type="vanished">Duel</translation>
     </message>
     <message>
         <source>Historique</source>
-        <translation>History</translation>
+        <translation type="vanished">History</translation>
     </message>
     <message>
         <source>Chat</source>
-        <translation>Chat</translation>
+        <translation type="vanished">Chat</translation>
     </message>
     <message>
         <source>Terminer le tour</source>
-        <translation>End Turn</translation>
+        <translation type="vanished">End Turn</translation>
     </message>
     <message>
         <source>Abandonner</source>
-        <translation>Give Up</translation>
+        <translation type="vanished">Give Up</translation>
     </message>
     <message>
         <source>Quitter le Duel</source>
-        <translation>Leave the Duel</translation>
+        <translation type="vanished">Leave the Duel</translation>
     </message>
     <message>
         <source>Fermer</source>
-        <translation>Close</translation>
+        <translation type="vanished">Close</translation>
     </message>
     <message>
         <source>Retour au Duel</source>
-        <translation>Back to the Duel</translation>
+        <translation type="vanished">Back to the Duel</translation>
     </message>
     <message>
         <location filename="../../src/field.cpp" line="63"/>
@@ -691,7 +743,7 @@
     </message>
     <message>
         <source>Retour</source>
-        <translation>Back</translation>
+        <translation type="vanished">Back</translation>
     </message>
     <message>
         <location filename="../../src/helptab.cpp" line="83"/>
@@ -713,7 +765,7 @@
     </message>
     <message>
         <source>Retour</source>
-        <translation>Back</translation>
+        <translation type="vanished">Back</translation>
     </message>
     <message>
         <location filename="../../src/hostChoice.cpp" line="44"/>
@@ -733,7 +785,7 @@ Waiting for opponent to connect...</translation>
         <source>Adresse du serveur : 
 
 Patientez...</source>
-        <translation>Server Address : 
+        <translation type="vanished">Server Address : 
 
 Please wait...</translation>
     </message>
@@ -810,7 +862,7 @@ Please wait...</translation>
     </message>
     <message>
         <source>Quitter</source>
-        <translation>Leave</translation>
+        <translation type="vanished">Leave</translation>
     </message>
     <message>
         <location filename="../../src/intro.cpp" line="49"/>
@@ -827,7 +879,7 @@ Please wait...</translation>
     </message>
     <message>
         <source>Retour</source>
-        <translation>Back</translation>
+        <translation type="vanished">Back</translation>
     </message>
     <message>
         <location filename="../../src/joinChoice.cpp" line="41"/>
@@ -857,89 +909,89 @@ Please wait...</translation>
     <name>OptionTab</name>
     <message>
         <location filename="../../src/optab.cpp" line="34"/>
-        <location filename="../../src/optab.cpp" line="482"/>
+        <location filename="../../src/optab.cpp" line="486"/>
         <source>Paramètres</source>
         <translation>Options</translation>
     </message>
     <message>
         <source>Retour</source>
-        <translation>Back</translation>
+        <translation type="vanished">Back</translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="41"/>
-        <location filename="../../src/optab.cpp" line="483"/>
+        <location filename="../../src/optab.cpp" line="487"/>
         <source>Fermer les paramètres</source>
         <translation>Close options</translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="93"/>
-        <location filename="../../src/optab.cpp" line="484"/>
+        <location filename="../../src/optab.cpp" line="488"/>
         <source>Accessibilité</source>
         <translation>Accessibility</translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="145"/>
-        <location filename="../../src/optab.cpp" line="485"/>
+        <location filename="../../src/optab.cpp" line="489"/>
         <source>Partage</source>
         <translation>Sharing</translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="152"/>
-        <location filename="../../src/optab.cpp" line="486"/>
+        <location filename="../../src/optab.cpp" line="490"/>
         <source>Partage les données d&apos;utilisation</source>
         <translation>Share usage data</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="168"/>
-        <location filename="../../src/optab.cpp" line="487"/>
+        <location filename="../../src/optab.cpp" line="169"/>
+        <location filename="../../src/optab.cpp" line="491"/>
         <source>Langue de l&apos;interface</source>
         <translation>Interface language</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="200"/>
-        <location filename="../../src/optab.cpp" line="488"/>
+        <location filename="../../src/optab.cpp" line="201"/>
+        <location filename="../../src/optab.cpp" line="492"/>
         <source>Large texte</source>
         <translation>Large-text</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="207"/>
-        <location filename="../../src/optab.cpp" line="489"/>
+        <location filename="../../src/optab.cpp" line="208"/>
+        <location filename="../../src/optab.cpp" line="493"/>
         <source>Textes de grande taille</source>
         <translation>Increase text size</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="214"/>
-        <location filename="../../src/optab.cpp" line="492"/>
+        <location filename="../../src/optab.cpp" line="215"/>
+        <location filename="../../src/optab.cpp" line="496"/>
         <source>Dyslexie</source>
         <translation>Dyslexia</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="221"/>
-        <location filename="../../src/optab.cpp" line="493"/>
+        <location filename="../../src/optab.cpp" line="222"/>
+        <location filename="../../src/optab.cpp" line="497"/>
         <source>Textes adaptés à la dyslexie</source>
         <translation>Text adapted to dyslexia</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="228"/>
-        <location filename="../../src/optab.cpp" line="490"/>
+        <location filename="../../src/optab.cpp" line="229"/>
+        <location filename="../../src/optab.cpp" line="494"/>
         <source>Contraste élevé</source>
         <translation>High contrast</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="235"/>
-        <location filename="../../src/optab.cpp" line="491"/>
+        <location filename="../../src/optab.cpp" line="236"/>
+        <location filename="../../src/optab.cpp" line="495"/>
         <source>Augmenter les contrastes de l&apos;application</source>
         <translation>Increase the contrast of the application</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="242"/>
-        <location filename="../../src/optab.cpp" line="494"/>
+        <location filename="../../src/optab.cpp" line="243"/>
+        <location filename="../../src/optab.cpp" line="498"/>
         <source>Couleurs pour Dyschromatopsie</source>
         <translation>Colors for Dyschromatopsia</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="249"/>
-        <location filename="../../src/optab.cpp" line="495"/>
+        <location filename="../../src/optab.cpp" line="250"/>
+        <location filename="../../src/optab.cpp" line="499"/>
         <source>Adapter l&apos;affichage des couleurs</source>
         <translation>Adapt the display of the colors</translation>
     </message>
@@ -1016,7 +1068,7 @@ Please wait...</translation>
     </message>
     <message>
         <source>Retour</source>
-        <translation>Back</translation>
+        <translation type="vanished">Back</translation>
     </message>
     <message>
         <location filename="../../src/ruletab.cpp" line="44"/>
@@ -1048,7 +1100,7 @@ Please wait...</translation>
     <name>SoloChoice</name>
     <message>
         <source>Partie Solo: difficulte de l&apos;IA</source>
-        <translation>Solo Game: AI difficulty</translation>
+        <translation type="vanished">Solo Game: AI difficulty</translation>
     </message>
     <message>
         <location filename="../../src/soloChoice.cpp" line="36"/>
@@ -1057,7 +1109,7 @@ Please wait...</translation>
     </message>
     <message>
         <source>Retour</source>
-        <translation>Back</translation>
+        <translation type="vanished">Back</translation>
     </message>
     <message>
         <location filename="../../src/soloChoice.cpp" line="45"/>
@@ -1097,11 +1149,11 @@ Please wait...</translation>
     </message>
     <message>
         <source>Choix de la difficulté :</source>
-        <translation>Choose the difficulty :</translation>
+        <translation type="vanished">Choose the difficulty :</translation>
     </message>
     <message>
         <source>Quelle IA ?</source>
-        <translation>Which AI ?</translation>
+        <translation type="vanished">Which AI ?</translation>
     </message>
 </context>
 <context>
@@ -1140,234 +1192,304 @@ Please wait...</translation>
 <context>
     <name>deckEdit</name>
     <message>
-        <location filename="../../inc/deckedit.h" line="63"/>
-        <location filename="../../src/deckedit.cpp" line="104"/>
         <source>Quitter</source>
-        <translation>Leave</translation>
+        <translation type="vanished">Leave</translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="63"/>
+        <location filename="../../inc/deckedit.h" line="64"/>
         <source>Mélanger</source>
         <translation>Mix</translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="64"/>
+        <location filename="../../inc/deckedit.h" line="65"/>
         <source>Trier</source>
         <translation>Sort</translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="64"/>
+        <location filename="../../inc/deckedit.h" line="65"/>
         <source>Effacer</source>
         <translation>Erase</translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="65"/>
         <source>Sauvegarder</source>
-        <translation>Save</translation>
+        <translation type="vanished">Save</translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="65"/>
+        <location filename="../../inc/deckedit.h" line="66"/>
         <source>Créer</source>
         <translation>Create</translation>
     </message>
     <message>
         <location filename="../../inc/deckedit.h" line="66"/>
+        <source>Enregistrer</source>
+        <translation>Save</translation>
+    </message>
+    <message>
+        <location filename="../../inc/deckedit.h" line="67"/>
         <source>Supprimer</source>
         <translation>Delete</translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="66"/>
+        <location filename="../../inc/deckedit.h" line="67"/>
         <source>Annuler</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="67"/>
+        <location filename="../../inc/deckedit.h" line="68"/>
         <source>Filtrer</source>
         <translation>Filter</translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="68"/>
+        <location filename="../../inc/deckedit.h" line="69"/>
         <source>Magie</source>
         <translation>Magic</translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="68"/>
+        <location filename="../../inc/deckedit.h" line="69"/>
         <source>Piège</source>
         <translation>Trap</translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="68"/>
+        <location filename="../../inc/deckedit.h" line="69"/>
         <source>Monstre</source>
         <translation>Monster</translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="69"/>
+        <location filename="../../inc/deckedit.h" line="70"/>
         <source>Effet</source>
         <translation>Effect</translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="69"/>
-        <location filename="../../src/deckedit.cpp" line="561"/>
-        <location filename="../../src/deckedit.cpp" line="585"/>
+        <location filename="../../inc/deckedit.h" line="70"/>
+        <location filename="../../src/deckedit.cpp" line="664"/>
+        <location filename="../../src/deckedit.cpp" line="688"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="70"/>
+        <location filename="../../inc/deckedit.h" line="71"/>
         <source>Fusion</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="70"/>
+        <location filename="../../inc/deckedit.h" line="71"/>
         <source>Toon</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="71"/>
+        <location filename="../../inc/deckedit.h" line="72"/>
         <source>Rituel</source>
         <translation>Ritual</translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="155"/>
+        <location filename="../../src/deckedit.cpp" line="162"/>
         <source>Deck vide</source>
         <translation>Empty Deck</translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="161"/>
-        <location filename="../../src/deckedit.cpp" line="394"/>
-        <location filename="../../src/deckedit.cpp" line="408"/>
+        <location filename="../../src/deckedit.cpp" line="168"/>
+        <location filename="../../src/deckedit.cpp" line="409"/>
+        <location filename="../../src/deckedit.cpp" line="426"/>
         <source>Monstre: </source>
         <translation>Monster: </translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="162"/>
-        <location filename="../../src/deckedit.cpp" line="395"/>
-        <location filename="../../src/deckedit.cpp" line="409"/>
+        <location filename="../../src/deckedit.cpp" line="170"/>
+        <location filename="../../src/deckedit.cpp" line="411"/>
+        <location filename="../../src/deckedit.cpp" line="428"/>
         <source>Magie: </source>
         <translation>Magic: </translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="163"/>
-        <location filename="../../src/deckedit.cpp" line="396"/>
-        <location filename="../../src/deckedit.cpp" line="410"/>
+        <location filename="../../src/deckedit.cpp" line="172"/>
+        <location filename="../../src/deckedit.cpp" line="412"/>
+        <location filename="../../src/deckedit.cpp" line="429"/>
         <source>Piège: </source>
         <translation>Trap: </translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="164"/>
-        <location filename="../../src/deckedit.cpp" line="428"/>
+        <location filename="../../src/deckedit.cpp" line="174"/>
+        <location filename="../../src/deckedit.cpp" line="448"/>
         <source>Extra Deck vide</source>
         <translation>Extra empty Deck</translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="265"/>
+        <location filename="../../src/deckedit.cpp" line="275"/>
         <source>Type: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="277"/>
+        <location filename="../../src/deckedit.cpp" line="287"/>
         <source>Niveau</source>
         <translation>Level</translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="296"/>
+        <location filename="../../src/deckedit.cpp" line="306"/>
         <source>Attaque: </source>
         <translation>Attack: </translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="297"/>
+        <location filename="../../src/deckedit.cpp" line="307"/>
         <source>Défense: </source>
         <translation>Defence: </translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="308"/>
+        <location filename="../../src/deckedit.cpp" line="318"/>
         <source>Effets</source>
         <translation>Effects</translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="389"/>
+        <location filename="../../src/deckedit.cpp" line="404"/>
         <source>Main Deck vide</source>
         <translation>Main empty Deck</translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="391"/>
         <source>Nombre de carte: </source>
-        <translation>Number of cards: </translation>
+        <translation type="vanished">Number of cards: </translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="405"/>
+        <location filename="../../src/deckedit.cpp" line="107"/>
+        <source>Deck: </source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="263"/>
+        <source>Genre: </source>
+        <translation>Sort:</translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="269"/>
+        <source>Attribut: </source>
+        <translation>Attribute: </translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="406"/>
+        <location filename="../../src/deckedit.cpp" line="423"/>
         <source>Main Deck: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="430"/>
-        <location filename="../../src/deckedit.cpp" line="440"/>
+        <location filename="../../src/deckedit.cpp" line="450"/>
+        <location filename="../../src/deckedit.cpp" line="461"/>
         <source>Extra Deck: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="536"/>
+        <location filename="../../src/deckedit.cpp" line="559"/>
+        <location filename="../../src/deckedit.cpp" line="616"/>
+        <source>M-Masaka !</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="559"/>
+        <source>Deck invalide: Souhaitez vous tout de même sauvegarder ? Vous pourrez éditer votre deck ultérieurement.</source>
+        <translation>Invalid deck: Do you still wish to save ? You&apos;ll be able to edit your deck later.</translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="577"/>
+        <location filename="../../src/deckedit.cpp" line="625"/>
+        <source>echec de la sauvegarde</source>
+        <translation>saving failed</translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="577"/>
+        <location filename="../../src/deckedit.cpp" line="601"/>
+        <source>Le deck </source>
+        <translation>The deck</translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="578"/>
+        <source> n&apos;a pas pu être sauvegardé.</source>
+        <translation>couldn&apos;t be saved.</translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="601"/>
+        <source>youpi !</source>
+        <translation>yay !</translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="602"/>
+        <source> à était enregistré.</source>
+        <translation>was saved.</translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="616"/>
+        <source>Impossible de créer le deck &quot;</source>
+        <translation>Impossible to create the deck &quot;</translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="617"/>
+        <source>&quot;: le deck existe déjà.</source>
+        <translation>&quot;: the deck already exists.</translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="625"/>
+        <source>echec de la création du deck</source>
+        <translation>deck creation failed</translation>
+    </message>
+    <message>
+        <location filename="../../src/deckedit.cpp" line="639"/>
         <source>Lumière</source>
         <translation>Light</translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="537"/>
+        <location filename="../../src/deckedit.cpp" line="640"/>
         <source>Tenebre</source>
         <translation>Dark</translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="538"/>
+        <location filename="../../src/deckedit.cpp" line="641"/>
         <source>Terre</source>
         <translation>Earth</translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="539"/>
+        <location filename="../../src/deckedit.cpp" line="642"/>
         <source>Eau</source>
         <translation>Water</translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="540"/>
+        <location filename="../../src/deckedit.cpp" line="643"/>
         <source>Feu</source>
         <translation>Fire</translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="541"/>
+        <location filename="../../src/deckedit.cpp" line="644"/>
         <source>Vent</source>
         <translation>Wind</translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="542"/>
+        <location filename="../../src/deckedit.cpp" line="645"/>
         <source>Divin</source>
         <translation>Divine</translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="562"/>
-        <location filename="../../src/deckedit.cpp" line="586"/>
+        <location filename="../../src/deckedit.cpp" line="665"/>
+        <location filename="../../src/deckedit.cpp" line="689"/>
         <source>Continue</source>
         <translation>Continuous</translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="563"/>
+        <location filename="../../src/deckedit.cpp" line="666"/>
         <source>Equipement</source>
         <translation>Equipment</translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="564"/>
+        <location filename="../../src/deckedit.cpp" line="667"/>
         <source>Jeu-Rapide</source>
         <translation>Quick-Play</translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="565"/>
+        <location filename="../../src/deckedit.cpp" line="668"/>
         <source>Rituelle</source>
         <translation>Ritual</translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="566"/>
+        <location filename="../../src/deckedit.cpp" line="669"/>
         <source>Terrain</source>
         <translation>Field</translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="587"/>
+        <location filename="../../src/deckedit.cpp" line="690"/>
         <source>Contre</source>
         <translation>Counter</translation>
     </message>
@@ -1376,219 +1498,219 @@ Please wait...</translation>
     <name>editeur_de_carte</name>
     <message>
         <source>Enregistrer</source>
-        <translation>Save</translation>
+        <translation type="vanished">Save</translation>
     </message>
     <message>
         <source>Description / Effet de la carte...</source>
-        <translation>Description/Card effect</translation>
+        <translation type="vanished">Description/Card effect</translation>
     </message>
     <message>
         <source>Aqua</source>
-        <translation>Aqua</translation>
+        <translation type="vanished">Aqua</translation>
     </message>
     <message>
         <source>Bete</source>
-        <translation>Beast</translation>
+        <translation type="vanished">Beast</translation>
     </message>
     <message>
         <source>Bete Ailee</source>
-        <translation>Winged Beast</translation>
+        <translation type="vanished">Winged Beast</translation>
     </message>
     <message>
         <source>Bete-Divine</source>
-        <translation>Divine Beast</translation>
+        <translation type="vanished">Divine Beast</translation>
     </message>
     <message>
         <source>Bete-Guerrier</source>
-        <translation>Beast Warrior</translation>
+        <translation type="vanished">Beast Warrior</translation>
     </message>
     <message>
         <source>Demon</source>
-        <translation>Fiend</translation>
+        <translation type="vanished">Fiend</translation>
     </message>
     <message>
         <source>Dinosaure</source>
-        <translation>Dinosaur</translation>
+        <translation type="vanished">Dinosaur</translation>
     </message>
     <message>
         <source>Elfe</source>
-        <translation>Fairy</translation>
+        <translation type="vanished">Fairy</translation>
     </message>
     <message>
         <source>Guerrier</source>
-        <translation>Warrior</translation>
+        <translation type="vanished">Warrior</translation>
     </message>
     <message>
         <source>Insecte</source>
-        <translation>Insect</translation>
+        <translation type="vanished">Insect</translation>
     </message>
     <message>
         <source>Magicien</source>
-        <translation>Spellcaster</translation>
+        <translation type="vanished">Spellcaster</translation>
     </message>
     <message>
         <source>Plante</source>
-        <translation>Plant</translation>
+        <translation type="vanished">Plant</translation>
     </message>
     <message>
         <source>Poisson</source>
-        <translation>Fish</translation>
+        <translation type="vanished">Fish</translation>
     </message>
     <message>
         <source>Rocher</source>
-        <translation>Rock</translation>
+        <translation type="vanished">Rock</translation>
     </message>
     <message>
         <source>Serpent de Mer</source>
-        <translation>Sea Serpent</translation>
+        <translation type="vanished">Sea Serpent</translation>
     </message>
     <message>
         <source>Tonnerre</source>
-        <translation>Thunder</translation>
+        <translation type="vanished">Thunder</translation>
     </message>
     <message>
         <source>Effet</source>
-        <translation>Effect</translation>
+        <translation type="vanished">Effect</translation>
     </message>
     <message>
         <source>Rituel</source>
-        <translation>Ritual</translation>
+        <translation type="vanished">Ritual</translation>
     </message>
     <message>
         <source>Piocher</source>
-        <translation>Draw</translation>
+        <translation type="vanished">Draw</translation>
     </message>
     <message>
         <source>Detruire Monstre</source>
-        <translation>Destroy Monster</translation>
+        <translation type="vanished">Destroy Monster</translation>
     </message>
     <message>
         <source>Detruire Magie/piege</source>
-        <translation>Destroy Magic/Trap</translation>
+        <translation type="vanished">Destroy Magic/Trap</translation>
     </message>
     <message>
         <source>Detruire</source>
-        <translation>Destroy</translation>
+        <translation type="vanished">Destroy</translation>
     </message>
     <message>
         <source>TOUT DETRUIRE !</source>
-        <translation>DESTROY EVERYTHING !</translation>
+        <translation type="vanished">DESTROY EVERYTHING !</translation>
     </message>
     <message>
         <source>gagner 1000 life point</source>
-        <translation>Win 1000 life points</translation>
+        <translation type="vanished">Win 1000 life points</translation>
     </message>
     <message>
         <source>+1000 attaque</source>
-        <translation>+1000 attack</translation>
+        <translation type="vanished">+1000 attack</translation>
     </message>
     <message>
         <source>Monstre</source>
-        <translation>Monster</translation>
+        <translation type="vanished">Monster</translation>
     </message>
     <message>
         <source>Magie</source>
-        <translation>Magic</translation>
+        <translation type="vanished">Magic</translation>
     </message>
     <message>
         <source>Piege</source>
-        <translation>Trap</translation>
+        <translation type="vanished">Trap</translation>
     </message>
     <message>
         <source>Nom:</source>
-        <translation>Name:</translation>
+        <translation type="vanished">Name:</translation>
     </message>
     <message>
         <source>genre:</source>
-        <translation>Type:</translation>
+        <translation type="vanished">Type:</translation>
     </message>
     <message>
         <source>attribut:</source>
-        <translation>Attribute:</translation>
+        <translation type="vanished">Attribute:</translation>
     </message>
     <message>
         <source>Niveau:</source>
-        <translation>Level:</translation>
+        <translation type="vanished">Level:</translation>
     </message>
     <message>
         <source>Attaque:</source>
-        <translation>Attack:</translation>
+        <translation type="vanished">Attack:</translation>
     </message>
     <message>
         <source>Defense:</source>
-        <translation>Defense:</translation>
+        <translation type="vanished">Defense:</translation>
     </message>
     <message>
         <source>Effet:</source>
-        <translation>Effect:</translation>
+        <translation type="vanished">Effect:</translation>
     </message>
     <message>
         <source>Selectionner une image</source>
-        <translation>Select a picture</translation>
+        <translation type="vanished">Select a picture</translation>
     </message>
     <message>
         <source>	 n&apos;existe pas</source>
-        <translation>	 doesn&apos;t exist</translation>
+        <translation type="vanished">	 doesn&apos;t exist</translation>
     </message>
     <message>
         <source>	 n&apos;est pas un fichier valide</source>
-        <translation>	is not a valid file</translation>
+        <translation type="vanished">	is not a valid file</translation>
     </message>
     <message>
         <source>Lumière</source>
-        <translation>Light</translation>
+        <translation type="vanished">Light</translation>
     </message>
     <message>
         <source>Tenebre</source>
-        <translation>Dark</translation>
+        <translation type="vanished">Dark</translation>
     </message>
     <message>
         <source>Terre</source>
-        <translation>Earth</translation>
+        <translation type="vanished">Earth</translation>
     </message>
     <message>
         <source>Eau</source>
-        <translation>Water</translation>
+        <translation type="vanished">Water</translation>
     </message>
     <message>
         <source>Feu</source>
-        <translation>Fire</translation>
+        <translation type="vanished">Fire</translation>
     </message>
     <message>
         <source>Vent</source>
-        <translation>Wind</translation>
+        <translation type="vanished">Wind</translation>
     </message>
     <message>
         <source>Divin</source>
-        <translation>Divine</translation>
+        <translation type="vanished">Divine</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normal</translation>
+        <translation type="vanished">Normal</translation>
     </message>
     <message>
         <source>Continue</source>
-        <translation>Continuous</translation>
+        <translation type="vanished">Continuous</translation>
     </message>
     <message>
         <source>Equipement</source>
-        <translation>Equipment</translation>
+        <translation type="vanished">Equipment</translation>
     </message>
     <message>
         <source>Jeu-Rapide</source>
-        <translation>Quick-Play</translation>
+        <translation type="vanished">Quick-Play</translation>
     </message>
     <message>
         <source>Rituelle</source>
-        <translation>Ritual</translation>
+        <translation type="vanished">Ritual</translation>
     </message>
     <message>
         <source>Terrain</source>
-        <translation>Field</translation>
+        <translation type="vanished">Field</translation>
     </message>
     <message>
         <source>Contre</source>
-        <translation>Counter</translation>
+        <translation type="vanished">Counter</translation>
     </message>
 </context>
 </TS>

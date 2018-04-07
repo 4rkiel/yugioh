@@ -32,7 +32,7 @@ BuildTab::BuildTab (){
         infoLayout -> setSpacing(0);
         infoLayout -> setMargin(0);
 
-            info = new QLabel ("Decks");
+            info = new QLabel (tr("Decks"));
 
             infoLayout -> addWidget(info);
        
@@ -79,7 +79,7 @@ BuildTab::BuildTab (){
         
             deckButt = new QPushButton;
             deckButt->setDefault(true);
-            deckButt -> setText("Decks");
+            deckButt -> setText(tr("Decks"));
             deckButt -> setProperty("down", true);
             connect(deckButt, SIGNAL(clicked()), this, SLOT(setDeck()));
 

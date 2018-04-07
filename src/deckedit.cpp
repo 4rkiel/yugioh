@@ -104,7 +104,7 @@ deckEdit::deckEdit(/*std::vector<Carte *> *allCard*/)
             part2->addLayout(formulaire);
 
 
-                formulaire->addRow("Deck: ", selectDeck);
+                formulaire->addRow(tr("Deck: "), selectDeck);
 
 
                 // ... name a deck .............................................
@@ -260,13 +260,13 @@ deckEdit::deckEdit(/*std::vector<Carte *> *allCard*/)
                 genreColonne->addWidget(choixGenre);
                 genreColonne->addWidget(choixSousGenre);
 
-                propForm->addRow("Genre: ", genreColonne);
+                propForm->addRow(tr("Genre: "), genreColonne);
 
 
 
                     // ... Attribut ............................................
 
-                    propForm->addRow("Attribut: ", choixAttribut);
+                    propForm->addRow(tr("Attribut: "), choixAttribut);
 
 
 

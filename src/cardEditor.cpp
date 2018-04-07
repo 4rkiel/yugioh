@@ -64,7 +64,7 @@ void CardEditor::createFormGroupBox (){
              << tr("Serpent de Mer") << tr("Tonnerre") << tr("Wyrm") <<tr("Zombie");
 
     QStringList typeSecondaireList;
-    typeSecondaireList << tr("Effet") << "Normal" << "Fusion" << "Toon" << tr("Rituel");
+    typeSecondaireList << tr("Effet") << tr("Normal") << tr("Fusion") << tr("Toon") << tr("Rituel");
 
     QStringList effectList = {tr("Piocher"), tr("Detruire Monstre"), tr("Detruire Magie/piege"), tr("Detruire"), tr("TOUT DETRUIRE !"), tr("gagner 1000 life point"), tr("+1000 attaque")};
 
@@ -88,14 +88,14 @@ void CardEditor::createFormGroupBox (){
 
     nrSet = new Combo;
     vector<QString> extension;
-    extension.push_back("Legende du Dragon Blanc aux yeux bleus");
-    extension.push_back("Metal Raider");
+    extension.push_back(tr("Legende du Dragon Blanc aux yeux bleus"));
+    extension.push_back(tr("Metal Raider"));
 
     for(unsigned i=0; i<extension.size(); i++)
     {
         nrSet->addItem(extension.at(i), i);
     }
-    nrSet->addItem("Custom", 666);
+    nrSet->addItem(tr("Custom"), 666);
     nrSet->setCurrentIndex(0);
 
     genreCarte->addItem(tr("Monstre"), 0);
@@ -163,9 +163,9 @@ void CardEditor::createFormGroupBox (){
     layout->addWidget(genRdmName, 0, 23, 1, 1);
     layout->addWidget(new QLabel(tr("Nom:")), i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(nom, i, 2, 1, 21);
-    layout->addWidget(new QLabel("ID:"), ++i, 0, 1, 2, Qt::AlignCenter);
+    layout->addWidget(new QLabel(tr("ID:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(ID, i, 2, 1, 22);
-    layout->addWidget(new QLabel("Set:"), ++i, 0, 1, 2, Qt::AlignCenter);
+    layout->addWidget(new QLabel(tr("Set:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(nrSet, i, 2, 1, 22);
     layout->addWidget(new QLabel(tr("genre:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(genreCarte, i, 2, 1, 7);
@@ -181,7 +181,7 @@ void CardEditor::createFormGroupBox (){
     layout->addWidget(spinAttaque, i, 2, 1, 10);
     layout->addWidget(new QLabel(tr("Defense:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(spinDefense, i, 2, 1, 10);
-    layout->addWidget(new QLabel("Image URL:"), ++i, 0, 1, 2, Qt::AlignCenter);
+    layout->addWidget(new QLabel(tr("Image URL:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(imageUrl, i, 2, 1, 9);
     layout->addWidget(new QLabel(tr("Effet:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(effectBox, i, 2, 1, 10);

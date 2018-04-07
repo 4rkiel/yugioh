@@ -314,9 +314,15 @@ void Window::readConfSettings (){
     
     a -> setStyleSheet(styleSheet);
 
-    //trad
+    //maj dynamique de la traduction
     QString val = settings.value("langage", QLocale::system().name()).toString();
 
+    if(val=="ar_SA"){
+            this->setLayoutDirection(Qt::RightToLeft);
+    }
+    else{
+            this->setLayoutDirection(Qt::LeftToRight);
+    }
     montranslator->load("qt_"+val, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     a->installTranslator(montranslator);
 
@@ -371,6 +377,7 @@ int main(int argc, char *argv[]) {
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
 
     // Load main widget
+
 
     Window w(&app,&qtTranslator,&YugiTranslator);
 
