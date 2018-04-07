@@ -40,7 +40,7 @@ JoinChoice::JoinChoice () {
             choice = new FlatButt("\uf060", "");
             choice -> setToolTip(tr("Retour au Menu"));
             connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
-            infoLayout -> addWidget(choice);
+            //infoLayout -> addWidget(choice);
         
             infoBox -> setLayout(infoLayout);
 
@@ -66,7 +66,7 @@ JoinChoice::JoinChoice () {
 
             // Validation butt
 			
-            valid = new ShadowButt("","Valider");
+            valid = new DarkButt("\uf00c","Valider");
             valid -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
             box -> addWidget(valid, 2,1,1,1);
 			connect(valid, SIGNAL(clicked()), this, SLOT(connectIP()));
@@ -123,7 +123,8 @@ JoinChoice::~JoinChoice (){
 
 
 void JoinChoice::init (){
-    choice -> setFocus();
+    input -> setFocus();
+    infoLayout -> addWidget(choice);
 }
 
 

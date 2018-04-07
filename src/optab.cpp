@@ -135,6 +135,7 @@ OptionTab::OptionTab (){
             optionScroll -> setFocusPolicy(Qt::NoFocus);
 
             optionScrollBox = new QWidget;
+            optionScrollBox -> setObjectName("optScrollBox");
             optPaneLayout = new QVBoxLayout;
             optPaneLayout -> setAlignment(Qt::AlignTop);
 
@@ -191,6 +192,7 @@ OptionTab::OptionTab (){
             accessScroll -> setFocusPolicy(Qt::NoFocus);
 
             accessScrollBox = new QWidget;
+            accessScrollBox -> setObjectName("accScrollBox");
             accPaneLayout = new QVBoxLayout;
             accPaneLayout -> setAlignment(Qt::AlignTop);
 

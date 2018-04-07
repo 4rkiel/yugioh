@@ -43,7 +43,7 @@ Choice::Choice () {
             intro = new FlatButt("\uf060", "");
             intro -> setToolTip(tr("Retour au Menu"));
             connect(intro, SIGNAL(clicked()), this, SLOT(emitIntro()));
-            infoLayout -> addWidget(intro);
+//            infoLayout -> addWidget(intro);
             
             infoBox -> setLayout(infoLayout);
 
@@ -133,6 +133,7 @@ Choice::Choice () {
         connect(shortcut, SIGNAL(activated()), this, SLOT(emitIntro()));
 
     setLayout(layout);
+    solo -> setFocus();
 }
 
     
@@ -165,6 +166,7 @@ Choice::~Choice (){
 
 void Choice::init (){
     solo -> setFocus();
+    infoLayout -> addWidget(intro);
 }
 
 

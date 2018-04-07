@@ -489,7 +489,7 @@ void Field::init(){
 
              connect(
                  ptr, SIGNAL(leaved(int)),
-                 this, SLOT(cardLeaved(int))
+                 this, SLOT(cardLeaved())
              );
 
          }
@@ -538,13 +538,13 @@ void Field::cardRightClicked(int x){
         (! fieldStack -> at(x) -> isGrave() )
     ){
         if (lockPreview){
-
+            emit askPreview(x);            
+            fieldStack -> at(x) -> setProperty("down", false);
             lockPreview = false;
-            cardHover();
 
         } else {
 
-            cardHover();
+            fieldStack -> at(x) -> setProperty("down", true);
             lockPreview = true;
         }
     }
@@ -552,17 +552,24 @@ void Field::cardRightClicked(int x){
 }
 
 
-void Field::cardHover (){
+void Field::cardHover (
+		QString title, 
+		int attr,
+		int level,
+		QString pic,
+		int type,
+		QString desc,
+		int atk,
+		int def
+	){
 
-    fullCard -> setTitle("Dragon Blanc aux Yeux Bleus");
-    fullCard -> setPic("img/cards/001/LOB-EN001-Blue-EyesWhiteDragon2ndart.jpg");
-    fullCard -> setDesc(
-        "Ce dragon légendaire est un puissant "
-        "moteur de destruction. Rares sont ceux qui ont survécus à cette "
-        "surpuissante créature quasiment invincible pour en parler."
-    );
-
-    fullCard -> setStat("3000","2500");
+    fullCard -> setTitle(title);
+	fullCard -> setAttr(attr);
+	fullCard -> setLevel(level);
+    fullCard -> setPic(pic);
+	fullCard -> setType(type);
+    fullCard -> setDesc(desc);
+    fullCard -> setStat(QString::number(atk), QString::number(def));
 
     if (!lockPreview){
         chat -> setVisible(false);
@@ -623,13 +630,13 @@ void Field::cardClicked(int x){
 }
 
 void Field::cardEntered(int x){
-    std::cout << x << " entered \n";
-
-    cardHover();
+    
+    if (!lockPreview){
+    	emit askPreview(x);
+    }
 }
 
-void Field::cardLeaved(int x){
-    std::cout << x << " leaved \n";
+void Field::cardLeaved(){
 
     cardOut();
 }

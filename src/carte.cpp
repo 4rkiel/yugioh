@@ -56,4 +56,3 @@ Carte::Carte(int a,int d)
     atk=a;
     def=d;
 }
-

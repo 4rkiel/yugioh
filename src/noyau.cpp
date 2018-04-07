@@ -15,12 +15,26 @@ void Noyau::init()
     QSettings settings;
     foeLife = settings.value("lifePoints","8000").toInt();
     selfLife = foeLife;
+
+    std::mt19937 rng;
+    rng.seed(std::random_device()());
+    std::uniform_int_distribution<std::mt19937::result_type> dist6(1,100); // distribution in range [1, 6]
+    srand(dist6(rng));
+    int aleatoire = std::rand();
+    std::cout << "aleatoire" << aleatoire << std::endl;
+    std::srand(aleatoire);
     chargerDeck(0);
-    deckAdverse(0);
+    //deckAdverse(0);
+    std::stringstream ss1;
+    ss1 << "alea:" << aleatoire << std::endl;
+    emit tiens(QString::fromStdString(ss1.str()));
     std::cout << "la taille de mon deck est : " << d1->size() << std::endl;
+    int i;
+    for(i=0;i<(signed)d1->size();i++)
+        std::cout << "carte :" << d1->at(i)->id << std::endl;
     //piocher(1);
     //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    piocher(1);
+    //piocher(1);
 }
 
 
@@ -54,17 +68,48 @@ void Noyau::chargerDeck(int x)
 {
 Parser * yolo = new Parser();
 d1 = yolo->rechercher_set(x,NULL);
-emit e_deck(x);
+std::random_shuffle(d1->begin(),d1->end());
+
+/*int i;
+    for(i=0;i<(signed)d1->size();i++)
+    {
+        std::stringstream ss1;
+        ss1 << "begin:"<< d1->at(i)->id;
+        emit tiens(QString::fromStdString(ss1.str()));
+        ss1.flush();
+
+    }*/
 }
 
 //charge le deck de l'adversaire
 //pour l'instant x est un int parce que les deck (situés dans le dossier deck) respectent le regex [0-9]*.deck
 //cela changera dans l'avenir certainement 
-void Noyau::deckAdverse(int x)
+void Noyau::deckAdverse(int x,int ran)
 {
+    std::srand(ran);
 Parser * yolo = new Parser();
 d2 = yolo->rechercher_set(x,NULL);
+std::random_shuffle(d2->begin(),d2->end());
+int i;
+for(i=0;i<(signed)d2->size();i++)
+    std::cout << "carte :" << d2->at(i)->id << std::endl;
+std::this_thread::sleep_for(std::chrono::milliseconds(rand()%100));
+piocher(1);
 }
+
+void Noyau::donner_infos(int x)
+{
+    Carte * actuelle = trouver(x);
+    if(actuelle != NULL)
+     {
+        if((isAdv(x) && actuelle->etat !=VERSO) || !isAdv(x))
+       { emit give_infos(actuelle->nom,actuelle->attribut,actuelle->niveau,actuelle->image,actuelle->type,actuelle->description,actuelle->atk,actuelle->def);
+        std::cout << "j'émit les infos : " << actuelle->nom.toStdString() << actuelle->attribut << actuelle->niveau << actuelle->image.toStdString() << actuelle->type << actuelle->description.toStdString() << actuelle->atk << actuelle->def << std::endl;
+
+        }
+    }
+}
+
 
 //gère le piochage
 // x vaut 1 si c'est moi qui pioche sinon x vaut 76
@@ -530,6 +575,7 @@ void Noyau::enlever_x(std::vector<Carte *> **vect, int x)
 
 }
 
+
 //PAS ENCORE BIEN IMPLEMENTE 
 void Noyau::phase_suivante()
 {
@@ -694,7 +740,7 @@ void Noyau::traiter(QString s)
           }
          delete(arg);
          valeur = atoi(vrai.c_str());
-         deckAdverse(valeur);
+         deckAdverse(valeur,5);
     }
     else if(s.startsWith("swap/"))
     {
@@ -715,6 +761,26 @@ void Noyau::traiter(QString s)
          delete(arg);
          valeur = atoi(vrai.c_str());
          switch_position(valeur);
+    }
+    else if(s.startsWith("alea:"))
+    {
+        int valeur;
+        char * arg = new char[s.length()+1];
+           std::strcpy(arg,s.toStdString().c_str());
+         char * parcourir = std::strtok(arg,":");
+         std::string vrai;
+         if(parcourir!=NULL)
+          vrai = parcourir;
+         while(parcourir!=NULL)
+         {
+             std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+             parcourir = std::strtok(NULL,":");
+             if(parcourir!=NULL)
+            vrai = parcourir;
+          }
+         delete(arg);
+         valeur = atoi(vrai.c_str());
+         deckAdverse(0,valeur);
     }
     else if(s.startsWith("þ"))
     {

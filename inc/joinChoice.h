@@ -15,7 +15,7 @@
 
 #include <QLineEdit>
 
-#include "../inc/shadowButt.h"
+#include "../inc/darkButt.h"
 #include "../inc/flatButt.h"
 
 class JoinChoice : public QFrame {
@@ -52,7 +52,7 @@ class JoinChoice : public QFrame {
         QGraphicsDropShadowEffect * effect;
 
         QLineEdit * input;
-        ShadowButt * valid;
+        DarkButt * valid;
 };
 
 

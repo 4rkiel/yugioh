@@ -21,11 +21,15 @@ public:
     
     Duplica();
     ~Duplica();
-    void setTitle(QString str);
-    void setPic(QString str);
-    void setDesc(QString str);
-    void setStat(QString strAtk, QString strDef);
-    //    void resizeEvent (QResizeEvent*);
+    void setTitle(QString);
+   	void setAttr(int);
+	void setLevel(int);
+	void setPic(QString);
+	void setType(int);
+    void setDesc(QString);
+    void setStat(QString, QString);
+	
+//    void resizeEvent (QResizeEvent*);
 
 signals:
 
@@ -38,13 +42,21 @@ private:
     QGraphicsDropShadowEffect * gffect;
     QGridLayout * layout;
     QShortcut *shortcut;
-    QLabel * title;
+   
+    QWidget * titleBox;
+    QHBoxLayout * titleLayout;
     QGraphicsDropShadowEffect * effect;
-    
+    QLabel * title;
+    QLabel * attr;
+
+    QWidget * typeBox;
+    QHBoxLayout * typeLayout;
+
     QLabel * pic;
 
     QScrollArea * descBox;
     QVBoxLayout * descLayout;
+        QLabel * type;
         QLabel * desc;
         QLabel * atk;
 

@@ -43,8 +43,7 @@ HostChoice::HostChoice () {
             choice = new FlatButt("\uf060", "");
             choice -> setToolTip(tr("Retour au Menu"));
             connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
-
-            infoLayout -> addWidget(choice);
+            //infoLayout -> addWidget(choice);
 
        
 
@@ -146,7 +145,8 @@ HostChoice::~HostChoice (){
 
 void HostChoice::init (){
 
-    choice -> setFocus();
+    //choice -> setFocus();
+    infoLayout -> addWidget(choice);
     setIP(ip);
 }
 

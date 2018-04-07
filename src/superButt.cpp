@@ -10,6 +10,7 @@
 
 SuperButt::SuperButt(){
 
-    this->setDefault(true);
-
+    setFocusPolicy(Qt::StrongFocus);
+    setAutoDefault (false);
+    setDefault(true);
 }

@@ -188,7 +188,7 @@ Intro::~Intro (){
 
 
 void Intro::init (){
-    quit -> setFocus();
+    choice -> setFocus();
 }
 
 

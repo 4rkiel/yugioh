@@ -21,11 +21,11 @@
 #include <QTextStream>
 #include <QCheckBox>
 #include <QSpacerItem>
-#include <QComboBox>
 #include <QEvent>
 #include <QShortcut>
 
 #include "../inc/flatButt.h"
+#include "../inc/combo.h"
 
 class RuleTab : public QFrame {
 
@@ -71,15 +71,15 @@ class RuleTab : public QFrame {
         QCheckBox * shareChck;
         QLabel * shareDesc;
 
-        QComboBox * langInput;
+        Combo * langInput;
         QLabel * langDesc;
 
         QLabel * shortcutDesc;
 */
 
-    QComboBox* lifePoints;
+    Combo* lifePoints;
     QLabel* lifeDesc;
-    QComboBox* cardDrawNumber;
+    Combo* cardDrawNumber;
     QLabel* cardDrawDesc;
 
     QScrollArea * ruleScroll;
