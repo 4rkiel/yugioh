@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en_US">
+<TS version="2.0" language="en_US">
 <context>
     <name></name>
     <message>
@@ -12,7 +12,7 @@
     <name>BuildTab</name>
     <message>
         <source>Retour</source>
-        <translation type="vanished">Back</translation>
+        <translation>Back</translation>
     </message>
     <message>
         <location filename="../../src/buildtab.cpp" line="35"/>
@@ -615,11 +615,11 @@
     </message>
     <message>
         <source>Partie Locale Multijoueur</source>
-        <translation type="vanished">Multiplayer Local Game</translation>
+        <translation>Multiplayer Local Game</translation>
     </message>
     <message>
         <source>Commencer une partie à deux joeur en local</source>
-        <translation type="vanished">Start a local two-players game</translation>
+        <translation>Start a local two-players game</translation>
     </message>
     <message>
         <location filename="../../src/choice.cpp" line="89"/>
@@ -653,7 +653,7 @@
     </message>
     <message>
         <source>Retour</source>
-        <translation type="vanished">Back</translation>
+        <translation>Back</translation>
     </message>
     <message>
         <location filename="../../src/choice.cpp" line="44"/>
@@ -665,35 +665,35 @@
     <name>Field</name>
     <message>
         <source>Duel</source>
-        <translation type="vanished">Duel</translation>
+        <translation>Duel</translation>
     </message>
     <message>
         <source>Historique</source>
-        <translation type="vanished">History</translation>
+        <translation>History</translation>
     </message>
     <message>
         <source>Chat</source>
-        <translation type="vanished">Chat</translation>
+        <translation>Chat</translation>
     </message>
     <message>
         <source>Terminer le tour</source>
-        <translation type="vanished">End Turn</translation>
+        <translation>End Turn</translation>
     </message>
     <message>
         <source>Abandonner</source>
-        <translation type="vanished">Give Up</translation>
+        <translation>Give Up</translation>
     </message>
     <message>
         <source>Quitter le Duel</source>
-        <translation type="vanished">Leave the Duel</translation>
+        <translation>Leave the Duel</translation>
     </message>
     <message>
         <source>Fermer</source>
-        <translation type="vanished">Close</translation>
+        <translation>Close</translation>
     </message>
     <message>
         <source>Retour au Duel</source>
-        <translation type="vanished">Back to the Duel</translation>
+        <translation>Back to the Duel</translation>
     </message>
     <message>
         <location filename="../../src/field.cpp" line="63"/>
@@ -750,7 +750,7 @@
     </message>
     <message>
         <source>Retour</source>
-        <translation type="vanished">Back</translation>
+        <translation>Back</translation>
     </message>
     <message>
         <location filename="../../src/helptab.cpp" line="83"/>
@@ -772,7 +772,7 @@
     </message>
     <message>
         <source>Retour</source>
-        <translation type="vanished">Back</translation>
+        <translation>Back</translation>
     </message>
     <message>
         <location filename="../../src/hostChoice.cpp" line="44"/>
@@ -792,7 +792,7 @@ Waiting for opponent to connect...</translation>
         <source>Adresse du serveur : 
 
 Patientez...</source>
-        <translation type="vanished">Server Address : 
+        <translation>Server Address : 
 
 Please wait...</translation>
     </message>
@@ -869,7 +869,7 @@ Please wait...</translation>
     </message>
     <message>
         <source>Quitter</source>
-        <translation type="vanished">Leave</translation>
+        <translation>Leave</translation>
     </message>
     <message>
         <location filename="../../src/intro.cpp" line="49"/>
@@ -885,8 +885,13 @@ Please wait...</translation>
         <translation>Private Game : Join</translation>
     </message>
     <message>
+        <location filename="../../src/joinChoice.cpp" line="69"/>
+        <source>Valider</source>
+        <translation>Confirm</translation>
+    </message>
+    <message>
         <source>Retour</source>
-        <translation type="vanished">Back</translation>
+        <translation>Back</translation>
     </message>
     <message>
         <location filename="../../src/joinChoice.cpp" line="41"/>
@@ -915,95 +920,96 @@ Please wait...</translation>
 <context>
     <name>OptionTab</name>
     <message>
-        <location filename="../../src/optab.cpp" line="34"/>
-        <location filename="../../src/optab.cpp" line="488"/>
+        <location filename="../../src/optab.cpp" line="35"/>
+        <location filename="../../src/optab.cpp" line="496"/>
         <source>Paramètres</source>
         <translation>Options</translation>
     </message>
     <message>
         <source>Retour</source>
-        <translation type="vanished">Back</translation>
+        <translation>Back</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="41"/>
-        <location filename="../../src/optab.cpp" line="489"/>
+        <location filename="../../src/optab.cpp" line="42"/>
+        <location filename="../../src/optab.cpp" line="497"/>
         <source>Fermer les paramètres</source>
         <translation>Close options</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="85"/>
+        <location filename="../../src/optab.cpp" line="86"/>
+        <location filename="../../src/optab.cpp" line="498"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="93"/>
-        <location filename="../../src/optab.cpp" line="490"/>
+        <location filename="../../src/optab.cpp" line="94"/>
+        <location filename="../../src/optab.cpp" line="499"/>
         <source>Accessibilité</source>
         <translation>Accessibility</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="146"/>
-        <location filename="../../src/optab.cpp" line="491"/>
+        <location filename="../../src/optab.cpp" line="147"/>
+        <location filename="../../src/optab.cpp" line="500"/>
         <source>Partage</source>
         <translation>Sharing</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="153"/>
-        <location filename="../../src/optab.cpp" line="492"/>
+        <location filename="../../src/optab.cpp" line="154"/>
+        <location filename="../../src/optab.cpp" line="501"/>
         <source>Partage les données d&apos;utilisation</source>
         <translation>Share usage data</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="170"/>
-        <location filename="../../src/optab.cpp" line="493"/>
+        <location filename="../../src/optab.cpp" line="178"/>
+        <location filename="../../src/optab.cpp" line="502"/>
         <source>Langue de l&apos;interface</source>
         <translation>Interface language</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="203"/>
-        <location filename="../../src/optab.cpp" line="494"/>
+        <location filename="../../src/optab.cpp" line="211"/>
+        <location filename="../../src/optab.cpp" line="503"/>
         <source>Large texte</source>
         <translation>Large-text</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="210"/>
-        <location filename="../../src/optab.cpp" line="495"/>
+        <location filename="../../src/optab.cpp" line="218"/>
+        <location filename="../../src/optab.cpp" line="504"/>
         <source>Textes de grande taille</source>
         <translation>Increase text size</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="217"/>
-        <location filename="../../src/optab.cpp" line="498"/>
+        <location filename="../../src/optab.cpp" line="225"/>
+        <location filename="../../src/optab.cpp" line="507"/>
         <source>Dyslexie</source>
         <translation>Dyslexia</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="224"/>
-        <location filename="../../src/optab.cpp" line="499"/>
+        <location filename="../../src/optab.cpp" line="232"/>
+        <location filename="../../src/optab.cpp" line="508"/>
         <source>Textes adaptés à la dyslexie</source>
         <translation>Text adapted to dyslexia</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="231"/>
-        <location filename="../../src/optab.cpp" line="496"/>
+        <location filename="../../src/optab.cpp" line="239"/>
+        <location filename="../../src/optab.cpp" line="505"/>
         <source>Contraste élevé</source>
         <translation>High contrast</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="238"/>
-        <location filename="../../src/optab.cpp" line="497"/>
+        <location filename="../../src/optab.cpp" line="246"/>
+        <location filename="../../src/optab.cpp" line="506"/>
         <source>Augmenter les contrastes de l&apos;application</source>
         <translation>Increase the contrast of the application</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="245"/>
-        <location filename="../../src/optab.cpp" line="500"/>
+        <location filename="../../src/optab.cpp" line="253"/>
+        <location filename="../../src/optab.cpp" line="509"/>
         <source>Couleurs pour Dyschromatopsie</source>
         <translation>Colors for Dyschromatopsia</translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="252"/>
-        <location filename="../../src/optab.cpp" line="501"/>
+        <location filename="../../src/optab.cpp" line="260"/>
+        <location filename="../../src/optab.cpp" line="510"/>
         <source>Adapter l&apos;affichage des couleurs</source>
         <translation>Adapt the display of the colors</translation>
     </message>
@@ -1080,7 +1086,7 @@ Please wait...</translation>
     </message>
     <message>
         <source>Retour</source>
-        <translation type="vanished">Back</translation>
+        <translation>Back</translation>
     </message>
     <message>
         <location filename="../../src/ruletab.cpp" line="44"/>
@@ -1112,7 +1118,7 @@ Please wait...</translation>
     <name>SoloChoice</name>
     <message>
         <source>Partie Solo: difficulte de l&apos;IA</source>
-        <translation type="vanished">Solo Game: AI difficulty</translation>
+        <translation>Solo Game: AI difficulty</translation>
     </message>
     <message>
         <location filename="../../src/soloChoice.cpp" line="36"/>
@@ -1121,7 +1127,7 @@ Please wait...</translation>
     </message>
     <message>
         <source>Retour</source>
-        <translation type="vanished">Back</translation>
+        <translation>Back</translation>
     </message>
     <message>
         <location filename="../../src/soloChoice.cpp" line="45"/>
@@ -1161,11 +1167,11 @@ Please wait...</translation>
     </message>
     <message>
         <source>Choix de la difficulté :</source>
-        <translation type="vanished">Choose the difficulty :</translation>
+        <translation>Choose the difficulty :</translation>
     </message>
     <message>
         <source>Quelle IA ?</source>
-        <translation type="vanished">Which AI ?</translation>
+        <translation>Which AI ?</translation>
     </message>
 </context>
 <context>
@@ -1205,7 +1211,7 @@ Please wait...</translation>
     <name>deckEdit</name>
     <message>
         <source>Quitter</source>
-        <translation type="vanished">Leave</translation>
+        <translation>Leave</translation>
     </message>
     <message>
         <location filename="../../inc/deckedit.h" line="65"/>
@@ -1224,7 +1230,7 @@ Please wait...</translation>
     </message>
     <message>
         <source>Sauvegarder</source>
-        <translation type="vanished">Save</translation>
+        <translation>Save</translation>
     </message>
     <message>
         <location filename="../../inc/deckedit.h" line="67"/>
@@ -1357,7 +1363,7 @@ Please wait...</translation>
     </message>
     <message>
         <source>Nombre de carte: </source>
-        <translation type="vanished">Number of cards: </translation>
+        <translation>Number of cards: </translation>
     </message>
     <message>
         <location filename="../../src/deckedit.cpp" line="107"/>
@@ -1510,219 +1516,219 @@ Please wait...</translation>
     <name>editeur_de_carte</name>
     <message>
         <source>Enregistrer</source>
-        <translation type="vanished">Save</translation>
+        <translation>Save</translation>
     </message>
     <message>
         <source>Description / Effet de la carte...</source>
-        <translation type="vanished">Description/Card effect</translation>
+        <translation>Description/Card effect</translation>
     </message>
     <message>
         <source>Aqua</source>
-        <translation type="vanished">Aqua</translation>
+        <translation>Aqua</translation>
     </message>
     <message>
         <source>Bete</source>
-        <translation type="vanished">Beast</translation>
+        <translation>Beast</translation>
     </message>
     <message>
         <source>Bete Ailee</source>
-        <translation type="vanished">Winged Beast</translation>
+        <translation>Winged Beast</translation>
     </message>
     <message>
         <source>Bete-Divine</source>
-        <translation type="vanished">Divine Beast</translation>
+        <translation>Divine Beast</translation>
     </message>
     <message>
         <source>Bete-Guerrier</source>
-        <translation type="vanished">Beast Warrior</translation>
+        <translation>Beast Warrior</translation>
     </message>
     <message>
         <source>Demon</source>
-        <translation type="vanished">Fiend</translation>
+        <translation>Fiend</translation>
     </message>
     <message>
         <source>Dinosaure</source>
-        <translation type="vanished">Dinosaur</translation>
+        <translation>Dinosaur</translation>
     </message>
     <message>
         <source>Elfe</source>
-        <translation type="vanished">Fairy</translation>
+        <translation>Fairy</translation>
     </message>
     <message>
         <source>Guerrier</source>
-        <translation type="vanished">Warrior</translation>
+        <translation>Warrior</translation>
     </message>
     <message>
         <source>Insecte</source>
-        <translation type="vanished">Insect</translation>
+        <translation>Insect</translation>
     </message>
     <message>
         <source>Magicien</source>
-        <translation type="vanished">Spellcaster</translation>
+        <translation>Spellcaster</translation>
     </message>
     <message>
         <source>Plante</source>
-        <translation type="vanished">Plant</translation>
+        <translation>Plant</translation>
     </message>
     <message>
         <source>Poisson</source>
-        <translation type="vanished">Fish</translation>
+        <translation>Fish</translation>
     </message>
     <message>
         <source>Rocher</source>
-        <translation type="vanished">Rock</translation>
+        <translation>Rock</translation>
     </message>
     <message>
         <source>Serpent de Mer</source>
-        <translation type="vanished">Sea Serpent</translation>
+        <translation>Sea Serpent</translation>
     </message>
     <message>
         <source>Tonnerre</source>
-        <translation type="vanished">Thunder</translation>
+        <translation>Thunder</translation>
     </message>
     <message>
         <source>Effet</source>
-        <translation type="vanished">Effect</translation>
+        <translation>Effect</translation>
     </message>
     <message>
         <source>Rituel</source>
-        <translation type="vanished">Ritual</translation>
+        <translation>Ritual</translation>
     </message>
     <message>
         <source>Piocher</source>
-        <translation type="vanished">Draw</translation>
+        <translation>Draw</translation>
     </message>
     <message>
         <source>Detruire Monstre</source>
-        <translation type="vanished">Destroy Monster</translation>
+        <translation>Destroy Monster</translation>
     </message>
     <message>
         <source>Detruire Magie/piege</source>
-        <translation type="vanished">Destroy Magic/Trap</translation>
+        <translation>Destroy Magic/Trap</translation>
     </message>
     <message>
         <source>Detruire</source>
-        <translation type="vanished">Destroy</translation>
+        <translation>Destroy</translation>
     </message>
     <message>
         <source>TOUT DETRUIRE !</source>
-        <translation type="vanished">DESTROY EVERYTHING !</translation>
+        <translation>DESTROY EVERYTHING !</translation>
     </message>
     <message>
         <source>gagner 1000 life point</source>
-        <translation type="vanished">Win 1000 life points</translation>
+        <translation>Win 1000 life points</translation>
     </message>
     <message>
         <source>+1000 attaque</source>
-        <translation type="vanished">+1000 attack</translation>
+        <translation>+1000 attack</translation>
     </message>
     <message>
         <source>Monstre</source>
-        <translation type="vanished">Monster</translation>
+        <translation>Monster</translation>
     </message>
     <message>
         <source>Magie</source>
-        <translation type="vanished">Magic</translation>
+        <translation>Magic</translation>
     </message>
     <message>
         <source>Piege</source>
-        <translation type="vanished">Trap</translation>
+        <translation>Trap</translation>
     </message>
     <message>
         <source>Nom:</source>
-        <translation type="vanished">Name:</translation>
+        <translation>Name:</translation>
     </message>
     <message>
         <source>genre:</source>
-        <translation type="vanished">Type:</translation>
+        <translation>Type:</translation>
     </message>
     <message>
         <source>attribut:</source>
-        <translation type="vanished">Attribute:</translation>
+        <translation>Attribute:</translation>
     </message>
     <message>
         <source>Niveau:</source>
-        <translation type="vanished">Level:</translation>
+        <translation>Level:</translation>
     </message>
     <message>
         <source>Attaque:</source>
-        <translation type="vanished">Attack:</translation>
+        <translation>Attack:</translation>
     </message>
     <message>
         <source>Defense:</source>
-        <translation type="vanished">Defense:</translation>
+        <translation>Defense:</translation>
     </message>
     <message>
         <source>Effet:</source>
-        <translation type="vanished">Effect:</translation>
+        <translation>Effect:</translation>
     </message>
     <message>
         <source>Selectionner une image</source>
-        <translation type="vanished">Select a picture</translation>
+        <translation>Select a picture</translation>
     </message>
     <message>
         <source>	 n&apos;existe pas</source>
-        <translation type="vanished">	 doesn&apos;t exist</translation>
+        <translation>	 doesn&apos;t exist</translation>
     </message>
     <message>
         <source>	 n&apos;est pas un fichier valide</source>
-        <translation type="vanished">	is not a valid file</translation>
+        <translation>	is not a valid file</translation>
     </message>
     <message>
         <source>Lumière</source>
-        <translation type="vanished">Light</translation>
+        <translation>Light</translation>
     </message>
     <message>
         <source>Tenebre</source>
-        <translation type="vanished">Dark</translation>
+        <translation>Dark</translation>
     </message>
     <message>
         <source>Terre</source>
-        <translation type="vanished">Earth</translation>
+        <translation>Earth</translation>
     </message>
     <message>
         <source>Eau</source>
-        <translation type="vanished">Water</translation>
+        <translation>Water</translation>
     </message>
     <message>
         <source>Feu</source>
-        <translation type="vanished">Fire</translation>
+        <translation>Fire</translation>
     </message>
     <message>
         <source>Vent</source>
-        <translation type="vanished">Wind</translation>
+        <translation>Wind</translation>
     </message>
     <message>
         <source>Divin</source>
-        <translation type="vanished">Divine</translation>
+        <translation>Divine</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="vanished">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Continue</source>
-        <translation type="vanished">Continuous</translation>
+        <translation>Continuous</translation>
     </message>
     <message>
         <source>Equipement</source>
-        <translation type="vanished">Equipment</translation>
+        <translation>Equipment</translation>
     </message>
     <message>
         <source>Jeu-Rapide</source>
-        <translation type="vanished">Quick-Play</translation>
+        <translation>Quick-Play</translation>
     </message>
     <message>
         <source>Rituelle</source>
-        <translation type="vanished">Ritual</translation>
+        <translation>Ritual</translation>
     </message>
     <message>
         <source>Terrain</source>
-        <translation type="vanished">Field</translation>
+        <translation>Field</translation>
     </message>
     <message>
         <source>Contre</source>
-        <translation type="vanished">Counter</translation>
+        <translation>Counter</translation>
     </message>
 </context>
 </TS>

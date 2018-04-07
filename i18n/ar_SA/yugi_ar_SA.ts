@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ar_SA">
+<TS version="2.0" language="ar_SA">
 <context>
     <name>BuildTab</name>
     <message>
@@ -649,6 +649,10 @@ En attente de connexion de l&apos;adversaire...</source>
     <message>
         <source>Retour au Menu</source>
         <translation>العودة إلى القائمة</translation>
+    </message>
+    <message>
+        <source>Valider</source>
+        <translation>التحقق من صحة</translation>
     </message>
 </context>
 <context>

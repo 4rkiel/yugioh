@@ -805,6 +805,11 @@ En attente de connexion de l&apos;adversaire...</source>
         <source>Retour au Menu</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../../src/joinChoice.cpp" line="69"/>
+        <source>Valider</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NetChoice</name>
@@ -827,91 +832,92 @@ En attente de connexion de l&apos;adversaire...</source>
 <context>
     <name>OptionTab</name>
     <message>
-        <location filename="../../src/optab.cpp" line="146"/>
-        <location filename="../../src/optab.cpp" line="491"/>
+        <location filename="../../src/optab.cpp" line="147"/>
+        <location filename="../../src/optab.cpp" line="500"/>
         <source>Partage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="34"/>
-        <location filename="../../src/optab.cpp" line="488"/>
+        <location filename="../../src/optab.cpp" line="35"/>
+        <location filename="../../src/optab.cpp" line="496"/>
         <source>Paramètres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="41"/>
-        <location filename="../../src/optab.cpp" line="489"/>
+        <location filename="../../src/optab.cpp" line="42"/>
+        <location filename="../../src/optab.cpp" line="497"/>
         <source>Fermer les paramètres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="85"/>
+        <location filename="../../src/optab.cpp" line="86"/>
+        <location filename="../../src/optab.cpp" line="498"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="93"/>
-        <location filename="../../src/optab.cpp" line="490"/>
+        <location filename="../../src/optab.cpp" line="94"/>
+        <location filename="../../src/optab.cpp" line="499"/>
         <source>Accessibilité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="153"/>
-        <location filename="../../src/optab.cpp" line="492"/>
+        <location filename="../../src/optab.cpp" line="154"/>
+        <location filename="../../src/optab.cpp" line="501"/>
         <source>Partage les données d&apos;utilisation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="170"/>
-        <location filename="../../src/optab.cpp" line="493"/>
+        <location filename="../../src/optab.cpp" line="178"/>
+        <location filename="../../src/optab.cpp" line="502"/>
         <source>Langue de l&apos;interface</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="203"/>
-        <location filename="../../src/optab.cpp" line="494"/>
+        <location filename="../../src/optab.cpp" line="211"/>
+        <location filename="../../src/optab.cpp" line="503"/>
         <source>Large texte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="210"/>
-        <location filename="../../src/optab.cpp" line="495"/>
+        <location filename="../../src/optab.cpp" line="218"/>
+        <location filename="../../src/optab.cpp" line="504"/>
         <source>Textes de grande taille</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="217"/>
-        <location filename="../../src/optab.cpp" line="498"/>
+        <location filename="../../src/optab.cpp" line="225"/>
+        <location filename="../../src/optab.cpp" line="507"/>
         <source>Dyslexie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="224"/>
-        <location filename="../../src/optab.cpp" line="499"/>
+        <location filename="../../src/optab.cpp" line="232"/>
+        <location filename="../../src/optab.cpp" line="508"/>
         <source>Textes adaptés à la dyslexie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="231"/>
-        <location filename="../../src/optab.cpp" line="496"/>
+        <location filename="../../src/optab.cpp" line="239"/>
+        <location filename="../../src/optab.cpp" line="505"/>
         <source>Contraste élevé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="238"/>
-        <location filename="../../src/optab.cpp" line="497"/>
+        <location filename="../../src/optab.cpp" line="246"/>
+        <location filename="../../src/optab.cpp" line="506"/>
         <source>Augmenter les contrastes de l&apos;application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="245"/>
-        <location filename="../../src/optab.cpp" line="500"/>
+        <location filename="../../src/optab.cpp" line="253"/>
+        <location filename="../../src/optab.cpp" line="509"/>
         <source>Couleurs pour Dyschromatopsie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="252"/>
-        <location filename="../../src/optab.cpp" line="501"/>
+        <location filename="../../src/optab.cpp" line="260"/>
+        <location filename="../../src/optab.cpp" line="510"/>
         <source>Adapter l&apos;affichage des couleurs</source>
         <translation type="unfinished"></translation>
     </message>

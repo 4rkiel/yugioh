@@ -495,6 +495,7 @@ void OptionTab::changeEvent(QEvent *event)
     if (event->type() == QEvent::LanguageChange) {
         info->setText(tr("Paramètres"));
         exitButt -> setToolTip(tr("Fermer les paramètres"));
+        optionButt -> setText(tr("Options"));
 		accessButt -> setText(tr("Accessibilité"));
         shareChck -> setText(tr("Partage"));
         shareDesc -> setText(tr("Partage les données d'utilisation"));

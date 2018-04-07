@@ -63,7 +63,7 @@ NetChoice::NetChoice () {
             choice -> setToolTip(tr("Retour au Menu"));
             connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
             box -> addWidget(choice);
-            
+
             box -> addStretch(1);
 
 

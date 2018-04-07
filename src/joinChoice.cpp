@@ -66,7 +66,7 @@ JoinChoice::JoinChoice () {
 
             // Validation butt
 			
-            valid = new DarkButt("\uf00c","Valider");
+            valid = new DarkButt("\uf00c",tr("Valider"));
             valid -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
             box -> addWidget(valid, 2,1,1,1);
 			connect(valid, SIGNAL(clicked()), this, SLOT(connectIP()));
