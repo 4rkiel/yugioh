@@ -6,33 +6,124 @@ QToolTip {
 }
 
 
+/******************************************************************************
+    Combo
+******************************************************************************/
 
 Combo {
-    selection-background-color: #FFC107;
+    selection-background-color: #FFD740;
     border: none;
     border-radius: 2px;
-    padding: 5px;
+    padding: 5px 10px 5px 10px;
     background-color: #FFFFFF;
     color: black;
+    min-width: 75px;
 }
 
-Combo:hover {
-    background: #FFECB3;
+Combo:hover,
+Combo:focus {
+    background: #FFE082;
 }
 
 Combo:on {
     selection-background-color: #FF6F00;
+    padding: 0px;
 }
 
 Combo QAbstractItemView {
-    background-color: #FFECB3;
+    background-color: #FFF8E1;
     border: none;
     selection-background-color: #18465d;
 }
 
 Combo::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
     border:none;
 }
+
+
+Combo::up-arrow,
+Combo::down-arrow {
+    image: url(img/rc/down_arrow_disabled.png);
+}
+
+Combo::down-arrow:on,
+Combo::down-arrow:hover,
+Combo::down-arrow:focus {
+    image: url(img/rc/down_arrow.png);
+}
+
+
+/******************************************************************************
+    ScrollArea
+******************************************************************************/
+
+QAbstractScrollArea {
+    border:none;
+}
+
+QScrollBar:vertical {
+    width: 28px;
+    margin: 15px 10px 15px 10px;
+    border: none;
+    background: #E8EAF6;
+    border-radius: 3px;
+}
+
+QScrollBar::handle:vertical {
+    background-color: #1A237E;
+    min-height: 5px;
+    border-radius: 3px;
+}
+
+QScrollBar::sub-line:vertical {
+    margin: 3px 0px 3px 0px;
+    border-image: url(img/rc/up_arrow_disabled.png);
+    height: 10px;
+    width: 10px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::add-line:vertical {
+    margin: 3px 0px 3px 0px;
+    border-image: url(img/rc/down_arrow_disabled.png);
+    height: 10px;
+    width: 10px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical:hover,
+QScrollBar::sub-line:vertical:on {
+    border-image: url(img/rc/up_arrow.png);
+    height: 10px;
+    width: 10px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::add-line:vertical:hover,
+QScrollBar::add-line:vertical:on {
+    border-image: url(img/rc/down_arrow.png);
+    height: 10px;
+    width: 10px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::up-arrow:vertical,
+QScrollBar::down-arrow:vertical {
+    background: none;
+}
+
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+
 
 
 /*****************************************************************
@@ -448,7 +539,6 @@ RuleTab #ruleBox QLabel {
 OptionTab #optBox QComboBox,
 HelpTab #helpBox QComboBox,
 RuleTab #ruleBox QComboBox {
-    padding: 5px 30px 5px 10px;
 }
 
 
