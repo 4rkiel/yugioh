@@ -3,8 +3,10 @@
 #include <inc/deckedit.h>
 
 
-deckEdit::deckEdit(/*std::vector<Carte *> *allCard*/)
+deckEdit::deckEdit(std::vector<Carte *> *allCard)
 {
+    allCards = allCard;
+
     selectDeck = new QComboBox;
     choixGenre = new QComboBox;
     choixSousGenre  = new QComboBox;
@@ -361,9 +363,9 @@ deckEdit::deckEdit(/*std::vector<Carte *> *allCard*/)
         deckScroll->setBackgroundRole(QPalette::Light);
         deckScroll->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
 
-            Parser *parser = new Parser;
+            //Parser *parser = new Parser;
 
-            cardList = new CardListPreview(parser);
+            cardList = new CardListPreview(allCard);
             cardList->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
             for(CardPreview *cardPreviewCourante : (*cardList->cardPreviewList))
@@ -386,6 +388,7 @@ deckEdit::deckEdit(/*std::vector<Carte *> *allCard*/)
     connect(tabBut[EFFACER], SIGNAL(clicked()), this, SLOT(effacerDeck()));
     connect(tabBut[MELANGER], SIGNAL(clicked()), this, SLOT(melangerDeck()));
     connect(tabBut[TRIER], SIGNAL(clicked()), this, SLOT(trierDeck()));
+    connect(tabBut[FILTRER], SIGNAL(clicked()), this, SLOT(updPreview()));
 }
 
 void deckEdit::updateDeckVisu()
@@ -695,6 +698,26 @@ void deckEdit::trierDeck()
 
     updateDeckVisu();
     updateExtraDeckVisu();
+}
+
+void deckEdit::updPreview()
+{
+    // TODO ajouter des "all" pour par exemple ne pas filtrer ...
+    std::vector<Carte*> newList;
+    newList.clear();
+    switch(choixGenre->currentIndex())
+    {
+        case 0: /* Monstre */
+        {
+            for(Carte* carte : *allCards)
+            {
+                if(carte->genre == 0)
+                    newList.push_back(carte);
+            }
+        }
+    }
+
+    cardList->updateSearch(&newList);
 }
 
 void deckEdit::slotAttribut()

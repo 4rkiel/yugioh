@@ -73,7 +73,7 @@ class deckEdit : public QWidget
                                            tr("Rituel")};
         const QStringList attributList = {};
 
-        deckEdit(/*std::vector<Carte*> *allCard*/);
+        deckEdit(std::vector<Carte*> *allCard);
 
     private:
         void createEdit();
@@ -95,6 +95,8 @@ class deckEdit : public QWidget
 
         std::vector<Carte*> deck;
         std::vector<Carte*> extraDeck;
+
+        std::vector<Carte*> *allCards;
 
         QComboBox *selectDeck;
         QComboBox *choixGenre;
@@ -135,6 +137,7 @@ class deckEdit : public QWidget
             void effacerDeck();
             void melangerDeck();
             void trierDeck();
+            void updPreview();
 };
 
 #endif // DECKEDIT_H
