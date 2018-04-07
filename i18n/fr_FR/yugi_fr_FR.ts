@@ -646,6 +646,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/field.cpp" line="79"/>
+        <source>Tour
+0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../src/field.cpp" line="115"/>
         <source>Adversaire</source>
         <translation type="unfinished"></translation>
@@ -710,14 +716,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/hostChoice.cpp" line="84"/>
+        <location filename="../../src/hostChoice.cpp" line="83"/>
         <source>Serveur personnel initialisé.
 
 En attente de connexion de l&apos;adversaire...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/hostChoice.cpp" line="101"/>
+        <location filename="../../src/hostChoice.cpp" line="100"/>
         <source>Adresse du serveur : 
 
 </source>
@@ -821,86 +827,91 @@ En attente de connexion de l&apos;adversaire...</source>
 <context>
     <name>OptionTab</name>
     <message>
-        <location filename="../../src/optab.cpp" line="145"/>
-        <location filename="../../src/optab.cpp" line="489"/>
+        <location filename="../../src/optab.cpp" line="146"/>
+        <location filename="../../src/optab.cpp" line="491"/>
         <source>Partage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="34"/>
-        <location filename="../../src/optab.cpp" line="486"/>
+        <location filename="../../src/optab.cpp" line="488"/>
         <source>Paramètres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/optab.cpp" line="41"/>
-        <location filename="../../src/optab.cpp" line="487"/>
+        <location filename="../../src/optab.cpp" line="489"/>
         <source>Fermer les paramètres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/optab.cpp" line="85"/>
+        <source>Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../src/optab.cpp" line="93"/>
-        <location filename="../../src/optab.cpp" line="488"/>
+        <location filename="../../src/optab.cpp" line="490"/>
         <source>Accessibilité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="152"/>
-        <location filename="../../src/optab.cpp" line="490"/>
+        <location filename="../../src/optab.cpp" line="153"/>
+        <location filename="../../src/optab.cpp" line="492"/>
         <source>Partage les données d&apos;utilisation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="169"/>
-        <location filename="../../src/optab.cpp" line="491"/>
+        <location filename="../../src/optab.cpp" line="170"/>
+        <location filename="../../src/optab.cpp" line="493"/>
         <source>Langue de l&apos;interface</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="201"/>
-        <location filename="../../src/optab.cpp" line="492"/>
+        <location filename="../../src/optab.cpp" line="203"/>
+        <location filename="../../src/optab.cpp" line="494"/>
         <source>Large texte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="208"/>
-        <location filename="../../src/optab.cpp" line="493"/>
+        <location filename="../../src/optab.cpp" line="210"/>
+        <location filename="../../src/optab.cpp" line="495"/>
         <source>Textes de grande taille</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="215"/>
-        <location filename="../../src/optab.cpp" line="496"/>
+        <location filename="../../src/optab.cpp" line="217"/>
+        <location filename="../../src/optab.cpp" line="498"/>
         <source>Dyslexie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="222"/>
-        <location filename="../../src/optab.cpp" line="497"/>
+        <location filename="../../src/optab.cpp" line="224"/>
+        <location filename="../../src/optab.cpp" line="499"/>
         <source>Textes adaptés à la dyslexie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="229"/>
-        <location filename="../../src/optab.cpp" line="494"/>
+        <location filename="../../src/optab.cpp" line="231"/>
+        <location filename="../../src/optab.cpp" line="496"/>
         <source>Contraste élevé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="236"/>
-        <location filename="../../src/optab.cpp" line="495"/>
+        <location filename="../../src/optab.cpp" line="238"/>
+        <location filename="../../src/optab.cpp" line="497"/>
         <source>Augmenter les contrastes de l&apos;application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="243"/>
-        <location filename="../../src/optab.cpp" line="498"/>
+        <location filename="../../src/optab.cpp" line="245"/>
+        <location filename="../../src/optab.cpp" line="500"/>
         <source>Couleurs pour Dyschromatopsie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/optab.cpp" line="250"/>
-        <location filename="../../src/optab.cpp" line="499"/>
+        <location filename="../../src/optab.cpp" line="252"/>
+        <location filename="../../src/optab.cpp" line="501"/>
         <source>Adapter l&apos;affichage des couleurs</source>
         <translation type="unfinished"></translation>
     </message>
@@ -991,12 +1002,12 @@ En attente de connexion de l&apos;adversaire...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/ruletab.cpp" line="173"/>
+        <location filename="../../src/ruletab.cpp" line="174"/>
         <source>Nombre de cartes piochées en début de tour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/ruletab.cpp" line="153"/>
+        <location filename="../../src/ruletab.cpp" line="154"/>
         <source>Nombre de points de vie</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1014,33 +1025,33 @@ En attente de connexion de l&apos;adversaire...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/soloChoice.cpp" line="100"/>
+        <location filename="../../src/soloChoice.cpp" line="99"/>
         <source>Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/soloChoice.cpp" line="115"/>
+        <location filename="../../src/soloChoice.cpp" line="114"/>
         <source>Difficile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/soloChoice.cpp" line="102"/>
-        <location filename="../../src/soloChoice.cpp" line="117"/>
+        <location filename="../../src/soloChoice.cpp" line="101"/>
+        <location filename="../../src/soloChoice.cpp" line="116"/>
         <source>Adversaire expert</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/soloChoice.cpp" line="78"/>
+        <location filename="../../src/soloChoice.cpp" line="77"/>
         <source>Choix de la difficulté</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/soloChoice.cpp" line="86"/>
+        <location filename="../../src/soloChoice.cpp" line="85"/>
         <source>Facile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/soloChoice.cpp" line="88"/>
+        <location filename="../../src/soloChoice.cpp" line="87"/>
         <source>Adversaire débutant</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1081,84 +1092,84 @@ En attente de connexion de l&apos;adversaire...</source>
 <context>
     <name>deckEdit</name>
     <message>
-        <location filename="../../inc/deckedit.h" line="65"/>
+        <location filename="../../inc/deckedit.h" line="66"/>
         <source>Trier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="65"/>
+        <location filename="../../inc/deckedit.h" line="66"/>
         <source>Effacer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="67"/>
+        <location filename="../../inc/deckedit.h" line="68"/>
         <source>Supprimer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="67"/>
+        <location filename="../../inc/deckedit.h" line="68"/>
         <source>Annuler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="68"/>
+        <location filename="../../inc/deckedit.h" line="69"/>
         <source>Filtrer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="69"/>
+        <location filename="../../inc/deckedit.h" line="70"/>
         <source>Magie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="64"/>
+        <location filename="../../inc/deckedit.h" line="65"/>
         <source>Mélanger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="66"/>
+        <location filename="../../inc/deckedit.h" line="67"/>
         <source>Créer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="66"/>
+        <location filename="../../inc/deckedit.h" line="67"/>
         <source>Enregistrer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="69"/>
+        <location filename="../../inc/deckedit.h" line="70"/>
         <source>Piège</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="69"/>
+        <location filename="../../inc/deckedit.h" line="70"/>
         <source>Monstre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="70"/>
+        <location filename="../../inc/deckedit.h" line="71"/>
         <source>Effet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="70"/>
-        <location filename="../../src/deckedit.cpp" line="664"/>
-        <location filename="../../src/deckedit.cpp" line="688"/>
+        <location filename="../../inc/deckedit.h" line="71"/>
+        <location filename="../../src/deckedit.cpp" line="731"/>
+        <location filename="../../src/deckedit.cpp" line="755"/>
         <source>Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="71"/>
+        <location filename="../../inc/deckedit.h" line="72"/>
         <source>Fusion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="71"/>
+        <location filename="../../inc/deckedit.h" line="72"/>
         <source>Toon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../inc/deckedit.h" line="72"/>
+        <location filename="../../inc/deckedit.h" line="73"/>
         <source>Rituel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1189,28 +1200,28 @@ En attente de connexion de l&apos;adversaire...</source>
     </message>
     <message>
         <location filename="../../src/deckedit.cpp" line="168"/>
-        <location filename="../../src/deckedit.cpp" line="409"/>
-        <location filename="../../src/deckedit.cpp" line="426"/>
+        <location filename="../../src/deckedit.cpp" line="412"/>
+        <location filename="../../src/deckedit.cpp" line="429"/>
         <source>Monstre: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/deckedit.cpp" line="170"/>
-        <location filename="../../src/deckedit.cpp" line="411"/>
-        <location filename="../../src/deckedit.cpp" line="428"/>
+        <location filename="../../src/deckedit.cpp" line="414"/>
+        <location filename="../../src/deckedit.cpp" line="431"/>
         <source>Magie: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/deckedit.cpp" line="172"/>
-        <location filename="../../src/deckedit.cpp" line="412"/>
-        <location filename="../../src/deckedit.cpp" line="429"/>
+        <location filename="../../src/deckedit.cpp" line="415"/>
+        <location filename="../../src/deckedit.cpp" line="432"/>
         <source>Piège: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/deckedit.cpp" line="174"/>
-        <location filename="../../src/deckedit.cpp" line="448"/>
+        <location filename="../../src/deckedit.cpp" line="451"/>
         <source>Extra Deck vide</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1235,138 +1246,138 @@ En attente de connexion de l&apos;adversaire...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="404"/>
+        <location filename="../../src/deckedit.cpp" line="407"/>
         <source>Main Deck vide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="406"/>
-        <location filename="../../src/deckedit.cpp" line="423"/>
+        <location filename="../../src/deckedit.cpp" line="409"/>
+        <location filename="../../src/deckedit.cpp" line="426"/>
         <source>Main Deck: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="450"/>
-        <location filename="../../src/deckedit.cpp" line="461"/>
+        <location filename="../../src/deckedit.cpp" line="453"/>
+        <location filename="../../src/deckedit.cpp" line="464"/>
         <source>Extra Deck: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="559"/>
-        <location filename="../../src/deckedit.cpp" line="616"/>
+        <location filename="../../src/deckedit.cpp" line="562"/>
+        <location filename="../../src/deckedit.cpp" line="619"/>
         <source>M-Masaka !</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="559"/>
+        <location filename="../../src/deckedit.cpp" line="562"/>
         <source>Deck invalide: Souhaitez vous tout de même sauvegarder ? Vous pourrez éditer votre deck ultérieurement.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="577"/>
-        <location filename="../../src/deckedit.cpp" line="625"/>
+        <location filename="../../src/deckedit.cpp" line="580"/>
+        <location filename="../../src/deckedit.cpp" line="628"/>
         <source>echec de la sauvegarde</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="577"/>
-        <location filename="../../src/deckedit.cpp" line="601"/>
+        <location filename="../../src/deckedit.cpp" line="580"/>
+        <location filename="../../src/deckedit.cpp" line="604"/>
         <source>Le deck </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="578"/>
+        <location filename="../../src/deckedit.cpp" line="581"/>
         <source> n&apos;a pas pu être sauvegardé.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="601"/>
+        <location filename="../../src/deckedit.cpp" line="604"/>
         <source>youpi !</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="602"/>
+        <location filename="../../src/deckedit.cpp" line="605"/>
         <source> à était enregistré.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="616"/>
+        <location filename="../../src/deckedit.cpp" line="619"/>
         <source>Impossible de créer le deck &quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="617"/>
+        <location filename="../../src/deckedit.cpp" line="620"/>
         <source>&quot;: le deck existe déjà.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="625"/>
+        <location filename="../../src/deckedit.cpp" line="628"/>
         <source>echec de la création du deck</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="639"/>
+        <location filename="../../src/deckedit.cpp" line="706"/>
         <source>Lumière</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="640"/>
+        <location filename="../../src/deckedit.cpp" line="707"/>
         <source>Tenebre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="641"/>
+        <location filename="../../src/deckedit.cpp" line="708"/>
         <source>Terre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="642"/>
+        <location filename="../../src/deckedit.cpp" line="709"/>
         <source>Eau</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="643"/>
+        <location filename="../../src/deckedit.cpp" line="710"/>
         <source>Feu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="644"/>
+        <location filename="../../src/deckedit.cpp" line="711"/>
         <source>Vent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="645"/>
+        <location filename="../../src/deckedit.cpp" line="712"/>
         <source>Divin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="665"/>
-        <location filename="../../src/deckedit.cpp" line="689"/>
+        <location filename="../../src/deckedit.cpp" line="732"/>
+        <location filename="../../src/deckedit.cpp" line="756"/>
         <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="666"/>
+        <location filename="../../src/deckedit.cpp" line="733"/>
         <source>Equipement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="667"/>
+        <location filename="../../src/deckedit.cpp" line="734"/>
         <source>Jeu-Rapide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="668"/>
+        <location filename="../../src/deckedit.cpp" line="735"/>
         <source>Rituelle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="669"/>
+        <location filename="../../src/deckedit.cpp" line="736"/>
         <source>Terrain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/deckedit.cpp" line="690"/>
+        <location filename="../../src/deckedit.cpp" line="757"/>
         <source>Contre</source>
         <translation type="unfinished"></translation>
     </message>

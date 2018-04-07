@@ -42,6 +42,7 @@ class OptionTab : public QFrame {
     QGraphicsDropShadowEffect * optEffect;
     QGridLayout * layout;
     QShortcut *shortcut;
+    QString valeur;
 
     QWidget * infoBox;
 
@@ -95,6 +96,7 @@ class OptionTab : public QFrame {
     void loadOptSettings();
     void loadAccSettings();
     void changeEvent(QEvent *event);
+    void readLangage();
 
 
     public slots:

@@ -522,6 +522,12 @@
         <source>Quitter la partie</source>
         <translation>اترك اللعبة</translation>
     </message>
+    <message>
+        <source>Tour
+0</source>
+        <translation>جولة
+0</translation>
+    </message>
 </context>
 <context>
     <name>Generique</name>
@@ -717,6 +723,10 @@ En attente de connexion de l&apos;adversaire...</source>
     <message>
         <source>Adapter l&apos;affichage des couleurs</source>
         <translation>التكيف مع شاشة ملونة</translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation>خيارات</translation>
     </message>
 </context>
 <context>

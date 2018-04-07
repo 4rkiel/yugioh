@@ -76,7 +76,7 @@ Field::Field () {
             
             icoLife = new QLabel;
             icoLife -> setObjectName("phaseBox");
-            icoLife -> setText("Tour\n0");
+            icoLife -> setText(tr("Tour\n0"));
             icoLife -> setAlignment(Qt::AlignCenter);
             lifeLayout -> addWidget(icoLife, 0,2,1,2);
 

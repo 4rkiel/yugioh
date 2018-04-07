@@ -10,6 +10,7 @@
 
 OptionTab::OptionTab (){
 
+    readLangage();
     layout = new QGridLayout;
     layout -> setSpacing(0);
     layout -> setMargin(0);
@@ -82,7 +83,7 @@ OptionTab::OptionTab (){
 
             optionButt = new QPushButton;
             optionButt->setDefault(true);
-            optionButt -> setText("Options");
+            optionButt -> setText(tr("Options"));
             optionButt -> setProperty("down", true);
             connect(optionButt, SIGNAL(clicked()), this, SLOT(setOption()));
             tabLayout -> addWidget(optionButt, 0, 0, 1, 1);
@@ -160,7 +161,14 @@ OptionTab::OptionTab (){
                 langInput -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
                 langInput -> addItem(QString::fromUtf8("Français"));
                 langInput -> addItem("English");
-                langInput -> addItem("Arabic");
+                langInput -> addItem("عربى");
+                if(valeur=="en_US")
+                    valeur="English";
+                if(valeur=="fr_FR")
+                    valeur="Français";
+                if(valeur=="ar_SA")
+                    valeur="عربى";
+                langInput -> setCurrentText(valeur);
                 connect(langInput,SIGNAL(currentIndexChanged(QString)),
                         this,SLOT(langageChange()));
                 optPaneLayout -> addWidget(langInput);
@@ -451,7 +459,7 @@ void OptionTab::langageChange(){
     if(langInput -> currentText()=="English")
         settings.setValue("langage", "en_US");
 
-    if(langInput -> currentText()=="Arabic")
+    if(langInput -> currentText()=="عربى")
         settings.setValue("langage", "ar_SA");
 
     emit newSettings();
@@ -501,5 +509,10 @@ void OptionTab::changeEvent(QEvent *event)
         achromaDesc -> setText(tr("Adapter l'affichage des couleurs"));
     } else
         QWidget::changeEvent(event);
+}
+
+void OptionTab::readLangage(){
+    QSettings settings;
+    valeur = settings.value("langage", QLocale::system().name()).toString();
 }
 
