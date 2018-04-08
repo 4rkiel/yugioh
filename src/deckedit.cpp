@@ -724,8 +724,13 @@ void deckEdit::updPreview()
     {
         // ... Filtre sur le Genre (Monstre, magie ... ) .......................
 
+        std::string cardName = ((carte->nom).toStdString());
+        std::transform(cardName.begin(), cardName.end(), cardName.begin(), ::tolower);
 
-        if((((carte->nom).toStdString()).find((textSearch->text()).toStdString()) != std::string::npos )
+        std::string search = (textSearch->text()).toStdString();
+        std::transform(search.begin(), search.end(), search.begin(), ::tolower);
+
+        if(((cardName).find(search) != std::string::npos )
                 && (carte->genre == choixGenre->currentIndex()-1
                 || choixGenre->currentIndex() == TOUS)
             && (carte->attribut == choixAttribut->currentIndex()-1
