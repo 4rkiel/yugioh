@@ -7,11 +7,11 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 {
     allCards = allCard;
 
-    selectDeck = new QComboBox;
-    choixGenre = new QComboBox;
-    choixSousGenre  = new QComboBox;
-    choixAttribut = new QComboBox;
-    choixType = new QComboBox;
+    selectDeck = new Combo;
+    choixGenre = new Combo;
+    choixSousGenre  = new Combo;
+    choixAttribut = new Combo;
+    choixType = new Combo;
 
     newDeck = new QLineEdit;
     textSearch = new QLineEdit;
@@ -27,9 +27,9 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
     for(int i=0; i<NBR_BUTTON_DECK_EDIT; i++)
     {
-        tabBut[i] = new QPushButton;
+        tabBut[i] = new FlatButt("", buttonName.at(i));
         tabBut[i]->setDefault(true);
-        tabBut[i]->setText(buttonName.at(i));
+        //tabBut[i]->setText(buttonName.at(i));
     }
 
     for(int i=0; i<NBR_CARTE_DECK_VISU; i++)
@@ -66,6 +66,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
     }
 
     choixGenre->addItems(genreList);
+    slotAttribut();
     choixSousGenre->addItems(sousGenreList);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -90,7 +91,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
             QStringList deckList = QDir(deckRep).entryList({"*.deck"});
 
 
-            /* on tronc l'extension ".deck" avant de placer dans la QComboBox */
+            /* on tronc l'extension ".deck" avant de placer dans la Combo */
             foreach (QString str, deckList)
             {
                 str.chop(5);
@@ -262,6 +263,13 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
                 genreColonne->addWidget(choixGenre);
                 genreColonne->addWidget(choixSousGenre);
 
+//                QSizePolicy sp_retain = choixSousGenre->sizePolicy();
+//                sp_retain.setRetainSizeWhenHidden(true);
+//                sp_retain.setHorizontalPolicy(QSizePolicy::Minimum);
+//                sp_retain.setVerticalPolicy(QSizePolicy::Minimum);
+//                choixSousGenre->setSizePolicy(sp_retain);
+                choixSousGenre->setVisible(false);
+
                 propForm->addRow(tr("Genre: "), genreColonne);
 
 
@@ -274,19 +282,19 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
                     // ... Type ................................................
 
-                    propForm->addRow(tr("Type: "), choixType);
+                    //propForm->addRow(tr("Type: "), choixType);
 
 
 
                     // ... Niveau ..............................................
 
-                    spinNiveau->setAccelerated(true);
-                    spinNiveau->setSingleStep(1);
-                    spinNiveau->setMinimum(1);
-                    spinNiveau->setMaximum(12);
+//                    spinNiveau->setAccelerated(true);
+//                    spinNiveau->setSingleStep(1);
+//                    spinNiveau->setMinimum(1);
+//                    spinNiveau->setMaximum(12);
 
 
-                propForm->addRow(tr("Niveau"), spinNiveau);
+ //               propForm->addRow(tr("Niveau"), spinNiveau);
 
 
 
@@ -300,30 +308,30 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
                         // ... Atk / Def .......................................
 
-                        QVBoxLayout *propAtkDef = new QVBoxLayout;
+//                        QVBoxLayout *propAtkDef = new QVBoxLayout;
 
 
-                            QFormLayout *atkDefForm = new QFormLayout;
+//                            QFormLayout *atkDefForm = new QFormLayout;
 
-                            atkDefForm->addRow(tr("Attaque: "), spinAtk);
-                            atkDefForm->addRow(tr("Défense: "), spinDef);
+//                            atkDefForm->addRow(tr("Attaque: "), spinAtk);
+//                            atkDefForm->addRow(tr("Défense: "), spinDef);
 
 
-                        propAtkDef->addLayout(atkDefForm);
+//                        propAtkDef->addLayout(atkDefForm);
 
 
 
                         // ... Effect Box ......................................
 
-                        effectBoxBut = new QPushButton;
-                        effectBoxBut->setDefault(true);
-                        effectBoxBut->setText(tr("Effets"));
-                        effectBoxBut->setSizePolicy(QSizePolicy::Minimum,
-                                                    QSizePolicy::Minimum);
+//                        effectBoxBut = new FlatButt;
+//                        effectBoxBut->setDefault(true);
+//                        effectBoxBut->setText(tr("Effets"));
+//                        effectBoxBut->setSizePolicy(QSizePolicy::Minimum,
+//                                                    QSizePolicy::Minimum);
 
 
-                    prop2H->addLayout(propAtkDef);
-                    prop2H->addWidget(effectBoxBut);
+     //               prop2H->addLayout(propAtkDef);
+         //           prop2H->addWidget(effectBoxBut);
 
 
 
@@ -331,8 +339,10 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
                     QVBoxLayout *deleteSearch = new QVBoxLayout;
 
-
-                    deleteSearch->addWidget(tabBut[ANNULER_RECHERCHE]);
+                    QHBoxLayout *annSearch = new QHBoxLayout;
+                        annSearch->addWidget(tabBut[ANNULER_RECHERCHE]);
+                        annSearch->addWidget(textSearch);
+                    deleteSearch->addLayout(annSearch);
 
                     //TODO: connect
 
@@ -389,6 +399,9 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
     connect(tabBut[MELANGER], SIGNAL(clicked()), this, SLOT(melangerDeck()));
     connect(tabBut[TRIER], SIGNAL(clicked()), this, SLOT(trierDeck()));
     connect(tabBut[FILTRER], SIGNAL(clicked()), this, SLOT(updPreview()));
+
+    connect(choixGenre, SIGNAL(currentIndexChanged(int)), this,SLOT(slotAttribut()));
+    connect(tabBut[ANNULER_RECHERCHE], SIGNAL(clicked()), this, SLOT(clearSearch()));
 }
 
 void deckEdit::updateDeckVisu()
@@ -517,7 +530,7 @@ void deckEdit::addCard2Deck(Carte* carte)
 void deckEdit::rmvCard2Deck()
 {
     size_t pos;
-    QPushButton* cardButton2Rmv = qobject_cast<QPushButton*>(sender());
+    FlatButt* cardButton2Rmv = qobject_cast<FlatButt*>(sender());
     std::vector<QPushButton *>::iterator it = std::find(tabCardVisu.begin(),
                                          tabCardVisu.end(), cardButton2Rmv);
     if(it != tabCardVisu.end())
@@ -704,91 +717,127 @@ void deckEdit::updPreview()
 {
     // TODO ajouter des "all" pour par exemple ne pas filtrer ...
     std::vector<Carte*> newList;
+    std::vector<Carte*> tmpList;
     newList.clear();
-    switch(choixGenre->currentIndex())
+
+    for(Carte* carte : *allCards)
     {
-        case 0: /* Monstre */
+        // ... Filtre sur le Genre (Monstre, magie ... ) .......................
+
+
+        if((((carte->nom).toStdString()).find((textSearch->text()).toStdString()) != std::string::npos )
+                && (carte->genre == choixGenre->currentIndex()-1
+                || choixGenre->currentIndex() == TOUS)
+            && (carte->attribut == choixAttribut->currentIndex()-1
+                || choixAttribut->currentIndex() == TOUS))
         {
-            for(Carte* carte : *allCards)
+
+
+            if(carte->genre == 0) // si monstre
             {
-                if(carte->genre == 0)
+                if(choixSousGenre->currentIndex() == TOUS
+                        || carte->sous_type == choixSousGenre->currentIndex()-1)
+                {
                     newList.push_back(carte);
+                }
             }
+
+            else
+                newList.push_back(carte);
         }
     }
 
+
     cardList->updateSearch(&newList);
+}
+
+void deckEdit::clearSearch()
+{
+    choixGenre->setCurrentIndex(0);
+    textSearch->clear();
 }
 
 void deckEdit::slotAttribut()
 {
     choixAttribut->clear();
-    switch(choixType->currentIndex())
+    switch(choixGenre->currentIndex())
     {
+        case TOUS:
+            choixAttribut->addItem(tr("Tous"), 0);
+            choixSousGenre->setVisible(false);
+        break;
+
         case MONSTRE:
-            choixAttribut->addItem(tr("Lumière"), 0);
-            choixAttribut->addItem(tr("Tenebre"), 1);
-            choixAttribut->addItem(tr("Terre"), 2);
-            choixAttribut->addItem(tr("Eau"), 3);
-            choixAttribut->addItem(tr("Feu"), 4);
-            choixAttribut->addItem(tr("Vent"), 5);
-            choixAttribut->addItem(tr("Divin"), 6);
+            choixAttribut->addItem(tr("Tous"), 0);
+            choixAttribut->addItem(tr("Lumière"), 1);
+            choixAttribut->addItem(tr("Tenebre"), 2);
+            choixAttribut->addItem(tr("Terre"), 3);
+            choixAttribut->addItem(tr("Eau"), 4);
+            choixAttribut->addItem(tr("Feu"), 5);
+            choixAttribut->addItem(tr("Vent"), 6);
+            choixAttribut->addItem(tr("Divin"), 7);
 
-            choixAttribut->setItemIcon(0, QIcon(imgRep + "LUMIERE"));
-            choixAttribut->setItemIcon(1, QIcon(imgRep + "TENEBRE"));
-            choixAttribut->setItemIcon(2, QIcon(imgRep + "TERRE"));
-            choixAttribut->setItemIcon(3, QIcon(imgRep + "EAU"));
-            choixAttribut->setItemIcon(4, QIcon(imgRep + "FEU"));
-            choixAttribut->setItemIcon(5, QIcon(imgRep + "VENT"));
-            choixAttribut->setItemIcon(6, QIcon(imgRep + "DIVIN"));
+            choixAttribut->setItemIcon(1, QIcon(imgRep + "LUMIERE"));
+            choixAttribut->setItemIcon(2, QIcon(imgRep + "TENEBRE"));
+            choixAttribut->setItemIcon(3, QIcon(imgRep + "TERRE"));
+            choixAttribut->setItemIcon(4, QIcon(imgRep + "EAU"));
+            choixAttribut->setItemIcon(5, QIcon(imgRep + "FEU"));
+            choixAttribut->setItemIcon(6, QIcon(imgRep + "VENT"));
+            choixAttribut->setItemIcon(7, QIcon(imgRep + "DIVIN"));
 
-            choixAttribut->setCurrentIndex(rand()%7);
+            choixAttribut->setCurrentIndex(0);
             spinAtk->setDisabled(false);
             spinDef->setDisabled(false);
-            choixGenre->setDisabled(false);
+            //choixType->setDisabled(false);
+            choixSousGenre->setCurrentIndex(TOUS);
             choixSousGenre->setDisabled(false);
-            spinNiveau->setDisabled(false);
+            choixSousGenre->setVisible(true);
+            //spinNiveau->setDisabled(false);
         break;
 
         case MAGIE:
-            choixAttribut->addItem(tr("Normal"), 0);
-            choixAttribut->addItem(tr("Continue"), 1);
-            choixAttribut->addItem(tr("Equipement"), 2);
-            choixAttribut->addItem(tr("Jeu-Rapide"), 3);
-            choixAttribut->addItem(tr("Rituelle"), 4);
-            choixAttribut->addItem(tr("Terrain"), 5);
+            choixAttribut->addItem(tr("Tous"), 0);
+            choixAttribut->addItem(tr("Normal"), 1);
+            choixAttribut->addItem(tr("Continue"),2);
+            choixAttribut->addItem(tr("Equipement"), 3);
+            choixAttribut->addItem(tr("Jeu-Rapide"), 4);
+            choixAttribut->addItem(tr("Rituelle"), 5);
+            choixAttribut->addItem(tr("Terrain"), 6);
 
-            choixAttribut->setItemIcon(0, QIcon(imgRep + "Normal-N"));
-            choixAttribut->setItemIcon(1, QIcon(imgRep + "Continuous"));
-            choixAttribut->setItemIcon(2, QIcon(imgRep + "Equip"));
-            choixAttribut->setItemIcon(3, QIcon(imgRep + "Quick-Play"));
-            choixAttribut->setItemIcon(4, QIcon(imgRep + "Ritual"));
-            choixAttribut->setItemIcon(5, QIcon(imgRep + "Field"));
+            choixAttribut->setItemIcon(1, QIcon(imgRep + "Normal-N"));
+            choixAttribut->setItemIcon(2, QIcon(imgRep + "Continuous"));
+            choixAttribut->setItemIcon(3, QIcon(imgRep + "Equip"));
+            choixAttribut->setItemIcon(4, QIcon(imgRep + "Quick-Play"));
+            choixAttribut->setItemIcon(5, QIcon(imgRep + "Ritual"));
+            choixAttribut->setItemIcon(6, QIcon(imgRep + "Field"));
 
-            choixAttribut->setCurrentIndex(rand()%6);
+            choixAttribut->setCurrentIndex(0);
 
             spinAtk->setDisabled(true);
             spinDef->setDisabled(true);
-            choixGenre->setDisabled(true);
+            //choixType->setDisabled(true);
             choixSousGenre->setDisabled(true);
-            spinNiveau->setDisabled(true);
+            choixSousGenre->setVisible(false);
+            //spinNiveau->setDisabled(true);
         break;
 
         case PIEGE:
-            choixAttribut->addItem(tr("Normal"), 0);
-            choixAttribut->addItem(tr("Continue"), 1);
-            choixAttribut->addItem(tr("Contre"), 2);
+            choixAttribut->addItem(tr("Tous"), 0);
+            choixAttribut->addItem(tr("Normal"), 1);
+            choixAttribut->addItem(tr("Continue"), 2);
+            choixAttribut->addItem(tr("Contre"), 3);
 
-            choixAttribut->setItemIcon(0, QIcon(imgRep + "Normal-N"));
-            choixAttribut->setItemIcon(1, QIcon(imgRep + "Continuous"));
-            choixAttribut->setItemIcon(2, QIcon(imgRep + "Counter"));
+            choixAttribut->setItemIcon(1, QIcon(imgRep + "Normal-N"));
+            choixAttribut->setItemIcon(2, QIcon(imgRep + "Continuous"));
+            choixAttribut->setItemIcon(3, QIcon(imgRep + "Counter"));
 
-            choixAttribut->setCurrentIndex(rand()%3);
+            choixAttribut->setCurrentIndex(0);
 
             spinAtk->setDisabled(true);
             spinDef->setDisabled(true);
-            choixGenre->setDisabled(true);
+            //choixType->setDisabled(true);
             choixSousGenre->setDisabled(true);
-            spinNiveau->setDisabled(true);
+            choixSousGenre->setVisible(false);
+           // spinNiveau->setDisabled(true);
     }
 }

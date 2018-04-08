@@ -5,9 +5,10 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QLineEdit>
+#include "flatButt.h"
 #include <QPushButton>
 #include <QTextEdit>
-#include <QComboBox>
+#include "combo.h"
 #include <QSpinBox>
 #include <QGridLayout>
 #include <QVBoxLayout>
@@ -49,6 +50,7 @@ class deckEdit : public QWidget
 
     enum GENRE
     {
+        TOUS,
         MONSTRE,
         MAGIE,
         PIEGE
@@ -67,8 +69,8 @@ class deckEdit : public QWidget
                                         tr("Enregistrer"), tr("Créer"),
                                         tr("Supprimer"), tr("Annuler"),
                                         tr("Filtrer")};
-        const QStringList genreList = {tr("Monstre"), tr("Magie"), tr("Piège")};
-        const QStringList sousGenreList = {tr("Effet"), tr("Normal"),
+        const QStringList genreList = {tr("Tous"), tr("Monstre"), tr("Magie"), tr("Piège")};
+        const QStringList sousGenreList = {tr("Tous"), tr("Effet"), tr("Normal"),
                                            tr("Fusion"), tr("Toon"),
                                            tr("Rituel")};
         const QStringList attributList = {};
@@ -98,11 +100,11 @@ class deckEdit : public QWidget
 
         std::vector<Carte*> *allCards;
 
-        QComboBox *selectDeck;
-        QComboBox *choixGenre;
-        QComboBox *choixSousGenre;
-        QComboBox *choixAttribut;
-        QComboBox *choixType;
+        Combo *selectDeck;
+        Combo *choixGenre;
+        Combo *choixSousGenre;
+        Combo *choixAttribut;
+        Combo *choixType;
         QShortcut *shortcut;
 
         QLineEdit *newDeck;
@@ -114,8 +116,8 @@ class deckEdit : public QWidget
 
         CardListPreview *cardList;
 
-        QPushButton *effectBoxBut;
-        QPushButton *tabBut[NBR_BUTTON_DECK_EDIT];
+        FlatButt *effectBoxBut;
+        FlatButt *tabBut[NBR_BUTTON_DECK_EDIT];
         std::vector<QPushButton *> tabCardVisu;
         std::vector<QPushButton *> tabExtraDeck;
 
@@ -138,6 +140,7 @@ class deckEdit : public QWidget
             void melangerDeck();
             void trierDeck();
             void updPreview();
+            void clearSearch();
 };
 
 #endif // DECKEDIT_H

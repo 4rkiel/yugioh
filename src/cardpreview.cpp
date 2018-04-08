@@ -7,6 +7,10 @@ CardPreview::CardPreview(Carte *carte)
     maCarte = carte;
 
     const QStringList genreList = {tr("Monstre"), tr("Magie"), tr("Piège")};
+    const QStringList sousGenreList = {tr("Effet"), tr("Normal"), tr("Fusion"),
+                                       tr("Toon"), tr("Rituel")};
+    const QStringList attrList = {tr("Normal"), tr("Continue"), tr("Equipement"),
+                                       tr("Jeu-Rapide"), tr("Rituel"), tr("Terrain")};
     const QStringList infoList = {carte->nom, genreList.at(carte->genre),
                                  tr("Niveau: ") + QString::number(carte->niveau),
                                  tr("Attaque: ") + QString::number(carte->atk),
@@ -25,8 +29,16 @@ CardPreview::CardPreview(Carte *carte)
         tabInfoLabel[i] = new QLabel(infoList.at(i));
         tabInfoLabel[i]->setWordWrap(true);
         info->addWidget(tabInfoLabel[i]);
-        if((i == GENRE && tabInfoLabel[GENRE]->text() != genreList.at(0)))
+
+        if((i == GENRE && tabInfoLabel[GENRE]->text() == genreList.at(0)))
+            // si c'est un monstre
+            tabInfoLabel[i]->setText(tabInfoLabel[i]->text() + " / " + sousGenreList.at(carte->sous_type));
+
+        else if(i == GENRE)
+        {
+            tabInfoLabel[i]->setText(tabInfoLabel[i]->text() + " / " + attrList.at(carte->attribut));
             break; // si la carte n'est pas un monstre, on affiche pas ses stats
+        }
     }
 
     if(tabInfoLabel[GENRE]->text() == genreList.at(0))
