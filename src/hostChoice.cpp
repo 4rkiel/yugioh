@@ -80,35 +80,45 @@ HostChoice::HostChoice () {
 
             intro = new QLabel;
             intro -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-            QString strIntro = tr(
-                "Serveur personnel initialisé."
-                "\n\n"
-                "En attente de connexion de l'adversaire..."
-            );
-            intro -> setText(strIntro);
+            intro -> setText(tr("Serveur personnel initialisé")+".");
             intro -> setWordWrap(true);
-            intro -> setContentsMargins(30,0,30,0);
+            intro -> setContentsMargins(30,30,30,10);
 
             box -> addWidget(intro,1,1,1,1);
             
-            box -> setRowStretch(2,10);
+            state = new QLabel;
+            state -> setObjectName("stateBox");
+            state -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+            state -> setText(tr("En attente de l'adversaire")+"...");
+            state -> setWordWrap(true);
+            state -> setContentsMargins(30,10,30,30);
+            
+            box -> addWidget(state,2,1,1,1);
+
+            
+            box -> setRowStretch(3,2);
             
             
 			// IP
+           
+            ipIntro = new QLabel;
+            ipIntro -> setText(tr("Adresse du serveur")+" :");
+            ipIntro -> setContentsMargins(30,30,30,10);
+            box -> addWidget(ipIntro,4,1,1,1);
             
+
             phrase = new QLabel;
-            QString ipTxt = tr("Adresse du serveur : \n\n");
             Reseau r;
             ip = r.getIp();
-            phrase -> setText(ipTxt + ip);
+            phrase -> setText(ip);
             phrase -> setWordWrap(true);
-            phrase -> setContentsMargins(30,0,30,0);
+            phrase -> setContentsMargins(30,10,30,30);
             phrase -> setTextInteractionFlags(Qt::TextSelectableByMouse); 
-            box -> addWidget(phrase,3,1,1,1);
+            box -> addWidget(phrase,5,1,1,1);
           
            
 
-            box -> setRowStretch(4,10);
+            box -> setRowStretch(6,10);
 
 
         introBox -> setLayout(box);
@@ -127,6 +137,8 @@ HostChoice::~HostChoice (){
 
     delete intro;
     delete phrase;
+    delete ipIntro;
+    delete state;
 
     delete effect;
 

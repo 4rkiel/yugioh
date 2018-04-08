@@ -71,7 +71,7 @@ HEADERS += inc/buildtab.h \
            inc/reseau.h \
            inc/cardlistpreview.h \
            inc/cardpreview.h \
-           inc/ai.h \
+           inc/ai.h
 
 SOURCES += src/buildtab.cpp \
            src/master.cpp \
@@ -110,7 +110,7 @@ SOURCES += src/buildtab.cpp \
            src/reseau.cpp \
            src/cardlistpreview.cpp \
            src/cardpreview.cpp \
-           src/ai.cpp \
+           src/ai.cpp 
 
            
 TRANSLATIONS += i18n/en_US/yugi_en_US.ts i18n/fr_FR/yugi_fr_FR.ts i18n/ar_SA/yugi_ar_SA.ts

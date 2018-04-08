@@ -59,6 +59,8 @@ private:
         QGraphicsDropShadowEffect * effect;
 
         QLabel * intro;
+        QLabel * state;
+        QLabel * ipIntro;
         QLabel * phrase;
         QLabel * adr;
 

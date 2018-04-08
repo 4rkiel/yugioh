@@ -51,6 +51,7 @@ class JoinChoice : public QFrame {
         QGridLayout * box;
         QGraphicsDropShadowEffect * effect;
 
+        QLabel * intro;
         QLineEdit * input;
         DarkButt * valid;
 };

@@ -44,9 +44,11 @@ void CardEditor::createFormGroupBox (){
     spinDefense = new Spin;
     niveau = new Spin;
     genreCarte = new Combo;
+    genreCarte -> setLayoutDirection(Qt::LeftToRight);
     typePrimaire = new Combo;
     typeSecondaire = new Combo;
     attribut = new Combo;
+    attribut -> setLayoutDirection(Qt::LeftToRight);
     effectBox = new Combo;
     nom = new QLineEdit;
     image = new QPushButton;
@@ -108,7 +110,6 @@ void CardEditor::createFormGroupBox (){
 
     genreCarte->setItemData(1, QBrush(Qt::darkCyan), Qt::TextColorRole);
     genreCarte->setItemData(2, QBrush(Qt::magenta), Qt::TextColorRole);
-    genreCarte->setFocusPolicy( Qt::StrongFocus );
 
     for(int i=0; i<typePrimaireList.size(); i++)
     {

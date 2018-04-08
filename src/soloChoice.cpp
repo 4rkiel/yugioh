@@ -73,6 +73,7 @@ SoloChoice::SoloChoice () {
             // Text
 
             intro = new QLabel;
+            intro -> setObjectName("introText");
             intro -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
             QString strIntro = tr("Choix de la difficulté");
             intro -> setText(strIntro);
