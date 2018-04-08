@@ -68,24 +68,35 @@ JoinChoice::JoinChoice () {
 			
             valid = new DarkButt("\uf00c",tr("Valider"));
             valid -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-            box -> addWidget(valid, 2,1,1,1);
+            box -> addWidget(valid, 3,1,1,1);
 			connect(valid, SIGNAL(clicked()), this, SLOT(connectIP()));
+
+            
+            // Text
+
+            intro = new QLabel;
+            intro -> setObjectName("introText");
+            intro -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+            QString strIntro = tr("Entrez l'adresse de l'hôte");
+            intro -> setText(strIntro);
+            intro -> setContentsMargins(30,0,30,0);
+            box -> addWidget(intro,1,0,1,3);
 
 
             // IP 
 
             input = new QLineEdit;
-            input -> setContentsMargins(30,0,30,0);
+            input -> setContentsMargins(60,10,60,10);
             input -> setAlignment(Qt::AlignCenter);
             input -> setPlaceholderText("0:0:0:0:0:0:0:0");
             input -> setStyleSheet("padding: 5px");
 
-            box -> addWidget(input, 1, 0, 1, 3);
+            box -> addWidget(input, 2, 0, 1, 3);
             connect(input, SIGNAL(returnPressed()), this, SLOT(connectIP()));
 
 
             box -> setRowStretch(0,20);
-            box -> setRowStretch(3,20);
+            box -> setRowStretch(4,20);
 
 
         shortcut = new QShortcut(QKeySequence("Escape"), this);
@@ -106,6 +117,8 @@ JoinChoice::~JoinChoice (){
 
     delete input;
     delete valid;
+
+    delete intro;
 
     delete effect;
 

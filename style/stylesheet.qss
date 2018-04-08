@@ -6,6 +6,22 @@ QToolTip {
 }
 
 
+
+/******************************************************************************
+    Text Inputs
+******************************************************************************/
+
+QTextEdit,
+QLineEdit,
+QPlainTextEdit {
+    padding: 5px;
+    color: #263238;
+    border-radius: 0px;
+    border: none;
+}
+
+
+
 /******************************************************************************
     Combo
 ******************************************************************************/
@@ -13,7 +29,7 @@ QToolTip {
 Combo {
     selection-background-color: #FFD740;
     border: none;
-    border-radius: 2px;
+    border-radius: 0px;
     padding: 5px 10px 5px 10px;
     background-color: #FFFFFF;
     color: black;
@@ -55,8 +71,65 @@ Combo::down-arrow:focus {
 }
 
 
+
 /******************************************************************************
-    ScrollArea
+    SpinBox
+******************************************************************************/
+
+QAbstractSpinBox {
+    padding: 5px;
+    border: none;
+    background-color: #FFF;
+    color: #000;
+    border-radius: 0px;
+    min-width: 75px;
+}
+
+QAbstractSpinBox:hover,
+QAbstractSpinBox:focus {
+    background-color: #FFE082;
+}
+
+QAbstractSpinBox:up-button {
+    background-color: transparent;
+    subcontrol-origin: border;
+    subcontrol-position: top right;
+}
+
+QAbstractSpinBox:down-button {
+    background-color: transparent;
+    subcontrol-origin: border;
+    subcontrol-position: bottom right;
+}
+
+QAbstractSpinBox::up-arrow,
+QAbstractSpinBox::up-arrow:disabled,
+QAbstractSpinBox::up-arrow:off {
+    image: url(img/rc/up_arrow_disabled.png);
+    width: 10px;
+    height: 10px;
+}
+
+QAbstractSpinBox::up-arrow:hover {
+    image: url(img/rc/up_arrow.png);
+}
+
+QAbstractSpinBox::down-arrow,
+QAbstractSpinBox::down-arrow:disabled,
+QAbstractSpinBox::down-arrow:off {
+    image: url(img/rc/down_arrow_disabled.png);
+    width: 10px;
+    height: 10px;
+}
+
+QAbstractSpinBox::down-arrow:hover {
+    image: url(img/rc/down_arrow.png);
+}
+
+
+
+/******************************************************************************
+    ScrollBars
 ******************************************************************************/
 
 QAbstractScrollArea {
@@ -72,7 +145,7 @@ QScrollBar:vertical {
 }
 
 QScrollBar::handle:vertical {
-    background-color: #1A237E;
+    background-color: #455A64;
     min-height: 5px;
     border-radius: 3px;
 }
@@ -125,7 +198,6 @@ QScrollBar::sub-page:vertical {
 
 
 
-
 /*****************************************************************
     editeur_de_carte
 ******************************************************************/
@@ -135,14 +207,6 @@ cardEditor {
 	outline: none;
 	border-radius: 3px;
 	background: #607D8B;
-}
-
-cardEditor Combo {
-	color: #263238;
-	border: 1px solid gray;
-	border-radius: 3px;
-	padding: 1px 18px 1px 3px;
-	min-width: 6em;
 }
 
 
@@ -434,10 +498,16 @@ SoloChoice #introBox > QFrame {
 
 
 SoloChoice #introBox > QLabel, 
+JoinChoice #introBox > QLabel, 
 HostChoice #introBox > QLabel {
     qproperty-alignment: AlignCenter;
 }
 
+SoloChoice #introText,
+JoinChoice #introText,
+HostChoice #stateBox {
+    font-weight: bold;
+}
 
 /******************************************************************************
 

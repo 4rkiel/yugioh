@@ -1,5 +1,5 @@
-#ifndef COMBOBOX
-#define COMBOBOX
+#ifndef COMBO
+#define COMBO
 
 #include <QComboBox>
 #include <QWheelEvent>
@@ -16,7 +16,7 @@ public:
 
 protected:
 
-    virtual void wheelEvent(QWheelEvent *event) {
+    virtual void wheelEvent(QWheelEvent * event){
         if (!hasFocus()) {
             event->ignore();
         } else {
