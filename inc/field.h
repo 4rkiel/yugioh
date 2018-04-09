@@ -65,7 +65,13 @@ public slots:
     void emitIntroStack();
     void emitAtk();
     void emitDef();
+    void emitVisi();
+    void emitHide();
     void openChoosePosi();
+    void openChooseMagi();
+    void openWin();
+    void openLost();
+
 
     void previewClicked();
     void cardDoubleClicked(int);
@@ -82,6 +88,8 @@ signals:
     void introStack();
     void sendAtk();
     void sendDef();
+    void sendVisi();
+    void sendHide();
     void transmettre(QString);
 	void doubleClicked(int);
 	void biClick(int, int);

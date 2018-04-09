@@ -155,6 +155,21 @@ OptionTab::OptionTab (){
                 optPaneLayout -> addWidget(shareDesc);
 
 
+                // Share
+                
+                fullChck = new QCheckBox;
+                fullChck -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+                fullChck -> setText(tr("Plein Ecran"));
+                connect(fullChck, SIGNAL(toggled(bool)), this, SLOT(fullChange())); 
+                optPaneLayout -> addWidget(fullChck);
+
+                fullDesc = new QLabel;
+                fullDesc -> setWordWrap(true);
+                fullDesc -> setTextInteractionFlags(Qt::NoTextInteraction);
+                fullDesc -> setText(tr("Afficher l'application en plein écran"));
+                optPaneLayout -> addWidget(fullDesc);
+
+
                 // Langage
                 
                 langInput = new Combo;
@@ -162,12 +177,11 @@ OptionTab::OptionTab (){
                 langInput -> addItem(QString::fromUtf8("Français"));
                 langInput -> addItem("English");
                 langInput -> addItem("عربى");
-                if(valeur=="en_US")
-                    valeur="English";
-                if(valeur=="fr_FR")
-                    valeur="Français";
-                if(valeur=="ar_SA")
-                    valeur="عربى";
+                
+                if (valeur == "en_US") valeur = "English";
+                if (valeur=="fr_FR") valeur = "Français";
+                if (valeur=="ar_SA") valeur="عربى";
+
                 langInput -> setCurrentText(valeur);
                 connect(langInput,SIGNAL(currentIndexChanged(QString)),
                         this,SLOT(langageChange()));
@@ -316,6 +330,9 @@ OptionTab::~OptionTab (){
         delete shareChck;
         delete shareDesc;
 
+        delete fullChck;
+        delete fullDesc;
+
         delete langInput;
         delete langDesc;
 
@@ -423,6 +440,11 @@ void OptionTab::loadOptSettings (){
     }
 
 
+    if (settings.value("fullscreen", Qt::Unchecked).toBool()){
+        fullChck -> setCheckState(Qt::Checked);
+    }
+
+
     QString val = settings.value("langage", "fr_FR").toString();
 
     if (val == "fr_FR"){
@@ -440,6 +462,16 @@ void OptionTab::shareChange (){
 
     emit newSettings();
 }
+
+
+void OptionTab::fullChange (){
+
+    QSettings settings;
+    settings.setValue("fullscreen", fullChck -> isChecked());
+
+    emit newSettings();
+}
+
 
 
 void OptionTab::contrasteChange (){
@@ -490,15 +522,17 @@ void OptionTab::largeChange (){
 }
 
 //fonction qui change dynamiquement la langue
-void OptionTab::changeEvent(QEvent *event)
-{
-    if (event->type() == QEvent::LanguageChange) {
+void OptionTab::changeEvent(QEvent *event){
+
+    if (event->type() == QEvent::LanguageChange){
         info->setText(tr("Paramètres"));
         exitButt -> setToolTip(tr("Fermer les paramètres"));
         optionButt -> setText(tr("Options"));
 		accessButt -> setText(tr("Accessibilité"));
         shareChck -> setText(tr("Partage"));
         shareDesc -> setText(tr("Partage les données d'utilisation"));
+        fullChck -> setText(tr("Plein Ecran"));
+        fullDesc -> setText(tr("Afficher l'application en plein écran"));
         langDesc -> setText(tr("Langue de l'interface"));
         largeChck -> setText(tr("Large texte"));
         largeDesc -> setText(tr("Textes de grande taille"));
@@ -508,8 +542,9 @@ void OptionTab::changeEvent(QEvent *event)
         dyslexDesc -> setText(tr("Textes adaptés à la dyslexie"));
         achromaChck -> setText(tr("Couleurs pour Dyschromatopsie"));
         achromaDesc -> setText(tr("Adapter l'affichage des couleurs"));
-    } else
+    } else {
         QWidget::changeEvent(event);
+    }
 }
 
 void OptionTab::readLangage(){

@@ -73,6 +73,9 @@ class OptionTab : public QFrame {
         QCheckBox * shareChck;
         QLabel * shareDesc;
 
+        QCheckBox * fullChck;
+        QLabel * fullDesc;
+
         Combo * langInput;
         QLabel * langDesc;
 
@@ -105,6 +108,7 @@ class OptionTab : public QFrame {
     void emitClose();
 
     void shareChange();   
+    void fullChange();   
     void contrasteChange();
     void dyslexChange();
     void achromaChange();

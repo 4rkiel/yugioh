@@ -164,8 +164,12 @@ Field::Field () {
     popup = new Popup;
 
     connect(popup, SIGNAL(introStack()), this, SLOT(emitIntroStack()));
+
     connect(popup, SIGNAL(sendAtk()), this, SLOT(emitAtk()));
     connect(popup, SIGNAL(sendDef()), this, SLOT(emitDef()));
+    
+    connect(popup, SIGNAL(sendVisi()), this, SLOT(emitVisi()));
+    connect(popup, SIGNAL(sendHide()), this, SLOT(emitHide()));
 
     connect(menuButt, SIGNAL(clicked()), popup, SLOT(openQuit()));
 
@@ -515,6 +519,30 @@ void Field::emitAtk (){
 void Field::emitDef (){
     emit sendDef();
 }
+
+
+void Field::openChooseMagi (){
+    popup -> openMagi();
+}
+
+void Field::emitHide (){
+    emit sendHide();
+}
+
+void Field::emitVisi (){
+    emit sendVisi();
+}
+
+
+void Field::openWin (){
+    popup -> openWin();
+}
+
+void Field::openLost (){
+    popup -> openLost();
+}
+
+
 
 
 
