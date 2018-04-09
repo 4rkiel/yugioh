@@ -185,7 +185,11 @@ void Selector::netStack(){
     
     connect(netChoice, SIGNAL(choiceStack()), this, SLOT(choiceStack()));
 
-
+	// Envoi de l'ip à rejoindre
+	connect(netChoice, SIGNAL(sendIP(QString)), this, SLOT(connectIP(QString)));
+    
+	// Envoi de sa propre ip
+	connect(netChoice, SIGNAL(createHost(QString)), this, SLOT(transmitHost(QString)));
 
     clean();
     mode = 4;

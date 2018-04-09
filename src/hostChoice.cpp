@@ -32,7 +32,7 @@ HostChoice::HostChoice () {
         infoLayout -> setSpacing(0);
         infoLayout -> setMargin(0);
         
-            info = new QLabel (tr("Partie Privée : Hébergement"));
+            info = new QLabel (tr("Hébergement Partie Privée"));
 
             infoLayout -> addWidget(info);
 
@@ -41,7 +41,7 @@ HostChoice::HostChoice () {
             // Back Button
             
             choice = new FlatButt("\uf060", "");
-            choice -> setToolTip(tr("Retour au Menu"));
+            choice -> setToolTip(tr("Retour"));
             connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
             //infoLayout -> addWidget(choice);
 
