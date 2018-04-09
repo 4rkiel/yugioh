@@ -11,6 +11,7 @@
 #include <QLabel>
 
 #include <QEvent>
+#include <QPixmap>
 #include <QMouseEvent>
 
 #include "../inc/superButt.h"
@@ -22,6 +23,7 @@ class FlatExpButt : public SuperButt {
 public: 
     
     FlatExpButt(QString icoStr, QString txtStr);
+    FlatExpButt(const QPixmap image, QString textStr);
     ~FlatExpButt();
     
     void leaveEvent(QEvent * event);

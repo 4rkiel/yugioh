@@ -56,6 +56,42 @@ FlatExpButt::FlatExpButt (QString icoStr, QString textStr){
 	setLayout(layout);
 }
 
+FlatExpButt::FlatExpButt (const QPixmap monImage, QString textStr){
+
+    // Button content
+
+    QPixmap image(monImage);
+    image = image.scaled (QSize(200, 180), Qt::KeepAspectRatio);
+    QLabel imageLabel;
+    imageLabel.setPixmap(image);
+    imageLabel.setSizeIncrement(QSizePolicy::Maximum, QSizePolicy::Maximum);
+
+    layout = new QGridLayout;
+    layout -> setSizeConstraint(QLayout::SetMinimumSize);
+
+    layout->addWidget(&imageLabel, 0, 0, 1, 1);
+
+    txt = nullptr;
+
+    if (textStr != ""){
+        txt = new QLabel;
+        txt -> setText(textStr);
+
+
+        layout -> setColumnStretch(0,1);
+        layout -> addWidget(txt, 1,2,1,1);
+        layout -> setColumnStretch(2,1);
+
+    }
+
+
+    layout -> setRowStretch(0,1);
+    layout -> setRowStretch(2,1);
+    setLayout(layout);
+}
+
+
+
 
 
 FlatExpButt::~FlatExpButt (){

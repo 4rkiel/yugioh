@@ -530,7 +530,7 @@ void deckEdit::addCard2Deck(Carte* carte)
 void deckEdit::rmvCard2Deck()
 {
     size_t pos;
-    FlatButt* cardButton2Rmv = qobject_cast<FlatButt*>(sender());
+    QPushButton* cardButton2Rmv = qobject_cast<QPushButton*>(sender());
     std::vector<QPushButton *>::iterator it = std::find(tabCardVisu.begin(),
                                          tabCardVisu.end(), cardButton2Rmv);
     if(it != tabCardVisu.end())
@@ -715,9 +715,7 @@ void deckEdit::trierDeck()
 
 void deckEdit::updPreview()
 {
-    // TODO ajouter des "all" pour par exemple ne pas filtrer ...
     std::vector<Carte*> newList;
-    std::vector<Carte*> tmpList;
     newList.clear();
 
     for(Carte* carte : *allCards)
@@ -754,6 +752,12 @@ void deckEdit::updPreview()
 
 
     cardList->updateSearch(&newList);
+
+    for(CardPreview *cardPreviewCourante : (*cardList->cardPreviewList))
+    {
+        QObject::connect(cardPreviewCourante, SIGNAL(clicked(Carte*)),
+                         this, SLOT(addCard2Deck(Carte*)));
+    }
 }
 
 void deckEdit::clearSearch()
