@@ -69,7 +69,7 @@ void Noyau::chargerDeck(int x)
 Parser * yolo = new Parser();
 d1 = yolo->rechercher_set(x,NULL);
 std::random_shuffle(d1->begin(),d1->end());
-
+std::cout << "je shuffle d1" << std::endl;
 /*int i;
     for(i=0;i<(signed)d1->size();i++)
     {
@@ -84,9 +84,9 @@ std::random_shuffle(d1->begin(),d1->end());
 //charge le deck de l'adversaire
 //pour l'instant x est un int parce que les deck (situés dans le dossier deck) respectent le regex [0-9]*.deck
 //cela changera dans l'avenir certainement 
-void Noyau::deckAdverse(int x,int ran)
+void Noyau::deckAdverse(int x)
 {
-    std::srand(ran);
+    //std::srand(ran);
 Parser * yolo = new Parser();
 d2 = yolo->rechercher_set(x,NULL);
 std::random_shuffle(d2->begin(),d2->end());
@@ -95,6 +95,22 @@ for(i=0;i<(signed)d2->size();i++)
     std::cout << "carte :" << d2->at(i)->id << std::endl;
 //std::this_thread::sleep_for(std::chrono::milliseconds(rand()%100));
 //piocher(1);
+    QString message = "";
+    message.append("adeck:");
+    for(i=0;i<(signed)d1->size();i++)
+    {
+        std::stringstream ss1;
+        ss1 << "/" << d1->at(i)->id;
+        message.append(QString::fromStdString(ss1.str()));
+    }
+    message.append("/mdeck:");
+    for(i=0;i<(signed)d2->size();i++)
+    {
+        std::stringstream ss1;
+        ss1 << "/" << d2->at(i)->id;
+        message.append(QString::fromStdString(ss1.str()));
+    }
+    emit tiens(message);
 }
 
 void Noyau::donner_infos(int x)
@@ -740,7 +756,7 @@ void Noyau::traiter(QString s)
           }
          delete(arg);
          valeur = atoi(vrai.c_str());
-         deckAdverse(valeur,5);
+         deckAdverse(valeur);
     }
     else if(s.startsWith("swap/"))
     {
@@ -780,17 +796,76 @@ void Noyau::traiter(QString s)
           }
          delete(arg);
          valeur = atoi(vrai.c_str());
-         deckAdverse(0,valeur);
+         deckAdverse(0);
     }
     else if(s.startsWith("þ"))
     {
         QStringRef* cut = new QStringRef(&s,1,s.length()-1);
         emit chat(cut->toString());
     }
+    else if(s.startsWith("adeck:"))
+    {
+        std::cout << "JE TRAITE LE MESSAGE DU SERVEUR" << std::endl;
+        Parser * yolo = new Parser();
+        d1 = new std::vector<Carte *>();
+        d2 = new std::vector<Carte *>();
+        int qui=0;
+        char * arg = new char[s.length()+1];
+           std::strcpy(arg,s.toStdString().c_str());
+         char * parcourir = std::strtok(arg,"/");
+         QString vrai;
+         if(parcourir!=NULL)
+          vrai = QString(parcourir);
+         int i;
+         while(parcourir!=NULL)
+         {
+             //std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+             if(vrai.startsWith(QString("adeck")))
+             {
+                 qui = 0;
+             }
+             else if(vrai.startsWith(QString("mdeck")))
+             {
+                 qui = 1;
+             }
+             else
+             {
+                    if(qui==0)
+                    {
+                        for(i=0;i<(signed)yolo->all_cards->size();i++)
+                        {
+                            if(yolo->all_cards->at(i)->id == atoi(parcourir))
+                            {
+                                  d2->push_back(yolo->all_cards->at(i));
+                                  break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for(i=0;i<(signed)yolo->all_cards->size();i++)
+                        {
+                            if(yolo->all_cards->at(i)->id == atoi(parcourir))
+                            {
+                                  d1->push_back(yolo->all_cards->at(i));
+                                  break;
+                            }
+                        }
+                    }
+             }
+             parcourir = std::strtok(NULL,"/");
+             if(parcourir!=NULL)
+            vrai = QString(parcourir);
+          }
+         delete(arg);
+         piocher(1);
+         piocher(76);
+         //deckAdverse(0);
+    }
     else if(s.compare(QString("init"))==0)
     {
         chargerDeck(0);
-        deckAdverse(0,aleatoire);
+        deckAdverse(0);
     }
 
 }
