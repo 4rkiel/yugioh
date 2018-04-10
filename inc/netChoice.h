@@ -12,6 +12,9 @@
 #include <QPushButton>
 #include <QString>
 #include <QShortcut>
+#include <sstream>
+#include <QUdpSocket>
+#include <iostream>
 
 #include "../inc/flatButt.h"
 
@@ -26,6 +29,7 @@ class NetChoice : public QFrame {
 
     public slots:
     void emitChoice();
+    void readyRead();
 
     signals:
     void choiceStack();
@@ -37,6 +41,7 @@ class NetChoice : public QFrame {
     QShortcut *shortcut;
     QLabel* msgAttente;
     QLabel* msgAttente2;
+    QUdpSocket *socket;
 
     QWidget * infoBox;
 
