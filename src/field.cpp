@@ -354,6 +354,7 @@ Field::Field () {
                 sidebar -> addWidget(chat, 0, 0, 10, 1);
 
                 connect(chat, SIGNAL(msgSent(QString)), this, SLOT(sendMsg(QString)));
+                connect(chat, SIGNAL(rcvQuit()), popup, SLOT(openQuit()));
 
             side -> setLayout(sidebar);
             rightBarLayout -> addWidget(side, 0, 0, 1, 1);
