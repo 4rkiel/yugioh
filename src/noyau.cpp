@@ -20,18 +20,18 @@ void Noyau::init()
     rng.seed(std::random_device()());
     std::uniform_int_distribution<std::mt19937::result_type> dist6(1,100); // distribution in range [1, 6]
     srand(dist6(rng));
-    int aleatoire = std::rand();
+     aleatoire = std::rand();
     std::cout << "aleatoire" << aleatoire << std::endl;
     std::srand(aleatoire);
-    chargerDeck(0);
+    //chargerDeck(0);
     //deckAdverse(0);
-    std::stringstream ss1;
-    ss1 << "alea:" << aleatoire << std::endl;
-    emit tiens(QString::fromStdString(ss1.str()));
-    std::cout << "la taille de mon deck est : " << d1->size() << std::endl;
-    int i;
-    for(i=0;i<(signed)d1->size();i++)
-        std::cout << "carte :" << d1->at(i)->id << std::endl;
+    //std::stringstream ss1;
+    //ss1 << "alea:" << aleatoire << std::endl;
+    //emit tiens(QString::fromStdString(ss1.str()));
+    //std::cout << "la taille de mon deck est : " << d1->size() << std::endl;
+    //int i;
+    //for(i=0;i<(signed)d1->size();i++)
+      //  std::cout << "carte :" << d1->at(i)->id << std::endl;
     //piocher(1);
     //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     //piocher(1);
@@ -93,8 +93,8 @@ std::random_shuffle(d2->begin(),d2->end());
 int i;
 for(i=0;i<(signed)d2->size();i++)
     std::cout << "carte :" << d2->at(i)->id << std::endl;
-std::this_thread::sleep_for(std::chrono::milliseconds(rand()%100));
-piocher(1);
+//std::this_thread::sleep_for(std::chrono::milliseconds(rand()%100));
+//piocher(1);
 }
 
 void Noyau::donner_infos(int x)
@@ -786,6 +786,11 @@ void Noyau::traiter(QString s)
     {
         QStringRef* cut = new QStringRef(&s,1,s.length()-1);
         emit chat(cut->toString());
+    }
+    else if(s.compare(QString("init"))==0)
+    {
+        chargerDeck(0);
+        deckAdverse(0,aleatoire);
     }
 
 }
