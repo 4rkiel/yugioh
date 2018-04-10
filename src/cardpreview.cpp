@@ -1,9 +1,12 @@
 #include "../inc/cardpreview.h"
 
-CardPreview::CardPreview(Carte *carte)
-{
-    mainLayout = new QHBoxLayout;
+CardPreview::CardPreview(Carte *carte){
 
+    mainLayout = new QHBoxLayout;
+    mainLayout -> setMargin(0);
+    mainLayout -> setSpacing(0);
+    mainLayout -> setContentsMargins(0,0,0,0);
+ 
     maCarte = carte;
 
     const QStringList genreList = {tr("Monstre"), tr("Magie"), tr("Piège")};
@@ -16,7 +19,12 @@ CardPreview::CardPreview(Carte *carte)
                                  tr("Attaque: ") + QString::number(carte->atk),
                                  tr("Défense: ") + QString::number(carte->def)};
 
+    
     QVBoxLayout *info = new QVBoxLayout;
+    info -> setMargin(0);
+    info -> setSpacing(0);
+    info -> setContentsMargins(0,0,0,0);
+    
     QPixmap *image = new QPixmap(carte->image);
     *image = image->scaled (QSize(200, 180), Qt::KeepAspectRatio);
     qDebug() << carte->image;
@@ -24,32 +32,37 @@ CardPreview::CardPreview(Carte *carte)
     imageLabel->setPixmap(*image);
     imageLabel->setSizeIncrement(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
-    for(int i=0; i<INFOLABEL_MAX; i++)
-    {
+    for(int i=0; i<INFOLABEL_MAX; i++){
+
         tabInfoLabel[i] = new QLabel(infoList.at(i));
         tabInfoLabel[i]->setWordWrap(true);
         info->addWidget(tabInfoLabel[i]);
 
-        if((i == GENRE && tabInfoLabel[GENRE]->text() == genreList.at(0)))
-            // si c'est un monstre
-            tabInfoLabel[i]->setText(tabInfoLabel[i]->text() + " / " + sousGenreList.at(carte->sous_type));
+        // si c'est un monstre
+        
+        if((i == GENRE && tabInfoLabel[GENRE]->text() == genreList.at(0))){
+            
+            tabInfoLabel[i] -> setText(
+                tabInfoLabel[i]->text() + " / " + sousGenreList.at(carte->sous_type)
+            );
 
-        else if(i == GENRE)
-        {
-            tabInfoLabel[i]->setText(tabInfoLabel[i]->text() + " / " + attrList.at(carte->attribut));
+        } else if (i == GENRE){
+
+            tabInfoLabel[i]->setText(
+                tabInfoLabel[i]->text() + " / " + attrList.at(carte->attribut)
+            );
+
             break; // si la carte n'est pas un monstre, on affiche pas ses stats
         }
     }
 
-    if(tabInfoLabel[GENRE]->text() == genreList.at(0))
-    {
-       // setStyleSheet("background: red");
-        setObjectName("Monstre");
+    if(tabInfoLabel[GENRE]->text() == genreList.at(0)){
+        setStyleSheet("background: #FFC107;");
+    } else if(tabInfoLabel[GENRE]->text() == genreList.at(1)) {
+        setStyleSheet("background: #00BCD4;");
+    } else {
+        setStyleSheet("background: #B39DDB;");
     }
-    else if(tabInfoLabel[GENRE]->text() == genreList.at(1))
-        setObjectName("Magie");
-    else
-        setObjectName("Piege");
 
     mainLayout->addWidget(imageLabel);
     mainLayout->addLayout(info);

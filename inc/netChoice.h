@@ -13,7 +13,7 @@
 #include <QString>
 #include <QShortcut>
 
-#include "../inc/shadowButt.h"
+#include "../inc/flatButt.h"
 
 class NetChoice : public QFrame {
 
@@ -29,6 +29,8 @@ class NetChoice : public QFrame {
 
     signals:
     void choiceStack();
+	void sendIP(QString);
+	void createHost(QString);
 
     private:
     QGridLayout * layout;
@@ -39,13 +41,13 @@ class NetChoice : public QFrame {
         QGraphicsDropShadowEffect * iffect;
         QHBoxLayout * infoLayout;
         QLabel * info;
+        FlatButt * choice;
     
     QWidget * introBox;
     
         QVBoxLayout * box;
         QGraphicsDropShadowEffect * effect;
 
-        ShadowButt * choice;
 
 };
 

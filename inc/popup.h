@@ -36,6 +36,18 @@ public slots:
     void atkMode();
     void defMode();
 
+    void openMagi();
+    void closeMagi();
+    void visiMode();
+    void hideMode();
+
+
+    void openWin();
+    void closeWin();
+
+    void openLost();
+    void closeLost();
+
     void openQuit();
     void closeQuit();
 
@@ -46,8 +58,13 @@ public slots:
 signals:
 
     void introStack();
+
     void sendAtk();
     void sendDef();
+
+    void sendVisi();
+    void sendHide();
+
 
 private:
 
@@ -73,6 +90,15 @@ private:
             ShadowButt * posiya;
             QLabel * posiLabel;
 
+        QWidget * magiBox;
+        QGridLayout * magiLayout;
+
+            ShadowButt * magiback;
+            ShadowButt * magino;
+            ShadowButt * magiya;
+            QLabel * magiLabel;
+
+
 
         QWidget * quitBox;
         QGridLayout * quitLayout;
@@ -80,6 +106,24 @@ private:
             ShadowButt * quitno;
             ShadowButt * quitya;
             QLabel * quitLabel;
+
+
+        QWidget * winBox;
+        QGridLayout * winLayout;
+
+            ShadowButt * winBack;
+            ShadowButt * winQuit;
+            QLabel * winLabel;
+
+        QWidget * lostBox;
+        QGridLayout * lostLayout;
+
+            ShadowButt * lostBack;
+            ShadowButt * lostQuit;
+            QLabel * lostLabel;
+
+            
+            
 /*
         QWidget * menuBox;
         QVBoxLayout * menuLayout;

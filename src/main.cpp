@@ -10,6 +10,10 @@
 
 Window::Window (QApplication * q, QTranslator * montr, QTranslator * montr2) {
 
+    setWindowTitle("Trading Card Game");
+    setWindowIcon(QIcon("img/icon.svg"));
+
+
     a = q;
     montranslator = montr;
     montranslator2 = montr2;
@@ -314,22 +318,34 @@ void Window::readConfSettings (){
     
     a -> setStyleSheet(styleSheet);
 
-    //maj dynamique de la traduction
+
+    // maj dynamique de la traduction
+    
     QString val = settings.value("langage", QLocale::system().name()).toString();
 
-    if(val=="ar_SA"){
+    if (val=="ar_SA"){
             this->setLayoutDirection(Qt::RightToLeft);
-    }
-    else{
+    } else{
             this->setLayoutDirection(Qt::LeftToRight);
     }
+
     montranslator->load("qt_"+val, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-    a->installTranslator(montranslator);
+    a -> installTranslator(montranslator);
 
     montranslator2->load("i18n/"+val+"/yugi_"+val);
-    a->installTranslator(montranslator2);
+    a -> installTranslator(montranslator2);
 
 
+    // FullScreen
+    
+    if (settings.value("fullscreen", false).toBool()){
+        
+        setWindowState(Qt::WindowFullScreen);
+
+    } else {
+        
+        setWindowState(Qt::WindowNoState);
+    }
 
 }
 
@@ -342,8 +358,12 @@ void Window::closeEvent (QCloseEvent *){
 void Window::writeSettings (){
     
     QSettings settings;
-    settings.setValue("pos", pos());
-    settings.setValue("size", size());
+
+    if (! settings.value("fullscreen", false).toBool()){ 
+
+        settings.setValue("pos", pos());
+        settings.setValue("size", size());
+    }
 }
 
 
@@ -381,10 +401,7 @@ int main(int argc, char *argv[]) {
 
     Window w(&app,&qtTranslator,&YugiTranslator);
 
-    w.setWindowTitle("Trading Card Game");
-    w.setWindowIcon(QIcon("img/icon.svg"));
-
-    w.show();
-
+    w.show(); 
+    
     return app.exec();
 }

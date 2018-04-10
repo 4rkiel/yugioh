@@ -32,13 +32,13 @@ JoinChoice::JoinChoice () {
         infoLayout -> setSpacing(0);
         infoLayout -> setMargin(0);
         
-            info = new QLabel (tr("Partie Privée : Rejoindre"));
+            info = new QLabel (tr("Rejoindre Partie Privée"));
             infoLayout -> addWidget(info);
        
             infoLayout -> addStretch(1);
 
             choice = new FlatButt("\uf060", "");
-            choice -> setToolTip(tr("Retour au Menu"));
+            choice -> setToolTip(tr("Retour"));
             connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
             //infoLayout -> addWidget(choice);
         

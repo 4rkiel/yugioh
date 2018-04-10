@@ -28,11 +28,22 @@ NetChoice::NetChoice () {
         infoBox -> setGraphicsEffect(iffect);
 
         infoLayout = new QHBoxLayout;
+        infoLayout -> setContentsMargins(0,0,0,0);
+        infoLayout -> setSpacing(0);
+        infoLayout -> setMargin(0);
 
-        info = new QLabel (tr("Trouver une Partie"));
+	        info = new QLabel (tr("Trouver une Partie"));
+    	    infoLayout -> addWidget(info);
 
-        infoLayout -> addWidget(info);
-        infoBox -> setLayout(infoLayout);
+			infoLayout -> addStretch(1);
+
+            choice = new FlatButt("\uf060", "");
+            choice -> setToolTip(tr("Retour"));
+            connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
+            infoLayout -> addWidget(choice);
+
+
+        	infoBox -> setLayout(infoLayout);
 
         layout -> addWidget(infoBox, 0,0,1,3);
         
@@ -41,7 +52,8 @@ NetChoice::NetChoice () {
         // Intro Menu 
 
         introBox = new QWidget;
-        introBox -> setObjectName("introBox");
+        introBox -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+		introBox -> setObjectName("introBox");
 
         effect = new QGraphicsDropShadowEffect(this);
         effect -> setBlurRadius(5);
@@ -55,15 +67,35 @@ NetChoice::NetChoice () {
 
             box -> addStretch(1);
 
+
+			// IIIIIIIIIIIIIIIIIIIIIICIIIIIIIIIIIIIIIIIIIIIII
+
+
+			// AFFICHER MESSAGE D'ATTENTE
+
+
+
+			// 1 contacter le serveur (en envoyant son adresse)
+
+
+
+			// 2 on response
+
+				// 2.1 Si client (connexion)
+
+					// Recuperer l'adresse de l'host dans la reponse
+
+					// Faire :
+					// emit sendIP(QString)
+
+
+				// 2.2 Si host (mise en attente)
+
+					// Faire (avec sa propre adresse) :
+					// emit createHost(QString)
+
+
             
-            // Back Button
-
-            QString strIntro = tr("Retour");
-            choice = new ShadowButt("\uf060", strIntro);
-            choice -> setToolTip(tr("Retour au Menu"));
-            connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
-            box -> addWidget(choice);
-
             box -> addStretch(1);
 
 
@@ -80,7 +112,6 @@ NetChoice::NetChoice () {
     
 NetChoice::~NetChoice (){
 
-    delete choice;
 
     delete effect;
 
@@ -89,6 +120,7 @@ NetChoice::~NetChoice (){
 
     delete iffect;
     delete info;
+    delete choice;
     delete infoLayout;
     delete infoBox;
 
