@@ -68,11 +68,24 @@ NetChoice::NetChoice () {
             box -> addStretch(1);
 
 
-			// IIIIIIIIIIIIIIIIIIIIIICIIIIIIIIIIIIIIIIIIIIIII
+            // Gestion matchmaking
 
 
-			// AFFICHER MESSAGE D'ATTENTE
+            // message d'attente
+            msgAttente = new QLabel(tr("Recherche d'un adversaire en cours..."));
 
+            msgAttente->setContentsMargins(185,0,0,100);
+            msgAttente->setWordWrap(true);
+            QFont f("",12,QFont::Normal);
+            msgAttente -> setFont(f);
+            msgAttente -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+
+            msgAttente2 = new QLabel(tr("Veuillez patienter"));
+            msgAttente2 -> setAlignment(Qt::AlignCenter);
+            msgAttente2->setWordWrap(true);
+
+            box->addWidget(msgAttente);
+            box->addWidget(msgAttente2);
 
 
 			// 1 contacter le serveur (en envoyant son adresse)
@@ -114,7 +127,8 @@ NetChoice::~NetChoice (){
 
 
     delete effect;
-
+    delete msgAttente;
+    delete msgAttente2;
     delete box;
     delete introBox;
 
