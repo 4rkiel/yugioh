@@ -16,30 +16,14 @@ class Noyau : public QWidget
     Q_OBJECT
 public:
     Noyau();
-    void init();
+
     bool online;
     int tour;
     int phase=1;
-    int selfLife=4000;
-    int foeLife=4000;
-    //void piocher(int n);
-    void poser(int main_x, int terrain_x, bool def,bool vis);
-    void poser(int sac_x,int main_x,int terrain_x, bool def);
-    void poser(int sac1_x, int sac2_x, int main_x, int terrain_x,bool def);
-    void attaquer(int attaquant_x, int adversaire_x=-1);
-    void switch_position(int terrain_x);
-    void detruire(int x);
-    void phase_suivante();
-    void adversaire_poser(int main_x,int terrain_x, bool def);
-    void adversaire_piocher(int n);
-    void switch_position_adv(int terrain_x);
-    void enlever_x(std::vector<Carte *> **vect, int x);
-    void enlever_i(std::vector<Carte *> **vect, int i);
-    void chargerDeck(int x);
-    int perfect_terrain(int zone);
-    Carte * trouver(int x);
-    int perfect_position(int zone);
-
+    int selfLife;
+    int foeLife;
+    int aleatoire;
+    int registre_0;
     std::vector<Carte *> * terrain;
 
 
@@ -48,30 +32,53 @@ public:
 
     std::vector<Carte *> *cimetiere1;
     std::vector<Carte *> *cimetiere2;
+
+    //comme son nom l'indique, init le noyau
+    void init();
+
+    /*comme son nom l'indique, permet de poser une carte à la position main_x
+     * dans la main vers terrain_x sur le terrain,
+     * def = true si carte en position defense, false sinon
+     * vis = true si carte face recto, false sinon */
+    void poser(int main_x, int terrain_x, bool def,bool vis);
+
+    /*comme son nom l'indique, permet d'attaquer avec une carte
+     * à la position attaquant_x vers la carte adverse en position
+     * adversaire_x, si on attaque l'adversaire directement x = -1 */
+    void attaquer(int attaquant_x, int adversaire_x=-1);
+
+    /*comme son nom l'indique, change la position (atk/def) d'une carte
+     * à la position terrain_x */
+    void switch_position(int terrain_x);
+
+    /*comme son nom l'indique, detruit la carte à la position x */
+    void detruire(int x);
+
+
+    /*comme son nom l'indique, passe à la phase_suivante
+     * PAS ENCORE IMPLEMENTE */
+    void phase_suivante();
+
+    //FONCTIONS UTILE POUR D'AUTRES FONCTIONS, LEURS DESCRIPTIONS EST DANS LE CPP
+    void enlever_x(std::vector<Carte *> **vect, int x);
+    void enlever_i(std::vector<Carte *> **vect, int i);
+    int perfect_terrain(int zone);
+    int perfect_position(int zone);
+    bool isAdv(int x);
+    bool isMonst(int x);
+    bool isMagic(int x);
+    bool isHand(int x);
+    bool isDeck(int x);
+    bool isField(int x);
+    bool isGrave(int x);
+    bool isFuse(int x);
+    void chargerDeck(int x);
+    void deckAdverse(int x, int ran);
+    Carte * trouver(int x);
+
+
     //obsolète
     Reseau * res;
-
-    int registre_0;
-    void deckAdverse(int x, int ran);
-
-
-    bool isAdv(int x);
-
-    bool isMonst(int x);
-
-    bool isMagic(int x);
-
-    bool isHand(int x);
-
-    bool isDeck(int x);
-
-    bool isField(int x);
-
-    bool isGrave(int x);
-
-    bool isFuse(int x);
-
-
 
 public slots:
     void piocher(int x);
