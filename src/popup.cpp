@@ -241,12 +241,17 @@ Popup::Popup (){
     layout -> addWidget(popupShadow, 0, 0, 3, 3);
     layout -> addWidget(popupBox, 1, 1, 1, 1);
 
+    //shortcut echap
+    shortcut = new QShortcut(QKeySequence("Escape"), this);
+    connect(shortcut, SIGNAL(activated()), this, SLOT(closeMenu()));
+
     setLayout(layout);
 }
 
 
 Popup::~Popup (){
 
+        delete shortcut;
             delete posiback;     
             delete posino;
             delete posiya;
@@ -404,5 +409,6 @@ void Popup::closeMenu (){
     posiBox -> setVisible(false);
     quitBox -> setVisible(false);
     setVisible(false);
+    emit focusField();
 }
 

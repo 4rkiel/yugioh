@@ -161,7 +161,7 @@ Field::Field () {
 
     // Popup Menu
 
-    popup = new Popup;
+    popup = new Popup();
 
     connect(popup, SIGNAL(introStack()), this, SLOT(emitIntroStack()));
 
@@ -170,6 +170,7 @@ Field::Field () {
     
     connect(popup, SIGNAL(sendVisi()), this, SLOT(emitVisi()));
     connect(popup, SIGNAL(sendHide()), this, SLOT(emitHide()));
+    connect(popup, SIGNAL(focusField()), this, SLOT(getsFocus()));
 
     connect(menuButt, SIGNAL(clicked()), popup, SLOT(openQuit()));
 
@@ -211,6 +212,7 @@ Field::Field () {
 
                     for (int k=89; k<=95; k++){
                         fieldStack -> at(k) = new SlotCard(k);
+                        connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()));
                         advHandLayout -> addWidget(fieldStack -> at(k));
                     }
 
@@ -226,6 +228,7 @@ Field::Field () {
 
                     for (int k=82; k<=88; k++){
                         fieldStack -> at(k) = new SlotCard(k);
+                        connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()));
                         advMagicLayout -> addWidget(fieldStack -> at(k));
                     }
                
@@ -241,6 +244,7 @@ Field::Field () {
 
                     for (int k=75; k<=81; k++){
                         fieldStack -> at(k) = new SlotCard(k);
+                        connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()));
                         advMonstLayout -> addWidget(fieldStack -> at(k));
                     }
                
@@ -269,6 +273,7 @@ Field::Field () {
      
                     for (int k=0; k<=6; k++){
                         fieldStack -> at(k) = new SlotCard(k);
+                        connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()));
                         slfMonstLayout -> addWidget(fieldStack -> at(k));
                     }
                     
@@ -284,6 +289,7 @@ Field::Field () {
      
                     for (int k=7; k<=13; k++){
                         fieldStack -> at(k) = new SlotCard(k);
+                        connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()));
                         slfMagicLayout -> addWidget(fieldStack -> at(k));
                     }
                     
@@ -299,6 +305,7 @@ Field::Field () {
       
                     for (int k=14; k<=20; k++){
                         fieldStack -> at(k) = new SlotCard(k);
+                        connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()));
                         slfHandLayout -> addWidget(fieldStack -> at(k));
                     }
                     
@@ -347,6 +354,7 @@ Field::Field () {
                 sidebar -> addWidget(chat, 0, 0, 10, 1);
 
                 connect(chat, SIGNAL(msgSent(QString)), this, SLOT(sendMsg(QString)));
+                connect(chat, SIGNAL(rcvQuit()), popup, SLOT(openQuit()));
 
             side -> setLayout(sidebar);
             rightBarLayout -> addWidget(side, 0, 0, 1, 1);
@@ -376,6 +384,7 @@ Field::Field () {
     shortcut = new QShortcut(QKeySequence("Escape"), this);
     shortcut->setContext(Qt::WidgetShortcut);
     connect(shortcut, SIGNAL(activated()), popup, SLOT(openQuit()));
+    this->setFocusPolicy(Qt::StrongFocus);
 
     setLayout(layout);
 
@@ -543,6 +552,9 @@ void Field::openLost (){
     popup -> openLost();
 }
 
+void Field::getsFocus(){
+    this->setFocus();
+}
 
 
 

@@ -14,6 +14,7 @@
 
 #include <QEvent>
 #include <QMouseEvent>
+#include <QShortcut>
 
 #include "../inc/superButt.h"
 #include "../inc/zButt.h"
@@ -50,6 +51,7 @@ public slots:
 	void doubleClicked();
 	void rightClicked();
 	void leftClicked();
+    void openQuit();
 
 signals:
     void leftClick(int posi);
@@ -57,11 +59,13 @@ signals:
     void doubleClick(int posi);
     void entered(int posi);
     void leaved(int posi);
+    void rcvQuit();
 
 private:
     int posi;
     bool mode;
     QString pic;
+    QShortcut* shortcut;
 
     QGridLayout * layout;
 
