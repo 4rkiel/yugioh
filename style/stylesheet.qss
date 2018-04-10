@@ -198,6 +198,41 @@ QScrollBar::sub-page:vertical {
 
 
 
+/******************************************************************************
+    CheckBox
+******************************************************************************/
+
+QCheckBox {
+    outline: none;
+}
+
+QCheckBox::indicator {
+    width: 15px;
+    height: 15px;
+    border: 2px solid #7986CB;
+    border-radius: 3px;
+    padding: -1px;
+    margin: 1px;
+    background: transparent;
+}
+
+QCheckBox::indicator:checked {
+    padding: 0px;
+    margin: 0px;
+    background: #7986CB;
+    border-image: url(img/rc/checkbox.png);
+}
+
+QCheckBox::indicator:hover, 
+QCheckBox::indicator:focus,
+QCheckBox::indicator:pressed {
+    background: #FFD54F;
+}
+
+
+
+
+
 /*****************************************************************
     editeur_de_carte
 ******************************************************************/
@@ -207,24 +242,6 @@ cardEditor {
 	outline: none;
 	border-radius: 3px;
 	background: #607D8B;
-}
-
-
-
-/******************************************************************
-	cardPreview 
-******************************************************************/
-
-#Monstre {
-	background: #FFC107;
-}
-
-#Magie {
-	background: #00BCD4;
-}
-
-#Piege {
-	background: #B39DDB;
 }
 
 

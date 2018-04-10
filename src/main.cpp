@@ -20,6 +20,7 @@ Window::Window (QApplication * q, QTranslator * montr, QTranslator * montr2) {
 
     currentLayout = 0;
     
+    readSizeSettings();
     readConfSettings();
 
 
@@ -344,7 +345,6 @@ void Window::readConfSettings (){
     } else {
         
         setWindowState(Qt::WindowNoState);
-        readSizeSettings();
     }
 
 }
