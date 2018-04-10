@@ -8,13 +8,14 @@
 #include <string>
 #include <QString>
 #include <sstream>
+#include <QUdpSocket>
 class Reseau : public QWidget
 {
     Q_OBJECT
 
 public:
     Reseau();
-    QTcpSocket *socket;
+    QUdpSocket *socket;
      quint16 tailleMessage=0;
      QTcpServer *serveur;
      QList<QTcpSocket *> clients;
@@ -22,6 +23,8 @@ public:
      void envoyer(const QString &message);
     QString getIp();
      void parser(std::string s);
+     QHostAddress adresse;
+       int port;
 
 public slots:
 	 void sendOK();

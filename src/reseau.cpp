@@ -2,7 +2,7 @@
 
 Reseau::Reseau()
 {
-    socket = new QTcpSocket(this);
+    socket = new QUdpSocket(this);
      connect(socket, SIGNAL(connected()), this, SLOT(connecte()));
      connect(socket, SIGNAL(readyRead()), this, SLOT(donneesRecues()));
 }
@@ -25,22 +25,23 @@ return hostIpStr;
 void Reseau::go(QString str)
 {
 
-    serveur = new QTcpServer(this);
-    if(!serveur->listen(QHostAddress(str), 50885)){
+    //serveur = new QTcpServer(this);
+        //socket->open(QIODevice::ReadWrite);
+    if(!socket->bind(QHostAddress(str), 50885)){
         std::cout << "je connecte PAS le serveur" << std::endl;
     } else {
         std::cout << "je connecte le serveur" << std::endl;
     }
 
-    connect(serveur, SIGNAL(newConnection()), this, SLOT(nouvelleConnexion()));
+    //connect(socket, SIGNAL(), this, SLOT(nouvelleConnexion()));
     tailleMessage2=0;
 }
 
 void Reseau::nouvelleConnexion()
 {
 
-     socket = serveur->nextPendingConnection();
-      std::cout << "YEAAAAH MUNITION AU MAX!!" << std::endl;
+     //socket = serveur->nextPendingConnection();
+      //std::cout << "YEAAAAH MUNITION AU MAX!!" << std::endl;
       connect(socket,SIGNAL(readyRead()),this,SLOT(donneesRecues()));
       connect(socket,SIGNAL(disconnected()),this,SLOT(deconnexionClient()));
      // emit a_parser(QString("tt"));
@@ -55,8 +56,22 @@ void Reseau::mondieu(QString str)
     connect(socket, SIGNAL(connected()), this, SLOT(sendOK()));
     connect(socket, SIGNAL(error(QAbstractSocket::SocketError)),
                     this, SLOT(sendERR(QAbstractSocket::SocketError)));
+    std::cout << "Je vais write" << std::endl;
+   // QString message("MEESSSSSSSSSSSSSSSSSSSAAAAAAAAAAAAGGGGGEEEEEEEEEEE");
+    QByteArray paquet;
+    paquet.append("init");
+   // QDataStream out(&paquet, QIODevice::WriteOnly);
+    //out << (quint16) 0; // On écrit 0 au début du paquet pour réserver la place pour écrire la taille
+    //out << message; // On ajoute le message à la suite
+    //out.device()->seek(0); // On se replace au début du paquet
+    //out << (quint16) (paquet.size() - sizeof(quint16)); // On écrase le 0 qu'on avait réservé par la longueur du message
+    adresse = QHostAddress(str);
+    port = 50885;
 
-    socket->connectToHost(QHostAddress(str), 50885);
+    // Envoi du paquet préparé à tous les clients connectés au serveur
+    socket->bind(50886);
+    socket->writeDatagram(paquet,adresse,port);
+     emit hostReady(21);
     //socket->connectToHost(QHostAddress(getIp()), 50885);
 }
 
@@ -95,8 +110,44 @@ void Reseau::donneesServ()
 
 void Reseau::donneesRecues()
 {
-     std::cout << "j'ai reçu dans donnes Recues ";
-    QDataStream in(socket);
+     /*std::cout << "j'ai reçu dans donnes Recues ";
+     QByteArray datagram;
+     while (socket->hasPendingDatagrams()) {
+         datagram.resize(socket->pendingDatagramSize());
+        socket->readDatagram(datagram.data(),datagram.size());
+        QDataStream in(&datagram,QIODevice::ReadOnly);
+        QString yolo;
+        in >> yolo;
+        std::cout << "j'ai reçu " << yolo.toStdString();
+     }*/
+    // when data comes in
+    QByteArray buffer;
+    buffer.resize(socket->pendingDatagramSize());
+    QHostAddress sender;
+    quint16 senderPort;
+
+    // qint64 QUdpSocket::readDatagram(char * data, qint64 maxSize,
+    //                 QHostAddress * address = 0, quint16 * port = 0)
+    // Receives a datagram no larger than maxSize bytes and stores it in data.
+    // The sender's host address and port is stored in *address and *port
+    // (unless the pointers are 0).
+
+    socket->readDatagram(buffer.data(), buffer.size(),
+                         &sender, &senderPort);
+
+    qDebug() << "Message from: " << sender.toString();
+    qDebug() << "Message port: " << senderPort;
+    qDebug() << "Message: " << QString(buffer.data());
+    if(QString(buffer.data()).compare(QString("init"))==0)
+       {
+        std::cout << "MON DIEU CA MARCHE " << std::endl;
+        adresse = QHostAddress(sender.toString());
+        port = senderPort;
+        emit hostReady(21);
+
+    }
+    emit a_parser(QString(buffer.data()));
+   /* QDataStream in(socket);
     if (tailleMessage == 0)
     {
         if (socket->bytesAvailable() < (int)sizeof(quint16))
@@ -118,7 +169,7 @@ void Reseau::donneesRecues()
     emit a_parser(messageRecu);
     //parser(messageRecu.toStdString());
     // On remet la taille du message à 0 pour pouvoir recevoir de futurs messages
-    tailleMessage = 0;
+    tailleMessage = 0;*/
 }
 
 void Reseau::deconnexionClient()
@@ -133,14 +184,19 @@ void Reseau::connecte()
 
 void Reseau::envoyer(const QString &message)
 {
+    QByteArray paquet;
+    paquet.append(message);
+     socket->writeDatagram(paquet,adresse,port);
+}
+
+/*
+
+void Reseau::envoyer(const QString &message)
+{
     std::cout << "JE VAIS ENVOYER " << std::endl;
     QByteArray paquet;
     QDataStream out(&paquet, QIODevice::WriteOnly);
-
-    out << (quint16) 0; // On écrit 0 au début du paquet pour réserver la place pour écrire la taille
     out << message; // On ajoute le message à la suite
-    out.device()->seek(0); // On se replace au début du paquet
-    out << (quint16) (paquet.size() - sizeof(quint16)); // On écrase le 0 qu'on avait réservé par la longueur du message
 
 
     // Envoi du paquet préparé à tous les clients connectés au serveur
@@ -148,7 +204,7 @@ void Reseau::envoyer(const QString &message)
     socket->flush();
 
     socket->waitForBytesWritten(-1);
-}
+}*/
 
 void Reseau::transmettre(QString chaine)
 {
