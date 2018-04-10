@@ -53,7 +53,6 @@ SlotCard::SlotCard (int p){
     
     setFlat(true);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    setFocusPolicy(Qt::NoFocus);
 
     // Creating clickable picture zone
 
@@ -119,6 +118,9 @@ SlotCard::SlotCard (int p){
 	connect(imgButt, SIGNAL(clicked()), this, SLOT(leftClicked()));
 	connect(imgButt, SIGNAL(rightClicked()), this, SLOT(rightClicked()));
 	connect(imgButt, SIGNAL(doubleClicked()), this, SLOT(doubleClicked()));
+    shortcut = new QShortcut(QKeySequence("Escape"), this);
+    shortcut->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(shortcut, SIGNAL(activated()), this, SLOT(openQuit()));
 
 }
 
@@ -126,6 +128,7 @@ SlotCard::SlotCard (int p){
 
 SlotCard::~SlotCard (){
 
+    delete shortcut;
     delete scaleAnim;
     delete rotAnim;
 
@@ -324,4 +327,8 @@ void SlotCard::leaveEvent(QEvent * event){
     
     emit leaved(posi);
     QWidget::leaveEvent(event);
+}
+
+void SlotCard::openQuit(){
+    emit rcvQuit();
 }
