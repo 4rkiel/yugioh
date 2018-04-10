@@ -81,12 +81,16 @@ public:
     Reseau * res;
 
 public slots:
+    //permet de piocher,x vaut 1 si c'est moi qui pioche sinon x vaut 76
     void piocher(int x);
     void go();
     void mondieu();
     void send();
+    //obsolète
     void attaque();
+    //sert à traiter les actions, voir commentaires cpp
     void traiter(QString s);
+    //obsolète
     void setReseau(bool b);
     void poser_test(int x);
     void poserAtk();
