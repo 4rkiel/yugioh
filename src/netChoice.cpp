@@ -88,8 +88,17 @@ NetChoice::NetChoice () {
             box->addWidget(msgAttente2);
 
 
-			// 1 contacter le serveur (en envoyant son adresse)
+            // initialisation du socket
 
+            socket=new QUdpSocket(this);
+            socket->bind(QHostAddress::LocalHostIPv6,9001);
+            QHostAddress adresse = QHostAddress::LocalHostIPv6;
+            quint16 port = 9000;
+            QByteArray paquet;
+            paquet.append("Hello du client");
+
+            //envoi de "hi" au serveur
+            socket->writeDatagram(paquet,adresse,port);
 
 
 			// 2 on response
@@ -100,6 +109,8 @@ NetChoice::NetChoice () {
 
 					// Faire :
 					// emit sendIP(QString)
+
+            connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 
 
 				// 2.2 Si host (mise en attente)
@@ -125,7 +136,7 @@ NetChoice::NetChoice () {
     
 NetChoice::~NetChoice (){
 
-
+    delete socket;
     delete effect;
     delete msgAttente;
     delete msgAttente2;
@@ -152,3 +163,14 @@ void NetChoice::emitChoice (){
     emit choiceStack();
 }
 
+void NetChoice::readyRead(){
+
+    QByteArray buffer;
+    buffer.resize(socket->pendingDatagramSize());
+
+    //le client reçoit la réponse du serveur et la stock
+    socket->readDatagram(buffer.data(),buffer.size(),0,0);
+    QString msgRec(buffer.data());
+    std::cout << msgRec.toStdString() << std::endl;
+
+}
