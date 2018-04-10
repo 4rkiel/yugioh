@@ -49,6 +49,7 @@ public:
 
 public slots:
 
+    void getsFocus();
     void setProgress();
     void resetProgress();
     void setPhase(int);

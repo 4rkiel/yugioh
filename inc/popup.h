@@ -64,13 +64,14 @@ signals:
 
     void sendVisi();
     void sendHide();
+    void focusField();
 
 
 private:
 
     QWidget * current;
     
-    
+    QShortcut * shortcut;
     QGridLayout * layout;
     QPushButton * popupShadow;
     QWidget * popupBox;

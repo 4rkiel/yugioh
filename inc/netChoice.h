@@ -35,6 +35,8 @@ class NetChoice : public QFrame {
     private:
     QGridLayout * layout;
     QShortcut *shortcut;
+    QLabel* msgAttente;
+    QLabel* msgAttente2;
 
     QWidget * infoBox;
 

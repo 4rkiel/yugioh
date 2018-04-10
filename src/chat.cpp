@@ -70,6 +70,10 @@ Chat::Chat(){
     connect(scrollbar, SIGNAL(rangeChanged(int,int)), 
             this, SLOT(moveScrollBarToBottom(int, int)));
 
+    shortcut = new QShortcut(QKeySequence("Escape"), this);
+    shortcut->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(shortcut, SIGNAL(activated()), this, SLOT(openQuit()));
+
 
     setLayout(layout);
 }
@@ -150,4 +154,8 @@ void Chat::sendMsg(){
 void Chat::moveScrollBarToBottom(int min, int max){
     Q_UNUSED(min);
     label -> verticalScrollBar()->setValue(max);
+}
+
+void Chat::openQuit(){
+    emit rcvQuit();
 }
