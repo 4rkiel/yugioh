@@ -130,7 +130,7 @@ void Master::loadField (int x){
         else
             ai_data = 2; //file learning_ai.data
 
-        ai = new Ai(ai_data);
+        ai = new Ai(noyau,ai_data);
         
         //le noyau envoi un signal a l'ia pour lui dire de jouer
         //connect(noyau,SIGNAL(au_tour_de_l_ia()),ai,SLOT(a_ton_tour()));
