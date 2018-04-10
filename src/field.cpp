@@ -374,6 +374,7 @@ Field::Field () {
 
     //key shortcut
     shortcut = new QShortcut(QKeySequence("Escape"), this);
+    shortcut->setContext(Qt::WidgetShortcut);
     connect(shortcut, SIGNAL(activated()), popup, SLOT(openQuit()));
 
     setLayout(layout);
