@@ -73,7 +73,7 @@ public:
     bool isGrave(int x);
     bool isFuse(int x);
     void chargerDeck(int x);
-    void deckAdverse(int x, int ran);
+    void deckAdverse(int x);
     Carte * trouver(int x);
 
 

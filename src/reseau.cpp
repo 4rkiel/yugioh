@@ -184,6 +184,7 @@ void Reseau::connecte()
 
 void Reseau::envoyer(const QString &message)
 {
+    std::cout << "J'ENVOIE UN TRUC" << std::endl;
     QByteArray paquet;
     paquet.append(message);
      socket->writeDatagram(paquet,adresse,port);
