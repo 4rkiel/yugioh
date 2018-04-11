@@ -96,7 +96,7 @@ signals:
     void sendHide();
     void transmettre(QString);
 	void doubleClicked(int);
-	void biClick(int, int);
+	void monstClick(int, int);
 	void askPreview(int);
 
 

@@ -650,13 +650,10 @@ void Field::cardClicked(int x){
 
     SlotCard * that = fieldStack -> at(x);
 
-    if (retained == x){
-        
-        retained = -1;
-
-    } else if (
+    if (
 		
 		! that -> isAdv() && 
+        ! that -> isHand() && 
         ! that -> isDeck() && 
         ! that -> isGrave() && 
         ! that -> isFuse() &&
@@ -667,8 +664,10 @@ void Field::cardClicked(int x){
         retained = x;
 
     } else if (
-		
+	
+		retained != -1 &&
 		that -> isAdv() &&
+        ! that -> isHand() && 
         ! that -> isDeck() &&
         ! that -> isGrave() &&
         ! that -> isFuse() &&
@@ -678,7 +677,7 @@ void Field::cardClicked(int x){
 	){
    
    		std::cout << "biclicked: " << retained << " " << x << "\n";
-        emit biClick(retained, x);
+        emit monstClick(retained, x);
         retained = -1;
         
     }
