@@ -50,8 +50,7 @@ Field::Field () {
             lifeLayout -> setMargin(0);
             lifeLayout -> setContentsMargins(0,0,0,0);
         
-            QSettings settings;
-            baseLife = settings.value("lifePoints", "8000").toString();
+            baseLife = "8000";
             int bl = baseLife.toInt();
 
             lifeSlf = new QLabel;
@@ -566,9 +565,11 @@ void Field::getsFocus(){
 
 void Field::previewClicked(){
 
-    if (lockPreview){
+	std::cout << "yolo\n";
+    if (!lockPreview){
 
-        lockPreview = false;
+        lockPreview = true;
+		previewed = -1;
         cardOut();
     }
 }
@@ -623,7 +624,7 @@ void Field::cardHover (
     fullCard -> setDesc(desc);
     fullCard -> setStat(QString::number(atk), QString::number(def));
 
-    if (!lockPreview){
+    if (lockPreview){
         chat -> setVisible(false);
         fullCard -> setVisible(true);
     }
@@ -632,7 +633,7 @@ void Field::cardHover (
 
 void Field::cardOut (){
 
-    if (!lockPreview){
+    if (lockPreview){
         fullCard -> setVisible(false);
         chat -> setVisible(true);
     }
@@ -651,38 +652,42 @@ void Field::cardClicked(int x){
 
     SlotCard * that = fieldStack -> at(x);
 
-    if (retained == x){
+    if (
+		
+		! that -> isAdv() && 
+        ! that -> isHand() && 
+        ! that -> isDeck() && 
+        ! that -> isGrave() && 
+        ! that -> isFuse() &&
+		! that -> isField() &&
+		! that -> isMagic()
+	){
+
+        retained = x;
+
+    } else if (
+	
+		retained != -1 &&
+		that -> isAdv() &&
+        ! that -> isHand() && 
+        ! that -> isDeck() &&
+        ! that -> isGrave() &&
+        ! that -> isFuse() &&
+		! that -> isField() &&
+		! that -> isMagic()
         
+	){
+   
+   		std::cout << "biclicked: " << retained << " " << x << "\n";
+        emit monstClick(retained, x);
         retained = -1;
-
-    } else if (retained == -1){
-
-        if (
-            ! that -> isAdv() && 
-            ! that -> isDeck() && 
-            ! that -> isGrave() && 
-            ! that -> isFuse() 
-        ){
-            retained = x;
-        }
-
-    } else {
-
-        if (
-            ! that -> isDeck() &&
-            ! that -> isGrave() &&
-            ! that -> isFuse()
-        ){
-            std::cout << "biclicked: " << retained << " " << x << "\n";
-            emit biClick(retained, x);
-            retained = -1;
-        }
+        
     }
 }
 
 void Field::cardEntered(int x){
     
-    if (!lockPreview){
+    if (lockPreview){
     	emit askPreview(x);
     }
 }
@@ -730,6 +735,33 @@ void Field::resetProgress (){
     progressRight -> repaint();
 }
 
+
+void Field::initLife(int x){
+	
+	progressSlf -> setRange(0,x);
+	progressAdv -> setRange(0,x);
+	progressSlf -> setValue(x);
+	progressAdv -> setValue(x);
+	
+	lifeSlf -> setText(QString::number(x));
+	lifeAdv -> setText(QString::number(x));
+}
+
+
+void Field::setLife(int x, bool me){
+
+	std::cout << x << " Life \n";
+	if (me){
+		
+		lifeSlf -> setText(QString::number(x));
+		progressSlf -> setValue(x);
+
+	} else {
+		
+		lifeAdv -> setText(QString::number(x));
+		progressAdv -> setValue(x);
+	}
+}
 
 void Field::setTour (int){
 //    stats -> setTour(x);

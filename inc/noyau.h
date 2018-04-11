@@ -75,6 +75,7 @@ public:
     void chargerDeck(int x);
     void deckAdverse(int x);
     Carte * trouver(int x);
+    bool no_monster(int zone);
 
 
     //obsolète
@@ -96,6 +97,7 @@ public slots:
     void poserAtk();
     void poserDef();
     void donner_infos(int x);
+    void attaquerSlot(int,int);
 signals:
     void emit_go();
     void emit_mondieu();
@@ -117,6 +119,8 @@ signals:
     void change_position(int x);
     void tiens(QString);
     void give_infos(QString,int,int,QString,int,QString,int,int);
+    void giveLife(int x);
+    void changeLife(int x,bool me);
     //void met_en_defense(int x);
 };
 
