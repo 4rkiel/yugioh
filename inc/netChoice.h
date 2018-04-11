@@ -17,6 +17,7 @@
 #include <iostream>
 
 #include "../inc/flatButt.h"
+#include "../inc/matchmaking.h"
 
 class NetChoice : public QFrame {
 
@@ -29,19 +30,20 @@ class NetChoice : public QFrame {
 
     public slots:
     void emitChoice();
-    void readyRead();
+    void emitClient(QString);
+    void emitHost(QString);
 
     signals:
     void choiceStack();
-	void sendIP(QString);
-	void createHost(QString);
+    void sendIP(QString);
+    void createHost(QString);
 
     private:
     QGridLayout * layout;
     QShortcut *shortcut;
     QLabel* msgAttente;
     QLabel* msgAttente2;
-    QUdpSocket *socket;
+    Matchmaking* matchmaker;
 
     QWidget * infoBox;
 
