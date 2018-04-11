@@ -124,6 +124,7 @@ signals:
     void changeLife(int x,bool me);
     void setTour(int x);
     void sendInfo(QString i);
+    void beginTour();
 
     //void met_en_defense(int x);
 };
