@@ -33,6 +33,9 @@ public:
     std::vector<Carte *> *cimetiere1;
     std::vector<Carte *> *cimetiere2;
 
+    int nbrTick=0;
+    bool lockTick = false;
+
     //comme son nom l'indique, init le noyau
     void init();
 
@@ -98,6 +101,8 @@ public slots:
     void poserDef();
     void donner_infos(int x);
     void attaquerSlot(int,int);
+    void comptageTick();
+
 signals:
     void emit_go();
     void emit_mondieu();

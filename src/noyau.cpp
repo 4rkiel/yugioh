@@ -39,6 +39,15 @@ void Noyau::init()
     //piocher(1);
 }
 
+void Noyau::comptageTick()
+{
+    if(lockTick)
+    {
+        nbrTick = (nbrTick+1) % 200;
+        if(nbrTick==0)
+            phase_suivante();
+    }
+}
 
 // initialise le réseau
 // OBSOLETE depuis l'ajout du reseau dans un master
@@ -165,6 +174,7 @@ void Noyau::piocher(int x)
     }
     else
     {
+        emit sendInfo("L'adversaire pioche");
     std::cout << "le traitement du piochage adverse en cours " << std::endl;
     int dans_main = perfect_position(1);
     std::cout << "l'adversaire pose en " << dans_main << std::endl;
@@ -1025,6 +1035,8 @@ void Noyau::traiter(QString s)
           message.append(QString::fromStdString(ss1.str()));
          emit tiens(message);
          emit giveLife(selfLife);
+            emit beginTour();
+          lockTick=true;
     }
     else if(s.startsWith("slife/"))
     {
@@ -1054,6 +1066,7 @@ void Noyau::traiter(QString s)
          emit giveLife(selfLife);
          piocher(1);
          emit beginTour();
+         lockTick=true;
         // emit commence();
     }
     else if(s.compare(QString("init"))==0)
