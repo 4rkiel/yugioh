@@ -10,6 +10,8 @@ Initialisé lors du lancement d'une partie
 
 Field::Field () {
 
+	lockTick = false;
+
     lockPreview = true;
 	previewed = -1;
 
@@ -548,10 +550,12 @@ void Field::emitVisi (){
 
 void Field::openWin (){
     popup -> openWin();
+	resetProgress();
 }
 
 void Field::openLost (){
     popup -> openLost();
+	resetProgress();
 }
 
 void Field::getsFocus(){
@@ -653,7 +657,6 @@ void Field::cardClicked(int x){
     SlotCard * that = fieldStack -> at(x);
 
     if (
-		
 		! that -> isAdv() && 
         ! that -> isHand() && 
         ! that -> isDeck() && 
@@ -678,7 +681,6 @@ void Field::cardClicked(int x){
         
 	){
    
-   		std::cout << "biclicked: " << retained << " " << x << "\n";
         emit monstClick(retained, x);
         retained = -1;
         
@@ -720,20 +722,39 @@ void Field::sendInfo (QString str){
 /* Info */
 
 void Field::setProgress (){
-    progressRight -> setValue((progressRight -> value() + 1)%maxPhase);
-    progressLeft -> setValue((progressLeft -> value() + 1)%maxPhase);
 
-    progressLeft -> repaint();
-    progressRight -> repaint();
+	if (lockTick){
+	
+		progressRight -> setValue((progressRight -> value() + 1)%maxPhase);
+    	progressLeft -> setValue((progressLeft -> value() + 1)%maxPhase);
+	
+    	progressLeft -> repaint();
+    	progressRight -> repaint();
+	}
 }
 
+
+void Field::unlockTick(){
+	lockTick = true;
+}
+
+
 void Field::resetProgress (){
+
+	lockTick = false;
+
     progressRight -> reset();
     progressLeft -> reset();
 
     progressLeft -> repaint();
     progressRight -> repaint();
 }
+
+
+void Field::setTour (int x){
+	icoLife -> setText(tr("Tour") + "\n" + QString::number(x));
+}
+
 
 
 void Field::initLife(int x){
@@ -761,14 +782,6 @@ void Field::setLife(int x, bool me){
 		lifeAdv -> setText(QString::number(x));
 		progressAdv -> setValue(x);
 	}
-}
-
-void Field::setTour (int){
-//    stats -> setTour(x);
-}
-
-void Field::setPhase (int){
-//    stats -> setPhase(x);
 }
 
 
