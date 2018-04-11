@@ -434,14 +434,24 @@ bool Noyau::no_monster(int zone)
     return fin;
 }
 
+void Noyau::attaquerSlot(int atk,int def)
+{
+       attaquer(atk,def);
+}
+
+
 //permet d'attaquer
 //prends en parametre la position de l'attaquant  et la position de l'attaqué, si le deuxieme argument n'est pas donné ou vaut -1 alors cela attaque l'adversaire directement (càd ses points de vie)
 void Noyau::attaquer(int attaquant_x, int adversaire_x)
 {
     //c'est moi qui attaque
+    std::cout << "je vais attaquer avec " << attaquant_x << " et " << adversaire_x  << std::endl;
     Carte * atk = trouver(attaquant_x);
     if(atk==NULL)
+    {
+        std::cout << "attaquant existe pas " << std::endl;
         return;
+    }
     if(attaquant_x < 75)
     {
         //Carte * atk = trouver(attaquant_x);
@@ -449,6 +459,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
         {
             if(no_monster(1))
             {
+                std::cout << "l'adversaire perds de la vie " << std::endl;
                 foeLife = foeLife - atk->atk;
                 emit changeLife(foeLife,false);
                 if(foeLife <=0)
@@ -502,7 +513,12 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     }
                 }
         }
-        emit j_attaque(attaquant_x,adversaire_x);
+        QString message = "a/";
+        std::stringstream s1;
+        s1 << attaquant_x << "/" << adversaire_x;
+        message.append(QString::fromStdString(s1.str()));
+        emit tiens(message);
+
     }
     //c'est l'autre qui attaque
     else

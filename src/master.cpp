@@ -160,7 +160,7 @@ void Master::loadField (int x){
 
 
 	connect(noyau, SIGNAL(giveLife(int)), field, SLOT(initLife(int)));
-	connect(noyau, SIGNAL(changeLife(int,bool)), field, SLOT(setLife(int)));
+    connect(noyau, SIGNAL(changeLife(int,bool)), field, SLOT(setLife(int,bool)));
 
 
     // Quit
@@ -216,7 +216,8 @@ void Master::loadField (int x){
     connect(noyau,SIGNAL(give_infos(QString,int,int,QString,int,QString,int,int)),
 		field, SLOT(cardHover(QString,int,int,QString,int,QString,int,int)));
 
-
+    // bi clicked
+    connect(field,SIGNAL(monstClick(int,int)),noyau,SLOT(attaquerSlot(int,int)));
 
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
