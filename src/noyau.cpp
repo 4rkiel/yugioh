@@ -411,25 +411,62 @@ int Noyau::perfect_position(int zone)
     return begin_position;
 }
 
+bool Noyau::no_monster(int zone)
+{
+    bool fin = true;
+    int i;
+    if(zone==0)
+    {
+        for(i=0;i<5;i++)
+        {
+            if(trouver(1+i)!=NULL)
+                return false;
+        }
+    }
+    else
+    {
+        for(i=0;i<5;i++)
+        {
+            if(trouver(76+i)!=NULL)
+                return false;
+        }
+    }
+    return fin;
+}
+
 //permet d'attaquer
 //prends en parametre la position de l'attaquant  et la position de l'attaqué, si le deuxieme argument n'est pas donné ou vaut -1 alors cela attaque l'adversaire directement (càd ses points de vie)
 void Noyau::attaquer(int attaquant_x, int adversaire_x)
 {
     //c'est moi qui attaque
+    Carte * atk = trouver(attaquant_x);
+    if(atk==NULL)
+        return;
     if(attaquant_x < 75)
     {
-        Carte * atk = trouver(attaquant_x);
+        //Carte * atk = trouver(attaquant_x);
         if(adversaire_x == -1)
         {
-            foeLife = foeLife - atk->atk;
-            emit changeLife(foeLife,false);
-            if(foeLife <=0)
-                emit je_gagne();
+            if(no_monster(1))
+            {
+                foeLife = foeLife - atk->atk;
+                emit changeLife(foeLife,false);
+                if(foeLife <=0)
+                    emit je_gagne();
+            }
         }
         else
         {
                  Carte * def = trouver(adversaire_x);
                  //le monstre est en position de défense
+                 if(def == NULL)
+                 {
+                     if(no_monster(1))
+                     {
+                         attaquer(attaquant_x);
+                         return;
+                     }
+                 }
                 if(def->pos)
                 {
                     if(atk->atk > def->def)
@@ -470,16 +507,27 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
     //c'est l'autre qui attaque
     else
     {
-        Carte * atk = trouver(attaquant_x);
+        //Carte * atk = trouver(attaquant_x);
         if(adversaire_x == -1)
         {
-           selfLife = selfLife - atk->atk;
-           emit changeLife(selfLife,true);
+            if(no_monster(0))
+            {
+                selfLife = selfLife - atk->atk;
+                emit changeLife(selfLife,true);
+            }
         }
         else
         {
                  Carte * def = trouver(adversaire_x);
                  //le monstre est en position de défense
+                 if(def == NULL)
+                 {
+                     if(no_monster(0))
+                     {
+                         attaquer(attaquant_x);
+                         return;
+                     }
+                 }
                 if(def->pos)
                 {
                     if(atk->atk > def->def)
