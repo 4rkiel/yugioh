@@ -159,6 +159,8 @@ void Master::loadField (int x){
     }
 
 
+	connect(noyau, SIGNAL(beginTour()), field, SLOT(unlockTick()));
+
 	connect(noyau, SIGNAL(giveLife(int)), field, SLOT(initLife(int)));
     connect(noyau, SIGNAL(changeLife(int,bool)), field, SLOT(setLife(int,bool)));
     
