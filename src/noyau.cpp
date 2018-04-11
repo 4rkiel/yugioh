@@ -422,6 +422,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
         if(adversaire_x == -1)
         {
             foeLife = foeLife - atk->atk;
+            emit changeLife(foeLife,false);
             if(foeLife <=0)
                 emit je_gagne();
         }
@@ -438,6 +439,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     else if(atk->atk < def->def)
                     {
                         selfLife = selfLife - (def->def - atk->atk);
+                        emit changeLife(selfLife,true);
                     }
                 }
                 else
@@ -446,6 +448,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     {
                         detruire(adversaire_x);
                         foeLife = foeLife - (atk->atk - def->atk);
+                        emit changeLife(foeLife,false);
                         if(foeLife <=0)
                             emit je_gagne();
                     }
@@ -453,6 +456,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     {
                         detruire(attaquant_x);
                         selfLife = selfLife - (def->atk - atk->atk);
+                        emit changeLife(selfLife,true);
                     }
                     else
                     {
@@ -470,6 +474,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
         if(adversaire_x == -1)
         {
            selfLife = selfLife - atk->atk;
+           emit changeLife(selfLife,true);
         }
         else
         {
@@ -484,6 +489,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     else if(atk->atk < def->def)
                     {
                         foeLife = foeLife - (def->def - atk->atk);
+                        emit changeLife(foeLife,false);
                         if(foeLife <=0)
                             emit je_gagne();
                     }
@@ -494,11 +500,13 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     {
                         detruire(adversaire_x);
                         selfLife = selfLife - (atk->atk - def->atk);
+                        emit changeLife(selfLife,true);
                     }
                     else if(atk->atk < def->def)
                     {
                         detruire(attaquant_x);
                         foeLife = foeLife - (def->atk - atk->atk);
+                        emit changeLife(foeLife,false);
                         if(foeLife <=0)
                             emit je_gagne();
                     }

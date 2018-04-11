@@ -118,6 +118,7 @@ signals:
     void tiens(QString);
     void give_infos(QString,int,int,QString,int,QString,int,int);
     void giveLife(int x);
+    void changeLife(int x,bool me);
     //void met_en_defense(int x);
 };
 
