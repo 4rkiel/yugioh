@@ -654,28 +654,33 @@ void Field::cardClicked(int x){
         
         retained = -1;
 
-    } else if (retained == -1){
+    } else if (
+		
+		! that -> isAdv() && 
+        ! that -> isDeck() && 
+        ! that -> isGrave() && 
+        ! that -> isFuse() &&
+		! that -> isField() &&
+		! that -> isMagic()
+	){
 
-        if (
-            ! that -> isAdv() && 
-            ! that -> isDeck() && 
-            ! that -> isGrave() && 
-            ! that -> isFuse() 
-        ){
-            retained = x;
-        }
+        retained = x;
 
-    } else {
-
-        if (
-            ! that -> isDeck() &&
-            ! that -> isGrave() &&
-            ! that -> isFuse()
-        ){
-            std::cout << "biclicked: " << retained << " " << x << "\n";
-            emit biClick(retained, x);
-            retained = -1;
-        }
+    } else if (
+		
+		that -> isAdv() &&
+        ! that -> isDeck() &&
+        ! that -> isGrave() &&
+        ! that -> isFuse() &&
+		! that -> isField() &&
+		! that -> isMagic()
+        
+	){
+   
+   		std::cout << "biclicked: " << retained << " " << x << "\n";
+        emit biClick(retained, x);
+        retained = -1;
+        
     }
 }
 
