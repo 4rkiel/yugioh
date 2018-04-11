@@ -522,6 +522,7 @@ HostChoice #introBox > QLabel {
 
 SoloChoice #introText,
 JoinChoice #introText,
+NetChoice #matchmakingText,
 HostChoice #stateBox {
     font-weight: bold;
 }
