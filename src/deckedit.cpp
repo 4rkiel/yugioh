@@ -766,6 +766,13 @@ void deckEdit::clearSearch()
     textSearch->clear();
 }
 
+void deckEdit::loadDeck()
+{
+    Parser leParser;
+
+
+}
+
 void deckEdit::slotAttribut()
 {
     choixAttribut->clear();

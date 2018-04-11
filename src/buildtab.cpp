@@ -141,6 +141,9 @@ BuildTab::BuildTab (){
             deck = new deckEdit(allCard);
             deckScroll->setWidget(deck);
 
+//            deck = new DeckSelector;
+//            deckScroll->setWidget(deck);
+
             buildLayout -> addWidget(deckScroll);
 
            
@@ -194,13 +197,13 @@ BuildTab::BuildTab (){
 
 
 BuildTab::~BuildTab (){
-    
+
     delete buildEffect;
 
 	delete editeur;
     delete cardScroll;
 
-	delete deck;
+    delete deck;
     delete deckScroll;
 
         delete deckButt;

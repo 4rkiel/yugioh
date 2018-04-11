@@ -1,32 +1,24 @@
 #include "../inc/deckpreview.h"
 
-DeckPreview::DeckPreview(QString deck ,int idCarte, const std::vector<Carte *>& allCard)
+DeckPreview::DeckPreview(QString deck ,QString img)
 {
-    QHBoxLayout mainLayout;
+    mainLayout = new QHBoxLayout;
 
     monDeck = deck;
+    deck.chop(5);
 
-    QString image = QCoreApplication::applicationDirPath() + "img/card.svg";
+    qDebug() << "creation bouton edition "+ monDeck + " alias " + deck;
 
-    for(Carte* carte : allCard)
-    {
-        if(carte->id == idCarte)
-        {
-            image = carte->image;
-            break;
-        }
-    }
+    QPixmap image(img);
+    image.scaled (QSize(200, 180), Qt::KeepAspectRatio);
 
-    QPixmap monImage(image);
+    FlatExpButt *preview = new FlatExpButt(image, deck);
+    preview->setToolTip(tr("Editer le deck ")+deck);
+    mainLayout->addWidget(preview);
 
-    QString name = deck;
-    name.chop(5);
 
-    FlatExpButt preview(monImage, name);
 
-    mainLayout.addWidget(&preview);
-
-    setLayout(&mainLayout);
+    setLayout(mainLayout);
 }
 
 void DeckPreview::mousePressEvent (QMouseEvent * e)

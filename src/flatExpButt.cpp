@@ -56,12 +56,10 @@ FlatExpButt::FlatExpButt (QString icoStr, QString textStr){
 	setLayout(layout);
 }
 
-FlatExpButt::FlatExpButt (const QPixmap monImage, QString textStr){
+FlatExpButt::FlatExpButt (const QPixmap image, QString textStr){
 
     // Button content
 
-    QPixmap image(monImage);
-    image = image.scaled (QSize(200, 180), Qt::KeepAspectRatio);
     QLabel imageLabel;
     imageLabel.setPixmap(image);
     imageLabel.setSizeIncrement(QSizePolicy::Maximum, QSizePolicy::Maximum);
