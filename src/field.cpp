@@ -10,7 +10,8 @@ Initialisé lors du lancement d'une partie
 
 Field::Field () {
 
-    lockPreview = false;
+    lockPreview = true;
+	previewed = -1;
 
     retained = -1;
 
@@ -580,21 +581,24 @@ void Field::cardRightClicked(int x){
         (! fieldStack -> at(x) -> isGrave() )
     ){
         if (lockPreview){
+			
             emit askPreview(x);            
            
-            fieldStack -> at(x) -> setProperty("down", false);
+            fieldStack -> at(x) -> setProperty("down", true);
             fieldStack -> at(x) -> style() -> unpolish(fieldStack -> at(x));
             fieldStack -> at(x) -> style() -> polish(fieldStack -> at(x));
             
             lockPreview = false;
+			previewed = x;
 
         } else {
 
-            fieldStack -> at(x) -> setProperty("down", true);
-            fieldStack -> at(x) -> style() -> unpolish(fieldStack -> at(x));
-            fieldStack -> at(x) -> style() -> polish(fieldStack -> at(x));
+            fieldStack -> at(previewed) -> setProperty("down", false);
+            fieldStack -> at(previewed) -> style() -> unpolish(fieldStack -> at(previewed));
+            fieldStack -> at(previewed) -> style() -> polish(fieldStack -> at(previewed));
  
             lockPreview = true;
+			previewed = -1;
         }
     }
 }

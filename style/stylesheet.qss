@@ -852,6 +852,7 @@ SlotCard[down="false"]{
 
 SlotCard[down="true"]{
     background: #FFD54F;
+	border: 2px solid red;
 }
 
 

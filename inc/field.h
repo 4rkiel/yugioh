@@ -103,8 +103,11 @@ private:
 
     int retained;
     int maxPhase;
-    bool lockPreview;
-    QString baseLife;
+    
+	bool lockPreview;
+	int previewed;
+
+	QString baseLife;
     
 
     QGridLayout * layout;
