@@ -26,6 +26,7 @@ public:
     Chat();
     ~Chat();
     void addText(QString, int);
+    void goFocus();
 
 signals:
 

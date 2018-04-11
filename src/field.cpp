@@ -384,8 +384,8 @@ Field::Field () {
     shortcut = new QShortcut(QKeySequence("Escape"), this);
     shortcut->setContext(Qt::WidgetShortcut);
     connect(shortcut, SIGNAL(activated()), popup, SLOT(openQuit()));
-    this->setFocusPolicy(Qt::StrongFocus);
-
+    
+    
     setLayout(layout);
 
 }
@@ -506,8 +506,10 @@ void Field::init(){
                  this, SLOT(cardLeaved())
              );
 
-         }
-     }
+        }
+    }
+
+    chat -> goFocus();
 }
 
 
@@ -553,7 +555,7 @@ void Field::openLost (){
 }
 
 void Field::getsFocus(){
-    this->setFocus();
+    chat -> goFocus();
 }
 
 
@@ -571,7 +573,6 @@ void Field::previewClicked(){
 }
 
 void Field::cardRightClicked(int x){
-    std::cout << x << " Right Clicked \n";
 
     if (
         (! fieldStack -> at(x) -> isDeck() ) &&
@@ -580,16 +581,22 @@ void Field::cardRightClicked(int x){
     ){
         if (lockPreview){
             emit askPreview(x);            
+           
             fieldStack -> at(x) -> setProperty("down", false);
+            fieldStack -> at(x) -> style() -> unpolish(fieldStack -> at(x));
+            fieldStack -> at(x) -> style() -> polish(fieldStack -> at(x));
+            
             lockPreview = false;
 
         } else {
 
             fieldStack -> at(x) -> setProperty("down", true);
+            fieldStack -> at(x) -> style() -> unpolish(fieldStack -> at(x));
+            fieldStack -> at(x) -> style() -> polish(fieldStack -> at(x));
+ 
             lockPreview = true;
         }
     }
-
 }
 
 
@@ -632,12 +639,11 @@ void Field::cardOut (){
 /* Field Actions */
 
 void Field::cardDoubleClicked(int x){
-    std::cout << x << " Double clicked \n"; 
+    
     emit doubleClicked(x);
 }
 
 void Field::cardClicked(int x){
-    std::cout << x << " clicked \n";
 
     SlotCard * that = fieldStack -> at(x);
 
@@ -721,11 +727,11 @@ void Field::resetProgress (){
 }
 
 
-void Field::setTour (int x){
+void Field::setTour (int){
 //    stats -> setTour(x);
 }
 
-void Field::setPhase (int x){
+void Field::setPhase (int){
 //    stats -> setPhase(x);
 }
 

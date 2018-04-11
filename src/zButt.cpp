@@ -6,11 +6,15 @@ void zButt::mousePressEvent (QMouseEvent * e){
 	} else if (e->button() == Qt::LeftButton){
 		emit clicked();
 	}
+
+    QPushButton::mousePressEvent(e);
 }
 
 
 void zButt::mouseDoubleClickEvent (QMouseEvent * e){
     if (e->button() == Qt::LeftButton){
         emit doubleClicked();
-    }        
+    }
+
+    QPushButton::mouseDoubleClickEvent(e);
 }

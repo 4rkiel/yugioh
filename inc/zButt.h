@@ -16,7 +16,6 @@ signals:
 protected:
     void mousePressEvent(QMouseEvent *e);
     void mouseDoubleClickEvent(QMouseEvent *e);
-
 };
 
 
