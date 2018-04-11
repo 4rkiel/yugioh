@@ -942,7 +942,7 @@ void Noyau::traiter(QString s)
              message.append(QString::fromStdString(ss1.str()));
          }
          emit tiens(message);
-        // piocher(1);
+         piocher(1);
         // piocher(76);
          //deckAdverse(0);
     }
