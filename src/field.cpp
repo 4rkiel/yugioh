@@ -565,9 +565,11 @@ void Field::getsFocus(){
 
 void Field::previewClicked(){
 
-    if (lockPreview){
+	std::cout << "yolo\n";
+    if (!lockPreview){
 
-        lockPreview = false;
+        lockPreview = true;
+		previewed = -1;
         cardOut();
     }
 }
