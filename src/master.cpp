@@ -161,6 +161,10 @@ void Master::loadField (int x){
 
 	connect(noyau, SIGNAL(giveLife(int)), field, SLOT(initLife(int)));
     connect(noyau, SIGNAL(changeLife(int,bool)), field, SLOT(setLife(int,bool)));
+    
+	connect(noyau, SIGNAL(setTour(int)), field, SLOT(setTour(int)));
+
+	connect(noyau, SIGNAL(sendInfo(QString), field, SLOT(sendInfo(QString)));
 
 
     // Quit
