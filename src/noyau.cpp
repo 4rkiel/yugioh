@@ -1001,10 +1001,10 @@ void Noyau::traiter(QString s)
              //std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
              if(!vrai.startsWith(QString("life")))
              {
-                 std::cout << "la vie :" << parcourir << std::endl;
+               //  std::cout << "la vie :" << parcourir << "la vraie vie:" << selfLife<< std::endl;
                    if(!(selfLife == atoi(parcourir)))
                    {
-                       selfLife = setting.value("lifePoints","8000").toString().toInt();
+                       selfLife = 8000;
                        foeLife = selfLife;
                    }
              }
@@ -1037,7 +1037,7 @@ void Noyau::traiter(QString s)
              {
                    if(!(selfLife == atoi(parcourir)))
                    {
-                       selfLife = setting.value("lifePoints","8000").toString().toInt();
+                       selfLife = 8000;
                        foeLife = selfLife;
                    }
              }
