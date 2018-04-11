@@ -146,7 +146,7 @@ void Noyau::piocher(int x)
     //on met la position de la carte qui est au sommet du deck là où il faut dans la main
     //on place la carte dans au bon endroit
     //on enleve la carte du deck
-
+    sendInfo(QString("Je pioche"));
     std::cout << "le traitement du piochage allié en cours " << std::endl;
     int dans_main = perfect_position(0);
     d1->front()->position_terrain = dans_main;
@@ -996,12 +996,12 @@ void Noyau::traiter(QString s)
          QString vrai;
          if(parcourir!=NULL)
           vrai = QString(parcourir);
-         int i;
          while(parcourir!=NULL)
          {
              //std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
              if(!vrai.startsWith(QString("life")))
              {
+                 std::cout << "la vie :" << parcourir << std::endl;
                    if(!(selfLife == atoi(parcourir)))
                    {
                        selfLife = setting.value("lifePoints","8000").toString().toInt();
