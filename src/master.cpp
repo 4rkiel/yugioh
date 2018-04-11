@@ -35,10 +35,10 @@ Master::Master (){
         connect(selector, SIGNAL(sendIP(QString)), network, SLOT(mondieu(QString)));
 
         // Load Joined Game
-        connect(network, SIGNAL(connectOK(int)), this, SLOT(loadField(int)));
+//        connect(network, SIGNAL(connectOK(int)), this, SLOT(loadField(int)));
 
         // Host not found
-        connect(network, SIGNAL(connectKO(int)), this, SLOT(sendErr(int)));
+//        connect(network, SIGNAL(connectKO(int)), this, SLOT(sendErr(int)));
 
 
     stacked -> addWidget(selector);
@@ -112,7 +112,6 @@ void Master::loadField (int x){
     noyau = new Noyau;
 
 
-
     if (mode >= 10 && mode <= 19){
 
         delete network;
@@ -142,6 +141,8 @@ void Master::loadField (int x){
         
     } else {
 
+		// 
+
         if (network != NULL){
 
             connect(network,SIGNAL(a_parser(QString)),noyau,SLOT(traiter(QString)));
@@ -157,6 +158,9 @@ void Master::loadField (int x){
         }
     }
 
+
+	connect(noyau, SIGNAL(giveLife(int)), field, SLOT(initLife(int)));
+	connect(noyau, SIGNAL(changeLife(int,bool)), field, SLOT(setLife(int)));
 
 
     // Quit

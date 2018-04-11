@@ -57,6 +57,9 @@ public slots:
 	void sendMsg(QString);
 	void sendInfo(QString);
 
+	void setLife(int, bool);
+	void initLife(int);
+
     void setCarte(QString, int);
     void poseCarte(int);
     void maskCarte(int);
@@ -103,8 +106,11 @@ private:
 
     int retained;
     int maxPhase;
-    bool lockPreview;
-    QString baseLife;
+    
+	bool lockPreview;
+	int previewed;
+
+	QString baseLife;
     
 
     QGridLayout * layout;

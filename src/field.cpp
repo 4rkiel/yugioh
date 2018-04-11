@@ -10,7 +10,8 @@ Initialisé lors du lancement d'une partie
 
 Field::Field () {
 
-    lockPreview = false;
+    lockPreview = true;
+	previewed = -1;
 
     retained = -1;
 
@@ -49,8 +50,7 @@ Field::Field () {
             lifeLayout -> setMargin(0);
             lifeLayout -> setContentsMargins(0,0,0,0);
         
-            QSettings settings;
-            baseLife = settings.value("lifePoints", "8000").toString();
+            baseLife = "8000";
             int bl = baseLife.toInt();
 
             lifeSlf = new QLabel;
@@ -580,21 +580,24 @@ void Field::cardRightClicked(int x){
         (! fieldStack -> at(x) -> isGrave() )
     ){
         if (lockPreview){
+			
             emit askPreview(x);            
            
-            fieldStack -> at(x) -> setProperty("down", false);
+            fieldStack -> at(x) -> setProperty("down", true);
             fieldStack -> at(x) -> style() -> unpolish(fieldStack -> at(x));
             fieldStack -> at(x) -> style() -> polish(fieldStack -> at(x));
             
             lockPreview = false;
+			previewed = x;
 
         } else {
 
-            fieldStack -> at(x) -> setProperty("down", true);
-            fieldStack -> at(x) -> style() -> unpolish(fieldStack -> at(x));
-            fieldStack -> at(x) -> style() -> polish(fieldStack -> at(x));
+            fieldStack -> at(previewed) -> setProperty("down", false);
+            fieldStack -> at(previewed) -> style() -> unpolish(fieldStack -> at(previewed));
+            fieldStack -> at(previewed) -> style() -> polish(fieldStack -> at(previewed));
  
             lockPreview = true;
+			previewed = -1;
         }
     }
 }
@@ -726,6 +729,32 @@ void Field::resetProgress (){
     progressRight -> repaint();
 }
 
+
+void Field::initLife(int x){
+	
+	progressSlf -> setRange(0,x);
+	progressAdv -> setRange(0,x);
+	progressSlf -> setValue(x);
+	progressAdv -> setValue(x);
+	
+	lifeSlf -> setText(x.toString());
+	lifeAdv -> setText(x.toString());
+}
+
+
+void Field::setLife(int x, bool me){
+
+	if (me){
+		
+		lifeSlf -> setText(x.toString());
+		progressSlf -> setValue(x);
+
+	} else {
+		
+		lifeAdv -> setText(x.toString());
+		progressAdv -> setValue(x);
+	}
+}
 
 void Field::setTour (int){
 //    stats -> setTour(x);

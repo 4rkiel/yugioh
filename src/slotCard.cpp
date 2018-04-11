@@ -1,4 +1,5 @@
 #include "../inc/slotCard.h"
+#include <iostream>
 
 /******************************************************************************
 
@@ -314,6 +315,7 @@ void SlotCard::doubleClicked(){
 }
 
 void SlotCard::rightClicked(){
+
 	emit rightClick(posi);
 }
 
