@@ -474,6 +474,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                  {
                      if(no_monster(1))
                      {
+                         std::cout << "je vais attaquer l'adversaire directement" << std::endl;
                          attaquer(attaquant_x);
                          return;
                      }
@@ -515,7 +516,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
         }
         QString message = "a/";
         std::stringstream s1;
-        s1 << attaquant_x << "/" << adversaire_x;
+        s1 << Carte::correspondant(attaquant_x) << "/" << Carte::correspondant(adversaire_x);
         message.append(QString::fromStdString(s1.str()));
         emit tiens(message);
 
