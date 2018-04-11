@@ -737,8 +737,8 @@ void Field::initLife(int x){
 	progressSlf -> setValue(x);
 	progressAdv -> setValue(x);
 	
-	lifeSlf -> setText(x.toString());
-	lifeAdv -> setText(x.toString());
+	lifeSlf -> setText(QString::number(x));
+	lifeAdv -> setText(QString::number(x));
 }
 
 
@@ -746,12 +746,12 @@ void Field::setLife(int x, bool me){
 
 	if (me){
 		
-		lifeSlf -> setText(x.toString());
+		lifeSlf -> setText(QString::number(x));
 		progressSlf -> setValue(x);
 
 	} else {
 		
-		lifeAdv -> setText(x.toString());
+		lifeAdv -> setText(QString::number(x));
 		progressAdv -> setValue(x);
 	}
 }
