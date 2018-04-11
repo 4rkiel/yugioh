@@ -219,6 +219,10 @@ void Master::loadField (int x){
     // bi clicked
     connect(field,SIGNAL(monstClick(int,int)),noyau,SLOT(attaquerSlot(int,int)));
 
+    //win
+    connect(noyau,SIGNAL(je_gagne()),field,SLOT(openWin()));
+    //lose
+    connect(noyau,SIGNAL(je_perds()),field,SLOT(openLost()));
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
 

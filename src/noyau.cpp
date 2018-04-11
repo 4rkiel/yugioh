@@ -23,6 +23,8 @@ void Noyau::init()
      aleatoire = std::rand();
     std::cout << "aleatoire" << aleatoire << std::endl;
     std::srand(aleatoire);
+    phase = 0;
+    tour = 0;
     //chargerDeck(0);
     //deckAdverse(0);
     //std::stringstream ss1;
@@ -268,6 +270,7 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
     if(main_x < 75)
     {
         std::cout << "je traite mon posage" << std::endl;
+        emit sendInfo(QString("Je pioche"));
         la_carte = trouver(main_x);
         la_carte->position_terrain=terrain_x;
         la_carte->def = def;
@@ -307,6 +310,7 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
     }
     else
     {
+         emit sendInfo(QString("L'adversaire pioche"));
         std::cout << "je traite le posage adverse" << std::endl;
         la_carte = trouver(main_x);
         la_carte->position_terrain=terrain_x;
@@ -488,7 +492,10 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     else if(atk->atk < def->def)
                     {
                         selfLife = selfLife - (def->def - atk->atk);
+
                         emit changeLife(selfLife,true);
+                        if(selfLife <=0)
+                            emit je_perds();
                     }
                 }
                 else
@@ -505,6 +512,8 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     {
                         detruire(attaquant_x);
                         selfLife = selfLife - (def->atk - atk->atk);
+                        if(selfLife <=0)
+                            emit je_perds();
                         emit changeLife(selfLife,true);
                     }
                     else
@@ -530,7 +539,10 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
             if(no_monster(0))
             {
                 selfLife = selfLife - atk->atk;
+
                 emit changeLife(selfLife,true);
+                if(selfLife <=0)
+                    emit je_perds();
             }
         }
         else
@@ -566,6 +578,8 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                         detruire(adversaire_x);
                         selfLife = selfLife - (atk->atk - def->atk);
                         emit changeLife(selfLife,true);
+                        if(selfLife <=0)
+                            emit je_perds();
                     }
                     else if(atk->atk < def->def)
                     {
@@ -1033,7 +1047,7 @@ void Noyau::traiter(QString s)
           }
          delete(arg);
          emit giveLife(selfLife);
-         piocher(1);
+        // emit commence();
     }
     else if(s.compare(QString("init"))==0)
     {
