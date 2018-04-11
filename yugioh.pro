@@ -73,7 +73,8 @@ HEADERS += inc/buildtab.h \
            inc/cardpreview.h \
            inc/ai.h \
     inc/deckselect.h \
-    inc/deckpreview.h
+    inc/deckpreview.h \
+    inc/matchmaking.h
 
 SOURCES += src/buildtab.cpp \
            src/master.cpp \
@@ -112,7 +113,8 @@ SOURCES += src/buildtab.cpp \
            src/reseau.cpp \
            src/cardlistpreview.cpp \
            src/cardpreview.cpp \
-           src/ai.cpp \   
+           src/ai.cpp \
+           src/matchmaking.cpp \
     src/deckpreview.cpp
 
            

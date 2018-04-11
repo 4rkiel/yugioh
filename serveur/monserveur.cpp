@@ -2,8 +2,13 @@
 
 MonServeur::MonServeur(QObject *parent) : QObject(parent){
 
+    adresse_hote=new QHostAddress;
+    port_hote=new quint16;
     socket=new QUdpSocket(this);
-    socket->bind(QHostAddress::LocalHostIPv6,9000);
+
+    //on fixe l'adresse serveur
+    socket->bind(QHostAddress("2001:660:4701:2001:50d9:1d4e:41f2:392b"),9000);
+
     connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 
 }
@@ -12,18 +17,30 @@ void MonServeur::readyRead(){
 
     QByteArray buffer;
     buffer.resize(socket->pendingDatagramSize());
+    QByteArray buffer2;
 
     QHostAddress sender;
     quint16 senderPort;
 
     //le serveur reçoit le message d'un client et le stock avec ses coordonnées
-    socket->readDatagram(buffer.data(),buffer.size(),&sender,&senderPort);
-    QString msgRec(buffer.data());
-    std::cout << msgRec.toStdString() << std::endl;
 
-    //le serveur répond au client
-    QByteArray Data;
-    Data.append("Hello du serveur");
-    socket->writeDatagram(Data,sender,senderPort);
+    socket->readDatagram(buffer.data(),buffer.size(),&sender,&senderPort);
+
+    //si pas d'hote, on stock ses coordonnées
+    if((adresse_hote->toString()).isEmpty()){
+        *adresse_hote=sender;
+        *port_hote=senderPort;
+    }
+    //si hote, on envoie à chaque client leurs rôles
+    else{
+        buffer2.append("hote");
+        socket->writeDatagram(buffer2,*adresse_hote,*port_hote);
+
+        buffer2.clear();
+        buffer2.append(adresse_hote->toString());
+        socket->writeDatagram(buffer2,sender,senderPort);
+        adresse_hote->clear();
+
+    }
 
 }
