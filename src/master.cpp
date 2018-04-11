@@ -268,8 +268,8 @@ void MasterTask::masterLoop (){
 
 
 void Master::timeTicker(){
-   // std::cout << "Tick\n";
 
+	noyau -> comptageTick();
     field -> setProgress();
 }
 

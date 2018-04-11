@@ -739,7 +739,7 @@ void Field::unlockTick(){
 }
 
 
-void Field::resetProgress (){
+void Field::lockTick (){
 
 	lockTick = false;
 
@@ -749,6 +749,17 @@ void Field::resetProgress (){
     progressLeft -> repaint();
     progressRight -> repaint();
 }
+
+void Field::resetProgress (){
+
+    progressRight -> reset();
+    progressLeft -> reset();
+
+    progressLeft -> repaint();
+    progressRight -> repaint();
+}
+
+
 
 
 void Field::setTour (int x){
