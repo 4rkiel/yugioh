@@ -70,6 +70,16 @@ Parser * yolo = new Parser();
 d1 = yolo->rechercher_set(x,NULL);
 std::random_shuffle(d1->begin(),d1->end());
 std::cout << "je shuffle d1" << std::endl;
+QString message = "";
+message.append("adeck:");
+int i;
+for(i=0;i<(signed)d1->size();i++)
+{
+    std::stringstream ss1;
+    ss1 << "/" << d1->at(i)->id;
+    message.append(QString::fromStdString(ss1.str()));
+}
+emit tiens(message);
 /*int i;
     for(i=0;i<(signed)d1->size();i++)
     {
@@ -95,22 +105,18 @@ for(i=0;i<(signed)d2->size();i++)
     std::cout << "carte :" << d2->at(i)->id << std::endl;
 //std::this_thread::sleep_for(std::chrono::milliseconds(rand()%100));
 //piocher(1);
-    QString message = "";
-    message.append("adeck:");
-    for(i=0;i<(signed)d1->size();i++)
-    {
-        std::stringstream ss1;
-        ss1 << "/" << d1->at(i)->id;
-        message.append(QString::fromStdString(ss1.str()));
-    }
-    message.append("/mdeck:");
+
+    /*message.append("/mdeck:");
     for(i=0;i<(signed)d2->size();i++)
     {
         std::stringstream ss1;
         ss1 << "/" << d2->at(i)->id;
         message.append(QString::fromStdString(ss1.str()));
     }
-    emit tiens(message);
+    std::stringstream ss2;
+    ss2 << "/life:" << selfLife;
+    message.append(QString::fromStdString(ss2.str()));*/
+
 }
 
 void Noyau::donner_infos(int x)
@@ -809,7 +815,6 @@ void Noyau::traiter(QString s)
         Parser * yolo = new Parser();
         d1 = new std::vector<Carte *>();
         d2 = new std::vector<Carte *>();
-        int qui=0;
         char * arg = new char[s.length()+1];
            std::strcpy(arg,s.toStdString().c_str());
          char * parcourir = std::strtok(arg,"/");
@@ -820,19 +825,9 @@ void Noyau::traiter(QString s)
          while(parcourir!=NULL)
          {
              //std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
-             if(vrai.startsWith(QString("adeck")))
+             if(!vrai.startsWith(QString("adeck")))
              {
-                 qui = 0;
-             }
-             else if(vrai.startsWith(QString("mdeck")))
-             {
-                 qui = 1;
-             }
-             else
-             {
-                    if(qui==0)
-                    {
-                        for(i=0;i<(signed)yolo->all_cards->size();i++)
+             for(i=0;i<(signed)yolo->all_cards->size();i++)
                         {
                             if(yolo->all_cards->at(i)->id == atoi(parcourir))
                             {
@@ -840,32 +835,137 @@ void Noyau::traiter(QString s)
                                   break;
                             }
                         }
-                    }
-                    else
-                    {
-                        for(i=0;i<(signed)yolo->all_cards->size();i++)
+               }
+             parcourir = std::strtok(NULL,"/");
+             if(parcourir!=NULL)
+            vrai = QString(parcourir);
+          }
+
+
+         delete(arg);
+         d1 = yolo->rechercher_set(0,NULL);
+         std::random_shuffle(d1->begin(),d1->end());
+         std::cout << "je shuffle d1" << std::endl;
+         QString message = "";
+         message.append("sdeck:");
+         for(i=0;i<(signed)d1->size();i++)
+         {
+             std::stringstream ss1;
+             ss1 << "/" << d1->at(i)->id;
+             message.append(QString::fromStdString(ss1.str()));
+         }
+         emit tiens(message);
+        // piocher(1);
+        // piocher(76);
+         //deckAdverse(0);
+    }
+    else if(s.startsWith("sdeck:"))
+    {
+        std::cout << "JE TRAITE LE MESSAGE DU CLIENT" << std::endl;
+        Parser * yolo = new Parser();
+        d2 = new std::vector<Carte *>();
+        char * arg = new char[s.length()+1];
+           std::strcpy(arg,s.toStdString().c_str());
+         char * parcourir = std::strtok(arg,"/");
+         QString vrai;
+         if(parcourir!=NULL)
+          vrai = QString(parcourir);
+         int i;
+         while(parcourir!=NULL)
+         {
+             //std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+             if(!vrai.startsWith(QString("adeck")))
+             {
+             for(i=0;i<(signed)yolo->all_cards->size();i++)
                         {
                             if(yolo->all_cards->at(i)->id == atoi(parcourir))
                             {
-                                  d1->push_back(yolo->all_cards->at(i));
+                                  d2->push_back(yolo->all_cards->at(i));
                                   break;
                             }
                         }
-                    }
+               }
+             parcourir = std::strtok(NULL,"/");
+             if(parcourir!=NULL)
+            vrai = QString(parcourir);
+          }
+
+
+         delete(arg);
+         QString message = "";
+         message.append("life/");
+         std::stringstream ss1;
+         ss1 << selfLife;
+          message.append(QString::fromStdString(ss1.str()));
+         emit tiens(message);
+         //piocher(1);
+    }
+    else if(s.startsWith("life/"))
+    {
+        QSettings setting;
+        char * arg = new char[s.length()+1];
+           std::strcpy(arg,s.toStdString().c_str());
+         char * parcourir = std::strtok(arg,"/");
+         QString vrai;
+         if(parcourir!=NULL)
+          vrai = QString(parcourir);
+         int i;
+         while(parcourir!=NULL)
+         {
+             //std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+             if(!vrai.startsWith(QString("life")))
+             {
+                   if(!(selfLife == atoi(parcourir)))
+                   {
+                       selfLife = setting.value("lifePoints","8000").toString().toInt();
+                       foeLife = selfLife;
+                   }
              }
              parcourir = std::strtok(NULL,"/");
              if(parcourir!=NULL)
             vrai = QString(parcourir);
           }
          delete(arg);
+         QString message = "";
+         message.append("slife/");
+         std::stringstream ss1;
+         ss1 << selfLife;
+          message.append(QString::fromStdString(ss1.str()));
+         emit tiens(message);
+         emit giveLife(selfLife);
+    }
+    else if(s.startsWith("slife/"))
+    {
+        QSettings setting;
+        char * arg = new char[s.length()+1];
+           std::strcpy(arg,s.toStdString().c_str());
+         char * parcourir = std::strtok(arg,"/");
+         QString vrai;
+         if(parcourir!=NULL)
+          vrai = QString(parcourir);
+         while(parcourir!=NULL)
+         {
+             //std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+             if(!vrai.startsWith(QString("slife")))
+             {
+                   if(!(selfLife == atoi(parcourir)))
+                   {
+                       selfLife = setting.value("lifePoints","8000").toString().toInt();
+                       foeLife = selfLife;
+                   }
+             }
+             parcourir = std::strtok(NULL,"/");
+             if(parcourir!=NULL)
+            vrai = QString(parcourir);
+          }
+         delete(arg);
+         emit giveLife(selfLife);
          piocher(1);
-         piocher(76);
-         //deckAdverse(0);
     }
     else if(s.compare(QString("init"))==0)
     {
         chargerDeck(0);
-        deckAdverse(0);
+        //deckAdverse(0);
     }
 
 }
