@@ -75,6 +75,7 @@ public:
     void chargerDeck(int x);
     void deckAdverse(int x);
     Carte * trouver(int x);
+    bool no_monster(int zone);
 
 
     //obsolète
