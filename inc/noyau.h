@@ -97,6 +97,7 @@ public slots:
     void poserAtk();
     void poserDef();
     void donner_infos(int x);
+    void attaquerSlot(int,int);
 signals:
     void emit_go();
     void emit_mondieu();

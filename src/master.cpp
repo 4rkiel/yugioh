@@ -216,7 +216,8 @@ void Master::loadField (int x){
     connect(noyau,SIGNAL(give_infos(QString,int,int,QString,int,QString,int,int)),
 		field, SLOT(cardHover(QString,int,int,QString,int,QString,int,int)));
 
-
+    // bi clicked
+    connect(field,SIGNAL(monstClick(int,int)),noyau,SLOT(attaquerSlot(int,int)));
 
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
