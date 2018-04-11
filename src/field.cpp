@@ -550,12 +550,12 @@ void Field::emitVisi (){
 
 void Field::openWin (){
     popup -> openWin();
-	lockProgress();
+	relockTick();
 }
 
 void Field::openLost (){
     popup -> openLost();
-	lockProgress();
+	relockTick();
 }
 
 void Field::getsFocus(){
@@ -739,7 +739,7 @@ void Field::unlockTick(){
 }
 
 
-void Field::lockerTick (){
+void Field::relockTick (){
 
 	lockTick = false;
 
