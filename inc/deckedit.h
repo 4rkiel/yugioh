@@ -141,6 +141,7 @@ class deckEdit : public QWidget
             void trierDeck();
             void updPreview();
             void clearSearch();
+            void loadDeck();
 };
 
 #endif // DECKEDIT_H

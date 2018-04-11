@@ -28,11 +28,11 @@ class DeckPreview : public QWidget
 
     public:
 
-        DeckPreview(QString deck, int idCarte, const std::vector<Carte *> &allCard);
+        DeckPreview(QString deck, QString img);
 
     private:
 
-        QHBoxLayout mainLayout;
+        QHBoxLayout *mainLayout;
 
         QString monDeck;
 

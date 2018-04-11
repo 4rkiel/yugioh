@@ -28,6 +28,7 @@
 #include "../inc/cardEditor.h"
 #include "../inc/deckedit.h"
 #include "../inc/parser.h"
+#include "../inc/deckselector.h"
 
 class BuildTab : public QFrame {
 
@@ -69,7 +70,8 @@ private:
     QStackedLayout * buildLayout;
 
     QScrollArea * deckScroll;
-	deckEdit * deck;
+    deckEdit * deck;
+    //DeckSelector* deck;
 
     QScrollArea * cardScroll;
 
