@@ -50,8 +50,7 @@ Field::Field () {
             lifeLayout -> setMargin(0);
             lifeLayout -> setContentsMargins(0,0,0,0);
         
-            QSettings settings;
-            baseLife = settings.value("lifePoints", "8000").toString();
+            baseLife = "8000";
             int bl = baseLife.toInt();
 
             lifeSlf = new QLabel;
@@ -730,6 +729,32 @@ void Field::resetProgress (){
     progressRight -> repaint();
 }
 
+
+void Field::initLife(int x){
+	
+	progressSlf -> setRange(0,x);
+	progressAdv -> setRange(0,x);
+	progressSlf -> setValue(x);
+	progressAdv -> setValue(x);
+	
+	lifeSlf -> setText(x.toString());
+	lifeAdv -> setText(x.toString());
+}
+
+
+void Field::setLife(int x, bool me){
+
+	if (me){
+		
+		lifeSlf -> setText(x.toString());
+		progressSlf -> setValue(x);
+
+	} else {
+		
+		lifeAdv -> setText(x.toString());
+		progressAdv -> setValue(x);
+	}
+}
 
 void Field::setTour (int){
 //    stats -> setTour(x);
