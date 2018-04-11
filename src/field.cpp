@@ -622,7 +622,7 @@ void Field::cardHover (
     fullCard -> setDesc(desc);
     fullCard -> setStat(QString::number(atk), QString::number(def));
 
-    if (!lockPreview){
+    if (lockPreview){
         chat -> setVisible(false);
         fullCard -> setVisible(true);
     }
@@ -631,7 +631,7 @@ void Field::cardHover (
 
 void Field::cardOut (){
 
-    if (!lockPreview){
+    if (lockPreview){
         fullCard -> setVisible(false);
         chat -> setVisible(true);
     }
@@ -685,7 +685,7 @@ void Field::cardClicked(int x){
 
 void Field::cardEntered(int x){
     
-    if (!lockPreview){
+    if (lockPreview){
     	emit askPreview(x);
     }
 }
@@ -748,6 +748,7 @@ void Field::initLife(int x){
 
 void Field::setLife(int x, bool me){
 
+	std::cout << x << " Life \n";
 	if (me){
 		
 		lifeSlf -> setText(QString::number(x));
