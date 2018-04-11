@@ -73,11 +73,10 @@ NetChoice::NetChoice () {
 
             // message d'attente
             msgAttente = new QLabel(tr("Recherche d'un adversaire en cours..."));
+            msgAttente -> setObjectName("matchmakingText");
 
-            msgAttente->setContentsMargins(185,0,0,100);
+            msgAttente->setContentsMargins(200,0,0,100);
             msgAttente->setWordWrap(true);
-            QFont f("",12,QFont::Normal);
-            msgAttente -> setFont(f);
             msgAttente -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
             msgAttente2 = new QLabel(tr("Veuillez patienter"));
