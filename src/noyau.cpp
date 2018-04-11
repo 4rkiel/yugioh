@@ -270,7 +270,7 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
     if(main_x < 75)
     {
         std::cout << "je traite mon posage" << std::endl;
-        emit sendInfo(QString("Je pioche"));
+        emit sendInfo(QString("Je pose"));
         la_carte = trouver(main_x);
         la_carte->position_terrain=terrain_x;
         la_carte->def = def;
@@ -310,7 +310,7 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
     }
     else
     {
-         emit sendInfo(QString("L'adversaire pioche"));
+         emit sendInfo(QString("L'adversaire pose"));
         std::cout << "je traite le posage adverse" << std::endl;
         la_carte = trouver(main_x);
         la_carte->position_terrain=terrain_x;
@@ -688,8 +688,13 @@ void Noyau::enlever_x(std::vector<Carte *> **vect, int x)
 //PAS ENCORE BIEN IMPLEMENTE 
 void Noyau::phase_suivante()
 {
-    if(phase==5)
-        phase=1;
+    if(phase==3)
+    {
+
+        phase=0;
+        tour++;
+        emit setTour(tour);
+    }
     else
         phase++;
 }
@@ -942,7 +947,7 @@ void Noyau::traiter(QString s)
              message.append(QString::fromStdString(ss1.str()));
          }
          emit tiens(message);
-         piocher(1);
+         //piocher(1);
         // piocher(76);
          //deckAdverse(0);
     }
@@ -1047,6 +1052,8 @@ void Noyau::traiter(QString s)
           }
          delete(arg);
          emit giveLife(selfLife);
+         piocher(1);
+         emit beginTour();
         // emit commence();
     }
     else if(s.compare(QString("init"))==0)
