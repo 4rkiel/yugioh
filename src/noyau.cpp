@@ -445,7 +445,7 @@ void Noyau::attaquerSlot(int atk,int def)
 void Noyau::attaquer(int attaquant_x, int adversaire_x)
 {
     //c'est moi qui attaque
-    std::cout << "je vais attaquer avec " << attaquant_x << "et " << adversaire_x  << std::endl;
+    std::cout << "je vais attaquer avec " << attaquant_x << " et " << adversaire_x  << std::endl;
     Carte * atk = trouver(attaquant_x);
     if(atk==NULL)
     {
@@ -459,6 +459,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
         {
             if(no_monster(1))
             {
+                std::cout << "l'adversaire perds de la vie " << std::endl;
                 foeLife = foeLife - atk->atk;
                 emit changeLife(foeLife,false);
                 if(foeLife <=0)
@@ -512,7 +513,12 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     }
                 }
         }
-        emit j_attaque(attaquant_x,adversaire_x);
+        QString message = "a/";
+        std::stringstream s1;
+        s1 << attaquant_x << "/" << adversaire_x;
+        message.append(QString::fromStdString(s1.str()));
+        emit tiens(message);
+
     }
     //c'est l'autre qui attaque
     else
