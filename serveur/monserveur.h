@@ -22,7 +22,8 @@ class MonServeur : public QObject
     Q_OBJECT
 public:
     explicit MonServeur(QObject *parent = 0);
-
+    QHostAddress* adresse_hote;
+    quint16* port_hote;
 private:
     QUdpSocket* socket;
 

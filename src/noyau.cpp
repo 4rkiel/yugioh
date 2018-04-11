@@ -23,6 +23,8 @@ void Noyau::init()
      aleatoire = std::rand();
     std::cout << "aleatoire" << aleatoire << std::endl;
     std::srand(aleatoire);
+    phase = 0;
+    tour = 0;
     //chargerDeck(0);
     //deckAdverse(0);
     //std::stringstream ss1;
@@ -144,7 +146,7 @@ void Noyau::piocher(int x)
     //on met la position de la carte qui est au sommet du deck là où il faut dans la main
     //on place la carte dans au bon endroit
     //on enleve la carte du deck
-
+    sendInfo(QString("Je pioche"));
     std::cout << "le traitement du piochage allié en cours " << std::endl;
     int dans_main = perfect_position(0);
     d1->front()->position_terrain = dans_main;
@@ -268,6 +270,7 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
     if(main_x < 75)
     {
         std::cout << "je traite mon posage" << std::endl;
+        emit sendInfo(QString("Je pioche"));
         la_carte = trouver(main_x);
         la_carte->position_terrain=terrain_x;
         la_carte->def = def;
@@ -307,6 +310,7 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
     }
     else
     {
+         emit sendInfo(QString("L'adversaire pioche"));
         std::cout << "je traite le posage adverse" << std::endl;
         la_carte = trouver(main_x);
         la_carte->position_terrain=terrain_x;
@@ -411,24 +415,74 @@ int Noyau::perfect_position(int zone)
     return begin_position;
 }
 
+bool Noyau::no_monster(int zone)
+{
+    bool fin = true;
+    int i;
+    if(zone==0)
+    {
+        for(i=0;i<5;i++)
+        {
+            if(trouver(1+i)!=NULL)
+                return false;
+        }
+    }
+    else
+    {
+        for(i=0;i<5;i++)
+        {
+            if(trouver(76+i)!=NULL)
+                return false;
+        }
+    }
+    return fin;
+}
+
+void Noyau::attaquerSlot(int atk,int def)
+{
+       attaquer(atk,def);
+}
+
+
 //permet d'attaquer
 //prends en parametre la position de l'attaquant  et la position de l'attaqué, si le deuxieme argument n'est pas donné ou vaut -1 alors cela attaque l'adversaire directement (càd ses points de vie)
 void Noyau::attaquer(int attaquant_x, int adversaire_x)
 {
     //c'est moi qui attaque
+    std::cout << "je vais attaquer avec " << attaquant_x << " et " << adversaire_x  << std::endl;
+    Carte * atk = trouver(attaquant_x);
+    if(atk==NULL)
+    {
+        std::cout << "attaquant existe pas " << std::endl;
+        return;
+    }
     if(attaquant_x < 75)
     {
-        Carte * atk = trouver(attaquant_x);
+        //Carte * atk = trouver(attaquant_x);
         if(adversaire_x == -1)
         {
-            foeLife = foeLife - atk->atk;
-            if(foeLife <=0)
-                emit je_gagne();
+            if(no_monster(1))
+            {
+                std::cout << "l'adversaire perds de la vie " << std::endl;
+                foeLife = foeLife - atk->atk;
+                emit changeLife(foeLife,false);
+                if(foeLife <=0)
+                    emit je_gagne();
+            }
         }
         else
         {
                  Carte * def = trouver(adversaire_x);
                  //le monstre est en position de défense
+                 if(def == NULL)
+                 {
+                     if(no_monster(1))
+                     {
+                         std::cout << "je vais attaquer l'adversaire directement" << std::endl;
+                         attaquer(attaquant_x);
+                         return;
+                     }
+                 }
                 if(def->pos)
                 {
                     if(atk->atk > def->def)
@@ -438,6 +492,10 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     else if(atk->atk < def->def)
                     {
                         selfLife = selfLife - (def->def - atk->atk);
+
+                        emit changeLife(selfLife,true);
+                        if(selfLife <=0)
+                            emit je_perds();
                     }
                 }
                 else
@@ -446,6 +504,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     {
                         detruire(adversaire_x);
                         foeLife = foeLife - (atk->atk - def->atk);
+                        emit changeLife(foeLife,false);
                         if(foeLife <=0)
                             emit je_gagne();
                     }
@@ -453,6 +512,9 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     {
                         detruire(attaquant_x);
                         selfLife = selfLife - (def->atk - atk->atk);
+                        if(selfLife <=0)
+                            emit je_perds();
+                        emit changeLife(selfLife,true);
                     }
                     else
                     {
@@ -461,20 +523,40 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     }
                 }
         }
-        emit j_attaque(attaquant_x,adversaire_x);
+        QString message = "a/";
+        std::stringstream s1;
+        s1 << Carte::correspondant(attaquant_x) << "/" << Carte::correspondant(adversaire_x);
+        message.append(QString::fromStdString(s1.str()));
+        emit tiens(message);
+
     }
     //c'est l'autre qui attaque
     else
     {
-        Carte * atk = trouver(attaquant_x);
+        //Carte * atk = trouver(attaquant_x);
         if(adversaire_x == -1)
         {
-           selfLife = selfLife - atk->atk;
+            if(no_monster(0))
+            {
+                selfLife = selfLife - atk->atk;
+
+                emit changeLife(selfLife,true);
+                if(selfLife <=0)
+                    emit je_perds();
+            }
         }
         else
         {
                  Carte * def = trouver(adversaire_x);
                  //le monstre est en position de défense
+                 if(def == NULL)
+                 {
+                     if(no_monster(0))
+                     {
+                         attaquer(attaquant_x);
+                         return;
+                     }
+                 }
                 if(def->pos)
                 {
                     if(atk->atk > def->def)
@@ -484,6 +566,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     else if(atk->atk < def->def)
                     {
                         foeLife = foeLife - (def->def - atk->atk);
+                        emit changeLife(foeLife,false);
                         if(foeLife <=0)
                             emit je_gagne();
                     }
@@ -494,11 +577,15 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     {
                         detruire(adversaire_x);
                         selfLife = selfLife - (atk->atk - def->atk);
+                        emit changeLife(selfLife,true);
+                        if(selfLife <=0)
+                            emit je_perds();
                     }
                     else if(atk->atk < def->def)
                     {
                         detruire(attaquant_x);
                         foeLife = foeLife - (def->atk - atk->atk);
+                        emit changeLife(foeLife,false);
                         if(foeLife <=0)
                             emit je_gagne();
                     }
@@ -855,7 +942,7 @@ void Noyau::traiter(QString s)
              message.append(QString::fromStdString(ss1.str()));
          }
          emit tiens(message);
-        // piocher(1);
+         piocher(1);
         // piocher(76);
          //deckAdverse(0);
     }
@@ -909,15 +996,15 @@ void Noyau::traiter(QString s)
          QString vrai;
          if(parcourir!=NULL)
           vrai = QString(parcourir);
-         int i;
          while(parcourir!=NULL)
          {
              //std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
              if(!vrai.startsWith(QString("life")))
              {
+               //  std::cout << "la vie :" << parcourir << "la vraie vie:" << selfLife<< std::endl;
                    if(!(selfLife == atoi(parcourir)))
                    {
-                       selfLife = setting.value("lifePoints","8000").toString().toInt();
+                       selfLife = 8000;
                        foeLife = selfLife;
                    }
              }
@@ -950,7 +1037,7 @@ void Noyau::traiter(QString s)
              {
                    if(!(selfLife == atoi(parcourir)))
                    {
-                       selfLife = setting.value("lifePoints","8000").toString().toInt();
+                       selfLife = 8000;
                        foeLife = selfLife;
                    }
              }
@@ -960,7 +1047,7 @@ void Noyau::traiter(QString s)
           }
          delete(arg);
          emit giveLife(selfLife);
-         piocher(1);
+        // emit commence();
     }
     else if(s.compare(QString("init"))==0)
     {

@@ -51,11 +51,11 @@ public slots:
 
     void getsFocus();
     void setProgress();
-    void resetProgress();
-    void setPhase(int);
     void setTour(int);
 	void sendMsg(QString);
 	void sendInfo(QString);
+
+	void unlockTick();
 
 	void setLife(int, bool);
 	void initLife(int);
@@ -96,17 +96,20 @@ signals:
     void sendHide();
     void transmettre(QString);
 	void doubleClicked(int);
-	void biClick(int, int);
+	void monstClick(int, int);
 	void askPreview(int);
 
 
 private:
     
     void cardOut();
+	void resetProgress();
 
     int retained;
     int maxPhase;
-    
+
+	bool lockTick;
+
 	bool lockPreview;
 	int previewed;
 

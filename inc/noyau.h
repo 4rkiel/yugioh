@@ -19,7 +19,7 @@ public:
 
     bool online;
     int tour;
-    int phase=1;
+    int phase;
     int selfLife;
     int foeLife;
     int aleatoire;
@@ -75,6 +75,7 @@ public:
     void chargerDeck(int x);
     void deckAdverse(int x);
     Carte * trouver(int x);
+    bool no_monster(int zone);
 
 
     //obsolète
@@ -96,6 +97,7 @@ public slots:
     void poserAtk();
     void poserDef();
     void donner_infos(int x);
+    void attaquerSlot(int,int);
 signals:
     void emit_go();
     void emit_mondieu();
@@ -107,6 +109,7 @@ signals:
     //void je_pose(QString img,int main_x,int terrain_x,bool def,bool vis);
     void j_attaque(int attaquant_x,int adversaire_x);
     void je_gagne();
+    void je_perds();
     void e_deck(int x);
     void destruction(int x);
     void chat(QString);
@@ -118,6 +121,10 @@ signals:
     void tiens(QString);
     void give_infos(QString,int,int,QString,int,QString,int,int);
     void giveLife(int x);
+    void changeLife(int x,bool me);
+    void setTour(int x);
+    void sendInfo(QString i);
+
     //void met_en_defense(int x);
 };
 

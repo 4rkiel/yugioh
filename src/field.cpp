@@ -10,6 +10,8 @@ Initialisé lors du lancement d'une partie
 
 Field::Field () {
 
+	lockTick = false;
+
     lockPreview = true;
 	previewed = -1;
 
@@ -548,10 +550,12 @@ void Field::emitVisi (){
 
 void Field::openWin (){
     popup -> openWin();
+	resetProgress();
 }
 
 void Field::openLost (){
     popup -> openLost();
+	resetProgress();
 }
 
 void Field::getsFocus(){
@@ -565,9 +569,11 @@ void Field::getsFocus(){
 
 void Field::previewClicked(){
 
-    if (lockPreview){
+	std::cout << "yolo\n";
+    if (!lockPreview){
 
-        lockPreview = false;
+        lockPreview = true;
+		previewed = -1;
         cardOut();
     }
 }
@@ -622,7 +628,7 @@ void Field::cardHover (
     fullCard -> setDesc(desc);
     fullCard -> setStat(QString::number(atk), QString::number(def));
 
-    if (!lockPreview){
+    if (lockPreview){
         chat -> setVisible(false);
         fullCard -> setVisible(true);
     }
@@ -631,7 +637,7 @@ void Field::cardHover (
 
 void Field::cardOut (){
 
-    if (!lockPreview){
+    if (lockPreview){
         fullCard -> setVisible(false);
         chat -> setVisible(true);
     }
@@ -650,38 +656,40 @@ void Field::cardClicked(int x){
 
     SlotCard * that = fieldStack -> at(x);
 
-    if (retained == x){
+    if (
+		! that -> isAdv() && 
+        ! that -> isHand() && 
+        ! that -> isDeck() && 
+        ! that -> isGrave() && 
+        ! that -> isFuse() &&
+		! that -> isField() &&
+		! that -> isMagic()
+	){
+
+        retained = x;
+
+    } else if (
+	
+		retained != -1 &&
+		that -> isAdv() &&
+        ! that -> isHand() && 
+        ! that -> isDeck() &&
+        ! that -> isGrave() &&
+        ! that -> isFuse() &&
+		! that -> isField() &&
+		! that -> isMagic()
         
+	){
+   
+        emit monstClick(retained, x);
         retained = -1;
-
-    } else if (retained == -1){
-
-        if (
-            ! that -> isAdv() && 
-            ! that -> isDeck() && 
-            ! that -> isGrave() && 
-            ! that -> isFuse() 
-        ){
-            retained = x;
-        }
-
-    } else {
-
-        if (
-            ! that -> isDeck() &&
-            ! that -> isGrave() &&
-            ! that -> isFuse()
-        ){
-            std::cout << "biclicked: " << retained << " " << x << "\n";
-            emit biClick(retained, x);
-            retained = -1;
-        }
+        
     }
 }
 
 void Field::cardEntered(int x){
     
-    if (!lockPreview){
+    if (lockPreview){
     	emit askPreview(x);
     }
 }
@@ -714,20 +722,39 @@ void Field::sendInfo (QString str){
 /* Info */
 
 void Field::setProgress (){
-    progressRight -> setValue((progressRight -> value() + 1)%maxPhase);
-    progressLeft -> setValue((progressLeft -> value() + 1)%maxPhase);
 
-    progressLeft -> repaint();
-    progressRight -> repaint();
+	if (lockTick){
+	
+		progressRight -> setValue((progressRight -> value() + 1)%maxPhase);
+    	progressLeft -> setValue((progressLeft -> value() + 1)%maxPhase);
+	
+    	progressLeft -> repaint();
+    	progressRight -> repaint();
+	}
 }
 
+
+void Field::unlockTick(){
+	lockTick = true;
+}
+
+
 void Field::resetProgress (){
+
+	lockTick = false;
+
     progressRight -> reset();
     progressLeft -> reset();
 
     progressLeft -> repaint();
     progressRight -> repaint();
 }
+
+
+void Field::setTour (int x){
+	icoLife -> setText(tr("Tour") + "\n" + QString::number(x));
+}
+
 
 
 void Field::initLife(int x){
@@ -744,6 +771,7 @@ void Field::initLife(int x){
 
 void Field::setLife(int x, bool me){
 
+	std::cout << x << " Life \n";
 	if (me){
 		
 		lifeSlf -> setText(QString::number(x));
@@ -754,14 +782,6 @@ void Field::setLife(int x, bool me){
 		lifeAdv -> setText(QString::number(x));
 		progressAdv -> setValue(x);
 	}
-}
-
-void Field::setTour (int){
-//    stats -> setTour(x);
-}
-
-void Field::setPhase (int){
-//    stats -> setPhase(x);
 }
 
 
