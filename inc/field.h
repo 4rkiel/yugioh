@@ -56,7 +56,7 @@ public slots:
 	void sendInfo(QString);
 
 	void unlockTick();
-	void lockTick();
+	void lockerTick();
 
 	void setLife(int, bool);
 	void initLife(int);
