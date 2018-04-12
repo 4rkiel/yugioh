@@ -82,6 +82,7 @@ public:
     bool no_monster(int zone);
     bool can_poser();
     bool can_atak();
+    bool can_switch();
 
     //obsolète
     Reseau * res;

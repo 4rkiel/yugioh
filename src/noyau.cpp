@@ -177,10 +177,12 @@ void Noyau::piocher(int x)
     {
         emit tiens("apioche");
     }*/
-    emit sendInfo("J'ai pioché");
+    if(tour!=0)
+        emit sendInfo("J'ai pioché");
     }
     else
     {
+        if(tour!=0)
         emit sendInfo("L'adversaire a pioché");
     std::cout << "le traitement du piochage adverse en cours " << std::endl;
     int dans_main = perfect_position(1);
@@ -751,7 +753,13 @@ void Noyau::phase_suivante()
             emit sendInfo("Main Phase 1");
         break;
         case 1:
-            emit sendInfo("Battle Phase");
+            if((no_monster(0) && mon_tour) || (no_monster(1) && !mon_tour))
+               {
+                phase = 2;
+                phase_suivante();
+            }
+            else
+                emit sendInfo("Battle Phase");
         break;
         case 2:
            emit sendInfo("Main Phase 2");
@@ -770,6 +778,11 @@ bool Noyau::can_poser()
 bool Noyau::can_atak()
 {
     return (mon_tour && (phase==1));
+}
+
+bool Noyau::can_switch()
+{
+    return(mon_tour && (phase==0 || phase==2));
 }
 
 
@@ -1046,7 +1059,7 @@ void Noyau::traiter(QString s)
                         {
                             if(yolo->all_cards->at(i)->id == atoi(parcourir))
                             {
-                                  d2->push_back(yolo->all_cards->at(i));
+                                  d2->push_back(yolo->all_cards->at(i)->copie());
                                   break;
                             }
                         }
@@ -1112,6 +1125,7 @@ void Noyau::traiter(QString s)
                         piocher(76);
                          piocher(76);
                           piocher(76);
+                          piocher(76);
           emit sendInfo("Main Phase 1");
     }
     else if(s.startsWith("slife/"))
@@ -1149,6 +1163,7 @@ void Noyau::traiter(QString s)
                    piocher(76);
                     piocher(76);
                      piocher(76);
+                     piocher(1);
 
          emit beginTour();
          lockTick=true;
