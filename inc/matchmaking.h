@@ -22,6 +22,7 @@ signals:
 
 public slots:
     void readyRead();
+    void cancelMatchmaking();
 
 private:
     QUdpSocket *socket;

@@ -44,8 +44,6 @@ Matchmaking::Matchmaking(QObject *parent) : QObject(parent){
 
     connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 
-
-
 }
 
 
@@ -67,6 +65,17 @@ void Matchmaking::readyRead(){
         emit sendIP(msgRec);
     }
 
+}
+
+void Matchmaking::cancelMatchmaking(){
+    //création du msg à envoyer au serveur
+    quint16 port = 9000;
+    QByteArray paquet;
+    paquet.append("Cancel");
+    qDebug() << *adresse_serveur;
+
+    //envoi de msg au serveur
+    socket->writeDatagram(paquet,*adresse_serveur,port);
 }
 
 Matchmaking::~Matchmaking(){

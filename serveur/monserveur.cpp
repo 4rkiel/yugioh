@@ -36,8 +36,15 @@ void MonServeur::readyRead(){
 
     socket->readDatagram(buffer.data(),buffer.size(),&sender,&senderPort);
 
+    //si c'est un cancel, on supprime l'hôte
+    QString msgRec(buffer.data());
+    qDebug()<<msgRec;
+    if(msgRec=="Cancel" && sender==*adresse_hote){
+        adresse_hote->clear();
+    }
+
     //si pas d'hote, on stock ses coordonnées
-    if((adresse_hote->toString()).isEmpty()){
+    else if((adresse_hote->toString()).isEmpty()){
         *adresse_hote=sender;
         *port_hote=senderPort;
     }
@@ -50,7 +57,6 @@ void MonServeur::readyRead(){
         buffer2.append(adresse_hote->toString());
         socket->writeDatagram(buffer2,sender,senderPort);
         adresse_hote->clear();
-
     }
     qDebug()<<*adresse_hote;
 
