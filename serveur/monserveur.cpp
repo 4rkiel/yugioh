@@ -6,8 +6,18 @@ MonServeur::MonServeur(QObject *parent) : QObject(parent){
     port_hote=new quint16;
     socket=new QUdpSocket(this);
 
+    QHostInfo host = QHostInfo::fromName("yugiserveur.ddns.net");
+
+    if (host.error() != QHostInfo::NoError) {
+        qDebug() << "Lookup failed:" << host.errorString();
+        return;
+    }
+
+    adresse_serveur = new QHostAddress(host.addresses().at(0));
+    qDebug() << *adresse_serveur;
+
     //on fixe l'adresse serveur
-    socket->bind(QHostAddress("192.168.2.16"),9000);
+    socket->bind(*adresse_serveur,9000);
 
     connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 
@@ -42,5 +52,13 @@ void MonServeur::readyRead(){
         adresse_hote->clear();
 
     }
+    qDebug()<<*adresse_hote;
 
+}
+
+MonServeur::~MonServeur(){
+    delete adresse_hote;
+    delete socket;
+    delete port_hote;
+    delete adresse_serveur;
 }

@@ -7,10 +7,17 @@ Matchmaking::Matchmaking(QObject *parent) : QObject(parent){
     adresse_bind=new QHostAddress(QHostAddress::AnyIPv6);
     socket->bind(*adresse_bind,9001);
 
-    QHostAddress adresse;
-    //on indique l'adresse du serveur !
+    //on récolte l'adresse du serveur !
 
-    adresse.setAddress("2001:660:4701:2001:50d9:1d4e:41f2:392b");
+    QHostInfo host = QHostInfo::fromName("yugiserveur.ddns.net");
+
+    if (host.error() != QHostInfo::NoError) {
+        qDebug() << "Lookup failed:" << host.errorString();
+        return;
+    }
+
+    adresse_serveur = new QHostAddress(host.addresses().at(0));
+    qDebug() << *adresse_serveur;
 
     //création du msg à envoyer au serveur
     quint16 port = 9000;
@@ -18,8 +25,7 @@ Matchmaking::Matchmaking(QObject *parent) : QObject(parent){
     paquet.append("Hello du client");
 
     //envoi de msg au serveur
-    socket->writeDatagram(paquet,QHostAddress::LocalHostIPv6,port);
-
+    socket->writeDatagram(paquet,*adresse_serveur,port);
 
     // attente réponse serveur
 
@@ -66,4 +72,6 @@ void Matchmaking::readyRead(){
 Matchmaking::~Matchmaking(){
     delete socket;
     delete adresse_bind;
+    delete adresse_serveur;
 }
+
