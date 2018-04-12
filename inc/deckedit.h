@@ -29,6 +29,7 @@
 #include "parser.h"
 #include "duplica.h"
 #include "cardlistpreview.h"
+#include "darkButt.h"
 
 #define NBR_CARTE_DECK_VISU 40 // multiple de 10
 #define NBR_CARTE_EXTRA_DECK 10
@@ -95,6 +96,8 @@ class deckEdit : public QWidget
 
         int indiceCarteExtraDeck = 0;
 
+        QHBoxLayout *buttonH;
+
         std::vector<Carte*> deck;
         std::vector<Carte*> extraDeck;
 
@@ -117,7 +120,7 @@ class deckEdit : public QWidget
         CardListPreview *cardList;
 
         FlatButt *effectBoxBut;
-        FlatButt *tabBut[NBR_BUTTON_DECK_EDIT];
+        DarkButt *tabBut[NBR_BUTTON_DECK_EDIT];
         std::vector<QPushButton *> tabCardVisu;
         std::vector<QPushButton *> tabExtraDeck;
 

@@ -27,7 +27,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
     for(int i=0; i<NBR_BUTTON_DECK_EDIT; i++)
     {
-        tabBut[i] = new FlatButt("", buttonName.at(i));
+        tabBut[i] = new DarkButt("", buttonName.at(i));
         tabBut[i]->setDefault(true);
         //tabBut[i]->setText(buttonName.at(i));
     }
@@ -113,7 +113,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
                 // ... name a deck .............................................
 
 
-                formulaire->addRow(tabBut[CREER], newDeck);
+//                formulaire->addRow(tabBut[CREER], newDeck);
 
 
                 //TODO signal qui crée le deck
@@ -124,8 +124,8 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
                 part1->addLayout(buttonV);
 
 
-                    buttonV->addWidget(tabBut[SAUVER]);
-                    buttonV->addWidget(tabBut[SUPPRIMER]);
+//                    buttonV->addWidget(tabBut[SAUVER]);
+//                    buttonV->addWidget(tabBut[SUPPRIMER]);
 
                 //TODO signaux
 
@@ -133,15 +133,17 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
             // ... boutons horizontaux .........................................
 
-            QHBoxLayout *buttonH = new QHBoxLayout;
+            buttonH = new QHBoxLayout;
             editCreateLayout->addLayout(buttonH);
 
-                buttonH->addWidget(tabBut[MELANGER]);
-                buttonH->addWidget(tabBut[TRIER]);
-                buttonH->addWidget(tabBut[EFFACER]);
+            for(unsigned int i=NBR_BUTTON_DECK_EDIT-1; i>0; i--)
+            {
+                buttonH->addWidget(tabBut[i]);
+            }
 
-                //TODO signaux
-
+//                buttonH->addWidget(tabBut[MELANGER]);
+//                buttonH->addWidget(tabBut[TRIER]);
+//                buttonH->addWidget(tabBut[EFFACER]);
 
 
 
@@ -340,13 +342,13 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
                     QVBoxLayout *deleteSearch = new QVBoxLayout;
 
                     QHBoxLayout *annSearch = new QHBoxLayout;
-                        annSearch->addWidget(tabBut[ANNULER_RECHERCHE]);
+                        //annSearch->addWidget(tabBut[ANNULER_RECHERCHE]);
                         annSearch->addWidget(textSearch);
                     deleteSearch->addLayout(annSearch);
 
                     //TODO: connect
 
-                    deleteSearch->addWidget(tabBut[FILTRER]);
+                   // deleteSearch->addWidget(tabBut[FILTRER]);
 
                     //TODO: connect
 
