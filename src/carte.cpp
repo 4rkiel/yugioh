@@ -51,6 +51,35 @@ void Carte::afficher_infos()
     std::cout << "position_terrain:" << position_terrain << std::endl;
 }
 
+Carte* Carte::copie()
+{
+    return new Carte(this->id,this->atk,this->def,this->pos,this->nom,this->image,this->etat,this->genre,this->type,this->sous_type,this->attribut,this->description,this->niveau,
+                     this->set,this->position_deck,this->position_terrain);
+}
+
+Carte::Carte(int id,int atk,int def,bool pos,QString nom,QString image,Etat etat,int genre,Type type,int sous_type,Attribut attribut,QString description,int niveau,int set,int position_deck,int position_terrain)
+{
+    this->id = id;
+    this->atk = atk;
+    this->default_atk = atk;
+    this->def = def;
+    this->default_def = def;
+    this->pos = pos;
+    this->nom = nom;
+    this->image = image;
+    this->etat = etat;
+    this->genre = genre; // (magie 1 ,piege 2,monstre 0)
+    this-> type = type; // (rocher,démon,..)
+    this->sous_type = sous_type; // (fusion,continue,...)
+    this-> attribut = attribut; // (lumière,feu,...)
+    this->description = description;
+    this->niveau = niveau;
+
+    this->set=set;
+    this->position_deck = position_deck;
+    this->position_terrain = position_terrain;
+}
+
 Carte::Carte(int a,int d)
 {
     atk=a;
