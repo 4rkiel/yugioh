@@ -5,12 +5,11 @@
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
+#include <vector>
 
-#define EIGEN_STACK_ALLOCATION_LIMIT 10000000
-
+#define EIGEN_STACK_ALLOCATION_LIMIT 1000000
 #include "../IA/lib_eigen/Eigen/Core"
 #include "../inc/noyau.h"
-#include <vector>
 
 #include <QString>
 #include <QWidget>
@@ -66,11 +65,13 @@ class Ai : public QWidget
         
         //public functions
         
-        //constructor
+        //constructor, noyau de jeu, mode d'ia: basique=1 ou évolutive=2
         Ai(Noyau * noyau, int mode);
         
         //destructor
         ~Ai();
+        
+    public:
         
         //play without learn
         int play();
@@ -97,7 +98,23 @@ class Ai : public QWidget
 
 
     signals:
-        void attaquer(int,int);
+        
+        //attanquant : position_carte
+        //adversaire : position_carte ou -1 si attaque directe vers le joueur
+        void attaquer(int attaquant ,int adversaire);
+        
+        //main : position carte a poser
+        //terrain : destination
+        //def : true si défense, false si attaque
+        //vis : true si recto, false si verso
+        void poser(int main, int terrain, bool def ,bool vis);
+        
+        //passe de "atk à def" ou de "def à atk"
+        //terrain : position de la carte a switcher
+        void switch_position(int terrain);
+        
+        //detruit la carte à la position terrain
+        void detruire(int terrain);
 
 };
 
