@@ -135,9 +135,14 @@ void Master::loadField (int x){
         //connect(noyau,SIGNAL(au_tour_de_l_ia()),ai,SLOT(a_ton_tour()));
         
         //l'ia envoi un signal au noyau pour lui dire l'action qu'elle effectue
+        
         connect(ai,SIGNAL(attaquer(int,int)),noyau,SLOT(attaquer(int,int)));
-        //connect(ai,SIGNAL(defendre(int),noyau,SLOT(defendre(int)));
-        //connect(ai,SIGNAL(piocher(int)),noyau,SLOT(piocher(int)));
+        
+        connect(ai,SIGNAL(poser(int,int,bool,bool)),noyau,SLOT(poser(int,int,bool,bool)));
+        
+        connect(ai,SIGNAL(switch_position(int)),noyau,SLOT(switch_position(int)));
+        
+        connect(ai,SIGNAL(detruire(int)),noyau,SLOT(detruire(int)));
         
     } else {
 
