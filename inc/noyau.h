@@ -18,6 +18,7 @@ public:
     Noyau();
 
     bool online;
+    bool mon_tour;
     int tour;
     int phase;
     int selfLife;

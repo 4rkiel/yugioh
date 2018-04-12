@@ -145,7 +145,7 @@ void Master::loadField (int x){
 
         if (network != NULL){
 
-            connect(network,SIGNAL(a_parser(QString)),noyau,SLOT(traiter(QString)));
+            connect(network,SIGNAL(a_parser(QString)),noyau,SLOT(traiter(QString)),Qt::QueuedConnection);
 
         }
             // send Msg // TODO traiter() -> Check if chat message + emit
@@ -159,19 +159,19 @@ void Master::loadField (int x){
     }
 
 
-	connect(noyau, SIGNAL(beginTour()), field, SLOT(unlockTick()));
+    connect(noyau, SIGNAL(beginTour()), field, SLOT(unlockTick()),Qt::QueuedConnection);
 
-	connect(noyau, SIGNAL(giveLife(int)), field, SLOT(initLife(int)));
-    connect(noyau, SIGNAL(changeLife(int,bool)), field, SLOT(setLife(int,bool)));
+    connect(noyau, SIGNAL(giveLife(int)), field, SLOT(initLife(int)),Qt::QueuedConnection);
+    connect(noyau, SIGNAL(changeLife(int,bool)), field, SLOT(setLife(int,bool)),Qt::QueuedConnection);
     
-	connect(noyau, SIGNAL(setTour(int)), field, SLOT(setTour(int)));
+    connect(noyau, SIGNAL(setTour(int)), field, SLOT(setTour(int)),Qt::QueuedConnection);
 
-	connect(noyau, SIGNAL(sendInfo(QString)), field, SLOT(sendInfo(QString)));
+    connect(noyau, SIGNAL(sendInfo(QString)), field, SLOT(sendInfo(QString)));
 
 
     // Quit
 
-    connect(field, SIGNAL(introStack()), this, SLOT(emitIntro()));
+    connect(field, SIGNAL(introStack()), this, SLOT(emitIntro()),Qt::QueuedConnection);
 
 
     // New chat msg
@@ -186,49 +186,49 @@ void Master::loadField (int x){
 
     // set carte
 
-    connect(noyau, SIGNAL(visible(QString, int)), field, SLOT(setCarte(QString, int)));
+    connect(noyau, SIGNAL(visible(QString, int)), field, SLOT(setCarte(QString, int)),Qt::QueuedConnection);
 
     // pose carte
 
-    connect(noyau, SIGNAL(defens(int)), field, SLOT(poseCarte(int)));
+    connect(noyau, SIGNAL(defens(int)), field, SLOT(poseCarte(int)),Qt::QueuedConnection);
 
     // mask carte
 
-    connect(noyau, SIGNAL(nonvis(int)), field, SLOT(maskCarte(int)));
+    connect(noyau, SIGNAL(nonvis(int)), field, SLOT(maskCarte(int)),Qt::QueuedConnection);
 
     // rm carte
 
-    connect(noyau, SIGNAL(destruction(int)), field, SLOT(rmCarte(int)));
-    connect(field,SIGNAL(sendAtk()),noyau,SLOT(poserAtk()));
-    connect(field,SIGNAL(sendDef()),noyau,SLOT(poserDef()));
+    connect(noyau, SIGNAL(destruction(int)), field, SLOT(rmCarte(int)),Qt::QueuedConnection);
+    connect(field,SIGNAL(sendAtk()),noyau,SLOT(poserAtk()),Qt::QueuedConnection);
+    connect(field,SIGNAL(sendDef()),noyau,SLOT(poserDef()),Qt::QueuedConnection);
 
 
 
     //pop-up
-    connect(noyau,SIGNAL(dialogue()),field,SLOT(openChoosePosi()));
+    connect(noyau,SIGNAL(dialogue()),field,SLOT(openChoosePosi()),Qt::QueuedConnection);
 
     //pour poser une carte
-    connect(field,SIGNAL(doubleClicked(int)),noyau,SLOT(poser_test(int)));
+    connect(field,SIGNAL(doubleClicked(int)),noyau,SLOT(poser_test(int)),Qt::QueuedConnection);
 
     //pour switch
-    connect(noyau,SIGNAL(change_position(int)),field,SLOT(switchCarte(int)));
+    connect(noyau,SIGNAL(change_position(int)),field,SLOT(switchCarte(int)),Qt::QueuedConnection);
 
 
 
 	// ask preview
-	connect(field,SIGNAL(askPreview(int)),noyau,SLOT(donner_infos(int)));
+    connect(field,SIGNAL(askPreview(int)),noyau,SLOT(donner_infos(int)),Qt::QueuedConnection);
 
 	// give preview
     connect(noyau,SIGNAL(give_infos(QString,int,int,QString,int,QString,int,int)),
-		field, SLOT(cardHover(QString,int,int,QString,int,QString,int,int)));
+        field, SLOT(cardHover(QString,int,int,QString,int,QString,int,int)),Qt::QueuedConnection);
 
     // bi clicked
-    connect(field,SIGNAL(monstClick(int,int)),noyau,SLOT(attaquerSlot(int,int)));
+    connect(field,SIGNAL(monstClick(int,int)),noyau,SLOT(attaquerSlot(int,int)),Qt::QueuedConnection);
 
     //win
-    connect(noyau,SIGNAL(je_gagne()),field,SLOT(openWin()));
+    connect(noyau,SIGNAL(je_gagne()),field,SLOT(openWin()),Qt::QueuedConnection);
     //lose
-    connect(noyau,SIGNAL(je_perds()),field,SLOT(openLost()));
+    connect(noyau,SIGNAL(je_perds()),field,SLOT(openLost()),Qt::QueuedConnection);
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
 
@@ -243,10 +243,10 @@ void Master::loadField (int x){
     mTask -> moveToThread(mThread);
 
 
-    connect( mTask, SIGNAL(newTick()), this, SLOT(timeTicker()) );
-    connect( mTask, SIGNAL(newTick()), mTask, SLOT(masterLoop()) );
+    connect( mTask, SIGNAL(newTick()), this, SLOT(timeTicker())) ;
+    connect( mTask, SIGNAL(newTick()), mTask, SLOT(masterLoop()));
 
-    connect( mThread, SIGNAL(finished()), mTask, SLOT(deleteLater()) );
+    connect( mThread, SIGNAL(finished()), mTask, SLOT(deleteLater()));
     connect( mThread, SIGNAL(finished()), mThread, SLOT(deleteLater()) );
 
 
