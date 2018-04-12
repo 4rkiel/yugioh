@@ -37,8 +37,17 @@ NetChoice::NetChoice () {
 
 			infoLayout -> addStretch(1);
 
+            // création du matchmaker
+
+            matchmaker=new Matchmaking();
+            connect(matchmaker, SIGNAL(sendIP(QString)), this, SLOT(emitClient(QString)));
+            connect(matchmaker, SIGNAL(createHost(QString)), this, SLOT(emitHost(QString)));
+
+            //création bouton retour
+
             choice = new FlatButt("\uf060", "");
             choice -> setToolTip(tr("Retour"));
+            connect(choice, SIGNAL(clicked()), matchmaker, SLOT(cancelMatchmaking()));
             connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
             infoLayout -> addWidget(choice);
 
@@ -68,10 +77,7 @@ NetChoice::NetChoice () {
             box -> addStretch(1);
 
 
-            // Gestion matchmaking
-
-
-            // message d'attente
+            // message d'attente matchmaking
             msgAttente = new QLabel(tr("Recherche d'un adversaire en cours..."));
             msgAttente -> setObjectName("matchmakingText");
 
@@ -83,11 +89,8 @@ NetChoice::NetChoice () {
             msgAttente2 -> setAlignment(Qt::AlignCenter);
             msgAttente2->setWordWrap(true);
 
-            // création du macthmaker
 
-            matchmaker=new Matchmaking();
-            connect(matchmaker, SIGNAL(sendIP(QString)), this, SLOT(emitClient(QString)));
-            connect(matchmaker, SIGNAL(createHost(QString)), this, SLOT(emitHost(QString)));
+
 
             box->addWidget(msgAttente);
             box->addWidget(msgAttente2);
