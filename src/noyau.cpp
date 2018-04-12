@@ -164,7 +164,7 @@ void Noyau::piocher(int x)
 
     int dans_main = perfect_position(0);
     // std::cout << "id:"<< d1->front()->id << " je pose en " << dans_main << std::endl;
-     std::cout << "adresse : " << d1->front() << " id:"<< d1->front()->id << " je pose en " << dans_main << std::endl;
+    // std::cout << "adresse : " << d1->front() << " id:"<< d1->front()->id << " je pose en " << dans_main << std::endl;
     d1->front()->position_terrain = dans_main;
     terrain->push_back(d1->front());
 
@@ -184,7 +184,7 @@ void Noyau::piocher(int x)
         emit sendInfo("L'adversaire a pioché");
     std::cout << "le traitement du piochage adverse en cours " << std::endl;
     int dans_main = perfect_position(1);
-    std::cout << "adresse : " << d2->front() << " id:"<< d2->front()->id << " l'adversaire pose en " << dans_main << std::endl;
+    //std::cout << "adresse : " << d2->front() << " id:"<< d2->front()->id << " l'adversaire pose en " << dans_main << std::endl;
     d2->front()->position_terrain = dans_main;
     terrain->push_back(d2->front());
     enlever_i(&d2,0);
@@ -295,7 +295,7 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
         emit sendInfo(QString("Je pose"));
         la_carte = trouver(main_x);
         la_carte->position_terrain=terrain_x;
-        la_carte->def = def;
+        la_carte->pos= def;
         if(vis)
             la_carte->etat = RECTO;
         else
@@ -346,7 +346,7 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
 
         }
         la_carte->position_terrain=terrain_x;
-         la_carte->def = def;
+         la_carte->pos = def;
          if(vis)
              la_carte->etat = RECTO;
          else
@@ -419,11 +419,11 @@ int Noyau::perfect_position(int zone)
     }
     else
     {
-        int i;
+        /*int i;
         for(i=0;i<terrain->size();i++)
         {
             std::cout << "je cherche si je peux : adresse:" << terrain->at(i) << " at " << terrain->at(i)->position_terrain << std::endl;
-        }
+        }*/
         begin_position=89;
         if(trouver(begin_position)==NULL)
                return begin_position;
@@ -547,7 +547,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                         if(foeLife <=0)
                             emit je_gagne();
                     }
-                    else if(atk->atk < def->def)
+                    else if(atk->atk < def->atk)
                     {
                         detruire(attaquant_x);
                         selfLife = selfLife - (def->atk - atk->atk);
@@ -620,7 +620,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                         if(selfLife <=0)
                             emit je_perds();
                     }
-                    else if(atk->atk < def->def)
+                    else if(atk->atk < def->atk)
                     {
                         detruire(attaquant_x);
                         foeLife = foeLife - (def->atk - atk->atk);
@@ -1082,8 +1082,8 @@ void Noyau::traiter(QString s)
           message.append(QString::fromStdString(ss1.str()));
          emit tiens(message);
          emit giveLife(selfLife);
-          //  emit beginTour();
-          //lockTick=true;
+            emit beginTour();
+          lockTick=true;
           mon_tour=false;
 
               piocher(1);
@@ -1134,8 +1134,8 @@ void Noyau::traiter(QString s)
                     piocher(76);
                      piocher(76);
 
-         //emit beginTour();
-         //lockTick=true;
+         emit beginTour();
+         lockTick=true;
          mon_tour=true;
          emit sendInfo("Main Phase 1");
         // emit commence();

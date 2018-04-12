@@ -138,11 +138,12 @@ void Reseau::donneesRecues()
     qDebug() << "Message from: " << sender.toString();
     qDebug() << "Message port: " << senderPort;
     qDebug() << "Message: " << QString(buffer.data());
-    if(QString(buffer.data()).compare(QString("init"))==0)
+    if((QString(buffer.data()).compare(QString("init"))==0) && !alreadyinit)
        {
         std::cout << "MON DIEU CA MARCHE " << std::endl;
         adresse = QHostAddress(sender.toString());
         port = senderPort;
+        alreadyinit = true;
         emit hostReady(21);
 
     }

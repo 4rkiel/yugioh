@@ -25,6 +25,7 @@ public:
      void parser(std::string s);
      QHostAddress adresse;
        int port;
+       bool alreadyinit=false;
 
 public slots:
 	 void sendOK();
