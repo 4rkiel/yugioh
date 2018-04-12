@@ -1,4 +1,5 @@
 #include "../inc/slotCard.h"
+#include <iostream>
 
 /******************************************************************************
 
@@ -16,6 +17,7 @@ SlotCard::SlotCard (int p){
     posi = p;
     pic = "";
 
+    setFlat(true);
 
     // Set properties
 
@@ -51,7 +53,6 @@ SlotCard::SlotCard (int p){
 
 
     
-    setFlat(true);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     // Creating clickable picture zone
@@ -70,6 +71,7 @@ SlotCard::SlotCard (int p){
 
     
     imgButt = new zButt;
+    imgButt -> setFocusPolicy(Qt::StrongFocus);
 
     if (isDeck()){
     
@@ -89,13 +91,16 @@ SlotCard::SlotCard (int p){
         imgButt -> setObjectName("fieldCardInside");
     }
 
+
     proxy = scene -> addWidget(imgButt);
 
     layout -> addWidget(view);
 
     setLayout(layout);
     
-    
+    imgButt -> setFocusPolicy(Qt::NoFocus);
+    proxy -> setFlag(QGraphicsItem::ItemIsFocusable, false);
+    view -> setFocusPolicy(Qt::NoFocus);
 
     // Initiating animations
 
@@ -310,6 +315,7 @@ void SlotCard::doubleClicked(){
 }
 
 void SlotCard::rightClicked(){
+
 	emit rightClick(posi);
 }
 
@@ -318,7 +324,7 @@ void SlotCard::leftClicked(){
 }
 
 void SlotCard::enterEvent(QEvent * event){
-    
+
     emit entered(posi);
     QWidget::enterEvent(event);
 }

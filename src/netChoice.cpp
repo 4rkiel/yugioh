@@ -37,8 +37,17 @@ NetChoice::NetChoice () {
 
 			infoLayout -> addStretch(1);
 
+            // création du matchmaker
+
+            matchmaker=new Matchmaking();
+            connect(matchmaker, SIGNAL(sendIP(QString)), this, SLOT(emitClient(QString)));
+            connect(matchmaker, SIGNAL(createHost(QString)), this, SLOT(emitHost(QString)));
+
+            //création bouton retour
+
             choice = new FlatButt("\uf060", "");
             choice -> setToolTip(tr("Retour"));
+            connect(choice, SIGNAL(clicked()), matchmaker, SLOT(cancelMatchmaking()));
             connect(choice, SIGNAL(clicked()), this, SLOT(emitChoice()));
             infoLayout -> addWidget(choice);
 
@@ -68,57 +77,23 @@ NetChoice::NetChoice () {
             box -> addStretch(1);
 
 
-            // Gestion matchmaking
-
-
-            // message d'attente
+            // message d'attente matchmaking
             msgAttente = new QLabel(tr("Recherche d'un adversaire en cours..."));
+            msgAttente -> setObjectName("matchmakingText");
 
-            msgAttente->setContentsMargins(185,0,0,100);
+            msgAttente->setContentsMargins(200,0,0,100);
             msgAttente->setWordWrap(true);
-            QFont f("",12,QFont::Normal);
-            msgAttente -> setFont(f);
             msgAttente -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
             msgAttente2 = new QLabel(tr("Veuillez patienter"));
             msgAttente2 -> setAlignment(Qt::AlignCenter);
             msgAttente2->setWordWrap(true);
 
+
+
+
             box->addWidget(msgAttente);
             box->addWidget(msgAttente2);
-
-
-            // initialisation du socket
-
-            socket=new QUdpSocket(this);
-            socket->bind(QHostAddress::LocalHostIPv6,9001);
-            QHostAddress adresse = QHostAddress::LocalHostIPv6;
-            quint16 port = 9000;
-            QByteArray paquet;
-            paquet.append("Hello du client");
-
-            //envoi de "hi" au serveur
-            socket->writeDatagram(paquet,adresse,port);
-
-
-			// 2 on response
-
-				// 2.1 Si client (connexion)
-
-					// Recuperer l'adresse de l'host dans la reponse
-
-					// Faire :
-					// emit sendIP(QString)
-
-            connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
-
-
-				// 2.2 Si host (mise en attente)
-
-					// Faire (avec sa propre adresse) :
-					// emit createHost(QString)
-
-
             
             box -> addStretch(1);
 
@@ -136,7 +111,6 @@ NetChoice::NetChoice () {
     
 NetChoice::~NetChoice (){
 
-    delete socket;
     delete effect;
     delete msgAttente;
     delete msgAttente2;
@@ -163,14 +137,12 @@ void NetChoice::emitChoice (){
     emit choiceStack();
 }
 
-void NetChoice::readyRead(){
-
-    QByteArray buffer;
-    buffer.resize(socket->pendingDatagramSize());
-
-    //le client reçoit la réponse du serveur et la stock
-    socket->readDatagram(buffer.data(),buffer.size(),0,0);
-    QString msgRec(buffer.data());
-    std::cout << msgRec.toStdString() << std::endl;
-
+void NetChoice::emitClient(QString ip){
+    emit sendIP(ip);
 }
+
+void NetChoice::emitHost(QString ip){
+    emit createHost(ip);
+}
+
+

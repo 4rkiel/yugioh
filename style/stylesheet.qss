@@ -522,6 +522,7 @@ HostChoice #introBox > QLabel {
 
 SoloChoice #introText,
 JoinChoice #introText,
+NetChoice #matchmakingText,
 HostChoice #stateBox {
     font-weight: bold;
 }
@@ -739,21 +740,12 @@ Field #infoBox #phaseRight::chunk {
 }
 
 
-
-
-#rightBarBox QProgressBar {
-    margin: 10px;
-    border: none;
-    padding: 1px;
-    border-radius: 0px;
-    background: #E8EAF6;
-    text-align: center;
+Chat QTextEdit {
+    border: 0px solid #FFECB3;
 }
 
-#rightBarBox QProgressBar::chunk {
-    background: #7986CB;
-    border-radius: 0px;
-    border: none;
+Chat QTextEdit:focus {
+    border: 2px solid #FFECB3;
 }
 
 
@@ -780,10 +772,17 @@ Field #infoBox #phaseRight::chunk {
 ********************************************************************/
 
 SlotCard {
-    background: transparent;
+    background: none;
     border-radius: 3px;
     min-width: 50px;
     margin: 0 2px;
+}
+
+SlotCard:focus,
+SlotCard:hover {
+    background: none;
+    border:none;
+    outline: none;
 }
 
 #fieldCardInside {
@@ -797,6 +796,7 @@ SlotCard {
     border: 2px solid rgba(255,255,255,100);
 }
 
+#handCard:focus,
 #handCard:hover {
     border: 2px solid rgba(255,255,255,255);
 }
@@ -805,6 +805,7 @@ SlotCard {
     border: 2px solid rgba(0,150,136,100);
 }
 
+#magicCard:focus,
 #magicCard:hover {
     border: 2px solid rgba(0,150,136,255);
 }
@@ -813,6 +814,7 @@ SlotCard {
     border: 2px solid rgba(76,175,80,100);
 }
 
+#fieldCard:focus,
 #fieldCard:hover {
     border: 2px solid rgba(76,175,80,255);
 }
@@ -821,6 +823,7 @@ SlotCard {
     border: 2px solid rgba(158,158,158,100);
 }
 
+#graveCard:focus,
 #graveCard:hover {
     border: 2px solid rgba(158,158,158,255);
 }
@@ -829,6 +832,7 @@ SlotCard {
     border: 2px solid rgba(156,39,176,100);
 }
 
+#fuseCard:focus,
 #fuseCard:hover {
     border: 2px solid rgba(156,39,176,255);
 }
@@ -837,8 +841,19 @@ SlotCard {
     border: 2px solid rgba(121,85,72,100);
 }
 
+#monstCard:focus,
 #monstCard:hover {
     border: 2px solid rgba(121,85,72,255);
+}
+
+
+SlotCard[down="false"]{
+    background: transparent;
+}
+
+SlotCard[down="true"]{
+    background: #FFD54F;
+	border: 2px solid red;
 }
 
 

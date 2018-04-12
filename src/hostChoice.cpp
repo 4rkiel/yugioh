@@ -157,7 +157,6 @@ HostChoice::~HostChoice (){
 
 void HostChoice::init (){
 
-    //choice -> setFocus();
     infoLayout -> addWidget(choice);
     setIP(ip);
 }

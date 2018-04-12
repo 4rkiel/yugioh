@@ -76,7 +76,8 @@ public:
     int position_terrain;
     Carte(int a,int d);
     Carte();
-
+    Carte(int id,int atk,int def,bool pos,QString nom,QString image,Etat etat,int genre,Type type,int sous_type,Attribut attribut,QString description,int niveau,int set,int position_deck,int position_terrain);
+    Carte * copie();
     void afficher_infos();
 };
 

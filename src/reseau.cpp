@@ -3,6 +3,7 @@
 Reseau::Reseau()
 {
     socket = new QUdpSocket(this);
+    socket->setSocketOption(QAbstractSocket::KeepAliveOption,1);
      connect(socket, SIGNAL(connected()), this, SLOT(connecte()));
      connect(socket, SIGNAL(readyRead()), this, SLOT(donneesRecues()));
 }
@@ -138,11 +139,12 @@ void Reseau::donneesRecues()
     qDebug() << "Message from: " << sender.toString();
     qDebug() << "Message port: " << senderPort;
     qDebug() << "Message: " << QString(buffer.data());
-    if(QString(buffer.data()).compare(QString("init"))==0)
+    if((QString(buffer.data()).compare(QString("init"))==0) && !alreadyinit)
        {
         std::cout << "MON DIEU CA MARCHE " << std::endl;
         adresse = QHostAddress(sender.toString());
         port = senderPort;
+        alreadyinit = true;
         emit hostReady(21);
 
     }
@@ -184,7 +186,7 @@ void Reseau::connecte()
 
 void Reseau::envoyer(const QString &message)
 {
-    std::cout << "J'ENVOIE UN TRUC" << std::endl;
+    std::cout << "J'ENVOIE UN TRUC:" << message.toStdString() << std::endl;
     QByteArray paquet;
     paquet.append(message);
      socket->writeDatagram(paquet,adresse,port);

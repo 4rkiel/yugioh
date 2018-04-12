@@ -325,7 +325,7 @@ std::vector<Carte *> * Parser::deck(QString s)
             {
                 if(all_cards->at(i)->id == line.toInt())
                 {
-                   resultat->push_back(all_cards->at(i));
+                   resultat->push_back(all_cards->at(i)->copie());
                    break;
                  }
             }

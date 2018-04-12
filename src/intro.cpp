@@ -101,7 +101,7 @@ Intro::Intro () {
 			sep2 = new QFrame;
  			sep2 -> setFixedHeight(1);
 			sep2 -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-			box -> addWidget(sep2);
+            box -> addWidget(sep2);
 
 
             // Regles Button

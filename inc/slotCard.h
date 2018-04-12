@@ -30,7 +30,7 @@ public:
     void resizeEvent (QResizeEvent*);
 
     void setPic(QString str);
-    void posePic();
+	void posePic();
     void maskPic();
     void rmPic();
     void turn();

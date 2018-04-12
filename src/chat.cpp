@@ -35,7 +35,7 @@ Chat::Chat(){
 */
             label = new QTextEdit;
 
-            label -> setAttribute(Qt::WA_TranslucentBackground, true);
+//            label -> setAttribute(Qt::WA_TranslucentBackground, true);
             label -> setReadOnly(true);
             label -> setAcceptRichText(true);
             label -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -158,4 +158,8 @@ void Chat::moveScrollBarToBottom(int min, int max){
 
 void Chat::openQuit(){
     emit rcvQuit();
+}
+
+void Chat::goFocus(){
+    send -> setFocus();
 }

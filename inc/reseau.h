@@ -25,6 +25,7 @@ public:
      void parser(std::string s);
      QHostAddress adresse;
        int port;
+       bool alreadyinit=false;
 
 public slots:
 	 void sendOK();
@@ -53,7 +54,7 @@ signals:
     void a_parser(QString chaine);
 	void hostReady(int);
 	void connectOK(int);
-	void connectKO(int);
+    void connectKO(int);
 };
 
 #endif // RESEAU_H

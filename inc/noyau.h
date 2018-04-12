@@ -18,8 +18,9 @@ public:
     Noyau();
 
     bool online;
+    bool mon_tour;
     int tour;
-    int phase=1;
+    int phase;
     int selfLife;
     int foeLife;
     int aleatoire;
@@ -32,6 +33,9 @@ public:
 
     std::vector<Carte *> *cimetiere1;
     std::vector<Carte *> *cimetiere2;
+
+    int nbrTick=0;
+    bool lockTick = false;
 
     //comme son nom l'indique, init le noyau
     void init();
@@ -75,7 +79,10 @@ public:
     void chargerDeck(int x);
     void deckAdverse(int x);
     Carte * trouver(int x);
-
+    bool no_monster(int zone);
+    bool can_poser();
+    bool can_atak();
+    bool can_switch();
 
     //obsolète
     Reseau * res;
@@ -96,6 +103,9 @@ public slots:
     void poserAtk();
     void poserDef();
     void donner_infos(int x);
+    void attaquerSlot(int,int);
+    void comptageTick();
+
 signals:
     void emit_go();
     void emit_mondieu();
@@ -107,6 +117,7 @@ signals:
     //void je_pose(QString img,int main_x,int terrain_x,bool def,bool vis);
     void j_attaque(int attaquant_x,int adversaire_x);
     void je_gagne();
+    void je_perds();
     void e_deck(int x);
     void destruction(int x);
     void chat(QString);
@@ -117,6 +128,12 @@ signals:
     void change_position(int x);
     void tiens(QString);
     void give_infos(QString,int,int,QString,int,QString,int,int);
+    void giveLife(int x);
+    void changeLife(int x,bool me);
+    void setTour(int x);
+    void sendInfo(QString i);
+    void beginTour();
+
     //void met_en_defense(int x);
 };
 

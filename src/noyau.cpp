@@ -2,6 +2,9 @@
 #include "../inc/parser.h"
 #include <chrono>
 #include <thread>
+#include <QMutex>
+
+QMutex * mut = new QMutex();
 Noyau::Noyau()
 {
     terrain = new std::vector<Carte *>();
@@ -23,6 +26,8 @@ void Noyau::init()
      aleatoire = std::rand();
     std::cout << "aleatoire" << aleatoire << std::endl;
     std::srand(aleatoire);
+    phase = 0;
+    tour = 0;
     //chargerDeck(0);
     //deckAdverse(0);
     //std::stringstream ss1;
@@ -37,6 +42,15 @@ void Noyau::init()
     //piocher(1);
 }
 
+void Noyau::comptageTick()
+{
+    if(lockTick)
+    {
+        nbrTick = (nbrTick+1) % 200;
+        if(nbrTick==0)
+            phase_suivante();
+    }
+}
 
 // initialise le réseau
 // OBSOLETE depuis l'ajout du reseau dans un master
@@ -70,6 +84,16 @@ Parser * yolo = new Parser();
 d1 = yolo->rechercher_set(x,NULL);
 std::random_shuffle(d1->begin(),d1->end());
 std::cout << "je shuffle d1" << std::endl;
+QString message = "";
+message.append("adeck:");
+int i;
+for(i=0;i<(signed)d1->size();i++)
+{
+    std::stringstream ss1;
+    ss1 << "/" << d1->at(i)->id;
+    message.append(QString::fromStdString(ss1.str()));
+}
+emit tiens(message);
 /*int i;
     for(i=0;i<(signed)d1->size();i++)
     {
@@ -95,22 +119,18 @@ for(i=0;i<(signed)d2->size();i++)
     std::cout << "carte :" << d2->at(i)->id << std::endl;
 //std::this_thread::sleep_for(std::chrono::milliseconds(rand()%100));
 //piocher(1);
-    QString message = "";
-    message.append("adeck:");
-    for(i=0;i<(signed)d1->size();i++)
-    {
-        std::stringstream ss1;
-        ss1 << "/" << d1->at(i)->id;
-        message.append(QString::fromStdString(ss1.str()));
-    }
-    message.append("/mdeck:");
+
+    /*message.append("/mdeck:");
     for(i=0;i<(signed)d2->size();i++)
     {
         std::stringstream ss1;
         ss1 << "/" << d2->at(i)->id;
         message.append(QString::fromStdString(ss1.str()));
     }
-    emit tiens(message);
+    std::stringstream ss2;
+    ss2 << "/life:" << selfLife;
+    message.append(QString::fromStdString(ss2.str()));*/
+
 }
 
 void Noyau::donner_infos(int x)
@@ -131,6 +151,7 @@ void Noyau::donner_infos(int x)
 // x vaut 1 si c'est moi qui pioche sinon x vaut 76
 void Noyau::piocher(int x)
 {
+    mut->lock();
     int position = Carte::correspondant(x);
     //si c'est moi qui pioche
     if(position>75)
@@ -138,9 +159,12 @@ void Noyau::piocher(int x)
     //on met la position de la carte qui est au sommet du deck là où il faut dans la main
     //on place la carte dans au bon endroit
     //on enleve la carte du deck
+    //sendInfo(QString("Je pioche"));
+    //std::cout << "le traitement du piochage allié en cours " << std::endl;
 
-    std::cout << "le traitement du piochage allié en cours " << std::endl;
     int dans_main = perfect_position(0);
+    // std::cout << "id:"<< d1->front()->id << " je pose en " << dans_main << std::endl;
+    // std::cout << "adresse : " << d1->front() << " id:"<< d1->front()->id << " je pose en " << dans_main << std::endl;
     d1->front()->position_terrain = dans_main;
     terrain->push_back(d1->front());
 
@@ -149,22 +173,26 @@ void Noyau::piocher(int x)
     //prevenir le voisin
     emit visible(trouver(dans_main)->image,dans_main);
     std::cout << "faut piocher " << trouver(dans_main)->image.toStdString() << " là " << dans_main << std::endl;
-    if(online)
+    /*if(online)
     {
         emit tiens("apioche");
-    }
-    emit je_pioche();
+    }*/
+    if(tour!=0)
+        emit sendInfo("J'ai pioché");
     }
     else
     {
+        if(tour!=0)
+        emit sendInfo("L'adversaire a pioché");
     std::cout << "le traitement du piochage adverse en cours " << std::endl;
     int dans_main = perfect_position(1);
-    std::cout << "l'adversaire pose en " << dans_main << std::endl;
+    //std::cout << "adresse : " << d2->front() << " id:"<< d2->front()->id << " l'adversaire pose en " << dans_main << std::endl;
     d2->front()->position_terrain = dans_main;
     terrain->push_back(d2->front());
     enlever_i(&d2,0);
     emit nonvis(dans_main);
     }
+    mut->unlock();
 }
 
 bool Noyau::isAdv(int x){
@@ -240,7 +268,7 @@ int Noyau::perfect_terrain(int zone)
 void Noyau::poser_test(int x)
 {
     //le if doit être mieux géré negrion
-    if(!isAdv(x) && isHand(x) && trouver(x)!=NULL )
+    if(!isAdv(x) && isHand(x) && trouver(x)!=NULL && can_poser())
     {
         registre_0 = x;
         emit dialogue();
@@ -257,54 +285,72 @@ void Noyau::poser_test(int x)
 //poser la carte
 //prends en argument la position de la carte dans la main, la position où on veut la poser, def est vrai si on veut la poser en mode defense , vis est vrai si on veut la mettre en mode face recto
 void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
-{
+{ int i;
     Carte * la_carte;
     if(main_x < 75)
     {
-        std::cout << "je traite mon posage" << std::endl;
-        la_carte = trouver(main_x);
-        la_carte->position_terrain=terrain_x;
-        la_carte->def = def;
-        if(vis)
-            la_carte->etat = RECTO;
-        else
-            la_carte->etat=VERSO;
-        if(!def)
-        {
-            if(vis)
+        if(can_poser())
+            {std::cout << "je traite mon posage" << std::endl;
+            /*for(i=0;i<(signed)terrain->size();i++)
             {
-                emit visible(la_carte->image,terrain_x);
+                std::cout << terrain->at(i)->id << " at position:" << terrain->at(i)->position_terrain << std::endl;
+            }*/
+            emit sendInfo(QString("Je pose"));
+            la_carte = trouver(main_x);
+            la_carte->position_terrain=terrain_x;
+            la_carte->pos= def;
+            if(vis)
+                la_carte->etat = RECTO;
+            else
+                la_carte->etat=VERSO;
+            if(!def)
+            {
+                if(vis)
+                {
+                    emit visible(la_carte->image,terrain_x);
+                }
+                else
+                {
+                    emit nonvis(terrain_x);
+                }
             }
             else
             {
-                emit nonvis(terrain_x);
+                if(!vis)
+                {
+                    emit defens(terrain_x);
+                }
             }
-        }
-        else
-        {
-            if(!vis)
+            emit destruction(main_x);
+            //emit je_pose(la_carte->image,main_x,terrain_x,def,vis);
+            if(online)
             {
-                emit defens(terrain_x);
-            }
-        }
-        emit destruction(main_x);
-        //emit je_pose(la_carte->image,main_x,terrain_x,def,vis);
-        if(online)
-        {
-            QString message = "p/";
-            std::stringstream s1;
-            s1 << Carte::correspondant(main_x) << "/" << Carte::correspondant(terrain_x) << "/" << (def? 1 : 0) << "/" << (vis? 1 : 0) ;
-            message.append(QString::fromStdString(s1.str()));
-            emit tiens(message);
+                QString message = "p/";
+                std::stringstream s1;
+                s1 << Carte::correspondant(main_x) << "/" << Carte::correspondant(terrain_x) << "/" << (def? 1 : 0) << "/" << (vis? 1 : 0) ;
+                message.append(QString::fromStdString(s1.str()));
+                std::cout << "j'envois message:" << message.toStdString() << std::endl;
+                emit tiens(message);
 
+            }
         }
     }
     else
     {
+         emit sendInfo(QString("L'adversaire pose"));
         std::cout << "je traite le posage adverse" << std::endl;
+        for(i=0;i<(signed)terrain->size();i++)
+        {
+            std::cout << terrain->at(i)->id << " at position:" << terrain->at(i)->position_terrain << std::endl;
+        }
         la_carte = trouver(main_x);
+        if(la_carte == NULL)
+         {   std::cout << "WO NEGRO TU GERES PAS " << std::endl;
+
+
+        }
         la_carte->position_terrain=terrain_x;
-         la_carte->def = def;
+         la_carte->pos = def;
          if(vis)
              la_carte->etat = RECTO;
          else
@@ -377,6 +423,11 @@ int Noyau::perfect_position(int zone)
     }
     else
     {
+        /*int i;
+        for(i=0;i<terrain->size();i++)
+        {
+            std::cout << "je cherche si je peux : adresse:" << terrain->at(i) << " at " << terrain->at(i)->position_terrain << std::endl;
+        }*/
         begin_position=89;
         if(trouver(begin_position)==NULL)
                return begin_position;
@@ -405,70 +456,153 @@ int Noyau::perfect_position(int zone)
     return begin_position;
 }
 
+bool Noyau::no_monster(int zone)
+{
+    bool fin = true;
+    int i;
+    if(zone==0)
+    {
+        for(i=0;i<5;i++)
+        {
+            if(trouver(1+i)!=NULL)
+                return false;
+        }
+    }
+    else
+    {
+        for(i=0;i<5;i++)
+        {
+            if(trouver(76+i)!=NULL)
+                return false;
+        }
+    }
+    return fin;
+}
+
+void Noyau::attaquerSlot(int atk,int def)
+{
+       attaquer(atk,def);
+}
+
+
 //permet d'attaquer
 //prends en parametre la position de l'attaquant  et la position de l'attaqué, si le deuxieme argument n'est pas donné ou vaut -1 alors cela attaque l'adversaire directement (càd ses points de vie)
 void Noyau::attaquer(int attaquant_x, int adversaire_x)
 {
     //c'est moi qui attaque
+    std::cout << "je vais attaquer avec " << attaquant_x << " et " << adversaire_x  << std::endl;
+    Carte * atk = trouver(attaquant_x);
+    if(atk==NULL)
+    {
+        std::cout << "attaquant existe pas " << std::endl;
+        return;
+    }
     if(attaquant_x < 75)
     {
-        Carte * atk = trouver(attaquant_x);
-        if(adversaire_x == -1)
+        if(can_atak())
         {
-            foeLife = foeLife - atk->atk;
-            if(foeLife <=0)
-                emit je_gagne();
-        }
-        else
-        {
-                 Carte * def = trouver(adversaire_x);
-                 //le monstre est en position de défense
-                if(def->pos)
+            //Carte * atk = trouver(attaquant_x);
+            if(adversaire_x == -1)
+            {
+                if(no_monster(1))
                 {
-                    if(atk->atk > def->def)
-                    {
-                        detruire(adversaire_x);
-                    }
-                    else if(atk->atk < def->def)
-                    {
-                        selfLife = selfLife - (def->def - atk->atk);
-                    }
+                    std::cout << "l'adversaire perds de la vie " << std::endl;
+                    foeLife = foeLife - atk->atk;
+                    emit changeLife(foeLife,false);
+                    if(foeLife <=0)
+                        emit je_gagne();
                 }
-                else
-                {
-                    if(atk->atk > def->atk)
+            }
+            else
+            {
+                     Carte * def = trouver(adversaire_x);
+                     //le monstre est en position de défense
+                     if(def == NULL)
+                     {
+                         if(no_monster(1))
+                         {
+                             std::cout << "je vais attaquer l'adversaire directement" << std::endl;
+                             attaquer(attaquant_x);
+                             return;
+                         }
+                         std::cout << "attaque impossible" << std::endl;
+                         return;
+                     }
+                    if(def->pos)
                     {
-                        detruire(adversaire_x);
-                        foeLife = foeLife - (atk->atk - def->atk);
-                        if(foeLife <=0)
-                            emit je_gagne();
-                    }
-                    else if(atk->atk < def->def)
-                    {
-                        detruire(attaquant_x);
-                        selfLife = selfLife - (def->atk - atk->atk);
+                        if(atk->atk > def->def)
+                        {
+                            detruire(adversaire_x);
+                        }
+                        else if(atk->atk < def->def)
+                        {
+                            selfLife = selfLife - (def->def - atk->atk);
+
+                            emit changeLife(selfLife,true);
+                            if(selfLife <=0)
+                                emit je_perds();
+                        }
                     }
                     else
                     {
-                        detruire(adversaire_x);
-                        detruire(attaquant_x);
+                        if(atk->atk > def->atk)
+                        {
+                            detruire(adversaire_x);
+                            foeLife = foeLife - (atk->atk - def->atk);
+                            emit changeLife(foeLife,false);
+                            if(foeLife <=0)
+                                emit je_gagne();
+                        }
+                        else if(atk->atk < def->atk)
+                        {
+                            detruire(attaquant_x);
+                            selfLife = selfLife - (def->atk - atk->atk);
+                            if(selfLife <=0)
+                                emit je_perds();
+                            emit changeLife(selfLife,true);
+                        }
+                        else
+                        {
+                            detruire(adversaire_x);
+                            detruire(attaquant_x);
+                        }
                     }
-                }
+            }
+            QString message = "a/";
+            std::stringstream s1;
+            s1 << Carte::correspondant(attaquant_x) << "/" << Carte::correspondant(adversaire_x);
+            message.append(QString::fromStdString(s1.str()));
+            emit tiens(message);
         }
-        emit j_attaque(attaquant_x,adversaire_x);
+
     }
     //c'est l'autre qui attaque
     else
     {
-        Carte * atk = trouver(attaquant_x);
+        //Carte * atk = trouver(attaquant_x);
         if(adversaire_x == -1)
         {
-           selfLife = selfLife - atk->atk;
+            if(no_monster(0))
+            {
+                selfLife = selfLife - atk->atk;
+
+                emit changeLife(selfLife,true);
+                if(selfLife <=0)
+                    emit je_perds();
+            }
         }
         else
         {
                  Carte * def = trouver(adversaire_x);
                  //le monstre est en position de défense
+                 if(def == NULL)
+                 {
+                     if(no_monster(0))
+                     {
+                         attaquer(attaquant_x);
+                         return;
+                     }
+                 }
                 if(def->pos)
                 {
                     if(atk->atk > def->def)
@@ -478,6 +612,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     else if(atk->atk < def->def)
                     {
                         foeLife = foeLife - (def->def - atk->atk);
+                        emit changeLife(foeLife,false);
                         if(foeLife <=0)
                             emit je_gagne();
                     }
@@ -488,11 +623,15 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     {
                         detruire(adversaire_x);
                         selfLife = selfLife - (atk->atk - def->atk);
+                        emit changeLife(selfLife,true);
+                        if(selfLife <=0)
+                            emit je_perds();
                     }
-                    else if(atk->atk < def->def)
+                    else if(atk->atk < def->atk)
                     {
                         detruire(attaquant_x);
                         foeLife = foeLife - (def->atk - atk->atk);
+                        emit changeLife(foeLife,false);
                         if(foeLife <=0)
                             emit je_gagne();
                     }
@@ -595,11 +734,57 @@ void Noyau::enlever_x(std::vector<Carte *> **vect, int x)
 //PAS ENCORE BIEN IMPLEMENTE 
 void Noyau::phase_suivante()
 {
-    if(phase==5)
-        phase=1;
+    if(phase==2)
+    {
+        mon_tour = !mon_tour;
+        phase=0;
+        tour++;
+        emit setTour(tour);
+        if(mon_tour)
+            piocher(1);
+        else
+            piocher(76);
+    }
     else
         phase++;
+    switch(phase)
+    {
+        case 0:
+            emit sendInfo("Main Phase 1");
+        break;
+        case 1:
+            if((no_monster(0) && mon_tour) || (no_monster(1) && !mon_tour))
+               {
+                phase = 2;
+                phase_suivante();
+            }
+            else
+                emit sendInfo("Battle Phase");
+        break;
+        case 2:
+           emit sendInfo("Main Phase 2");
+        break;
+        default:
+        break;
+
+    }
 }
+
+bool Noyau::can_poser()
+{
+    return (mon_tour && (phase==0 || phase==2));
+}
+
+bool Noyau::can_atak()
+{
+    return (mon_tour && (phase==1));
+}
+
+bool Noyau::can_switch()
+{
+    return(mon_tour && (phase==0 || phase==2));
+}
+
 
 //OBSOLETE
 void Noyau::go()
@@ -780,7 +965,7 @@ void Noyau::traiter(QString s)
     }
     else if(s.startsWith("alea:"))
     {
-        int valeur;
+        //int valeur;
         char * arg = new char[s.length()+1];
            std::strcpy(arg,s.toStdString().c_str());
          char * parcourir = std::strtok(arg,":");
@@ -795,7 +980,7 @@ void Noyau::traiter(QString s)
             vrai = parcourir;
           }
          delete(arg);
-         valeur = atoi(vrai.c_str());
+         //valeur = atoi(vrai.c_str());
          deckAdverse(0);
     }
     else if(s.startsWith("þ"))
@@ -809,7 +994,6 @@ void Noyau::traiter(QString s)
         Parser * yolo = new Parser();
         d1 = new std::vector<Carte *>();
         d2 = new std::vector<Carte *>();
-        int qui=0;
         char * arg = new char[s.length()+1];
            std::strcpy(arg,s.toStdString().c_str());
          char * parcourir = std::strtok(arg,"/");
@@ -820,52 +1004,177 @@ void Noyau::traiter(QString s)
          while(parcourir!=NULL)
          {
              //std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
-             if(vrai.startsWith(QString("adeck")))
+             if(!vrai.startsWith(QString("adeck")))
              {
-                 qui = 0;
-             }
-             else if(vrai.startsWith(QString("mdeck")))
-             {
-                 qui = 1;
-             }
-             else
-             {
-                    if(qui==0)
-                    {
-                        for(i=0;i<(signed)yolo->all_cards->size();i++)
+             for(i=0;i<(signed)yolo->all_cards->size();i++)
                         {
                             if(yolo->all_cards->at(i)->id == atoi(parcourir))
                             {
-                                  d2->push_back(yolo->all_cards->at(i));
+                                  d2->push_back((yolo->all_cards->at(i))->copie());
                                   break;
                             }
                         }
-                    }
-                    else
-                    {
-                        for(i=0;i<(signed)yolo->all_cards->size();i++)
+               }
+             parcourir = std::strtok(NULL,"/");
+             if(parcourir!=NULL)
+            vrai = QString(parcourir);
+          }
+
+
+         delete(arg);
+         d1 = yolo->rechercher_set(0,NULL);
+         std::random_shuffle(d1->begin(),d1->end());
+         std::cout << "je shuffle d1" << std::endl;
+         QString message = "";
+         message.append("sdeck:");
+         for(i=0;i<(signed)d1->size();i++)
+         {
+             std::stringstream ss1;
+             ss1 << "/" << d1->at(i)->id;
+             message.append(QString::fromStdString(ss1.str()));
+         }
+         emit tiens(message);
+         //piocher(1);
+        // piocher(76);
+         //deckAdverse(0);
+    }
+    else if(s.startsWith("sdeck:"))
+    {
+        std::cout << "JE TRAITE LE MESSAGE DU CLIENT" << std::endl;
+        Parser * yolo = new Parser();
+        d2 = new std::vector<Carte *>();
+        char * arg = new char[s.length()+1];
+           std::strcpy(arg,s.toStdString().c_str());
+         char * parcourir = std::strtok(arg,"/");
+         QString vrai;
+         if(parcourir!=NULL)
+          vrai = QString(parcourir);
+         int i;
+         while(parcourir!=NULL)
+         {
+             //std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+             if(!vrai.startsWith(QString("adeck")))
+             {
+             for(i=0;i<(signed)yolo->all_cards->size();i++)
                         {
                             if(yolo->all_cards->at(i)->id == atoi(parcourir))
                             {
-                                  d1->push_back(yolo->all_cards->at(i));
+                                  d2->push_back(yolo->all_cards->at(i)->copie());
                                   break;
                             }
                         }
-                    }
+               }
+             parcourir = std::strtok(NULL,"/");
+             if(parcourir!=NULL)
+            vrai = QString(parcourir);
+          }
+
+
+         delete(arg);
+         QString message = "";
+         message.append("life/");
+         std::stringstream ss1;
+         ss1 << selfLife;
+          message.append(QString::fromStdString(ss1.str()));
+         emit tiens(message);
+         //piocher(1);
+    }
+    else if(s.startsWith("life/"))
+    {
+        char * arg = new char[s.length()+1];
+           std::strcpy(arg,s.toStdString().c_str());
+         char * parcourir = std::strtok(arg,"/");
+         QString vrai;
+         if(parcourir!=NULL)
+          vrai = QString(parcourir);
+         while(parcourir!=NULL)
+         {
+             //std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+             if(!vrai.startsWith(QString("life")))
+             {
+               //  std::cout << "la vie :" << parcourir << "la vraie vie:" << selfLife<< std::endl;
+                   if(!(selfLife == atoi(parcourir)))
+                   {
+                       selfLife = 8000;
+                       foeLife = selfLife;
+                   }
              }
              parcourir = std::strtok(NULL,"/");
              if(parcourir!=NULL)
             vrai = QString(parcourir);
           }
          delete(arg);
+         QString message = "";
+         message.append("slife/");
+         std::stringstream ss1;
+         ss1 << selfLife;
+          message.append(QString::fromStdString(ss1.str()));
+         emit tiens(message);
+         emit giveLife(selfLife);
+            emit beginTour();
+          lockTick=true;
+          mon_tour=false;
+
+              piocher(1);
+                piocher(1);
+                  piocher(1);
+                    piocher(1);
+                      piocher(1);
+                      piocher(76);
+                       piocher(76);
+                        piocher(76);
+                         piocher(76);
+                          piocher(76);
+                          piocher(76);
+          emit sendInfo("Main Phase 1");
+    }
+    else if(s.startsWith("slife/"))
+    {
+        char * arg = new char[s.length()+1];
+           std::strcpy(arg,s.toStdString().c_str());
+         char * parcourir = std::strtok(arg,"/");
+         QString vrai;
+         if(parcourir!=NULL)
+          vrai = QString(parcourir);
+         while(parcourir!=NULL)
+         {
+             //std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+             if(!vrai.startsWith(QString("slife")))
+             {
+                   if(!(selfLife == atoi(parcourir)))
+                   {
+                       selfLife = 8000;
+                       foeLife = selfLife;
+                   }
+             }
+             parcourir = std::strtok(NULL,"/");
+             if(parcourir!=NULL)
+            vrai = QString(parcourir);
+          }
+         delete(arg);
+         emit giveLife(selfLife);
          piocher(1);
-         piocher(76);
-         //deckAdverse(0);
+           piocher(1);
+             piocher(1);
+               piocher(1);
+                 piocher(1);
+                 piocher(76);
+                  piocher(76);
+                   piocher(76);
+                    piocher(76);
+                     piocher(76);
+                     piocher(1);
+
+         emit beginTour();
+         lockTick=true;
+         mon_tour=true;
+         emit sendInfo("Main Phase 1");
+        // emit commence();
     }
     else if(s.compare(QString("init"))==0)
     {
         chargerDeck(0);
-        deckAdverse(0);
+        //deckAdverse(0);
     }
 
 }

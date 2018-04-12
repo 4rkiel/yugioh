@@ -104,6 +104,7 @@ JoinChoice::JoinChoice () {
 
 
         introBox -> setLayout(box);
+        introBox -> setTabOrder ( input, valid );
         layout -> addWidget(introBox, 2, 1, 1, 1);
 
 
