@@ -1,7 +1,7 @@
 #include "../inc/deckpreview.h"
 
-DeckPreview::DeckPreview(QString deck ,QString img)
-{
+DeckPreview::DeckPreview(QString deck ,QString img){
+
     mainLayout = new QHBoxLayout;
 
     monDeck = deck;
@@ -21,10 +21,8 @@ DeckPreview::DeckPreview(QString deck ,QString img)
     setLayout(mainLayout);
 }
 
-void DeckPreview::mousePressEvent (QMouseEvent * e)
-{
-    if (e->button() == Qt::LeftButton || e->button() == Qt::RightButton )
-    {
+void DeckPreview::mousePressEvent (QMouseEvent * e){
+    if (e->button() == Qt::LeftButton || e->button() == Qt::RightButton ){
         emit clicked(monDeck);
     }
 }
