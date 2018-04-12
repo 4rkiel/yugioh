@@ -7,7 +7,7 @@ MonServeur::MonServeur(QObject *parent) : QObject(parent){
     socket=new QUdpSocket(this);
 
     //on fixe l'adresse serveur
-    socket->bind(QHostAddress("2001:660:4701:2001:50d9:1d4e:41f2:392b"),9000);
+    socket->bind(QHostAddress("192.168.2.16"),9000);
 
     connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 

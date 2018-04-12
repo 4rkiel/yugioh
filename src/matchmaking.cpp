@@ -18,7 +18,7 @@ Matchmaking::Matchmaking(QObject *parent) : QObject(parent){
     paquet.append("Hello du client");
 
     //envoi de msg au serveur
-    socket->writeDatagram(paquet,adresse,port);
+    socket->writeDatagram(paquet,QHostAddress::LocalHostIPv6,port);
 
 
     // attente réponse serveur
