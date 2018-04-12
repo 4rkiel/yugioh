@@ -3,6 +3,7 @@
 Reseau::Reseau()
 {
     socket = new QUdpSocket(this);
+    socket->setSocketOption(QAbstractSocket::KeepAliveOption,1);
      connect(socket, SIGNAL(connected()), this, SLOT(connecte()));
      connect(socket, SIGNAL(readyRead()), this, SLOT(donneesRecues()));
 }
