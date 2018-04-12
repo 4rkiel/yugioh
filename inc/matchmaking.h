@@ -7,6 +7,7 @@
 #include <sstream>
 #include <QUdpSocket>
 #include <iostream>
+#include <QHostInfo>
 
 class Matchmaking : public QObject
 {
@@ -25,6 +26,7 @@ public slots:
 private:
     QUdpSocket *socket;
     QHostAddress* adresse_bind;
+    QHostAddress* adresse_serveur;
 };
 
 #endif // MATCHMAKING_H

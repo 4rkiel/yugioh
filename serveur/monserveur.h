@@ -14,6 +14,7 @@
 #include <sstream>
 #include <QUdpSocket>
 #include <iostream>
+#include <QHostInfo>
 
 #include <QObject>
 
@@ -22,10 +23,12 @@ class MonServeur : public QObject
     Q_OBJECT
 public:
     explicit MonServeur(QObject *parent = 0);
+    ~MonServeur();
     QHostAddress* adresse_hote;
     quint16* port_hote;
 private:
     QUdpSocket* socket;
+    QHostAddress* adresse_serveur;
 
 signals:
 

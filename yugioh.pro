@@ -73,7 +73,6 @@ HEADERS += inc/buildtab.h \
            inc/ai.h \
            inc/matchmaking.h \
 
-
 SOURCES += src/buildtab.cpp \
            src/master.cpp \
            src/selector.cpp \
@@ -112,7 +111,7 @@ SOURCES += src/buildtab.cpp \
            src/cardlistpreview.cpp \
            src/cardpreview.cpp \
            src/ai.cpp \
-            src/matchmaking.cpp \
+           src/matchmaking.cpp \
 
            
 TRANSLATIONS += i18n/en_US/yugi_en_US.ts i18n/fr_FR/yugi_fr_FR.ts
