@@ -80,7 +80,8 @@ public:
     void deckAdverse(int x);
     Carte * trouver(int x);
     bool no_monster(int zone);
-
+    bool can_poser();
+    bool can_atak();
 
     //obsolète
     Reseau * res;

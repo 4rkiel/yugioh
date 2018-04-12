@@ -266,7 +266,7 @@ int Noyau::perfect_terrain(int zone)
 void Noyau::poser_test(int x)
 {
     //le if doit être mieux géré negrion
-    if(!isAdv(x) && isHand(x) && trouver(x)!=NULL )
+    if(!isAdv(x) && isHand(x) && trouver(x)!=NULL && can_poser())
     {
         registre_0 = x;
         emit dialogue();
@@ -287,48 +287,50 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
     Carte * la_carte;
     if(main_x < 75)
     {
-        std::cout << "je traite mon posage" << std::endl;
-        /*for(i=0;i<(signed)terrain->size();i++)
-        {
-            std::cout << terrain->at(i)->id << " at position:" << terrain->at(i)->position_terrain << std::endl;
-        }*/
-        emit sendInfo(QString("Je pose"));
-        la_carte = trouver(main_x);
-        la_carte->position_terrain=terrain_x;
-        la_carte->pos= def;
-        if(vis)
-            la_carte->etat = RECTO;
-        else
-            la_carte->etat=VERSO;
-        if(!def)
-        {
-            if(vis)
+        if(can_poser())
+            {std::cout << "je traite mon posage" << std::endl;
+            /*for(i=0;i<(signed)terrain->size();i++)
             {
-                emit visible(la_carte->image,terrain_x);
+                std::cout << terrain->at(i)->id << " at position:" << terrain->at(i)->position_terrain << std::endl;
+            }*/
+            emit sendInfo(QString("Je pose"));
+            la_carte = trouver(main_x);
+            la_carte->position_terrain=terrain_x;
+            la_carte->pos= def;
+            if(vis)
+                la_carte->etat = RECTO;
+            else
+                la_carte->etat=VERSO;
+            if(!def)
+            {
+                if(vis)
+                {
+                    emit visible(la_carte->image,terrain_x);
+                }
+                else
+                {
+                    emit nonvis(terrain_x);
+                }
             }
             else
             {
-                emit nonvis(terrain_x);
+                if(!vis)
+                {
+                    emit defens(terrain_x);
+                }
             }
-        }
-        else
-        {
-            if(!vis)
+            emit destruction(main_x);
+            //emit je_pose(la_carte->image,main_x,terrain_x,def,vis);
+            if(online)
             {
-                emit defens(terrain_x);
-            }
-        }
-        emit destruction(main_x);
-        //emit je_pose(la_carte->image,main_x,terrain_x,def,vis);
-        if(online)
-        {
-            QString message = "p/";
-            std::stringstream s1;
-            s1 << Carte::correspondant(main_x) << "/" << Carte::correspondant(terrain_x) << "/" << (def? 1 : 0) << "/" << (vis? 1 : 0) ;
-            message.append(QString::fromStdString(s1.str()));
-            std::cout << "j'envois message:" << message.toStdString() << std::endl;
-            emit tiens(message);
+                QString message = "p/";
+                std::stringstream s1;
+                s1 << Carte::correspondant(main_x) << "/" << Carte::correspondant(terrain_x) << "/" << (def? 1 : 0) << "/" << (vis? 1 : 0) ;
+                message.append(QString::fromStdString(s1.str()));
+                std::cout << "j'envois message:" << message.toStdString() << std::endl;
+                emit tiens(message);
 
+            }
         }
     }
     else
@@ -495,78 +497,81 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
     }
     if(attaquant_x < 75)
     {
-        //Carte * atk = trouver(attaquant_x);
-        if(adversaire_x == -1)
+        if(can_atak())
         {
-            if(no_monster(1))
+            //Carte * atk = trouver(attaquant_x);
+            if(adversaire_x == -1)
             {
-                std::cout << "l'adversaire perds de la vie " << std::endl;
-                foeLife = foeLife - atk->atk;
-                emit changeLife(foeLife,false);
-                if(foeLife <=0)
-                    emit je_gagne();
+                if(no_monster(1))
+                {
+                    std::cout << "l'adversaire perds de la vie " << std::endl;
+                    foeLife = foeLife - atk->atk;
+                    emit changeLife(foeLife,false);
+                    if(foeLife <=0)
+                        emit je_gagne();
+                }
             }
-        }
-        else
-        {
-                 Carte * def = trouver(adversaire_x);
-                 //le monstre est en position de défense
-                 if(def == NULL)
-                 {
-                     if(no_monster(1))
+            else
+            {
+                     Carte * def = trouver(adversaire_x);
+                     //le monstre est en position de défense
+                     if(def == NULL)
                      {
-                         std::cout << "je vais attaquer l'adversaire directement" << std::endl;
-                         attaquer(attaquant_x);
+                         if(no_monster(1))
+                         {
+                             std::cout << "je vais attaquer l'adversaire directement" << std::endl;
+                             attaquer(attaquant_x);
+                             return;
+                         }
+                         std::cout << "attaque impossible" << std::endl;
                          return;
                      }
-                     std::cout << "attaque impossible" << std::cout;
-                     return;
-                 }
-                if(def->pos)
-                {
-                    if(atk->atk > def->def)
+                    if(def->pos)
                     {
-                        detruire(adversaire_x);
-                    }
-                    else if(atk->atk < def->def)
-                    {
-                        selfLife = selfLife - (def->def - atk->atk);
+                        if(atk->atk > def->def)
+                        {
+                            detruire(adversaire_x);
+                        }
+                        else if(atk->atk < def->def)
+                        {
+                            selfLife = selfLife - (def->def - atk->atk);
 
-                        emit changeLife(selfLife,true);
-                        if(selfLife <=0)
-                            emit je_perds();
-                    }
-                }
-                else
-                {
-                    if(atk->atk > def->atk)
-                    {
-                        detruire(adversaire_x);
-                        foeLife = foeLife - (atk->atk - def->atk);
-                        emit changeLife(foeLife,false);
-                        if(foeLife <=0)
-                            emit je_gagne();
-                    }
-                    else if(atk->atk < def->atk)
-                    {
-                        detruire(attaquant_x);
-                        selfLife = selfLife - (def->atk - atk->atk);
-                        if(selfLife <=0)
-                            emit je_perds();
-                        emit changeLife(selfLife,true);
+                            emit changeLife(selfLife,true);
+                            if(selfLife <=0)
+                                emit je_perds();
+                        }
                     }
                     else
                     {
-                        detruire(adversaire_x);
-                        detruire(attaquant_x);
+                        if(atk->atk > def->atk)
+                        {
+                            detruire(adversaire_x);
+                            foeLife = foeLife - (atk->atk - def->atk);
+                            emit changeLife(foeLife,false);
+                            if(foeLife <=0)
+                                emit je_gagne();
+                        }
+                        else if(atk->atk < def->atk)
+                        {
+                            detruire(attaquant_x);
+                            selfLife = selfLife - (def->atk - atk->atk);
+                            if(selfLife <=0)
+                                emit je_perds();
+                            emit changeLife(selfLife,true);
+                        }
+                        else
+                        {
+                            detruire(adversaire_x);
+                            detruire(attaquant_x);
+                        }
                     }
-                }
+            }
+            QString message = "a/";
+            std::stringstream s1;
+            s1 << Carte::correspondant(attaquant_x) << "/" << Carte::correspondant(adversaire_x);
+            message.append(QString::fromStdString(s1.str()));
+            emit tiens(message);
         }
-        QString message = "a/";
-        std::stringstream s1;
-        s1 << Carte::correspondant(attaquant_x) << "/" << Carte::correspondant(adversaire_x);
-        message.append(QString::fromStdString(s1.str()));
-        emit tiens(message);
 
     }
     //c'est l'autre qui attaque
@@ -746,7 +751,7 @@ void Noyau::phase_suivante()
             emit sendInfo("Main Phase 1");
         break;
         case 1:
-            emit sendInfo("Battle Phase 1");
+            emit sendInfo("Battle Phase");
         break;
         case 2:
            emit sendInfo("Main Phase 2");
@@ -756,6 +761,17 @@ void Noyau::phase_suivante()
 
     }
 }
+
+bool Noyau::can_poser()
+{
+    return (mon_tour && (phase==0 || phase==2));
+}
+
+bool Noyau::can_atak()
+{
+    return (mon_tour && (phase==1));
+}
+
 
 //OBSOLETE
 void Noyau::go()
@@ -936,7 +952,7 @@ void Noyau::traiter(QString s)
     }
     else if(s.startsWith("alea:"))
     {
-        int valeur;
+        //int valeur;
         char * arg = new char[s.length()+1];
            std::strcpy(arg,s.toStdString().c_str());
          char * parcourir = std::strtok(arg,":");
@@ -951,7 +967,7 @@ void Noyau::traiter(QString s)
             vrai = parcourir;
           }
          delete(arg);
-         valeur = atoi(vrai.c_str());
+         //valeur = atoi(vrai.c_str());
          deckAdverse(0);
     }
     else if(s.startsWith("þ"))
