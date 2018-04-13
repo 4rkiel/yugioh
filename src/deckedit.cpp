@@ -352,7 +352,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
         deckScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         deckScroll -> setFocusPolicy(Qt::NoFocus);
         deckScroll->setBackgroundRole(QPalette::Light);
-        deckScroll->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
+        deckScroll->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
             //Parser *parser = new Parser;
 
