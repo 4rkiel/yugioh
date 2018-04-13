@@ -232,8 +232,13 @@ void Master::loadField (int x){
 
     //win
     connect(noyau,SIGNAL(je_gagne()),field,SLOT(openWin()),Qt::QueuedConnection);
+    connect(noyau,SIGNAL(je_gagne()), this, SLOT(stopTick()));
+
     //lose
     connect(noyau,SIGNAL(je_perds()),field,SLOT(openLost()),Qt::QueuedConnection);
+    connect(noyau,SIGNAL(je_perds()), this, SLOT(stopTick()));
+	
+
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
 
@@ -250,6 +255,7 @@ void Master::loadField (int x){
     mTask = new MasterTask;
     mTask -> moveToThread(mThread);
 
+	mTask -> threadLock = true;
 
     connect( mTask, SIGNAL(newTick()), this, SLOT(timeTicker())) ;
     connect( mTask, SIGNAL(newTick()), mTask, SLOT(masterLoop()));
@@ -271,9 +277,12 @@ void Master::loadField (int x){
 
 void MasterTask::masterLoop (){
 
-    Sleeper::msleep(50);
+	if (threadLock){
+	
+		Sleeper::msleep(50);
 
-    emit newTick();
+    	emit newTick();
+	}
 }
 
 
@@ -286,6 +295,9 @@ void Master::timeTicker(){
 }
 
 
+void Master::stopTick(){
+	mTask -> threadLock = false;
+}
 
 
 
