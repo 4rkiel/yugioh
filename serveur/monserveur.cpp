@@ -17,7 +17,9 @@ MonServeur::MonServeur(QObject *parent) : QObject(parent){
     qDebug() << *adresse_serveur;
 
     //on fixe l'adresse serveur
-    socket->bind(*adresse_serveur,9000);
+    if(!socket->bind(*adresse_serveur,9000)){
+        std::cout << "bug" << std::endl;
+    }
 
     connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 
