@@ -55,7 +55,7 @@ RuleTab::RuleTab (){
     tabInsideLayout = new QGridLayout;
     tabInsideLayout -> setSpacing(0);
     tabInsideLayout -> setMargin(0);
-    tabInsideLayout -> setContentsMargins(30,0,30,0);
+    tabInsideLayout -> setContentsMargins(30,0,30,30);
 
 
 
@@ -113,9 +113,12 @@ RuleTab::RuleTab (){
         ruleBox = new QWidget;
         ruleBox -> setObjectName("ruleBox");
         
-        ruleLayout = new QStackedLayout;
+        ruleLayout = new QGridLayout;
         ruleLayout -> setSpacing(0);
         ruleLayout -> setMargin(0);
+		ruleLayout -> setContentsMargins(30,30,30,30);
+
+		ruleStacked = new QStackedWidget;
 
 
             // Personnalisation ...............................................
@@ -182,7 +185,7 @@ RuleTab::RuleTab (){
             persoScrollBox -> setLayout(persoPaneLayout); 
             persoScroll -> setWidget(persoScrollBox);
 
-            ruleLayout -> addWidget(persoScroll);
+            ruleStacked -> addWidget(persoScroll);
 
            
 
@@ -220,11 +223,14 @@ RuleTab::RuleTab (){
 
             ruleScroll -> setWidget(ruleLabel);
             
-            ruleLayout -> addWidget(ruleScroll);
+            ruleStacked -> addWidget(ruleScroll);
 
 
-        ruleLayout -> setCurrentWidget(persoScroll);
-        ruleBox -> setLayout(ruleLayout);
+			ruleStacked -> setCurrentWidget(persoScroll);
+        
+			ruleLayout -> addWidget(ruleBox);
+
+		ruleBox -> setLayout(ruleLayout);
 
     tabInsideLayout -> addWidget(ruleBox, 1, 0, 1, 2);
 
@@ -262,6 +268,8 @@ RuleTab::~RuleTab (){
     
     delete tabLayout;
     delete tabBox;
+
+	delete ruleStacked;
     delete ruleLayout;
 
     delete ruleBox;
@@ -295,7 +303,7 @@ void RuleTab::setRules (){
 
     updateStyle(rulesButt);
 
-        ruleLayout -> setCurrentWidget(ruleScroll);
+        ruleStacked -> setCurrentWidget(ruleScroll);
     }
 
 
@@ -303,7 +311,7 @@ void RuleTab::setPerso (){
 
     updateStyle(persoButt);
 
-    ruleLayout -> setCurrentWidget(persoScroll);
+    ruleStacked -> setCurrentWidget(persoScroll);
 }
 
 
@@ -340,39 +348,6 @@ void RuleTab::loadPersoSettings (){
     cardDrawNumber->setCurrentIndex(cardDrawNumber->findText(val2));
 
 }
-
-/*
-void RuleTab::shareChange (){
-
-    QSettings settings;
-    settings.setValue("share", shareChck -> isChecked());
-}
-
-
-
-void RuleTab::contrasteChange (){
-
-    QSettings settings;
-    settings.setValue("contraste", contrasteChck -> isChecked());
-}
-
-
-
-void RuleTab::achromaChange (){
-
-    QSettings settings;
-    settings.setValue("achroma", achromaChck -> isChecked());
-}
-
-
-
-void RuleTab::largeChange (){
-
-    QSettings settings;
-    settings.setValue("large", largeChck -> isChecked());
-}
-
-*/
 
 void RuleTab::lifeChange(){
 

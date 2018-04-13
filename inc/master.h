@@ -22,9 +22,15 @@ class MasterTask : public QObject {
 
 Q_OBJECT;
 
+public:
+
+	bool threadLock;
+
+
 public slots:
 
     void masterLoop();
+
 
 signals:
     
@@ -41,6 +47,7 @@ public:
     
     Master();
     ~Master();
+	
 
 
 public slots:
@@ -50,8 +57,7 @@ public slots:
     void loadField(int);
 	
     void timeTicker();
-	
-    void test(QString);
+	void stopTick();
 
 
 signals:

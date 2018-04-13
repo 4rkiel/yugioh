@@ -30,9 +30,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 # Input
 HEADERS += ../inc/ai.h \
+           ../inc/noyau.h \
+           ../inc/reseau.h \
+           ../inc/parser.h \
+           ../inc/carte.h \
            AiTrainer.h
 
 SOURCES += ../src/ai.cpp \
+           ../src/noyau.cpp \
+           ../src/reseau.cpp \
+           ../src/parser.cpp \
+           ../src/carte.cpp \
            AiTRainer.cpp \
            main.cpp
 

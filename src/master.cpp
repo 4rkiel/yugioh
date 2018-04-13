@@ -31,7 +31,6 @@ Master::Master (){
         connect(network, SIGNAL(hostReady(int)), this, SLOT(loadField(int)));
 
         // Ask for being host
-        connect(selector, SIGNAL(sendIP(QString)), this, SLOT(test(QString)));
         connect(selector, SIGNAL(sendIP(QString)), network, SLOT(mondieu(QString)));
 
         // Load Joined Game
@@ -122,14 +121,14 @@ void Master::loadField (int x){
         // 13:hard
         // 14:learning
 
-        int ai_data;
+        int ai_mode;
 
         if(mode >= 11 && mode <= 13)
-            ai_data = 1; //file ai.data
+            ai_mode = 1; //file ai.data
         else
-            ai_data = 2; //file learning_ai.data
+            ai_mode = 2; //file learning_ai.data
 
-        ai = new Ai(noyau,ai_data);
+        ai = new Ai(noyau,ai_mode);
         
         //le noyau envoi un signal a l'ia pour lui dire de jouer
         //connect(noyau,SIGNAL(au_tour_de_l_ia()),ai,SLOT(a_ton_tour()));
@@ -234,25 +233,38 @@ void Master::loadField (int x){
     connect(noyau,SIGNAL(je_gagne()),field,SLOT(openWin()),Qt::QueuedConnection);
     //lose
     connect(noyau,SIGNAL(je_perds()),field,SLOT(openLost()),Qt::QueuedConnection);
-    stacked -> addWidget(field);
+    
+	connect(noyau, SIGNAL(je_gagne()), this, SLOT(stopTick())); 
+	connect(noyau, SIGNAL(je_perds()), this, SLOT(stopTick())); 
+	
+	
+	
+	stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
 
-    field -> init();
+
+
+
+	field -> init();
 
 
 
     // Clock Thread
 
     mThread = new QThread;
-    mTask = new MasterTask;
+	mTask = new MasterTask;
     mTask -> moveToThread(mThread);
 
+	mTask -> threadLock = true;
 
     connect( mTask, SIGNAL(newTick()), this, SLOT(timeTicker())) ;
     connect( mTask, SIGNAL(newTick()), mTask, SLOT(masterLoop()));
 
     connect( mThread, SIGNAL(finished()), mTask, SLOT(deleteLater()));
     connect( mThread, SIGNAL(finished()), mThread, SLOT(deleteLater()) );
+
+    //connect(mTask,SIGNAL(newTick()),network,SLOT(keepAlive()),Qt::QueuedConnection);
+    connect(network,SIGNAL(hasDied()),noyau,SIGNAL(je_gagne()),Qt::QueuedConnection);
 
 
 
@@ -265,9 +277,12 @@ void Master::loadField (int x){
 
 void MasterTask::masterLoop (){
 
-    Sleeper::msleep(50);
+	if (threadLock){
 
-    emit newTick();
+	    Sleeper::msleep(50);
+
+    	emit newTick();
+	}
 }
 
 
@@ -276,21 +291,15 @@ void Master::timeTicker(){
 
 	noyau -> comptageTick();
     field -> setProgress();
+    network -> keepAlive();
+}
+
+
+void Master::stopTick(){
+	mTask -> threadLock = false;
 }
 
 
 
 
 
-
-
-
-
-
-
-
-void Master::test(QString str){
-    std::cout << str.toStdString() << "\n";
-}
-
-//void Master::cut(QString, int, int, bool, bool);
