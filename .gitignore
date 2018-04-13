@@ -7,3 +7,5 @@ yugioh
 *.pro.*
 a.out
 train_ai
+serveur/serveur
+serveur/*.o

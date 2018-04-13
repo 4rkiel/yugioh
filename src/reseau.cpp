@@ -3,9 +3,11 @@
 Reseau::Reseau()
 {
     socket = new QUdpSocket(this);
+    keep = new QUdpSocket(this);
     socket->setSocketOption(QAbstractSocket::KeepAliveOption,1);
      connect(socket, SIGNAL(connected()), this, SLOT(connecte()));
      connect(socket, SIGNAL(readyRead()), this, SLOT(donneesRecues()));
+     connect(keep,SIGNAL(readyRead()),this,SLOT(alive()));
 }
 
 QString Reseau::getIp()
@@ -23,6 +25,49 @@ QString Reseau::getIp()
 return hostIpStr;
 }
 
+
+void Reseau::alive()
+{
+    QByteArray buffer;
+    buffer.resize(socket->pendingDatagramSize());
+    QHostAddress sender;
+    quint16 senderPort;
+
+    keep->readDatagram(buffer.data(), buffer.size(),
+                         &sender, &senderPort);
+    std::cout << "====================== J'AI RECU UN IMALIVE =========================" << std::endl;
+    isAlive=true;
+}
+
+void Reseau::keepAlive()
+{
+    //std::cout << "je suis entré dans le keep et nbrtick ="<< nbrtick << std::endl;
+    nbrtick++;
+    if(nbrtick==50)
+    {
+        std::cout << "================ J'ENVOIE UN KEEP A "<<adresse.toString().toStdString() << " SUR "<< port_k << "=============" << std::endl;
+        QByteArray paquet;
+        paquet.append(QString("ImAlive"));
+        keep->writeDatagram(paquet,adresse,port_k);
+    }
+    if(nbrtick==100)
+    {
+        if(isAlive)
+        {
+            std::cout << "=================== IS ALIVE ====================" << std::endl;
+            isAlive = false;
+        }
+        else
+         {
+            std::cout << "================= HAS DIED =============" << std::endl;
+            emit hasDied();
+        }
+         nbrtick = 0;
+    }
+
+
+}
+
 void Reseau::go(QString str)
 {
 
@@ -35,6 +80,8 @@ void Reseau::go(QString str)
     }
 
     //connect(socket, SIGNAL(), this, SLOT(nouvelleConnexion()));
+    keep->bind(QHostAddress(str),50881);
+    port_k=50880;
     tailleMessage2=0;
 }
 
@@ -72,6 +119,8 @@ void Reseau::mondieu(QString str)
     // Envoi du paquet préparé à tous les clients connectés au serveur
     socket->bind(50886);
     socket->writeDatagram(paquet,adresse,port);
+    keep->bind(50880);
+    port_k=50881;
      emit hostReady(21);
     //socket->connectToHost(QHostAddress(getIp()), 50885);
 }

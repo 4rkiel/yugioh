@@ -16,6 +16,7 @@ class Reseau : public QWidget
 public:
     Reseau();
     QUdpSocket *socket;
+    QUdpSocket * keep;
      quint16 tailleMessage=0;
      QTcpServer *serveur;
      QList<QTcpSocket *> clients;
@@ -25,7 +26,10 @@ public:
      void parser(std::string s);
      QHostAddress adresse;
        int port;
+       int port_k;
        bool alreadyinit=false;
+       bool isAlive=true;
+       int nbrtick=0;
 
 public slots:
 	 void sendOK();
@@ -49,12 +53,15 @@ public slots:
      void prochaine_phase();
      void ton_tour();
      void transmettre(QString chaine);
+     void keepAlive();
+     void alive();
 
 signals:
     void a_parser(QString chaine);
 	void hostReady(int);
 	void connectOK(int);
     void connectKO(int);
+    void hasDied();
 };
 
 #endif // RESEAU_H

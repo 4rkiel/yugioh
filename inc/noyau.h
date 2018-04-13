@@ -133,6 +133,7 @@ signals:
     void setTour(int x);
     void sendInfo(QString i);
     void beginTour();
+    void stopTick();
 
     //void met_en_defense(int x);
 };
