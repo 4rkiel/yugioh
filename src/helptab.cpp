@@ -56,7 +56,7 @@ HelpTab::HelpTab (){
     tabInsideLayout = new QGridLayout;
     tabInsideLayout -> setSpacing(0);
     tabInsideLayout -> setMargin(0);
-    tabInsideLayout -> setContentsMargins(30,0,30,0);
+    tabInsideLayout -> setContentsMargins(30,0,30,30);
     
     
     helpEffect = new QGraphicsDropShadowEffect(this);
@@ -113,9 +113,12 @@ HelpTab::HelpTab (){
         helpBox = new QWidget;
         helpBox -> setObjectName("helpBox");
         
-        helpLayout = new QStackedLayout;
+        helpLayout = new QGridLayout;
         helpLayout -> setSpacing(0);
         helpLayout -> setMargin(0);
+		helpLayout -> setContentsMargins(30,30,30,30);
+
+		helpStacked = new QStackedWidget;
 
 
             // Help ...........................................................
@@ -151,7 +154,7 @@ HelpTab::HelpTab (){
 
                 helpScroll -> setWidget(helpLabel);
 
-            helpLayout -> addWidget(helpScroll);
+            helpStacked -> addWidget(helpScroll);
 
            
 
@@ -189,11 +192,13 @@ HelpTab::HelpTab (){
 
                 aboutScroll -> setWidget(aboutLabel);
 
-            helpLayout -> addWidget(aboutScroll);
+            helpStacked -> addWidget(aboutScroll);
 
+        helpStacked -> setCurrentWidget(helpScroll);
 
-        helpLayout -> setCurrentWidget(helpScroll);
-        helpBox -> setLayout(helpLayout);
+		helpLayout -> addWidget(helpStacked);
+
+		helpBox -> setLayout(helpLayout);
 
     tabInsideLayout -> addWidget(helpBox, 1, 0, 1, 2);
 
@@ -223,6 +228,7 @@ HelpTab::~HelpTab (){
         delete aboutButt;
         delete helpButt;
     
+	delete helpStacked;
     delete helpLayout;
     delete helpBox;
     delete tabLayout;
@@ -256,7 +262,7 @@ void HelpTab::setHelp (){
 
     updateStyle(helpButt);
 
-    helpLayout -> setCurrentWidget(helpScroll);
+    helpStacked -> setCurrentWidget(helpScroll);
 }
 
 
@@ -264,7 +270,7 @@ void HelpTab::setAbout (){
 
     updateStyle(aboutButt);
 
-    helpLayout -> setCurrentWidget(aboutScroll);
+    helpStacked -> setCurrentWidget(aboutScroll);
 }
 
 

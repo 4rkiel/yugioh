@@ -212,8 +212,14 @@ void Master::loadField (int x){
     //pop-up
     connect(noyau,SIGNAL(dialogue()),field,SLOT(openChoosePosi()),Qt::QueuedConnection);
 
+    //pop-op magie
+    connect(noyau,SIGNAL(dialogueMagi()),field,SLOT(openChooseMagi()),Qt::QueuedConnection);
+    connect(field,SIGNAL(sendVisi()),noyau,SLOT(poserMagV()),Qt::QueuedConnection);
+    connect(field,SIGNAL(sendHide()),noyau,SLOT(poserMagH()),Qt::QueuedConnection);
+
     //pour poser une carte
     connect(field,SIGNAL(doubleClicked(int)),noyau,SLOT(poser_test(int)),Qt::QueuedConnection);
+
 
     //pour switch
     connect(noyau,SIGNAL(change_position(int)),field,SLOT(switchCarte(int)),Qt::QueuedConnection);
@@ -232,10 +238,18 @@ void Master::loadField (int x){
 
     //win
     connect(noyau,SIGNAL(je_gagne()),field,SLOT(openWin()),Qt::QueuedConnection);
+    connect(noyau,SIGNAL(je_gagne()), this, SLOT(stopTick()));
+
     //lose
     connect(noyau,SIGNAL(je_perds()),field,SLOT(openLost()),Qt::QueuedConnection);
+    connect(noyau,SIGNAL(je_perds()), this, SLOT(stopTick()));
+	
+
     stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
+
+    //montrer def caché
+    connect(noyau,SIGNAL(montre(int)),field,SLOT(reveal(int)));
 
     field -> init();
 
@@ -247,6 +261,7 @@ void Master::loadField (int x){
     mTask = new MasterTask;
     mTask -> moveToThread(mThread);
 
+	mTask -> threadLock = true;
 
     connect( mTask, SIGNAL(newTick()), this, SLOT(timeTicker())) ;
     connect( mTask, SIGNAL(newTick()), mTask, SLOT(masterLoop()));
@@ -268,9 +283,12 @@ void Master::loadField (int x){
 
 void MasterTask::masterLoop (){
 
-    Sleeper::msleep(50);
+	if (threadLock){
+	
+		Sleeper::msleep(50);
 
-    emit newTick();
+    	emit newTick();
+	}
 }
 
 
@@ -283,18 +301,21 @@ void Master::timeTicker(){
 }
 
 
-
-
-
-
-
-
-
-
-
-
-void Master::test(QString str){
-    std::cout << str.toStdString() << "\n";
+void Master::stopTick(){
+	mTask -> threadLock = false;
 }
+
+
+
+
+
+
+
+
+
+
+/*void Master::test(QString str){
+    std::cout << str.toStdString() << "\n";
+}*/
 
 //void Master::cut(QString, int, int, bool, bool);

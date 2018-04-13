@@ -71,8 +71,8 @@ private:
     QStackedWidget * buildStacked;
 
     QScrollArea * deckScroll;
-    //deckEdit * deck;
-    DeckSelector * deck;
+    deckEdit * deck;
+    //DeckSelector * deck;
 
     QScrollArea * cardScroll;
 

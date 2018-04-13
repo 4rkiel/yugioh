@@ -221,6 +221,14 @@ void SlotCard::turn (){
 }
 
 
+void SlotCard::reveal(QString str){
+	   
+    pic = str;
+    imgButt -> setStyleSheet("border-image: url(" + pic + ");");
+
+}
+
+
 
 void SlotCard::setPic(QString str){
    
@@ -241,7 +249,6 @@ void SlotCard::setPic(QString str){
     imgButt -> resize(QSize(w,h));
 
 }
-
 
 void SlotCard::maskPic(){
 

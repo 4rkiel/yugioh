@@ -836,3 +836,7 @@ bool Field::event(QEvent* event)
     }
     return false;
 }
+
+void Field::reveal(QString str, int x){
+	fieldStack -> at(x) -> reveal(str);
+}
