@@ -182,7 +182,8 @@ private:
 
                 Duplica * fullCard;
                 Chat * chat;
-
+protected:
+    bool event(QEvent* event);
 };
 
 

@@ -9,7 +9,6 @@ Initialisé lors du lancement d'une partie
 ******************************************************************************/
 
 Field::Field () {
-
 	lockTick = false;
 
     lockPreview = true;
@@ -819,4 +818,21 @@ void Field::switchCarte(int x){
 	fieldStack -> at(x) -> turn();
 }
 
-
+bool Field::event(QEvent* event)
+{
+    if (event->type()==QEvent::KeyPress) {
+        QKeyEvent* key = static_cast<QKeyEvent*>(event);
+        if ( (key->key()==Qt::Key_Left) || (key->key()==Qt::Key_Up) ) {
+            //up or down
+            QKeyEvent * eve2 = new QKeyEvent (QEvent::KeyPress,Qt::Key_Tab,Qt::ShiftModifier);
+            qApp->sendEvent(this,eve2);
+            std::cout << "blarg" << std::endl;
+        } else {
+            return QWidget::event(event);
+        }
+        return true;
+    } else {
+        return QWidget::event(event);
+    }
+    return false;
+}
