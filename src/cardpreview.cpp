@@ -20,15 +20,15 @@ CardPreview::CardPreview(Carte *carte){
                                  tr("Défense: ") + QString::number(carte->def)};
 
     
-    QVBoxLayout *info = new QVBoxLayout;
+    info = new QVBoxLayout;
     info -> setMargin(0);
     info -> setSpacing(0);
     info -> setContentsMargins(0,0,0,0);
     
-    QPixmap *image = new QPixmap(carte->image);
+    image = new QPixmap(carte->image);
     *image = image->scaled (QSize(200, 180), Qt::KeepAspectRatio);
     qDebug() << carte->image;
-    QLabel *imageLabel = new QLabel;
+    imageLabel = new QLabel;
     imageLabel->setPixmap(*image);
     imageLabel->setSizeIncrement(QSizePolicy::Maximum, QSizePolicy::Maximum);
 

@@ -120,8 +120,8 @@ BuildTab::BuildTab (){
         buildStacked = new QStackedWidget;
 
 
-//            Parser *parserAllMighty = new Parser;
-//            vector<Carte*> *allCard = parserAllMighty->all_cards;
+            Parser *parserAllMighty = new Parser;
+            vector<Carte*> *allCard = parserAllMighty->all_cards;
 
 
             // Deck Edit ......................................................
@@ -134,11 +134,11 @@ BuildTab::BuildTab (){
             deckScroll -> setFocusPolicy(Qt::NoFocus);
             deckScroll -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
 
-//            deck = new deckEdit(allCard);
-//            deckScroll->setWidget(deck);
-
-            deck = new DeckSelector;
+            deck = new deckEdit(allCard);
             deckScroll->setWidget(deck);
+
+//            deck = new DeckSelector;
+//            deckScroll->setWidget(deck);
 
             buildStacked -> addWidget(deckScroll);
 
