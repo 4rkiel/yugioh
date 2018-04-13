@@ -6,14 +6,14 @@ MonServeur::MonServeur(QObject *parent) : QObject(parent){
     port_hote=new quint16;
     socket=new QUdpSocket(this);
 
-    QHostInfo host = QHostInfo::fromName("yugiohserver.ddns.net");
+    /*QHostInfo host = QHostInfo::fromName("yugiohserver.ddns.net");
 
     if (host.error() != QHostInfo::NoError) {
         qDebug() << "Lookup failed:" << host.errorString();
         return;
     }
-
-    adresse_serveur = new QHostAddress(host.addresses().at(0));
+*/
+    adresse_serveur = new QHostAddress("2a01:cb10:1c:ee00::");
     qDebug() << *adresse_serveur;
 
     //on fixe l'adresse serveur
