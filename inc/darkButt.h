@@ -44,6 +44,7 @@ public:
     ~DarkButt();
 	
     void setText(QString str);
+    void setIcon(QString icoStr);
     
 
 public slots:

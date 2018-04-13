@@ -79,8 +79,9 @@ void Parser::getAll()
 }
 
 //PERMET DE RECUPERER LES EFFETS SOUS FORME DE STRING QUI DEVRONT ETRE EUX MEMES MODIFIES
-void Parser::recup_effet(std::string effets)
+int Parser::recup_effet(std::string effets)
 {
+    int valeur=-1;
     char * arg = new char[effets.length()+1];
     std::strcpy(arg,effets.c_str());
     char * parcourir = std::strtok(arg,"{{");
@@ -91,7 +92,11 @@ void Parser::recup_effet(std::string effets)
     {
 
                // std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
-                effet=effet+vrai;
+                //effet=effet+vrai;
+                if(!QString::fromStdString(vrai).startsWith(QString("{{")))
+                {
+                    valeur = atoi(vrai.c_str());
+                }
                 parcourir = std::strtok(NULL,"{{");
                 if(parcourir!=NULL)
                    vrai = parcourir;
@@ -99,7 +104,7 @@ void Parser::recup_effet(std::string effets)
     }
 
     delete(arg);
-
+    return valeur;
 }
 
 
@@ -112,7 +117,6 @@ void Parser::parser(std::string ligne)
     if(etape==11)
      {
         etape=0;
-        effet="";
         courante = new Carte();
     }
 
@@ -164,7 +168,7 @@ void Parser::parser(std::string ligne)
                  }
                 break;
             case 8:
-                recup_effet(ligne);
+                courante -> effet = recup_effet(ligne);
                 break;
             case 9:
                 courante->atk=atoi(ligne.c_str());

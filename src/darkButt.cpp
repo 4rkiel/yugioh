@@ -140,7 +140,12 @@ void DarkButt::buttonReleased(){
 
 
 void DarkButt::setText (QString str){
-	txt -> setText(str);
+    txt -> setText(str);
+}
+
+void DarkButt::setIcon(QString icoStr)
+{
+    ico -> setText(icoStr);
 }
 
 

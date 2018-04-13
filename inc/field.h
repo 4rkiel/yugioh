@@ -61,6 +61,7 @@ public slots:
 	void setLife(int, bool);
 	void initLife(int);
 
+	void reveal(QString, int);
     void setCarte(QString, int);
     void poseCarte(int);
     void maskCarte(int);
@@ -182,7 +183,8 @@ private:
 
                 Duplica * fullCard;
                 Chat * chat;
-
+protected:
+    bool event(QEvent* event);
 };
 
 

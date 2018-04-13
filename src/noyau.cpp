@@ -140,7 +140,7 @@ void Noyau::donner_infos(int x)
      {
         if((isAdv(x) && actuelle->etat !=VERSO) || !isAdv(x))
        { emit give_infos(actuelle->nom,actuelle->attribut,actuelle->niveau,actuelle->image,actuelle->type,actuelle->description,actuelle->atk,actuelle->def);
-        std::cout << "j'émit les infos : " << actuelle->nom.toStdString() << actuelle->attribut << actuelle->niveau << actuelle->image.toStdString() << actuelle->type << actuelle->description.toStdString() << actuelle->atk << actuelle->def << std::endl;
+        std::cout << "j'émit les infos : " << actuelle->nom.toStdString() << "GENRE:" << actuelle->genre << " " << actuelle->attribut << actuelle->niveau << actuelle->image.toStdString() << actuelle->type << actuelle->description.toStdString() << actuelle->atk << actuelle->def << std::endl;
 
         }
     }
@@ -230,14 +230,42 @@ bool Noyau::isFuse(int x){
 void Noyau::poserAtk()
 {
     //remplacer le 1 par la bonne position stp
-    if(registre_0 > 6)
-    poser(registre_0,perfect_terrain(0),false,true);
+    if(isHand(registre_0))
+    {
+        int position = perfect_terrain(0);
+        if(position!=-1)
+            poser(registre_0,position,false,true);
+    }
 }
 
 void Noyau::poserDef()
 {
-     if(registre_0 > 6)
-    poser(registre_0,perfect_terrain(0),true,false);
+     if(isHand(registre_0))
+      {
+         int position = perfect_terrain(0);
+         if(position!=-1)
+          poser(registre_0,position,true,false);
+     }
+}
+
+void Noyau::poserMagH()
+{
+    if(isHand(registre_0))
+    {
+        int position = perfect_magie(0);
+        if(position!=-1)
+            poser(registre_0,position,false,false);
+    }
+}
+
+void Noyau::poserMagV()
+{
+    if(isHand(registre_0))
+    {
+        int position = perfect_magie(0);
+        if(position!=-1)
+            poser(registre_0,position,false,true);
+    }
 }
 
 //determine la position où poser la carte sur le terrain, zone = 0 si c'est moi qui pose sinon c'est 1
@@ -251,6 +279,8 @@ int Noyau::perfect_terrain(int zone)
                    return begin_position;
             while(trouver(begin_position)!=NULL)
                 begin_position++;
+            if(begin_position>5)
+                return -1;
 
         }
         else
@@ -260,6 +290,37 @@ int Noyau::perfect_terrain(int zone)
                    return begin_position;
             while(trouver(begin_position)!=NULL)
                 begin_position++;
+            if(begin_position>5)
+                return -1;
+
+        }
+        return begin_position;
+}
+
+//determine la position où poser la carte MAGIE/PIEGE sur le terrain, zone = 0 si c'est moi qui pose sinon c'est 1
+int Noyau::perfect_magie(int zone)
+{
+     int begin_position;
+     if(zone==0)
+       {
+            begin_position=8;
+            if(terrain->size()==0)
+                   return begin_position;
+            while(trouver(begin_position)!=NULL)
+                begin_position++;
+            if(begin_position>13)
+                return -1;
+
+        }
+        else
+        {
+            begin_position=83;
+            if(terrain->size()==0)
+                   return begin_position;
+            while(trouver(begin_position)!=NULL)
+                begin_position++;
+            if(begin_position>88)
+                return -1;
 
         }
         return begin_position;
@@ -268,10 +329,15 @@ int Noyau::perfect_terrain(int zone)
 void Noyau::poser_test(int x)
 {
     //le if doit être mieux géré negrion
-    if(!isAdv(x) && isHand(x) && trouver(x)!=NULL && can_poser())
+    if(!isAdv(x) && isHand(x) && trouver(x)!=NULL && (trouver(x)->genre==0) && can_poser() && (perfect_terrain(0)!=-1))
     {
         registre_0 = x;
         emit dialogue();
+    }
+    else if(!isAdv(x) && isHand(x) && trouver(x)!=NULL && (trouver(x)->genre==1 || trouver(x)->genre==2) && can_poser() && (perfect_magie(0)!=-1))
+    {
+       registre_0 = x;
+       emit dialogueMagi();
     }
     else if(!isAdv(x) && isMonst(x) && trouver(x)!=NULL )
     {
@@ -279,6 +345,10 @@ void Noyau::poser_test(int x)
         std::stringstream s1;
         s1 << "swap/" << Carte::correspondant(x);
         emit tiens(QString::fromStdString(s1.str()));
+    }
+    else if(!isAdv(x) && isMagic(x) && trouver(x)!=NULL && can_activate())
+    {
+        activer(x);
     }
 }
 
@@ -484,6 +554,18 @@ void Noyau::attaquerSlot(int atk,int def)
        attaquer(atk,def);
 }
 
+void Noyau::activer(int x)
+{
+    Carte * carte = trouver(x);
+    switch(carte->effet)
+    {
+    case 0:
+        break;
+    default:
+        break;
+    }
+}
+
 
 //permet d'attaquer
 //prends en parametre la position de l'attaquant  et la position de l'attaqué, si le deuxieme argument n'est pas donné ou vaut -1 alors cela attaque l'adversaire directement (càd ses points de vie)
@@ -530,6 +612,8 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                      }
                     if(def->pos)
                     {
+                        if(def->etat == VERSO)
+                            emit montre(def->position_terrain);
                         if(atk->atk > def->def)
                         {
                             detruire(adversaire_x);
@@ -605,6 +689,8 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                  }
                 if(def->pos)
                 {
+                    if(def->etat == VERSO)
+                        emit montre(def->position_terrain);
                     if(atk->atk > def->def)
                     {
                         detruire(adversaire_x);
@@ -785,6 +871,10 @@ bool Noyau::can_switch()
     return(mon_tour && (phase==0 || phase==2));
 }
 
+bool Noyau::can_activate()
+{
+    return (mon_tour);
+}
 
 //OBSOLETE
 void Noyau::go()
@@ -1126,6 +1216,7 @@ void Noyau::traiter(QString s)
                          piocher(76);
                           piocher(76);
                           piocher(76);
+                          emit sendInfo("La partie commence !");
           emit sendInfo("Main Phase 1");
     }
     else if(s.startsWith("slife/"))
@@ -1168,6 +1259,7 @@ void Noyau::traiter(QString s)
          emit beginTour();
          lockTick=true;
          mon_tour=true;
+         emit sendInfo("La partie commence !");
          emit sendInfo("Main Phase 1");
         // emit commence();
     }

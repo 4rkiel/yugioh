@@ -71,6 +71,7 @@ public:
 
     static int correspondant(int position);
     //Effet effet; comment implenter ça ??
+    int effet;
     int set;
     int position_deck;
     int position_terrain;

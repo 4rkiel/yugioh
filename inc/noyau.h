@@ -76,6 +76,7 @@ public:
     void enlever_i(std::vector<Carte *> **vect, int i);
     int perfect_terrain(int zone);
     int perfect_position(int zone);
+    int perfect_magie(int zone);
     bool isAdv(int x);
     bool isMonst(int x);
     bool isMagic(int x);
@@ -91,6 +92,7 @@ public:
     bool can_poser();
     bool can_atak();
     bool can_switch();
+    bool can_activate();
 
     //obsolète
     Reseau * res;
@@ -110,9 +112,12 @@ public slots:
     void poser_test(int x);
     void poserAtk();
     void poserDef();
+    void poserMagV();
+    void poserMagH();
     void donner_infos(int x);
     void attaquerSlot(int,int);
     void comptageTick();
+    void activer(int x);
 
 signals:
     void emit_go();
@@ -141,6 +146,8 @@ signals:
     void setTour(int x);
     void sendInfo(QString i);
     void beginTour();
+    void montre(int x);
+    void dialogueMagi();
 
     //void met_en_defense(int x);
 };

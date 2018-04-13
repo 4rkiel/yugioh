@@ -97,84 +97,120 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
                 selectDeck->addItem(str);
             }
 
+
+
+            // ... Rename a deck ...............................................
+
+
             frameNomDeck = new QFrame;
             frameNomDeck->setObjectName("yolo");
-            frameNomDeck->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+            frameNomDeck->setSizePolicy(QSizePolicy::Maximum,
+                                        QSizePolicy::Maximum);
             frameNomDeck->setStyleSheet("#yolo {border-radius: 3px;\
                                          background-color: blue}");
 
-            nomLayout = new QGridLayout;
 
-            nomDeck = new QLineEdit;
 
-            // TODO mettre le nom du deck que l'on edit
-            nomDeck->setPlaceholderText(deckList[0]);
+                nomLayout = new QGridLayout;
 
-            sauver = new DarkButt("", tr("Sauvegarder"));
-            sauver->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
+                nomDeck = new QLineEdit;
 
-            nomLayout->addWidget(sauver, 0, 1, 1, 1);
-            nomLayout->addWidget(nomDeck, 0, 0, 1, 1);
+                // TODO mettre le nom du deck que l'on edit
+                nomDeck->setPlaceholderText(deckList[0]);
+                nomDeck->setSizePolicy(QSizePolicy::Minimum,
+                                       QSizePolicy::Maximum);
+
+
+
+                // ... Supprimer ...............................................
+
+
+                    supprDeck = new DarkButt("", tr("Supprimer"));
+                    supprDeck->setSizePolicy(QSizePolicy::Maximum,
+                                             QSizePolicy::Minimum);
+                    nomLayout->addWidget(supprDeck, 0, 1, 1, 1);
+
+
+                // ... "+" .....................................................
+
+
+                    plusBut = new DarkButt("\uf067", "");
+                    plusBut->setSizePolicy(QSizePolicy::Maximum,
+                                             QSizePolicy::Minimum);
+                    nomLayout->addWidget(plusBut, 0, 2, 1, 1);
+
+
+                nomLayout->addWidget(nomDeck, 0, 0, 1, 1);
+
             frameNomDeck->setLayout(nomLayout);
 
-            editCreateLayout->addWidget(frameNomDeck);
+            // ... boutton caché ...............................................
 
 
-//                formulaire->addRow(tabBut[CREER], newDeck);
-
-
-                //TODO signal qui crée le deck
-
-            // ... boutons verticaux ...........................................
-
-                QVBoxLayout *buttonV = new QVBoxLayout;
-                part1->addLayout(buttonV);
-
-
-//                    buttonV->addWidget(tabBut[SAUVER]);
-//                    buttonV->addWidget(tabBut[SUPPRIMER]);
-
-                //TODO signaux
-
-                editCreateLayout->addLayout(part1);
-
-            // ... boutons horizontaux .........................................
-
-            buttonH = new QHBoxLayout;
-            editCreateLayout->addLayout(buttonH);
-
-
-            for(int i=0; i<NBR_BUTTON_DECK_EDIT; i++)
-            {
-                tabBut[i] = new DarkButt("", buttonName.at(i));
-                tabBut[i]->setDefault(true);
-                buttonH->addWidget(tabBut[i]);
-                //tabBut[i]->setText(buttonName.at(i));
-            }
+            stealBut = new QFrame;
+            stealBut->setObjectName("cachay");
+            stealBut->setSizePolicy(QSizePolicy::Minimum,
+                                        QSizePolicy::Minimum);
+            stealBut->setVisible(false);
+            stealBut->setStyleSheet("#cachay {border-radius: 3px;\
+                                         background-color: red}");
 
 
 
+                cachayLayout = new QGridLayout;
 
-//                buttonH->addWidget(tabBut[MELANGER]);
-//                buttonH->addWidget(tabBut[TRIER]);
-//                buttonH->addWidget(tabBut[EFFACER]);
+
+
+                // ... Melanger ................................................
+
+
+                    shuffleDeck = new DarkButt("", tr("Mélanger"));
+                    shuffleDeck->setSizePolicy(QSizePolicy::Minimum,
+                                             QSizePolicy::Minimum);
+                    cachayLayout->addWidget(shuffleDeck, 0, 1, 1, 1);
+
+
+                // ... Trier ...................................................
+
+
+                    sortDeck = new DarkButt("", tr("Trier"));
+                    sortDeck->setSizePolicy(QSizePolicy::Minimum,
+                                             QSizePolicy::Minimum);
+                    cachayLayout->addWidget(sortDeck, 0, 2, 1, 1);
+
+
+                // ... Effacer .................................................
+
+
+                    eraseDeck = new DarkButt("", tr("Effacer"));
+                    eraseDeck->setSizePolicy(QSizePolicy::Minimum,
+                                             QSizePolicy::Minimum);
+                    cachayLayout->addWidget(eraseDeck, 0, 3, 1, 1);
+
+
+            stealBut->setLayout(cachayLayout);
+
+        editCreateLayout->addWidget(frameNomDeck);
+        editCreateLayout->addWidget(stealBut);
+
+
 
 
 
         // ... Compteur de cartes / visualisateur de Deck ......................
 
-        QVBoxLayout *deckVisuLayout = new QVBoxLayout;
+        deckVisuLayout = new QVBoxLayout;
         mainL2->addLayout(deckVisuLayout);
 
 
             // ... compteur de cartes ..........................................
 
-            QFrame *cardInfo = new QFrame;
+            cardInfo = new QFrame;
             cardInfo->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
             cardInfo->setObjectName("frameVisu");
             cardInfo->setStyleSheet("#frameVisu{border: 1px solid green}");
 
-            QHBoxLayout *layoutInfo = new QHBoxLayout;
+            layoutInfo = new QHBoxLayout;
             cardInfo->setLayout(layoutInfo);
 
                 deckLabel = new QLabel();
@@ -202,12 +238,12 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
             // ... visualiseur de Deck .........................................
 
-            QFrame *deckVisu = new QFrame;
+            deckVisu = new QFrame;
             deckVisu->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
             deckVisu->setObjectName("frameVisu");
             deckVisu->setStyleSheet("#frameVisu{border: 1px solid green}");
 
-            QGridLayout *layoutCard = new QGridLayout;
+            layoutCard = new QGridLayout;
             deckVisu->setLayout(layoutCard);
             int limit = NBR_CARTE_DECK_VISU/10;
             for(int i=0; i<limit; i++)
@@ -234,31 +270,31 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
         // ... recherche de cartes .............................................
 
-        QFrame *cardFilter = new QFrame;
+        cardFilter = new QFrame;
         cardFilter->setSizePolicy(QSizePolicy::Minimum,
                                   QSizePolicy::Maximum);
         cardFilter->setStyleSheet("border: 1px solid blue");
         mainL1->addWidget(cardFilter);
         cardFilter->setStyleSheet("background-color: #ECEFF1");
-        QHBoxLayout *colonne = new QHBoxLayout;        
+        colonne = new QHBoxLayout;
 
 
             // ... recherche par propriétés ....................................
 
-            QFrame *propFilter = new QFrame;
+            propFilter = new QFrame;
             propFilter->setSizePolicy(QSizePolicy::Minimum,
                                       QSizePolicy::Maximum);
             propFilter->setObjectName("propFilter");
             propFilter->setStyleSheet("#propFilter"
                                          "{border: 1px solid green}");
 
-            QFormLayout *propForm = new QFormLayout;
+            propForm = new QFormLayout;
             propFilter->setLayout(propForm);
 
 
                 // ... Genre / Sous-genre ......................................
 
-                QHBoxLayout *genreColonne = new QHBoxLayout;
+                genreColonne = new QHBoxLayout;
                 genreColonne->addWidget(choixGenre);
                 genreColonne->addWidget(choixSousGenre);
 
@@ -277,9 +313,9 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
                 // ... recherche approfondis + bouttons ........................
 
-                QVBoxLayout *prop2Vmain = new QVBoxLayout;
+                prop2Vmain = new QVBoxLayout;
 
-                    QHBoxLayout *prop2H = new QHBoxLayout;
+                    prop2H = new QHBoxLayout;
 
 
 
@@ -287,9 +323,9 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
                     // ... Annuler recherche / filrer ..........................
 
-                    QVBoxLayout *deleteSearch = new QVBoxLayout;
+                    deleteSearch = new QVBoxLayout;
 
-                    QHBoxLayout *annSearch = new QHBoxLayout;
+                    annSearch = new QHBoxLayout;
                         annSearch->addWidget(tabBut[ANNULER_RECHERCHE]);
                         annSearch->addWidget(textSearch);
                     deleteSearch->addLayout(annSearch);
@@ -309,14 +345,14 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
         // ... scroll la liste des cartes recherchées ..........................
 
-        QScrollArea *deckScroll = new QScrollArea;
+        deckScroll = new QScrollArea;
         deckScroll -> setFrameShape(QFrame::NoFrame);
         deckScroll -> setWidgetResizable(true);
         deckScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         deckScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         deckScroll -> setFocusPolicy(Qt::NoFocus);
         deckScroll->setBackgroundRole(QPalette::Light);
-        deckScroll->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
+        deckScroll->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
             //Parser *parser = new Parser;
 
@@ -347,6 +383,11 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
     connect(choixGenre, SIGNAL(currentIndexChanged(int)), this,SLOT(slotAttribut()));
     connect(tabBut[ANNULER_RECHERCHE], SIGNAL(clicked()), this, SLOT(clearSearch()));
+
+    connect(plusBut, SIGNAL(clicked()), this, SLOT(plus2But()));
+    connect(eraseDeck, SIGNAL(clicked()), this, SLOT(effacerDeck()));
+    connect(shuffleDeck, SIGNAL(clicked()), this, SLOT(melangerDeck()));
+    connect(sortDeck, SIGNAL(clicked()), this, SLOT(trierDeck()));
 }
 
 void deckEdit::updateDeckVisu()
@@ -716,6 +757,19 @@ void deckEdit::loadDeck()
     Parser leParser;
 
 
+}
+
+void deckEdit::plus2But()
+{
+    if(stealBut->isVisible())
+    {
+        plusBut->setIcon("\uf067");
+        stealBut->setVisible(false);
+        return;
+    }
+
+    stealBut->setVisible(true);
+    plusBut->setIcon("\uf068");
 }
 
 void deckEdit::slotAttribut()

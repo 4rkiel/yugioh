@@ -15,6 +15,7 @@
 #include <QUdpSocket>
 #include <iostream>
 #include <QHostInfo>
+#include <QString>
 
 #include <QObject>
 

@@ -20,16 +20,17 @@ CardPreview::CardPreview(Carte *carte){
                                  tr("Défense: ") + QString::number(carte->def)};
 
     
-    QVBoxLayout *info = new QVBoxLayout;
+    info = new QVBoxLayout;
     info -> setMargin(0);
     info -> setSpacing(0);
     info -> setContentsMargins(0,0,0,0);
     
-    QPixmap *image = new QPixmap(carte->image);
-    *image = image->scaled (QSize(200, 180), Qt::KeepAspectRatio);
+    image = new QPixmap(carte->image);
+    *image = image->scaled (200, 180, Qt::KeepAspectRatio, Qt::FastTransformation);
     qDebug() << carte->image;
-    QLabel *imageLabel = new QLabel;
+    imageLabel = new QLabel;
     imageLabel->setPixmap(*image);
+    imageLabel->setScaledContents(true);
     imageLabel->setSizeIncrement(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
     for(int i=0; i<INFOLABEL_MAX; i++){
@@ -56,12 +57,14 @@ CardPreview::CardPreview(Carte *carte){
         }
     }
 
-    if(tabInfoLabel[GENRE]->text() == genreList.at(0)){
-        setStyleSheet("background: #FFC107;");
-    } else if(tabInfoLabel[GENRE]->text() == genreList.at(1)) {
-        setStyleSheet("background: #00BCD4;");
+    if((maCarte->genre  == 0) && (maCarte->sous_type != 2)){
+        setStyleSheet("background: #FFF9C4;");
+    } else if(maCarte->genre == 1) {
+        setStyleSheet("background: #B2DFDB");
+    } else if(maCarte->genre == 2){
+        setStyleSheet("background: #E1BEE7;");
     } else {
-        setStyleSheet("background: #B39DDB;");
+        setStyleSheet("background: #9575CD;");
     }
 
     mainLayout->addWidget(imageLabel);

@@ -14,7 +14,7 @@ MonServeur::MonServeur(QObject *parent) : QObject(parent){
     }
 
     adresse_serveur = new QHostAddress(host.addresses().at(0));
-    qDebug() << *adresse_serveur;
+    std::cout << ((*adresse_serveur).toString()).toStdString() << std::endl;
 
     //on fixe l'adresse serveur
     if(!socket->bind(*adresse_serveur,9000)){

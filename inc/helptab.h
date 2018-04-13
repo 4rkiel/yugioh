@@ -12,7 +12,7 @@
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QStackedLayout>
+#include <QStackedWidget>
 
 #include <QScrollArea>
 #include <QPushButton>
@@ -62,7 +62,8 @@ class HelpTab : public QFrame {
     QPushButton * aboutButt;
 
     QWidget * helpBox;
-    QStackedLayout * helpLayout;
+    QGridLayout * helpLayout;
+	QStackedWidget * helpStacked;
 
     QScrollArea * helpScroll;
     QLabel * helpLabel; 

@@ -120,10 +120,6 @@ BuildTab::BuildTab (){
         buildStacked = new QStackedWidget;
 
 
-//            Parser *parserAllMighty = new Parser;
-//            vector<Carte*> *allCard = parserAllMighty->all_cards;
-
-
             // Deck Edit ......................................................
 
             deckScroll = new QScrollArea;
@@ -134,11 +130,18 @@ BuildTab::BuildTab (){
             deckScroll -> setFocusPolicy(Qt::NoFocus);
             deckScroll -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
 
-//            deck = new deckEdit(allCard);
-//            deckScroll->setWidget(deck);
-
             deck = new DeckSelector;
             deckScroll->setWidget(deck);
+	
+			
+			
+			parse = new Parser;
+			parse -> all_cards;
+
+			editor = nullptr;
+
+
+			connect(deck, SIGNAL(popDeck(QString)), this, SLOT(openDeck(QString)));
 
             buildStacked -> addWidget(deckScroll);
 
@@ -180,6 +183,13 @@ BuildTab::BuildTab (){
     popup = new QWidget;
     popup -> setStyleSheet("background: rgba(0,0,0,100);");
     popup -> setVisible(false);
+
+		popLayout = new QGridLayout;
+
+		
+
+		popup -> setLayout(popLayout);
+
 
     layout -> addWidget(popup, 0, 0, 3, 2);
 
@@ -273,7 +283,11 @@ void BuildTab::emitClose (){
 }
 
 
-void BuildTab::openDeck (){
+void BuildTab::openDeck (QString){
+
+	editor = new deckEdit(allCard);
+  
+  	popLayout -> addWidget(editor);
 
     popup -> setVisible(true);
 }
