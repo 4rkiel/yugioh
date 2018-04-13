@@ -58,6 +58,14 @@ public:
     /*comme son nom l'indique, detruit la carte à la position x */
     void detruire(int x);
 
+    /*sacrifie un monstre pour pouvoir en poser un de niveau 5-6*/
+    //TODO tu peux imlmenter ca victor ? signé lucas
+    void sacrifier_et_poser_monstre_niveau_5_6(int sacrifice_x, int main_x, int terrain_x);
+
+    /*sacrifie deux monstres pour pouvoir en poser un de niveau 7 et plus*/
+    //TODO tu peux implementer ca victor ? signé lucas
+    void sacrifier_et_poser_monstre_niveau_7_et_plus(int sacrifice_1_x, int sacrifice_2_x, int main_x, int terrain_x);
+
 
     /*comme son nom l'indique, passe à la phase_suivante
      * PAS ENCORE IMPLEMENTE */

@@ -15,7 +15,7 @@
 #include <QWidget>
 #include <QEvent>
 
-#define NB_INPUT 413
+#define NB_INPUT 434
 #define NB_HIDDEN 200
 #define NB_OUTPUT 10
 
@@ -31,16 +31,31 @@ class Ai : public QWidget
     private:
 
         //matrix of weights
-        Matrix<float,413,200> input_weight;
+        Matrix<float,434,200> input_weight;
         vector<Matrix<float,200,200>> hidden_weights;
         Matrix<float,200,10> output_weight;
         
         //matrix of deltas, which are the difference between the current weight,
         //and the previous weight, at each iteration
-        Matrix<float,413,200> input_delta;
+        Matrix<float,434,200> input_delta;
         vector<Matrix<float,200,200>> hidden_deltas;
         Matrix<float,200,10> output_delta;
         
+        //row-matrix of current neurons gain
+        Matrix<float,1,200> input_layer_gains;
+        vector<Matrix<float,1,200>> hidden_layers_gains;
+        Matrix<float,1,10> output_layer_gains;
+        
+        //row-matrix of current neurons wgain
+        Matrix<float,1,200> input_layer_wgains;
+        vector<Matrix<float,1,200>> hidden_layers_wgains;
+        Matrix<float,1,10> output_layer_wgains;
+        
+        //row-matrix of current neurons input
+        Matrix<float,1,434> input_layer_input;
+        vector<Matrix<float,1,200>> hidden_layers_input;
+        Matrix<float,1,200> output_layer_input;
+       
         //row-matrix of current neurons values
         Matrix<float,1,200> input_layer_values;
         vector<Matrix<float,1,200>> hidden_layers_values;
@@ -51,6 +66,7 @@ class Ai : public QWidget
         vector<Matrix<float,1,200>> test_hidden_layers_values;
         Matrix<float,1,10> test_output_layer_values;
         
+        
         //the number of neurons layer
         int nb_hidden_layer;
         
@@ -59,6 +75,19 @@ class Ai : public QWidget
         
         //noyau
         Noyau * noyau;
+        
+        //jeu
+        
+        Carte * terrain_s_monstre[5];
+        Carte * terrain_s_magie[5];
+        
+        Carte * terrain_a_monstre[5];
+        Carte * terrain_a_magie[5];
+        
+        Carte * main[7];
+        
+        //coté du terrain 1 ou 2;
+        int joueur;
 
 
     public:
@@ -66,7 +95,10 @@ class Ai : public QWidget
         //public functions
         
         //constructor, noyau de jeu, mode d'ia: basique=1 ou évolutive=2
-        Ai(Noyau * noyau, int mode);
+        //joueur : couté de terrain 1 ou 2:
+        //1 étant de 0 à 74
+        //et 2 étant de 75 à 149
+        Ai(Noyau * noyau, int mode, int joueur);
         
         //destructor
         ~Ai();
@@ -74,10 +106,7 @@ class Ai : public QWidget
     public:
         
         //play without learn
-        int play();
-        
-        //play and learn
-        int play_learn();
+        void play();
 
 
     private:
@@ -87,14 +116,14 @@ class Ai : public QWidget
         void save_ai();
         void initialise_random_ai();
         void load_ai();
-        void forward_propagation(Matrix<float,1,413> game_state);
-        void test_forward_propagation(Matrix<float,1,413> game_state);
+        void forward_propagation(Matrix<float,1,434> game_state);
+        void test_forward_propagation(Matrix<float,1,434> game_state);
         int choose_action(Matrix<float,1,10> actions);
         void backward_propagation(float q_targets[10]);
-        Matrix<float,1,413> play_simulation(Matrix<float,1,413> game_state, int action);
-        int test_win(Matrix<float,1,413> state);
+        Matrix<float,1,434> play_simulation(Matrix<float,1,434> game_state, int action);
+        int test_win(Matrix<float,1,434> state);
         float max_output_test();
-        Matrix<float,1,413> read_noyau();
+        Matrix<float,1,434> read_noyau();
 
 
     signals:

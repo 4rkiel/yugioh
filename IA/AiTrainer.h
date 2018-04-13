@@ -16,7 +16,8 @@ class AiTrainer : public QMainWindow
 
     public:
         void train_ai();
-
+        
+        Ai * ai;
         Noyau * noyau;
         Reseau * reseau;
         Carte * carte;

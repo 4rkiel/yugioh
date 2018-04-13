@@ -1,9 +1,9 @@
 #include <QApplication>
 #include <AiTrainer.h>
 
-int main()
+int main(int argc, char *argv[])
 {
-    QApplication a();
+    QApplication a(argc,argv);
     AiTrainer * trainer = new AiTrainer();
     trainer->train_ai();
     delete trainer;
