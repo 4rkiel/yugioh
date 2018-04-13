@@ -212,8 +212,14 @@ void Master::loadField (int x){
     //pop-up
     connect(noyau,SIGNAL(dialogue()),field,SLOT(openChoosePosi()),Qt::QueuedConnection);
 
+    //pop-op magie
+    connect(noyau,SIGNAL(dialogueMagi()),field,SLOT(openChooseMagi()),Qt::QueuedConnection);
+    connect(field,SIGNAL(sendVisi()),noyau,SLOT(poserMagV()),Qt::QueuedConnection);
+    connect(field,SIGNAL(sendHide()),noyau,SLOT(poserMagH()),Qt::QueuedConnection);
+
     //pour poser une carte
     connect(field,SIGNAL(doubleClicked(int)),noyau,SLOT(poser_test(int)),Qt::QueuedConnection);
+
 
     //pour switch
     connect(noyau,SIGNAL(change_position(int)),field,SLOT(switchCarte(int)),Qt::QueuedConnection);
