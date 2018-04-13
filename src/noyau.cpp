@@ -559,7 +559,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                     if(def->pos)
                     {
                         if(def->etat == VERSO)
-                            emit montre(def);
+                            emit montre(def->position_terrain);
                         if(atk->atk > def->def)
                         {
                             detruire(adversaire_x);
@@ -636,7 +636,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                 if(def->pos)
                 {
                     if(def->etat == VERSO)
-                        emit montre(def);
+                        emit montre(def->position_terrain);
                     if(atk->atk > def->def)
                     {
                         detruire(adversaire_x);
@@ -819,7 +819,7 @@ bool Noyau::can_switch()
 
 bool Noyau::can_activate()
 {
-    return (mon_tour )
+    return (mon_tour);
 }
 
 //OBSOLETE

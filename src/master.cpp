@@ -296,8 +296,8 @@ void Master::timeTicker(){
 
 
 
-void Master::test(QString str){
+/*void Master::test(QString str){
     std::cout << str.toStdString() << "\n";
-}
+}*/
 
 //void Master::cut(QString, int, int, bool, bool);
