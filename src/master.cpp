@@ -122,14 +122,14 @@ void Master::loadField (int x){
         // 13:hard
         // 14:learning
 
-        int ai_data;
+        int ai_mode;
 
         if(mode >= 11 && mode <= 13)
-            ai_data = 1; //file ai.data
+            ai_mode = 1; //file ai.data
         else
-            ai_data = 2; //file learning_ai.data
+            ai_mode = 2; //file learning_ai.data
 
-        ai = new Ai(noyau,ai_data);
+        ai = new Ai(noyau,ai_mode);
         
         //le noyau envoi un signal a l'ia pour lui dire de jouer
         //connect(noyau,SIGNAL(au_tour_de_l_ia()),ai,SLOT(a_ton_tour()));

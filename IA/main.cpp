@@ -1,6 +1,5 @@
-#include <AiTrainer.h>
 #include <QApplication>
-#include <../inc/ai.h>
+#include <AiTrainer.h>
 
 int main()
 {
