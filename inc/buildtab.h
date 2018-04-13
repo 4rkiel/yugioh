@@ -71,8 +71,11 @@ private:
     QStackedWidget * buildStacked;
 
     QScrollArea * deckScroll;
-    deckEdit * deck;
-    //DeckSelector * deck;
+    DeckSelector * deck;
+
+		Parser * parse;
+		vector<Carte*> * allCard;
+		deckEdit * editor;
 
     QScrollArea * cardScroll;
 
@@ -80,7 +83,7 @@ private:
 	CardEditor * editeur;
 
     QWidget * popup;
-
+	QGridLayout * popLayout;
 
 
     void updateStyle(QPushButton * b);
@@ -91,7 +94,7 @@ public slots:
     void emitClose();
     void setDeck();
     void setCard();
-    void openDeck();
+    void openDeck(QString);
 
 
 signals:
