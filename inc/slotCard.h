@@ -34,6 +34,7 @@ public:
     void maskPic();
     void rmPic();
     void turn();
+	void reveal(QString str);
 
     bool isAdv();
     bool isMonst();

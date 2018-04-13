@@ -819,4 +819,6 @@ void Field::switchCarte(int x){
 	fieldStack -> at(x) -> turn();
 }
 
-
+void Field::reveal(QString str, int x){
+	fieldStack -> at(x) -> reveal(str);
+}
