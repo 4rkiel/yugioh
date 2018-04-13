@@ -101,19 +101,42 @@ class deckEdit : public QWidget
         QHBoxLayout *mainL1;
         QHBoxLayout *mainL2;
 
+        QVBoxLayout *deckVisuLayout;
+
         QFrame *editCreate;
         QFrame *frameNomDeck;
         QGridLayout *nomLayout;
         QLineEdit*nomDeck;
-        DarkButt *sauver;
+        DarkButt *supprDeck;
+        DarkButt *plusBut;
+
+        QFrame *stealBut;
+        QGridLayout *cachayLayout;
+        DarkButt *shuffleDeck;
+        DarkButt *sortDeck;
+        DarkButt *eraseDeck;
 
 
         QVBoxLayout *editCreateLayout;
 
-
+        QFrame *cardFilter;
+        QHBoxLayout *colonne;
+        QFrame *propFilter;
+        QFormLayout *propForm;
+        QHBoxLayout *genreColonne;
+        QVBoxLayout *prop2Vmain;
+        QHBoxLayout *prop2H;
+        QVBoxLayout *deleteSearch;
+        QHBoxLayout *annSearch;
+        QScrollArea *deckScroll;
 
         QHBoxLayout *part1;
         QVBoxLayout *part2;
+
+        QFrame *cardInfo;
+        QHBoxLayout *layoutInfo;
+        QFrame *deckVisu;
+        QGridLayout *layoutCard;
 
         QHBoxLayout *buttonH;
 
@@ -164,6 +187,8 @@ class deckEdit : public QWidget
             void updPreview();
             void clearSearch();
             void loadDeck();
+
+            void plus2But();
 };
 
 #endif // DECKEDIT_H

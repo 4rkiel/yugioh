@@ -12,7 +12,7 @@
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QStackedLayout>
+#include <QStackedWidget>
 
 #include <QScrollArea>
 #include <QPushButton>
@@ -62,7 +62,8 @@ class RuleTab : public QFrame {
     QPushButton * rulesButt;
 
     QWidget * ruleBox;
-    QStackedLayout * ruleLayout;
+    QGridLayout * ruleLayout;
+	QStackedWidget * ruleStacked;
 
     QScrollArea * persoScroll;
     QWidget * persoScrollBox;
