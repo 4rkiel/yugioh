@@ -12,7 +12,7 @@
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QStackedLayout>
+#include <QStackedWidget>
 
 #include <QScrollArea>
 #include <QPushButton>
@@ -64,7 +64,8 @@ class OptionTab : public QFrame {
     QPushButton * accessButt;
 
     QWidget * optBox;
-    QStackedLayout * optionLayout;
+    QGridLayout * optionLayout;
+    QStackedWidget * optionStacked;
 
     QScrollArea * optionScroll;
     QWidget * optionScrollBox;

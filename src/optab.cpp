@@ -56,7 +56,7 @@ OptionTab::OptionTab (){
     tabInsideLayout = new QGridLayout;
     tabInsideLayout -> setSpacing(0);
     tabInsideLayout -> setMargin(0);
-    tabInsideLayout -> setContentsMargins(30,0,30,0);
+    tabInsideLayout -> setContentsMargins(30,0,30,30);
 
 
  
@@ -121,10 +121,12 @@ OptionTab::OptionTab (){
         optBox = new QWidget;
         optBox -> setObjectName("optBox");
         
-        optionLayout = new QStackedLayout;
+        optionLayout = new QGridLayout;
         optionLayout -> setSpacing(0);
         optionLayout -> setMargin(0);
+        optionLayout -> setContentsMargins(30,30,30,30);
 
+        optionStacked = new QStackedWidget;
 
             // Options ........................................................
 
@@ -201,7 +203,7 @@ OptionTab::OptionTab (){
             optionScrollBox -> setLayout(optPaneLayout); 
             optionScroll -> setWidget(optionScrollBox);
 
-            optionLayout -> addWidget(optionScroll);
+            optionStacked -> addWidget(optionScroll);
 
             
             // Accessibility ..................................................
@@ -285,10 +287,12 @@ OptionTab::OptionTab (){
             accessScroll -> setWidget(accessScrollBox);
 
 
-            optionLayout -> addWidget(accessScroll);
+            optionStacked -> addWidget(accessScroll);
 
+            optionStacked -> setCurrentWidget(optionScroll);
 
-        optionLayout -> setCurrentWidget(optionScroll);
+        optionLayout -> addWidget(optionStacked);
+
         optBox -> setLayout(optionLayout);
 
     tabInsideLayout -> addWidget(optBox, 1, 0, 2, 1);
@@ -345,6 +349,8 @@ OptionTab::~OptionTab (){
     
     delete tabLayout;
     delete tabBox;
+
+    delete optionStacked;
     delete optionLayout;
 
     delete optBox;
@@ -375,7 +381,7 @@ void OptionTab::setOption (){
 
     updateStyle(optionButt);
 
-    optionLayout -> setCurrentWidget(optionScroll);
+    optionStacked -> setCurrentWidget(optionScroll);
 }
 
 
@@ -383,7 +389,7 @@ void OptionTab::setAccess (){
  
     updateStyle(accessButt);
     
-    optionLayout -> setCurrentWidget(accessScroll);
+    optionStacked -> setCurrentWidget(accessScroll);
 }
 
 

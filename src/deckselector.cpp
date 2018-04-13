@@ -47,6 +47,10 @@ DeckSelector::DeckSelector(){
         i++;
     }
 
+    QSpacerItem * spacerButt = new QSpacerItem(2,1,
+            QSizePolicy::Preferred,QSizePolicy::Expanding);
+    mainLayout -> addItem(spacerButt, last*2, 0);
+
     setLayout(mainLayout);
 }
 
