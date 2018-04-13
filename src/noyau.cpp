@@ -484,6 +484,11 @@ void Noyau::attaquerSlot(int atk,int def)
        attaquer(atk,def);
 }
 
+void Noyau::activer(int x)
+{
+
+}
+
 
 //permet d'attaquer
 //prends en parametre la position de l'attaquant  et la position de l'attaqué, si le deuxieme argument n'est pas donné ou vaut -1 alors cela attaque l'adversaire directement (càd ses points de vie)
@@ -1126,6 +1131,7 @@ void Noyau::traiter(QString s)
                          piocher(76);
                           piocher(76);
                           piocher(76);
+                          emit sendInfo("La partie commence !");
           emit sendInfo("Main Phase 1");
     }
     else if(s.startsWith("slife/"))
@@ -1168,6 +1174,7 @@ void Noyau::traiter(QString s)
          emit beginTour();
          lockTick=true;
          mon_tour=true;
+         emit sendInfo("La partie commence !");
          emit sendInfo("Main Phase 1");
         // emit commence();
     }

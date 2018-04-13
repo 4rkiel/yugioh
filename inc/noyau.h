@@ -105,6 +105,7 @@ public slots:
     void donner_infos(int x);
     void attaquerSlot(int,int);
     void comptageTick();
+    void activer(int x);
 
 signals:
     void emit_go();
@@ -133,7 +134,6 @@ signals:
     void setTour(int x);
     void sendInfo(QString i);
     void beginTour();
-    void stopTick();
 
     //void met_en_defense(int x);
 };
