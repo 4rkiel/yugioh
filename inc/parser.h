@@ -20,12 +20,11 @@ public:
     Parser(QWidget *parent = 0);
 
     QString fichier_courant;
-    void recup_effet(std::string effets);
+    int recup_effet(std::string effets);
     ~Parser();
 
     int etape=0;
     int set;
-    std::string effet="";
 
     Carte * courante;
     void getAll();
