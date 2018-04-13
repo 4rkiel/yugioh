@@ -65,8 +65,11 @@ public:
 
 public slots:
 
-    void openDeck(QString nomDeck);
+    void openDeck(QString);
 
+signals:
+
+	void popDeck(QString);
 
 };
 
