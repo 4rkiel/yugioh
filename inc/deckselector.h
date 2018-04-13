@@ -27,7 +27,6 @@
 
 #include "carte.h"
 #include "deckedit.h"
-#include "parser.h"
 #include "deckpreview.h"
 //#include "flatExpButt.h"
 
@@ -37,8 +36,6 @@ class DeckSelector : public QFrame {
 
 public:
 
-    Parser leParser;
-    
     QString appPath = QCoreApplication::applicationDirPath();
     QString imgRep = appPath+"/img/img_attr/";
     QString defaultImage = imgRep + "DEFAULT.jpg";

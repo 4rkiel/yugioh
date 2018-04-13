@@ -82,9 +82,5 @@ QString DeckSelector::imgPreviewDeck(std::vector<Carte*> *deck){
 void DeckSelector::openDeck(QString nomDeck){
 
 	emit popDeck(nomDeck);
-
-//    deckEdit * edit = new deckEdit(leParser.all_cards);
-    
-//    edit->show();
 }
 
