@@ -1,29 +1,52 @@
 #include "../inc/deckpreview.h"
 
-DeckPreview::DeckPreview(QString deck ,QString img){
+DeckPreview::DeckPreview(QString deck, QString img){
 
-    mainLayout = new QHBoxLayout;
+    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
+    setFlat(true);
 
-    monDeck = deck;
-    deck.chop(5);
+    layout = new QGridLayout;
+    layout -> setSizeConstraint(QLayout::SetMinimumSize);
 
-    qDebug() << "creation bouton edition "+ monDeck + " alias " + deck;
+        pic = new QLabel;
+        pic -> setMinimumWidth(50);
+        pic -> setMaximumWidth(50);
+        pic -> setMinimumHeight(50);
+        pic -> setMaximumHeight(50);
 
-    QPixmap image(img);
-    image.scaled (QSize(200, 180), Qt::KeepAspectRatio);
-
-    FlatExpButt *preview = new FlatExpButt(image, deck);
-    preview->setToolTip(tr("Editer le deck ")+deck);
-    mainLayout->addWidget(preview);
+        pic -> setStyleSheet("border-image: url("+img+")");
+        layout -> addWidget(pic, 0,0,1,1);
 
 
+        deck.chop(5);
+        name = new QLabel;
+        name -> setText(deck);
 
-    setLayout(mainLayout);
+
+        layout -> setColumnStretch(1,1);
+        layout -> addWidget(name, 0,2,1,1);
+        layout -> setColumnStretch(3,1);
+
+
+
+    setLayout(layout);
+
+    setToolTip(tr("Editer le deck ")+deck);
+
+    connect(this, SIGNAL(clicked()), this, SLOT(doClick()));
 }
 
-void DeckPreview::mousePressEvent (QMouseEvent * e){
-    if (e->button() == Qt::LeftButton || e->button() == Qt::RightButton ){
-        emit clicked(monDeck);
-    }
+DeckPreview::~DeckPreview(){
+
+    delete name;
+    delete pic;
+
+    delete layout;
 }
 
+
+
+void DeckPreview::doClick(){
+    
+    emit isClick(name->text());    
+}

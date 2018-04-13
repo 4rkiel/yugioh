@@ -3,12 +3,14 @@
 
 #include <vector>
 
-#include <QWidget>
-#include <QVBoxLayout>
+#include <QFrame>
+#include <QGridLayout>
 
 #include <QFile>
 #include <QString>
 #include <QStringList>
+
+#include <QRadioButton>
 
 /*
 #include <QBoxLayout>
@@ -29,7 +31,7 @@
 #include "deckpreview.h"
 //#include "flatExpButt.h"
 
-class DeckSelector : public QWidget{
+class DeckSelector : public QFrame {
 
     Q_OBJECT
 
@@ -47,11 +49,12 @@ public:
     unsigned int NBR_DECK = deckList.size();
 
 
-    QVBoxLayout * mainLayout;
+    QGridLayout * mainLayout;
 
 
-    std::vector<DeckPreview*> tabDeckButton;
-    std::vector<QFrame*> tabSep;
+    std::vector<DeckPreview *> tabDeckButton;
+    std::vector<QFrame *> tabSep;
+    std::vector<QRadioButton *> tabRadio;
 
 
     DeckSelector();

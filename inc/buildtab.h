@@ -12,7 +12,7 @@
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QStackedLayout>
+#include <QStackedWidget>
 
 #include <QScrollArea>
 #include <QPushButton>
@@ -67,7 +67,8 @@ private:
     QPushButton * deckEditButt;
 
     QWidget * buildBox;
-    QStackedLayout * buildLayout;
+    QGridLayout * buildLayout;
+    QStackedWidget * buildStacked;
 
     QScrollArea * deckScroll;
     //deckEdit * deck;

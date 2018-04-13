@@ -2,49 +2,39 @@
 #define DECKPREVIEW
 
 #include "carte.h"
-#include <QBoxLayout>
-#include <QFormLayout>
-#include <QMouseEvent>
+
+#include <QPushButton>
+#include <QGridLayout>
 #include <QLabel>
-#include <QPixmap>
 #include <QString>
-#include <QStringList>
-#include <QWidget>
-#include <QCoreApplication>
-#include <QDebug>
-#include <QFile>
-#include "flatExpButt.h"
 
-class DeckPreview : public QWidget
-{
+#include <QMouseEvent>
+
+
+class DeckPreview : public QPushButton {
+
     Q_OBJECT
-
-    enum infoLabel
-    {
-        NOM,
-        VALIDE,
-        INFOLABEL_MAX
-    };
 
     public:
 
         DeckPreview(QString deck, QString img);
+        ~DeckPreview();
 
     private:
 
-        QHBoxLayout *mainLayout;
+        QGridLayout * layout;
+        QLabel * pic;
+        QLabel * name;
 
-        QString monDeck;
-
-        QLabel tabInfoLabel[INFOLABEL_MAX];
-
+    public slots:
+   
+        void doClick();
+        
     signals:
 
-        void clicked(QString);
+        void isClick(QString);
 
-    protected:
 
-        void mousePressEvent(QMouseEvent *event) override;
 };
 
-#endif // DECKPREVIEW
+#endif 

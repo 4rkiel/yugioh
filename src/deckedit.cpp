@@ -25,13 +25,6 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
 //    cardPreviewList = new std::vector<QHBoxLayout*>;
 
-    for(int i=0; i<NBR_BUTTON_DECK_EDIT; i++)
-    {
-        tabBut[i] = new DarkButt("", buttonName.at(i));
-        tabBut[i]->setDefault(true);
-        //tabBut[i]->setText(buttonName.at(i));
-    }
-
     for(int i=0; i<NBR_CARTE_DECK_VISU; i++)
     {
         tabCardVisu.push_back(new QPushButton);
@@ -136,10 +129,17 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
             buttonH = new QHBoxLayout;
             editCreateLayout->addLayout(buttonH);
 
-            for(unsigned int i=NBR_BUTTON_DECK_EDIT-1; i>0; i--)
+
+            for(int i=0; i<NBR_BUTTON_DECK_EDIT; i++)
             {
+                tabBut[i] = new DarkButt("", buttonName.at(i));
+                tabBut[i]->setDefault(true);
                 buttonH->addWidget(tabBut[i]);
+                //tabBut[i]->setText(buttonName.at(i));
             }
+
+
+
 
 //                buttonH->addWidget(tabBut[MELANGER]);
 //                buttonH->addWidget(tabBut[TRIER]);

@@ -112,10 +112,13 @@ BuildTab::BuildTab (){
         buildBox = new QWidget;
         buildBox -> setObjectName("buildBox");
         
-        buildLayout = new QStackedLayout;
+        buildLayout = new QGridLayout;
         buildLayout -> setSpacing(0);
         buildLayout -> setMargin(0);
-        buildLayout -> setContentsMargins(0,0,0,0);
+        buildLayout -> setContentsMargins(30,30,30,30);
+
+        buildStacked = new QStackedWidget;
+
 
 //            Parser *parserAllMighty = new Parser;
 //            vector<Carte*> *allCard = parserAllMighty->all_cards;
@@ -137,7 +140,7 @@ BuildTab::BuildTab (){
             deck = new DeckSelector;
             deckScroll->setWidget(deck);
 
-            buildLayout -> addWidget(deckScroll);
+            buildStacked -> addWidget(deckScroll);
 
            
 
@@ -154,11 +157,13 @@ BuildTab::BuildTab (){
 			editeur = new CardEditor;
             cardScroll->setWidget(editeur);
 
-            buildLayout -> addWidget(cardScroll);
+            buildStacked -> addWidget(cardScroll);
 
+            
+            buildStacked -> setCurrentWidget(deckScroll);
 
+        buildLayout -> addWidget(buildStacked);
 
-        buildLayout -> setCurrentWidget(deckScroll);
         buildBox -> setLayout(buildLayout);
 
     tabInsideLayout -> addWidget(buildBox, 1, 0, 1, 2);
@@ -198,6 +203,7 @@ BuildTab::~BuildTab (){
         delete deckButt;
         delete cardButt;
     
+    delete buildStacked;
     delete buildLayout;
     delete buildBox;
     delete tabLayout;
@@ -234,7 +240,7 @@ void BuildTab::setDeck (){
 
     updateStyle(deckButt);
 
-    buildLayout -> setCurrentWidget(deckScroll);
+    buildStacked -> setCurrentWidget(deckScroll);
 }
 
 
@@ -242,7 +248,7 @@ void BuildTab::setCard (){
 
     updateStyle(cardButt);
 
-    buildLayout -> setCurrentWidget(cardScroll);
+    buildStacked -> setCurrentWidget(cardScroll);
 }
 
 
