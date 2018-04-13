@@ -230,14 +230,22 @@ bool Noyau::isFuse(int x){
 void Noyau::poserAtk()
 {
     //remplacer le 1 par la bonne position stp
-    if(registre_0 > 6)
-    poser(registre_0,perfect_terrain(0),false,true);
+    if(isHand(registre_0))
+    {
+        int position = perfect_terrain(0);
+        if(position!=-1)
+            poser(registre_0,position,false,true);
+    }
 }
 
 void Noyau::poserDef()
 {
-     if(registre_0 > 6)
-    poser(registre_0,perfect_terrain(0),true,false);
+     if(isHand(registre_0))
+      {
+         int position = perfect_terrain(0);
+         if(position!=-1)
+          poser(registre_0,position,true,false);
+     }
 }
 
 //determine la position où poser la carte sur le terrain, zone = 0 si c'est moi qui pose sinon c'est 1
@@ -251,6 +259,8 @@ int Noyau::perfect_terrain(int zone)
                    return begin_position;
             while(trouver(begin_position)!=NULL)
                 begin_position++;
+            if(begin_position>5)
+                return -1;
 
         }
         else
@@ -260,6 +270,8 @@ int Noyau::perfect_terrain(int zone)
                    return begin_position;
             while(trouver(begin_position)!=NULL)
                 begin_position++;
+            if(begin_position>5)
+                return -1;
 
         }
         return begin_position;
@@ -268,7 +280,7 @@ int Noyau::perfect_terrain(int zone)
 void Noyau::poser_test(int x)
 {
     //le if doit être mieux géré negrion
-    if(!isAdv(x) && isHand(x) && trouver(x)!=NULL && can_poser())
+    if(!isAdv(x) && isHand(x) && trouver(x)!=NULL && (trouver(x)->type==0) && can_poser())
     {
         registre_0 = x;
         emit dialogue();
@@ -279,6 +291,10 @@ void Noyau::poser_test(int x)
         std::stringstream s1;
         s1 << "swap/" << Carte::correspondant(x);
         emit tiens(QString::fromStdString(s1.str()));
+    }
+    else if(!isAdv(x) && isMagic(x) && trouver(x)!=NULL && can_activate())
+    {
+        activer(x);
     }
 }
 
@@ -486,7 +502,14 @@ void Noyau::attaquerSlot(int atk,int def)
 
 void Noyau::activer(int x)
 {
-
+    Carte * carte = trouver(x);
+    switch(carte->effet)
+    {
+    case 0:
+        break;
+    default:
+        break;
+    }
 }
 
 
@@ -535,6 +558,8 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                      }
                     if(def->pos)
                     {
+                        if(def->etat == VERSO)
+                            emit montre(def);
                         if(atk->atk > def->def)
                         {
                             detruire(adversaire_x);
@@ -610,6 +635,8 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
                  }
                 if(def->pos)
                 {
+                    if(def->etat == VERSO)
+                        emit montre(def);
                     if(atk->atk > def->def)
                     {
                         detruire(adversaire_x);
@@ -790,6 +817,10 @@ bool Noyau::can_switch()
     return(mon_tour && (phase==0 || phase==2));
 }
 
+bool Noyau::can_activate()
+{
+    return (mon_tour )
+}
 
 //OBSOLETE
 void Noyau::go()

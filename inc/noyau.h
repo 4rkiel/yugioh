@@ -83,6 +83,7 @@ public:
     bool can_poser();
     bool can_atak();
     bool can_switch();
+    bool can_activate();
 
     //obsolète
     Reseau * res;
@@ -134,6 +135,7 @@ signals:
     void setTour(int x);
     void sendInfo(QString i);
     void beginTour();
+    void montre(int x);
 
     //void met_en_defense(int x);
 };

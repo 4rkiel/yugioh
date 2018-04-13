@@ -31,6 +31,7 @@ Master::Master (){
         connect(network, SIGNAL(hostReady(int)), this, SLOT(loadField(int)));
 
         // Ask for being host
+        connect(selector, SIGNAL(sendIP(QString)), this, SLOT(test(QString)));
         connect(selector, SIGNAL(sendIP(QString)), network, SLOT(mondieu(QString)));
 
         // Load Joined Game
@@ -233,29 +234,22 @@ void Master::loadField (int x){
     connect(noyau,SIGNAL(je_gagne()),field,SLOT(openWin()),Qt::QueuedConnection);
     //lose
     connect(noyau,SIGNAL(je_perds()),field,SLOT(openLost()),Qt::QueuedConnection);
-    
-	connect(noyau, SIGNAL(je_gagne()), this, SLOT(stopTick())); 
-	connect(noyau, SIGNAL(je_perds()), this, SLOT(stopTick())); 
-	
-	
-	
-	stacked -> addWidget(field);
+    stacked -> addWidget(field);
     stacked -> setCurrentWidget(field);
 
+    //montrer def caché
+    connect(noyau,SIGNAL(montre(int)),field,SLOT(reveal(int)));
 
-
-
-	field -> init();
+    field -> init();
 
 
 
     // Clock Thread
 
     mThread = new QThread;
-	mTask = new MasterTask;
+    mTask = new MasterTask;
     mTask -> moveToThread(mThread);
 
-	mTask -> threadLock = true;
 
     connect( mTask, SIGNAL(newTick()), this, SLOT(timeTicker())) ;
     connect( mTask, SIGNAL(newTick()), mTask, SLOT(masterLoop()));
@@ -277,12 +271,9 @@ void Master::loadField (int x){
 
 void MasterTask::masterLoop (){
 
-	if (threadLock){
+    Sleeper::msleep(50);
 
-	    Sleeper::msleep(50);
-
-    	emit newTick();
-	}
+    emit newTick();
 }
 
 
@@ -295,11 +286,18 @@ void Master::timeTicker(){
 }
 
 
-void Master::stopTick(){
-	mTask -> threadLock = false;
+
+
+
+
+
+
+
+
+
+
+void Master::test(QString str){
+    std::cout << str.toStdString() << "\n";
 }
 
-
-
-
-
+//void Master::cut(QString, int, int, bool, bool);
