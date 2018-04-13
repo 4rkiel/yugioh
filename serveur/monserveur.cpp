@@ -13,7 +13,7 @@ MonServeur::MonServeur(QObject *parent) : QObject(parent){
         return;
     }
 
-    adresse_serveur = new QHostAddress("2a01:cb10:1c:ee00::");
+    adresse_serveur = new QHostAddress(host.addresses().at(0));
     std::cout << ((*adresse_serveur).toString()).toStdString() << std::endl;
 
     //on fixe l'adresse serveur
