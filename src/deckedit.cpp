@@ -20,10 +20,16 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
     spinDef = new QSpinBox;
     spinNiveau = new QSpinBox;
 
+    tabBut.reserve(NBR_BUTTON_DECK_EDIT);
     deck.reserve(NBR_CARTE_DECK_VISU);
     tabCardVisu.reserve(NBR_CARTE_DECK_VISU);
 
-//    cardPreviewList = new std::vector<QHBoxLayout*>;
+
+    for(int i=0; i<NBR_BUTTON_DECK_EDIT; i++)
+    {
+        tabBut.push_back(new QPushButton(buttonName.at(i)));
+        tabBut[i]->setDefault(true);
+    }
 
     for(int i=0; i<NBR_CARTE_DECK_VISU; i++)
     {
@@ -62,20 +68,20 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
     slotAttribut();
     choixSousGenre->addItems(sousGenreList);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    QHBoxLayout *mainL1 = new QHBoxLayout;
-    QHBoxLayout *mainL2 = new QHBoxLayout;
+    mainLayout = new QVBoxLayout;
+    mainL1 = new QHBoxLayout;
+    mainL2 = new QHBoxLayout;
 
 
         // ... selecteur / creation de Deck ....................................
         //TODO refactorer le code
 
-        QFrame *editCreate = new QFrame;
+        editCreate = new QFrame;
         editCreate->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
         editCreate->setStyleSheet("border: 1px solid blue");
         mainL1->addWidget(editCreate);
         editCreate->setStyleSheet("background-color: #ECEFF1");
-        QVBoxLayout *editCreateLayout = new QVBoxLayout;
+        editCreateLayout = new QVBoxLayout;
         editCreate->setLayout(editCreateLayout);
 
 
@@ -91,19 +97,27 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
                 selectDeck->addItem(str);
             }
 
-            QHBoxLayout *part1 = new QHBoxLayout;
-            QVBoxLayout *part2 = new QVBoxLayout;
+            frameNomDeck = new QFrame;
+            frameNomDeck->setObjectName("yolo");
+            frameNomDeck->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+            frameNomDeck->setStyleSheet("#yolo {border-radius: 3px;\
+                                         background-color: blue}");
 
-            part1->addLayout(part2);
+            nomLayout = new QGridLayout;
 
-            QFormLayout *formulaire = new QFormLayout;
-            part2->addLayout(formulaire);
+            nomDeck = new QLineEdit;
 
+            // TODO mettre le nom du deck que l'on edit
+            nomDeck->setPlaceholderText(deckList[0]);
 
-                formulaire->addRow(tr("Deck: "), selectDeck);
+            sauver = new DarkButt("", tr("Sauvegarder"));
+            sauver->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
 
+            nomLayout->addWidget(sauver, 0, 1, 1, 1);
+            nomLayout->addWidget(nomDeck, 0, 0, 1, 1);
+            frameNomDeck->setLayout(nomLayout);
 
-                // ... name a deck .............................................
+            editCreateLayout->addWidget(frameNomDeck);
 
 
 //                formulaire->addRow(tabBut[CREER], newDeck);
@@ -204,25 +218,9 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
                 }
             }
 
-            //TODO signaux
-
 
             // ... visualiseur d'extra Deck ....................................
 
-//            QFrame *extraDeckVisu = new QFrame;
-//            extraDeckVisu->setSizePolicy(QSizePolicy::Minimum,
-//                                         QSizePolicy::Maximum);
-//            extraDeckVisu->setObjectName("extraDeckVisu");
-//            extraDeckVisu->setStyleSheet("#extraDeckVisu"
-//                                         "{border: 1px solid green}");
-
-//            QHBoxLayout *layoutExtraCard = new QHBoxLayout;
-//            extraDeckVisu->setLayout(layoutExtraCard);
-
-//            for(int i=0; i<NBR_CARTE_EXTRA_DECK; i++)
-//            {
-//                    layoutExtraCard->addWidget(tabExtraDeck[i]);
-//            }
 
             for(int i=0; i<NBR_CARTE_EXTRA_DECK; i++)
             {
@@ -232,7 +230,6 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
         deckVisuLayout->addWidget(cardInfo);
         deckVisuLayout->addWidget(deckVisu);
-//        deckVisuLayout->addWidget(extraDeckVisu);
 
 
         // ... recherche de cartes .............................................
@@ -265,11 +262,6 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
                 genreColonne->addWidget(choixGenre);
                 genreColonne->addWidget(choixSousGenre);
 
-//                QSizePolicy sp_retain = choixSousGenre->sizePolicy();
-//                sp_retain.setRetainSizeWhenHidden(true);
-//                sp_retain.setHorizontalPolicy(QSizePolicy::Minimum);
-//                sp_retain.setVerticalPolicy(QSizePolicy::Minimum);
-//                choixSousGenre->setSizePolicy(sp_retain);
                 choixSousGenre->setVisible(false);
 
                 propForm->addRow(tr("Genre: "), genreColonne);
@@ -282,23 +274,6 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
 
 
-                    // ... Type ................................................
-
-                    //propForm->addRow(tr("Type: "), choixType);
-
-
-
-                    // ... Niveau ..............................................
-
-//                    spinNiveau->setAccelerated(true);
-//                    spinNiveau->setSingleStep(1);
-//                    spinNiveau->setMinimum(1);
-//                    spinNiveau->setMaximum(12);
-
-
- //               propForm->addRow(tr("Niveau"), spinNiveau);
-
-
 
                 // ... recherche approfondis + bouttons ........................
 
@@ -308,33 +283,6 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
 
 
 
-                        // ... Atk / Def .......................................
-
-//                        QVBoxLayout *propAtkDef = new QVBoxLayout;
-
-
-//                            QFormLayout *atkDefForm = new QFormLayout;
-
-//                            atkDefForm->addRow(tr("Attaque: "), spinAtk);
-//                            atkDefForm->addRow(tr("Défense: "), spinDef);
-
-
-//                        propAtkDef->addLayout(atkDefForm);
-
-
-
-                        // ... Effect Box ......................................
-
-//                        effectBoxBut = new FlatButt;
-//                        effectBoxBut->setDefault(true);
-//                        effectBoxBut->setText(tr("Effets"));
-//                        effectBoxBut->setSizePolicy(QSizePolicy::Minimum,
-//                                                    QSizePolicy::Minimum);
-
-
-     //               prop2H->addLayout(propAtkDef);
-         //           prop2H->addWidget(effectBoxBut);
-
 
 
                     // ... Annuler recherche / filrer ..........................
@@ -342,16 +290,11 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
                     QVBoxLayout *deleteSearch = new QVBoxLayout;
 
                     QHBoxLayout *annSearch = new QHBoxLayout;
-                        //annSearch->addWidget(tabBut[ANNULER_RECHERCHE]);
+                        annSearch->addWidget(tabBut[ANNULER_RECHERCHE]);
                         annSearch->addWidget(textSearch);
                     deleteSearch->addLayout(annSearch);
 
-                    //TODO: connect
-
-                   // deleteSearch->addWidget(tabBut[FILTRER]);
-
-                    //TODO: connect
-
+                    deleteSearch->addWidget(tabBut[FILTRER]);
 
 
                 prop2Vmain->addLayout(prop2H);

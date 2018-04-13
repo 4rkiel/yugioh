@@ -25,6 +25,7 @@
 #include <vector>
 #include <QMessageBox>
 #include <QStringListModel>
+#include <QGraphicsDropShadowEffect>
 #include "carte.h"
 #include "parser.h"
 #include "duplica.h"
@@ -96,6 +97,24 @@ class deckEdit : public QWidget
 
         int indiceCarteExtraDeck = 0;
 
+        QVBoxLayout *mainLayout;
+        QHBoxLayout *mainL1;
+        QHBoxLayout *mainL2;
+
+        QFrame *editCreate;
+        QFrame *frameNomDeck;
+        QGridLayout *nomLayout;
+        QLineEdit*nomDeck;
+        DarkButt *sauver;
+
+
+        QVBoxLayout *editCreateLayout;
+
+
+
+        QHBoxLayout *part1;
+        QVBoxLayout *part2;
+
         QHBoxLayout *buttonH;
 
         std::vector<Carte*> deck;
@@ -119,8 +138,8 @@ class deckEdit : public QWidget
 
         CardListPreview *cardList;
 
-        FlatButt *effectBoxBut;
-        DarkButt *tabBut[NBR_BUTTON_DECK_EDIT];
+        QPushButton *effectBoxBut;
+        std::vector<QPushButton *> tabBut;
         std::vector<QPushButton *> tabCardVisu;
         std::vector<QPushButton *> tabExtraDeck;
 
