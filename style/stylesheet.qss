@@ -538,7 +538,7 @@ OptionTab,
 HelpTab, 
 RuleTab {
     margin: 0px;
-    padding: 0px 0px 30px 0px;
+    padding: 0px;
 }
 
 BuildTab #tabInside,
@@ -602,11 +602,15 @@ HelpTab #helpBox {
     background: #E0F2F1;
 }
 
+BuildTab #buildBox > QScrollArea,
 OptionTab #optBox > QScrollArea,
 HelpTab #helpBox > QScrollArea,
 RuleTab #ruleBox > QScrollArea {
-    margin: 30px;
     background: #E0F2F1;
+}
+
+BuildTab #buildBox #DeckSelector {
+    background: red;
 }
 
 OptionTab #optBox #optScrollBox,

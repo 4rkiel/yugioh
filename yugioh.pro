@@ -64,6 +64,8 @@ HEADERS += inc/buildtab.h \
            inc/slotCard.h \
            inc/zButt.h \ 
            inc/deckedit.h \
+           inc/deckselector.h \
+           inc/deckpreview.h \
            inc/noyau.h \
            inc/parser.h \
            inc/carte.h \
@@ -104,6 +106,8 @@ SOURCES += src/buildtab.cpp \
            src/slotCard.cpp \
            src/zButt.cpp \
            src/deckedit.cpp \
+           src/deckselector.cpp \
+           src/deckpreview.cpp \
            src/noyau.cpp \
            src/parser.cpp \
            src/carte.cpp \

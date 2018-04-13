@@ -12,7 +12,7 @@
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QStackedLayout>
+#include <QStackedWidget>
 
 #include <QScrollArea>
 #include <QPushButton>
@@ -67,25 +67,31 @@ private:
     QPushButton * deckEditButt;
 
     QWidget * buildBox;
-    QStackedLayout * buildLayout;
+    QGridLayout * buildLayout;
+    QStackedWidget * buildStacked;
 
     QScrollArea * deckScroll;
-    deckEdit * deck;
-    //DeckSelector* deck;
+    //deckEdit * deck;
+    DeckSelector * deck;
 
     QScrollArea * cardScroll;
 
     QScrollArea * cardEditScroll;
 	CardEditor * editeur;
 
+    QWidget * popup;
+
+
+
     void updateStyle(QPushButton * b);
 
 
 public slots:
+
     void emitClose();
     void setDeck();
     void setCard();
-    void setEditeurCarte();
+    void openDeck();
 
 
 signals:
