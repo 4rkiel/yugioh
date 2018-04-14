@@ -33,7 +33,7 @@ public:
 
 public slots:
 	 void sendOK();
-	 void sendERR(QAbstractSocket::SocketError);
+     void sendERR(QAbstractSocket::SocketError erreur);
      void afficher(Carte* c);
      void nouvelleConnexion();
      void donneesRecues();

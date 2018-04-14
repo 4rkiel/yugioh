@@ -372,6 +372,20 @@ void Reseau::sendOK(){
     emit connectOK(22);
 }
 
-void Reseau::sendERR(QAbstractSocket::SocketError){
+void Reseau::sendERR(QAbstractSocket::SocketError erreur){
     emit connectKO(23);
+    switch(erreur) // On affiche un message différent selon l'erreur qu'on nous indique
+        {
+            case QAbstractSocket::HostNotFoundError:
+                std::cout << "ERREUR : le serveur n'a pas pu être trouvé. Vérifiez l'IP et le port.</em>" << std::endl;
+                break;
+            case QAbstractSocket::ConnectionRefusedError:
+                std::cout << "ERREUR : le serveur a refusé la connexion. Vérifiez si le programme \"serveur\" a bien été lancé. Vérifiez aussi l'IP et le port.</em>" << std::endl;
+                break;
+            case QAbstractSocket::RemoteHostClosedError:
+                std::cout << "<em>ERREUR : le serveur a coupé la connexion.</em>" << std::endl;
+                break;
+            default:
+                std::cout << "<em>ERREUR : " + socket->errorString().toStdString() << std::endl;
+        }
 }
