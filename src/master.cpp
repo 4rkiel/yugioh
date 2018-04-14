@@ -129,21 +129,41 @@ void Master::loadField (int x){
         else
             ai_mode = 2; //file learning_ai.data
 
-        ai = new Ai(noyau,ai_mode,2);//joueur 2
+        cout << "construct ai" << endl;
+        ai_main = new Ai_main(noyau,ai_mode,2);//joueur 2 (adverse)
+        ai_battle = new Ai_battle(noyau,ai_mode,2);//joueur 2 (adverse)
         
-        //le noyau envoi un signal a l'ia pour lui dire de jouer
-        //connect(noyau,SIGNAL(au_tour_de_l_ia()),ai,SLOT(a_ton_tour()));
+
+        /*TODO: le noyau envoi un signal a l'ia pour lui dire de jouer la main phase*/
+
+        //connect(noyau,SIGNAL(ai_main_phase()),ai_main,SLOT(play()));
         
-        //l'ia envoi un signal au noyau pour lui dire l'action qu'elle effectue
+        /*TODO: le noyau envoi un signal à l'ia pour lui dire que la battle phase a commencé et
+        le noyau renvoit ce signal aussi à chaque fois que l'adversaire effectu une action pendant la battle phase*/
+
+        //connect(noyau,SIGNAL(ai_battle_phase()),ai_battle,SLOT(play()));
         
-        connect(ai,SIGNAL(attaquer(int,int)),noyau,SLOT(attaquer(int,int)));
+
+        //MAIN PHASE//
+
+        cout << "ai: init signals" << endl;
+        connect(ai_main,SIGNAL(signal_poser(int,int,bool,bool)),noyau,SLOT(poser(int,int,bool,bool)));
         
-        connect(ai,SIGNAL(poser(int,int,bool,bool)),noyau,SLOT(poser(int,int,bool,bool)));
+        connect(ai_main,SIGNAL(signal_switch_position(int)),noyau,SLOT(switch_position(int)));
         
-        connect(ai,SIGNAL(switch_position(int)),noyau,SLOT(switch_position(int)));
+        //connect(ai_main,SIGNAL(detruire(int)),noyau,SLOT(detruire(int)));
         
-        connect(ai,SIGNAL(detruire(int)),noyau,SLOT(detruire(int)));
+        connect(ai_main,SIGNAL(signal_sacrifier_poser(int,int,int)),noyau,SLOT(sacrifier_poser(int,int,int)));
         
+        connect(ai_main,SIGNAL(signal_sacrifier_sacrifier_poser(int,int,int,int)),noyau,SLOT(sacrifier_sacrifier_poser(int,int,int,int)));
+        
+        //connect(ai_main_phase,SIGNAL(signal_activate(int)),noyau,SLOT(activate(int)));
+        
+        //BATTLE PHASE//
+        
+        connect(ai_battle,SIGNAL(signal_attaquer(int,int)),noyau,SLOT(attaquer(int,int)));
+
+        cout << "ai: signals init end" << endl;
     } else {
 
 		// 
