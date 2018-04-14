@@ -81,6 +81,7 @@ class deckEdit : public QFrame {
 
         deckEdit(std::vector<Carte*> *allCard, QString nomDuDeck);
         QString deckName;
+        QString newDeckName;
 
     private:
         void createEdit();
@@ -148,6 +149,9 @@ class deckEdit : public QFrame {
 
         std::vector<Carte*> *allCards;
 
+        std::vector< std::vector<Carte*> > undoList;
+
+
         Combo *selectDeck;
         Combo *choixGenre;
         Combo *choixSousGenre;
@@ -176,7 +180,8 @@ class deckEdit : public QFrame {
         QLabel *infoFusionLabel;
 
 
-    signals:
+        void sauvegarderDiscretionMax();
+signals:
 
     public slots:
             void slotAttribut();

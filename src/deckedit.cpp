@@ -1,6 +1,7 @@
 #include "../inc/deckedit.h"
 
 #include <inc/deckedit.h>
+#include <inc/deckedit.h>
 
 
 deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
@@ -91,30 +92,30 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
             QStringList deckList = QDir(deckRep).entryList({"*.deck"});
 
 
-            /* on tronc l'extension ".deck" avant de placer dans la Combo */
-            foreach (QString str, deckList)
-            {
-                if(str == deckName+".deck")
+            if (deckName != "")
+                foreach (QString str, deckList)
                 {
-                    Parser parse;
-                    std::vector<Carte*> *leDeckParse = parse.deck(deckRep + str);
-
-                    for(Carte* laCarteCourante : *leDeckParse)
+                    if(str == deckName+".deck")
                     {
-                        if(laCarteCourante->sous_type != 2)
-                        {
-                            deck.push_back(laCarteCourante);
-                            indiceCarteDeck++;
-                        }
-                        else
-                        {
-                            extraDeck.push_back(laCarteCourante);
-                            indiceCarteExtraDeck++;
-                        }
+                        Parser parse;
+                        std::vector<Carte*> *leDeckParse = parse.deck(deckRep + str);
 
+                        for(Carte* laCarteCourante : *leDeckParse)
+                        {
+                            if(laCarteCourante->sous_type != 2)
+                            {
+                                deck.push_back(laCarteCourante);
+                                indiceCarteDeck++;
+                            }
+                            else
+                            {
+                                extraDeck.push_back(laCarteCourante);
+                                indiceCarteExtraDeck++;
+                            }
+
+                        }
                     }
                 }
-            }
 
 
 
@@ -535,6 +536,7 @@ void deckEdit::addCard2Deck(Carte* carte)
     updateDeckVisuLastCard();
 
     indiceCarteDeck++;
+    sauvegarderDiscretionMax();
 }
 
 void deckEdit::rmvCard2Deck()
@@ -578,6 +580,7 @@ void deckEdit::rmvCard2Deck()
 
         updateExtraDeckVisu();
     }
+    sauvegarderDiscretionMax();
 }
 
 void deckEdit::sauvegarder()
@@ -593,7 +596,16 @@ void deckEdit::sauvegarder()
           return;
     }
 
-    QString file = deckRep + selectDeck->currentText() + QString(".deck");
+    if(!nomDeck->text().isEmpty())
+    { // le deck à était renommé
+        newDeckName = nomDeck->text();
+        QFile ripFile (deckRep + deckName + QString(".deck"));
+            ripFile.remove();
+    }
+    else
+        newDeckName = deckName;
+
+    QString file = deckRep + newDeckName + QString(".deck");
     qDebug() << "SAVE: URL FICHIER ECRITURE DECK: "+file;
 
 
@@ -630,6 +642,52 @@ void deckEdit::sauvegarder()
     QMessageBox::information(this, tr("youpi !"), tr("Le deck ") +
                              selectDeck->currentText() + tr(" à était enregistré."),
                              QMessageBox::Ok);
+}
+
+void deckEdit::sauvegarderDiscretionMax()
+{
+    if(!nomDeck->text().isEmpty())
+    { // le deck à était renommé
+        newDeckName = nomDeck->text();
+        QFile ripFile (deckRep + deckName + QString(".deck"));
+            ripFile.remove();
+    }
+    else
+        newDeckName = deckName;
+
+    QString file = deckRep + newDeckName + QString(".deck");
+    qDebug() << "SAVE: URL FICHIER ECRITURE DECK: "+file;
+
+
+
+
+    QFile *myfile = new QFile(file);
+
+    if(!myfile->open(QFile::WriteOnly | QFile::Text))
+    {// chemin  corrompue
+        QMessageBox::information(this, tr("echec de la sauvegarde"), tr("Le deck ") +
+                                 selectDeck->currentText() + tr(" n'a pas pu être sauvegardé."),
+                                     QMessageBox::Ok);
+    }
+
+    QTextStream in(myfile);
+
+
+
+    in << QString("#main_deck\n");
+
+    for(Carte* carte : deck)
+    {
+        in << QString::number(carte->id) + QString("\n");
+    }
+
+    in << QString("#extra_deck\n");
+    for(Carte* carte : extraDeck)
+    {
+        in << QString::number(carte->id);
+    }
+
+    myfile->close();
 }
 
 void deckEdit::creer()
@@ -672,6 +730,7 @@ void deckEdit::effacerDeck()
 
     updateDeckVisu();
     updateExtraDeckVisu();
+    sauvegarderDiscretionMax();
 }
 
 void deckEdit::melangerDeck()
@@ -681,6 +740,7 @@ void deckEdit::melangerDeck()
 
     updateDeckVisu();
     updateExtraDeckVisu();
+    sauvegarderDiscretionMax();
 }
 
 struct compCarte
@@ -721,6 +781,7 @@ void deckEdit::trierDeck()
 
     updateDeckVisu();
     updateExtraDeckVisu();
+    sauvegarderDiscretionMax();
 }
 
 void deckEdit::updPreview()
