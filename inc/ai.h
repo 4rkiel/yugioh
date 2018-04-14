@@ -111,11 +111,14 @@ class Ai : public QWidget
 
     private:
         
-        //internal functions
+        ////internal functions/////
         
+        //save, init, load
         void save_ai();
         void initialise_random_ai();
         void load_ai();
+        
+        //propagation, chose action
         void forward_propagation(Matrix<float,1,434> game_state);
         void test_forward_propagation(Matrix<float,1,434> game_state);
         int choose_action(Matrix<float,1,10> actions);
@@ -123,7 +126,27 @@ class Ai : public QWidget
         Matrix<float,1,434> play_simulation(Matrix<float,1,434> game_state, int action);
         int test_win(Matrix<float,1,434> state);
         float max_output_test();
+        
+        //communication to noyau, correspondance id/terrain_x
         Matrix<float,1,434> read_noyau();
+        int main_id_to_x(int main_id);
+        int monstre_id_to_x(int monstre_id);
+        int magie_piege_id_to_x(int magie_piege_id);
+
+        //function that 
+        int perform_action(int chosen_action);
+        
+        //tests before sending signal to noyau
+        //returns EXIT_SUCCES if it send the signal to noyau
+        //returns EXIT_FAILURE else
+        int poser_atk(int main_id);
+        int poser_def(int main_id);
+        int switch_atk_def(int monstre_id);
+        int sacrifier_poser(int monstre_id, int main_id);
+        int sacrifier_sacrifier_poser(int monstre_1_id, int monstre_2_id, int main_id);
+        int poser_magie_piege(int magie_id);
+        int activer_magie_piege(int magie_id);
+
 
 
     signals:
@@ -137,6 +160,12 @@ class Ai : public QWidget
         //def : true si défense, false si attaque
         //vis : true si recto, false si verso
         void signal_poser(int main, int terrain, bool def ,bool vis);
+
+        //sacrifi un monstre et le remplace avec un monstre de niveau 5-6
+        void signal_sacrifier_poser(int sacrifice_x, int main_x, int terrain_x);
+
+        //Sacrifie deux monstres et en met un en remplacement de niveau 7 et plus
+        void signal_sacrifier_sacrifier_poser(int sacrifice_1_x, int sacrifice_2_x, int main_x, int terrain_x);
         
         //passe de "atk à def" ou de "def à atk"
         //terrain : position de la carte a switcher
@@ -144,6 +173,9 @@ class Ai : public QWidget
         
         //detruit la carte à la position terrain
         void signal_detruire(int terrain);
+
+        //activer une marte magie ou piege
+        void signal_activate(int terrain);
 
 };
 
