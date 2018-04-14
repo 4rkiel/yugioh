@@ -8,6 +8,8 @@
 #include <QUdpSocket>
 #include <iostream>
 #include <QHostInfo>
+#include <QString>
+#include <string>
 
 class Matchmaking : public QObject
 {

@@ -3,9 +3,10 @@
 #include <inc/deckedit.h>
 
 
-deckEdit::deckEdit(std::vector<Carte *> *allCard)
-{
+deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
+
     allCards = allCard;
+    deckName = nomDuDeck;
 
     selectDeck = new Combo;
     choixGenre = new Combo;
@@ -93,8 +94,26 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
             /* on tronc l'extension ".deck" avant de placer dans la Combo */
             foreach (QString str, deckList)
             {
-                str.chop(5);
-                selectDeck->addItem(str);
+                if(str == deckName+".deck")
+                {
+                    Parser parse;
+                    std::vector<Carte*> *leDeckParse = parse.deck(deckRep + str);
+
+                    for(Carte* laCarteCourante : *leDeckParse)
+                    {
+                        if(laCarteCourante->sous_type != 2)
+                        {
+                            deck.push_back(laCarteCourante);
+                            indiceCarteDeck++;
+                        }
+                        else
+                        {
+                            extraDeck.push_back(laCarteCourante);
+                            indiceCarteExtraDeck++;
+                        }
+
+                    }
+                }
             }
 
 
@@ -116,7 +135,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
                 nomDeck = new QLineEdit;
 
                 // TODO mettre le nom du deck que l'on edit
-                nomDeck->setPlaceholderText(deckList[0]);
+                nomDeck->setPlaceholderText(deckName);
                 nomDeck->setSizePolicy(QSizePolicy::Minimum,
                                        QSizePolicy::Maximum);
 
@@ -125,18 +144,20 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
                 // ... Supprimer ...............................................
 
 
-                    supprDeck = new DarkButt("", tr("Supprimer"));
+                    supprDeck = new DarkButt("\uf2ed", "");
+                    supprDeck -> setToolTip(tr("Supprimer le deck"));
                     supprDeck->setSizePolicy(QSizePolicy::Maximum,
-                                             QSizePolicy::Minimum);
+                                             QSizePolicy::Maximum);
                     nomLayout->addWidget(supprDeck, 0, 1, 1, 1);
 
 
                 // ... "+" .....................................................
 
 
-                    plusBut = new DarkButt("\uf067", "");
+                    plusBut = new DarkButt("\uf160", "");
+                    plusBut -> setToolTip(tr("Réorganiser les cartes"));
                     plusBut->setSizePolicy(QSizePolicy::Maximum,
-                                             QSizePolicy::Minimum);
+                                             QSizePolicy::Maximum);
                     nomLayout->addWidget(plusBut, 0, 2, 1, 1);
 
 
@@ -388,6 +409,9 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
     connect(eraseDeck, SIGNAL(clicked()), this, SLOT(effacerDeck()));
     connect(shuffleDeck, SIGNAL(clicked()), this, SLOT(melangerDeck()));
     connect(sortDeck, SIGNAL(clicked()), this, SLOT(trierDeck()));
+
+    updateDeckVisu();
+    updateExtraDeckVisu();
 }
 
 void deckEdit::updateDeckVisu()
@@ -761,15 +785,18 @@ void deckEdit::loadDeck()
 
 void deckEdit::plus2But()
 {
-    if(stealBut->isVisible())
-    {
-        plusBut->setIcon("\uf067");
-        stealBut->setVisible(false);
-        return;
-    }
+    if(stealBut->isVisible()){
 
-    stealBut->setVisible(true);
-    plusBut->setIcon("\uf068");
+        plusBut->setIcon("\uf160");
+        plusBut -> setToolTip(tr("Réorganiser les cartes"));
+        stealBut->setVisible(false);
+        
+    } else {
+
+        stealBut->setVisible(true);
+        plusBut -> setToolTip(tr("Fermer les options de tri"));
+        plusBut->setIcon("\uf077");
+    }
 }
 
 void deckEdit::slotAttribut()

@@ -74,6 +74,7 @@ HEADERS += inc/buildtab.h \
            inc/cardpreview.h \
            inc/ai.h \
            inc/matchmaking.h \
+           inc/keyfilter.h
 
 SOURCES += src/buildtab.cpp \
            src/master.cpp \
@@ -116,6 +117,7 @@ SOURCES += src/buildtab.cpp \
            src/cardpreview.cpp \
            src/ai.cpp \
            src/matchmaking.cpp \
+    src/keyfilter.cpp
 
            
 TRANSLATIONS += i18n/en_US/yugi_en_US.ts i18n/fr_FR/yugi_fr_FR.ts

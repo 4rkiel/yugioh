@@ -270,7 +270,7 @@ void Master::loadField (int x){
     connect( mThread, SIGNAL(finished()), mThread, SLOT(deleteLater()) );
 
     //connect(mTask,SIGNAL(newTick()),network,SLOT(keepAlive()),Qt::QueuedConnection);
-    connect(network,SIGNAL(hasDied()),noyau,SIGNAL(je_gagne()),Qt::QueuedConnection);
+    //connect(network,SIGNAL(hasDied()),noyau,SIGNAL(je_gagne()),Qt::QueuedConnection);
 
 
 
@@ -297,7 +297,7 @@ void Master::timeTicker(){
 
 	noyau -> comptageTick();
     field -> setProgress();
-    network -> keepAlive();
+    //network -> keepAlive();
 }
 
 

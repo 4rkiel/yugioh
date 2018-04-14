@@ -33,6 +33,7 @@
 #include "../inc/popup.h"
 
 
+
 #include <iostream>
 
 
@@ -183,8 +184,7 @@ private:
 
                 Duplica * fullCard;
                 Chat * chat;
-protected:
-    bool event(QEvent* event);
+
 };
 
 

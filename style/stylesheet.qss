@@ -609,10 +609,6 @@ RuleTab #ruleBox > QScrollArea {
     background: #E0F2F1;
 }
 
-BuildTab #buildBox #DeckSelector {
-    background: red;
-}
-
 OptionTab #optBox #optScrollBox,
 OptionTab #optBox #accScrollBox,
 RuleTab #ruleBox #ruleScrollBox {
@@ -634,6 +630,85 @@ RuleTab #ruleBox QComboBox {
 }
 
 
+BuildTab #buildPopup {
+    border: none;
+    outline: none;
+    border-radius: 0px;
+    background: rgba(0,0,0,100);
+}
+
+BuildTab #buildPopup deckEdit {
+    background: #E0F2F1;
+}
+
+BuildTab #closePop,
+BuildTab #addDeck {
+    min-width: 50px;
+    max-width: 50px;
+    min-height: 50px;
+    max-height: 50px;
+    border-radius: 25px;
+    margin: 10px;
+}
+
+BuildTab #closePop {
+    background: #FFE082;
+}
+
+BuildTab #closePop:focus,
+BuildTab #closePop:hover {
+    background: #FFECB3;
+}
+
+BuildTab #closePop:pressed {
+    background: #FFD54F;
+}
+
+
+BuildTab #addDeck {
+    background: #FF8F00;
+}
+
+BuildTab #addDeck:hover,
+BuildTab #addDeck:focus {
+    background: #FFA000;
+}
+
+BuildTab #addDeck:pressed {
+    background: #FF6F00;
+}
+
+
+BuildTab #buildBox #DeckSelector {
+    background: #E0F2F1;
+}
+
+BuildTab #buildBox #DeckSelector #selectRad {
+    padding: 0px 20px;
+    margin: 0px 10px;
+}
+
+BuildTab #buildBox #DeckSelector #selectButt {
+    background: #E0F2F1;
+    outline:none;
+    border-radius:0px;
+    border: 0px solid #DDD;
+    border-right: 1px solid #DDD;
+}
+
+BuildTab #buildBox #DeckSelector #selectButt:hover,
+BuildTab #buildBox #DeckSelector #selectButt:focus {
+    background: #FFE082;
+}
+
+BuildTab #buildBox #DeckSelector #selectButt:pressed {
+    background: #FFD54F;
+
+}
+
+BuildTab #buildBox #DeckSelector #selectSep {
+    background: #CCC;
+}
 
 
 /*****************************************************************
@@ -756,6 +831,7 @@ Chat QTextEdit:focus {
 /********************************************************************
     Shadowed Popup
 ********************************************************************/
+
 
 #popupShadow {
     outline: none;

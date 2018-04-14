@@ -16,6 +16,7 @@
 #include <iostream>
 #include <QHostInfo>
 #include <QString>
+#include <string>
 
 #include <QObject>
 

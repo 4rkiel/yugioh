@@ -16,6 +16,7 @@
 #include "../inc/flatButt.h"
 #include "../inc/flatExpButt.h"
 
+
 class Choice : public QFrame {
 
     Q_OBJECT

@@ -16,7 +16,11 @@ Matchmaking::Matchmaking(QObject *parent) : QObject(parent){
         return;
     }
 
-    adresse_serveur = new QHostAddress(host.addresses().at(0));
+    int num_recup=0;
+    if(host.addresses().at(0).toString().toStdString().find(".")!=std::string::npos)
+        num_recup=1;
+
+    adresse_serveur = new QHostAddress(host.addresses().at(num_recup));
     qDebug() << *adresse_serveur;
 
     //création du msg à envoyer au serveur
