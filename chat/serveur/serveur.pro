@@ -4,8 +4,8 @@
 
 TEMPLATE = app
 CONFIG += release
-QT += network
-TARGET = 
+QT += network widgets
+TARGET = serveur
 DEPENDPATH += .
 INCLUDEPATH += .
 

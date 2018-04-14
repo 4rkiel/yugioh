@@ -3,7 +3,10 @@
 
 #include <QtGui>
 #include <QtNetwork>
-
+#include <QWidget>
+#include <QLabel>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 class FenServeur : public QWidget
 {

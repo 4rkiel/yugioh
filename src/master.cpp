@@ -297,7 +297,7 @@ void Master::timeTicker(){
 
 	noyau -> comptageTick();
     field -> setProgress();
-    network -> keepAlive();
+    //network -> keepAlive();
 }
 
 

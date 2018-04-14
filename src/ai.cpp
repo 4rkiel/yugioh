@@ -917,52 +917,145 @@ Matrix<float,1,434> Ai::read_noyau()
     return game_state;
 }
 
-//TODO
+//correspondance ID/terrein
 
-void poser_atk(int main_id)
+int Ai::main_id_to_x(int main_id)
 {
-
+    if(joueur==1)
+        return main_id+14;
+    if(joueur==2)
+        return main_id+89;
+    else
+        return -1;
 }
 
-void poser_def(int main_id)
+int Ai::monstre_id_to_x(int monstre_id)
 {
-
+    if(joueur==1)
+        return monstre_id+1;
+    if(joueur==2)
+        return monstre_id+76;
+    else
+        return -1;
 }
 
-void switch_atk_def(int monstre_id)
+int Ai::magie_piege_id_to_x(int magie_piege_id)
 {
-
+    if(joueur==1)
+        return magie_piege_id+8;
+    if(joueur==2)
+        return magie_piege_id+83;
+    else
+        return -1;
 }
 
-void sacrifier_poser(int monstre_id,int main_id)
-{
+//##SIGNALS////////////////////////////////////////////////////////////////////
 
+
+//put monster in atk position
+//return EXIT_SUCCESS if it work and send signal
+//return EXIT_FAILURE else
+int Ai::poser_atk(int main_id)
+{
+    int i;
+    if(main[main_id]!=NULL)
+        if(main[main_id]->niveau<5)
+            for(i=0;i<5;i++)
+                if(terrain_s_monstre[i]==NULL)
+                {
+                    signal_poser(main_id_to_x(main_id),monstre_id_to_x(i),false,true);
+                    return EXIT_SUCCESS;
+                }
+    return EXIT_FAILURE;
 }
 
-void sacrifier_sacrifier_poser(int monstre_id_1,int monstre_id_2,int main_id)
+//put monster in defense position
+int Ai::poser_def(int main_id)
 {
-
+    int i;
+    if(main[main_id]!=NULL)
+        if(main[main_id]->niveau<5)
+            for(i=0;i<5;i++)
+                if(terrain_s_monstre[i]==NULL)
+                {
+                    signal_poser(main_id_to_x(main_id),monstre_id_to_x(i),true,false);
+                    return EXIT_SUCCESS;
+                }
+    return EXIT_FAILURE;
 }
 
-void poser_magie_piege(int magie_id)
+//switch the position of the monster atk/def
+int Ai::switch_atk_def(int monstre_id)
 {
-
+    if(terrain_s_monstre[monstre_id]!=NULL)
+    {
+        signal_switch_position(monstre_id_to_x(monstre_id));
+        return EXIT_SUCCESS;
+    }
+    return EXIT_FAILURE;
 }
 
-void activer_magie_piege(int magie_id)
+int Ai::sacrifier_poser(int monstre_id,int main_id)
 {
+    if(main[main_id]!=NULL)
+        if(main[main_id]->niveau<7)
+            if(terrain_s_monstre[monstre_id]!=NULL)
+            {
+                signal_sacrifier_poser(monstre_id_to_x(monstre_id),
+                        main_id_to_x(main_id),monstre_id_to_x(monstre_id));
+                return EXIT_SUCCESS;
+            }
+    return EXIT_FAILURE;
+}
 
+int Ai::sacrifier_sacrifier_poser(int monstre_id_1,int monstre_id_2,int main_id)
+{
+    if(main[main_id]!=NULL)
+        if(main[main_id]->niveau<7)
+            if(terrain_s_monstre[monstre_id_1]!=NULL)
+                if(terrain_s_monstre[monstre_id_2]!=NULL)
+                {
+                    signal_sacrifier_sacrifier_poser(monstre_id_to_x(monstre_id_1),monstre_id_to_x(monstre_id_2),
+                            main_id_to_x(main_id),monstre_id_to_x(monstre_id_1));
+                    return EXIT_SUCCESS;
+                }
+    return EXIT_FAILURE;
+}
+
+int Ai::poser_magie_piege(int main_id)
+{
+    int i;
+    if(main[main_id]!=NULL)
+        if(main[main_id]->niveau<5)
+            for(i=0;i<5;i++)
+                if(terrain_s_magie[i]==NULL)
+                {
+                    signal_poser(main_id_to_x(main_id),magie_piege_id_to_x(i),false,false);
+                    return EXIT_SUCCESS;
+                }
+    return EXIT_FAILURE;
+}
+
+int Ai::activer_magie_piege(int magie_id)
+{
+    if(terrain_s_magie[magie_id]!=NULL)
+    {
+        signal_activate(magie_piege_id_to_x(magie_id));
+        return EXIT_SUCCESS;
+    }
+    return EXIT_FAILURE;
 }
 
 
-//emit signal appropriate to the action chosen by the ai
-void emit_action(int chosen_action)
+//emit signal appropriate to the action chosen by the ai if it works
+//returns EXIT_SUCCESS if ti works
+//else returns EXIT_FAILURE
+int Ai::perform_action(int chosen_action)
 {
     switch(chosen_action)
     {
         case 0://passer
-            return;
-            break;
+            return EXIT_SUCCESS;
             //poser atk
         case 1:
         case 2:
@@ -971,8 +1064,7 @@ void emit_action(int chosen_action)
         case 5:
         case 6:
         case 7:
-            poser_atk(chosen_action-1);
-            break;
+            return poser_atk(chosen_action-1);
             //poser def
         case 8:
         case 9:
@@ -981,217 +1073,178 @@ void emit_action(int chosen_action)
         case 12:
         case 13:
         case 14:
-            poser_def(chosen_action-8);
-            break;
+            return poser_def(chosen_action-8);
             //switch atk/def
         case 15:
         case 16:
         case 17:
         case 18:
         case 19:
-            switch_atk_def(chosen_action-15);
-            break;
+            return switch_atk_def(chosen_action-15);
         case 20:
         case 21:
         case 22:
         case 23:
         case 24:
             //sacrifier poser
-            sacrifier_poser(chosen_action-20,0);
-            break;
+            return sacrifier_poser(chosen_action-20,0);
         case 25:
         case 26:
         case 27:
         case 28:
         case 29:
-            sacrifier_poser(chosen_action-25,1);
-            break;
+            return sacrifier_poser(chosen_action-25,1);
         case 30:
         case 31:
         case 32:
         case 33:
         case 34:
-            sacrifier_poser(chosen_action-30,2);
-            break;
+            return sacrifier_poser(chosen_action-30,2);
         case 35:
         case 36:
         case 37:
         case 38:
         case 39:
-            sacrifier_poser(chosen_action-35,3);
-            break;
+            return sacrifier_poser(chosen_action-35,3);
         case 40:
         case 41:
         case 42:
         case 43:
         case 44:
-            sacrifier_poser(chosen_action-40,4);
-            break;
+            return sacrifier_poser(chosen_action-40,4);
         case 45:
         case 46:
         case 47:
         case 48:
         case 49:
-            sacrifier_poser(chosen_action-45,5);
-            break;
+            return sacrifier_poser(chosen_action-45,5);
         case 50:
         case 51:
         case 52:
         case 53:
         case 54:
-            sacrifier_poser(chosen_action-50,6);
-            break;
+            return sacrifier_poser(chosen_action-50,6);
             //sacrifier sacrifier poser
             //poser 0
         case 55:
         case 56:
         case 57:
         case 58:
-            sacrifier_sacrifier_poser(0,chosen_action-54,0);
-            break;
+            return sacrifier_sacrifier_poser(0,chosen_action-54,0);
         case 59:
         case 60:
         case 61:
-            sacrifier_sacrifier_poser(1,chosen_action-57,0);
-            break;
+            return sacrifier_sacrifier_poser(1,chosen_action-57,0);
         case 62:
         case 63:
-            sacrifier_sacrifier_poser(2,chosen_action-59,0);
-            break;
+            return sacrifier_sacrifier_poser(2,chosen_action-59,0);
         case 64:
-            sacrifier_sacrifier_poser(3,4,0);
-            break;
+            return sacrifier_sacrifier_poser(3,4,0);
             //poser 1
         case 65:
         case 66:
         case 67:
         case 68:
-            sacrifier_sacrifier_poser(0,chosen_action-64,1);
-            break;
+            return sacrifier_sacrifier_poser(0,chosen_action-64,1);
         case 69:
         case 70:
         case 71:
-            sacrifier_sacrifier_poser(1,chosen_action-67,1);
-            break;
+            return sacrifier_sacrifier_poser(1,chosen_action-67,1);
         case 72:
         case 73:
-            sacrifier_sacrifier_poser(2,chosen_action-69,1);
-            break;
+            return sacrifier_sacrifier_poser(2,chosen_action-69,1);
         case 74:
-            sacrifier_sacrifier_poser(3,4,1);
-            break;
+            return sacrifier_sacrifier_poser(3,4,1);
             //poser 2
         case 75:
         case 76:
         case 77:
         case 78:
-            sacrifier_sacrifier_poser(0,chosen_action-74,2);
-            break;
+            return sacrifier_sacrifier_poser(0,chosen_action-74,2);
         case 79:
         case 80:
         case 81:
-            sacrifier_sacrifier_poser(1,chosen_action-77,2);
-            break;
+            return sacrifier_sacrifier_poser(1,chosen_action-77,2);
         case 82:
         case 83:
-            sacrifier_sacrifier_poser(2,chosen_action-79,2);
-            break;
+            return sacrifier_sacrifier_poser(2,chosen_action-79,2);
         case 84:
-            sacrifier_sacrifier_poser(3,4,2);
-            break;
+            return sacrifier_sacrifier_poser(3,4,2);
             //poser 3
         case 85:
         case 86:
         case 87:
         case 88:
-            sacrifier_sacrifier_poser(0,chosen_action-84,3);
-            break;
+            return sacrifier_sacrifier_poser(0,chosen_action-84,3);
         case 89:
         case 90:
         case 91:
-            sacrifier_sacrifier_poser(1,chosen_action-87,3);
-            break;
+            return sacrifier_sacrifier_poser(1,chosen_action-87,3);
         case 92:
         case 93:
-            sacrifier_sacrifier_poser(2,chosen_action-89,3);
-            break;
+            return sacrifier_sacrifier_poser(2,chosen_action-89,3);
         case 94:
-            sacrifier_sacrifier_poser(3,4,3);
-            break;
+            return sacrifier_sacrifier_poser(3,4,3);
             //poser 4
         case 95:
         case 96:
         case 97:
         case 98:
-            sacrifier_sacrifier_poser(0,chosen_action-94,4);
-            break;
+            return sacrifier_sacrifier_poser(0,chosen_action-94,4);
         case 99:
         case 100:
         case 101:
-            sacrifier_sacrifier_poser(1,chosen_action-97,4);
-            break;
+            return sacrifier_sacrifier_poser(1,chosen_action-97,4);
         case 102:
         case 103:
-            sacrifier_sacrifier_poser(2,chosen_action-99,4);
-            break;
+            return sacrifier_sacrifier_poser(2,chosen_action-99,4);
         case 104:
-            sacrifier_sacrifier_poser(3,4,4);
-            break;
+            return sacrifier_sacrifier_poser(3,4,4);
             //poser 5
         case 105:
         case 106:
         case 107:
         case 108:
-            sacrifier_sacrifier_poser(0,chosen_action-104,5);
-            break;
+            return sacrifier_sacrifier_poser(0,chosen_action-104,5);
         case 109:
         case 110:
         case 111:
-            sacrifier_sacrifier_poser(1,chosen_action-107,5);
-            break;
+            return sacrifier_sacrifier_poser(1,chosen_action-107,5);
         case 112:
         case 113:
-            sacrifier_sacrifier_poser(2,chosen_action-109,5);
-            break;
+            return sacrifier_sacrifier_poser(2,chosen_action-109,5);
         case 114:
-            sacrifier_sacrifier_poser(3,4,5);
-            break;
+            return sacrifier_sacrifier_poser(3,4,5);
             //poser 6
         case 115:
         case 116:
         case 117:
         case 118:
-            sacrifier_sacrifier_poser(0,chosen_action-114,6);
-            break;
+            return sacrifier_sacrifier_poser(0,chosen_action-114,6);
         case 119:
         case 120:
         case 121:
-            sacrifier_sacrifier_poser(1,chosen_action-117,6);
-            break;
+            return sacrifier_sacrifier_poser(1,chosen_action-117,6);
         case 122:
         case 123:
-            sacrifier_sacrifier_poser(2,chosen_action-119,6);
-            break;
+            return sacrifier_sacrifier_poser(2,chosen_action-119,6);
         case 124:
-            sacrifier_sacrifier_poser(3,4,6);
-            break;
+            return sacrifier_sacrifier_poser(3,4,6);
             //poser magie/piege
         case 125:
         case 126:
         case 127:
         case 128:
         case 129:
-            poser_magie_piege(chosen_action-125);
-            break;
+            return poser_magie_piege(chosen_action-125);
         case 130:
         case 131:
         case 132:
         case 133:
         case 134:
-            activer_magie_piege(chosen_action-130);
-            break;
+            return activer_magie_piege(chosen_action-130);
         default:
-            return;
+            return EXIT_SUCCESS;
     }
 }
 
@@ -1251,7 +1304,7 @@ void Ai::play()
     //choose the which action play
     int chosen_action = choose_action(output_layer_values);
 
-    emit_action(chosen_action);
+    perform_action(chosen_action);
 }
 
 
