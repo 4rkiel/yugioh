@@ -130,20 +130,20 @@ class Ai : public QWidget
         
         //attanquant : position_carte
         //adversaire : position_carte ou -1 si attaque directe vers le joueur
-        void attaquer(int attaquant ,int adversaire);
+        void signal_attaquer(int attaquant ,int adversaire);
         
         //main : position carte a poser
         //terrain : destination
         //def : true si défense, false si attaque
         //vis : true si recto, false si verso
-        void poser(int main, int terrain, bool def ,bool vis);
+        void signal_poser(int main, int terrain, bool def ,bool vis);
         
         //passe de "atk à def" ou de "def à atk"
         //terrain : position de la carte a switcher
-        void switch_position(int terrain);
+        void signal_switch_position(int terrain);
         
         //detruit la carte à la position terrain
-        void detruire(int terrain);
+        void signal_detruire(int terrain);
 
 };
 

@@ -917,11 +917,282 @@ Matrix<float,1,434> Ai::read_noyau()
     return game_state;
 }
 
+//TODO
+
+void poser_atk(int main_id)
+{
+
+}
+
+void poser_def(int main_id)
+{
+
+}
+
+void switch_atk_def(int monstre_id)
+{
+
+}
+
+void sacrifier_poser(int monstre_id,int main_id)
+{
+
+}
+
+void sacrifier_sacrifier_poser(int monstre_id_1,int monstre_id_2,int main_id)
+{
+
+}
+
+void poser_magie_piege(int magie_id)
+{
+
+}
+
+void activer_magie_piege(int magie_id)
+{
+
+}
+
 
 //emit signal appropriate to the action chosen by the ai
 void emit_action(int chosen_action)
 {
-
+    switch(chosen_action)
+    {
+        case 0://passer
+            return;
+            break;
+            //poser atk
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+            poser_atk(chosen_action-1);
+            break;
+            //poser def
+        case 8:
+        case 9:
+        case 10:
+        case 11:
+        case 12:
+        case 13:
+        case 14:
+            poser_def(chosen_action-8);
+            break;
+            //switch atk/def
+        case 15:
+        case 16:
+        case 17:
+        case 18:
+        case 19:
+            switch_atk_def(chosen_action-15);
+            break;
+        case 20:
+        case 21:
+        case 22:
+        case 23:
+        case 24:
+            //sacrifier poser
+            sacrifier_poser(chosen_action-20,0);
+            break;
+        case 25:
+        case 26:
+        case 27:
+        case 28:
+        case 29:
+            sacrifier_poser(chosen_action-25,1);
+            break;
+        case 30:
+        case 31:
+        case 32:
+        case 33:
+        case 34:
+            sacrifier_poser(chosen_action-30,2);
+            break;
+        case 35:
+        case 36:
+        case 37:
+        case 38:
+        case 39:
+            sacrifier_poser(chosen_action-35,3);
+            break;
+        case 40:
+        case 41:
+        case 42:
+        case 43:
+        case 44:
+            sacrifier_poser(chosen_action-40,4);
+            break;
+        case 45:
+        case 46:
+        case 47:
+        case 48:
+        case 49:
+            sacrifier_poser(chosen_action-45,5);
+            break;
+        case 50:
+        case 51:
+        case 52:
+        case 53:
+        case 54:
+            sacrifier_poser(chosen_action-50,6);
+            break;
+            //sacrifier sacrifier poser
+            //poser 0
+        case 55:
+        case 56:
+        case 57:
+        case 58:
+            sacrifier_sacrifier_poser(0,chosen_action-54,0);
+            break;
+        case 59:
+        case 60:
+        case 61:
+            sacrifier_sacrifier_poser(1,chosen_action-57,0);
+            break;
+        case 62:
+        case 63:
+            sacrifier_sacrifier_poser(2,chosen_action-59,0);
+            break;
+        case 64:
+            sacrifier_sacrifier_poser(3,4,0);
+            break;
+            //poser 1
+        case 65:
+        case 66:
+        case 67:
+        case 68:
+            sacrifier_sacrifier_poser(0,chosen_action-64,1);
+            break;
+        case 69:
+        case 70:
+        case 71:
+            sacrifier_sacrifier_poser(1,chosen_action-67,1);
+            break;
+        case 72:
+        case 73:
+            sacrifier_sacrifier_poser(2,chosen_action-69,1);
+            break;
+        case 74:
+            sacrifier_sacrifier_poser(3,4,1);
+            break;
+            //poser 2
+        case 75:
+        case 76:
+        case 77:
+        case 78:
+            sacrifier_sacrifier_poser(0,chosen_action-74,2);
+            break;
+        case 79:
+        case 80:
+        case 81:
+            sacrifier_sacrifier_poser(1,chosen_action-77,2);
+            break;
+        case 82:
+        case 83:
+            sacrifier_sacrifier_poser(2,chosen_action-79,2);
+            break;
+        case 84:
+            sacrifier_sacrifier_poser(3,4,2);
+            break;
+            //poser 3
+        case 85:
+        case 86:
+        case 87:
+        case 88:
+            sacrifier_sacrifier_poser(0,chosen_action-84,3);
+            break;
+        case 89:
+        case 90:
+        case 91:
+            sacrifier_sacrifier_poser(1,chosen_action-87,3);
+            break;
+        case 92:
+        case 93:
+            sacrifier_sacrifier_poser(2,chosen_action-89,3);
+            break;
+        case 94:
+            sacrifier_sacrifier_poser(3,4,3);
+            break;
+            //poser 4
+        case 95:
+        case 96:
+        case 97:
+        case 98:
+            sacrifier_sacrifier_poser(0,chosen_action-94,4);
+            break;
+        case 99:
+        case 100:
+        case 101:
+            sacrifier_sacrifier_poser(1,chosen_action-97,4);
+            break;
+        case 102:
+        case 103:
+            sacrifier_sacrifier_poser(2,chosen_action-99,4);
+            break;
+        case 104:
+            sacrifier_sacrifier_poser(3,4,4);
+            break;
+            //poser 5
+        case 105:
+        case 106:
+        case 107:
+        case 108:
+            sacrifier_sacrifier_poser(0,chosen_action-104,5);
+            break;
+        case 109:
+        case 110:
+        case 111:
+            sacrifier_sacrifier_poser(1,chosen_action-107,5);
+            break;
+        case 112:
+        case 113:
+            sacrifier_sacrifier_poser(2,chosen_action-109,5);
+            break;
+        case 114:
+            sacrifier_sacrifier_poser(3,4,5);
+            break;
+            //poser 6
+        case 115:
+        case 116:
+        case 117:
+        case 118:
+            sacrifier_sacrifier_poser(0,chosen_action-114,6);
+            break;
+        case 119:
+        case 120:
+        case 121:
+            sacrifier_sacrifier_poser(1,chosen_action-117,6);
+            break;
+        case 122:
+        case 123:
+            sacrifier_sacrifier_poser(2,chosen_action-119,6);
+            break;
+        case 124:
+            sacrifier_sacrifier_poser(3,4,6);
+            break;
+            //poser magie/piege
+        case 125:
+        case 126:
+        case 127:
+        case 128:
+        case 129:
+            poser_magie_piege(chosen_action-125);
+            break;
+        case 130:
+        case 131:
+        case 132:
+        case 133:
+        case 134:
+            activer_magie_piege(chosen_action-130);
+            break;
+        default:
+            return;
+    }
 }
 
 
