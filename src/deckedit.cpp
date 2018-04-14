@@ -424,6 +424,9 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     connect(eraseDeck, SIGNAL(clicked()), this, SLOT(effacerDeck()));
     connect(shuffleDeck, SIGNAL(clicked()), this, SLOT(melangerDeck()));
     connect(sortDeck, SIGNAL(clicked()), this, SLOT(trierDeck()));
+
+    shortcut = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_Z),this);
+    connect(shortcut,SIGNAL(activated()),this,SLOT(slotUndo()));
     connect(undo, SIGNAL(clicked()), this, SLOT(slotUndo()));
 
     updateDeckVisu();
