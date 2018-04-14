@@ -1,6 +1,7 @@
 #include "../inc/deckselector.h"
+#include "../inc/buildtab.h"
 
-DeckSelector::DeckSelector(){
+DeckSelector::DeckSelector(QObject* parent){
 
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     setObjectName("DeckSelector");
@@ -52,9 +53,12 @@ DeckSelector::DeckSelector(){
         i++;
     }
 
+    BuildTab* par= static_cast<BuildTab*>(parent);
     QSpacerItem * spacerButt = new QSpacerItem(2,1,
             QSizePolicy::Preferred,QSizePolicy::Expanding);
     mainLayout -> addItem(spacerButt, last*2, 0);
+    connect(par,SIGNAL(nousFocus()),this,SLOT(getsFocus()));
+    connect(par,SIGNAL(focusDeck()),this,SLOT(abandonFocus()));
 
     setLayout(mainLayout);
 }
@@ -81,7 +85,6 @@ DeckSelector::~DeckSelector(){
 }
 
 
-
 // TODO probleme si vecteur vide: appli crash
 
 QString DeckSelector::imgPreviewDeck(std::vector<Carte*> *deck){
@@ -91,6 +94,32 @@ QString DeckSelector::imgPreviewDeck(std::vector<Carte*> *deck){
 
 void DeckSelector::openDeck(QString nomDeck){
 
-	emit popDeck(nomDeck);
+    emit popDeck(nomDeck);
 }
 
+/* Focus */
+void DeckSelector::abandonFocus(){
+    QRadioButton* temp;
+    DeckPreview* temp2;
+    int i=0;
+    foreach (QString str, deckList){
+        temp=tabRadio[i];
+        temp2=tabDeckButton[i];
+        temp->setFocusPolicy(Qt::NoFocus);
+        temp2->setFocusPolicy(Qt::NoFocus);
+        i++;
+    }
+}
+
+void DeckSelector::getsFocus(){
+    QRadioButton* temp;
+    DeckPreview* temp2;
+    int i=0;
+    foreach (QString str, deckList){
+        temp=tabRadio[i];
+        temp2=tabDeckButton[i];
+        temp->setFocusPolicy(Qt::StrongFocus);
+        temp2->setFocusPolicy(Qt::StrongFocus);
+        i++;
+    }
+}

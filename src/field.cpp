@@ -563,6 +563,7 @@ void Field::openLost (){
 	relockTick();
 }
 
+/* Focus */
 void Field::getsFocus(){
     SlotCard* temp;
     for (int k=0; k<150; k++){
@@ -571,7 +572,6 @@ void Field::getsFocus(){
             temp->setFocusPolicy(Qt::StrongFocus);
         }
     }
-    chat->label->setFocusPolicy(Qt::StrongFocus);
     chat->input->setFocusPolicy(Qt::StrongFocus);
     chat->send->setFocusPolicy(Qt::StrongFocus);
     menuButt->setFocusPolicy(Qt::StrongFocus);
@@ -587,7 +587,6 @@ void Field::abandonFocus(){
             temp->setFocusPolicy(Qt::NoFocus);
         }
     }
-    chat->label->setFocusPolicy(Qt::NoFocus);
     chat->input->setFocusPolicy(Qt::NoFocus);
     chat->send->setFocusPolicy(Qt::NoFocus);
     menuButt->setFocusPolicy(Qt::NoFocus);

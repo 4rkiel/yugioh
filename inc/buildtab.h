@@ -103,6 +103,8 @@ public slots:
 
 signals:
     void introStack();
+    void nousFocus();
+    void focusDeck();
 };
 
 

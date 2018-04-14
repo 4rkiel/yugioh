@@ -130,7 +130,7 @@ BuildTab::BuildTab (){
             deckScroll -> setFocusPolicy(Qt::NoFocus);
             deckScroll -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
 
-            deck = new DeckSelector;
+            deck = new DeckSelector(this);
             deckScroll->setWidget(deck);
 	
 			
@@ -344,6 +344,11 @@ void BuildTab::openDeck (QString str){
     addDeck -> setVisible(false);
     closePop -> setVisible(true);
     popup -> setVisible(true);
+    exitButt->setFocusPolicy(Qt::NoFocus);
+    deckButt->setFocusPolicy(Qt::NoFocus);
+    cardButt->setFocusPolicy(Qt::NoFocus);
+    addDeck->setFocusPolicy(Qt::NoFocus);
+    emit focusDeck();
 }
 
 
@@ -357,4 +362,9 @@ void BuildTab::closeDeck (){
     closePop -> setVisible(false);
     popup -> setVisible(false);
     deckButt -> setFocus();
+    exitButt->setFocusPolicy(Qt::StrongFocus);
+    deckButt->setFocusPolicy(Qt::StrongFocus);
+    cardButt->setFocusPolicy(Qt::StrongFocus);
+    addDeck->setFocusPolicy(Qt::StrongFocus);
+    emit nousFocus();
 }
