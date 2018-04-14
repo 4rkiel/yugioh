@@ -115,7 +115,7 @@ void Reseau::mondieu(QString str)
     //out << (quint16) (paquet.size() - sizeof(quint16)); // On écrase le 0 qu'on avait réservé par la longueur du message
     adresse = QHostAddress(str);
     port = 50885;
-
+    std::cout << "je tente de me co à " << str.toStdString() << " et port:" << port << std::endl;
     // Envoi du paquet préparé à tous les clients connectés au serveur
     //socket->bind(50886);
     //socket->writeDatagram(paquet,adresse,port);
@@ -228,6 +228,7 @@ void Reseau::donneesRecues()
 void Reseau::deconnexionClient()
 {
     std::cout << "Grievous a quitté le navire" << std::endl;
+    emit hasDied();
 }
 
 void Reseau::connecte()
