@@ -67,6 +67,7 @@ private:
     bool mode;
     QString pic;
     QShortcut* shortcut;
+    QShortcut* shortcut2;
 
     QGridLayout * layout;
 
