@@ -13,7 +13,6 @@ Window::Window (QApplication * q, QTranslator * montr, QTranslator * montr2) {
     setWindowTitle("Trading Card Game");
     setWindowIcon(QIcon("img/icon.svg"));
 
-
     a = q;
     montranslator = montr;
     montranslator2 = montr2;
@@ -397,6 +396,10 @@ int main(int argc, char *argv[]) {
 
 
     Window w(&app,&qtTranslator,&YugiTranslator);
+
+    // Changement du fonctionnement des flêches directionnelles
+    Keyfilter keyf;
+    app.installEventFilter(&keyf);
 
     w.show(); 
     
