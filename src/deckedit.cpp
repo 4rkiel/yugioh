@@ -1,6 +1,7 @@
 #include "../inc/deckedit.h"
 
 #include <inc/deckedit.h>
+#include <inc/deckedit.h>
 
 
 deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
@@ -24,6 +25,12 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     tabBut.reserve(NBR_BUTTON_DECK_EDIT);
     deck.reserve(NBR_CARTE_DECK_VISU);
     tabCardVisu.reserve(NBR_CARTE_DECK_VISU);
+    undoList.reserve(TAILLE_UNDO);
+
+    for( std::vector<Carte*> deckTmp : undoList)
+    {
+        deckTmp.reserve(TAILLE_UNDO);
+    }
 
 
     for(int i=0; i<NBR_BUTTON_DECK_EDIT; i++)
@@ -91,30 +98,30 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
             QStringList deckList = QDir(deckRep).entryList({"*.deck"});
 
 
-            /* on tronc l'extension ".deck" avant de placer dans la Combo */
-            foreach (QString str, deckList)
-            {
-                if(str == deckName+".deck")
+            if (deckName != "")
+                foreach (QString str, deckList)
                 {
-                    Parser parse;
-                    std::vector<Carte*> *leDeckParse = parse.deck(deckRep + str);
-
-                    for(Carte* laCarteCourante : *leDeckParse)
+                    if(str == deckName+".deck")
                     {
-                        if(laCarteCourante->sous_type != 2)
-                        {
-                            deck.push_back(laCarteCourante);
-                            indiceCarteDeck++;
-                        }
-                        else
-                        {
-                            extraDeck.push_back(laCarteCourante);
-                            indiceCarteExtraDeck++;
-                        }
+                        Parser parse;
+                        std::vector<Carte*> *leDeckParse = parse.deck(deckRep + str);
 
+                        for(Carte* laCarteCourante : *leDeckParse)
+                        {
+                            if(laCarteCourante->sous_type != 2)
+                            {
+                                deck.push_back(laCarteCourante);
+                                indiceCarteDeck++;
+                            }
+                            else
+                            {
+                                extraDeck.push_back(laCarteCourante);
+                                indiceCarteExtraDeck++;
+                            }
+
+                        }
                     }
                 }
-            }
 
 
 
@@ -207,6 +214,14 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
                     eraseDeck->setSizePolicy(QSizePolicy::Minimum,
                                              QSizePolicy::Minimum);
                     cachayLayout->addWidget(eraseDeck, 0, 3, 1, 1);
+
+
+                // ... Undo ....................................................
+
+
+                    undo = new DarkButt("", "undo");
+
+                    cachayLayout->addWidget(undo, 0, 4, 1, 1);
 
 
             stealBut->setLayout(cachayLayout);
@@ -409,6 +424,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     connect(eraseDeck, SIGNAL(clicked()), this, SLOT(effacerDeck()));
     connect(shuffleDeck, SIGNAL(clicked()), this, SLOT(melangerDeck()));
     connect(sortDeck, SIGNAL(clicked()), this, SLOT(trierDeck()));
+    connect(undo, SIGNAL(clicked()), this, SLOT(slotUndo()));
 
     updateDeckVisu();
     updateExtraDeckVisu();
@@ -499,6 +515,19 @@ void deckEdit::addCard2Deck(Carte* carte)
         return;
 
 
+    undoList.push_back(deck);
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+    for(std::vector<Carte*> laC : undoList)
+    {
+        qDebug() << "SAUVEGARDE:";
+
+        for(Carte* c : laC)
+        {
+            qDebug() << c->nom;
+        }
+    }
+
+
 
     switch(carte->genre)
     {
@@ -535,6 +564,7 @@ void deckEdit::addCard2Deck(Carte* carte)
     updateDeckVisuLastCard();
 
     indiceCarteDeck++;
+    sauvegarderDiscretionMax();
 }
 
 void deckEdit::rmvCard2Deck()
@@ -543,6 +573,10 @@ void deckEdit::rmvCard2Deck()
     QPushButton* cardButton2Rmv = qobject_cast<QPushButton*>(sender());
     std::vector<QPushButton *>::iterator it = std::find(tabCardVisu.begin(),
                                          tabCardVisu.end(), cardButton2Rmv);
+
+    undoList.push_back(deck);
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+
     if(it != tabCardVisu.end())
     {
         pos = it - tabCardVisu.begin();
@@ -578,6 +612,7 @@ void deckEdit::rmvCard2Deck()
 
         updateExtraDeckVisu();
     }
+    sauvegarderDiscretionMax();
 }
 
 void deckEdit::sauvegarder()
@@ -593,7 +628,16 @@ void deckEdit::sauvegarder()
           return;
     }
 
-    QString file = deckRep + selectDeck->currentText() + QString(".deck");
+    if(!nomDeck->text().isEmpty())
+    { // le deck à était renommé
+        newDeckName = nomDeck->text();
+        QFile ripFile (deckRep + deckName + QString(".deck"));
+            ripFile.remove();
+    }
+    else
+        newDeckName = deckName;
+
+    QString file = deckRep + newDeckName + QString(".deck");
     qDebug() << "SAVE: URL FICHIER ECRITURE DECK: "+file;
 
 
@@ -632,6 +676,52 @@ void deckEdit::sauvegarder()
                              QMessageBox::Ok);
 }
 
+void deckEdit::sauvegarderDiscretionMax()
+{
+    if(!nomDeck->text().isEmpty())
+    { // le deck à était renommé
+        newDeckName = nomDeck->text();
+        QFile ripFile (deckRep + deckName + QString(".deck"));
+            ripFile.remove();
+    }
+    else
+        newDeckName = deckName;
+
+    QString file = deckRep + newDeckName + QString(".deck");
+    qDebug() << "SAVE: URL FICHIER ECRITURE DECK: "+file;
+
+
+
+
+    QFile *myfile = new QFile(file);
+
+    if(!myfile->open(QFile::WriteOnly | QFile::Text))
+    {// chemin  corrompue
+        QMessageBox::information(this, tr("echec de la sauvegarde"), tr("Le deck ") +
+                                 selectDeck->currentText() + tr(" n'a pas pu être sauvegardé."),
+                                     QMessageBox::Ok);
+    }
+
+    QTextStream in(myfile);
+
+
+
+    in << QString("#main_deck\n");
+
+    for(Carte* carte : deck)
+    {
+        in << QString::number(carte->id) + QString("\n");
+    }
+
+    in << QString("#extra_deck\n");
+    for(Carte* carte : extraDeck)
+    {
+        in << QString::number(carte->id);
+    }
+
+    myfile->close();
+}
+
 void deckEdit::creer()
 {
     std::vector<QString> list;
@@ -661,6 +751,9 @@ void deckEdit::creer()
 
 void deckEdit::effacerDeck()
 {
+    undoList.push_back(deck);
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+
     deck.clear();
     extraDeck.clear();
 
@@ -672,15 +765,20 @@ void deckEdit::effacerDeck()
 
     updateDeckVisu();
     updateExtraDeckVisu();
+    sauvegarderDiscretionMax();
 }
 
 void deckEdit::melangerDeck()
 {
+    undoList.push_back(deck);
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+
     std::random_shuffle(deck.begin(), deck.end());
     std::random_shuffle(extraDeck.begin(), extraDeck.end());
 
     updateDeckVisu();
     updateExtraDeckVisu();
+    sauvegarderDiscretionMax();
 }
 
 struct compCarte
@@ -716,11 +814,15 @@ struct compCarte
 
 void deckEdit::trierDeck()
 {
+    undoList.push_back(deck);
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+
     std::sort(deck.begin(), deck.end(), compCarte());
     std::sort(extraDeck.begin(), extraDeck.end(), compCarte());
 
     updateDeckVisu();
     updateExtraDeckVisu();
+    sauvegarderDiscretionMax();
 }
 
 void deckEdit::updPreview()
@@ -797,6 +899,39 @@ void deckEdit::plus2But()
         plusBut -> setToolTip(tr("Fermer les options de tri"));
         plusBut->setIcon("\uf077");
     }
+}
+
+void deckEdit::slotUndo()
+{
+    if(undoList.empty())
+        return;
+
+    deck.clear();
+    extraDeck.clear();
+    indiceCarteDeck = 0;
+    indiceCarteExtraDeck = 0;
+    nbrCarteMonstre = 0;
+    nbrCarteMagie = 0;
+    nbrCartePiege = 0;
+
+    for(Carte* laCarteCourante : undoList.back())
+    {
+        if(laCarteCourante->sous_type != 2)
+        {
+            deck.push_back(laCarteCourante);
+            indiceCarteDeck++;
+        }
+        else
+        {
+            extraDeck.push_back(laCarteCourante);
+            indiceCarteExtraDeck++;
+        }
+
+    }
+    undoList.pop_back();
+    updateDeckVisu();
+    updateExtraDeckVisu();
+    sauvegarderDiscretionMax();
 }
 
 void deckEdit::slotAttribut()

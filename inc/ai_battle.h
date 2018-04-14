@@ -1,5 +1,5 @@
-#ifndef _AI_H
-#define _AI_H
+#ifndef _AI_BATTLE_H
+#define _AI_BATTLE_H
 
 #include <iostream>
 #include <fstream>
@@ -17,13 +17,13 @@
 
 #define NB_INPUT 434
 #define NB_HIDDEN 200
-#define NB_OUTPUT 10
+#define NB_OUTPUT 135
 
 
 using namespace Eigen;
 using namespace std;
 
-class Ai : public QWidget
+class Ai_battle : public QWidget
 {
 
     Q_OBJECT
@@ -33,23 +33,23 @@ class Ai : public QWidget
         //matrix of weights
         Matrix<float,434,200> input_weight;
         vector<Matrix<float,200,200>> hidden_weights;
-        Matrix<float,200,10> output_weight;
+        Matrix<float,200,135> output_weight;
         
         //matrix of deltas, which are the difference between the current weight,
         //and the previous weight, at each iteration
         Matrix<float,434,200> input_delta;
         vector<Matrix<float,200,200>> hidden_deltas;
-        Matrix<float,200,10> output_delta;
+        Matrix<float,200,135> output_delta;
         
         //row-matrix of current neurons gain
         Matrix<float,1,200> input_layer_gains;
         vector<Matrix<float,1,200>> hidden_layers_gains;
-        Matrix<float,1,10> output_layer_gains;
+        Matrix<float,1,135> output_layer_gains;
         
         //row-matrix of current neurons wgain
         Matrix<float,1,200> input_layer_wgains;
         vector<Matrix<float,1,200>> hidden_layers_wgains;
-        Matrix<float,1,10> output_layer_wgains;
+        Matrix<float,1,135> output_layer_wgains;
         
         //row-matrix of current neurons input
         Matrix<float,1,434> input_layer_input;
@@ -59,12 +59,12 @@ class Ai : public QWidget
         //row-matrix of current neurons values
         Matrix<float,1,200> input_layer_values;
         vector<Matrix<float,1,200>> hidden_layers_values;
-        Matrix<float,1,10> output_layer_values;
+        Matrix<float,1,135> output_layer_values;
         
         //matrix of next possible neurons values, according to the chosen action
         Matrix<float,1,200> test_input_layer_values;
         vector<Matrix<float,1,200>> test_hidden_layers_values;
-        Matrix<float,1,10> test_output_layer_values;
+        Matrix<float,1,135> test_output_layer_values;
         
         
         //the number of neurons layer
@@ -98,10 +98,10 @@ class Ai : public QWidget
         //joueur : couté de terrain 1 ou 2:
         //1 étant de 0 à 74
         //et 2 étant de 75 à 149
-        Ai(Noyau * noyau, int mode, int joueur);
+        Ai_battle(Noyau * noyau, int mode, int joueur);
         
         //destructor
-        ~Ai();
+        ~Ai_battle();
         
     public:
         
@@ -121,11 +121,13 @@ class Ai : public QWidget
         //propagation, chose action
         void forward_propagation(Matrix<float,1,434> game_state);
         void test_forward_propagation(Matrix<float,1,434> game_state);
-        int choose_action(Matrix<float,1,10> actions);
-        void backward_propagation(float q_targets[10]);
+        int choose_action(Matrix<float,1,135> actions);
+        void backward_propagation(float q_targets[135]);
         Matrix<float,1,434> play_simulation(Matrix<float,1,434> game_state, int action);
         int test_win(Matrix<float,1,434> state);
         float max_output_test();
+        Matrix<float,1,Dynamic> ReLU(Matrix<float,1,Dynamic> layer_values);
+        float randomFloat(float a, float b);
         
         //communication to noyau, correspondance id/terrain_x
         Matrix<float,1,434> read_noyau();
@@ -138,7 +140,7 @@ class Ai : public QWidget
         
         //tests before sending signal to noyau
         //returns EXIT_SUCCES if it send the signal to noyau
-        //returns EXIT_FAILURE else
+        //returns EXIT_FAILELURE else
         int poser_atk(int main_id);
         int poser_def(int main_id);
         int switch_atk_def(int monstre_id);
@@ -172,7 +174,7 @@ class Ai : public QWidget
         void signal_switch_position(int terrain);
         
         //detruit la carte à la position terrain
-        void signal_detruire(int terrain);
+        //void signal_detruire(int terrain);
 
         //activer une marte magie ou piege
         void signal_activate(int terrain);
