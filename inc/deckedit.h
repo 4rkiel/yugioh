@@ -78,7 +78,8 @@ class deckEdit : public QFrame {
                                            tr("Rituel")};
         const QStringList attributList = {};
 
-        deckEdit(std::vector<Carte*> *allCard);
+        deckEdit(std::vector<Carte*> *allCard, QString nomDuDeck);
+        QString deckName;
 
     private:
         void createEdit();

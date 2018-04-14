@@ -332,11 +332,11 @@ void BuildTab::openDeck (QString str){
 
     if (str == ""){
     
-        editor = new deckEdit(parse -> all_cards);
+        editor = new deckEdit(parse -> all_cards, str);
   
     } else {
 
-        editor = new deckEdit(parse -> all_cards);
+        editor = new deckEdit(parse -> all_cards, str);
     }
 
   	popLayout -> addWidget(editor);
