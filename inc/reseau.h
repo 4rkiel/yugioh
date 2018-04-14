@@ -8,15 +8,15 @@
 #include <string>
 #include <QString>
 #include <sstream>
-#include <QUdpSocket>
+#include <QTcpSocket>
 class Reseau : public QWidget
 {
     Q_OBJECT
 
 public:
     Reseau();
-    QUdpSocket *socket;
-    QUdpSocket * keep;
+    QTcpSocket *socket;
+    QTcpSocket * keep;
      quint16 tailleMessage=0;
      QTcpServer *serveur;
      QList<QTcpSocket *> clients;
@@ -53,8 +53,8 @@ public slots:
      void prochaine_phase();
      void ton_tour();
      void transmettre(QString chaine);
-     void keepAlive();
-     void alive();
+     //void keepAlive();
+     //void alive();
 
 signals:
     void a_parser(QString chaine);
