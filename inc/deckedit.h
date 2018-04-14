@@ -36,6 +36,7 @@
 
 #define NBR_CARTE_DECK_VISU 40 // multiple de 10
 #define NBR_CARTE_EXTRA_DECK 10
+#define TAILLE_UNDO 50
 
 class deckEdit : public QFrame {
 
@@ -119,6 +120,7 @@ class deckEdit : public QFrame {
         DarkButt *shuffleDeck;
         DarkButt *sortDeck;
         DarkButt *eraseDeck;
+        DarkButt *undo;
 
 
         QVBoxLayout *editCreateLayout;
@@ -197,6 +199,7 @@ signals:
             void loadDeck();
 
             void plus2But();
+            void slotUndo();
 };
 
 #endif // DECKEDIT_H

@@ -25,6 +25,12 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     tabBut.reserve(NBR_BUTTON_DECK_EDIT);
     deck.reserve(NBR_CARTE_DECK_VISU);
     tabCardVisu.reserve(NBR_CARTE_DECK_VISU);
+    undoList.reserve(TAILLE_UNDO);
+
+    for( std::vector<Carte*> deckTmp : undoList)
+    {
+        deckTmp.reserve(TAILLE_UNDO);
+    }
 
 
     for(int i=0; i<NBR_BUTTON_DECK_EDIT; i++)
@@ -208,6 +214,14 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
                     eraseDeck->setSizePolicy(QSizePolicy::Minimum,
                                              QSizePolicy::Minimum);
                     cachayLayout->addWidget(eraseDeck, 0, 3, 1, 1);
+
+
+                // ... Undo ....................................................
+
+
+                    undo = new DarkButt("", "undo");
+
+                    cachayLayout->addWidget(undo, 0, 4, 1, 1);
 
 
             stealBut->setLayout(cachayLayout);
@@ -410,6 +424,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     connect(eraseDeck, SIGNAL(clicked()), this, SLOT(effacerDeck()));
     connect(shuffleDeck, SIGNAL(clicked()), this, SLOT(melangerDeck()));
     connect(sortDeck, SIGNAL(clicked()), this, SLOT(trierDeck()));
+    connect(undo, SIGNAL(clicked()), this, SLOT(slotUndo()));
 
     updateDeckVisu();
     updateExtraDeckVisu();
@@ -500,6 +515,19 @@ void deckEdit::addCard2Deck(Carte* carte)
         return;
 
 
+    undoList.push_back(deck);
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+    for(std::vector<Carte*> laC : undoList)
+    {
+        qDebug() << "SAUVEGARDE:";
+
+        for(Carte* c : laC)
+        {
+            qDebug() << c->nom;
+        }
+    }
+
+
 
     switch(carte->genre)
     {
@@ -545,6 +573,10 @@ void deckEdit::rmvCard2Deck()
     QPushButton* cardButton2Rmv = qobject_cast<QPushButton*>(sender());
     std::vector<QPushButton *>::iterator it = std::find(tabCardVisu.begin(),
                                          tabCardVisu.end(), cardButton2Rmv);
+
+    undoList.push_back(deck);
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+
     if(it != tabCardVisu.end())
     {
         pos = it - tabCardVisu.begin();
@@ -719,6 +751,9 @@ void deckEdit::creer()
 
 void deckEdit::effacerDeck()
 {
+    undoList.push_back(deck);
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+
     deck.clear();
     extraDeck.clear();
 
@@ -735,6 +770,9 @@ void deckEdit::effacerDeck()
 
 void deckEdit::melangerDeck()
 {
+    undoList.push_back(deck);
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+
     std::random_shuffle(deck.begin(), deck.end());
     std::random_shuffle(extraDeck.begin(), extraDeck.end());
 
@@ -776,6 +814,9 @@ struct compCarte
 
 void deckEdit::trierDeck()
 {
+    undoList.push_back(deck);
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+
     std::sort(deck.begin(), deck.end(), compCarte());
     std::sort(extraDeck.begin(), extraDeck.end(), compCarte());
 
@@ -858,6 +899,39 @@ void deckEdit::plus2But()
         plusBut -> setToolTip(tr("Fermer les options de tri"));
         plusBut->setIcon("\uf077");
     }
+}
+
+void deckEdit::slotUndo()
+{
+    if(undoList.empty())
+        return;
+
+    deck.clear();
+    extraDeck.clear();
+    indiceCarteDeck = 0;
+    indiceCarteExtraDeck = 0;
+    nbrCarteMonstre = 0;
+    nbrCarteMagie = 0;
+    nbrCartePiege = 0;
+
+    for(Carte* laCarteCourante : undoList.back())
+    {
+        if(laCarteCourante->sous_type != 2)
+        {
+            deck.push_back(laCarteCourante);
+            indiceCarteDeck++;
+        }
+        else
+        {
+            extraDeck.push_back(laCarteCourante);
+            indiceCarteExtraDeck++;
+        }
+
+    }
+    undoList.pop_back();
+    updateDeckVisu();
+    updateExtraDeckVisu();
+    sauvegarderDiscretionMax();
 }
 
 void deckEdit::slotAttribut()
