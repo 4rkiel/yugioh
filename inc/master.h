@@ -4,7 +4,8 @@
 #include <QStackedWidget>
 #include <QGridLayout>
 
-#include "../inc/ai.h"
+#include "../inc/ai_main.h"
+#include "../inc/ai_battle.h"
 #include "../inc/reseau.h"
 #include "../inc/noyau.h"
 #include "../inc/field.h"
@@ -75,7 +76,8 @@ private:
     Selector * selector;
     Reseau * network;
     Noyau * noyau;
-    Ai * ai;
+    Ai_main * ai_main;
+    Ai_battle * ai_battle;
 
     QThread * mThread;
     MasterTask * mTask;

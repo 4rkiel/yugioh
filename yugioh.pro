@@ -72,7 +72,8 @@ HEADERS += inc/buildtab.h \
            inc/reseau.h \
            inc/cardlistpreview.h \
            inc/cardpreview.h \
-           inc/ai.h \
+           inc/ai_main.h \
+           inc/ai_battle.h \
            inc/matchmaking.h \
            inc/keyfilter.h
 
@@ -115,7 +116,8 @@ SOURCES += src/buildtab.cpp \
            src/reseau.cpp \
            src/cardlistpreview.cpp \
            src/cardpreview.cpp \
-           src/ai.cpp \
+           src/ai_main.cpp \
+           src/ai_battle.cpp \
            src/matchmaking.cpp \
     src/keyfilter.cpp
 
