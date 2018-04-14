@@ -228,7 +228,7 @@ RuleTab::RuleTab (){
 
 			ruleStacked -> setCurrentWidget(persoScroll);
         
-			ruleLayout -> addWidget(ruleBox);
+			ruleLayout -> addWidget(ruleStacked);
 
 		ruleBox -> setLayout(ruleLayout);
 
