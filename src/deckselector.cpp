@@ -19,6 +19,7 @@ DeckSelector::DeckSelector(){
     int i = 0;
     int last = deckList.size();
 
+
     foreach (QString str, deckList){
 
         std::vector<Carte*> * deckCourant = parserAllMighty.deck(deckRep + str);
@@ -28,16 +29,20 @@ DeckSelector::DeckSelector(){
         QString image = imgPreviewDeck(deckCourant);
 
         tabRadio.push_back(new QRadioButton);
+        tabRadio[i] -> setObjectName("selectRad");
+        tabRadio[i] -> setToolTip(tr("Utiliser ce deck en duel"));
 
         tabDeckButton.push_back(new DeckPreview(str, image));
+        tabDeckButton[i] -> setObjectName("selectButt");
         
         mainLayout->addWidget(tabDeckButton[i],i*2,0,1,1);
         mainLayout->addWidget(tabRadio[i],i*2,1,1,1);
        
-        if (i != last){
+        if (i != last-1){
             
             tabSep.push_back(new QFrame);
             tabSep[i]->setFixedHeight(1);
+            tabSep[i]->setObjectName("selectSep");
         
             mainLayout->addWidget(tabSep[i], (i*2)+1,0,1,2);
         }
@@ -57,11 +62,16 @@ DeckSelector::DeckSelector(){
 
 DeckSelector::~DeckSelector(){
     
-    int i = deckList.size() - 1;
+    int last = deckList.size() - 1;
+    int i = last;
+
     foreach (QString str, deckList){
-  
+ 
+        if (i != last){
+            delete tabSep[i];
+        }
+
         delete tabRadio[i];
-        delete tabSep[i];
         delete tabDeckButton[i];
 
         i --;

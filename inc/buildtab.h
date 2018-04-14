@@ -23,6 +23,7 @@
 #include <QString>
 #include <QShortcut>
 
+#include "../inc/darkButt.h"
 #include "../inc/shadowButt.h"
 #include "../inc/flatButt.h"
 #include "../inc/cardEditor.h"
@@ -74,7 +75,6 @@ private:
     DeckSelector * deck;
 
 		Parser * parse;
-		vector<Carte*> * allCard;
 		deckEdit * editor;
 
     QScrollArea * cardScroll;
@@ -85,6 +85,9 @@ private:
     QWidget * popup;
 	QGridLayout * popLayout;
 
+    DarkButt * closePop;
+
+    DarkButt * addDeck;
 
     void updateStyle(QPushButton * b);
 
@@ -94,8 +97,9 @@ public slots:
     void emitClose();
     void setDeck();
     void setCard();
+    void newDeck();
     void openDeck(QString);
-
+    void closeDeck();
 
 signals:
     void introStack();

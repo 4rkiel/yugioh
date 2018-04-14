@@ -105,7 +105,7 @@ BuildTab::BuildTab (){
 
     tabInsideLayout -> addWidget(tabBox, 0, 0, 1, 1);
 
-
+    
 
         // Label Box ..........................................................
 
@@ -136,7 +136,6 @@ BuildTab::BuildTab (){
 			
 			
 			parse = new Parser;
-			parse -> all_cards;
 
 			editor = nullptr;
 
@@ -145,7 +144,6 @@ BuildTab::BuildTab (){
 
             buildStacked -> addWidget(deckScroll);
 
-           
 
 
             // Card Edit .......................................................
@@ -170,7 +168,7 @@ BuildTab::BuildTab (){
         buildBox -> setLayout(buildLayout);
 
     tabInsideLayout -> addWidget(buildBox, 1, 0, 1, 2);
-
+        
     tabInside -> setLayout(tabInsideLayout);
 
     //key shortcut
@@ -180,18 +178,51 @@ BuildTab::BuildTab (){
     layout -> addWidget(tabInside,1,1,2,1);
 
     
-    popup = new QWidget;
-    popup -> setStyleSheet("background: rgba(0,0,0,100);");
+    popup = new QPushButton;
+    popup -> setObjectName("buildPopup");
+    popup -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     popup -> setVisible(false);
 
 		popLayout = new QGridLayout;
+        popLayout -> setSpacing(0);
+        popLayout -> setMargin(0);
+        popLayout -> setContentsMargins(30,30,30,30);
 
-		
 
 		popup -> setLayout(popLayout);
-
+        connect(popup, SIGNAL(clicked()), this, SLOT(closeDeck()));
 
     layout -> addWidget(popup, 0, 0, 3, 2);
+
+
+    // Close Butt
+
+    closePop = new DarkButt("\uf060","");
+    closePop -> setObjectName("closePop");
+    closePop -> setToolTip(tr("Fermer l'éditeur"));
+    closePop -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+    closePop -> setVisible(false);
+    
+    connect(closePop, SIGNAL(clicked()), this, SLOT(closeDeck()));
+    
+    layout -> addWidget(closePop,0,1, Qt::AlignTop|Qt::AlignRight);
+
+
+    // Add Deck Butt 
+    
+    addDeck = new DarkButt("\uf067", "");
+    addDeck -> setObjectName("addDeck");
+    addDeck -> setToolTip(tr("Créer un nouveau Deck"));
+    addDeck -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+
+    connect(addDeck, SIGNAL(clicked()), this, SLOT(newDeck()));
+    
+    layout -> addWidget(addDeck,2,1, Qt::AlignBottom|Qt::AlignRight);
+
+
+    // Add Card Butt
+
+
 
 
 
@@ -201,6 +232,11 @@ BuildTab::BuildTab (){
 
 
 BuildTab::~BuildTab (){
+
+    if (editor != nullptr){
+        delete editor;
+    }
+
 
     delete buildEffect;
 
@@ -228,6 +264,9 @@ BuildTab::~BuildTab (){
     delete iffect;
     delete infoBox;
 
+    delete addDeck;
+
+    delete closePop;
     delete popup;
 
     delete layout;
@@ -250,6 +289,7 @@ void BuildTab::setDeck (){
 
     updateStyle(deckButt);
 
+    addDeck -> setVisible(true);
     buildStacked -> setCurrentWidget(deckScroll);
 }
 
@@ -258,6 +298,7 @@ void BuildTab::setCard (){
 
     updateStyle(cardButt);
 
+    addDeck -> setVisible(false);
     buildStacked -> setCurrentWidget(cardScroll);
 }
 
@@ -283,11 +324,37 @@ void BuildTab::emitClose (){
 }
 
 
-void BuildTab::openDeck (QString){
+void BuildTab::newDeck (){
+    openDeck("");
+}
 
-	editor = new deckEdit(allCard);
+void BuildTab::openDeck (QString str){
+
+    if (str == ""){
+    
+        editor = new deckEdit(parse -> all_cards);
   
+    } else {
+
+        editor = new deckEdit(parse -> all_cards);
+    }
+
   	popLayout -> addWidget(editor);
 
+    addDeck -> setVisible(false);
+    closePop -> setVisible(true);
     popup -> setVisible(true);
+}
+
+
+void BuildTab::closeDeck (){
+
+    delete editor;
+
+    editor = nullptr;
+    
+    addDeck -> setVisible(true);
+    closePop -> setVisible(false);
+    popup -> setVisible(false);
+    deckButt -> setFocus();
 }

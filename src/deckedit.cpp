@@ -3,8 +3,8 @@
 #include <inc/deckedit.h>
 
 
-deckEdit::deckEdit(std::vector<Carte *> *allCard)
-{
+deckEdit::deckEdit(std::vector<Carte *> *allCard){
+
     allCards = allCard;
 
     selectDeck = new Combo;
@@ -125,18 +125,20 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard)
                 // ... Supprimer ...............................................
 
 
-                    supprDeck = new DarkButt("", tr("Supprimer"));
+                    supprDeck = new DarkButt("\uf2ed", "");
+                    supprDeck -> setToolTip(tr("Supprimer le deck"));
                     supprDeck->setSizePolicy(QSizePolicy::Maximum,
-                                             QSizePolicy::Minimum);
+                                             QSizePolicy::Maximum);
                     nomLayout->addWidget(supprDeck, 0, 1, 1, 1);
 
 
                 // ... "+" .....................................................
 
 
-                    plusBut = new DarkButt("\uf067", "");
+                    plusBut = new DarkButt("\uf160", "");
+                    plusBut -> setToolTip(tr("Réorganiser les cartes"));
                     plusBut->setSizePolicy(QSizePolicy::Maximum,
-                                             QSizePolicy::Minimum);
+                                             QSizePolicy::Maximum);
                     nomLayout->addWidget(plusBut, 0, 2, 1, 1);
 
 
@@ -761,15 +763,18 @@ void deckEdit::loadDeck()
 
 void deckEdit::plus2But()
 {
-    if(stealBut->isVisible())
-    {
-        plusBut->setIcon("\uf067");
-        stealBut->setVisible(false);
-        return;
-    }
+    if(stealBut->isVisible()){
 
-    stealBut->setVisible(true);
-    plusBut->setIcon("\uf068");
+        plusBut->setIcon("\uf160");
+        plusBut -> setToolTip(tr("Réorganiser les cartes"));
+        stealBut->setVisible(false);
+        
+    } else {
+
+        stealBut->setVisible(true);
+        plusBut -> setToolTip(tr("Fermer les options de tri"));
+        plusBut->setIcon("\uf077");
+    }
 }
 
 void deckEdit::slotAttribut()

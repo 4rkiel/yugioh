@@ -1,14 +1,13 @@
 #ifndef DECKEDIT_H
 #define DECKEDIT_H
 
+#include <QFrame>
 #include <QWidget>
 #include <QGroupBox>
 #include <QLabel>
 #include <QLineEdit>
-#include "flatButt.h"
 #include <QPushButton>
 #include <QTextEdit>
-#include "combo.h"
 #include <QSpinBox>
 #include <QGridLayout>
 #include <QVBoxLayout>
@@ -17,7 +16,6 @@
 #include <QFileDialog>
 #include <QCoreApplication>
 #include <QStringList>
-#include <QDebug>
 #include <algorithm>
 #include <QMargins>
 #include <QShortcut>
@@ -26,17 +24,20 @@
 #include <QMessageBox>
 #include <QStringListModel>
 #include <QGraphicsDropShadowEffect>
+
 #include "carte.h"
 #include "parser.h"
 #include "duplica.h"
 #include "cardlistpreview.h"
 #include "darkButt.h"
+#include "combo.h"
+#include "flatButt.h"
 
 #define NBR_CARTE_DECK_VISU 40 // multiple de 10
 #define NBR_CARTE_EXTRA_DECK 10
 
-class deckEdit : public QWidget
-{
+class deckEdit : public QFrame {
+
     enum buttonDeckEdit
     {
         MELANGER,
