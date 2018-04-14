@@ -400,6 +400,7 @@ void Popup::closeQuit (){
 
 void Popup::openMenu (){
     setVisible(true);
+    emit moiFocus();
 }
 
 void Popup::closeMenu (){

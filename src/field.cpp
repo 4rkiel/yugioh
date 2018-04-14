@@ -173,6 +173,7 @@ Field::Field () {
     connect(popup, SIGNAL(sendVisi()), this, SLOT(emitVisi()));
     connect(popup, SIGNAL(sendHide()), this, SLOT(emitHide()));
     connect(popup, SIGNAL(focusField()), this, SLOT(getsFocus()));
+    connect(popup, SIGNAL(moiFocus()), this, SLOT(abandonFocus()));
 
     connect(menuButt, SIGNAL(clicked()), popup, SLOT(openQuit()));
 
@@ -390,6 +391,10 @@ Field::Field () {
     
     setLayout(layout);
 
+    SlotCard* temp;
+    temp=fieldStack -> at(14);
+    temp->setFocus();
+
 }
 
 
@@ -559,9 +564,34 @@ void Field::openLost (){
 }
 
 void Field::getsFocus(){
-    chat -> goFocus();
+    SlotCard* temp;
+    for (int k=0; k<150; k++){
+        if (fieldStack -> at(k) != nullptr){
+            temp= fieldStack -> at(k);
+            temp->setFocusPolicy(Qt::StrongFocus);
+        }
+    }
+    chat->label->setFocusPolicy(Qt::StrongFocus);
+    chat->input->setFocusPolicy(Qt::StrongFocus);
+    chat->send->setFocusPolicy(Qt::StrongFocus);
+    menuButt->setFocusPolicy(Qt::StrongFocus);
+    temp=fieldStack -> at(14);
+    temp->setFocus();
 }
 
+void Field::abandonFocus(){
+    SlotCard* temp;
+    for (int k=0; k<150; k++){
+        if (fieldStack -> at(k) != nullptr){
+            temp= fieldStack -> at(k);
+            temp->setFocusPolicy(Qt::NoFocus);
+        }
+    }
+    chat->label->setFocusPolicy(Qt::NoFocus);
+    chat->input->setFocusPolicy(Qt::NoFocus);
+    chat->send->setFocusPolicy(Qt::NoFocus);
+    menuButt->setFocusPolicy(Qt::NoFocus);
+}
 
 
 
