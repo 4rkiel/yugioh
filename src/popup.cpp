@@ -400,6 +400,7 @@ void Popup::closeQuit (){
 
 void Popup::openMenu (){
     setVisible(true);
+    emit moiFocus();
 }
 
 void Popup::closeMenu (){
@@ -408,6 +409,7 @@ void Popup::closeMenu (){
     lostBox -> setVisible(false);
     posiBox -> setVisible(false);
     quitBox -> setVisible(false);
+    magiBox -> setVisible(false);
     setVisible(false);
     emit focusField();
 }

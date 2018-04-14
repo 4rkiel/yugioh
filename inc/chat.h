@@ -28,6 +28,9 @@ public:
     ~Chat();
     void addText(QString, int);
     void goFocus();
+    QTextEdit * label;
+    QLineEdit * input;
+    DarkButt * send;
 
 signals:
 
@@ -51,9 +54,6 @@ private:
     QScrollArea * labelBox;
     QWidget * labInner;
     QVBoxLayout * labLayout;
-    QTextEdit * label;
-    QLineEdit * input;
-    DarkButt * send;
 
 };
 

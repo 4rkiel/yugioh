@@ -51,6 +51,7 @@ public:
 public slots:
 
     void getsFocus();
+    void abandonFocus();
     void setProgress();
     void setTour(int);
 	void sendMsg(QString);

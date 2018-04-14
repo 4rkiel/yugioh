@@ -123,9 +123,15 @@ SlotCard::SlotCard (int p){
 	connect(imgButt, SIGNAL(clicked()), this, SLOT(leftClicked()));
 	connect(imgButt, SIGNAL(rightClicked()), this, SLOT(rightClicked()));
 	connect(imgButt, SIGNAL(doubleClicked()), this, SLOT(doubleClicked()));
+
+    //raccourci echap
     shortcut = new QShortcut(QKeySequence("Escape"), this);
     shortcut->setContext(Qt::WidgetWithChildrenShortcut);
     connect(shortcut, SIGNAL(activated()), this, SLOT(openQuit()));
+    //raccourci entrée
+    shortcut2 = new QShortcut(QKeySequence("Return"), this);
+    shortcut2->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(shortcut2, SIGNAL(activated()), this, SLOT(doubleClicked()));
 
 }
 
@@ -134,6 +140,7 @@ SlotCard::SlotCard (int p){
 SlotCard::~SlotCard (){
 
     delete shortcut;
+    delete shortcut2;
     delete scaleAnim;
     delete rotAnim;
 

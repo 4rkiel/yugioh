@@ -61,6 +61,7 @@ signals:
 
     void sendAtk();
     void sendDef();
+    void moiFocus();
 
     void sendVisi();
     void sendHide();
