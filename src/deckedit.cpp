@@ -250,7 +250,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
             cardInfo->setLayout(layoutInfo);
 
                 deckLabel = new QLabel();
-                deckLabel->setText(tr("Deck vide"));
+                deckLabel->setText(tr("Main Deck vide"));
 
                 infoMonstreLabel = new QLabel;
                 infoMagieLabel = new QLabel;
