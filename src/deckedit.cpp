@@ -9,6 +9,9 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     allCards = allCard;
     deckName = nomDuDeck;
 
+    setObjectName("deckEdit");
+    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+
     selectDeck = new Combo;
     choixGenre = new Combo;
     choixSousGenre  = new Combo;
@@ -26,6 +29,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     deck.reserve(NBR_CARTE_DECK_VISU);
     tabCardVisu.reserve(NBR_CARTE_DECK_VISU);
     undoList.reserve(TAILLE_UNDO);
+    redoList.reserve(TAILLE_UNDO);
 
     for( std::vector<Carte*> deckTmp : undoList)
     {
@@ -141,8 +145,10 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
 
                 nomDeck = new QLineEdit;
 
-                // TODO mettre le nom du deck que l'on edit
-                nomDeck->setPlaceholderText(deckName);
+                if(deckName != "")
+                    nomDeck->setText(deckName);
+                else
+                    nomDeck->setPlaceholderText(tr("Nom du Deck"));
                 nomDeck->setSizePolicy(QSizePolicy::Minimum,
                                        QSizePolicy::Maximum);
 
@@ -224,6 +230,15 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
                     cachayLayout->addWidget(undo, 0, 4, 1, 1);
 
 
+
+                // ... Redo ....................................................
+
+
+                    redo = new DarkButt("", "redo");
+
+                    cachayLayout->addWidget(redo, 0, 5, 1, 1);
+
+
             stealBut->setLayout(cachayLayout);
 
         editCreateLayout->addWidget(frameNomDeck);
@@ -250,7 +265,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
             cardInfo->setLayout(layoutInfo);
 
                 deckLabel = new QLabel();
-                deckLabel->setText(tr("Deck vide"));
+                deckLabel->setText(tr("Main Deck vide"));
 
                 infoMonstreLabel = new QLabel;
                 infoMagieLabel = new QLabel;
@@ -420,14 +435,21 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     connect(choixGenre, SIGNAL(currentIndexChanged(int)), this,SLOT(slotAttribut()));
     connect(tabBut[ANNULER_RECHERCHE], SIGNAL(clicked()), this, SLOT(clearSearch()));
 
+    connect(nomDeck, SIGNAL(returnPressed()), this, SLOT(sauvegarderDiscretionMax()));
     connect(plusBut, SIGNAL(clicked()), this, SLOT(plus2But()));
     connect(eraseDeck, SIGNAL(clicked()), this, SLOT(effacerDeck()));
     connect(shuffleDeck, SIGNAL(clicked()), this, SLOT(melangerDeck()));
     connect(sortDeck, SIGNAL(clicked()), this, SLOT(trierDeck()));
+    connect(supprDeck, SIGNAL(clicked()), this, SLOT(obliterationDuDeck()));
 
     shortcut = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_Z),this);
+    shortcutRedo = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_Shift+Qt::Key_Z),this);
+    shortcutRedo2 = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_R),this);
     connect(shortcut,SIGNAL(activated()),this,SLOT(slotUndo()));
+    connect(shortcutRedo,SIGNAL(activated()),this,SLOT(slotRedo()));
+    connect(shortcutRedo2,SIGNAL(activated()),this,SLOT(slotRedo()));
     connect(undo, SIGNAL(clicked()), this, SLOT(slotUndo()));
+    connect(redo, SIGNAL(clicked()), this, SLOT(slotRedo()));
 
     updateDeckVisu();
     updateExtraDeckVisu();
@@ -517,7 +539,7 @@ void deckEdit::addCard2Deck(Carte* carte)
             indiceCarteExtraDeck == NBR_CARTE_EXTRA_DECK)
         return;
 
-
+    redoList.clear();
     undoList.push_back(deck);
     undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
     for(std::vector<Carte*> laC : undoList)
@@ -576,6 +598,8 @@ void deckEdit::rmvCard2Deck()
     QPushButton* cardButton2Rmv = qobject_cast<QPushButton*>(sender());
     std::vector<QPushButton *>::iterator it = std::find(tabCardVisu.begin(),
                                          tabCardVisu.end(), cardButton2Rmv);
+
+    redoList.clear();
 
     undoList.push_back(deck);
     undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
@@ -687,8 +711,17 @@ void deckEdit::sauvegarderDiscretionMax()
         QFile ripFile (deckRep + deckName + QString(".deck"));
             ripFile.remove();
     }
+    else if(deck.empty() && extraDeck.empty())
+    { // deck sans nom ni carte, on ne sauvegarde pas
+        return;
+    }
     else
-        newDeckName = deckName;
+    { // le deck ne porte pas de nom mais comporte des cartes
+        QMessageBox::information(this, tr("echec de la sauvegarde"),
+                                 tr("Veuillez donner un nom au deck"),
+                                     QMessageBox::Ok);
+        return;
+    }
 
     QString file = deckRep + newDeckName + QString(".deck");
     qDebug() << "SAVE: URL FICHIER ECRITURE DECK: "+file;
@@ -723,6 +756,7 @@ void deckEdit::sauvegarderDiscretionMax()
     }
 
     myfile->close();
+    deckName = newDeckName;
 }
 
 void deckEdit::creer()
@@ -754,6 +788,8 @@ void deckEdit::creer()
 
 void deckEdit::effacerDeck()
 {
+    redoList.clear();
+
     undoList.push_back(deck);
     undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
 
@@ -773,6 +809,8 @@ void deckEdit::effacerDeck()
 
 void deckEdit::melangerDeck()
 {
+    redoList.clear();
+
     undoList.push_back(deck);
     undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
 
@@ -817,6 +855,8 @@ struct compCarte
 
 void deckEdit::trierDeck()
 {
+    redoList.clear();
+
     undoList.push_back(deck);
     undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
 
@@ -888,6 +928,18 @@ void deckEdit::loadDeck()
 
 }
 
+void deckEdit::obliterationDuDeck()
+{
+    QFile ripFile (deckRep + deckName + QString(".deck"));
+        ripFile.remove();
+
+    nomDeck->clear();
+    nomDeck->setPlaceholderText(tr("Nom du Deck"));
+
+    effacerDeck();
+    clearSearch();
+}
+
 void deckEdit::plus2But()
 {
     if(stealBut->isVisible()){
@@ -908,6 +960,9 @@ void deckEdit::slotUndo()
 {
     if(undoList.empty())
         return;
+
+    redoList.push_back(deck);
+    redoList.back().insert( redoList.back().end(), extraDeck.begin(), extraDeck.end());
 
     deck.clear();
     extraDeck.clear();
@@ -931,7 +986,41 @@ void deckEdit::slotUndo()
         }
 
     }
+
     undoList.pop_back();
+    updateDeckVisu();
+    updateExtraDeckVisu();
+    sauvegarderDiscretionMax();
+}
+
+void deckEdit::slotRedo()
+{
+    if(redoList.empty())
+        return;
+
+    deck.clear();
+    extraDeck.clear();
+    indiceCarteDeck = 0;
+    indiceCarteExtraDeck = 0;
+    nbrCarteMonstre = 0;
+    nbrCarteMagie = 0;
+    nbrCartePiege = 0;
+
+    for(Carte* laCarteCourante : redoList.back())
+    {
+        if(laCarteCourante->sous_type != 2)
+        {
+            deck.push_back(laCarteCourante);
+            indiceCarteDeck++;
+        }
+        else
+        {
+            extraDeck.push_back(laCarteCourante);
+            indiceCarteExtraDeck++;
+        }
+
+    }
+    redoList.pop_back();
     updateDeckVisu();
     updateExtraDeckVisu();
     sauvegarderDiscretionMax();
