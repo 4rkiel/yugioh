@@ -181,8 +181,6 @@ class deckEdit : public QFrame {
         QLabel *infoPiegeLabel;
         QLabel *infoFusionLabel;
 
-
-        void sauvegarderDiscretionMax();
 signals:
 
     public slots:
@@ -190,6 +188,7 @@ signals:
             void addCard2Deck(Carte* carte);
             void rmvCard2Deck();
             void sauvegarder();
+            void sauvegarderDiscretionMax();
             void creer();
             void effacerDeck();
             void melangerDeck();
@@ -197,6 +196,7 @@ signals:
             void updPreview();
             void clearSearch();
             void loadDeck();
+            void obliterationDuDeck();
 
             void plus2But();
             void slotUndo();

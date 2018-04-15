@@ -144,8 +144,10 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
 
                 nomDeck = new QLineEdit;
 
-                // TODO mettre le nom du deck que l'on edit
-                nomDeck->setPlaceholderText(deckName);
+                if(deckName != "")
+                    nomDeck->setText(deckName);
+                else
+                    nomDeck->setPlaceholderText(tr("Nom du Deck"));
                 nomDeck->setSizePolicy(QSizePolicy::Minimum,
                                        QSizePolicy::Maximum);
 
@@ -423,10 +425,12 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     connect(choixGenre, SIGNAL(currentIndexChanged(int)), this,SLOT(slotAttribut()));
     connect(tabBut[ANNULER_RECHERCHE], SIGNAL(clicked()), this, SLOT(clearSearch()));
 
+    connect(nomDeck, SIGNAL(returnPressed()), this, SLOT(sauvegarderDiscretionMax()));
     connect(plusBut, SIGNAL(clicked()), this, SLOT(plus2But()));
     connect(eraseDeck, SIGNAL(clicked()), this, SLOT(effacerDeck()));
     connect(shuffleDeck, SIGNAL(clicked()), this, SLOT(melangerDeck()));
     connect(sortDeck, SIGNAL(clicked()), this, SLOT(trierDeck()));
+    connect(supprDeck, SIGNAL(clicked()), this, SLOT(obliterationDuDeck()));
 
     shortcut = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_Z),this);
     connect(shortcut,SIGNAL(activated()),this,SLOT(slotUndo()));
@@ -690,8 +694,17 @@ void deckEdit::sauvegarderDiscretionMax()
         QFile ripFile (deckRep + deckName + QString(".deck"));
             ripFile.remove();
     }
+    else if(deck.empty() && extraDeck.empty())
+    { // deck sans nom ni carte, on ne sauvegarde pas
+        return;
+    }
     else
-        newDeckName = deckName;
+    { // le deck ne porte pas de nom mais comporte des cartes
+        QMessageBox::information(this, tr("echec de la sauvegarde"),
+                                 tr("Veuillez donner un nom au deck"),
+                                     QMessageBox::Ok);
+        return;
+    }
 
     QString file = deckRep + newDeckName + QString(".deck");
     qDebug() << "SAVE: URL FICHIER ECRITURE DECK: "+file;
@@ -726,6 +739,7 @@ void deckEdit::sauvegarderDiscretionMax()
     }
 
     myfile->close();
+    deckName = newDeckName;
 }
 
 void deckEdit::creer()
@@ -889,6 +903,18 @@ void deckEdit::loadDeck()
     Parser leParser;
 
 
+}
+
+void deckEdit::obliterationDuDeck()
+{
+    QFile ripFile (deckRep + deckName + QString(".deck"));
+        ripFile.remove();
+
+    nomDeck->clear();
+    nomDeck->setPlaceholderText(tr("Nom du Deck"));
+
+    effacerDeck();
+    clearSearch();
 }
 
 void deckEdit::plus2But()
