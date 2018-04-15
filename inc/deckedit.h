@@ -196,6 +196,7 @@ class deckEdit : public QFrame {
         QLabel *attrLabel;
 
         QSizePolicy sp_retain_choixGenre;
+        QSizePolicy sp_retain_cachay;
 
 signals:
 
@@ -217,6 +218,7 @@ signals:
             void plus2But();
             void slotUndo();
             void slotRedo();
+            void toujoursPlus2But();
 };
 
 #endif // DECKEDIT_H

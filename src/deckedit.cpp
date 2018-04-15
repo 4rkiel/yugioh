@@ -364,8 +364,13 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
             // ... recherche par propriétés ....................................
 
             cardFilterAdv = new QFrame;
+
             cardFilterAdv->setSizePolicy(QSizePolicy::Minimum,
                                       QSizePolicy::Maximum);
+            sp_retain_cachay = choixSousGenre->sizePolicy();
+            sp_retain_cachay.setRetainSizeWhenHidden(false);
+            cardFilterAdv->setSizePolicy(sp_retain_cachay);
+            cardFilterAdv->setVisible(false);
             cardFilterAdv->setObjectName("filtreurAdv");
             cardFilterAdv->setStyleSheet("#filtreurAdv{background-color: red;}");
             layoutRechercheCarte->addWidget(cardFilterAdv, 1, 0, 2, 5);
@@ -549,6 +554,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     connect(choixGenre, SIGNAL(currentIndexChanged(int)), this, SLOT(updPreview()));
     connect(choixSousGenre, SIGNAL(currentIndexChanged(int)), this, SLOT(updPreview()));
     connect(choixAttribut, SIGNAL(currentIndexChanged(int)), this, SLOT(updPreview()));
+    connect(plusFiltrBut, SIGNAL(clicked()), this, SLOT(toujoursPlus2But()));
 
     updateDeckVisu();
     updateExtraDeckVisu();
@@ -1053,6 +1059,23 @@ void deckEdit::plus2But()
         stealBut->setVisible(true);
         plusBut -> setToolTip(tr("Fermer les options de tri"));
         plusBut->setIcon("\uf077");
+    }
+}
+
+void deckEdit::toujoursPlus2But()
+{
+    if(cardFilterAdv->isVisible()){
+
+        plusFiltrBut->setIcon("\uf160");
+        plusFiltrBut -> setToolTip(tr("Réorganiser la prévisualisation"
+                                      "des cartes"));
+        cardFilterAdv->setVisible(false);
+
+    } else {
+
+        cardFilterAdv->setVisible(true);
+        plusFiltrBut -> setToolTip(tr("Fermer les options de tri"));
+        plusFiltrBut->setIcon("\uf077");
     }
 }
 
