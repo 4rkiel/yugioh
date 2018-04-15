@@ -106,10 +106,14 @@ class deckEdit : public QFrame {
         QHBoxLayout *mainL1;
         QHBoxLayout *mainL2;
 
+        QHBoxLayout *attrLayout;
+
         QVBoxLayout *deckVisuLayout;
+        QVBoxLayout *layoutRechercheCarteAdv;
 
         QFrame *editCreate;
         QFrame *frameNomDeck;
+        QFrame *cardFilterAdv;
         QGridLayout *nomLayout;
         QLineEdit*nomDeck;
         DarkButt *supprDeck;
@@ -122,12 +126,15 @@ class deckEdit : public QFrame {
         DarkButt *eraseDeck;
         DarkButt *undo;
         DarkButt *redo;
+        DarkButt *butClearSearch;
+
+        DarkButt *plusFiltrBut;
 
 
         QVBoxLayout *editCreateLayout;
 
         QFrame *cardFilter;
-        QHBoxLayout *colonne;
+        QGridLayout *layoutRechercheCarte;
         QFrame *propFilter;
         QFormLayout *propForm;
         QHBoxLayout *genreColonne;
@@ -184,6 +191,11 @@ class deckEdit : public QFrame {
         QLabel *infoMagieLabel;
         QLabel *infoPiegeLabel;
         QLabel *infoFusionLabel;
+
+        QLabel *genreLabel;
+        QLabel *attrLabel;
+
+        QSizePolicy sp_retain_choixGenre;
 
 signals:
 

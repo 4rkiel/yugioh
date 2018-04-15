@@ -36,6 +36,11 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
         deckTmp.reserve(TAILLE_UNDO);
     }
 
+    for( std::vector<Carte*> deckTmp : redoList)
+    {
+        deckTmp.reserve(TAILLE_UNDO);
+    }
+
 
     for(int i=0; i<NBR_BUTTON_DECK_EDIT; i++)
     {
@@ -324,75 +329,162 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
         cardFilter = new QFrame;
         cardFilter->setSizePolicy(QSizePolicy::Minimum,
                                   QSizePolicy::Maximum);
-        cardFilter->setStyleSheet("border: 1px solid blue");
+        cardFilter->setObjectName("filtreur");
+        cardFilter->setStyleSheet("#filtreur{background-color: green;}");
         mainL1->addWidget(cardFilter);
-        cardFilter->setStyleSheet("background-color: #ECEFF1");
-        colonne = new QHBoxLayout;
+        layoutRechercheCarte = new QGridLayout;
+
+
+
+            // ... Recherche pas Nom ...........................................
+
+            textSearch->setPlaceholderText(tr("Nom du/des carte(s) recherchée(s)"));
+            layoutRechercheCarte->addWidget(textSearch, 0, 0, 1, 3);
+
+
+            // ... Annuler recherche ...........................................
+
+            butClearSearch = new DarkButt("", "clear");
+            butClearSearch->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
+            butClearSearch->setToolTip(tr("Effacer la recherche"));
+
+            layoutRechercheCarte->addWidget(butClearSearch, 0, 3, 1, 1);
+
+
+            // ... "+" de filtre ...............................................
+
+            plusFiltrBut = new DarkButt("\uf160", "");
+            plusFiltrBut->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
+            plusFiltrBut->setToolTip(tr("Tries avancés sur les Cartes"));
+
+            layoutRechercheCarte->addWidget(plusFiltrBut, 0, 4, 1, 1);
+
 
 
             // ... recherche par propriétés ....................................
 
-            propFilter = new QFrame;
-            propFilter->setSizePolicy(QSizePolicy::Minimum,
+            cardFilterAdv = new QFrame;
+            cardFilterAdv->setSizePolicy(QSizePolicy::Minimum,
                                       QSizePolicy::Maximum);
-            propFilter->setObjectName("propFilter");
-            propFilter->setStyleSheet("#propFilter"
-                                         "{border: 1px solid green}");
+            cardFilterAdv->setObjectName("filtreurAdv");
+            cardFilterAdv->setStyleSheet("#filtreurAdv{background-color: red;}");
+            layoutRechercheCarte->addWidget(cardFilterAdv, 1, 0, 2, 5);
+            layoutRechercheCarteAdv = new QVBoxLayout;
+            cardFilterAdv->setLayout(layoutRechercheCarteAdv);
 
-            propForm = new QFormLayout;
-            propFilter->setLayout(propForm);
+                    // ... Genre / Sous-genre ......................................
 
+                    genreColonne = new QHBoxLayout;
 
-                // ... Genre / Sous-genre ......................................
+                    genreLabel = new QLabel(tr("Genre:    "));
+                    genreLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
-                genreColonne = new QHBoxLayout;
-                genreColonne->addWidget(choixGenre);
-                genreColonne->addWidget(choixSousGenre);
+                    sp_retain_choixGenre = choixSousGenre->sizePolicy();
+                    sp_retain_choixGenre.setRetainSizeWhenHidden(false);
+                    choixSousGenre->setSizePolicy(sp_retain_choixGenre);
+                    choixSousGenre->setVisible(false);
 
-                choixSousGenre->setVisible(false);
-
-                propForm->addRow(tr("Genre: "), genreColonne);
-
-
-
-                    // ... Attribut ............................................
-
-                    propForm->addRow(tr("Attribut: "), choixAttribut);
+                    genreColonne->addWidget(genreLabel);
+                    genreColonne->addWidget(choixGenre);
+                    genreColonne->addWidget(choixSousGenre);
 
 
 
+                    // ... Attribut ................................................
 
-                // ... recherche approfondis + bouttons ........................
+                    attrLayout = new QHBoxLayout;
 
-                prop2Vmain = new QVBoxLayout;
+                    attrLabel = new QLabel(tr("Attribut: "));
+                    attrLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
-                    prop2H = new QHBoxLayout;
-
-
-
-
-
-                    // ... Annuler recherche / filrer ..........................
-
-                    deleteSearch = new QVBoxLayout;
-
-                    annSearch = new QHBoxLayout;
-                        annSearch->addWidget(tabBut[ANNULER_RECHERCHE]);
-                        annSearch->addWidget(textSearch);
-                    deleteSearch->addLayout(annSearch);
-
-                    deleteSearch->addWidget(tabBut[FILTRER]);
+                    attrLayout->addWidget(attrLabel);
+                    attrLayout->addWidget(choixAttribut);
 
 
-                prop2Vmain->addLayout(prop2H);
-                prop2Vmain->addLayout(deleteSearch);
 
 
-            colonne->addWidget(propFilter);
-            colonne->addLayout(prop2Vmain);
+                    layoutRechercheCarteAdv->addLayout(genreColonne);
+                    layoutRechercheCarteAdv->addLayout(attrLayout);
 
 
-        cardFilter->setLayout(colonne);
+
+
+
+
+//                    // ... Attribut ................................................
+
+//                    attrLabel = new QLabel(tr("Attribut: "));
+
+//                    layoutRechercheCarte->addWidget(attrLabel, 2, 0, 1, 1);
+//                    layoutRechercheCarte->addWidget(choixAttribut, 2, 1, 1, 4);
+
+
+//            // ... recherche par propriétés ....................................
+
+//            propFilter = new QFrame;
+//            propFilter->setSizePolicy(QSizePolicy::Minimum,
+//                                      QSizePolicy::Maximum);
+//            propFilter->setObjectName("propFilter");
+//            propFilter->setStyleSheet("#propFilter"
+//                                         "{border: 1px solid green}");
+
+//            propForm = new QFormLayout;
+//            propFilter->setLayout(propForm);
+
+
+//                // ... Genre / Sous-genre ......................................
+
+//                genreColonne = new QHBoxLayout;
+//                genreColonne->addWidget(choixGenre);
+//                genreColonne->addWidget(choixSousGenre);
+
+//                choixSousGenre->setVisible(false);
+
+//                propForm->addRow(tr("Genre: "), genreColonne);
+
+
+
+//                    // ... Attribut ............................................
+
+//                    propForm->addRow(tr("Attribut: "), choixAttribut);
+
+
+
+
+//                // ... recherche approfondis + bouttons ........................
+
+//                prop2Vmain = new QVBoxLayout;
+
+//                    prop2H = new QHBoxLayout;
+
+
+
+
+
+//                    // ... Annuler recherche / filrer ..........................
+
+//                    deleteSearch = new QVBoxLayout;
+
+//                    annSearch = new QHBoxLayout;
+//                        annSearch->addWidget(tabBut[ANNULER_RECHERCHE]);
+//                        annSearch->addWidget(textSearch);
+//                    deleteSearch->addLayout(annSearch);
+
+//                    deleteSearch->addWidget(tabBut[FILTRER]);
+
+
+//                prop2Vmain->addLayout(prop2H);
+//                prop2Vmain->addLayout(deleteSearch);
+
+
+//            colonne->addWidget(propFilter);
+//            colonne->addLayout(prop2Vmain);
+
+            //layoutRechercheCarte->addWidget(propFilter);
+           // layoutRechercheCarte->addLayout(prop2Vmain);
+
+
+        cardFilter->setLayout(layoutRechercheCarte);
 
         // ... scroll la liste des cartes recherchées ..........................
 
@@ -433,7 +525,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     connect(tabBut[FILTRER], SIGNAL(clicked()), this, SLOT(updPreview()));
 
     connect(choixGenre, SIGNAL(currentIndexChanged(int)), this,SLOT(slotAttribut()));
-    connect(tabBut[ANNULER_RECHERCHE], SIGNAL(clicked()), this, SLOT(clearSearch()));
+    connect(butClearSearch, SIGNAL(clicked()), this, SLOT(clearSearch()));
 
     connect(nomDeck, SIGNAL(returnPressed()), this, SLOT(sauvegarderDiscretionMax()));
     connect(plusBut, SIGNAL(clicked()), this, SLOT(plus2But()));
@@ -446,10 +538,17 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     shortcutRedo = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_Shift+Qt::Key_Z),this);
     shortcutRedo2 = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_R),this);
     connect(shortcut,SIGNAL(activated()),this,SLOT(slotUndo()));
+    // TODO redo avec shift ne marche pas
+
     connect(shortcutRedo,SIGNAL(activated()),this,SLOT(slotRedo()));
     connect(shortcutRedo2,SIGNAL(activated()),this,SLOT(slotRedo()));
     connect(undo, SIGNAL(clicked()), this, SLOT(slotUndo()));
     connect(redo, SIGNAL(clicked()), this, SLOT(slotRedo()));
+
+    connect(textSearch, SIGNAL(textEdited(QString)), this, SLOT(updPreview()));
+    connect(choixGenre, SIGNAL(currentIndexChanged(int)), this, SLOT(updPreview()));
+    connect(choixSousGenre, SIGNAL(currentIndexChanged(int)), this, SLOT(updPreview()));
+    connect(choixAttribut, SIGNAL(currentIndexChanged(int)), this, SLOT(updPreview()));
 
     updateDeckVisu();
     updateExtraDeckVisu();
@@ -919,6 +1018,7 @@ void deckEdit::clearSearch()
 {
     choixGenre->setCurrentIndex(0);
     textSearch->clear();
+    updPreview();
 }
 
 void deckEdit::loadDeck()
