@@ -397,10 +397,6 @@ int main(int argc, char *argv[]) {
 
     Window w(&app,&qtTranslator,&YugiTranslator);
 
-    // Changement du fonctionnement des flêches directionnelles
-    Keyfilter keyf;
-    app.installEventFilter(&keyf);
-
     w.show(); 
     
     return app.exec();
