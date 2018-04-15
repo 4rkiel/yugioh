@@ -177,22 +177,47 @@ BuildTab::BuildTab (){
 
     layout -> addWidget(tabInside,1,1,2,1);
 
-    
-    popup = new QPushButton;
-    popup -> setObjectName("buildPopup");
-    popup -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    popup -> setVisible(false);
 
-		popLayout = new QGridLayout;
-        popLayout -> setSpacing(0);
-        popLayout -> setMargin(0);
-        popLayout -> setContentsMargins(30,30,30,30);
+    popBox = new QWidget;
+    popBox -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    popBox -> setVisible(false);
+
+        popLay = new QGridLayout;
+        popLay -> setSpacing(0);
+        popLay -> setMargin(0);
+        popLay -> setContentsMargins(0,0,0,0);
+     
+            popup = new QPushButton;
+            popup -> setObjectName("shadowPop");
+            popup -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+            popup -> setVisible(false);
+            connect(popup, SIGNAL(clicked()), this, SLOT(closeDeck()));
+
+        popLay -> addWidget(popup,0,0,3,3);
+        
+
+            popIn = new QWidget;
+            popIn -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+
+            popLayout = new QGridLayout;
+            popLayout -> setSpacing(0);
+            popLayout -> setMargin(0);
+            popLayout -> setContentsMargins(0,0,0,0);
+
+            popIn -> setLayout(popLayout);
+
+        popLay -> addWidget(popIn, 1,1,1,1);
+
+        popLay -> setColumnMinimumWidth(0, 30);
+        popLay -> setColumnMinimumWidth(2, 30);
+        popLay -> setRowMinimumHeight(0, 30);
+        popLay -> setRowMinimumHeight(2, 30);
 
 
-		popup -> setLayout(popLayout);
-        connect(popup, SIGNAL(clicked()), this, SLOT(closeDeck()));
+    popBox -> setLayout(popLay);    
 
-    layout -> addWidget(popup, 0, 0, 3, 2);
+    layout -> addWidget(popBox, 0,0, 3, 3);
+
 
 
     // Close Butt
@@ -205,7 +230,7 @@ BuildTab::BuildTab (){
     
     connect(closePop, SIGNAL(clicked()), this, SLOT(closeDeck()));
     
-    layout -> addWidget(closePop,0,1, Qt::AlignTop|Qt::AlignRight);
+    layout -> addWidget(closePop,0,1,Qt::AlignTop|Qt::AlignRight);
 
 
     // Add Deck Butt 
@@ -265,9 +290,14 @@ BuildTab::~BuildTab (){
     delete infoBox;
 
     delete addDeck;
-
     delete closePop;
+    
+
+    delete popLayout;
+    delete popIn;
     delete popup;
+    delete popLay;
+    delete popBox;
 
     delete layout;
 }
@@ -330,20 +360,27 @@ void BuildTab::newDeck (){
 
 void BuildTab::openDeck (QString str){
 
+    // Empty Deck
+    
     if (str == ""){
     
         editor = new deckEdit(parse -> all_cards, str);
   
+    // Existing Deck
+    
     } else {
 
         editor = new deckEdit(parse -> all_cards, str);
     }
 
-  	popLayout -> addWidget(editor);
 
+  	popLayout -> addWidget(editor);
+    
     addDeck -> setVisible(false);
     closePop -> setVisible(true);
     popup -> setVisible(true);
+    popBox -> setVisible(true);
+    
     exitButt->setFocusPolicy(Qt::NoFocus);
     deckButt->setFocusPolicy(Qt::NoFocus);
     cardButt->setFocusPolicy(Qt::NoFocus);
@@ -354,12 +391,17 @@ void BuildTab::openDeck (QString str){
 
 void BuildTab::closeDeck (){
 
-    delete editor;
+    delete deck;
+    deck = new DeckSelector(this);
+    deckScroll->setWidget(deck);
+    connect(deck, SIGNAL(popDeck(QString)), this, SLOT(openDeck(QString)));
 
+    delete editor;
     editor = nullptr;
     
     addDeck -> setVisible(true);
     closePop -> setVisible(false);
+    popBox -> setVisible(false);
     popup -> setVisible(false);
     deckButt -> setFocus();
     exitButt->setFocusPolicy(Qt::StrongFocus);
@@ -368,3 +410,4 @@ void BuildTab::closeDeck (){
     addDeck->setFocusPolicy(Qt::StrongFocus);
     emit nousFocus();
 }
+

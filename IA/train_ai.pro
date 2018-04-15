@@ -29,14 +29,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Input
-HEADERS += ../inc/ai.h \
+HEADERS += ../inc/ai_main.h \
+           ../inc/ai_battle.h \
            ../inc/noyau.h \
            ../inc/reseau.h \
            ../inc/parser.h \
            ../inc/carte.h \
            AiTrainer.h
 
-SOURCES += ../src/ai.cpp \
+SOURCES += ../src/ai_main.cpp \
+           ../src/ai_battle.cpp \
            ../src/noyau.cpp \
            ../src/reseau.cpp \
            ../src/parser.cpp \

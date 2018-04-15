@@ -81,6 +81,7 @@ Intro::Intro () {
             QString strButton = tr("Duel");
             choice = new FlatExpButt("\uf439", strButton);
             choice -> setToolTip(tr("Commencer une partie"));
+            choice->setFocus();
             connect(choice, SIGNAL(clicked()), this, SLOT(emitMaster()));
             box -> addWidget(choice);
 
@@ -154,7 +155,6 @@ Intro::Intro () {
         //key shortcut
         shortcut = new QShortcut(QKeySequence("Escape"), this);
         connect(shortcut, SIGNAL(activated()), qApp, SLOT(quit()));
-
 
     setLayout(layout);
 }

@@ -106,10 +106,14 @@ class deckEdit : public QFrame {
         QHBoxLayout *mainL1;
         QHBoxLayout *mainL2;
 
+        QHBoxLayout *attrLayout;
+
         QVBoxLayout *deckVisuLayout;
+        QVBoxLayout *layoutRechercheCarteAdv;
 
         QFrame *editCreate;
         QFrame *frameNomDeck;
+        QFrame *cardFilterAdv;
         QGridLayout *nomLayout;
         QLineEdit*nomDeck;
         DarkButt *supprDeck;
@@ -121,12 +125,16 @@ class deckEdit : public QFrame {
         DarkButt *sortDeck;
         DarkButt *eraseDeck;
         DarkButt *undo;
+        DarkButt *redo;
+        DarkButt *butClearSearch;
+
+        DarkButt *plusFiltrBut;
 
 
         QVBoxLayout *editCreateLayout;
 
         QFrame *cardFilter;
-        QHBoxLayout *colonne;
+        QGridLayout *layoutRechercheCarte;
         QFrame *propFilter;
         QFormLayout *propForm;
         QHBoxLayout *genreColonne;
@@ -152,6 +160,7 @@ class deckEdit : public QFrame {
         std::vector<Carte*> *allCards;
 
         std::vector< std::vector<Carte*> > undoList;
+        std::vector< std::vector<Carte*> > redoList;
 
 
         Combo *selectDeck;
@@ -160,6 +169,8 @@ class deckEdit : public QFrame {
         Combo *choixAttribut;
         Combo *choixType;
         QShortcut *shortcut;
+        QShortcut *shortcutRedo;
+        QShortcut *shortcutRedo2;
 
         QLineEdit *newDeck;
         QLineEdit *textSearch;
@@ -181,8 +192,11 @@ class deckEdit : public QFrame {
         QLabel *infoPiegeLabel;
         QLabel *infoFusionLabel;
 
+        QLabel *genreLabel;
+        QLabel *attrLabel;
 
-        void sauvegarderDiscretionMax();
+        QSizePolicy sp_retain_choixGenre;
+
 signals:
 
     public slots:
@@ -190,6 +204,7 @@ signals:
             void addCard2Deck(Carte* carte);
             void rmvCard2Deck();
             void sauvegarder();
+            void sauvegarderDiscretionMax();
             void creer();
             void effacerDeck();
             void melangerDeck();
@@ -197,9 +212,11 @@ signals:
             void updPreview();
             void clearSearch();
             void loadDeck();
+            void obliterationDuDeck();
 
             void plus2But();
             void slotUndo();
+            void slotRedo();
 };
 
 #endif // DECKEDIT_H

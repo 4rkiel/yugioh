@@ -9,6 +9,9 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     allCards = allCard;
     deckName = nomDuDeck;
 
+    setObjectName("deckEdit");
+    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+
     selectDeck = new Combo;
     choixGenre = new Combo;
     choixSousGenre  = new Combo;
@@ -26,8 +29,14 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     deck.reserve(NBR_CARTE_DECK_VISU);
     tabCardVisu.reserve(NBR_CARTE_DECK_VISU);
     undoList.reserve(TAILLE_UNDO);
+    redoList.reserve(TAILLE_UNDO);
 
     for( std::vector<Carte*> deckTmp : undoList)
+    {
+        deckTmp.reserve(TAILLE_UNDO);
+    }
+
+    for( std::vector<Carte*> deckTmp : redoList)
     {
         deckTmp.reserve(TAILLE_UNDO);
     }
@@ -141,8 +150,10 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
 
                 nomDeck = new QLineEdit;
 
-                // TODO mettre le nom du deck que l'on edit
-                nomDeck->setPlaceholderText(deckName);
+                if(deckName != "")
+                    nomDeck->setText(deckName);
+                else
+                    nomDeck->setPlaceholderText(tr("Nom du Deck"));
                 nomDeck->setSizePolicy(QSizePolicy::Minimum,
                                        QSizePolicy::Maximum);
 
@@ -224,6 +235,15 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
                     cachayLayout->addWidget(undo, 0, 4, 1, 1);
 
 
+
+                // ... Redo ....................................................
+
+
+                    redo = new DarkButt("", "redo");
+
+                    cachayLayout->addWidget(redo, 0, 5, 1, 1);
+
+
             stealBut->setLayout(cachayLayout);
 
         editCreateLayout->addWidget(frameNomDeck);
@@ -250,7 +270,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
             cardInfo->setLayout(layoutInfo);
 
                 deckLabel = new QLabel();
-                deckLabel->setText(tr("Deck vide"));
+                deckLabel->setText(tr("Main Deck vide"));
 
                 infoMonstreLabel = new QLabel;
                 infoMagieLabel = new QLabel;
@@ -309,75 +329,162 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
         cardFilter = new QFrame;
         cardFilter->setSizePolicy(QSizePolicy::Minimum,
                                   QSizePolicy::Maximum);
-        cardFilter->setStyleSheet("border: 1px solid blue");
+        cardFilter->setObjectName("filtreur");
+        cardFilter->setStyleSheet("#filtreur{background-color: green;}");
         mainL1->addWidget(cardFilter);
-        cardFilter->setStyleSheet("background-color: #ECEFF1");
-        colonne = new QHBoxLayout;
+        layoutRechercheCarte = new QGridLayout;
+
+
+
+            // ... Recherche pas Nom ...........................................
+
+            textSearch->setPlaceholderText(tr("Nom du/des carte(s) recherchée(s)"));
+            layoutRechercheCarte->addWidget(textSearch, 0, 0, 1, 3);
+
+
+            // ... Annuler recherche ...........................................
+
+            butClearSearch = new DarkButt("", "clear");
+            butClearSearch->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
+            butClearSearch->setToolTip(tr("Effacer la recherche"));
+
+            layoutRechercheCarte->addWidget(butClearSearch, 0, 3, 1, 1);
+
+
+            // ... "+" de filtre ...............................................
+
+            plusFiltrBut = new DarkButt("\uf160", "");
+            plusFiltrBut->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
+            plusFiltrBut->setToolTip(tr("Tries avancés sur les Cartes"));
+
+            layoutRechercheCarte->addWidget(plusFiltrBut, 0, 4, 1, 1);
+
 
 
             // ... recherche par propriétés ....................................
 
-            propFilter = new QFrame;
-            propFilter->setSizePolicy(QSizePolicy::Minimum,
+            cardFilterAdv = new QFrame;
+            cardFilterAdv->setSizePolicy(QSizePolicy::Minimum,
                                       QSizePolicy::Maximum);
-            propFilter->setObjectName("propFilter");
-            propFilter->setStyleSheet("#propFilter"
-                                         "{border: 1px solid green}");
+            cardFilterAdv->setObjectName("filtreurAdv");
+            cardFilterAdv->setStyleSheet("#filtreurAdv{background-color: red;}");
+            layoutRechercheCarte->addWidget(cardFilterAdv, 1, 0, 2, 5);
+            layoutRechercheCarteAdv = new QVBoxLayout;
+            cardFilterAdv->setLayout(layoutRechercheCarteAdv);
 
-            propForm = new QFormLayout;
-            propFilter->setLayout(propForm);
+                    // ... Genre / Sous-genre ......................................
 
+                    genreColonne = new QHBoxLayout;
 
-                // ... Genre / Sous-genre ......................................
+                    genreLabel = new QLabel(tr("Genre:    "));
+                    genreLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
-                genreColonne = new QHBoxLayout;
-                genreColonne->addWidget(choixGenre);
-                genreColonne->addWidget(choixSousGenre);
+                    sp_retain_choixGenre = choixSousGenre->sizePolicy();
+                    sp_retain_choixGenre.setRetainSizeWhenHidden(false);
+                    choixSousGenre->setSizePolicy(sp_retain_choixGenre);
+                    choixSousGenre->setVisible(false);
 
-                choixSousGenre->setVisible(false);
-
-                propForm->addRow(tr("Genre: "), genreColonne);
-
-
-
-                    // ... Attribut ............................................
-
-                    propForm->addRow(tr("Attribut: "), choixAttribut);
+                    genreColonne->addWidget(genreLabel);
+                    genreColonne->addWidget(choixGenre);
+                    genreColonne->addWidget(choixSousGenre);
 
 
 
+                    // ... Attribut ................................................
 
-                // ... recherche approfondis + bouttons ........................
+                    attrLayout = new QHBoxLayout;
 
-                prop2Vmain = new QVBoxLayout;
+                    attrLabel = new QLabel(tr("Attribut: "));
+                    attrLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
-                    prop2H = new QHBoxLayout;
-
-
-
-
-
-                    // ... Annuler recherche / filrer ..........................
-
-                    deleteSearch = new QVBoxLayout;
-
-                    annSearch = new QHBoxLayout;
-                        annSearch->addWidget(tabBut[ANNULER_RECHERCHE]);
-                        annSearch->addWidget(textSearch);
-                    deleteSearch->addLayout(annSearch);
-
-                    deleteSearch->addWidget(tabBut[FILTRER]);
+                    attrLayout->addWidget(attrLabel);
+                    attrLayout->addWidget(choixAttribut);
 
 
-                prop2Vmain->addLayout(prop2H);
-                prop2Vmain->addLayout(deleteSearch);
 
 
-            colonne->addWidget(propFilter);
-            colonne->addLayout(prop2Vmain);
+                    layoutRechercheCarteAdv->addLayout(genreColonne);
+                    layoutRechercheCarteAdv->addLayout(attrLayout);
 
 
-        cardFilter->setLayout(colonne);
+
+
+
+
+//                    // ... Attribut ................................................
+
+//                    attrLabel = new QLabel(tr("Attribut: "));
+
+//                    layoutRechercheCarte->addWidget(attrLabel, 2, 0, 1, 1);
+//                    layoutRechercheCarte->addWidget(choixAttribut, 2, 1, 1, 4);
+
+
+//            // ... recherche par propriétés ....................................
+
+//            propFilter = new QFrame;
+//            propFilter->setSizePolicy(QSizePolicy::Minimum,
+//                                      QSizePolicy::Maximum);
+//            propFilter->setObjectName("propFilter");
+//            propFilter->setStyleSheet("#propFilter"
+//                                         "{border: 1px solid green}");
+
+//            propForm = new QFormLayout;
+//            propFilter->setLayout(propForm);
+
+
+//                // ... Genre / Sous-genre ......................................
+
+//                genreColonne = new QHBoxLayout;
+//                genreColonne->addWidget(choixGenre);
+//                genreColonne->addWidget(choixSousGenre);
+
+//                choixSousGenre->setVisible(false);
+
+//                propForm->addRow(tr("Genre: "), genreColonne);
+
+
+
+//                    // ... Attribut ............................................
+
+//                    propForm->addRow(tr("Attribut: "), choixAttribut);
+
+
+
+
+//                // ... recherche approfondis + bouttons ........................
+
+//                prop2Vmain = new QVBoxLayout;
+
+//                    prop2H = new QHBoxLayout;
+
+
+
+
+
+//                    // ... Annuler recherche / filrer ..........................
+
+//                    deleteSearch = new QVBoxLayout;
+
+//                    annSearch = new QHBoxLayout;
+//                        annSearch->addWidget(tabBut[ANNULER_RECHERCHE]);
+//                        annSearch->addWidget(textSearch);
+//                    deleteSearch->addLayout(annSearch);
+
+//                    deleteSearch->addWidget(tabBut[FILTRER]);
+
+
+//                prop2Vmain->addLayout(prop2H);
+//                prop2Vmain->addLayout(deleteSearch);
+
+
+//            colonne->addWidget(propFilter);
+//            colonne->addLayout(prop2Vmain);
+
+            //layoutRechercheCarte->addWidget(propFilter);
+           // layoutRechercheCarte->addLayout(prop2Vmain);
+
+
+        cardFilter->setLayout(layoutRechercheCarte);
 
         // ... scroll la liste des cartes recherchées ..........................
 
@@ -418,16 +525,30 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     connect(tabBut[FILTRER], SIGNAL(clicked()), this, SLOT(updPreview()));
 
     connect(choixGenre, SIGNAL(currentIndexChanged(int)), this,SLOT(slotAttribut()));
-    connect(tabBut[ANNULER_RECHERCHE], SIGNAL(clicked()), this, SLOT(clearSearch()));
+    connect(butClearSearch, SIGNAL(clicked()), this, SLOT(clearSearch()));
 
+    connect(nomDeck, SIGNAL(returnPressed()), this, SLOT(sauvegarderDiscretionMax()));
     connect(plusBut, SIGNAL(clicked()), this, SLOT(plus2But()));
     connect(eraseDeck, SIGNAL(clicked()), this, SLOT(effacerDeck()));
     connect(shuffleDeck, SIGNAL(clicked()), this, SLOT(melangerDeck()));
     connect(sortDeck, SIGNAL(clicked()), this, SLOT(trierDeck()));
+    connect(supprDeck, SIGNAL(clicked()), this, SLOT(obliterationDuDeck()));
 
     shortcut = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_Z),this);
+    shortcutRedo = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_Shift+Qt::Key_Z),this);
+    shortcutRedo2 = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_R),this);
     connect(shortcut,SIGNAL(activated()),this,SLOT(slotUndo()));
+    // TODO redo avec shift ne marche pas
+
+    connect(shortcutRedo,SIGNAL(activated()),this,SLOT(slotRedo()));
+    connect(shortcutRedo2,SIGNAL(activated()),this,SLOT(slotRedo()));
     connect(undo, SIGNAL(clicked()), this, SLOT(slotUndo()));
+    connect(redo, SIGNAL(clicked()), this, SLOT(slotRedo()));
+
+    connect(textSearch, SIGNAL(textEdited(QString)), this, SLOT(updPreview()));
+    connect(choixGenre, SIGNAL(currentIndexChanged(int)), this, SLOT(updPreview()));
+    connect(choixSousGenre, SIGNAL(currentIndexChanged(int)), this, SLOT(updPreview()));
+    connect(choixAttribut, SIGNAL(currentIndexChanged(int)), this, SLOT(updPreview()));
 
     updateDeckVisu();
     updateExtraDeckVisu();
@@ -517,7 +638,7 @@ void deckEdit::addCard2Deck(Carte* carte)
             indiceCarteExtraDeck == NBR_CARTE_EXTRA_DECK)
         return;
 
-
+    redoList.clear();
     undoList.push_back(deck);
     undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
     for(std::vector<Carte*> laC : undoList)
@@ -576,6 +697,8 @@ void deckEdit::rmvCard2Deck()
     QPushButton* cardButton2Rmv = qobject_cast<QPushButton*>(sender());
     std::vector<QPushButton *>::iterator it = std::find(tabCardVisu.begin(),
                                          tabCardVisu.end(), cardButton2Rmv);
+
+    redoList.clear();
 
     undoList.push_back(deck);
     undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
@@ -687,8 +810,17 @@ void deckEdit::sauvegarderDiscretionMax()
         QFile ripFile (deckRep + deckName + QString(".deck"));
             ripFile.remove();
     }
+    else if(deck.empty() && extraDeck.empty())
+    { // deck sans nom ni carte, on ne sauvegarde pas
+        return;
+    }
     else
-        newDeckName = deckName;
+    { // le deck ne porte pas de nom mais comporte des cartes
+        QMessageBox::information(this, tr("echec de la sauvegarde"),
+                                 tr("Veuillez donner un nom au deck"),
+                                     QMessageBox::Ok);
+        return;
+    }
 
     QString file = deckRep + newDeckName + QString(".deck");
     qDebug() << "SAVE: URL FICHIER ECRITURE DECK: "+file;
@@ -723,6 +855,7 @@ void deckEdit::sauvegarderDiscretionMax()
     }
 
     myfile->close();
+    deckName = newDeckName;
 }
 
 void deckEdit::creer()
@@ -754,6 +887,8 @@ void deckEdit::creer()
 
 void deckEdit::effacerDeck()
 {
+    redoList.clear();
+
     undoList.push_back(deck);
     undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
 
@@ -773,6 +908,8 @@ void deckEdit::effacerDeck()
 
 void deckEdit::melangerDeck()
 {
+    redoList.clear();
+
     undoList.push_back(deck);
     undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
 
@@ -817,6 +954,8 @@ struct compCarte
 
 void deckEdit::trierDeck()
 {
+    redoList.clear();
+
     undoList.push_back(deck);
     undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
 
@@ -879,6 +1018,7 @@ void deckEdit::clearSearch()
 {
     choixGenre->setCurrentIndex(0);
     textSearch->clear();
+    updPreview();
 }
 
 void deckEdit::loadDeck()
@@ -886,6 +1026,18 @@ void deckEdit::loadDeck()
     Parser leParser;
 
 
+}
+
+void deckEdit::obliterationDuDeck()
+{
+    QFile ripFile (deckRep + deckName + QString(".deck"));
+        ripFile.remove();
+
+    nomDeck->clear();
+    nomDeck->setPlaceholderText(tr("Nom du Deck"));
+
+    effacerDeck();
+    clearSearch();
 }
 
 void deckEdit::plus2But()
@@ -909,6 +1061,9 @@ void deckEdit::slotUndo()
     if(undoList.empty())
         return;
 
+    redoList.push_back(deck);
+    redoList.back().insert( redoList.back().end(), extraDeck.begin(), extraDeck.end());
+
     deck.clear();
     extraDeck.clear();
     indiceCarteDeck = 0;
@@ -931,7 +1086,41 @@ void deckEdit::slotUndo()
         }
 
     }
+
     undoList.pop_back();
+    updateDeckVisu();
+    updateExtraDeckVisu();
+    sauvegarderDiscretionMax();
+}
+
+void deckEdit::slotRedo()
+{
+    if(redoList.empty())
+        return;
+
+    deck.clear();
+    extraDeck.clear();
+    indiceCarteDeck = 0;
+    indiceCarteExtraDeck = 0;
+    nbrCarteMonstre = 0;
+    nbrCarteMagie = 0;
+    nbrCartePiege = 0;
+
+    for(Carte* laCarteCourante : redoList.back())
+    {
+        if(laCarteCourante->sous_type != 2)
+        {
+            deck.push_back(laCarteCourante);
+            indiceCarteDeck++;
+        }
+        else
+        {
+            extraDeck.push_back(laCarteCourante);
+            indiceCarteExtraDeck++;
+        }
+
+    }
+    redoList.pop_back();
     updateDeckVisu();
     updateExtraDeckVisu();
     sauvegarderDiscretionMax();
