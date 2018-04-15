@@ -602,10 +602,10 @@ HelpTab #helpBox {
     background: #E0F2F1;
 }
 
-BuildTab #buildBox > QScrollArea,
-OptionTab #optBox > QScrollArea,
-HelpTab #helpBox > QScrollArea,
-RuleTab #ruleBox > QScrollArea {
+BuildTab #buildBox QScrollArea,
+OptionTab #optBox QScrollArea,
+HelpTab #helpBox QScrollArea,
+RuleTab #ruleBox QScrollArea {
     background: #E0F2F1;
 }
 
@@ -630,16 +630,19 @@ RuleTab #ruleBox QComboBox {
 }
 
 
-BuildTab #buildPopup {
+BuildTab #shadowPop {
     border: none;
     outline: none;
     border-radius: 0px;
     background: rgba(0,0,0,100);
 }
 
-BuildTab #buildPopup deckEdit {
+
+BuildTab #deckEdit {
     background: #E0F2F1;
 }
+
+
 
 BuildTab #closePop,
 BuildTab #addDeck {
@@ -850,6 +853,15 @@ Chat QTextEdit:focus {
 /********************************************************************
     Field Slots
 ********************************************************************/
+
+#arenaBox QScrollArea {
+    background: transparent;
+}
+
+#arenaBox #advHand,
+#arenaBox #slfHand {
+    background: transparent;
+}
 
 SlotCard {
     background: none;

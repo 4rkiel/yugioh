@@ -54,7 +54,7 @@ public:
     std::vector<QRadioButton *> tabRadio;
 
 
-    DeckSelector();
+    DeckSelector(QObject*);
     ~DeckSelector();
 
     QString imgPreviewDeck(std::vector<Carte*> * deck);
@@ -63,6 +63,8 @@ public:
 public slots:
 
     void openDeck(QString);
+    void abandonFocus();
+    void getsFocus();
 
 signals:
 

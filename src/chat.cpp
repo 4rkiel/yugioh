@@ -42,7 +42,7 @@ Chat::Chat(){
             label -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
             label -> setWordWrapMode(QTextOption::WrapAnywhere);
             label -> setLineWrapMode(QTextEdit::WidgetWidth);
-
+            label -> setFocusPolicy(Qt::NoFocus);
 /*
             labLayout -> addStretch();
 			labLayout -> addWidget(label);
