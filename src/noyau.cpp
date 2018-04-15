@@ -10,7 +10,8 @@ Noyau::Noyau()
     terrain = new std::vector<Carte *>();
     cimetiere1 = new std::vector<Carte *>();
     cimetiere2 = new std::vector<Carte *>();
-
+    d1=NULL;
+    d2=NULL;
 }
 
 void Noyau::init()

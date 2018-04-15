@@ -127,6 +127,7 @@ class Ai_battle : public QWidget
         int test_win(Matrix<float,1,434> state);
         float max_output_test();
         Matrix<float,1,Dynamic> ReLU(Matrix<float,1,Dynamic> layer_values);
+        Matrix<float,1,Dynamic> softmax(Matrix<float,1,Dynamic> layer_values);
         float randomFloat(float a, float b);
         
         //communication to noyau, correspondance id/terrain_x

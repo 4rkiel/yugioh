@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
+#include <cmath>
 
 #define EIGEN_STACK_ALLOCATION_LIMIT 1000000
 #include "../IA/lib_eigen/Eigen/Core"
@@ -127,6 +128,7 @@ class Ai_main : public QWidget
         int test_win(Matrix<float,1,434> state);
         float max_output_test();
         Matrix<float,1,Dynamic> ReLU(Matrix<float,1,Dynamic> layer_values);
+        Matrix<float,1,Dynamic> softmax(Matrix<float,1,Dynamic> layer_values);
         float randomFloat(float a, float b);
         
         //communication to noyau, correspondance id/terrain_x

@@ -1,4 +1,4 @@
-#include "../inc/ai_main.h"
+#include "../inc/ai_battle.h"
 
 
 //##CONSTRUCTOR DESTRUCTOR/////////////////////////////////////////////////////
@@ -14,7 +14,7 @@
 //constructor: neural network initialisation
 //mode = 1 => file ai.data
 //mode = 2 => file learning_ai.data
-Ai_main::Ai_main(Noyau * noyau, int mode, int joueur)
+Ai_battle::Ai_battle(Noyau * noyau, int mode, int joueur)
 {
     srand (time(NULL));
     nb_hidden_layer = 2;
@@ -27,7 +27,7 @@ Ai_main::Ai_main(Noyau * noyau, int mode, int joueur)
 
 
 //destructor
-Ai_main::~Ai_main()
+Ai_battle::~Ai_battle()
 {
     if(mode==2) //learning_ai
         save_ai();
@@ -43,18 +43,21 @@ Ai_main::~Ai_main()
 
 
 //save the ai in a file according to the chosen mode
-void Ai_main::save_ai()
+void Ai_battle::save_ai()
 {
     int i,j,k;
     ofstream ai_file;
     switch(mode)
     {
         case 2:
-            ai_file.open("../IA/learning_battle_ai.data");
+            ai_file.open("../IA/learning_main_ai_1.data");
+            break;
+        case 3:
+            ai_file.open("../IA/learning_main_ai_2.data");
             break;
         case 1:
         default:
-            ai_file.open("../IA/battleai.data");
+            ai_file.open("../IA/main_ai.data");
             break;
     }
     if(ai_file){
@@ -219,7 +222,7 @@ void Ai_main::save_ai()
 
 
 //load a trained AI from a file, according to the chosen difficulty
-void Ai_main::load_ai()
+void Ai_battle::load_ai()
 {
     int i,j,k;
     float number;
@@ -227,11 +230,11 @@ void Ai_main::load_ai()
     switch(mode)
     {
         case 2:
-            ai_file.open("../IA/learning_battle_ai.data");
+            ai_file.open("../IA/learning_main_ai.data");
             break;
         case 1:
         default:
-            ai_file.open("../IA/battle_ai.data");
+            ai_file.open("../IA/main_ai.data");
             break;
     }
     if(ai_file)
@@ -401,7 +404,7 @@ void Ai_main::load_ai()
 
 
 //start a new not trained AI
-void Ai_main::initialise_random_ai()
+void Ai_battle::initialise_random_ai()
 {
     int i,j,k;
     /////////////input layer////////////////
@@ -552,9 +555,9 @@ void Ai_main::initialise_random_ai()
  * if the neuron value is positiv, then activate them, else send 0
  * return the vector this neuron activate or not for the next layer
  */
-Matrix<float,1,Dynamic> Ai_main::ReLU(Matrix<float,1,Dynamic> layer_values)
+Matrix<float,1,Dynamic> Ai_battle::ReLU(Matrix<float,1,Dynamic> layer_values)
 {
-    Matrix <float,1,Dynamic> next_layer_input(1,layer_values.cols());
+    Matrix <float,Dynamic,Dynamic> next_layer_input(1,layer_values.cols());
     int i;
     for(i=0;i<layer_values.cols();i++)
     {
@@ -565,11 +568,33 @@ Matrix<float,1,Dynamic> Ai_main::ReLU(Matrix<float,1,Dynamic> layer_values)
 
 
 /*
+ * softmax
+ * activation function
+ */
+Matrix<float,1,Dynamic> Ai_battle::softmax(Matrix<float,1,Dynamic> layer_values)
+{
+    Matrix <float,Dynamic,Dynamic> next_layer_input(1,layer_values.cols());
+    int i,j;
+    float sum=0;
+    for(j=0;j<layer_values.cols();j++)
+    {
+        sum += exp(layer_values(0,j));
+    }
+    for(i=0;i<layer_values.cols();i++)
+    {
+        next_layer_input(0,i) = exp(layer_values(0,i))/sum;
+    }
+    return next_layer_input;
+}
+
+
+
+/*
  * compute the actions' q_values vector
  * takes in input the game state
  * and outputs the vector of the actions do to
  */
-void Ai_main::forward_propagation(Matrix<float,1,434> game_state)
+void Ai_battle::forward_propagation(Matrix<float,1,434> game_state)
 {
     input_layer_input = game_state;
 
@@ -591,6 +616,7 @@ void Ai_main::forward_propagation(Matrix<float,1,434> game_state)
     ////output layer////
     output_layer_values = hidden_layers_values.at(1) * output_weight;
     output_layer_values += output_layer_wgains;
+    output_layer_values = softmax(output_layer_values);
 }
 
 
@@ -600,7 +626,7 @@ void Ai_main::forward_propagation(Matrix<float,1,434> game_state)
  * takes in input the future possible state
  * and outputs the vector of the actions it will be able to do
  */
-void Ai_main::test_forward_propagation(Matrix<float,1,434> game_state)
+void Ai_battle::test_forward_propagation(Matrix<float,1,434> game_state)
 {
     test_input_layer_values = game_state * input_weight;
     test_hidden_layers_values.at(0) = test_input_layer_values *
@@ -616,10 +642,10 @@ void Ai_main::test_forward_propagation(Matrix<float,1,434> game_state)
  * Choose the action to do, according to the actions' q_value calculated.
  * More an action has a big q_value, more it has chance to be chosen
  */
-int Ai_main::choose_action(Matrix<float,1,135> actions)
+int Ai_battle::choose_action(Matrix<float,1,135> actions)
 {
     srand (time(NULL));
-    float choice = rand()%1;
+    float choice = randomFloat(0,1);
 
     int action=0;
     while(choice>0)
@@ -629,7 +655,7 @@ int Ai_main::choose_action(Matrix<float,1,135> actions)
             action=rand()%135;
             break;
         }
-        choice -= actions(1,action);
+        choice -= actions(0,action);
         action++;
     }
 
@@ -643,7 +669,7 @@ int Ai_main::choose_action(Matrix<float,1,135> actions)
  * different next possible state, and update the weights of the neural
  * network
  */
-void Ai_main::backward_propagation(float q_targets[135])
+void Ai_battle::backward_propagation(float q_targets[135])
 {
     int i,j,k;
     float local_cost=0;
@@ -735,7 +761,7 @@ void Ai_main::backward_propagation(float q_targets[135])
  * test if the game state is a winning state, a losing state
  * or a neutral state
  */
-int Ai_main::test_win(Matrix<float,1,434> state)
+int Ai_battle::test_win(Matrix<float,1,434> state)
 {
     if(state(0,0)<=0.5)
         return -1;
@@ -747,7 +773,7 @@ int Ai_main::test_win(Matrix<float,1,434> state)
 
 
 //give the maximun q_value of the tested next state
-float Ai_main::max_output_test()
+float Ai_battle::max_output_test()
 {
     float max_value=0;
     int i;
@@ -761,7 +787,7 @@ float Ai_main::max_output_test()
 
 
 //give the next game state, if the action is played
-Matrix<float,1,434> Ai_main::play_simulation(Matrix<float,1,434> game_state,
+Matrix<float,1,434> Ai_battle::play_simulation(Matrix<float,1,434> game_state,
         int action)
 {
     //TODO: connect to "Moteur"
@@ -774,7 +800,7 @@ Matrix<float,1,434> Ai_main::play_simulation(Matrix<float,1,434> game_state,
 
 
 //function to calculate a random float between two floats
-float Ai_main::randomFloat(float a, float b)
+float Ai_battle::randomFloat(float a, float b)
 {
     float random = ((float) rand()) / (float) RAND_MAX;
     float diff = b - a;
@@ -788,8 +814,9 @@ float Ai_main::randomFloat(float a, float b)
 
 
 //function that read the "noyau", and put the game state in a matrix
-Matrix<float,1,434> Ai_main::read_noyau()
+Matrix<float,1,434> Ai_battle::read_noyau()
 {
+    
     int i,j;
     Matrix<float,1,434> game_state;
 
@@ -865,7 +892,7 @@ Matrix<float,1,434> Ai_main::read_noyau()
     //chaque carte dans son propre deck
     for(i=0;i<60;i++)
     {
-        if(noyau->d1->at(i)!=NULL) {
+        if(noyau->d1!=NULL && noyau->d1->at(i)!=NULL) {
             game_state(0,94+i*5) = noyau->d1->at(i)->atk;
             game_state(0,94+i*5+1) = noyau->d1->at(i)->def;
             game_state(0,94+i*5+2) = noyau->d1->at(i)->niveau;
@@ -910,16 +937,24 @@ Matrix<float,1,434> Ai_main::read_noyau()
     }
 
     //derniere carte du cimetiere
-    game_state(0,431) = noyau->cimetiere1->back()->atk;
-    game_state(0,432) = noyau->cimetiere1->back()->def;
-    game_state(0,433) = noyau->cimetiere1->back()->niveau;
+    /*
+    if(noyau->cimetiere1!=NULL){
+        game_state(0,431) = noyau->cimetiere1->back()->atk;
+        game_state(0,432) = noyau->cimetiere1->back()->def;
+        game_state(0,433) = noyau->cimetiere1->back()->niveau;
+    }else{
+    */
+        game_state(0,431) = -1;
+        game_state(0,432) = -1;
+        game_state(0,433) = -1;
+    //}
 
     return game_state;
 }
 
 //correspondance ID/terrein
 
-int Ai_main::main_id_to_x(int main_id)
+int Ai_battle::main_id_to_x(int main_id)
 {
     if(joueur==1)
         return main_id+14;
@@ -929,7 +964,7 @@ int Ai_main::main_id_to_x(int main_id)
         return -1;
 }
 
-int Ai_main::monstre_id_to_x(int monstre_id)
+int Ai_battle::monstre_id_to_x(int monstre_id)
 {
     if(joueur==1)
         return monstre_id+1;
@@ -939,7 +974,7 @@ int Ai_main::monstre_id_to_x(int monstre_id)
         return -1;
 }
 
-int Ai_main::magie_piege_id_to_x(int magie_piege_id)
+int Ai_battle::magie_piege_id_to_x(int magie_piege_id)
 {
     if(joueur==1)
         return magie_piege_id+8;
@@ -955,7 +990,7 @@ int Ai_main::magie_piege_id_to_x(int magie_piege_id)
 //put monster in atk position
 //return EXIT_SUCCESS if it work and send signal
 //return EXIT_FAILURE else
-int Ai_main::poser_atk(int main_id)
+int Ai_battle::poser_atk(int main_id)
 {
     int i;
     if(main[main_id]!=NULL)
@@ -970,7 +1005,7 @@ int Ai_main::poser_atk(int main_id)
 }
 
 //put monster in defense position
-int Ai_main::poser_def(int main_id)
+int Ai_battle::poser_def(int main_id)
 {
     int i;
     if(main[main_id]!=NULL)
@@ -985,7 +1020,7 @@ int Ai_main::poser_def(int main_id)
 }
 
 //switch the position of the monster atk/def
-int Ai_main::switch_atk_def(int monstre_id)
+int Ai_battle::switch_atk_def(int monstre_id)
 {
     if(terrain_s_monstre[monstre_id]!=NULL)
     {
@@ -995,7 +1030,7 @@ int Ai_main::switch_atk_def(int monstre_id)
     return EXIT_FAILURE;
 }
 
-int Ai_main::sacrifier_poser(int monstre_id,int main_id)
+int Ai_battle::sacrifier_poser(int monstre_id,int main_id)
 {
     if(main[main_id]!=NULL)
         if(main[main_id]->niveau<7)
@@ -1008,7 +1043,7 @@ int Ai_main::sacrifier_poser(int monstre_id,int main_id)
     return EXIT_FAILURE;
 }
 
-int Ai_main::sacrifier_sacrifier_poser(int monstre_id_1,int monstre_id_2,int main_id)
+int Ai_battle::sacrifier_sacrifier_poser(int monstre_id_1,int monstre_id_2,int main_id)
 {
     if(main[main_id]!=NULL)
         if(main[main_id]->niveau<7)
@@ -1022,7 +1057,7 @@ int Ai_main::sacrifier_sacrifier_poser(int monstre_id_1,int monstre_id_2,int mai
     return EXIT_FAILURE;
 }
 
-int Ai_main::poser_magie_piege(int main_id)
+int Ai_battle::poser_magie_piege(int main_id)
 {
     return EXIT_FAILURE;
     int i;
@@ -1037,7 +1072,7 @@ int Ai_main::poser_magie_piege(int main_id)
     return EXIT_FAILURE;
 }
 
-int Ai_main::activer_magie_piege(int magie_id)
+int Ai_battle::activer_magie_piege(int magie_id)
 {
     return EXIT_FAILURE;
     if(terrain_s_magie[magie_id]!=NULL)
@@ -1052,7 +1087,7 @@ int Ai_main::activer_magie_piege(int magie_id)
 //emit signal appropriate to the action chosen by the ai if it works
 //returns EXIT_SUCCESS if ti works
 //else returns EXIT_FAILURE
-int Ai_main::perform_action(int chosen_action)
+int Ai_battle::perform_action(int chosen_action)
 {
     switch(chosen_action)
     {
@@ -1259,12 +1294,14 @@ int Ai_main::perform_action(int chosen_action)
 ///////////////////////////////////////////////////////////////////////////////
 
 
-void Ai_main::play()
+void Ai_battle::play()
 {
     Matrix<float,1,434> target_states[135];
     float q_targets[135];
 
+    cout << "avant read noyau" << endl;
     Matrix<float,1,434> game_state = read_noyau();
+    cout << "apres read noyau" << endl;
 
     //compute which action the neural network whant to play
     forward_propagation(game_state);
@@ -1297,16 +1334,30 @@ void Ai_main::play()
                 q_targets[action] = max_output_test();
             }
         }
-        
-        //compare result of the neural network with the previous calculated
-        //q_values of the next possible states, and updates the weights
-        backward_propagation(q_targets);
     }
 
     //choose the which action play
     int chosen_action = choose_action(output_layer_values);
 
-    perform_action(chosen_action);
+    if(perform_action(chosen_action)==EXIT_FAILURE)
+    {
+        q_targets[chosen_action] = -1;
+        
+        if(mode==2)
+        {
+            //compare result of the neural network with the previous calculated
+            //q_values of the next possible states, and updates the weights
+            backward_propagation(q_targets);
+        }
+        play();
+    } else {
+        if(mode==2)
+        {
+            //compare result of the neural network with the previous calculated
+            //q_values of the next possible states, and updates the weights
+            backward_propagation(q_targets);
+        }
+    }
 }
 
 

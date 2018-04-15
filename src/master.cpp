@@ -64,14 +64,10 @@ Master::~Master (){
             delete network;
 
         } else {
-
-            //!\ LUCAS !!!! Ici pour detruire l'IA a la fermeture
-
-            //delete ia;
-
-            // delete monPointeurIA
-
-
+            
+            delete ai_main;
+            delete ai_battle;
+            
         }
 
         delete noyau;
@@ -153,9 +149,9 @@ void Master::loadField (int x){
         
         //connect(ai_main,SIGNAL(detruire(int)),noyau,SLOT(detruire(int)));
         
-        connect(ai_main,SIGNAL(signal_sacrifier_poser(int,int,int)),noyau,SLOT(sacrifier_poser(int,int,int)));
+        //connect(ai_main,SIGNAL(signal_sacrifier_poser(int,int,int)),noyau,SLOT(sacrifier_poser(int,int,int)));
         
-        connect(ai_main,SIGNAL(signal_sacrifier_sacrifier_poser(int,int,int,int)),noyau,SLOT(sacrifier_sacrifier_poser(int,int,int,int)));
+        //connect(ai_main,SIGNAL(signal_sacrifier_sacrifier_poser(int,int,int,int)),noyau,SLOT(sacrifier_sacrifier_poser(int,int,int,int)));
         
         //connect(ai_main_phase,SIGNAL(signal_activate(int)),noyau,SLOT(activate(int)));
         
