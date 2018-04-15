@@ -111,17 +111,33 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
 
                         for(Carte* laCarteCourante : *leDeckParse)
                         {
-                            if(laCarteCourante->sous_type != 2)
+                            switch(laCarteCourante->genre)
                             {
-                                deck.push_back(laCarteCourante);
-                                indiceCarteDeck++;
-                            }
-                            else
-                            {
-                                extraDeck.push_back(laCarteCourante);
-                                indiceCarteExtraDeck++;
-                            }
+                                case 0:
+                                    if(laCarteCourante->sous_type == 2) // carte fusion
+                                    {
+                                        extraDeck.push_back(laCarteCourante);
+                                        indiceCarteExtraDeck++;
+                                    }
+                                    else
+                                    {
+                                        deck.push_back(laCarteCourante);
+                                        nbrCarteMonstre++;
+                                        indiceCarteDeck++;
+                                    }
+                                break;
 
+                                case 1:
+                                    deck.push_back(laCarteCourante);
+                                    nbrCarteMagie++;
+                                    indiceCarteDeck++;
+                                break;
+
+                                case 2:
+                                    deck.push_back(laCarteCourante);
+                                    nbrCartePiege++;
+                                    indiceCarteDeck++;
+                            }
                         }
                     }
                 }
@@ -598,6 +614,7 @@ void deckEdit::addCard2Deck(Carte* carte)
                 extraDeck.push_back(carte);
                 updateExtraDeckVisuLastCard();
                 indiceCarteExtraDeck++;
+                sauvegarderDiscretionMax();
                 return;
             }
             if(indiceCarteDeck == NBR_CARTE_DECK_VISU)
@@ -730,7 +747,7 @@ void deckEdit::sauvegarder()
     in << QString("#extra_deck\n");
     for(Carte* carte : extraDeck)
     {
-        in << QString::number(carte->id);
+        in << QString::number(carte->id)+ QString("\n");
     }
 
     myfile->close();
@@ -792,7 +809,7 @@ void deckEdit::sauvegarderDiscretionMax()
     in << QString("#extra_deck\n");
     for(Carte* carte : extraDeck)
     {
-        in << QString::number(carte->id);
+        in << QString::number(carte->id) + QString("\n");
     }
 
     myfile->close();
