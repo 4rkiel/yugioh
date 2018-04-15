@@ -25,13 +25,12 @@ CardPreview::CardPreview(Carte *carte){
     info -> setSpacing(0);
     info -> setContentsMargins(0,0,0,0);
     
-    image = new QPixmap(carte->image);
-    *image = image->scaled (200, 180, Qt::KeepAspectRatio, Qt::FastTransformation);
-    qDebug() << carte->image;
     imageLabel = new QLabel;
-    imageLabel->setPixmap(*image);
-    imageLabel->setScaledContents(true);
-    imageLabel->setSizeIncrement(QSizePolicy::Maximum, QSizePolicy::Maximum);
+    imageLabel -> setMinimumWidth(200);
+    imageLabel -> setMaximumWidth(200);
+    imageLabel -> setMinimumHeight(180);
+    imageLabel -> setMaximumHeight(180);
+    imageLabel->setStyleSheet("border-image: url("+carte->image+")");
 
     for(int i=0; i<INFOLABEL_MAX; i++){
 

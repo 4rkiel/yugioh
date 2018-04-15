@@ -25,7 +25,6 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     spinDef = new QSpinBox;
     spinNiveau = new QSpinBox;
 
-    tabBut.reserve(NBR_BUTTON_DECK_EDIT);
     deck.reserve(NBR_CARTE_DECK_VISU);
     tabCardVisu.reserve(NBR_CARTE_DECK_VISU);
     undoList.reserve(TAILLE_UNDO);
@@ -39,13 +38,6 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     for( std::vector<Carte*> deckTmp : redoList)
     {
         deckTmp.reserve(TAILLE_UNDO);
-    }
-
-
-    for(int i=0; i<NBR_BUTTON_DECK_EDIT; i++)
-    {
-        tabBut.push_back(new QPushButton(buttonName.at(i)));
-        tabBut[i]->setDefault(true);
     }
 
     for(int i=0; i<NBR_CARTE_DECK_VISU; i++)
@@ -85,16 +77,18 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     slotAttribut();
     choixSousGenre->addItems(sousGenreList);
 
-    mainLayout = new QVBoxLayout;
-    mainL1 = new QHBoxLayout;
-    mainL2 = new QHBoxLayout;
+    mainLayout = new QHBoxLayout;
+    mainL1 = new QVBoxLayout;
+    mainL1->setSpacing(0);
+
+    mainL1->setMargin(0);
+    mainL2 = new QVBoxLayout;
 
 
         // ... selecteur / creation de Deck ....................................
-        //TODO refactorer le code
 
         editCreate = new QFrame;
-        editCreate->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
+        editCreate->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
         editCreate->setStyleSheet("border: 1px solid blue");
         mainL1->addWidget(editCreate);
         editCreate->setStyleSheet("background-color: #ECEFF1");
@@ -172,7 +166,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
                 // ... "+" .....................................................
 
 
-                    plusBut = new DarkButt("\uf160", "");
+                    plusBut = new DarkButt("\uf105", "");
                     plusBut -> setToolTip(tr("Réorganiser les cartes"));
                     plusBut->setSizePolicy(QSizePolicy::Maximum,
                                              QSizePolicy::Maximum);
@@ -189,7 +183,8 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
             stealBut = new QFrame;
             stealBut->setObjectName("cachay");
             stealBut->setSizePolicy(QSizePolicy::Minimum,
-                                        QSizePolicy::Minimum);
+                                        QSizePolicy::Maximum);
+            stealBut->setContentsMargins(0,0,0,0);
             stealBut->setVisible(false);
             stealBut->setStyleSheet("#cachay {border-radius: 3px;\
                                          background-color: red}");
@@ -197,6 +192,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
 
 
                 cachayLayout = new QGridLayout;
+                cachayLayout->setMargin(0);
 
 
 
@@ -204,6 +200,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
 
 
                     shuffleDeck = new DarkButt("", tr("Mélanger"));
+                    shuffleDeck->setToolTip(tr("Mélanger le Deck"));
                     shuffleDeck->setSizePolicy(QSizePolicy::Minimum,
                                              QSizePolicy::Minimum);
                     cachayLayout->addWidget(shuffleDeck, 0, 1, 1, 1);
@@ -213,6 +210,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
 
 
                     sortDeck = new DarkButt("", tr("Trier"));
+                    sortDeck->setToolTip(tr("Trier le Deck"));
                     sortDeck->setSizePolicy(QSizePolicy::Minimum,
                                              QSizePolicy::Minimum);
                     cachayLayout->addWidget(sortDeck, 0, 2, 1, 1);
@@ -222,6 +220,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
 
 
                     eraseDeck = new DarkButt("", tr("Effacer"));
+                    eraseDeck->setToolTip(tr("Effacer le contenu du Deck"));
                     eraseDeck->setSizePolicy(QSizePolicy::Minimum,
                                              QSizePolicy::Minimum);
                     cachayLayout->addWidget(eraseDeck, 0, 3, 1, 1);
@@ -230,7 +229,8 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
                 // ... Undo ....................................................
 
 
-                    undo = new DarkButt("", "undo");
+                    undo = new DarkButt("\uf0e2", "");
+                    undo->setToolTip(tr("Annuler la dernière action"));
 
                     cachayLayout->addWidget(undo, 0, 4, 1, 1);
 
@@ -239,15 +239,17 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
                 // ... Redo ....................................................
 
 
-                    redo = new DarkButt("", "redo");
+                    redo = new DarkButt("\uf01e", "");
+                    redo->setToolTip(tr("Refaire la dernière action annulée"));
 
                     cachayLayout->addWidget(redo, 0, 5, 1, 1);
 
 
             stealBut->setLayout(cachayLayout);
 
+        nomLayout->addWidget(stealBut, 0, 3, 1, 1);
         editCreateLayout->addWidget(frameNomDeck);
-        editCreateLayout->addWidget(stealBut);
+
 
 
 
@@ -256,7 +258,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
         // ... Compteur de cartes / visualisateur de Deck ......................
 
         deckVisuLayout = new QVBoxLayout;
-        mainL2->addLayout(deckVisuLayout);
+        mainL1->addLayout(deckVisuLayout);
 
 
             // ... compteur de cartes ..........................................
@@ -331,14 +333,15 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
                                   QSizePolicy::Maximum);
         cardFilter->setObjectName("filtreur");
         cardFilter->setStyleSheet("#filtreur{background-color: green;}");
-        mainL1->addWidget(cardFilter);
+        mainL2->addWidget(cardFilter);
         layoutRechercheCarte = new QGridLayout;
 
 
 
             // ... Recherche pas Nom ...........................................
 
-            textSearch->setPlaceholderText(tr("Nom du/des carte(s) recherchée(s)"));
+            textSearch->setPlaceholderText(tr("Nom recherché"));
+            textSearch->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
             layoutRechercheCarte->addWidget(textSearch, 0, 0, 1, 3);
 
 
@@ -353,7 +356,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
 
             // ... "+" de filtre ...............................................
 
-            plusFiltrBut = new DarkButt("\uf160", "");
+            plusFiltrBut = new DarkButt("\uf078", "");
             plusFiltrBut->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
             plusFiltrBut->setToolTip(tr("Tries avancés sur les Cartes"));
 
@@ -377,116 +380,39 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
             layoutRechercheCarteAdv = new QVBoxLayout;
             cardFilterAdv->setLayout(layoutRechercheCarteAdv);
 
-                    // ... Genre / Sous-genre ......................................
+                // ... Genre / Sous-genre ......................................
 
-                    genreColonne = new QHBoxLayout;
+                genreColonne = new QHBoxLayout;
 
-                    genreLabel = new QLabel(tr("Genre:    "));
-                    genreLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+                genreLabel = new QLabel(tr("Genre:   "));
+                genreLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
-                    sp_retain_choixGenre = choixSousGenre->sizePolicy();
-                    sp_retain_choixGenre.setRetainSizeWhenHidden(false);
-                    choixSousGenre->setSizePolicy(sp_retain_choixGenre);
-                    choixSousGenre->setVisible(false);
+                sp_retain_choixGenre = choixSousGenre->sizePolicy();
+                sp_retain_choixGenre.setRetainSizeWhenHidden(false);
+                choixSousGenre->setSizePolicy(sp_retain_choixGenre);
+                choixSousGenre->setVisible(false);
 
-                    genreColonne->addWidget(genreLabel);
-                    genreColonne->addWidget(choixGenre);
-                    genreColonne->addWidget(choixSousGenre);
-
-
-
-                    // ... Attribut ................................................
-
-                    attrLayout = new QHBoxLayout;
-
-                    attrLabel = new QLabel(tr("Attribut: "));
-                    attrLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-
-                    attrLayout->addWidget(attrLabel);
-                    attrLayout->addWidget(choixAttribut);
+                genreColonne->addWidget(genreLabel);
+                genreColonne->addWidget(choixGenre);
+                genreColonne->addWidget(choixSousGenre);
 
 
 
+                // ... Attribut ................................................
 
-                    layoutRechercheCarteAdv->addLayout(genreColonne);
-                    layoutRechercheCarteAdv->addLayout(attrLayout);
+                attrLayout = new QHBoxLayout;
+
+                attrLabel = new QLabel(tr("Attribut: "));
+                attrLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+
+                attrLayout->addWidget(attrLabel);
+                attrLayout->addWidget(choixAttribut);
 
 
 
 
-
-
-//                    // ... Attribut ................................................
-
-//                    attrLabel = new QLabel(tr("Attribut: "));
-
-//                    layoutRechercheCarte->addWidget(attrLabel, 2, 0, 1, 1);
-//                    layoutRechercheCarte->addWidget(choixAttribut, 2, 1, 1, 4);
-
-
-//            // ... recherche par propriétés ....................................
-
-//            propFilter = new QFrame;
-//            propFilter->setSizePolicy(QSizePolicy::Minimum,
-//                                      QSizePolicy::Maximum);
-//            propFilter->setObjectName("propFilter");
-//            propFilter->setStyleSheet("#propFilter"
-//                                         "{border: 1px solid green}");
-
-//            propForm = new QFormLayout;
-//            propFilter->setLayout(propForm);
-
-
-//                // ... Genre / Sous-genre ......................................
-
-//                genreColonne = new QHBoxLayout;
-//                genreColonne->addWidget(choixGenre);
-//                genreColonne->addWidget(choixSousGenre);
-
-//                choixSousGenre->setVisible(false);
-
-//                propForm->addRow(tr("Genre: "), genreColonne);
-
-
-
-//                    // ... Attribut ............................................
-
-//                    propForm->addRow(tr("Attribut: "), choixAttribut);
-
-
-
-
-//                // ... recherche approfondis + bouttons ........................
-
-//                prop2Vmain = new QVBoxLayout;
-
-//                    prop2H = new QHBoxLayout;
-
-
-
-
-
-//                    // ... Annuler recherche / filrer ..........................
-
-//                    deleteSearch = new QVBoxLayout;
-
-//                    annSearch = new QHBoxLayout;
-//                        annSearch->addWidget(tabBut[ANNULER_RECHERCHE]);
-//                        annSearch->addWidget(textSearch);
-//                    deleteSearch->addLayout(annSearch);
-
-//                    deleteSearch->addWidget(tabBut[FILTRER]);
-
-
-//                prop2Vmain->addLayout(prop2H);
-//                prop2Vmain->addLayout(deleteSearch);
-
-
-//            colonne->addWidget(propFilter);
-//            colonne->addLayout(prop2Vmain);
-
-            //layoutRechercheCarte->addWidget(propFilter);
-           // layoutRechercheCarte->addLayout(prop2Vmain);
+            layoutRechercheCarteAdv->addLayout(genreColonne);
+            layoutRechercheCarteAdv->addLayout(attrLayout);
 
 
         cardFilter->setLayout(layoutRechercheCarte);
@@ -500,12 +426,12 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
         deckScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         deckScroll -> setFocusPolicy(Qt::NoFocus);
         deckScroll->setBackgroundRole(QPalette::Light);
-        deckScroll->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+        deckScroll->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
 
             //Parser *parser = new Parser;
 
             cardList = new CardListPreview(allCard);
-            cardList->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+            cardList->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
 
             for(CardPreview *cardPreviewCourante : (*cardList->cardPreviewList))
             {
@@ -522,17 +448,12 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     mainLayout->addLayout(mainL2);
     setLayout(mainLayout);
 
-    connect(tabBut[SAUVER], SIGNAL(clicked()), this, SLOT(sauvegarder()));
-    connect(tabBut[CREER], SIGNAL(clicked()), this, SLOT(creer()));
-    connect(tabBut[EFFACER], SIGNAL(clicked()), this, SLOT(effacerDeck()));
-    connect(tabBut[MELANGER], SIGNAL(clicked()), this, SLOT(melangerDeck()));
-    connect(tabBut[TRIER], SIGNAL(clicked()), this, SLOT(trierDeck()));
-    connect(tabBut[FILTRER], SIGNAL(clicked()), this, SLOT(updPreview()));
-
-    connect(choixGenre, SIGNAL(currentIndexChanged(int)), this,SLOT(slotAttribut()));
+    connect(choixGenre, SIGNAL(currentIndexChanged(int)),
+            this,SLOT(slotAttribut()));
     connect(butClearSearch, SIGNAL(clicked()), this, SLOT(clearSearch()));
 
-    connect(nomDeck, SIGNAL(returnPressed()), this, SLOT(sauvegarderDiscretionMax()));
+    connect(nomDeck, SIGNAL(returnPressed()),
+            this, SLOT(sauvegarderDiscretionMax()));
     connect(plusBut, SIGNAL(clicked()), this, SLOT(plus2But()));
     connect(eraseDeck, SIGNAL(clicked()), this, SLOT(effacerDeck()));
     connect(shuffleDeck, SIGNAL(clicked()), this, SLOT(melangerDeck()));
@@ -540,7 +461,8 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     connect(supprDeck, SIGNAL(clicked()), this, SLOT(obliterationDuDeck()));
 
     shortcut = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_Z),this);
-    shortcutRedo = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_Shift+Qt::Key_Z),this);
+    shortcutRedo = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_Shift+Qt::Key_Z),
+                                 this);
     shortcutRedo2 = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_R),this);
     connect(shortcut,SIGNAL(activated()),this,SLOT(slotUndo()));
     // TODO redo avec shift ne marche pas
@@ -550,11 +472,16 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     connect(undo, SIGNAL(clicked()), this, SLOT(slotUndo()));
     connect(redo, SIGNAL(clicked()), this, SLOT(slotRedo()));
 
-    connect(textSearch, SIGNAL(textEdited(QString)), this, SLOT(updPreview()));
-    connect(choixGenre, SIGNAL(currentIndexChanged(int)), this, SLOT(updPreview()));
-    connect(choixSousGenre, SIGNAL(currentIndexChanged(int)), this, SLOT(updPreview()));
-    connect(choixAttribut, SIGNAL(currentIndexChanged(int)), this, SLOT(updPreview()));
-    connect(plusFiltrBut, SIGNAL(clicked()), this, SLOT(toujoursPlus2But()));
+    connect(textSearch, SIGNAL(textEdited(QString)),
+            this, SLOT(updPreview()));
+    connect(choixGenre, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(updPreview()));
+    connect(choixSousGenre, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(updPreview()));
+    connect(choixAttribut, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(updPreview()));
+    connect(plusFiltrBut, SIGNAL(clicked()),
+            this, SLOT(toujoursPlus2But()));
 
     updateDeckVisu();
     updateExtraDeckVisu();
@@ -646,7 +573,8 @@ void deckEdit::addCard2Deck(Carte* carte)
 
     redoList.clear();
     undoList.push_back(deck);
-    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(),
+                            extraDeck.end());
     for(std::vector<Carte*> laC : undoList)
     {
         qDebug() << "SAUVEGARDE:";
@@ -707,7 +635,8 @@ void deckEdit::rmvCard2Deck()
     redoList.clear();
 
     undoList.push_back(deck);
-    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(),
+                            extraDeck.end());
 
     if(it != tabCardVisu.end())
     {
@@ -752,7 +681,8 @@ void deckEdit::sauvegarder()
     if(deck.size() != 40)
     {
         QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this, tr("M-Masaka !"), tr("Deck invalide: Souhaitez "
+        reply = QMessageBox::question(this, tr("M-Masaka !"),
+                                      tr("Deck invalide: Souhaitez "
                                     "vous tout de même sauvegarder ? Vous "
                                     "pourrez éditer votre deck ultérieurement."),
                                     QMessageBox::Yes|QMessageBox::No);
@@ -779,8 +709,10 @@ void deckEdit::sauvegarder()
 
     if(!myfile->open(QFile::WriteOnly | QFile::Text))
     {// chemin  corrompue
-        QMessageBox::information(this, tr("echec de la sauvegarde"), tr("Le deck ") +
-                                 selectDeck->currentText() + tr(" n'a pas pu être sauvegardé."),
+        QMessageBox::information(this, tr("echec de la sauvegarde"),
+                                 tr("Le deck ") +
+                                 selectDeck->currentText()
+                                 + tr(" n'a pas pu être sauvegardé."),
                                      QMessageBox::Ok);
     }
 
@@ -804,7 +736,8 @@ void deckEdit::sauvegarder()
     myfile->close();
 
     QMessageBox::information(this, tr("youpi !"), tr("Le deck ") +
-                             selectDeck->currentText() + tr(" à était enregistré."),
+                             selectDeck->currentText()
+                             + tr(" à était enregistré."),
                              QMessageBox::Ok);
 }
 
@@ -838,8 +771,10 @@ void deckEdit::sauvegarderDiscretionMax()
 
     if(!myfile->open(QFile::WriteOnly | QFile::Text))
     {// chemin  corrompue
-        QMessageBox::information(this, tr("echec de la sauvegarde"), tr("Le deck ") +
-                                 selectDeck->currentText() + tr(" n'a pas pu être sauvegardé."),
+        QMessageBox::information(this, tr("echec de la sauvegarde"),
+                                 tr("Le deck ") +
+                                 selectDeck->currentText()
+                                 + tr(" n'a pas pu être sauvegardé."),
                                      QMessageBox::Ok);
     }
 
@@ -874,8 +809,10 @@ void deckEdit::creer()
 
     if(std::find(list.begin(), list.end(), newDeck->text()) != list.end())
     { // deck already exist
-        QMessageBox::information(this, tr("M-Masaka !"), tr("Impossible de créer le deck \"")
-                                + newDeck->text() +tr("\": le deck existe déjà."),
+        QMessageBox::information(this, tr("M-Masaka !"),
+                                 tr("Impossible de créer le deck \"")
+                                + newDeck->text()
+                                 +tr("\": le deck existe déjà."),
                                     QMessageBox::Ok);
           return;
     }
@@ -883,7 +820,8 @@ void deckEdit::creer()
     QFile myfile(deckRep + newDeck->text() + QString(".deck"));
     if(!myfile.open(QIODevice::WriteOnly | QIODevice::Append))
     {// chemin  corrompue
-        QMessageBox::information(this, tr("echec de la sauvegarde"), tr("echec de la création du deck"),
+        QMessageBox::information(this, tr("echec de la sauvegarde"),
+                                 tr("echec de la création du deck"),
                                      QMessageBox::Ok);
     }
 
@@ -896,7 +834,8 @@ void deckEdit::effacerDeck()
     redoList.clear();
 
     undoList.push_back(deck);
-    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(),
+                            extraDeck.end());
 
     deck.clear();
     extraDeck.clear();
@@ -917,7 +856,8 @@ void deckEdit::melangerDeck()
     redoList.clear();
 
     undoList.push_back(deck);
-    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(),
+                            extraDeck.end());
 
     std::random_shuffle(deck.begin(), deck.end());
     std::random_shuffle(extraDeck.begin(), extraDeck.end());
@@ -963,7 +903,8 @@ void deckEdit::trierDeck()
     redoList.clear();
 
     undoList.push_back(deck);
-    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(),
+                            extraDeck.end());
 
     std::sort(deck.begin(), deck.end(), compCarte());
     std::sort(extraDeck.begin(), extraDeck.end(), compCarte());
@@ -983,7 +924,8 @@ void deckEdit::updPreview()
         // ... Filtre sur le Genre (Monstre, magie ... ) .......................
 
         std::string cardName = ((carte->nom).toStdString());
-        std::transform(cardName.begin(), cardName.end(), cardName.begin(), ::tolower);
+        std::transform(cardName.begin(), cardName.end(), cardName.begin(),
+                       ::tolower);
 
         std::string search = (textSearch->text()).toStdString();
         std::transform(search.begin(), search.end(), search.begin(), ::tolower);
@@ -1050,7 +992,7 @@ void deckEdit::plus2But()
 {
     if(stealBut->isVisible()){
 
-        plusBut->setIcon("\uf160");
+        plusBut->setIcon("\uf104");
         plusBut -> setToolTip(tr("Réorganiser les cartes"));
         stealBut->setVisible(false);
         
@@ -1058,7 +1000,7 @@ void deckEdit::plus2But()
 
         stealBut->setVisible(true);
         plusBut -> setToolTip(tr("Fermer les options de tri"));
-        plusBut->setIcon("\uf077");
+        plusBut->setIcon("\uf105");
     }
 }
 
@@ -1066,7 +1008,7 @@ void deckEdit::toujoursPlus2But()
 {
     if(cardFilterAdv->isVisible()){
 
-        plusFiltrBut->setIcon("\uf160");
+        plusFiltrBut->setIcon("\uf078");
         plusFiltrBut -> setToolTip(tr("Réorganiser la prévisualisation"
                                       "des cartes"));
         cardFilterAdv->setVisible(false);
@@ -1085,7 +1027,8 @@ void deckEdit::slotUndo()
         return;
 
     redoList.push_back(deck);
-    redoList.back().insert( redoList.back().end(), extraDeck.begin(), extraDeck.end());
+    redoList.back().insert( redoList.back().end(), extraDeck.begin(),
+                            extraDeck.end());
 
     deck.clear();
     extraDeck.clear();

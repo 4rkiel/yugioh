@@ -102,9 +102,9 @@ class deckEdit : public QFrame {
 
         int indiceCarteExtraDeck = 0;
 
-        QVBoxLayout *mainLayout;
-        QHBoxLayout *mainL1;
-        QHBoxLayout *mainL2;
+        QHBoxLayout *mainLayout;
+        QVBoxLayout *mainL1;
+        QVBoxLayout *mainL2;
 
         QHBoxLayout *attrLayout;
 
@@ -182,7 +182,6 @@ class deckEdit : public QFrame {
         CardListPreview *cardList;
 
         QPushButton *effectBoxBut;
-        std::vector<QPushButton *> tabBut;
         std::vector<QPushButton *> tabCardVisu;
         std::vector<QPushButton *> tabExtraDeck;
 

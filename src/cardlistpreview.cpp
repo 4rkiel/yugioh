@@ -9,7 +9,7 @@ CardListPreview::CardListPreview(std::vector<Carte *> *cardList)
 
     updateSearch(cardList);
     setLayout(mainLayout);
-    setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 }
 
 /* remplit le widget de CardPreview à partir d'un vecteur de carte */
