@@ -36,6 +36,7 @@
 
 #define NBR_CARTE_DECK_VISU 40 // multiple de 10
 #define NBR_CARTE_EXTRA_DECK 10
+#define TAILLE_UNDO 50
 
 class deckEdit : public QFrame {
 
@@ -81,6 +82,7 @@ class deckEdit : public QFrame {
 
         deckEdit(std::vector<Carte*> *allCard, QString nomDuDeck);
         QString deckName;
+        QString newDeckName;
 
     private:
         void createEdit();
@@ -118,6 +120,8 @@ class deckEdit : public QFrame {
         DarkButt *shuffleDeck;
         DarkButt *sortDeck;
         DarkButt *eraseDeck;
+        DarkButt *undo;
+        DarkButt *redo;
 
 
         QVBoxLayout *editCreateLayout;
@@ -148,12 +152,18 @@ class deckEdit : public QFrame {
 
         std::vector<Carte*> *allCards;
 
+        std::vector< std::vector<Carte*> > undoList;
+        std::vector< std::vector<Carte*> > redoList;
+
+
         Combo *selectDeck;
         Combo *choixGenre;
         Combo *choixSousGenre;
         Combo *choixAttribut;
         Combo *choixType;
         QShortcut *shortcut;
+        QShortcut *shortcutRedo;
+        QShortcut *shortcutRedo2;
 
         QLineEdit *newDeck;
         QLineEdit *textSearch;
@@ -175,14 +185,14 @@ class deckEdit : public QFrame {
         QLabel *infoPiegeLabel;
         QLabel *infoFusionLabel;
 
-
-    signals:
+signals:
 
     public slots:
             void slotAttribut();
             void addCard2Deck(Carte* carte);
             void rmvCard2Deck();
             void sauvegarder();
+            void sauvegarderDiscretionMax();
             void creer();
             void effacerDeck();
             void melangerDeck();
@@ -190,8 +200,11 @@ class deckEdit : public QFrame {
             void updPreview();
             void clearSearch();
             void loadDeck();
+            void obliterationDuDeck();
 
             void plus2But();
+            void slotUndo();
+            void slotRedo();
 };
 
 #endif // DECKEDIT_H

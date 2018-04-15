@@ -31,7 +31,6 @@
 #include "../inc/optab.h"
 #include "../inc/ruletab.h"
 #include "../inc/helptab.h"
-#include "../inc/keyfilter.h"
 
 class Window : public QWidget {
 

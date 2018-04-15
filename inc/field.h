@@ -8,6 +8,7 @@
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QStackedLayout>
+#include <QScrollArea>
 
 #include <QPushButton>
 #include <QString>
@@ -106,6 +107,8 @@ signals:
 
 private:
     
+    void dealWithHand(int);
+
     void cardOut();
 	void resetProgress();
 
@@ -156,6 +159,7 @@ private:
             QWidget * advBox;
             QGridLayout * advLayout;
                 
+                QScrollArea * advScroll;
                 QWidget * advHand;
                 QHBoxLayout * advHandLayout;
                
@@ -173,7 +177,8 @@ private:
                  
                 QWidget * slfMagic; 
                 QHBoxLayout * slfMagicLayout; 
-                 
+
+                QScrollArea * slfScroll;
                 QWidget * slfHand; 
                 QHBoxLayout * slfHandLayout; 
 

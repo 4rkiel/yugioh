@@ -1,12 +1,16 @@
 #include "../inc/deckedit.h"
 
 #include <inc/deckedit.h>
+#include <inc/deckedit.h>
 
 
 deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
 
     allCards = allCard;
     deckName = nomDuDeck;
+
+    setObjectName("deckEdit");
+    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
     selectDeck = new Combo;
     choixGenre = new Combo;
@@ -24,6 +28,13 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     tabBut.reserve(NBR_BUTTON_DECK_EDIT);
     deck.reserve(NBR_CARTE_DECK_VISU);
     tabCardVisu.reserve(NBR_CARTE_DECK_VISU);
+    undoList.reserve(TAILLE_UNDO);
+    redoList.reserve(TAILLE_UNDO);
+
+    for( std::vector<Carte*> deckTmp : undoList)
+    {
+        deckTmp.reserve(TAILLE_UNDO);
+    }
 
 
     for(int i=0; i<NBR_BUTTON_DECK_EDIT; i++)
@@ -91,30 +102,30 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
             QStringList deckList = QDir(deckRep).entryList({"*.deck"});
 
 
-            /* on tronc l'extension ".deck" avant de placer dans la Combo */
-            foreach (QString str, deckList)
-            {
-                if(str == deckName+".deck")
+            if (deckName != "")
+                foreach (QString str, deckList)
                 {
-                    Parser parse;
-                    std::vector<Carte*> *leDeckParse = parse.deck(deckRep + str);
-
-                    for(Carte* laCarteCourante : *leDeckParse)
+                    if(str == deckName+".deck")
                     {
-                        if(laCarteCourante->sous_type != 2)
-                        {
-                            deck.push_back(laCarteCourante);
-                            indiceCarteDeck++;
-                        }
-                        else
-                        {
-                            extraDeck.push_back(laCarteCourante);
-                            indiceCarteExtraDeck++;
-                        }
+                        Parser parse;
+                        std::vector<Carte*> *leDeckParse = parse.deck(deckRep + str);
 
+                        for(Carte* laCarteCourante : *leDeckParse)
+                        {
+                            if(laCarteCourante->sous_type != 2)
+                            {
+                                deck.push_back(laCarteCourante);
+                                indiceCarteDeck++;
+                            }
+                            else
+                            {
+                                extraDeck.push_back(laCarteCourante);
+                                indiceCarteExtraDeck++;
+                            }
+
+                        }
                     }
                 }
-            }
 
 
 
@@ -134,8 +145,10 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
 
                 nomDeck = new QLineEdit;
 
-                // TODO mettre le nom du deck que l'on edit
-                nomDeck->setPlaceholderText(deckName);
+                if(deckName != "")
+                    nomDeck->setText(deckName);
+                else
+                    nomDeck->setPlaceholderText(tr("Nom du Deck"));
                 nomDeck->setSizePolicy(QSizePolicy::Minimum,
                                        QSizePolicy::Maximum);
 
@@ -209,6 +222,23 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
                     cachayLayout->addWidget(eraseDeck, 0, 3, 1, 1);
 
 
+                // ... Undo ....................................................
+
+
+                    undo = new DarkButt("", "undo");
+
+                    cachayLayout->addWidget(undo, 0, 4, 1, 1);
+
+
+
+                // ... Redo ....................................................
+
+
+                    redo = new DarkButt("", "redo");
+
+                    cachayLayout->addWidget(redo, 0, 5, 1, 1);
+
+
             stealBut->setLayout(cachayLayout);
 
         editCreateLayout->addWidget(frameNomDeck);
@@ -235,7 +265,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
             cardInfo->setLayout(layoutInfo);
 
                 deckLabel = new QLabel();
-                deckLabel->setText(tr("Deck vide"));
+                deckLabel->setText(tr("Main Deck vide"));
 
                 infoMonstreLabel = new QLabel;
                 infoMagieLabel = new QLabel;
@@ -405,10 +435,21 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     connect(choixGenre, SIGNAL(currentIndexChanged(int)), this,SLOT(slotAttribut()));
     connect(tabBut[ANNULER_RECHERCHE], SIGNAL(clicked()), this, SLOT(clearSearch()));
 
+    connect(nomDeck, SIGNAL(returnPressed()), this, SLOT(sauvegarderDiscretionMax()));
     connect(plusBut, SIGNAL(clicked()), this, SLOT(plus2But()));
     connect(eraseDeck, SIGNAL(clicked()), this, SLOT(effacerDeck()));
     connect(shuffleDeck, SIGNAL(clicked()), this, SLOT(melangerDeck()));
     connect(sortDeck, SIGNAL(clicked()), this, SLOT(trierDeck()));
+    connect(supprDeck, SIGNAL(clicked()), this, SLOT(obliterationDuDeck()));
+
+    shortcut = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_Z),this);
+    shortcutRedo = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_Shift+Qt::Key_Z),this);
+    shortcutRedo2 = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_R),this);
+    connect(shortcut,SIGNAL(activated()),this,SLOT(slotUndo()));
+    connect(shortcutRedo,SIGNAL(activated()),this,SLOT(slotRedo()));
+    connect(shortcutRedo2,SIGNAL(activated()),this,SLOT(slotRedo()));
+    connect(undo, SIGNAL(clicked()), this, SLOT(slotUndo()));
+    connect(redo, SIGNAL(clicked()), this, SLOT(slotRedo()));
 
     updateDeckVisu();
     updateExtraDeckVisu();
@@ -498,6 +539,19 @@ void deckEdit::addCard2Deck(Carte* carte)
             indiceCarteExtraDeck == NBR_CARTE_EXTRA_DECK)
         return;
 
+    redoList.clear();
+    undoList.push_back(deck);
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+    for(std::vector<Carte*> laC : undoList)
+    {
+        qDebug() << "SAUVEGARDE:";
+
+        for(Carte* c : laC)
+        {
+            qDebug() << c->nom;
+        }
+    }
+
 
 
     switch(carte->genre)
@@ -535,6 +589,7 @@ void deckEdit::addCard2Deck(Carte* carte)
     updateDeckVisuLastCard();
 
     indiceCarteDeck++;
+    sauvegarderDiscretionMax();
 }
 
 void deckEdit::rmvCard2Deck()
@@ -543,6 +598,12 @@ void deckEdit::rmvCard2Deck()
     QPushButton* cardButton2Rmv = qobject_cast<QPushButton*>(sender());
     std::vector<QPushButton *>::iterator it = std::find(tabCardVisu.begin(),
                                          tabCardVisu.end(), cardButton2Rmv);
+
+    redoList.clear();
+
+    undoList.push_back(deck);
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+
     if(it != tabCardVisu.end())
     {
         pos = it - tabCardVisu.begin();
@@ -578,6 +639,7 @@ void deckEdit::rmvCard2Deck()
 
         updateExtraDeckVisu();
     }
+    sauvegarderDiscretionMax();
 }
 
 void deckEdit::sauvegarder()
@@ -593,7 +655,16 @@ void deckEdit::sauvegarder()
           return;
     }
 
-    QString file = deckRep + selectDeck->currentText() + QString(".deck");
+    if(!nomDeck->text().isEmpty())
+    { // le deck à était renommé
+        newDeckName = nomDeck->text();
+        QFile ripFile (deckRep + deckName + QString(".deck"));
+            ripFile.remove();
+    }
+    else
+        newDeckName = deckName;
+
+    QString file = deckRep + newDeckName + QString(".deck");
     qDebug() << "SAVE: URL FICHIER ECRITURE DECK: "+file;
 
 
@@ -632,6 +703,62 @@ void deckEdit::sauvegarder()
                              QMessageBox::Ok);
 }
 
+void deckEdit::sauvegarderDiscretionMax()
+{
+    if(!nomDeck->text().isEmpty())
+    { // le deck à était renommé
+        newDeckName = nomDeck->text();
+        QFile ripFile (deckRep + deckName + QString(".deck"));
+            ripFile.remove();
+    }
+    else if(deck.empty() && extraDeck.empty())
+    { // deck sans nom ni carte, on ne sauvegarde pas
+        return;
+    }
+    else
+    { // le deck ne porte pas de nom mais comporte des cartes
+        QMessageBox::information(this, tr("echec de la sauvegarde"),
+                                 tr("Veuillez donner un nom au deck"),
+                                     QMessageBox::Ok);
+        return;
+    }
+
+    QString file = deckRep + newDeckName + QString(".deck");
+    qDebug() << "SAVE: URL FICHIER ECRITURE DECK: "+file;
+
+
+
+
+    QFile *myfile = new QFile(file);
+
+    if(!myfile->open(QFile::WriteOnly | QFile::Text))
+    {// chemin  corrompue
+        QMessageBox::information(this, tr("echec de la sauvegarde"), tr("Le deck ") +
+                                 selectDeck->currentText() + tr(" n'a pas pu être sauvegardé."),
+                                     QMessageBox::Ok);
+    }
+
+    QTextStream in(myfile);
+
+
+
+    in << QString("#main_deck\n");
+
+    for(Carte* carte : deck)
+    {
+        in << QString::number(carte->id) + QString("\n");
+    }
+
+    in << QString("#extra_deck\n");
+    for(Carte* carte : extraDeck)
+    {
+        in << QString::number(carte->id);
+    }
+
+    myfile->close();
+    deckName = newDeckName;
+}
+
 void deckEdit::creer()
 {
     std::vector<QString> list;
@@ -661,6 +788,11 @@ void deckEdit::creer()
 
 void deckEdit::effacerDeck()
 {
+    redoList.clear();
+
+    undoList.push_back(deck);
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+
     deck.clear();
     extraDeck.clear();
 
@@ -672,15 +804,22 @@ void deckEdit::effacerDeck()
 
     updateDeckVisu();
     updateExtraDeckVisu();
+    sauvegarderDiscretionMax();
 }
 
 void deckEdit::melangerDeck()
 {
+    redoList.clear();
+
+    undoList.push_back(deck);
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+
     std::random_shuffle(deck.begin(), deck.end());
     std::random_shuffle(extraDeck.begin(), extraDeck.end());
 
     updateDeckVisu();
     updateExtraDeckVisu();
+    sauvegarderDiscretionMax();
 }
 
 struct compCarte
@@ -716,11 +855,17 @@ struct compCarte
 
 void deckEdit::trierDeck()
 {
+    redoList.clear();
+
+    undoList.push_back(deck);
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
+
     std::sort(deck.begin(), deck.end(), compCarte());
     std::sort(extraDeck.begin(), extraDeck.end(), compCarte());
 
     updateDeckVisu();
     updateExtraDeckVisu();
+    sauvegarderDiscretionMax();
 }
 
 void deckEdit::updPreview()
@@ -783,6 +928,18 @@ void deckEdit::loadDeck()
 
 }
 
+void deckEdit::obliterationDuDeck()
+{
+    QFile ripFile (deckRep + deckName + QString(".deck"));
+        ripFile.remove();
+
+    nomDeck->clear();
+    nomDeck->setPlaceholderText(tr("Nom du Deck"));
+
+    effacerDeck();
+    clearSearch();
+}
+
 void deckEdit::plus2But()
 {
     if(stealBut->isVisible()){
@@ -797,6 +954,76 @@ void deckEdit::plus2But()
         plusBut -> setToolTip(tr("Fermer les options de tri"));
         plusBut->setIcon("\uf077");
     }
+}
+
+void deckEdit::slotUndo()
+{
+    if(undoList.empty())
+        return;
+
+    redoList.push_back(deck);
+    redoList.back().insert( redoList.back().end(), extraDeck.begin(), extraDeck.end());
+
+    deck.clear();
+    extraDeck.clear();
+    indiceCarteDeck = 0;
+    indiceCarteExtraDeck = 0;
+    nbrCarteMonstre = 0;
+    nbrCarteMagie = 0;
+    nbrCartePiege = 0;
+
+    for(Carte* laCarteCourante : undoList.back())
+    {
+        if(laCarteCourante->sous_type != 2)
+        {
+            deck.push_back(laCarteCourante);
+            indiceCarteDeck++;
+        }
+        else
+        {
+            extraDeck.push_back(laCarteCourante);
+            indiceCarteExtraDeck++;
+        }
+
+    }
+
+    undoList.pop_back();
+    updateDeckVisu();
+    updateExtraDeckVisu();
+    sauvegarderDiscretionMax();
+}
+
+void deckEdit::slotRedo()
+{
+    if(redoList.empty())
+        return;
+
+    deck.clear();
+    extraDeck.clear();
+    indiceCarteDeck = 0;
+    indiceCarteExtraDeck = 0;
+    nbrCarteMonstre = 0;
+    nbrCarteMagie = 0;
+    nbrCartePiege = 0;
+
+    for(Carte* laCarteCourante : redoList.back())
+    {
+        if(laCarteCourante->sous_type != 2)
+        {
+            deck.push_back(laCarteCourante);
+            indiceCarteDeck++;
+        }
+        else
+        {
+            extraDeck.push_back(laCarteCourante);
+            indiceCarteExtraDeck++;
+        }
+
+    }
+    redoList.pop_back();
+    updateDeckVisu();
+    updateExtraDeckVisu();
+    sauvegarderDiscretionMax();
 }
 
 void deckEdit::slotAttribut()
