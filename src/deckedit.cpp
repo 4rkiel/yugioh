@@ -9,6 +9,9 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     allCards = allCard;
     deckName = nomDuDeck;
 
+    setObjectName("deckEdit");
+    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+
     selectDeck = new Combo;
     choixGenre = new Combo;
     choixSousGenre  = new Combo;

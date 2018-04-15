@@ -23,6 +23,8 @@
 #include <QString>
 #include <QShortcut>
 
+#include <QResizeEvent>
+
 #include "../inc/darkButt.h"
 #include "../inc/shadowButt.h"
 #include "../inc/flatButt.h"
@@ -40,7 +42,6 @@ public:
     ~BuildTab();
     void init();
     void reInit();
-
 
 private:
     QGraphicsDropShadowEffect * buildEffect;
@@ -82,8 +83,13 @@ private:
     QScrollArea * cardEditScroll;
 	CardEditor * editeur;
 
-    QWidget * popup;
+    QWidget * popBox;
+	QGridLayout * popLay;
+    QWidget * popIn;
 	QGridLayout * popLayout;
+
+    QPushButton * popup;
+
 
     DarkButt * closePop;
 

@@ -206,6 +206,14 @@ Field::Field () {
             advLayout -> setMargin(0);
             advLayout -> setContentsMargins(0,5,0,10);
 
+                advScroll = new QScrollArea;
+                advScroll -> setFrameShape(QFrame::NoFrame);
+                advScroll -> setWidgetResizable(true);
+                advScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+                advScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+                advScroll -> setFocusPolicy(Qt::NoFocus);
+
+
                 advHand = new QWidget;
                 advHand -> setObjectName("advHand");
                 advHandLayout = new QHBoxLayout;
@@ -219,8 +227,10 @@ Field::Field () {
                         advHandLayout -> addWidget(fieldStack -> at(k));
                     }
 
+                
                 advHand -> setLayout(advHandLayout);
-                advLayout -> addWidget(advHand, 0,0,1,1);
+                advScroll -> setWidget(advHand);
+                advLayout -> addWidget(advScroll, 0,0,1,1);
 
                 advMagic = new QWidget;
                 advMagic -> setObjectName("advMagic");
@@ -299,6 +309,15 @@ Field::Field () {
                 slfMagic -> setLayout(slfMagicLayout);
                 slfLayout -> addWidget(slfMagic, 1,0,1,1);
 
+
+                slfScroll = new QScrollArea;
+                slfScroll -> setFrameShape(QFrame::NoFrame);
+                slfScroll -> setWidgetResizable(true);
+                slfScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+                slfScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+                slfScroll -> setFocusPolicy(Qt::NoFocus);
+
+
                 slfHand = new QWidget;
                 slfHand -> setObjectName("slfHand");
                 slfHandLayout = new QHBoxLayout;
@@ -313,7 +332,8 @@ Field::Field () {
                     }
                     
                 slfHand -> setLayout(slfHandLayout);
-                slfLayout -> addWidget(slfHand, 2,0,1,1);
+                slfScroll -> setWidget(slfHand);
+                slfLayout -> addWidget(slfScroll, 2,0,1,1);
 
             slfBox -> setLayout(slfLayout);
             arenaLayout -> addWidget(slfBox, 1,0,1,1);
@@ -420,6 +440,7 @@ Field::~Field (){
 
                 delete advHandLayout;
                 delete advHand;
+                delete advScroll;
                 
                 delete advMagicLayout;
                 delete advMagic;
@@ -438,6 +459,7 @@ Field::~Field (){
                 
                 delete slfHandLayout;
                 delete slfHand;
+                delete slfScroll;
        
             delete slfLayout;
             delete slfBox;
@@ -829,14 +851,21 @@ void Field::setLife(int x, bool me){
 /* Card placements */
 
 void Field::setCarte(QString img, int x){
+
+    dealWithHand(x);
+
     fieldStack -> at(x) -> setPic(img);
 }
 
 void Field::poseCarte(int x){
+    
     fieldStack -> at(x) -> posePic();
 }
 
 void Field::maskCarte(int x){
+    
+    dealWithHand(x);
+        
     fieldStack -> at(x) -> maskPic();
 }
 
@@ -852,3 +881,51 @@ void Field::switchCarte(int x){
 void Field::reveal(QString str, int x){
 	fieldStack -> at(x) -> reveal(str);
 }
+
+
+void Field::dealWithHand(int k){
+
+    std::cout << "yoooooooooooooooooooooooo " << k << "\n";
+
+    if (fieldStack -> at(k) == nullptr){
+        
+        fieldStack -> at(k) = new SlotCard(k);
+        
+        if (k >= 14 && k < 75){
+            slfHandLayout -> addWidget(fieldStack -> at(k));
+        } else {
+            advHandLayout -> addWidget(fieldStack -> at(k));
+        }
+
+        connect(
+            fieldStack -> at(k), SIGNAL(leftClick(int)),
+            this, SLOT(cardClicked(int))
+        );
+
+        connect(
+            fieldStack -> at(k), SIGNAL(rightClick(int)),
+            this, SLOT(cardRightClicked(int))
+        );
+
+        connect(
+            fieldStack -> at(k), SIGNAL(doubleClick(int)),
+            this, SLOT(cardDoubleClicked(int))
+        );
+
+        connect(
+            fieldStack -> at(k), SIGNAL(entered(int)),
+            this, SLOT(cardEntered(int))
+        );
+
+        connect(
+            fieldStack -> at(k), SIGNAL(leaved(int)),
+            this, SLOT(cardLeaved())
+        );
+
+        connect(
+            fieldStack->at(k), SIGNAL(rcvQuit()), 
+            popup, SLOT(openQuit())
+        );
+    }
+}
+
