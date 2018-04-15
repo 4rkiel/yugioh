@@ -50,14 +50,14 @@ void Ai_battle::save_ai()
     switch(mode)
     {
         case 2:
-            ai_file.open("../IA/learning_main_ai_1.data");
+            ai_file.open("../IA/learning_battle_ai_1.data");
             break;
         case 3:
-            ai_file.open("../IA/learning_main_ai_2.data");
+            ai_file.open("../IA/learning_battle_ai_2.data");
             break;
         case 1:
         default:
-            ai_file.open("../IA/main_ai.data");
+            ai_file.open("../IA/battle_ai.data");
             break;
     }
     if(ai_file){
@@ -230,11 +230,11 @@ void Ai_battle::load_ai()
     switch(mode)
     {
         case 2:
-            ai_file.open("../IA/learning_main_ai.data");
+            ai_file.open("../IA/learning_battle_ai.data");
             break;
         case 1:
         default:
-            ai_file.open("../IA/main_ai.data");
+            ai_file.open("../IA/battle_ai.data");
             break;
     }
     if(ai_file)
@@ -907,7 +907,7 @@ Matrix<float,1,434> Ai_battle::read_noyau()
         }
     }
 
-    //chaque carte dans sa main
+    //chaque carte dans sa battle
     for(i=0;i<7;i++)
     {
         if(joueur==1)

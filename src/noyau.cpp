@@ -818,6 +818,7 @@ void Noyau::enlever_x(std::vector<Carte *> **vect, int x)
 }
 
 
+//TODO: ajouter les signaux pour l'IA
 //PAS ENCORE BIEN IMPLEMENTE 
 void Noyau::phase_suivante()
 {
