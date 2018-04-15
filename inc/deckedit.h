@@ -121,6 +121,7 @@ class deckEdit : public QFrame {
         DarkButt *sortDeck;
         DarkButt *eraseDeck;
         DarkButt *undo;
+        DarkButt *redo;
 
 
         QVBoxLayout *editCreateLayout;
@@ -152,6 +153,7 @@ class deckEdit : public QFrame {
         std::vector<Carte*> *allCards;
 
         std::vector< std::vector<Carte*> > undoList;
+        std::vector< std::vector<Carte*> > redoList;
 
 
         Combo *selectDeck;
@@ -160,6 +162,8 @@ class deckEdit : public QFrame {
         Combo *choixAttribut;
         Combo *choixType;
         QShortcut *shortcut;
+        QShortcut *shortcutRedo;
+        QShortcut *shortcutRedo2;
 
         QLineEdit *newDeck;
         QLineEdit *textSearch;
@@ -200,6 +204,7 @@ signals:
 
             void plus2But();
             void slotUndo();
+            void slotRedo();
 };
 
 #endif // DECKEDIT_H

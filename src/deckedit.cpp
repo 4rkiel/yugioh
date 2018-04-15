@@ -29,6 +29,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     deck.reserve(NBR_CARTE_DECK_VISU);
     tabCardVisu.reserve(NBR_CARTE_DECK_VISU);
     undoList.reserve(TAILLE_UNDO);
+    redoList.reserve(TAILLE_UNDO);
 
     for( std::vector<Carte*> deckTmp : undoList)
     {
@@ -227,6 +228,15 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
                     undo = new DarkButt("", "undo");
 
                     cachayLayout->addWidget(undo, 0, 4, 1, 1);
+
+
+
+                // ... Redo ....................................................
+
+
+                    redo = new DarkButt("", "redo");
+
+                    cachayLayout->addWidget(redo, 0, 5, 1, 1);
 
 
             stealBut->setLayout(cachayLayout);
@@ -433,8 +443,13 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     connect(supprDeck, SIGNAL(clicked()), this, SLOT(obliterationDuDeck()));
 
     shortcut = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_Z),this);
+    shortcutRedo = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_Shift+Qt::Key_Z),this);
+    shortcutRedo2 = new QShortcut(QKeySequence(Qt::CTRL+Qt::Key_R),this);
     connect(shortcut,SIGNAL(activated()),this,SLOT(slotUndo()));
+    connect(shortcutRedo,SIGNAL(activated()),this,SLOT(slotRedo()));
+    connect(shortcutRedo2,SIGNAL(activated()),this,SLOT(slotRedo()));
     connect(undo, SIGNAL(clicked()), this, SLOT(slotUndo()));
+    connect(redo, SIGNAL(clicked()), this, SLOT(slotRedo()));
 
     updateDeckVisu();
     updateExtraDeckVisu();
@@ -524,7 +539,7 @@ void deckEdit::addCard2Deck(Carte* carte)
             indiceCarteExtraDeck == NBR_CARTE_EXTRA_DECK)
         return;
 
-
+    redoList.clear();
     undoList.push_back(deck);
     undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
     for(std::vector<Carte*> laC : undoList)
@@ -583,6 +598,8 @@ void deckEdit::rmvCard2Deck()
     QPushButton* cardButton2Rmv = qobject_cast<QPushButton*>(sender());
     std::vector<QPushButton *>::iterator it = std::find(tabCardVisu.begin(),
                                          tabCardVisu.end(), cardButton2Rmv);
+
+    redoList.clear();
 
     undoList.push_back(deck);
     undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
@@ -771,6 +788,8 @@ void deckEdit::creer()
 
 void deckEdit::effacerDeck()
 {
+    redoList.clear();
+
     undoList.push_back(deck);
     undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
 
@@ -790,6 +809,8 @@ void deckEdit::effacerDeck()
 
 void deckEdit::melangerDeck()
 {
+    redoList.clear();
+
     undoList.push_back(deck);
     undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
 
@@ -834,6 +855,8 @@ struct compCarte
 
 void deckEdit::trierDeck()
 {
+    redoList.clear();
+
     undoList.push_back(deck);
     undoList.back().insert( undoList.back().end(), extraDeck.begin(), extraDeck.end());
 
@@ -938,6 +961,9 @@ void deckEdit::slotUndo()
     if(undoList.empty())
         return;
 
+    redoList.push_back(deck);
+    redoList.back().insert( redoList.back().end(), extraDeck.begin(), extraDeck.end());
+
     deck.clear();
     extraDeck.clear();
     indiceCarteDeck = 0;
@@ -960,7 +986,41 @@ void deckEdit::slotUndo()
         }
 
     }
+
     undoList.pop_back();
+    updateDeckVisu();
+    updateExtraDeckVisu();
+    sauvegarderDiscretionMax();
+}
+
+void deckEdit::slotRedo()
+{
+    if(redoList.empty())
+        return;
+
+    deck.clear();
+    extraDeck.clear();
+    indiceCarteDeck = 0;
+    indiceCarteExtraDeck = 0;
+    nbrCarteMonstre = 0;
+    nbrCarteMagie = 0;
+    nbrCartePiege = 0;
+
+    for(Carte* laCarteCourante : redoList.back())
+    {
+        if(laCarteCourante->sous_type != 2)
+        {
+            deck.push_back(laCarteCourante);
+            indiceCarteDeck++;
+        }
+        else
+        {
+            extraDeck.push_back(laCarteCourante);
+            indiceCarteExtraDeck++;
+        }
+
+    }
+    redoList.pop_back();
     updateDeckVisu();
     updateExtraDeckVisu();
     sauvegarderDiscretionMax();
