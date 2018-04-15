@@ -36,7 +36,6 @@ class CardPreview : public QWidget
         QHBoxLayout *mainLayout;
 
         QVBoxLayout *info;
-        QPixmap *image;
         QLabel *imageLabel;
 
         QLabel *tabInfoLabel[INFOLABEL_MAX];
