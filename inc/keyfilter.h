@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <QKeyEvent>
+#include <QLineEdit>
 
 class Keyfilter : public QObject {
 
