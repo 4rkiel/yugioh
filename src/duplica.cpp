@@ -348,7 +348,79 @@ void Duplica::setPic (QString str){
 
 void Duplica::setType (int x){
 
-    type -> setText("[" + QString::number(x) + "]");
+	QString typetxt;
+
+	switch (x){
+		case 0:
+			typetxt = "Aqua";
+		break;
+		case 1:
+			typetxt = "Bête";
+		break;
+		case 2:
+			typetxt = "Bête-Ailée";
+		break;
+		case 3:
+			typetxt = "Bête-Divine";
+		break;
+		case 4:
+			typetxt = "Bête-Guerrier";
+		break;
+		case 5:
+			typetxt = "Démon";
+		break;
+		case 6:
+			typetxt = "Dinosaure";
+		break;
+		case 7:
+			typetxt = "Dragon";
+		break;
+		case 8:
+			typetxt = "Elfe";
+		break;
+		case 9:
+			typetxt = "Guerrier";
+		break;
+		case 10:
+			typetxt = "Insecte";
+		break;
+		case 11:
+			typetxt = "Machine";
+		break;
+		case 12:
+			typetxt = "Magicien";
+		break;
+		case 13:
+			typetxt = "Plante";
+		break;
+		case 14:
+			typetxt = "Poisson";
+		break;
+		case 15:
+			typetxt = "Pyro";
+		break;
+		case 16:
+			typetxt = "Rocher";
+		break;
+		case 17:
+			typetxt = "Reptile";
+		break;
+		case 18:
+			typetxt = "Serpent de mer";
+		break;
+		case 19:
+			typetxt = "Tonnerre";
+		break;
+		case 20:
+			typetxt = "Wyrm";
+		break;
+		case 21:
+			typetxt = "Zombie";
+		break;
+
+}
+
+    type -> setText("[" + typetxt + "]");
 	type -> setVisible(true);
 }
 
