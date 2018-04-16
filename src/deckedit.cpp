@@ -587,20 +587,30 @@ void deckEdit::addCard2Deck(Carte* carte)
             indiceCarteExtraDeck == NBR_CARTE_EXTRA_DECK)
         return;
 
+    int nbrPresence = 0;
+    for(Carte* c : deck)
+    {
+        if(carte->id == c->id)
+        {
+            nbrPresence++;
+        }
+    }
+    for(Carte* c : extraDeck)
+    {
+        if(carte->id == c->id)
+        {
+            nbrPresence++;
+        }
+    }
+
+    if(nbrPresence >= 3)
+        return;
+
+
     redoList.clear();
     undoList.push_back(deck);
     undoList.back().insert( undoList.back().end(), extraDeck.begin(),
                             extraDeck.end());
-    for(std::vector<Carte*> laC : undoList)
-    {
-        qDebug() << "SAUVEGARDE:";
-
-        for(Carte* c : laC)
-        {
-            qDebug() << c->nom;
-        }
-    }
-
 
 
     switch(carte->genre)
@@ -1067,7 +1077,6 @@ void deckEdit::slotUndo()
             extraDeck.push_back(laCarteCourante);
             indiceCarteExtraDeck++;
         }
-
     }
 
     undoList.pop_back();
