@@ -85,8 +85,8 @@ void CardEditor::createFormGroupBox (){
     ID = new Spin;
     ID->setSingleStep(1);
     ID->setAccelerated(true);
-    ID->setMaximum(100000);
-    ID->setValue(rand()%100000);
+    ID->setMaximum(100000000);
+    ID->setValue(rand()%100000000);
 
     nrSet = new Combo;
     vector<QString> extension;
