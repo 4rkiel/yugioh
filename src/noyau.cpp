@@ -140,7 +140,13 @@ void Noyau::donner_infos(int x)
     if(actuelle != NULL)
      {
         if((isAdv(x) && actuelle->etat !=VERSO) || !isAdv(x))
-       { emit give_infos(actuelle->nom,actuelle->attribut,actuelle->niveau,actuelle->image,actuelle->type,actuelle->description,actuelle->atk,actuelle->def);
+       {
+            if(isMagic(x))
+                 {
+                emit give_infos(actuelle->nom,-1,actuelle->niveau,actuelle->image,actuelle->type,actuelle->description,actuelle->atk,actuelle->def);
+            }
+            else
+             emit give_infos(actuelle->nom,actuelle->attribut,actuelle->niveau,actuelle->image,actuelle->type,actuelle->description,actuelle->atk,actuelle->def);
         std::cout << "j'émit les infos : " << actuelle->nom.toStdString() << "GENRE:" << actuelle->genre << " " << actuelle->attribut << actuelle->niveau << actuelle->image.toStdString() << actuelle->type << actuelle->description.toStdString() << actuelle->atk << actuelle->def << std::endl;
 
         }
