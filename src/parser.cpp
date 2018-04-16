@@ -163,12 +163,13 @@ void Parser::parser(std::string ligne)
                 }
                 else
                 {
-                    recup_effet(ligne);
+                    courante->effet = recup_effet(ligne);
                     etape++;
                  }
                 break;
             case 8:
                 courante -> effet = recup_effet(ligne);
+                std::cout << "JE METS L'EFFET" << courante->effet << std ::endl;
                 break;
             case 9:
                 courante->atk=atoi(ligne.c_str());
