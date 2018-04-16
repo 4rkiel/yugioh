@@ -26,8 +26,10 @@ public:
 	void setLevel(int);
 	void setPic(QString);
 	void setType(int);
+	void hideType();
     void setDesc(QString);
     void setStat(QString, QString);
+	void hideStat();
 	
 //    void resizeEvent (QResizeEvent*);
 
