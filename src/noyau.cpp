@@ -166,6 +166,13 @@ void Noyau::piocher(int x)
     int dans_main = perfect_position(0);
     // std::cout << "id:"<< d1->front()->id << " je pose en " << dans_main << std::endl;
     // std::cout << "adresse : " << d1->front() << " id:"<< d1->front()->id << " je pose en " << dans_main << std::endl;
+    if((d1==NULL) || (d1->size()==0))
+    {
+        emit sendInfo(QString(tr("Je ne peux plus piocher")));
+            emit je_perds();
+            return;
+    }
+
     d1->front()->position_terrain = dans_main;
     terrain->push_back(d1->front());
 
@@ -183,6 +190,12 @@ void Noyau::piocher(int x)
     }
     else
     {
+        if((d2==NULL) || (d2->size()==0))
+        {
+                emit sendInfo(QString(tr("L'adversaire ne peut plus piocher")));
+                emit je_gagne();
+                return;
+        }
         if(tour!=0)
         emit sendInfo("L'adversaire a pioché");
     std::cout << "le traitement du piochage adverse en cours " << std::endl;
