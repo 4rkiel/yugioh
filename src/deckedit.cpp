@@ -1081,6 +1081,10 @@ void deckEdit::slotRedo()
     if(redoList.empty())
         return;
 
+    undoList.push_back(deck);
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(),
+                            extraDeck.end());
+
     deck.clear();
     extraDeck.clear();
     indiceCarteDeck = 0;
