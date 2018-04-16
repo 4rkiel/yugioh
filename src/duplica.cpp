@@ -222,9 +222,94 @@ void Duplica::setTitle (QString str){
 
 void Duplica::setAttr (int x){
     
+	QString attrtxt;
+
+	switch (x){
+		case -2:
+			attrtxt = "TRAP";
+		break;
+		case -1: 
+			attrtxt = "SPELL";
+		break;
+		case 0:
+			attrtxt = "LUMIERE";
+		break;
+		case 1:
+			attrtxt = "TENEBRE";
+		break;
+		case 2:
+			attrtxt = "TERRE";
+		break;
+		case 3:
+			attrtxt = "EAU";
+		break;
+		case 4:
+			attrtxt = "FEU";
+		break;
+		case 5:
+			attrtxt = "VENT";
+		break;
+		case 6:
+			attrtxt = "DIVIN";
+		break;
+
+	}
+
+
     attr -> setStyleSheet(
-        "border-image:url(\"img/img_attr/DIVIN.png\");"
+        "border-image:url(\"img/img_attr/"+attrtxt+".png\");"
     );
+
+	if (x == -1){
+
+	    titleBox -> setStyleSheet( "#replicaTitleBox {"
+    	    "background: #FDD835;"
+        	"border-left: 3px solid #88ff88;"
+	        "border-top: 3px solid #88ff88;"
+    	"}");
+    
+	    descBox -> setStyleSheet(
+    	    "border: 3px solid #795548;"
+        	"background: #004D40;"
+	    );
+
+    	setStyleSheet("background: #FDD835");
+
+
+
+	} else if (x==-2){
+
+	    titleBox -> setStyleSheet( "#replicaTitleBox {"
+    	    "background: #FDD835;"
+        	"border-left: 3px solid #ffff88;"
+	        "border-top: 3px solid #ffff88;"
+    	"}");
+    
+	    descBox -> setStyleSheet(
+    	    "border: 3px solid #795548;"
+        	"background: #FFF59D;"
+	    );
+
+    	setStyleSheet("background: #FDD835");
+
+
+	} else {
+
+	    titleBox -> setStyleSheet( "#replicaTitleBox {"
+    	    "background: #FDD835;"
+        	"border-left: 3px solid #ffff88;"
+	        "border-top: 3px solid #ffff88;"
+    	"}");
+    
+	    descBox -> setStyleSheet(
+    	    "border: 3px solid #795548;"
+        	"background: #FFF59D;"
+	    );
+
+    	setStyleSheet("background: #FDD835");
+
+	}
+
 }
 
 void Duplica::setLevel (int x){
@@ -233,22 +318,24 @@ void Duplica::setLevel (int x){
         delete item->widget();
     }
 
-    for (int k=0; k<x; k++){
+	if (x > 0){
+	    for (int k=0; k<x; k++){
         
-        QLabel * typeLabel = new QLabel;
+    	    QLabel * typeLabel = new QLabel;
          
-        typeLabel -> setStyleSheet(
-            "border-image:url(\"img/img_attr/Level.png\");"
-        );
+        	typeLabel -> setStyleSheet(
+            	"border-image:url(\"img/img_attr/Level.png\");"
+        	);
 
-        typeLabel -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-        typeLabel -> setObjectName("replicaAttr");
-        typeLabel -> setMinimumHeight(20);
-        typeLabel -> setMaximumHeight(20);
-        typeLabel -> setMinimumWidth(20);
-        typeLabel -> setMaximumWidth(20);
-        typeLayout -> addWidget(typeLabel);
-    }
+	        typeLabel -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+    	    typeLabel -> setObjectName("replicaAttr");
+        	typeLabel -> setMinimumHeight(20);
+	        typeLabel -> setMaximumHeight(20);
+    	    typeLabel -> setMinimumWidth(20);
+        	typeLabel -> setMaximumWidth(20);
+	        typeLayout -> addWidget(typeLabel);
+    	}
+	}
 }
 
 void Duplica::setPic (QString str){
@@ -262,19 +349,6 @@ void Duplica::setPic (QString str){
 void Duplica::setType (int x){
 
     type -> setText("[" + QString::number(x) + "]");
-
-    titleBox -> setStyleSheet( "#replicaTitleBox {"
-        "background: #FDD835;"
-        "border-left: 3px solid #ffff88;"
-        "border-top: 3px solid #ffff88;"
-    "}");
-    
-    descBox -> setStyleSheet(
-        "border: 3px solid #795548;"
-        "background: #FFF59D;"
-    );
-
-    setStyleSheet("background: #FDD835");
 }
 
 void Duplica::setDesc (QString str){

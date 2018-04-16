@@ -321,7 +321,7 @@ Field::Field () {
 
                 slfHand = new QWidget;
                 slfHand -> setObjectName("slfHand");
-                slfHand -> setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Expanding);
+                slfHand -> setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
                 
                 slfHandLayout = new QHBoxLayout;
                 slfHandLayout -> setMargin(0);
@@ -546,7 +546,7 @@ void Field::init(){
         }
     }
 
-    resizeVictor();
+//    resizeVictor();
 
     chat -> goFocus();
 }
@@ -683,10 +683,15 @@ void Field::cardHover (
     fullCard -> setTitle(title);
 	fullCard -> setAttr(attr);
 	fullCard -> setLevel(level);
-    fullCard -> setPic(pic);
-	fullCard -> setType(type);
+
+	fullCard -> setPic(pic);
     fullCard -> setDesc(desc);
-    fullCard -> setStat(QString::number(atk), QString::number(def));
+	
+	if (level > 0){
+		fullCard -> setType(type);
+    	fullCard -> setStat(QString::number(atk), QString::number(def));
+	}
+
 
     if (lockPreview){
         chat -> setVisible(false);
@@ -931,7 +936,7 @@ void Field::dealWithHand(int k){
                 popup, SLOT(openQuit())
             );
 
-            resizeVictor();
+//            resizeVictor();
 
         }
     }
@@ -939,6 +944,7 @@ void Field::dealWithHand(int k){
 }
 
 
+/*
 void Field::resizeEvent(QResizeEvent* event){
     
     QWidget::resizeEvent(event);
@@ -949,28 +955,19 @@ void Field::resizeEvent(QResizeEvent* event){
 
 void Field::resizeVictor(){
 
-    int v = 0;
+	int x = (fieldStack -> at(0) -> width());
 
-    for(int k=14; k<75; k++){
-        if ( fieldStack -> at(k) != nullptr){
-            v++; 
-        }
-    }
+	for(int k=14; k<75; k++){
+		if ( fieldStack -> at(k) != nullptr){
 
-    if (v > 7){
+			fieldStack -> at(k) -> setMinimumWidth(x);
+			fieldStack -> at(k) -> resize(x, fieldStack -> at(k) -> height());
 
-        int x = (fieldStack -> at(0) -> width());
-        
-        for(int k=14; k<75; k++){
-            if ( fieldStack -> at(k) != nullptr){
-  
-                fieldStack -> at(k) -> setMinimumWidth(x);
-                fieldStack -> at(k) -> resize(x, fieldStack -> at(k) -> height());
-
-            }
-        }
+		}
+	}
 
 //        slfHand -> repaint(); 
 //        slfHand -> update(); 
-    }
 }
+
+*/
