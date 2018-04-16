@@ -50,14 +50,27 @@ void Ai_main::save_ai()
     switch(mode)
     {
         case 2:
-            ai_file.open("../IA/learning_main_ai_1.data");
-            break;
-        case 3:
-            ai_file.open("../IA/learning_main_ai_2.data");
+            switch(joueur)
+            {
+                case 1:
+                    ai_file.open("../IA/learning_main_ai_1.data");
+                    break;
+                case 2:
+                    ai_file.open("../IA/learning_main_ai_2.data");
+                    break;
+            }
             break;
         case 1:
         default:
-            ai_file.open("../IA/main_ai.data");
+            switch(joueur)
+            {
+                case 1:
+                    ai_file.open("../IA/main_ai_1.data");
+                    break;
+                case 2:
+                    ai_file.open("../IA/main_ai_2.data");
+                    break;
+            }
             break;
     }
     if(ai_file){
@@ -230,14 +243,27 @@ void Ai_main::load_ai()
     switch(mode)
     {
         case 2:
-            ai_file.open("../IA/learning_main_ai_1.data");
-            break;
-        case 3:
-            ai_file.open("../IA/learning_main_ai_2.data");
+            switch(joueur)
+            {
+                case 1:
+                    ai_file.open("../IA/learning_main_ai_1.data");
+                    break;
+                case 2:
+                    ai_file.open("../IA/learning_main_ai_2.data");
+                    break;
+            }
             break;
         case 1:
         default:
-            ai_file.open("../IA/main_ai.data");
+            switch(joueur)
+            {
+                case 1:
+                    ai_file.open("../IA/main_ai_1.data");
+                    break;
+                case 2:
+                    ai_file.open("../IA/main_ai_2.data");
+                    break;
+            }
             break;
     }
     if(ai_file)
@@ -578,7 +604,7 @@ Matrix<float,1,Dynamic> Ai_main::softmax(Matrix<float,1,Dynamic> layer_values)
 {
     Matrix <float,Dynamic,Dynamic> next_layer_input(1,layer_values.cols());
     int i,j;
-    float sum=1;
+    float sum=0;
     for(j=0;j<layer_values.cols();j++)
     {
         sum += exp(layer_values(0,j));

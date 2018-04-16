@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
+#include <cmath>
 
 #define EIGEN_STACK_ALLOCATION_LIMIT 1000000
 #include "../IA/lib_eigen/Eigen/Core"
@@ -141,7 +142,7 @@ class Ai_battle : public QWidget
         
         //tests before sending signal to noyau
         //returns EXIT_SUCCES if it send the signal to noyau
-        //returns EXIT_FAILELURE else
+        //returns EXIT_FAILURE else
         int poser_atk(int main_id);
         int poser_def(int main_id);
         int switch_atk_def(int monstre_id);

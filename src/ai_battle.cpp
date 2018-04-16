@@ -50,14 +50,27 @@ void Ai_battle::save_ai()
     switch(mode)
     {
         case 2:
-            ai_file.open("../IA/learning_battle_ai_1.data");
-            break;
-        case 3:
-            ai_file.open("../IA/learning_battle_ai_2.data");
+            switch(joueur)
+            {
+                case 1:
+                    ai_file.open("../IA/learning_battle_ai_1.data");
+                    break;
+                case 2:
+                    ai_file.open("../IA/learning_battle_ai_2.data");
+                    break;
+            }
             break;
         case 1:
         default:
-            ai_file.open("../IA/battle_ai.data");
+            switch(joueur)
+            {
+                case 1:
+                    ai_file.open("../IA/battle_ai_1.data");
+                    break;
+                case 2:
+                    ai_file.open("../IA/battle_ai_2.data");
+                    break;
+            }
             break;
     }
     if(ai_file){
@@ -230,11 +243,27 @@ void Ai_battle::load_ai()
     switch(mode)
     {
         case 2:
-            ai_file.open("../IA/learning_battle_ai.data");
+            switch(joueur)
+            {
+                case 1:
+                    ai_file.open("../IA/learning_battle_ai_1.data");
+                    break;
+                case 2:
+                    ai_file.open("../IA/learning_battle_ai_2.data");
+                    break;
+            }
             break;
         case 1:
         default:
-            ai_file.open("../IA/battle_ai.data");
+            switch(joueur)
+            {
+                case 1:
+                    ai_file.open("../IA/battle_ai_1.data");
+                    break;
+                case 2:
+                    ai_file.open("../IA/battle_ai_2.data");
+                    break;
+            }
             break;
     }
     if(ai_file)
