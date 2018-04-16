@@ -587,20 +587,30 @@ void deckEdit::addCard2Deck(Carte* carte)
             indiceCarteExtraDeck == NBR_CARTE_EXTRA_DECK)
         return;
 
+    int nbrPresence = 0;
+    for(Carte* c : deck)
+    {
+        if(carte->id == c->id)
+        {
+            nbrPresence++;
+        }
+    }
+    for(Carte* c : extraDeck)
+    {
+        if(carte->id == c->id)
+        {
+            nbrPresence++;
+        }
+    }
+
+    if(nbrPresence >= 3)
+        return;
+
+
     redoList.clear();
     undoList.push_back(deck);
     undoList.back().insert( undoList.back().end(), extraDeck.begin(),
                             extraDeck.end());
-    for(std::vector<Carte*> laC : undoList)
-    {
-        qDebug() << "SAUVEGARDE:";
-
-        for(Carte* c : laC)
-        {
-            qDebug() << c->nom;
-        }
-    }
-
 
 
     switch(carte->genre)
@@ -758,6 +768,13 @@ void deckEdit::sauvegarder()
                              QMessageBox::Ok);
 }
 
+bool deckEdit::fileExists(QString path)
+{
+    QFileInfo check_file(path);
+    // check if file exists and if yes: Is it really a file and no directory?
+    return check_file.exists() && check_file.isFile();
+}
+
 void deckEdit::sauvegarderDiscretionMax()
 {
     if(!nomDeck->text().isEmpty())
@@ -772,10 +789,13 @@ void deckEdit::sauvegarderDiscretionMax()
     }
     else
     { // le deck ne porte pas de nom mais comporte des cartes
-        QMessageBox::information(this, tr("echec de la sauvegarde"),
-                                 tr("Veuillez donner un nom au deck"),
-                                     QMessageBox::Ok);
         return;
+//        newDeckName = QString(tr("Sans_Nom"))+QString.number(nrFichierSansNom);
+//        if(!(fileExists(newDeckName) && (deckName == newDeckName)))
+//        {
+//            nrFichierSansNom++;
+//        }
+
     }
 
     QString file = deckRep + newDeckName + QString(".deck");
@@ -1067,7 +1087,6 @@ void deckEdit::slotUndo()
             extraDeck.push_back(laCarteCourante);
             indiceCarteExtraDeck++;
         }
-
     }
 
     undoList.pop_back();
@@ -1080,6 +1099,10 @@ void deckEdit::slotRedo()
 {
     if(redoList.empty())
         return;
+
+    undoList.push_back(deck);
+    undoList.back().insert( undoList.back().end(), extraDeck.begin(),
+                            extraDeck.end());
 
     deck.clear();
     extraDeck.clear();

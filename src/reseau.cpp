@@ -6,6 +6,7 @@ Reseau::Reseau()
     keep = new QTcpSocket(this);
     socket->setSocketOption(QAbstractSocket::KeepAliveOption,1);
      connect(socket, SIGNAL(connected()), this, SLOT(connecte()));
+     connect(socket,SIGNAL(disconnected()),this,SLOT(deconnexionClient()));
      //connect(socket, SIGNAL(readyRead()), this, SLOT(donneesRecues()));
      connect(keep,SIGNAL(readyRead()),this,SLOT(alive()));
 }

@@ -140,7 +140,13 @@ void Noyau::donner_infos(int x)
     if(actuelle != NULL)
      {
         if((isAdv(x) && actuelle->etat !=VERSO) || !isAdv(x))
-       { emit give_infos(actuelle->nom,actuelle->attribut,actuelle->niveau,actuelle->image,actuelle->type,actuelle->description,actuelle->atk,actuelle->def);
+       {
+            if(actuelle->genre == 1)
+                 {
+                emit give_infos(actuelle->nom,-1,actuelle->niveau,actuelle->image,actuelle->type,actuelle->description,actuelle->atk,actuelle->def);
+            }
+            else
+             emit give_infos(actuelle->nom,actuelle->attribut,actuelle->niveau,actuelle->image,actuelle->type,actuelle->description,actuelle->atk,actuelle->def);
         std::cout << "j'émit les infos : " << actuelle->nom.toStdString() << "GENRE:" << actuelle->genre << " " << actuelle->attribut << actuelle->niveau << actuelle->image.toStdString() << actuelle->type << actuelle->description.toStdString() << actuelle->atk << actuelle->def << std::endl;
 
         }
@@ -166,6 +172,13 @@ void Noyau::piocher(int x)
     int dans_main = perfect_position(0);
     // std::cout << "id:"<< d1->front()->id << " je pose en " << dans_main << std::endl;
     // std::cout << "adresse : " << d1->front() << " id:"<< d1->front()->id << " je pose en " << dans_main << std::endl;
+    if((d1==NULL) || (d1->size()==0))
+    {
+        emit sendInfo(QString(tr("Je ne peux plus piocher")));
+            emit je_perds();
+            return;
+    }
+
     d1->front()->position_terrain = dans_main;
     terrain->push_back(d1->front());
 
@@ -183,6 +196,12 @@ void Noyau::piocher(int x)
     }
     else
     {
+        if((d2==NULL) || (d2->size()==0))
+        {
+                emit sendInfo(QString(tr("L'adversaire ne peut plus piocher")));
+                emit je_gagne();
+                return;
+        }
         if(tour!=0)
         emit sendInfo("L'adversaire a pioché");
     std::cout << "le traitement du piochage adverse en cours " << std::endl;
@@ -330,6 +349,7 @@ int Noyau::perfect_magie(int zone)
 void Noyau::poser_test(int x)
 {
     //le if doit être mieux géré negrion
+    std::cout << "t'as cliqué sur " << x << std::endl;
     if(!isAdv(x) && isHand(x) && trouver(x)!=NULL && (trouver(x)->genre==0) && can_poser() && (perfect_terrain(0)!=-1))
     {
         registre_0 = x;
@@ -349,6 +369,7 @@ void Noyau::poser_test(int x)
     }
     else if(!isAdv(x) && isMagic(x) && trouver(x)!=NULL && can_activate())
     {
+        std::cout << "je vais activer " << x << std::endl;
         activer(x);
     }
 }
@@ -421,6 +442,7 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
 
         }
         la_carte->position_terrain=terrain_x;
+        std::cout << "la position final est " << la_carte->position_terrain << std::endl;
          la_carte->pos = def;
          if(vis)
              la_carte->etat = RECTO;
@@ -557,13 +579,44 @@ void Noyau::attaquerSlot(int atk,int def)
 
 void Noyau::activer(int x)
 {
-    Carte * carte = trouver(x);
-    switch(carte->effet)
+    std::stringstream ss1;
+    Carte* carte = trouver(x);
+    if(carte == NULL)
     {
-    case 0:
-        break;
-    default:
-        break;
+        std::cout << "t'es con la carte à la position " << x << " existe pas" << std::endl;
+        return;
+    }
+    else
+    {
+        std::cout << "l'id est "<< carte->id << " et l'effet est " << carte->effet << std::endl;
+    }
+    if(x<75)
+    {
+        switch(carte->effet)
+        {
+        case 0:
+           emit sendInfo(QString(tr("J'active pot de cupidité")));
+            ss1 << "act/" << Carte::correspondant(x);
+            emit tiens(QString::fromStdString(ss1.str()));
+            piocher(1);
+            piocher(1);
+            break;
+        default:
+            break;
+        }
+    }
+    else
+    {
+        switch(carte->effet)
+        {
+        case 0:
+           emit sendInfo(QString(tr("L'adversaire active pot de cupidité")));
+            piocher(76);
+            piocher(76);
+            break;
+        default:
+            break;
+        }
     }
 }
 
@@ -1247,16 +1300,16 @@ void Noyau::traiter(QString s)
          delete(arg);
          emit giveLife(selfLife);
          piocher(1);
-           piocher(1);
-             piocher(1);
-               piocher(1);
-                 piocher(1);
-                 piocher(76);
-                  piocher(76);
-                   piocher(76);
-                    piocher(76);
-                     piocher(76);
-                     piocher(1);
+         piocher(1);
+         piocher(1);
+         piocher(1);
+         piocher(1);
+         piocher(76);
+         piocher(76);
+         piocher(76);
+         piocher(76);
+         piocher(76);
+         piocher(1);
 
          emit beginTour();
          lockTick=true;
@@ -1269,6 +1322,32 @@ void Noyau::traiter(QString s)
     {
         chargerDeck(0);
         //deckAdverse(0);
+    }
+    else if(s.startsWith("act/"))
+    {
+
+
+        int carte = -1;
+        char * arg = new char[s.length()+1];
+           std::strcpy(arg,s.toStdString().c_str());
+         char * parcourir = std::strtok(arg,"/");
+         char * vrai = parcourir;
+         while(parcourir!=NULL)
+         {
+             std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+             if(!QString(vrai).startsWith(QString("act")))
+             {
+                    std::cout << "CARTE VA PRENDRE UNE VALEUR:" << atoi(parcourir) << std::endl;
+                    carte = atoi(parcourir);
+             }
+            parcourir = std::strtok(NULL,"/");
+            if(parcourir!=NULL)
+                vrai = parcourir;
+         }
+         delete(arg);
+         std::cout << "carte a la valeur final:" << carte << std::endl;
+         activer(carte);
+
     }
 
 }
