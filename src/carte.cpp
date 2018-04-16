@@ -54,10 +54,10 @@ void Carte::afficher_infos()
 Carte* Carte::copie()
 {
     return new Carte(this->id,this->atk,this->def,this->pos,this->nom,this->image,this->etat,this->genre,this->type,this->sous_type,this->attribut,this->description,this->niveau,
-                     this->set,this->position_deck,this->position_terrain);
+                     this->effet,this->set,this->position_deck,this->position_terrain);
 }
 
-Carte::Carte(int id,int atk,int def,bool pos,QString nom,QString image,Etat etat,int genre,Type type,int sous_type,Attribut attribut,QString description,int niveau,int set,int position_deck,int position_terrain)
+Carte::Carte(int id,int atk,int def,bool pos,QString nom,QString image,Etat etat,int genre,Type type,int sous_type,Attribut attribut,QString description,int niveau,int effet,int set,int position_deck,int position_terrain)
 {
     this->id = id;
     this->atk = atk;
@@ -74,7 +74,7 @@ Carte::Carte(int id,int atk,int def,bool pos,QString nom,QString image,Etat etat
     this-> attribut = attribut; // (lumière,feu,...)
     this->description = description;
     this->niveau = niveau;
-
+    this->effet=effet;
     this->set=set;
     this->position_deck = position_deck;
     this->position_terrain = position_terrain;

@@ -47,7 +47,7 @@ public:
     Field();
     ~Field();
     void init();
-    void resizeEvent(QResizeEvent* event);
+//    void resizeEvent(QResizeEvent* event);
 
 public slots:
 
@@ -107,7 +107,7 @@ signals:
 
 private:
 
-    void resizeVictor();
+//    void resizeVictor();
     void dealWithHand(int);
 
     void cardOut();
