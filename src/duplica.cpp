@@ -263,17 +263,17 @@ void Duplica::setAttr (int x){
 	if (x == -1){
 
 	    titleBox -> setStyleSheet( "#replicaTitleBox {"
-    	    "background: #FDD835;"
+    	    "background: #00897B;"
         	"border-left: 3px solid #88ff88;"
 	        "border-top: 3px solid #88ff88;"
     	"}");
     
 	    descBox -> setStyleSheet(
-    	    "border: 3px solid #795548;"
-        	"background: #004D40;"
+    	    "border: 3px solid #004D40;"
+        	"background: #80CBC4;"
 	    );
 
-    	setStyleSheet("background: #FDD835");
+    	setStyleSheet("background: #00897B");
 
 
 
