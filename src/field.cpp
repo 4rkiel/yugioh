@@ -690,6 +690,9 @@ void Field::cardHover (
 	if (level > 0){
 		fullCard -> setType(type);
     	fullCard -> setStat(QString::number(atk), QString::number(def));
+	} else {
+		fullCard -> hideType();
+		fullCard -> hideStat();
 	}
 
 

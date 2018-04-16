@@ -349,6 +349,11 @@ void Duplica::setPic (QString str){
 void Duplica::setType (int x){
 
     type -> setText("[" + QString::number(x) + "]");
+	type -> setVisible(true);
+}
+
+void Duplica::hideType (){
+	type -> setVisible(false);
 }
 
 void Duplica::setDesc (QString str){
@@ -359,8 +364,12 @@ void Duplica::setDesc (QString str){
 void Duplica::setStat (QString strAtk, QString strDef){
     
     atk -> setText("ATK " + strAtk + "/ DEF " + strDef);
+	atk -> setVisible(true);
 }
 
+void Duplica::hideStat (){
+	atk -> setVisible(false);
+}
 
 //void Duplica::resizeEvent (QResizeEvent*){
  
