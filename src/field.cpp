@@ -1,5 +1,5 @@
 #include "../inc/field.h"
-
+#include <QScrollBar>
 /******************************************************************************
 
 Widget implémentant le plateau de jeu
@@ -206,16 +206,11 @@ Field::Field () {
             advLayout -> setMargin(0);
             advLayout -> setContentsMargins(0,5,0,10);
 
-                advScroll = new QScrollArea;
-                advScroll -> setFrameShape(QFrame::NoFrame);
-                advScroll -> setWidgetResizable(true);
-                advScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-                advScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-                advScroll -> setFocusPolicy(Qt::NoFocus);
-
-
                 advHand = new QWidget;
                 advHand -> setObjectName("advHand");
+                advHand -> setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
+                advHand -> setMinimumHeight(10);
+
                 advHandLayout = new QHBoxLayout;
                 advHandLayout -> setMargin(0);
                 advHandLayout -> setSpacing(0);
@@ -229,8 +224,7 @@ Field::Field () {
 
                 
                 advHand -> setLayout(advHandLayout);
-                advScroll -> setWidget(advHand);
-                advLayout -> addWidget(advScroll, 0,0,1,1);
+                advLayout -> addWidget(advHand, 0,0,1,1);
 
                 advMagic = new QWidget;
                 advMagic -> setObjectName("advMagic");
@@ -263,6 +257,10 @@ Field::Field () {
                
                 advMonst -> setLayout(advMonstLayout);
                 advLayout -> addWidget(advMonst,2,0,1,1);
+
+                advLayout -> setRowStretch(0,1);
+                advLayout -> setRowStretch(1,2);
+                advLayout -> setRowStretch(2,2);
 
             advBox -> setLayout(advLayout);
             arenaLayout -> addWidget(advBox, 0,0,1,1);
@@ -316,10 +314,15 @@ Field::Field () {
                 slfScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
                 slfScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
                 slfScroll -> setFocusPolicy(Qt::NoFocus);
+                slfScroll -> setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Minimum);
+                slfScroll -> setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+                slfScroll -> setMinimumHeight(10);
 
 
                 slfHand = new QWidget;
                 slfHand -> setObjectName("slfHand");
+                slfHand -> setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Expanding);
+                
                 slfHandLayout = new QHBoxLayout;
                 slfHandLayout -> setMargin(0);
                 slfHandLayout -> setSpacing(0);
@@ -335,8 +338,14 @@ Field::Field () {
                 slfScroll -> setWidget(slfHand);
                 slfLayout -> addWidget(slfScroll, 2,0,1,1);
 
+                slfLayout -> setRowStretch(0,2);
+                slfLayout -> setRowStretch(1,2);
+                slfLayout -> setRowStretch(2,3);
+            
             slfBox -> setLayout(slfLayout);
             arenaLayout -> addWidget(slfBox, 1,0,1,1);
+            arenaLayout -> setRowStretch(0,5);
+            arenaLayout -> setRowStretch(1,7);
 
         arenaBox -> setLayout(arenaLayout);
         
@@ -440,7 +449,6 @@ Field::~Field (){
 
                 delete advHandLayout;
                 delete advHand;
-                delete advScroll;
                 
                 delete advMagicLayout;
                 delete advMagic;
@@ -538,6 +546,8 @@ void Field::init(){
         }
     }
 
+    resizeVictor();
+
     chat -> goFocus();
 }
 
@@ -620,7 +630,6 @@ void Field::abandonFocus(){
 
 void Field::previewClicked(){
 
-	std::cout << "yolo\n";
     if (!lockPreview){
 
         lockPreview = true;
@@ -885,47 +894,83 @@ void Field::reveal(QString str, int x){
 
 void Field::dealWithHand(int k){
 
-    std::cout << "yoooooooooooooooooooooooo " << k << "\n";
-
     if (fieldStack -> at(k) == nullptr){
         
         fieldStack -> at(k) = new SlotCard(k);
         
         if (k >= 14 && k < 75){
             slfHandLayout -> addWidget(fieldStack -> at(k));
-        } else {
-            advHandLayout -> addWidget(fieldStack -> at(k));
+
+            connect(
+                fieldStack -> at(k), SIGNAL(leftClick(int)),
+                this, SLOT(cardClicked(int))
+            );
+
+            connect(
+                fieldStack -> at(k), SIGNAL(rightClick(int)),
+                this, SLOT(cardRightClicked(int))
+            );
+
+            connect(
+                fieldStack -> at(k), SIGNAL(doubleClick(int)),
+                this, SLOT(cardDoubleClicked(int))
+            );
+
+            connect(
+                fieldStack -> at(k), SIGNAL(entered(int)),
+                this, SLOT(cardEntered(int))
+            );
+
+            connect(
+                fieldStack -> at(k), SIGNAL(leaved(int)),
+                this, SLOT(cardLeaved())
+            );
+
+            connect(
+                fieldStack->at(k), SIGNAL(rcvQuit()), 
+                popup, SLOT(openQuit())
+            );
+
+            resizeVictor();
+
         }
-
-        connect(
-            fieldStack -> at(k), SIGNAL(leftClick(int)),
-            this, SLOT(cardClicked(int))
-        );
-
-        connect(
-            fieldStack -> at(k), SIGNAL(rightClick(int)),
-            this, SLOT(cardRightClicked(int))
-        );
-
-        connect(
-            fieldStack -> at(k), SIGNAL(doubleClick(int)),
-            this, SLOT(cardDoubleClicked(int))
-        );
-
-        connect(
-            fieldStack -> at(k), SIGNAL(entered(int)),
-            this, SLOT(cardEntered(int))
-        );
-
-        connect(
-            fieldStack -> at(k), SIGNAL(leaved(int)),
-            this, SLOT(cardLeaved())
-        );
-
-        connect(
-            fieldStack->at(k), SIGNAL(rcvQuit()), 
-            popup, SLOT(openQuit())
-        );
     }
+
 }
 
+
+void Field::resizeEvent(QResizeEvent* event){
+    
+    QWidget::resizeEvent(event);
+
+    resizeVictor();
+}
+
+
+void Field::resizeVictor(){
+
+    int v = 0;
+
+    for(int k=14; k<75; k++){
+        if ( fieldStack -> at(k) != nullptr){
+            v++; 
+        }
+    }
+
+    if (v > 7){
+
+        int x = (fieldStack -> at(0) -> width());
+        
+        for(int k=14; k<75; k++){
+            if ( fieldStack -> at(k) != nullptr){
+  
+                fieldStack -> at(k) -> setMinimumWidth(x);
+                fieldStack -> at(k) -> resize(x, fieldStack -> at(k) -> height());
+
+            }
+        }
+
+//        slfHand -> repaint(); 
+//        slfHand -> update(); 
+    }
+}

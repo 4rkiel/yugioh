@@ -47,7 +47,7 @@ public:
     Field();
     ~Field();
     void init();
-
+    void resizeEvent(QResizeEvent* event);
 
 public slots:
 
@@ -106,7 +106,8 @@ signals:
 
 
 private:
-    
+
+    void resizeVictor();
     void dealWithHand(int);
 
     void cardOut();
@@ -159,7 +160,6 @@ private:
             QWidget * advBox;
             QGridLayout * advLayout;
                 
-                QScrollArea * advScroll;
                 QWidget * advHand;
                 QHBoxLayout * advHandLayout;
                
