@@ -141,7 +141,7 @@ void Noyau::donner_infos(int x)
      {
         if((isAdv(x) && actuelle->etat !=VERSO) || !isAdv(x))
        {
-            if(isMagic(x))
+            if(actuelle->genre == 1)
                  {
                 emit give_infos(actuelle->nom,-1,actuelle->niveau,actuelle->image,actuelle->type,actuelle->description,actuelle->atk,actuelle->def);
             }
