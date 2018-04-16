@@ -768,6 +768,13 @@ void deckEdit::sauvegarder()
                              QMessageBox::Ok);
 }
 
+bool deckEdit::fileExists(QString path)
+{
+    QFileInfo check_file(path);
+    // check if file exists and if yes: Is it really a file and no directory?
+    return check_file.exists() && check_file.isFile();
+}
+
 void deckEdit::sauvegarderDiscretionMax()
 {
     if(!nomDeck->text().isEmpty())
@@ -782,10 +789,13 @@ void deckEdit::sauvegarderDiscretionMax()
     }
     else
     { // le deck ne porte pas de nom mais comporte des cartes
-        QMessageBox::information(this, tr("echec de la sauvegarde"),
-                                 tr("Veuillez donner un nom au deck"),
-                                     QMessageBox::Ok);
         return;
+//        newDeckName = QString(tr("Sans_Nom"))+QString.number(nrFichierSansNom);
+//        if(!(fileExists(newDeckName) && (deckName == newDeckName)))
+//        {
+//            nrFichierSansNom++;
+//        }
+
     }
 
     QString file = deckRep + newDeckName + QString(".deck");

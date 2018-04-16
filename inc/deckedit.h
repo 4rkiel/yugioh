@@ -24,6 +24,7 @@
 #include <QMessageBox>
 #include <QStringListModel>
 #include <QGraphicsDropShadowEffect>
+#include <QFileInfo>
 
 #include "carte.h"
 #include "parser.h"
@@ -197,6 +198,8 @@ class deckEdit : public QFrame {
         QSizePolicy sp_retain_choixGenre;
         QSizePolicy sp_retain_cachay;
 
+        bool fileExists(QString path);
+        int nrFichierSansNom = 0;
 signals:
 
     public slots:
