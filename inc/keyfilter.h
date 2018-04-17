@@ -9,6 +9,7 @@
 #include <sstream>
 #include <QKeyEvent>
 #include <QLineEdit>
+#include "slotCard.h"
 
 class Keyfilter : public QObject {
 

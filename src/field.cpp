@@ -412,17 +412,10 @@ Field::Field () {
     shortcut->setContext(Qt::WidgetShortcut);
     connect(shortcut, SIGNAL(activated()), popup, SLOT(openQuit()));
 
-    for (int k=0; k<150; k++){
-        if (fieldStack -> at(k) != nullptr){
-            connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()),Qt::UniqueConnection);
-            connect(fieldStack->at(k), SIGNAL(mvUp()), this, SLOT(moveUp()),Qt::UniqueConnection);
-            connect(fieldStack->at(k), SIGNAL(mvDown()), this, SLOT(moveDown()),Qt::UniqueConnection);
-            connect(fieldStack->at(k), SIGNAL(mvLeft()), this, SLOT(moveLeft()),Qt::UniqueConnection);
-            connect(fieldStack->at(k), SIGNAL(mvRight()), this, SLOT(moveRight()),Qt::UniqueConnection);
-            connect(fieldStack->at(k), SIGNAL(swChat()), this, SLOT(switchChat()),Qt::UniqueConnection);
-        }
-    }
-    
+    //key shortcut
+    shortcut2 = new QShortcut(QKeySequence("Enter"), this);
+    shortcut2->setContext(Qt::WidgetShortcut);
+    connect(shortcut2, SIGNAL(activated()), this, SLOT(right));
     
     setLayout(layout);
 
@@ -553,6 +546,18 @@ void Field::init(){
      temp=fieldStack -> at(14);
      temp->setFocus();
 //    resizeVictor();
+
+     for (int k=0; k<150; k++){
+         if (fieldStack -> at(k) != nullptr){
+             connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(mvUp()), this, SLOT(moveUp()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(mvDown()), this, SLOT(moveDown()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(mvLeft()), this, SLOT(moveLeft()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(mvRight()), this, SLOT(moveRight()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(swChat()), this, SLOT(switchChat()),Qt::UniqueConnection);
+         }
+     }
+
 
 }
 
