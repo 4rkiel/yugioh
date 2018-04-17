@@ -43,6 +43,7 @@ public:
     std::vector<Carte *> * rechercher_niveau(int n,std::vector<Carte *> * arg);
 
     std::vector<Carte *> * deck(QString s);
+    std::vector<Carte *> * extradeck(QString s);
 
     void parser(std::string ligne);
 };

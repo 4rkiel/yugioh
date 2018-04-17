@@ -12,8 +12,12 @@ Noyau::Noyau()
     cimetiere2 = new std::vector<Carte *>();
     d1=NULL;
     d2=NULL;
+    extradeck1 = NULL;
+    extradeck2 = NULL;
     alreadyAtk = new std::vector<int>();
     alreadyMoved = new std::vector<int>();
+    alreadyPosed = false;
+
 }
 
 void Noyau::init()
@@ -84,7 +88,9 @@ connect(this,SIGNAL(switch_pos(int)),res,SLOT(change_pos(int)));
 void Noyau::chargerDeck(int x)
 {
 Parser * yolo = new Parser();
-d1 = yolo->rechercher_set(x,NULL);
+//d1 = yolo->rechercher_set(0,NULL);
+d1 = yolo->deck("deck/Sans_Nom2.deck");
+extradeck1 = yolo->extradeck("deck/Sans_Nom2.deck");
 std::random_shuffle(d1->begin(),d1->end());
 std::cout << "je shuffle d1" << std::endl;
 QString message = "";
@@ -95,6 +101,16 @@ for(i=0;i<(signed)d1->size();i++)
     std::stringstream ss1;
     ss1 << "/" << d1->at(i)->id;
     message.append(QString::fromStdString(ss1.str()));
+}
+if(extradeck1!=NULL)
+{
+    message.append("/extra:");
+    for(i=0;i<(signed)extradeck1->size();i++)
+    {
+        std::stringstream ss1;
+        ss1 << "/" << extradeck1->at(i)->id;
+        message.append(QString::fromStdString(ss1.str()));
+    }
 }
 emit tiens(message);
 /*int i;
@@ -353,36 +369,38 @@ void Noyau::poser_test(int x)
     //le if doit être mieux géré negrion
     std::cout << "t'as cliqué sur " << x << std::endl;
     Carte * la_carte = trouver(x);
-    if(la_carte == NULL)
+    if(la_carte == NULL || isAdv(x))
         return;
-    if(can_poser() && !alreadyPosed && !isAdv(x) && isHand(x) && (la_carte->genre==0) && (la_carte->niveau<5)   && (perfect_terrain(0)!=-1))
+    if(can_poser() && !alreadyPosed && isHand(x) && (la_carte->genre==0) && (la_carte->niveau<5)   && (perfect_terrain(0)!=-1))
     {
         registre_0 = x;
         emit dialogue();
     }
-    else if(can_poser() && !alreadyPosed && !isAdv(x) && isHand(x) && (la_carte->genre==0) && (la_carte->niveau<7)   && (perfect_terrain(0)!=-1))
+    else if(can_poser() && !alreadyPosed && isHand(x) && (la_carte->genre==0) && (la_carte->niveau<7)   && (perfect_terrain(0)!=-1))
     {
         registre_0 = x;
+        std::cout << "Il faut un sacrifice" << std::endl;
         emit dialogueSac1();
     }
-    else if(can_poser() && !alreadyPosed && !isAdv(x) && isHand(x) && (la_carte->genre==0)  && (perfect_terrain(0)!=-1))
+    else if(can_poser() && !alreadyPosed && isHand(x) && (la_carte->genre==0)  && (perfect_terrain(0)!=-1))
     {
         registre_0 = x;
+        std::cout << "Il faut deux sacrifices" << std::endl;
         emit dialogueSac2();
     }
-    else if(can_poser() && !isAdv(x) && isHand(x) && (la_carte->genre==1 || la_carte->genre==2) && (perfect_magie(0)!=-1))
+    else if(can_poser() && isHand(x) && (la_carte->genre==1 || la_carte->genre==2) && (perfect_magie(0)!=-1))
     {
        registre_0 = x;
        emit dialogueMagi();
     }
-    else if(can_switch() && !isAdv(x) && isMonst(x)  && !contient(alreadyMoved,x) && !contient(alreadyAtk,x))
+    else if(can_switch() && isMonst(x)  && !contient(alreadyMoved,x) && !contient(alreadyAtk,x))
     {
         switch_position(x);
         std::stringstream s1;
         s1 << "swap/" << Carte::correspondant(x);
         emit tiens(QString::fromStdString(s1.str()));
     }
-    else if(!isAdv(x) && isMagic(x) && trouver(x)!=NULL && can_activate())
+    else if(isMagic(x) && trouver(x)!=NULL && can_activate())
     {
         std::cout << "je vais activer " << x << std::endl;
         activer(x);
@@ -1436,10 +1454,12 @@ void Noyau::traiter(QString s)
     }
     else if(s.startsWith("adeck:"))
     {
+        bool extra = false;
         std::cout << "JE TRAITE LE MESSAGE DU SERVEUR" << std::endl;
         Parser * yolo = new Parser();
         d1 = new std::vector<Carte *>();
         d2 = new std::vector<Carte *>();
+        extradeck2 = new std::vector<Carte *>();
         char * arg = new char[s.length()+1];
            std::strcpy(arg,s.toStdString().c_str());
          char * parcourir = std::strtok(arg,"/");
@@ -1452,23 +1472,46 @@ void Noyau::traiter(QString s)
              //std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
              if(!vrai.startsWith(QString("adeck")))
              {
-             for(i=0;i<(signed)yolo->all_cards->size();i++)
-                        {
-                            if(yolo->all_cards->at(i)->id == atoi(parcourir))
-                            {
-                                  d2->push_back((yolo->all_cards->at(i))->copie());
-                                  break;
-                            }
-                        }
+                 if(vrai.contains("extra"))
+                 {
+                     extra = true;
+                 }
+                 else if(!extra)
+                 {
+                     for(i=0;i<(signed)yolo->all_cards->size();i++)
+                                {
+                                    if(yolo->all_cards->at(i)->id == atoi(parcourir))
+                                    {
+                                          d2->push_back((yolo->all_cards->at(i))->copie());
+                                          break;
+                                    }
+                                }
+                 }
+                else
+                 {
+                     for(i=0;i<(signed)yolo->all_cards->size();i++)
+                                {
+                                    if(yolo->all_cards->at(i)->id == atoi(parcourir))
+                                    {
+                                          extradeck2->push_back((yolo->all_cards->at(i))->copie());
+                                          break;
+                                    }
+                                }
+                 }
                }
              parcourir = std::strtok(NULL,"/");
              if(parcourir!=NULL)
             vrai = QString(parcourir);
           }
-
+        if(extradeck2->size()==0)
+        {
+            delete(extradeck2);
+            extradeck2=NULL;
+        }
 
          delete(arg);
          d1 = yolo->rechercher_set(0,NULL);
+         extradeck1 = yolo->extradeck("deck/Sans_Nom2.deck");
          std::random_shuffle(d1->begin(),d1->end());
          std::cout << "je shuffle d1" << std::endl;
          QString message = "";
@@ -1479,6 +1522,16 @@ void Noyau::traiter(QString s)
              ss1 << "/" << d1->at(i)->id;
              message.append(QString::fromStdString(ss1.str()));
          }
+         if(extradeck1!=NULL)
+         {
+             message.append("/extra:");
+             for(i=0;i<(signed)extradeck1->size();i++)
+             {
+                 std::stringstream ss1;
+                 ss1 << "/" << extradeck1->at(i)->id;
+                 message.append(QString::fromStdString(ss1.str()));
+             }
+         }
          emit tiens(message);
          //piocher(1);
         // piocher(76);
@@ -1486,9 +1539,11 @@ void Noyau::traiter(QString s)
     }
     else if(s.startsWith("sdeck:"))
     {
+        bool extra = false;
         std::cout << "JE TRAITE LE MESSAGE DU CLIENT" << std::endl;
         Parser * yolo = new Parser();
         d2 = new std::vector<Carte *>();
+        extradeck2 = new std::vector<Carte *>();
         char * arg = new char[s.length()+1];
            std::strcpy(arg,s.toStdString().c_str());
          char * parcourir = std::strtok(arg,"/");
@@ -1496,7 +1551,7 @@ void Noyau::traiter(QString s)
          if(parcourir!=NULL)
           vrai = QString(parcourir);
          int i;
-         while(parcourir!=NULL)
+        /* while(parcourir!=NULL)
          {
              //std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
              if(!vrai.startsWith(QString("adeck")))
@@ -1513,7 +1568,48 @@ void Noyau::traiter(QString s)
              parcourir = std::strtok(NULL,"/");
              if(parcourir!=NULL)
             vrai = QString(parcourir);
+          }*/
+         while(parcourir!=NULL)
+         {
+             //std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+             if(!vrai.startsWith(QString("adeck")))
+             {
+                 if(vrai.contains("extra"))
+                 {
+                     extra = true;
+                 }
+                 else if(!extra)
+                 {
+                     for(i=0;i<(signed)yolo->all_cards->size();i++)
+                                {
+                                    if(yolo->all_cards->at(i)->id == atoi(parcourir))
+                                    {
+                                          d2->push_back((yolo->all_cards->at(i))->copie());
+                                          break;
+                                    }
+                                }
+                 }
+                else
+                 {
+                     for(i=0;i<(signed)yolo->all_cards->size();i++)
+                                {
+                                    if(yolo->all_cards->at(i)->id == atoi(parcourir))
+                                    {
+                                          extradeck2->push_back((yolo->all_cards->at(i))->copie());
+                                          break;
+                                    }
+                                }
+                 }
+               }
+             parcourir = std::strtok(NULL,"/");
+             if(parcourir!=NULL)
+            vrai = QString(parcourir);
           }
+        if(extradeck2->size()==0)
+        {
+            delete(extradeck2);
+            extradeck2=NULL;
+        }
 
 
          delete(arg);
@@ -1561,18 +1657,18 @@ void Noyau::traiter(QString s)
           lockTick=true;
           mon_tour=false;
 
-              piocher(1);
-                piocher(1);
-                  piocher(1);
-                    piocher(1);
-                      piocher(1);
-                      piocher(76);
-                       piocher(76);
-                        piocher(76);
-                         piocher(76);
-                          piocher(76);
-                          piocher(76);
-                          emit sendInfo("La partie commence !");
+          piocher(1);
+          piocher(1);
+          piocher(1);
+          piocher(1);
+          piocher(1);
+          piocher(76);
+          piocher(76);
+          piocher(76);
+          piocher(76);
+          piocher(76);
+          piocher(76);
+          emit sendInfo("La partie commence !");
           emit sendInfo("Main Phase 1");
     }
     else if(s.startsWith("slife/"))
