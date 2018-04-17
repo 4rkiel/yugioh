@@ -36,6 +36,7 @@ public:
 
     std::vector<int> * alreadyMoved;
     std::vector<int> * alreadyAtk;
+    bool alreadyPosed=false;
 
     int nbrTick=0;
     bool lockTick = false;

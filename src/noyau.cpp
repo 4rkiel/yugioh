@@ -352,7 +352,7 @@ void Noyau::poser_test(int x)
 {
     //le if doit être mieux géré negrion
     std::cout << "t'as cliqué sur " << x << std::endl;
-    if(can_poser() && !isAdv(x) && isHand(x) && trouver(x)!=NULL && (trouver(x)->genre==0)  && (perfect_terrain(0)!=-1))
+    if(can_poser() && !alreadyPosed && !isAdv(x) && isHand(x) && trouver(x)!=NULL && (trouver(x)->genre==0)  && (perfect_terrain(0)!=-1))
     {
         registre_0 = x;
         emit dialogue();
@@ -384,7 +384,7 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
     Carte * la_carte;
     if(main_x < 75)
     {
-        if(can_poser())
+        if(can_poser() )
             {std::cout << "je traite mon posage" << std::endl;
             /*for(i=0;i<(signed)terrain->size();i++)
             {
@@ -429,6 +429,8 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
                 std::cout << "j'envois message:" << message.toStdString() << std::endl;
                 emit tiens(message);
             }
+            if(la_carte->genre==0)
+                alreadyPosed=true;
         }
     }
     else
@@ -890,6 +892,7 @@ void Noyau::phase_suivante()
 {
     if(phase==2)
     {
+        alreadyPosed=false;
         alreadyMoved->clear();
         alreadyAtk->clear();
         mon_tour = !mon_tour;
