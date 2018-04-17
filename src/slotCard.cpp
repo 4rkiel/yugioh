@@ -376,7 +376,7 @@ void SlotCard::rightClicked(){
 }
 
 void SlotCard::leftClicked(){
-	emit leftClick(posi);
+    emit leftClick(posi);
 }
 
 void SlotCard::enterEvent(QEvent * event){

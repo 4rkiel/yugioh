@@ -411,11 +411,6 @@ Field::Field () {
     shortcut = new QShortcut(QKeySequence("Escape"), this);
     shortcut->setContext(Qt::WidgetShortcut);
     connect(shortcut, SIGNAL(activated()), popup, SLOT(openQuit()));
-
-    //key shortcut
-    shortcut2 = new QShortcut(QKeySequence("Enter"), this);
-    shortcut2->setContext(Qt::WidgetShortcut);
-    connect(shortcut2, SIGNAL(activated()), this, SLOT(right));
     
     setLayout(layout);
 
@@ -1114,6 +1109,7 @@ void Field::switchChat(){
 
 void Field::switchField(){
     fieldStack->at(14)->setFocus();
+    slfScroll->horizontalScrollBar()->setValue(0);
 }
 
 /*
