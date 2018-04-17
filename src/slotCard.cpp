@@ -163,6 +163,11 @@ SlotCard::SlotCard (int p){
     shortcut8 = new QShortcut(QKeySequence("Enter"), this);
     shortcut8->setContext(Qt::WidgetWithChildrenShortcut);
     connect(shortcut8, SIGNAL(activated()), this, SLOT(rightClicked()));
+
+    //raccourci espace
+    shortcut9 = new QShortcut(QKeySequence(Qt::Key_Space), this);
+    shortcut9->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(shortcut9, SIGNAL(activated()), this, SLOT(leftClicked()));
 }
 
 
@@ -177,6 +182,7 @@ SlotCard::~SlotCard (){
     delete shortcut6;
     delete shortcut7;
     delete shortcut8;
+    delete shortcut9;
     delete scaleAnim;
     delete rotAnim;
 

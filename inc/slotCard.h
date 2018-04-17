@@ -86,6 +86,7 @@ private:
     QShortcut* shortcut6;
     QShortcut* shortcut7;
     QShortcut* shortcut8;
+    QShortcut* shortcut9;
 
     QGridLayout * layout;
 

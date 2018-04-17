@@ -985,13 +985,16 @@ void Field::moveUp(){
                             fieldStack -> at(14+(k-89)) -> setFocus();
                         else
                             fieldStack -> at(20) ->setFocus();
+                        slfScroll->horizontalScrollBar()->setValue(0);
                     }
                     if(k>=75 && k<=88)
                         fieldStack -> at(k+7) -> setFocus();
-                    if(k>=14 && k<=20)
+                    if(k>=14 && k<=20){
                         fieldStack -> at(k-7) -> setFocus();
-                    if(k>=21&&k<=74)
-                        fieldStack -> at(13) -> setFocus();
+                    }
+                    if(k>=21&&k<=74){
+                        fieldStack -> at(12) -> setFocus();
+                    }
 
                     return;
 
@@ -1006,12 +1009,18 @@ void Field::moveDown(){
         for (int k=0; k<150; k++){
             if (fieldStack -> at(k) != nullptr){
                 if(fieldStack->at(k)==static_cast<SlotCard*>(qApp->focusObject())){
-                    if(k<=13)
+                    if(k<=6)
                         fieldStack -> at(k+7) -> setFocus();
-                    if(k>=14 && k<=20)
+                    if(k>=7 && k<=13){
+                        fieldStack -> at(k+7) -> setFocus();
+                        slfScroll->horizontalScrollBar()->setValue(0);
+                    }
+                    if(k>=14 && k<=20){
                         fieldStack -> at(89+(k-14)) -> setFocus();
-                    if(k>20)
+                    }
+                    if(k>20){
                         fieldStack -> at(95) -> setFocus();
+                    }
                     if(k>=75 && k<=81)
                         fieldStack -> at(k-75) -> setFocus();
                     if(k>=82 && k<=88)
@@ -1055,7 +1064,7 @@ void Field::moveLeft(){
                         fieldStack -> at(95) -> setFocus();
                     if(k>=15 && k<75){
                         fieldStack -> at(k-1) -> setFocus();
-                        slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() - 30);
+                        slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() - fieldStack -> at(14) ->width());
                     }
                     if(k>=90 && k<=150){
                         fieldStack -> at(k-1) -> setFocus();
@@ -1080,7 +1089,7 @@ void Field::moveRight(){
                     if(k>=14 && k<=75){
                         if(fieldStack->at(k+1) != nullptr){
                             fieldStack -> at(k+1) ->setFocus();
-                            slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() + 30);
+                            slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() + fieldStack -> at(14) ->width());
                         }
                         else{
                             fieldStack -> at(14) ->setFocus();
