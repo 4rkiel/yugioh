@@ -352,17 +352,30 @@ void Noyau::poser_test(int x)
 {
     //le if doit être mieux géré negrion
     std::cout << "t'as cliqué sur " << x << std::endl;
-    if(can_poser() && !alreadyPosed && !isAdv(x) && isHand(x) && trouver(x)!=NULL && (trouver(x)->genre==0)  && (perfect_terrain(0)!=-1))
+    Carte * la_carte = trouver(x);
+    if(la_carte == NULL)
+        return;
+    if(can_poser() && !alreadyPosed && !isAdv(x) && isHand(x) && (la_carte->genre==0) && (la_carte->niveau<5)   && (perfect_terrain(0)!=-1))
     {
         registre_0 = x;
         emit dialogue();
     }
-    else if(can_poser() && !isAdv(x) && isHand(x) && trouver(x)!=NULL && (trouver(x)->genre==1 || trouver(x)->genre==2) && (perfect_magie(0)!=-1))
+    else if(can_poser() && !alreadyPosed && !isAdv(x) && isHand(x) && (la_carte->genre==0) && (la_carte->niveau<7)   && (perfect_terrain(0)!=-1))
+    {
+        registre_0 = x;
+        emit dialogueSac1();
+    }
+    else if(can_poser() && !alreadyPosed && !isAdv(x) && isHand(x) && (la_carte->genre==0)  && (perfect_terrain(0)!=-1))
+    {
+        registre_0 = x;
+        emit dialogueSac2();
+    }
+    else if(can_poser() && !isAdv(x) && isHand(x) && (la_carte->genre==1 || la_carte->genre==2) && (perfect_magie(0)!=-1))
     {
        registre_0 = x;
        emit dialogueMagi();
     }
-    else if(can_switch() && !isAdv(x) && isMonst(x) && trouver(x)!=NULL && !contient(alreadyMoved,x) && !contient(alreadyAtk,x))
+    else if(can_switch() && !isAdv(x) && isMonst(x)  && !contient(alreadyMoved,x) && !contient(alreadyAtk,x))
     {
         switch_position(x);
         std::stringstream s1;
@@ -473,6 +486,208 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
              }
          }
          emit destruction(main_x);
+    }
+}
+
+void Noyau::sacrifier_poser(int sacrifice_x, int main_x, int terrain_x,bool def, bool vis)
+{
+    int i;
+    Carte * la_carte;
+    if(main_x < 75)
+    {
+        if(can_poser() )
+            {std::cout << "je traite mon posage" << std::endl;
+            /*for(i=0;i<(signed)terrain->size();i++)
+            {
+                std::cout << terrain->at(i)->id << " at position:" << terrain->at(i)->position_terrain << std::endl;
+            }*/
+            emit sendInfo(QString("Je pose de manière sacrificielle"));
+            la_carte = trouver(main_x);
+            la_carte->position_terrain=terrain_x;
+            la_carte->pos= def;
+            if(vis)
+                la_carte->etat = RECTO;
+            else
+                la_carte->etat=VERSO;
+            if(!def)
+            {
+                if(vis)
+                {
+                    emit visible(la_carte->image,terrain_x);
+                }
+                else
+                {
+                    emit nonvis(terrain_x);
+                }
+            }
+            else
+            {
+                if(!vis)
+                {
+                    emit defens(terrain_x);
+                }
+            }
+            emit destruction(sacrifice_x);
+            emit destruction(main_x);
+            //emit je_pose(la_carte->image,main_x,terrain_x,def,vis);
+
+            if(online)
+            {
+                std::cout << "je suis dans le online" << std::endl;
+                QString message = "sac1/";
+                std::stringstream s1;
+                s1 <<Carte::correspondant(sacrifice_x) << "/" << Carte::correspondant(main_x) << "/" << Carte::correspondant(terrain_x) << "/" << (def? 1 : 0) << "/" << (vis? 1 : 0) ;
+                message.append(QString::fromStdString(s1.str()));
+                std::cout << "j'envois message:" << message.toStdString() << std::endl;
+                emit tiens(message);
+            }
+            if(la_carte->genre==0)
+                alreadyPosed=true;
+        }
+    }
+    else
+    {
+         emit sendInfo(QString("L'adversaire pose de manière sacrificielle"));
+        std::cout << "je traite le posage adverse" << std::endl;
+        for(i=0;i<(signed)terrain->size();i++)
+        {
+            std::cout << terrain->at(i)->id << " at position:" << terrain->at(i)->position_terrain << std::endl;
+        }
+        la_carte = trouver(main_x);
+        if(la_carte == NULL)
+         {   std::cout << "WO NEGRO TU GERES PAS " << std::endl;
+
+
+        }
+        la_carte->position_terrain=terrain_x;
+        std::cout << "la position final est " << la_carte->position_terrain << std::endl;
+         la_carte->pos = def;
+         if(vis)
+             la_carte->etat = RECTO;
+         else
+             la_carte->etat=VERSO;
+         if(!def)
+         {
+             if(vis)
+             {
+                 emit visible(la_carte->image,terrain_x);
+             }
+             else
+             {
+                 emit nonvis(terrain_x);
+             }
+         }
+         else
+         {
+             if(!vis)
+             {
+                 emit defens(terrain_x);
+             }
+         }
+         emit destruction(main_x);
+         emit destruction(sacrifice_x);
+    }
+}
+
+void Noyau::sacrifier_sacrifier_poser(int sacrifice_1_x, int sacrifice_2_x, int main_x, int terrain_x,bool def,bool vis)
+{
+    int i;
+    Carte * la_carte;
+    if(main_x < 75)
+    {
+        if(can_poser() )
+            {std::cout << "je traite mon posage" << std::endl;
+            /*for(i=0;i<(signed)terrain->size();i++)
+            {
+                std::cout << terrain->at(i)->id << " at position:" << terrain->at(i)->position_terrain << std::endl;
+            }*/
+            emit sendInfo(QString("Je pose de manière sacrificielle"));
+            la_carte = trouver(main_x);
+            la_carte->position_terrain=terrain_x;
+            la_carte->pos= def;
+            if(vis)
+                la_carte->etat = RECTO;
+            else
+                la_carte->etat=VERSO;
+            if(!def)
+            {
+                if(vis)
+                {
+                    emit visible(la_carte->image,terrain_x);
+                }
+                else
+                {
+                    emit nonvis(terrain_x);
+                }
+            }
+            else
+            {
+                if(!vis)
+                {
+                    emit defens(terrain_x);
+                }
+            }
+            emit destruction(sacrifice_1_x);
+            emit destruction(sacrifice_2_x);
+            emit destruction(main_x);
+            //emit je_pose(la_carte->image,main_x,terrain_x,def,vis);
+
+            if(online)
+            {
+                std::cout << "je suis dans le online" << std::endl;
+                QString message = "sac2/";
+                std::stringstream s1;
+                s1 <<Carte::correspondant(sacrifice_1_x) << "/" <<Carte::correspondant(sacrifice_2_x) << "/" << Carte::correspondant(main_x) << "/" << Carte::correspondant(terrain_x) << "/" << (def? 1 : 0) << "/" << (vis? 1 : 0) ;
+                message.append(QString::fromStdString(s1.str()));
+                std::cout << "j'envois message:" << message.toStdString() << std::endl;
+                emit tiens(message);
+            }
+            if(la_carte->genre==0)
+                alreadyPosed=true;
+        }
+    }
+    else
+    {
+         emit sendInfo(QString("L'adversaire pose de manière sacrificielle"));
+        std::cout << "je traite le posage adverse" << std::endl;
+        for(i=0;i<(signed)terrain->size();i++)
+        {
+            std::cout << terrain->at(i)->id << " at position:" << terrain->at(i)->position_terrain << std::endl;
+        }
+        la_carte = trouver(main_x);
+        if(la_carte == NULL)
+         {   std::cout << "WO NEGRO TU GERES PAS " << std::endl;
+
+
+        }
+        la_carte->position_terrain=terrain_x;
+        std::cout << "la position final est " << la_carte->position_terrain << std::endl;
+         la_carte->pos = def;
+         if(vis)
+             la_carte->etat = RECTO;
+         else
+             la_carte->etat=VERSO;
+         if(!def)
+         {
+             if(vis)
+             {
+                 emit visible(la_carte->image,terrain_x);
+             }
+             else
+             {
+                 emit nonvis(terrain_x);
+             }
+         }
+         else
+         {
+             if(!vis)
+             {
+                 emit defens(terrain_x);
+             }
+         }
+         emit destruction(main_x);
+         emit destruction(sacrifice_1_x);
+         emit destruction(sacrifice_2_x);
     }
 }
 
@@ -1018,6 +1233,74 @@ void Noyau::traiter(QString s)
          bool le_bool = (les_valeurs->at(2)==1);
          bool face = (les_valeurs->at(3)==1);
          poser(les_valeurs->at(0),les_valeurs->at(1),le_bool,face);
+
+            delete(arg);
+         std::cout << "j'ai fini de parser" << std::endl;
+    }
+    else if(s.startsWith("sac1/"))
+    {
+        int valeur;
+        std::vector<int> * les_valeurs = new std::vector<int>();
+        char * arg = new char[s.length()+1];
+           std::strcpy(arg,s.toStdString().c_str());
+         char * parcourir = std::strtok(arg,"/");
+         std::string vrai;
+         if(parcourir!=NULL)
+          vrai = parcourir;
+         while(parcourir!=NULL)
+         {
+             std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+             if(std::strcmp(parcourir,"p")!=0)
+             {
+                std::cout << "je traite l'int" << std::endl;
+                valeur = atoi(parcourir);
+                std::cout << "la valeur:" << valeur << std::endl;
+                les_valeurs->push_back(valeur);
+             }
+             parcourir = std::strtok(NULL,"/");
+
+
+             if(parcourir!=NULL)
+            vrai = parcourir;
+          }
+         std::cout << "size :" << les_valeurs->size() << std::endl;
+         bool le_bool = (les_valeurs->at(3)==1);
+         bool face = (les_valeurs->at(4)==1);
+         sacrifier_poser(les_valeurs->at(0),les_valeurs->at(1),les_valeurs->at(2),le_bool,face);
+
+            delete(arg);
+         std::cout << "j'ai fini de parser" << std::endl;
+    }
+    else if(s.startsWith("sac2/"))
+    {
+        int valeur;
+        std::vector<int> * les_valeurs = new std::vector<int>();
+        char * arg = new char[s.length()+1];
+           std::strcpy(arg,s.toStdString().c_str());
+         char * parcourir = std::strtok(arg,"/");
+         std::string vrai;
+         if(parcourir!=NULL)
+          vrai = parcourir;
+         while(parcourir!=NULL)
+         {
+             std::cout << "parc" << parcourir << " vrai:"<< vrai << std::endl;
+             if(std::strcmp(parcourir,"p")!=0)
+             {
+                std::cout << "je traite l'int" << std::endl;
+                valeur = atoi(parcourir);
+                std::cout << "la valeur:" << valeur << std::endl;
+                les_valeurs->push_back(valeur);
+             }
+             parcourir = std::strtok(NULL,"/");
+
+
+             if(parcourir!=NULL)
+            vrai = parcourir;
+          }
+         std::cout << "size :" << les_valeurs->size() << std::endl;
+         bool le_bool = (les_valeurs->at(4)==1);
+         bool face = (les_valeurs->at(5)==1);
+         sacrifier_sacrifier_poser(les_valeurs->at(0),les_valeurs->at(1),les_valeurs->at(2),les_valeurs->at(3),le_bool,face);
 
             delete(arg);
          std::cout << "j'ai fini de parser" << std::endl;
