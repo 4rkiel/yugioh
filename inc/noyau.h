@@ -34,6 +34,10 @@ public:
     std::vector<Carte *> *cimetiere1;
     std::vector<Carte *> *cimetiere2;
 
+    std::vector<int> * alreadyMoved;
+    std::vector<int> * alreadyAtk;
+    bool alreadyPosed=false;
+
     int nbrTick=0;
     bool lockTick = false;
 
@@ -96,6 +100,7 @@ public:
     bool can_atak();
     bool can_switch();
     bool can_activate();
+    bool contient(std::vector<int>* vect,int x);
 
     //obsolète
     Reseau * res;

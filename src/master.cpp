@@ -163,7 +163,7 @@ void Master::loadField (int x){
     } else {
 
 		// 
-
+        noyau->online = true;
         if (network != NULL){
 
             connect(network,SIGNAL(a_parser(QString)),noyau,SLOT(traiter(QString)),Qt::QueuedConnection);

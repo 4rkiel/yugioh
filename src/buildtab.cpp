@@ -155,7 +155,7 @@ BuildTab::BuildTab (){
             cardScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
             cardScroll -> setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
 
-			editeur = new CardEditor;
+            editeur = new CardEditor(parse);
             cardScroll->setWidget(editeur);
 
             buildStacked -> addWidget(cardScroll);

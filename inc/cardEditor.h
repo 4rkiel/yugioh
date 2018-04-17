@@ -34,6 +34,7 @@
 #include "../inc/combo.h"
 #include "../inc/spin.h"
 #include "../inc/shadowButt.h"
+#include "../inc/parser.h"
 
 using namespace std;
 
@@ -60,7 +61,7 @@ class CardEditor : public QFrame
     Q_OBJECT
 
     public:
-        CardEditor();
+        CardEditor(Parser* parser);
         ~CardEditor();
 
 public slots:
@@ -76,6 +77,9 @@ private:
         void createHorizontalGroupBox();
         void createGridGroupBox();
         void createFormGroupBox();
+
+        Parser* parse;
+        std::vector<Carte*> *allCards;
 
         const QString imgRep = QCoreApplication::applicationDirPath()+"/img/img_attr/";
         QString absoluteUrlImage = imgRep + "DEFAULT.jpg";

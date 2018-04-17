@@ -88,12 +88,17 @@ void Reseau::go(QString str)
 
 void Reseau::nouvelleConnexion()
 {
-
+  /*  if(alreadyinit)
+    {
+        serveur->nextPendingConnection()->write()
+    }
+    alreadyinit = true;*/
      socket = serveur->nextPendingConnection();
       //std::cout << "YEAAAAH MUNITION AU MAX!!" << std::endl;
       connect(socket,SIGNAL(readyRead()),this,SLOT(donneesRecues()));
       connect(socket,SIGNAL(disconnected()),this,SLOT(deconnexionClient()));
      // emit a_parser(QString("tt"));
+      serveur->close();
     emit a_parser(QString("init"));
     emit hostReady(21);
 }
