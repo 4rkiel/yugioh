@@ -137,8 +137,8 @@ QAbstractScrollArea {
 }
 
 QScrollBar:vertical {
-    width: 28px;
-    margin: 15px 10px 15px 10px;
+    width: 18px;
+    margin: 15px 5px 15px 5px;
     border: none;
     background: #E8EAF6;
     border-radius: 3px;
@@ -195,6 +195,69 @@ QScrollBar::add-page:vertical,
 QScrollBar::sub-page:vertical {
     background: none;
 }
+
+
+
+QScrollBar:horizontal {
+    height: 18px;
+    margin: 5px 15px 5px 15px;
+    border: none;
+    border-radius: 3px;
+    background-color: #E8EAF6;
+}
+
+QScrollBar::handle:horizontal {
+    background-color: #607D8B;
+    min-width: 5px;
+    border-radius: 3px;
+}
+
+QScrollBar::add-line:horizontal {
+    margin: 0px 3px 0px 3px;
+    border-image: url(img/rc/right_arrow_disabled.png);
+    width: 10px;
+    height: 10px;
+    subcontrol-position: right;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal {
+    margin: 0px 3px 0px 3px;
+    border-image: url(img/rc/left_arrow_disabled.png);
+    height: 10px;
+    width: 10px;
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::add-line:horizontal:hover,
+QScrollBar::add-line:horizontal:on {
+    border-image: url(img/rc/right_arrow.png);
+    height: 10px;
+    width: 10px;
+    subcontrol-position: right;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal:hover,
+QScrollBar::sub-line:horizontal:on {
+    border-image: url(img/rc/left_arrow.png);
+    height: 10px;
+    width: 10px;
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::up-arrow:horizontal,
+QScrollBar::down-arrow:horizontal {
+    background: none;
+}
+
+QScrollBar::add-page:horizontal,
+QScrollBar::sub-page:horizontal {
+    background: none;
+}
+
 
 
 
@@ -787,6 +850,10 @@ Field #infoBox #phaseRight::chunk {
 
 #rightBarBox {
     background: #607D8B;
+}
+
+#rightBarBox QScrollBar::handle:vertical {
+    background-color: #37474F;
 }
 
 #rightBarBox #sideSelector {

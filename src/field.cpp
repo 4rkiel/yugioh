@@ -632,6 +632,10 @@ void Field::previewClicked(){
 
     if (!lockPreview){
 
+        fieldStack -> at(previewed) -> setProperty("down", false);
+        fieldStack -> at(previewed) -> style() -> unpolish(fieldStack -> at(previewed));
+        fieldStack -> at(previewed) -> style() -> polish(fieldStack -> at(previewed));
+ 
         lockPreview = true;
 		previewed = -1;
         cardOut();
@@ -640,13 +644,16 @@ void Field::previewClicked(){
 
 void Field::cardRightClicked(int x){
 
+    SlotCard * that = fieldStack -> at(x);
+    
     if (
-        (! fieldStack -> at(x) -> isDeck() ) &&
-        (! fieldStack -> at(x) -> isFuse() ) &&
-        (! fieldStack -> at(x) -> isGrave() )
+        (! that -> isDeck() ) &&
+        (! that -> isFuse() ) &&
+        (! that -> isGrave() )
     ){
-        if (lockPreview){
-			
+
+        if (lockPreview && !(that -> isHand() && that -> isAdv() ) ){
+            
             emit askPreview(x);            
            
             fieldStack -> at(x) -> setProperty("down", true);
@@ -656,7 +663,7 @@ void Field::cardRightClicked(int x){
             lockPreview = false;
 			previewed = x;
 
-        } else {
+        } else if (previewed != -1) {
 
             fieldStack -> at(previewed) -> setProperty("down", false);
             fieldStack -> at(previewed) -> style() -> unpolish(fieldStack -> at(previewed));

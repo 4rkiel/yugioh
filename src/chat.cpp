@@ -18,40 +18,17 @@ Chat::Chat(){
     layout = new QGridLayout;
     layout -> setContentsMargins(0,0,0,0);
 
+        label = new QTextEdit;
 
-/*
-        labelBox = new QScrollArea;
-        labelBox -> setFrameShape(QFrame::NoFrame);
-        labelBox -> setWidgetResizable(true);
-        labelBox -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        labelBox -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-        labelBox -> setFocusPolicy(Qt::NoFocus);
+        label -> setReadOnly(true);
+        label -> setAcceptRichText(true);
+        label -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        label -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        label -> setWordWrapMode(QTextOption::WrapAnywhere);
+        label -> setLineWrapMode(QTextEdit::WidgetWidth);
+        label -> setFocusPolicy(Qt::NoFocus);
 
-            labInner = new QWidget;
-            labLayout = new QVBoxLayout;
-            labLayout -> setMargin(0);
-            labLayout -> setSpacing(0);
-            layout -> setContentsMargins(0,0,0,0);
-*/
-            label = new QTextEdit;
-
-//            label -> setAttribute(Qt::WA_TranslucentBackground, true);
-            label -> setReadOnly(true);
-            label -> setAcceptRichText(true);
-            label -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-            label -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-            label -> setWordWrapMode(QTextOption::WrapAnywhere);
-            label -> setLineWrapMode(QTextEdit::WidgetWidth);
-            label -> setFocusPolicy(Qt::NoFocus);
-/*
-            labLayout -> addStretch();
-			labLayout -> addWidget(label);
-
-			labInner -> setLayout(labLayout);
-        
-        labelBox -> setWidget(labInner);
-*/
-    layout -> addWidget(label, 1, 0, 3, 4);
+        layout -> addWidget(label, 1, 0, 3, 4);
 
 
         input = new QLineEdit;
@@ -76,6 +53,14 @@ Chat::Chat(){
 
 
     setLayout(layout);
+
+
+    label -> insertHtml(
+        "<h4>"+ tr("Informations") +"</h4>"
+    );
+
+    last = 0;
+
 }
 
 
@@ -103,19 +88,28 @@ void Chat::addText(QString str, int x){
 
             case 0:
 
-                label -> insertHtml("<br/><div><p><b>"+ tr("Informations") +"</b></p></div>");
+                label -> insertHtml(
+                    "<br/>"
+                    "<h4>"+ tr("Informations") +"</h4>"
+                );
                 
                 break;
 
             case 1:
 
-                label -> insertHtml("<br/><div><p><b>"+ tr("Adversaire") +"</b></p></div>");
+                label -> insertHtml(
+                    "<br/>"
+                    "<h4>"+ tr("Adversaire") +"</h4>"
+                );
                 
                 break;
 
             case 2:
 
-                label -> insertHtml("<br/><div><p><b>"+ tr("Vous") +"</b></p></div>");
+                label -> insertHtml(
+                    "<br/>"
+                    "<h4>"+ tr("Vous") +"</h4>"
+                );
                 
                 break;
         }
@@ -126,7 +120,8 @@ void Chat::addText(QString str, int x){
     
     QString time = QTime::currentTime().toString("hh:mm");
 
-    label -> insertHtml("<p><i>"+ time +" : </i>" + str + "</p>");
+    label -> insertHtml(
+        "<p><i style=\"color: #546E7A \">"+ time +" : </i>" + str + "</p>");
 }
 
 void Chat::sendMsg(){

@@ -10,7 +10,6 @@
 
 Duplica::Duplica(){
 
-
     gffect = new QGraphicsDropShadowEffect;
     gffect -> setBlurRadius(5);
     gffect -> setYOffset(5);
@@ -260,12 +259,15 @@ void Duplica::setAttr (int x){
         "border-image:url(\"img/img_attr/"+attrtxt+".png\");"
     );
 
+
+    // Magic
+    
 	if (x == -1){
 
 	    titleBox -> setStyleSheet( "#replicaTitleBox {"
     	    "background: #00897B;"
-        	"border-left: 3px solid #88ff88;"
-	        "border-top: 3px solid #88ff88;"
+        	"border-left: 3px solid #80CBC4;"
+	        "border-top: 3px solid #80CBC4;"
     	"}");
     
 	    descBox -> setStyleSheet(
@@ -276,6 +278,7 @@ void Duplica::setAttr (int x){
     	setStyleSheet("background: #00897B");
 
 
+    // Trap
 
 	} else if (x==-2){
 
@@ -292,6 +295,8 @@ void Duplica::setAttr (int x){
 
     	setStyleSheet("background: #FDD835");
 
+
+    // Monster
 
 	} else {
 
