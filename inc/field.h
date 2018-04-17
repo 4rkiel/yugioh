@@ -51,6 +51,12 @@ public:
 
 public slots:
 
+    void moveUp();
+    void moveDown();
+    void moveLeft();
+    void moveRight();
+    void switchChat();
+    void switchField();
     void getsFocus();
     void abandonFocus();
     void setProgress();
@@ -112,6 +118,7 @@ private:
 
     void cardOut();
 	void resetProgress();
+    int plusDroite_Self();
 
     int retained;
     int maxPhase;
@@ -150,6 +157,10 @@ private:
     QWidget * sceneBox;
     QGridLayout * sceneLayout;
     QShortcut * shortcut;
+    QShortcut * shortcut2;
+    QShortcut * shortcut3;
+    QShortcut * shortcut4;
+    QShortcut * shortcut5;
     Popup * popup;
     
         std::vector<SlotCard *> * fieldStack;

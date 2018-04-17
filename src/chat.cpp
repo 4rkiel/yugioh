@@ -37,6 +37,7 @@ Chat::Chat(){
 
         
         send = new DarkButt("\uf1d8","");
+        send->setFocusPolicy(Qt::NoFocus);
 
     layout -> addWidget(send, 4, 3, 1, 1);
 
@@ -51,6 +52,9 @@ Chat::Chat(){
     shortcut->setContext(Qt::WidgetWithChildrenShortcut);
     connect(shortcut, SIGNAL(activated()), this, SLOT(openQuit()));
 
+    shortcut2 = new QShortcut(QKeySequence("F1"), this);
+    shortcut2->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(shortcut2, SIGNAL(activated()), this, SLOT(affField()));
 
     setLayout(layout);
 
@@ -73,6 +77,8 @@ Chat::~Chat(){
     delete input;
     delete send;
     delete layout;
+    delete shortcut;
+    delete shortcut2;
 }
 
 
@@ -156,5 +162,8 @@ void Chat::openQuit(){
 }
 
 void Chat::goFocus(){
-    send -> setFocus();
+    input -> setFocus();
+}
+void Chat::affField(){
+    emit swField();
 }

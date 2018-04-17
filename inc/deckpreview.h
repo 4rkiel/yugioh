@@ -9,6 +9,7 @@
 #include <QString>
 
 #include <QMouseEvent>
+#include <QShortcut>
 
 
 class DeckPreview : public QPushButton {
@@ -25,6 +26,7 @@ class DeckPreview : public QPushButton {
         QGridLayout * layout;
         QLabel * pic;
         QLabel * name;
+        QShortcut* shortcut;
 
     public slots:
    

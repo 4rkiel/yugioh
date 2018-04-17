@@ -47,12 +47,19 @@ public:
 
     void leaveEvent(QEvent * event);
     void enterEvent(QEvent * event);
+    void focusInEvent(QFocusEvent* e);
+    void focusOutEvent(QFocusEvent* e);
 
 public slots:
 	void doubleClicked();
 	void rightClicked();
 	void leftClicked();
     void openQuit();
+    void moveLeft();
+    void moveRight();
+    void moveUp();
+    void moveDown();
+    void affChat();
 
 signals:
     void leftClick(int posi);
@@ -61,6 +68,11 @@ signals:
     void entered(int posi);
     void leaved(int posi);
     void rcvQuit();
+    void mvRight();
+    void mvLeft();
+    void mvUp();
+    void mvDown();
+    void swChat();
 
 private:
     int posi;
@@ -68,6 +80,12 @@ private:
     QString pic;
     QShortcut* shortcut;
     QShortcut* shortcut2;
+    QShortcut* shortcut3;
+    QShortcut* shortcut4;
+    QShortcut* shortcut5;
+    QShortcut* shortcut6;
+    QShortcut* shortcut7;
+    QShortcut* shortcut8;
 
     QGridLayout * layout;
 

@@ -36,6 +36,7 @@ signals:
 
     void msgSent(QString);
     void rcvQuit();
+    void swField();
 
 
 public slots:
@@ -43,12 +44,14 @@ public slots:
     void sendMsg();
     void moveScrollBarToBottom(int,int);
     void openQuit();
+    void affField();
 
 private:
 
     int last;
 
     QShortcut* shortcut;
+    QShortcut* shortcut2;
     QGridLayout * layout;
 
     QScrollArea * labelBox;
