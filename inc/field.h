@@ -32,6 +32,7 @@
 #include "../inc/stats.h"
 #include "../inc/chat.h"
 #include "../inc/popup.h"
+#include "../inc/minipopup.h"
 
 
 

@@ -31,22 +31,15 @@ public slots:
 
     void emitIntroStack();
     
-    void openPosi();
-    void closePosi();
-    void atkMode();
-    void defMode();
-
-    void openMagi();
-    void closeMagi();
-    void visiMode();
-    void hideMode();
-
 
     void openWin();
     void closeWin();
 
     void openLost();
     void closeLost();
+
+    void openEnd();
+    void closeEnd();
 
     void openQuit();
     void closeQuit();
@@ -58,13 +51,7 @@ public slots:
 signals:
 
     void introStack();
-
-    void sendAtk();
-    void sendDef();
     void moiFocus();
-
-    void sendVisi();
-    void sendHide();
     void focusField();
 
 
@@ -84,24 +71,6 @@ private:
         QGridLayout * menuOuterLayout;
 
         
-        QWidget * posiBox;
-        QGridLayout * posiLayout;
-
-            ShadowButt * posiback;
-            ShadowButt * posino;
-            ShadowButt * posiya;
-            QLabel * posiLabel;
-
-        QWidget * magiBox;
-        QGridLayout * magiLayout;
-
-            ShadowButt * magiback;
-            ShadowButt * magino;
-            ShadowButt * magiya;
-            QLabel * magiLabel;
-
-
-
         QWidget * quitBox;
         QGridLayout * quitLayout;
 
@@ -109,6 +78,12 @@ private:
             ShadowButt * quitya;
             QLabel * quitLabel;
 
+        QWidget * endBox;
+        QGridLayout * endLayout;
+
+            ShadowButt * endno;
+            ShadowButt * endya;
+            QLabel * endLabel;
 
         QWidget * winBox;
         QGridLayout * winLayout;

@@ -1,5 +1,5 @@
 #include "../inc/field.h"
-#include <QScrollBar>
+
 /******************************************************************************
 
 Widget implémentant le plateau de jeu

@@ -36,80 +36,6 @@ Popup::Popup (){
         menuOuterLayout = new QGridLayout;
 
 
-        // Choose Posi 
-
-        posiBox = new QWidget;
-        posiBox -> setObjectName("posiBox");
-        posiLayout = new QGridLayout;
-        posiLayout -> setAlignment(Qt::AlignCenter);
-
-
-            posino = new ShadowButt("\uf0e3", tr("Atk"));
-            posino -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-            posino -> setToolTip(tr("Monstre en mode Attaque"));
-            connect(posino, SIGNAL(clicked()), this, SLOT(atkMode()));
-            posiLayout -> addWidget(posino, 1,0,1,1);
-
-            posiya = new ShadowButt("\uf3ed", tr("Def"));
-            posiya -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-            posiya -> setToolTip(tr("Monstre en mode Defense"));
-            connect(posiya, SIGNAL(clicked()), this, SLOT(defMode()));
-            posiLayout -> addWidget(posiya, 1,1,1,1);
-
-            posiback = new ShadowButt("\uf00d", tr("Annuler"));
-            posiback -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-            posiback -> setToolTip(tr("Annuler l'action"));
-            connect(posiback, SIGNAL(clicked()), this, SLOT(closePosi()));
-            posiLayout -> addWidget(posiback, 2,0,1,2);
-
-            posiLabel = new QLabel(tr("Choisir la position"));
-            posiLayout -> addWidget(posiLabel, 0,0,1,2);
-
-
-        posiBox -> setLayout(posiLayout);
-        posiBox -> setVisible(false);
-        menuOuterLayout -> addWidget(posiBox, 0, 0, 1, 1);
-
-
-
-        // Choose Magic Posi 
-
-        magiBox = new QWidget;
-        magiBox -> setObjectName("magiBox");
-        magiLayout = new QGridLayout;
-        magiLayout -> setAlignment(Qt::AlignCenter);
-
-
-            magino = new ShadowButt("\uf06e", tr("Visible"));
-            magino -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-            magino -> setToolTip(tr("Carte face visible"));
-            connect(magino, SIGNAL(clicked()), this, SLOT(visiMode()));
-            magiLayout -> addWidget(magino, 1,0,1,1);
-
-            magiya = new ShadowButt("\uf070", tr("Masquée"));
-            magiya -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-            magiya -> setToolTip(tr("Carte face masquée"));
-            connect(magiya, SIGNAL(clicked()), this, SLOT(hideMode()));
-            magiLayout -> addWidget(magiya, 1,1,1,1);
-
-            magiback = new ShadowButt("\uf00d", tr("Annuler"));
-            magiback -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-            magiback -> setToolTip(tr("Annuler l'action"));
-            connect(magiback, SIGNAL(clicked()), this, SLOT(closeMagi()));
-            magiLayout -> addWidget(magiback, 2,0,1,2);
-
-            magiLabel = new QLabel(tr("Choisir la position"));
-            magiLayout -> addWidget(magiLabel, 0,0,1,2);
-
-
-        magiBox -> setLayout(magiLayout);
-        magiBox -> setVisible(false);
-        menuOuterLayout -> addWidget(magiBox, 0, 0, 1, 1);
-
-
-
-
-
         // LOST 
 
         lostBox = new QWidget;
@@ -171,6 +97,38 @@ Popup::Popup (){
 
 
 
+        // Quit After Fight
+
+        endBox = new QWidget;
+        endBox -> setObjectName("endBox");
+        endLayout = new QGridLayout;
+        endLayout -> setAlignment(Qt::AlignCenter);
+
+
+            endno = new ShadowButt("\uf00d", tr("Non"));
+            endno -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+            endno -> setToolTip(tr("Rester sur le terrain"));
+            connect(endno, SIGNAL(clicked()), this, SLOT(closeQuit()));
+            endLayout -> addWidget(endno, 1,0,1,1);
+
+            endya = new ShadowButt("\uf00c", tr("Quitter"));
+            endya -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+            endya -> setToolTip(tr("Retour à l'accueil"));
+            connect(endya, SIGNAL(clicked()), this, SLOT(emitIntroStack()));
+            endLayout -> addWidget(endya, 1,1,1,1);
+
+            endLabel = new QLabel(tr("Quitter le terrain ?"));
+            endLayout -> addWidget(endLabel, 0,0,1,2);
+
+
+
+        endBox -> setLayout(endLayout);
+        endBox -> setVisible(false);
+        menuOuterLayout -> addWidget(endBox, 0, 0, 1, 1);
+
+
+
+
         // Quit Safety
 
         quitBox = new QWidget;
@@ -199,37 +157,7 @@ Popup::Popup (){
         quitBox -> setLayout(quitLayout);
         quitBox -> setVisible(false);
         menuOuterLayout -> addWidget(quitBox, 0, 0, 1, 1);
-
-
-/*
-        // Menu
-
-        menuBox = new QWidget;
-        menuBox -> setObjectName("menuBox");
-        menuLayout = new QVBoxLayout;
-        menuLayout -> setAlignment(Qt::AlignCenter);
-
-
-            quit = new ShadowButt("\uf256", tr("Abandonner"));
-            quit -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-            quit -> setToolTip(tr("Quitter le Duel"));
-            connect(quit, SIGNAL(clicked()), this, SLOT(openQuit()));
-            menuLayout -> addWidget(quit);
-
-            back = new ShadowButt("\uf078", tr("Fermer"));
-            back -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-            back -> setToolTip(tr("Retour au Duel"));
-            connect(back, SIGNAL(clicked()), this, SLOT(closeMenu()));
-            menuLayout -> addWidget(back);
-
-        menuBox -> setLayout(menuLayout);
-        menuBox -> setVisible(false);
-
-
-        menuOuterLayout -> addWidget(menuBox, 0, 0, 1, 1);
-
-*/
-        
+       
         
         menuOuter -> setLayout(menuOuterLayout);
 
@@ -252,22 +180,6 @@ Popup::Popup (){
 Popup::~Popup (){
 
         delete shortcut;
-            delete posiback;     
-            delete posino;
-            delete posiya;
-            delete posiLabel;
-
-        delete posiLayout;
-        delete posiBox;
-
-            delete magiback;     
-            delete magino;
-            delete magiya;
-            delete magiLabel;
-
-        delete magiLayout;
-        delete magiBox;
-
 
             delete winLabel;
             delete winBack;
@@ -283,7 +195,12 @@ Popup::~Popup (){
         delete lostLayout;
         delete lostBox;
 
+            delete endno;
+            delete endya;
+            delete endLabel;
 
+        delete endLayout;
+        delete endBox;
 
             delete quitno;
             delete quitya;
@@ -292,12 +209,6 @@ Popup::~Popup (){
         delete quitLayout;
         delete quitBox;
 
-        //    delete quit;
-        //    delete back;
-
-        //delete menuLayout;
-        //delete menuBox;
-        
         delete menuOuterLayout;
         delete menuOuter;
 
@@ -317,49 +228,6 @@ void Popup::emitIntroStack (){
 }
 
 
-void Popup::openPosi (){
-    
-    openMenu();
-    posiBox -> setVisible(true);
-    posino -> setFocus();
-}
-
-void Popup::atkMode (){
-    emit sendAtk();
-    closePosi();
-}
-
-void Popup::defMode (){
-    emit sendDef();
-    closePosi();
-}
-
-void Popup::closePosi (){ 
-    closeMenu();
-}
-
-
-void Popup::openMagi (){
-    
-    openMenu();
-    magiBox -> setVisible(true);
-    magino -> setFocus();
-}
-
-void Popup::visiMode (){
-    emit sendVisi();
-    closeMagi();
-}
-
-void Popup::hideMode (){
-    emit sendHide();
-    closeMagi();
-}
-
-void Popup::closeMagi (){ 
-    closeMenu();
-}
-
 
 
 void Popup::openWin (){
@@ -374,6 +242,7 @@ void Popup::closeWin (){
 }
 
 
+
 void Popup::openLost (){
     
     openMenu();
@@ -384,6 +253,20 @@ void Popup::openLost (){
 void Popup::closeLost (){
     closeMenu();
 }
+
+
+
+void Popup::openEnd (){
+    
+    openMenu();
+    endBox -> setVisible(true);
+    endno -> setFocus();
+}
+
+void Popup::closeEnd (){
+    closeMenu();
+}
+
 
 
 void Popup::openQuit (){
@@ -398,18 +281,19 @@ void Popup::closeQuit (){
 }
 
 
+
 void Popup::openMenu (){
     setVisible(true);
     emit moiFocus();
 }
 
+
 void Popup::closeMenu (){
     
     winBox -> setVisible(false);
     lostBox -> setVisible(false);
-    posiBox -> setVisible(false);
     quitBox -> setVisible(false);
-    magiBox -> setVisible(false);
+    endBox -> setVisible(false);
     setVisible(false);
     emit focusField();
 }
