@@ -412,17 +412,10 @@ Field::Field () {
     shortcut->setContext(Qt::WidgetShortcut);
     connect(shortcut, SIGNAL(activated()), popup, SLOT(openQuit()));
 
-    for (int k=0; k<150; k++){
-        if (fieldStack -> at(k) != nullptr){
-            connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()),Qt::UniqueConnection);
-            connect(fieldStack->at(k), SIGNAL(mvUp()), this, SLOT(moveUp()),Qt::UniqueConnection);
-            connect(fieldStack->at(k), SIGNAL(mvDown()), this, SLOT(moveDown()),Qt::UniqueConnection);
-            connect(fieldStack->at(k), SIGNAL(mvLeft()), this, SLOT(moveLeft()),Qt::UniqueConnection);
-            connect(fieldStack->at(k), SIGNAL(mvRight()), this, SLOT(moveRight()),Qt::UniqueConnection);
-            connect(fieldStack->at(k), SIGNAL(swChat()), this, SLOT(switchChat()),Qt::UniqueConnection);
-        }
-    }
-    
+    //key shortcut
+    shortcut2 = new QShortcut(QKeySequence("Enter"), this);
+    shortcut2->setContext(Qt::WidgetShortcut);
+    connect(shortcut2, SIGNAL(activated()), this, SLOT(right));
     
     setLayout(layout);
 
@@ -553,6 +546,18 @@ void Field::init(){
      temp=fieldStack -> at(14);
      temp->setFocus();
 //    resizeVictor();
+
+     for (int k=0; k<150; k++){
+         if (fieldStack -> at(k) != nullptr){
+             connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(mvUp()), this, SLOT(moveUp()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(mvDown()), this, SLOT(moveDown()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(mvLeft()), this, SLOT(moveLeft()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(mvRight()), this, SLOT(moveRight()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(swChat()), this, SLOT(switchChat()),Qt::UniqueConnection);
+         }
+     }
+
 
 }
 
@@ -980,13 +985,16 @@ void Field::moveUp(){
                             fieldStack -> at(14+(k-89)) -> setFocus();
                         else
                             fieldStack -> at(20) ->setFocus();
+                        slfScroll->horizontalScrollBar()->setValue(0);
                     }
                     if(k>=75 && k<=88)
                         fieldStack -> at(k+7) -> setFocus();
-                    if(k>=14 && k<=20)
+                    if(k>=14 && k<=20){
                         fieldStack -> at(k-7) -> setFocus();
-                    if(k>=21&&k<=74)
+                    }
+                    if(k>=21&&k<=74){
                         fieldStack -> at(13) -> setFocus();
+                    }
 
                     return;
 
@@ -1001,12 +1009,18 @@ void Field::moveDown(){
         for (int k=0; k<150; k++){
             if (fieldStack -> at(k) != nullptr){
                 if(fieldStack->at(k)==static_cast<SlotCard*>(qApp->focusObject())){
-                    if(k<=13)
+                    if(k<=6)
                         fieldStack -> at(k+7) -> setFocus();
-                    if(k>=14 && k<=20)
+                    if(k>=7 && k<=13){
+                        fieldStack -> at(k+7) -> setFocus();
+                        slfScroll->horizontalScrollBar()->setValue(0);
+                    }
+                    if(k>=14 && k<=20){
                         fieldStack -> at(89+(k-14)) -> setFocus();
-                    if(k>20)
+                    }
+                    if(k>20){
                         fieldStack -> at(95) -> setFocus();
+                    }
                     if(k>=75 && k<=81)
                         fieldStack -> at(k-75) -> setFocus();
                     if(k>=82 && k<=88)
@@ -1042,12 +1056,15 @@ void Field::moveLeft(){
                         fieldStack -> at(k-1) -> setFocus();
                     if( (k==0) || (k==7) || (k==75) || (k==82)  )
                         fieldStack -> at(k+6) -> setFocus();
-                    if(k==14)
+                    if(k==14){
                         fieldStack -> at(plusDroite_Self()) -> setFocus();
+                        slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->maximum());
+                    }
                     if(k==89)
                         fieldStack -> at(95) -> setFocus();
                     if(k>=15 && k<75){
                         fieldStack -> at(k-1) -> setFocus();
+                        slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() - fieldStack -> at(14) ->width());
                     }
                     if(k>=90 && k<=150){
                         fieldStack -> at(k-1) -> setFocus();
@@ -1070,10 +1087,15 @@ void Field::moveRight(){
                     if( (k==6) || (k==13) || (k==81) || (k==88) || (k==95)  )
                         fieldStack -> at(k-6) -> setFocus();
                     if(k>=14 && k<=75){
-                        if(fieldStack->at(k+1) != nullptr)
+                        if(fieldStack->at(k+1) != nullptr){
                             fieldStack -> at(k+1) ->setFocus();
-                        else
+                            slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() + fieldStack -> at(14) ->width());
+                        }
+                        else{
                             fieldStack -> at(14) ->setFocus();
+                            slfScroll->horizontalScrollBar()->setValue(0);
+                        }
+
                     }
                     if(k>=89 && k<=94){
                         fieldStack -> at(k+1) -> setFocus();

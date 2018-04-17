@@ -158,6 +158,16 @@ SlotCard::SlotCard (int p){
     shortcut7 = new QShortcut(QKeySequence("F1"), this);
     shortcut7->setContext(Qt::WidgetWithChildrenShortcut);
     connect(shortcut7, SIGNAL(activated()), this, SLOT(affChat()));
+
+    //key shortcut
+    shortcut8 = new QShortcut(QKeySequence("Enter"), this);
+    shortcut8->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(shortcut8, SIGNAL(activated()), this, SLOT(rightClicked()));
+
+    //raccourci espace
+    shortcut9 = new QShortcut(QKeySequence(Qt::Key_Space), this);
+    shortcut9->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(shortcut9, SIGNAL(activated()), this, SLOT(leftClicked()));
 }
 
 
@@ -171,6 +181,8 @@ SlotCard::~SlotCard (){
     delete shortcut5;
     delete shortcut6;
     delete shortcut7;
+    delete shortcut8;
+    delete shortcut9;
     delete scaleAnim;
     delete rotAnim;
 
@@ -377,6 +389,16 @@ void SlotCard::leaveEvent(QEvent * event){
     
     emit leaved(posi);
     QWidget::leaveEvent(event);
+}
+
+void SlotCard::focusInEvent(QFocusEvent* e){
+    emit entered(posi);
+    QWidget::focusInEvent(e);
+}
+
+void SlotCard::focusOutEvent(QFocusEvent* e){
+    emit leaved(posi);
+    QWidget::focusOutEvent(e);
 }
 
 void SlotCard::openQuit(){

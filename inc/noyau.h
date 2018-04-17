@@ -36,6 +36,10 @@ public:
     std::vector<Carte *> *cimetiere1;
     std::vector<Carte *> *cimetiere2;
 
+    std::vector<Carte *> * extradeck1;
+    std::vector<Carte *> * extradeck2;
+
+
     std::vector<int> * alreadyMoved;
     std::vector<int> * alreadyAtk;
     bool alreadyPosed=false;

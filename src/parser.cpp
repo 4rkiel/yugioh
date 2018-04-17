@@ -335,9 +335,50 @@ std::vector<Carte *> * Parser::deck(QString s)
                  }
             }
          }
+        else
+        {
+            if(line.contains("extra_deck"))
+                break;
+        }
         line = in.readLine();
      }
      file.close();
+    return resultat;
+
+}
+
+std::vector<Carte *> * Parser::extradeck(QString s)
+{
+    int i;
+    std::vector<Carte *> * resultat = new std::vector<Carte *>();
+    QFile file(s);
+    file.open(QFile::ReadOnly | QFile::Text);
+    QTextStream in(&file);
+    QString line = in.readLine();
+    while(!line.contains("extra_deck"))
+    {
+        line = in.readLine();
+    }
+    while(!line.isNull())
+    {    if(!line.contains("#"))
+        {
+            for(i=0;i<(signed)all_cards->size();i++)
+            {
+                if(all_cards->at(i)->id == line.toInt())
+                {
+                   resultat->push_back(all_cards->at(i)->copie());
+                   break;
+                 }
+            }
+         }
+        line = in.readLine();
+     }
+     file.close();
+     if(resultat->size()==0)
+     {
+         delete(resultat);
+         return NULL;
+     }
     return resultat;
 
 }

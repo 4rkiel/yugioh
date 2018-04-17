@@ -47,6 +47,8 @@ public:
 
     void leaveEvent(QEvent * event);
     void enterEvent(QEvent * event);
+    void focusInEvent(QFocusEvent* e);
+    void focusOutEvent(QFocusEvent* e);
 
 public slots:
 	void doubleClicked();
@@ -83,6 +85,8 @@ private:
     QShortcut* shortcut5;
     QShortcut* shortcut6;
     QShortcut* shortcut7;
+    QShortcut* shortcut8;
+    QShortcut* shortcut9;
 
     QGridLayout * layout;
 
