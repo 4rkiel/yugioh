@@ -12,6 +12,8 @@ Noyau::Noyau()
     cimetiere2 = new std::vector<Carte *>();
     d1=NULL;
     d2=NULL;
+    alreadyAtk = new std::vector<int>();
+    alreadyMoved = new std::vector<int>();
 }
 
 void Noyau::init()
@@ -350,17 +352,17 @@ void Noyau::poser_test(int x)
 {
     //le if doit être mieux géré negrion
     std::cout << "t'as cliqué sur " << x << std::endl;
-    if(!isAdv(x) && isHand(x) && trouver(x)!=NULL && (trouver(x)->genre==0) && can_poser() && (perfect_terrain(0)!=-1))
+    if(can_poser() && !isAdv(x) && isHand(x) && trouver(x)!=NULL && (trouver(x)->genre==0)  && (perfect_terrain(0)!=-1))
     {
         registre_0 = x;
         emit dialogue();
     }
-    else if(!isAdv(x) && isHand(x) && trouver(x)!=NULL && (trouver(x)->genre==1 || trouver(x)->genre==2) && can_poser() && (perfect_magie(0)!=-1))
+    else if(can_poser() && !isAdv(x) && isHand(x) && trouver(x)!=NULL && (trouver(x)->genre==1 || trouver(x)->genre==2) && (perfect_magie(0)!=-1))
     {
        registre_0 = x;
        emit dialogueMagi();
     }
-    else if(!isAdv(x) && isMonst(x) && trouver(x)!=NULL )
+    else if(can_switch() && !isAdv(x) && isMonst(x) && trouver(x)!=NULL && !contient(alreadyMoved,x) && !contient(alreadyAtk,x))
     {
         switch_position(x);
         std::stringstream s1;
@@ -377,7 +379,8 @@ void Noyau::poser_test(int x)
 //poser la carte
 //prends en argument la position de la carte dans la main, la position où on veut la poser, def est vrai si on veut la poser en mode defense , vis est vrai si on veut la mettre en mode face recto
 void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
-{ int i;
+{
+    int i;
     Carte * la_carte;
     if(main_x < 75)
     {
@@ -415,15 +418,16 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
             }
             emit destruction(main_x);
             //emit je_pose(la_carte->image,main_x,terrain_x,def,vis);
+
             if(online)
             {
+                std::cout << "je suis dans le online" << std::endl;
                 QString message = "p/";
                 std::stringstream s1;
                 s1 << Carte::correspondant(main_x) << "/" << Carte::correspondant(terrain_x) << "/" << (def? 1 : 0) << "/" << (vis? 1 : 0) ;
                 message.append(QString::fromStdString(s1.str()));
                 std::cout << "j'envois message:" << message.toStdString() << std::endl;
                 emit tiens(message);
-
             }
         }
     }
@@ -574,6 +578,7 @@ bool Noyau::no_monster(int zone)
 
 void Noyau::attaquerSlot(int atk,int def)
 {
+    if(!contient(alreadyAtk,atk))
        attaquer(atk,def);
 }
 
@@ -711,6 +716,7 @@ void Noyau::attaquer(int attaquant_x, int adversaire_x)
             s1 << Carte::correspondant(attaquant_x) << "/" << Carte::correspondant(adversaire_x);
             message.append(QString::fromStdString(s1.str()));
             emit tiens(message);
+            alreadyAtk->push_back(attaquant_x);
         }
 
     }
@@ -814,10 +820,16 @@ void Noyau::detruire(int x)
     enlever_x(&terrain,x);
 }
 
+bool Noyau::contient(std::vector<int> *vect, int x)
+{
+    return (std::find(vect->begin(), vect->end(), x) != vect->end());
+}
+
 //change la position (atk/def) d'une carte
 //prends en paramètre la position de la carte
 void Noyau::switch_position(int terrain_x)
 {
+
     int i;
     for(i=0;i<(signed)terrain->size();i++)
     {
@@ -835,6 +847,7 @@ void Noyau::switch_position(int terrain_x)
                 trouver(terrain_x)->etat = RECTO;
                 emit visible(trouver(terrain_x)->image,terrain_x);
             }
+            alreadyMoved->push_back(terrain_x);
             return;
         }
     }
@@ -877,6 +890,8 @@ void Noyau::phase_suivante()
 {
     if(phase==2)
     {
+        alreadyMoved->clear();
+        alreadyAtk->clear();
         mon_tour = !mon_tour;
         phase=0;
         tour++;
