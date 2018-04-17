@@ -1047,12 +1047,15 @@ void Field::moveLeft(){
                         fieldStack -> at(k-1) -> setFocus();
                     if( (k==0) || (k==7) || (k==75) || (k==82)  )
                         fieldStack -> at(k+6) -> setFocus();
-                    if(k==14)
+                    if(k==14){
                         fieldStack -> at(plusDroite_Self()) -> setFocus();
+                        slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->maximum());
+                    }
                     if(k==89)
                         fieldStack -> at(95) -> setFocus();
                     if(k>=15 && k<75){
                         fieldStack -> at(k-1) -> setFocus();
+                        slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() - 30);
                     }
                     if(k>=90 && k<=150){
                         fieldStack -> at(k-1) -> setFocus();
@@ -1075,10 +1078,15 @@ void Field::moveRight(){
                     if( (k==6) || (k==13) || (k==81) || (k==88) || (k==95)  )
                         fieldStack -> at(k-6) -> setFocus();
                     if(k>=14 && k<=75){
-                        if(fieldStack->at(k+1) != nullptr)
+                        if(fieldStack->at(k+1) != nullptr){
                             fieldStack -> at(k+1) ->setFocus();
-                        else
+                            slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() + 30);
+                        }
+                        else{
                             fieldStack -> at(14) ->setFocus();
+                            slfScroll->horizontalScrollBar()->setValue(0);
+                        }
+
                     }
                     if(k>=89 && k<=94){
                         fieldStack -> at(k+1) -> setFocus();
