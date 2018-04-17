@@ -25,6 +25,8 @@ public:
     int foeLife;
     int aleatoire;
     int registre_0;
+    int registre_1;
+    int registre_2;
     std::vector<Carte *> * terrain;
 
 
@@ -66,11 +68,11 @@ public slots:
 
     /*sacrifie un monstre pour pouvoir en poser un de niveau 5-6*/
     //TODO tu peux imlmenter ca victor ? signé lucas
-    //void sacrifier_poser(int sacrifice_x, int main_x, int terrain_x);
+    void sacrifier_poser(int sacrifice_x, int main_x, int terrain_x, bool def, bool vis);
 
     /*sacrifie deux monstres pour pouvoir en poser un de niveau 7 et plus*/
     //TODO tu peux implementer ca victor ? signé lucas
-    //void sacrifier_sacrifier_poser(int sacrifice_1_x, int sacrifice_2_x, int main_x, int terrain_x);
+    void sacrifier_sacrifier_poser(int sacrifice_1_x, int sacrifice_2_x, int main_x, int terrain_x, bool def, bool vis);
 
 public:
 
@@ -156,6 +158,8 @@ signals:
     void beginTour();
     void montre(int x);
     void dialogueMagi();
+    void dialogueSac1();
+    void dialogueSac2();
 
     //void met_en_defense(int x);
 };
