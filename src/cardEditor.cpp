@@ -4,9 +4,11 @@
 #include <QGridLayout>
 #include <QMessageBox>
 
-CardEditor::CardEditor(){
+CardEditor::CardEditor(Parser* parser){
 
     buttonSave = new ShadowButt("", tr("Enregistrer"));
+    allCards = parser->all_cards;
+    parse = parser;
     
     createFormGroupBox();
 
@@ -86,7 +88,24 @@ void CardEditor::createFormGroupBox (){
     ID->setSingleStep(1);
     ID->setAccelerated(true);
     ID->setMaximum(100000000);
+
     ID->setValue(rand()%100000000);
+
+    bool sortir = true;
+
+    do
+    {
+        sortir = true;
+        for(Carte* carteCourante : *allCards)
+        {
+            if(carteCourante->id == ID->value())
+            {
+                sortir = false;
+                ID->setValue(rand()%100000000);
+                break;
+            }
+        }
+    }while(!sortir);
 
     nrSet = new Combo;
     vector<QString> extension;
@@ -230,6 +249,14 @@ void CardEditor::sauvegarder (){
     in << text;
 
     myfile->close();
+
+    parse->all_cards->push_back(new Carte(ID->value(),spinAttaque->value(),
+              spinDefense->value(),true,nom->text(),
+              absoluteUrlImage,RECTO,genreCarte->currentIndex(),
+              (Type)typePrimaire->currentIndex(),typeSecondaire->currentIndex(),
+              (Attribut)attribut->currentIndex(),bigEditor->toPlainText(),
+              niveau->value(),
+              effectBox->currentIndex(),nrSet->currentIndex(),-1,-1));
 }
 
 
