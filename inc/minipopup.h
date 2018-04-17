@@ -45,7 +45,7 @@ public slots:
     void openSee();
     void openChoose();
     void openChooseLocked();
-    void closeQuit();
+    void closeSee();
 
     void openMenu();
     void checkCloseMenu();
@@ -66,6 +66,8 @@ signals:
 
 
 private:
+
+    bool locked;
 
     QWidget * current;
     

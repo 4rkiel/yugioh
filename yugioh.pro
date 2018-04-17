@@ -58,6 +58,7 @@ HEADERS += inc/buildtab.h \
            inc/shadowLab.h \
            inc/superButt.h \
            inc/popup.h \
+           inc/minipopup.h \
            inc/combo.h \
            inc/spin.h \
            inc/sleeper.h \
@@ -105,6 +106,7 @@ SOURCES += src/buildtab.cpp \
            src/shadowLab.cpp \
            src/superButt.cpp \
            src/popup.cpp \
+           src/minipopup.cpp \
            src/slotCard.cpp \
            src/zButt.cpp \
            src/deckedit.cpp \

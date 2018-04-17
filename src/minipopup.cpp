@@ -3,6 +3,8 @@
 
 MiniPopup::MiniPopup (){
 
+    locked = false;
+
     setVisible(false);
 
     layout = new QGridLayout;
@@ -174,34 +176,12 @@ MiniPopup::~MiniPopup (){
         delete magiBox;
 
 
-            delete winLabel;
-            delete winBack;
-            delete winQuit;
+            delete seeBack;
 
-        delete winLayout;
-        delete winBox;
-
-            delete lostLabel;
-            delete lostBack;
-            delete lostQuit;
-
-        delete lostLayout;
-        delete lostBox;
+        delete seeLayout;
+        delete seeBox;
 
 
-
-            delete quitno;
-            delete quitya;
-            delete quitLabel;
-
-        delete quitLayout;
-        delete quitBox;
-
-        //    delete quit;
-        //    delete back;
-
-        //delete menuLayout;
-        //delete menuBox;
         
         delete menuOuterLayout;
         delete menuOuter;
@@ -278,7 +258,8 @@ void MiniPopup::openSee (){
 void MiniPopup::openChooseLocked (){
     
     openMenu();
-    chooseBox -> setVisible(true);
+    seeBox -> setVisible(true);
+    locked = true;
 }
 
 
@@ -311,8 +292,9 @@ void MiniPopup::openMenu (){
 }
 
 void MiniPopup::closeMenu (){
-    
-    chooseBox -> setVisible(false);
+   
+    locked = false;
+
     seeBox -> setVisible(false);
     posiBox -> setVisible(false);
     magiBox -> setVisible(false);
