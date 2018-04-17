@@ -789,13 +789,15 @@ void deckEdit::sauvegarderDiscretionMax()
     }
     else
     { // le deck ne porte pas de nom mais comporte des cartes
-        return;
-//        newDeckName = QString(tr("Sans_Nom"))+QString.number(nrFichierSansNom);
-//        if(!(fileExists(newDeckName) && (deckName == newDeckName)))
-//        {
-//            nrFichierSansNom++;
-//        }
+        newDeckName = QString(tr("Sans_Nom"))+QString::number(nrFichierSansNom);
 
+        while(fileExists(deckRep+newDeckName+QString(".deck")) && (deckName == ""))
+        { // le fichier existe déjà
+            nrFichierSansNom++;
+            newDeckName = QString(tr("Sans_Nom"))+QString::number(nrFichierSansNom);
+        }
+
+        deckName = newDeckName;
     }
 
     QString file = deckRep + newDeckName + QString(".deck");
