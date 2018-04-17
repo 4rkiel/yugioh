@@ -9,6 +9,7 @@
 #include <QVBoxLayout>
 #include <QStackedLayout>
 #include <QScrollArea>
+#include <QScrollBar>
 
 #include <QPushButton>
 #include <QString>
@@ -32,6 +33,7 @@
 #include "../inc/stats.h"
 #include "../inc/chat.h"
 #include "../inc/popup.h"
+#include "../inc/minipopup.h"
 
 
 
@@ -167,7 +169,10 @@ private:
         
         QWidget * arenaBox;
         QGridLayout * arenaLayout;
-      
+
+        MiniPopup * minipop;
+
+
             QWidget * advBox;
             QGridLayout * advLayout;
                 

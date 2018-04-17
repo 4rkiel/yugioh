@@ -1,5 +1,5 @@
 #include "../inc/field.h"
-#include <QScrollBar>
+
 /******************************************************************************
 
 Widget implémentant le plateau de jeu
@@ -167,11 +167,6 @@ Field::Field () {
 
     connect(popup, SIGNAL(introStack()), this, SLOT(emitIntroStack()));
 
-    connect(popup, SIGNAL(sendAtk()), this, SLOT(emitAtk()));
-    connect(popup, SIGNAL(sendDef()), this, SLOT(emitDef()));
-    
-    connect(popup, SIGNAL(sendVisi()), this, SLOT(emitVisi()));
-    connect(popup, SIGNAL(sendHide()), this, SLOT(emitHide()));
     connect(popup, SIGNAL(focusField()), this, SLOT(getsFocus()));
     connect(popup, SIGNAL(moiFocus()), this, SLOT(abandonFocus()));
 
@@ -341,6 +336,27 @@ Field::Field () {
             arenaLayout -> setRowStretch(0,5);
             arenaLayout -> setRowStretch(1,7);
 
+
+            
+        minipop = new MiniPopup;
+        minipop -> setVisible(false);
+        arenaLayout -> addWidget(minipop, 0,0,2,3);
+        
+
+
+        connect(minipop, SIGNAL(sendAtk()), this, SLOT(emitAtk()));
+        connect(minipop, SIGNAL(sendDef()), this, SLOT(emitDef()));
+        
+        connect(minipop, SIGNAL(sendVisi()), this, SLOT(emitVisi()));
+        connect(minipop, SIGNAL(sendHide()), this, SLOT(emitHide()));
+        connect(minipop, SIGNAL(focusField()), this, SLOT(getsFocus()));
+        connect(minipop, SIGNAL(moiFocus()), this, SLOT(abandonFocus()));
+
+
+
+
+
+
         arenaBox -> setLayout(arenaLayout);
         
 
@@ -411,7 +427,7 @@ Field::Field () {
     shortcut = new QShortcut(QKeySequence("Escape"), this);
     shortcut->setContext(Qt::WidgetShortcut);
     connect(shortcut, SIGNAL(activated()), popup, SLOT(openQuit()));
-    
+
     setLayout(layout);
 
 }
@@ -461,7 +477,9 @@ Field::~Field (){
        
             delete slfLayout;
             delete slfBox;
-        
+
+            delete minipop;
+
         delete arenaLayout;
         delete arenaBox;
 
@@ -544,12 +562,18 @@ void Field::init(){
 
      for (int k=0; k<150; k++){
          if (fieldStack -> at(k) != nullptr){
-             connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()),Qt::UniqueConnection);
-             connect(fieldStack->at(k), SIGNAL(mvUp()), this, SLOT(moveUp()),Qt::UniqueConnection);
-             connect(fieldStack->at(k), SIGNAL(mvDown()), this, SLOT(moveDown()),Qt::UniqueConnection);
-             connect(fieldStack->at(k), SIGNAL(mvLeft()), this, SLOT(moveLeft()),Qt::UniqueConnection);
-             connect(fieldStack->at(k), SIGNAL(mvRight()), this, SLOT(moveRight()),Qt::UniqueConnection);
-             connect(fieldStack->at(k), SIGNAL(swChat()), this, SLOT(switchChat()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(rcvQuit()), 
+                     popup, SLOT(openQuit()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(mvUp()), 
+                     this, SLOT(moveUp()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(mvDown()), 
+                     this, SLOT(moveDown()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(mvLeft()), 
+                     this, SLOT(moveLeft()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(mvRight()), 
+                     this, SLOT(moveRight()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(swChat()), 
+                     this, SLOT(switchChat()),Qt::UniqueConnection);
          }
      }
 
@@ -565,7 +589,7 @@ void Field::emitIntroStack (){
 }
 
 void Field::openChoosePosi (){
-    popup -> openPosi();
+    minipop -> openPosi();
 }
 
 void Field::emitAtk (){
@@ -578,7 +602,7 @@ void Field::emitDef (){
 
 
 void Field::openChooseMagi (){
-    popup -> openMagi();
+    minipop -> openMagi();
 }
 
 void Field::emitHide (){
