@@ -4,121 +4,47 @@ Implémentation du jeu de carte Yu-Gi-Oh!
 
 [Lien vers le cahier des charges](https://docs.google.com/document/d/1OeF_gmBVjo56tAUFRijaNlVDgjEvVVLkMJVCUVTZqDc/edit?usp=sharing), à completer.
 
-:warning: Les descriptifs des fichiers .set et .deck ont été ajoutés ici.
-
-
-## Actuellement en Zone Critique
-
- - [x] Création du type carte
- - [ ] Elaboration du système de "commandes de jeu" (ex: pour que la carte X attaque la carte Y ou que la carte X active son effet Y), avec code. En lien avec le tranzit de ces commandes sur le réseau.
-
+:warning: Dernière semaine avant rendu !
 
 
 ## TODO List
 
-#### Projet Général
+#### 4rk
 
- - [ ] Cahier des charges
- - [ ] Rapport
-
-
-#### Interface Générale
-
- - [ ] Yu-Gi-Oh style qss
+ - [ ] Cahier des charges -> Rapport
+ - [ ] QSS Polishing
  - [ ] Contraste-full style
  - [ ] Dyschromatopsia style (http://jfly.iam.u-tokyo.ac.jp/color/#pallet)
- - [ ] Traduction FR - EN
- - [x] Indications Bar (Where-Am-I) dans les menus
+ - [ ] Popups 1 & 2
+ - [ ] Bouton deck edit
+ - [ ] Création de l'aide (help.text)
 
 
-#### Menu Principal
+#### Vect
 
- - [x] Écran de chargement
- - [x] Menu Principal
-   - [x] Menu de Selection du Mode de Jeu
-   
- - [ ] Affichage des Paramètres (decks courrant + règles courrantes)
+ - [ ] Fin Noyau de base (combat)
+ - [ ] Click Cimetiere / Fusion deck --> popup si non vide
 
 
-#### Zone Duels
+#### Chop1
 
- - [ ] Interface Generale
-    - [ ] Slots de Cartes
-       - [ ] Normaux
-       - [ ] Monstres (atk/def)
-       - [ ] Deck
-    - [ ] Rotation Partie adverse
-    - [ ] Zone Indications
-       - [ ] Tour
-       - [ ] Phase
-       - [ ] Indication
-       - [ ] Bouton "Passer la phase"
-    - [ ] Zone "Carte en grand"
-    - [ ] Popup sur certains élements
-        - [ ] Confirmation lors de l'abandon
-	- [ ] Affichage du cimetière
-    
- - [ ] Chargement des Decks
- - [ ] Chargement des cartes
- 
- - [ ] Communication/Slots Moteur - Terrain
- - [ ] Communication/Slots Terrain - Cartes
- 
- - [ ] Gestion des parties
-    - [ ] Solo
-       - [ ] AI Random
-       - [ ] AI Optimisation
-       - [ ] Trained AI
-    - [ ] Private Server
-       - [ ] Créer
-       - [ ] Rejoindre
-    - [ ] Online MatchMaking
+ - [ ] Fin card + deck Editor
+ - [ ] Set du Deck courrant
+ - [ ] Liste des cartes (customs)
 
 
-#### Zone DeckBuild
+#### Lucas
 
- - [ ] DeckBuild
-    - [ ] Liste des decks
-      - [ ] Choix du deck courrant
-      - [ ] Choix du deck adverse (a placer dans la zone de duel ?)
-      
- - [ ] Liste des cartes custom
-    - [ ] Lien vers CarteBuild si liste vide
-    
- - [ ] CarteBuild
-    - [ ] Edition des cartes déjà créées
+ - [ ] Connexion IA / Noyau
+ - [ ] Lancement des parties IA
 
 
-#### Zone Règles
+#### Mathieu
 
- - [x] Sous-Zone Edition
-    - [ ] Listage des règles modifiables
-       - [ ] Main il/limitée
-       - ... 
-    - [ ] Création des règles modifiables
-    
- - [x] Sous-Zone "Lire les règles officielles"
-
-
-#### Zone Paramètres
-
- - [x] Enlever "A Propos"
- - [ ] Zone "Raccourcis"
-
-
-#### Zone Aide
-
-   - [x] Rajout "A Propos"
-   - [ ] Création de l'aide (help.text)
-
-
-
-## Elements de GUI réimplémentés
-
-Nom de la classe | Remplace/Améliore | Descriptif
----------------- | ----------------- | ----------
-ShadowButt | QPushButton | Rajoute des effets d'ombrage
-
+ - [ ] Fin racc. clavier
+ - [ ] Fin traduction
+ - [ ] Compile .exe windows
+ - [ ] Compile .desktop Linux
 
 
 ## Description des fichiers 
@@ -179,8 +105,8 @@ minimum 0 Cartes max 15
 
  - [ ] Environnement sonore
     - [ ] Option de désactivation des élements sonores
- - [ ] Remplacement des tooltips
- - [ ] Chats lors des parties Online
+ - [ ] Remplacement des tooltips par zone dédiée
+ - [ ] Modification du jeu pour profiter de l'aspect dématérialisé
  
  
 
