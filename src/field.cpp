@@ -218,7 +218,6 @@ Field::Field () {
 
                     for (int k=89; k<=95; k++){
                         fieldStack -> at(k) = new SlotCard(k);
-                        connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()));
                         advHandLayout -> addWidget(fieldStack -> at(k));
                     }
 
@@ -235,7 +234,6 @@ Field::Field () {
 
                     for (int k=82; k<=88; k++){
                         fieldStack -> at(k) = new SlotCard(k);
-                        connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()));
                         advMagicLayout -> addWidget(fieldStack -> at(k));
                     }
                
@@ -251,7 +249,6 @@ Field::Field () {
 
                     for (int k=75; k<=81; k++){
                         fieldStack -> at(k) = new SlotCard(k);
-                        connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()));
                         advMonstLayout -> addWidget(fieldStack -> at(k));
                     }
                
@@ -284,7 +281,6 @@ Field::Field () {
      
                     for (int k=0; k<=6; k++){
                         fieldStack -> at(k) = new SlotCard(k);
-                        connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()));
                         slfMonstLayout -> addWidget(fieldStack -> at(k));
                     }
                     
@@ -300,7 +296,6 @@ Field::Field () {
      
                     for (int k=7; k<=13; k++){
                         fieldStack -> at(k) = new SlotCard(k);
-                        connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()));
                         slfMagicLayout -> addWidget(fieldStack -> at(k));
                     }
                     
@@ -330,7 +325,6 @@ Field::Field () {
       
                     for (int k=14; k<=20; k++){
                         fieldStack -> at(k) = new SlotCard(k);
-                        connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()));
                         slfHandLayout -> addWidget(fieldStack -> at(k));
                     }
                     
@@ -387,6 +381,7 @@ Field::Field () {
 
                 connect(chat, SIGNAL(msgSent(QString)), this, SLOT(sendMsg(QString)));
                 connect(chat, SIGNAL(rcvQuit()), popup, SLOT(openQuit()));
+                connect(chat, SIGNAL(swField()), this, SLOT(switchField()));
 
             side -> setLayout(sidebar);
             rightBarLayout -> addWidget(side, 0, 0, 1, 1);
@@ -416,13 +411,20 @@ Field::Field () {
     shortcut = new QShortcut(QKeySequence("Escape"), this);
     shortcut->setContext(Qt::WidgetShortcut);
     connect(shortcut, SIGNAL(activated()), popup, SLOT(openQuit()));
+
+    for (int k=0; k<150; k++){
+        if (fieldStack -> at(k) != nullptr){
+            connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()),Qt::UniqueConnection);
+            connect(fieldStack->at(k), SIGNAL(mvUp()), this, SLOT(moveUp()),Qt::UniqueConnection);
+            connect(fieldStack->at(k), SIGNAL(mvDown()), this, SLOT(moveDown()),Qt::UniqueConnection);
+            connect(fieldStack->at(k), SIGNAL(mvLeft()), this, SLOT(moveLeft()),Qt::UniqueConnection);
+            connect(fieldStack->at(k), SIGNAL(mvRight()), this, SLOT(moveRight()),Qt::UniqueConnection);
+            connect(fieldStack->at(k), SIGNAL(swChat()), this, SLOT(switchChat()),Qt::UniqueConnection);
+        }
+    }
     
     
     setLayout(layout);
-
-    SlotCard* temp;
-    temp=fieldStack -> at(14);
-    temp->setFocus();
 
 }
 
@@ -483,6 +485,7 @@ Field::~Field (){
     delete overLayout;
     
     delete overField;
+    delete shortcut;
 
     delete menuButt;
     delete icoAdv;
@@ -546,9 +549,11 @@ void Field::init(){
         }
     }
 
+     SlotCard* temp;
+     temp=fieldStack -> at(14);
+     temp->setFocus();
 //    resizeVictor();
 
-    chat -> goFocus();
 }
 
 
@@ -605,7 +610,6 @@ void Field::getsFocus(){
         }
     }
     chat->input->setFocusPolicy(Qt::StrongFocus);
-    chat->send->setFocusPolicy(Qt::StrongFocus);
     menuButt->setFocusPolicy(Qt::StrongFocus);
     temp=fieldStack -> at(14);
     temp->setFocus();
@@ -620,7 +624,6 @@ void Field::abandonFocus(){
         }
     }
     chat->input->setFocusPolicy(Qt::NoFocus);
-    chat->send->setFocusPolicy(Qt::NoFocus);
     menuButt->setFocusPolicy(Qt::NoFocus);
 }
 
@@ -947,12 +950,149 @@ void Field::dealWithHand(int k){
             );
 
 //            resizeVictor();
+            for (int k=0; k<150; k++){
+                if (fieldStack -> at(k) != nullptr){
+                    connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()),Qt::UniqueConnection);
+                    connect(fieldStack->at(k), SIGNAL(mvUp()), this, SLOT(moveUp()),Qt::UniqueConnection);
+                    connect(fieldStack->at(k), SIGNAL(mvDown()), this, SLOT(moveDown()),Qt::UniqueConnection);
+                    connect(fieldStack->at(k), SIGNAL(mvLeft()), this, SLOT(moveLeft()),Qt::UniqueConnection);
+                    connect(fieldStack->at(k), SIGNAL(mvRight()), this, SLOT(moveRight()),Qt::UniqueConnection);
+                    connect(fieldStack->at(k), SIGNAL(swChat()), this, SLOT(switchChat()),Qt::UniqueConnection);
+                }
+            }
 
         }
     }
 
 }
 
+void Field::moveUp(){
+    if(QString(qApp->focusObject()->metaObject()->className())=="SlotCard"){
+        for (int k=0; k<150; k++){
+            if (fieldStack -> at(k) != nullptr){
+                if(fieldStack->at(k)==static_cast<SlotCard*>(qApp->focusObject())){
+                    if(k<=6)
+                        fieldStack -> at(75+k) -> setFocus();
+                    if(k>=7 && k<=13)
+                        fieldStack -> at(k-7) -> setFocus();
+                    if(k>=89 && k<=150){
+                        if(fieldStack -> at(14+(k-89)) != nullptr)
+                            fieldStack -> at(14+(k-89)) -> setFocus();
+                        else
+                            fieldStack -> at(20) ->setFocus();
+                    }
+                    if(k>=75 && k<=88)
+                        fieldStack -> at(k+7) -> setFocus();
+                    if(k>=14 && k<=20)
+                        fieldStack -> at(k-7) -> setFocus();
+                    if(k>=21&&k<=74)
+                        fieldStack -> at(13) -> setFocus();
+
+                    return;
+
+                }
+            }
+        }
+    }
+}
+
+void Field::moveDown(){
+    if(QString(qApp->focusObject()->metaObject()->className())=="SlotCard"){
+        for (int k=0; k<150; k++){
+            if (fieldStack -> at(k) != nullptr){
+                if(fieldStack->at(k)==static_cast<SlotCard*>(qApp->focusObject())){
+                    if(k<=13)
+                        fieldStack -> at(k+7) -> setFocus();
+                    if(k>=14 && k<=20)
+                        fieldStack -> at(89+(k-14)) -> setFocus();
+                    if(k>20)
+                        fieldStack -> at(95) -> setFocus();
+                    if(k>=75 && k<=81)
+                        fieldStack -> at(k-75) -> setFocus();
+                    if(k>=82 && k<=88)
+                        fieldStack -> at(k-7) -> setFocus();
+                    if(k>=89 && k<=95)
+                        fieldStack -> at(k-7) -> setFocus();
+                    if(k>=96)
+                        fieldStack -> at(88) -> setFocus();
+                    return;
+
+                }
+            }
+        }
+    }
+}
+
+
+
+int Field::plusDroite_Self(){
+    for (int k=20; k<75; k++){
+        if(fieldStack->at(k) == nullptr)
+            return k-1;
+    }
+    return 1;
+}
+
+void Field::moveLeft(){
+    if(QString(qApp->focusObject()->metaObject()->className())=="SlotCard"){
+        for (int k=0; k<150; k++){
+            if (fieldStack -> at(k) != nullptr){
+                if(fieldStack->at(k)==static_cast<SlotCard*>(qApp->focusObject())){
+                    if( (k>=1 && k<=6) || (k>=8 && k<=13) || (k>=83 && k<=88) || (k>=76 && k<=81) )
+                        fieldStack -> at(k-1) -> setFocus();
+                    if( (k==0) || (k==7) || (k==75) || (k==82)  )
+                        fieldStack -> at(k+6) -> setFocus();
+                    if(k==14)
+                        fieldStack -> at(plusDroite_Self()) -> setFocus();
+                    if(k==89)
+                        fieldStack -> at(95) -> setFocus();
+                    if(k>=15 && k<75){
+                        fieldStack -> at(k-1) -> setFocus();
+                    }
+                    if(k>=90 && k<=150){
+                        fieldStack -> at(k-1) -> setFocus();
+                    }
+                    return;
+
+                }
+            }
+        }
+    }
+}
+
+void Field::moveRight(){
+    if(QString(qApp->focusObject()->metaObject()->className())=="SlotCard"){
+        for (int k=0; k<150; k++){
+            if (fieldStack -> at(k) != nullptr){
+                if(fieldStack->at(k)==static_cast<SlotCard*>(qApp->focusObject())){
+                    if( (k>=0 && k<=5) || (k>=7 && k<=12) || (k>=82 && k<=87) || (k>=75 && k<=80) )
+                        fieldStack -> at(k+1) -> setFocus();
+                    if( (k==6) || (k==13) || (k==81) || (k==88) || (k==95)  )
+                        fieldStack -> at(k-6) -> setFocus();
+                    if(k>=14 && k<=75){
+                        if(fieldStack->at(k+1) != nullptr)
+                            fieldStack -> at(k+1) ->setFocus();
+                        else
+                            fieldStack -> at(14) ->setFocus();
+                    }
+                    if(k>=89 && k<=94){
+                        fieldStack -> at(k+1) -> setFocus();
+                    }
+                    return;
+
+                }
+            }
+        }
+    }
+}
+
+void Field::switchChat(){
+    chat->goFocus();
+}
+
+void Field::switchField(){
+    fieldStack->at(14)->setFocus();
+}
 
 /*
 void Field::resizeEvent(QResizeEvent* event){

@@ -128,11 +128,36 @@ SlotCard::SlotCard (int p){
     shortcut = new QShortcut(QKeySequence("Escape"), this);
     shortcut->setContext(Qt::WidgetWithChildrenShortcut);
     connect(shortcut, SIGNAL(activated()), this, SLOT(openQuit()));
+
     //raccourci entrée
     shortcut2 = new QShortcut(QKeySequence("Return"), this);
     shortcut2->setContext(Qt::WidgetWithChildrenShortcut);
     connect(shortcut2, SIGNAL(activated()), this, SLOT(doubleClicked()));
 
+    //key shortcut
+    shortcut3 = new QShortcut(QKeySequence("Up"), this);
+    shortcut3->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(shortcut3, SIGNAL(activated()), this, SLOT(moveUp()));
+
+    //key shortcut
+    shortcut4 = new QShortcut(QKeySequence("Down"), this);
+    shortcut4->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(shortcut4, SIGNAL(activated()), this, SLOT(moveDown()));
+
+    //key shortcut
+    shortcut5 = new QShortcut(QKeySequence("Left"), this);
+    shortcut5->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(shortcut5, SIGNAL(activated()), this, SLOT(moveLeft()));
+
+    //key shortcut
+    shortcut6 = new QShortcut(QKeySequence("Right"), this);
+    shortcut6->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(shortcut6, SIGNAL(activated()), this, SLOT(moveRight()));
+
+    //key shortcut
+    shortcut7 = new QShortcut(QKeySequence("F1"), this);
+    shortcut7->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(shortcut7, SIGNAL(activated()), this, SLOT(affChat()));
 }
 
 
@@ -141,6 +166,11 @@ SlotCard::~SlotCard (){
 
     delete shortcut;
     delete shortcut2;
+    delete shortcut3;
+    delete shortcut4;
+    delete shortcut5;
+    delete shortcut6;
+    delete shortcut7;
     delete scaleAnim;
     delete rotAnim;
 
@@ -351,4 +381,24 @@ void SlotCard::leaveEvent(QEvent * event){
 
 void SlotCard::openQuit(){
     emit rcvQuit();
+}
+
+void SlotCard::moveDown(){
+    emit mvDown();
+}
+
+void SlotCard::moveUp(){
+    emit mvUp();
+}
+
+void SlotCard::moveRight(){
+    emit mvRight();
+}
+
+void SlotCard::moveLeft(){
+    emit mvLeft();
+}
+
+void SlotCard::affChat(){
+    emit swChat();
 }

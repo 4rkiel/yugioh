@@ -11,6 +11,7 @@
 #include <QStringList>
 
 #include <QRadioButton>
+#include <QShortcut>
 
 /*
 #include <QBoxLayout>

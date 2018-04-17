@@ -28,6 +28,10 @@ DeckPreview::DeckPreview(QString deck, QString img){
         layout -> setColumnStretch(3,1);
 
 
+        shortcut = new QShortcut(QKeySequence("Return"), this);
+        shortcut->setContext(Qt::WidgetWithChildrenShortcut);
+        connect(shortcut,SIGNAL(activated()),this,SLOT(doClick()));
+
 
     setLayout(layout);
 
@@ -42,6 +46,7 @@ DeckPreview::~DeckPreview(){
     delete pic;
 
     delete layout;
+    delete shortcut;
 }
 
 

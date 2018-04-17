@@ -701,6 +701,7 @@ void deckEdit::rmvCard2Deck()
         updateExtraDeckVisu();
     }
     sauvegarderDiscretionMax();
+    butClearSearch->setFocus();
 }
 
 void deckEdit::sauvegarder()
