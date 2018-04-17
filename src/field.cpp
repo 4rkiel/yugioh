@@ -993,7 +993,7 @@ void Field::moveUp(){
                         fieldStack -> at(k-7) -> setFocus();
                     }
                     if(k>=21&&k<=74){
-                        fieldStack -> at(12) -> setFocus();
+                        fieldStack -> at(13) -> setFocus();
                     }
 
                     return;
