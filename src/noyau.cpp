@@ -328,7 +328,7 @@ int Noyau::perfect_terrain(int zone)
                    return begin_position;
             while(trouver(begin_position)!=NULL)
                 begin_position++;
-            if(begin_position>5)
+            if(begin_position>81)
                 return -1;
 
         }
@@ -346,7 +346,7 @@ int Noyau::perfect_magie(int zone)
                    return begin_position;
             while(trouver(begin_position)!=NULL)
                 begin_position++;
-            if(begin_position>13)
+            if(begin_position>12)
                 return -1;
 
         }
