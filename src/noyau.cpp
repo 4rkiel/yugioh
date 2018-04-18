@@ -16,6 +16,8 @@ Noyau::Noyau()
     extradeck2 = NULL;
     alreadyAtk = new std::vector<int>();
     alreadyMoved = new std::vector<int>();
+    alreadyActivate = new std::vector<int>();
+    alreadyActivateAdv = new std::vector<int>();
     alreadyPosed = false;
     tour = 1;
 
@@ -333,12 +335,39 @@ int Noyau::perfect_terrain(int zone)
         return begin_position;
 }
 
+void Noyau::enlever_m(std::vector<int>**vect,int m)
+{
+    std::vector<int>* res = new std::vector<int>();
+    if((*vect)->size()==1)
+    {
+        *vect = res;
+        return;
+    }
+   int j;
+   for(j=0;j<m;j++)
+   {
+      res->push_back((*vect)->at(j));
+   }
+   for(j=m+1;j<(signed)(*vect)->size();j++)
+   {
+        res->push_back((*vect)->at(j));
+   }
+    *vect = res;
+}
+
 //determine la position où poser la carte MAGIE/PIEGE sur le terrain, zone = 0 si c'est moi qui pose sinon c'est 1
 int Noyau::perfect_magie(int zone)
 {
      int begin_position;
      if(zone==0)
        {
+         if(!alreadyActivate->empty())
+         {
+            begin_position=alreadyActivate->at(0);
+            enlever_m(&alreadyActivate,0);
+            trouver(begin_position)->position_terrain = -1;
+            return begin_position;
+         }
             begin_position=8;
             if(terrain->size()==0)
                    return begin_position;
@@ -419,6 +448,7 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
             {
                 std::cout << terrain->at(i)->id << " at position:" << terrain->at(i)->position_terrain << std::endl;
             }*/
+
             emit sendInfo(QString("Je pose"));
             la_carte = trouver(main_x);
             la_carte->position_terrain=terrain_x;
@@ -462,6 +492,7 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
              {   alreadyPosed=true;
                 alreadyMoved->push_back(terrain_x);
             }
+
         }
     }
     else
@@ -832,9 +863,11 @@ void Noyau::activer(int x)
     }
     if(x<75)
     {
+         alreadyActivate->push_back(x);
         switch(carte->effet)
         {
         case 0:
+
            emit sendInfo(QString(tr("J'active pot de cupidité")));
             ss1 << "act/" << Carte::correspondant(x);
             emit tiens(QString::fromStdString(ss1.str()));
@@ -847,6 +880,7 @@ void Noyau::activer(int x)
     }
     else
     {
+        alreadyActivateAdv->push_back(x);
         switch(carte->effet)
         {
         case 0:
@@ -1160,6 +1194,17 @@ void Noyau::phase_suivante()
         break;
 
     }
+    int i;
+    for(i=0;i<(signed)alreadyActivate->size();i++)
+    {
+        detruire(alreadyActivate->at(i));
+    }
+    for(i=0;i<(signed)alreadyActivateAdv->size();i++)
+    {
+        detruire(alreadyActivateAdv->at(i));
+    }
+       alreadyActivate->clear();
+       alreadyActivateAdv->clear();
 }
 
 bool Noyau::can_poser()

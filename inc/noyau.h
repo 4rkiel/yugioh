@@ -42,6 +42,9 @@ public:
 
     std::vector<int> * alreadyMoved;
     std::vector<int> * alreadyAtk;
+    std::vector<int> * alreadyActivate;
+    std::vector<int> * alreadyActivateAdv;
+
     bool alreadyPosed=false;
 
     int nbrTick=0;
@@ -87,6 +90,7 @@ public:
     //FONCTIONS UTILE POUR D'AUTRES FONCTIONS, LEURS DESCRIPTIONS EST DANS LE CPP
     void enlever_x(std::vector<Carte *> **vect, int x);
     void enlever_i(std::vector<Carte *> **vect, int i);
+    void enlever_m(std::vector<int>**vect,int m);
     int perfect_terrain(int zone);
     int perfect_position(int zone);
     int perfect_magie(int zone);
