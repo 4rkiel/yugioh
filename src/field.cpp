@@ -746,32 +746,9 @@ void Field::cardRightClicked(int x){
 }
 
 
-void Field::cardHover (
-		QString title, 
-		int attr,
-		int level,
-		QString pic,
-		int type,
-		QString desc,
-		int atk,
-		int def
-	){
+void Field::cardHover (Carte * card){
 
-    fullCard -> setTitle(title);
-	fullCard -> setAttr(attr);
-	fullCard -> setLevel(level);
-
-	fullCard -> setPic(pic);
-    fullCard -> setDesc(desc);
-	
-	if (level > 0){
-		fullCard -> setType(type);
-    	fullCard -> setStat(QString::number(atk), QString::number(def));
-	} else {
-		fullCard -> hideType();
-		fullCard -> hideStat();
-	}
-
+    fullCard -> reInit(card);
 
     if (lockPreview){
         chat -> setVisible(false);

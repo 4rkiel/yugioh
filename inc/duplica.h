@@ -13,6 +13,8 @@
 #include <QPushButton>
 #include <QShortcut>
 
+#include "../inc/carte.h"
+
 class Duplica : public QFrame {
 
 Q_OBJECT
@@ -21,16 +23,9 @@ public:
     
     Duplica();
     ~Duplica();
-    void setTitle(QString);
-   	void setAttr(int);
-	void setLevel(int);
-	void setPic(QString);
-	void setType(int);
-	void hideType();
-    void setDesc(QString);
-    void setStat(QString, QString);
-	void hideStat();
-	
+    
+    void reInit(Carte *);
+   
 //    void resizeEvent (QResizeEvent*);
 
 signals:
@@ -38,6 +33,18 @@ signals:
     void clicked();
 
 private:
+ 
+    void setTitle(QString);
+   	void setAttr(QString);
+	void setLevel(int);
+    void setSpellType(int, int);
+	void setPic(QString);
+	void setType(int, int);
+	void hideType();
+    void setDesc(QString);
+    void setStat(QString, QString);
+	void hideStat();
+    void setColor(int);
 
     void mousePressEvent (QMouseEvent *);
 
