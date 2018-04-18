@@ -11,6 +11,8 @@
 #include "../inc/field.h"
 #include "../inc/selector.h"
 
+#include "../inc/carte.h"
+
 #include <QString>
 #include <iostream>
 #include <QShortcut>

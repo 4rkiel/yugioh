@@ -34,7 +34,7 @@
 #include "../inc/chat.h"
 #include "../inc/popup.h"
 #include "../inc/minipopup.h"
-
+#include "../inc/carte.h"
 
 
 #include <iostream>
@@ -100,7 +100,7 @@ public slots:
     void cardEntered(int);
     void cardLeaved();
 
-    void cardHover(QString, int, int, QString, int, QString, int, int);
+    void cardHover(Carte *);
 
 
 signals:

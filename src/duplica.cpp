@@ -214,51 +214,92 @@ void Duplica::mousePressEvent (QMouseEvent *){
 }
 
 
+void Duplica::reInit(Carte * card){
+
+    setTitle(card -> nom);
+    setPic(card -> image);
+    setDesc(card -> description);
+
+    if (card -> genre == 0){
+ 
+        QString attrtxt;
+        switch (card -> attribut){
+            case 0:
+                attrtxt = "LUMIERE";
+            break;
+            case 1:
+                attrtxt = "TENEBRE";
+            break;
+            case 2:
+                attrtxt = "TERRE";
+            break;
+            case 3:
+                attrtxt = "EAU";
+            break;
+            case 4:
+                attrtxt = "FEU";
+            break;
+            case 5:
+                attrtxt = "VENT";
+            break;
+            case 6:
+                attrtxt = "DIVIN";
+            break;
+        }
+
+        setAttr(attrtxt);
+
+        setLevel(card -> niveau);
+
+        setType(card -> type, card -> sous_type);
+
+        setStat(QString::number(card -> atk), QString::number(card -> def));
+
+        setColor(card -> sous_type);
+
+    } else if (card -> genre == 1){
+
+       setAttr("SPELL"); 
+
+       setSpellType(-1, card -> sous_type);
+        
+       hideType();
+
+       hideStat();
+
+       setColor(-1);
+
+    } else {
+
+        setAttr("TRAP");
+
+        setSpellType(0, card -> sous_type);
+
+        hideType();
+
+        hideStat();
+
+        setColor(0);
+    }
+
+}
+
+
 void Duplica::setTitle (QString str){
     
     title -> setText(str);
 }
 
-void Duplica::setAttr (int x){
-    
-	QString attrtxt;
 
-	switch (x){
-		case -2:
-			attrtxt = "TRAP";
-		break;
-		case -1: 
-			attrtxt = "SPELL";
-		break;
-		case 0:
-			attrtxt = "LUMIERE";
-		break;
-		case 1:
-			attrtxt = "TENEBRE";
-		break;
-		case 2:
-			attrtxt = "TERRE";
-		break;
-		case 3:
-			attrtxt = "EAU";
-		break;
-		case 4:
-			attrtxt = "FEU";
-		break;
-		case 5:
-			attrtxt = "VENT";
-		break;
-		case 6:
-			attrtxt = "DIVIN";
-		break;
-
-	}
-
-
+void Duplica::setAttr (QString str){
+   
     attr -> setStyleSheet(
-        "border-image:url(\"img/img_attr/"+attrtxt+".png\");"
+        "border-image:url(\"img/img_attr/"+str+".png\");"
     );
+}
 
+
+void Duplica::setColor (int x){
 
     // Magic
     
@@ -280,7 +321,7 @@ void Duplica::setAttr (int x){
 
     // Trap
 
-	} else if (x==-2){
+	} else if (x == 0){
 
 	    titleBox -> setStyleSheet( "#replicaTitleBox {"
     	    "background: #FDD835;"
@@ -298,6 +339,21 @@ void Duplica::setAttr (int x){
 
     // Monster
 
+	} else if (x == 2){
+
+	    titleBox -> setStyleSheet( "#replicaTitleBox {"
+    	    "background: #FDD835;"
+        	"border-left: 3px solid #ffff88;"
+	        "border-top: 3px solid #ffff88;"
+    	"}");
+    
+	    descBox -> setStyleSheet(
+    	    "border: 3px solid #795548;"
+        	"background: #FFF59D;"
+	    );
+
+    	setStyleSheet("background: #FDD835");
+
 	} else {
 
 	    titleBox -> setStyleSheet( "#replicaTitleBox {"
@@ -313,9 +369,11 @@ void Duplica::setAttr (int x){
 
     	setStyleSheet("background: #FDD835");
 
-	}
 
+
+    }
 }
+
 
 void Duplica::setLevel (int x){
 
@@ -323,25 +381,30 @@ void Duplica::setLevel (int x){
         delete item->widget();
     }
 
-	if (x > 0){
-	    for (int k=0; k<x; k++){
-        
-    	    QLabel * typeLabel = new QLabel;
-         
-        	typeLabel -> setStyleSheet(
-            	"border-image:url(\"img/img_attr/Level.png\");"
-        	);
+    for (int k=0; k<x; k++){
+    
+        QLabel * typeLabel = new QLabel;
+     
+        typeLabel -> setStyleSheet(
+            "border-image:url(\"img/img_attr/Level.png\");"
+        );
 
-	        typeLabel -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-    	    typeLabel -> setObjectName("replicaAttr");
-        	typeLabel -> setMinimumHeight(20);
-	        typeLabel -> setMaximumHeight(20);
-    	    typeLabel -> setMinimumWidth(20);
-        	typeLabel -> setMaximumWidth(20);
-	        typeLayout -> addWidget(typeLabel);
-    	}
-	}
+        typeLabel -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+        typeLabel -> setObjectName("replicaAttr");
+        typeLabel -> setMinimumHeight(20);
+        typeLabel -> setMaximumHeight(20);
+        typeLabel -> setMinimumWidth(20);
+        typeLabel -> setMaximumWidth(20);
+        typeLayout -> addWidget(typeLabel);
+    }
 }
+
+
+void Duplica::setSpellType(int genre, int sous_type){
+
+
+}
+
 
 void Duplica::setPic (QString str){
     
@@ -351,7 +414,7 @@ void Duplica::setPic (QString str){
 }
 
 
-void Duplica::setType (int x){
+void Duplica::setType (int x, int y){
 
 	QString typetxt;
 
@@ -425,13 +488,14 @@ void Duplica::setType (int x){
 
 }
 
-    type -> setText("[" + typetxt + "]");
+    type -> setText("[ " + typetxt + " ]");
 	type -> setVisible(true);
 }
 
 void Duplica::hideType (){
 	type -> setVisible(false);
 }
+
 
 void Duplica::setDesc (QString str){
     desc -> setText(str);
@@ -448,8 +512,3 @@ void Duplica::hideStat (){
 	atk -> setVisible(false);
 }
 
-//void Duplica::resizeEvent (QResizeEvent*){
- 
-//        pic -> setMinimumHeight(pic -> width());
-//        pic -> setMaximumHeight(pic -> width());
-//}
