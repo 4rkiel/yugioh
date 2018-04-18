@@ -210,7 +210,7 @@ void Noyau::piocher(int x)
         emit tiens("apioche");
     }*/
     if(tour!=1)
-        emit sendInfo("J'ai pioché");
+        emit sendInfo(tr("J'ai pioché"));
     }
     else
     {
@@ -221,7 +221,7 @@ void Noyau::piocher(int x)
                 return;
         }
         if(tour!=1)
-        emit sendInfo("L'adversaire a pioché");
+        emit sendInfo(tr("L'adversaire a pioché"));
     std::cout << "le traitement du piochage adverse en cours " << std::endl;
     int dans_main = perfect_position(1);
     //std::cout << "adresse : " << d2->front() << " id:"<< d2->front()->id << " l'adversaire pose en " << dans_main << std::endl;
@@ -449,7 +449,7 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
                 std::cout << terrain->at(i)->id << " at position:" << terrain->at(i)->position_terrain << std::endl;
             }*/
 
-            emit sendInfo(QString("Je pose"));
+            emit sendInfo(QString(tr("Je pose")));
             la_carte = trouver(main_x);
             la_carte->position_terrain=terrain_x;
             la_carte->pos= def;
@@ -497,7 +497,7 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
     }
     else
     {
-         emit sendInfo(QString("L'adversaire pose"));
+         emit sendInfo(QString(tr("L'adversaire pose")));
         std::cout << "je traite le posage adverse" << std::endl;
         for(i=0;i<(signed)terrain->size();i++)
         {
@@ -550,7 +550,7 @@ void Noyau::sacrifier_poser(int sacrifice_x, int main_x, int terrain_x,bool def,
             {
                 std::cout << terrain->at(i)->id << " at position:" << terrain->at(i)->position_terrain << std::endl;
             }*/
-            emit sendInfo(QString("Je pose de manière sacrificielle"));
+            emit sendInfo(QString(tr("Je pose de manière sacrificielle")));
             la_carte = trouver(main_x);
             la_carte->position_terrain=terrain_x;
             la_carte->pos= def;
@@ -596,7 +596,7 @@ void Noyau::sacrifier_poser(int sacrifice_x, int main_x, int terrain_x,bool def,
     }
     else
     {
-         emit sendInfo(QString("L'adversaire pose de manière sacrificielle"));
+         emit sendInfo(QString(tr("L'adversaire pose de manière sacrificielle")));
         std::cout << "je traite le posage adverse" << std::endl;
         for(i=0;i<(signed)terrain->size();i++)
         {
@@ -650,7 +650,7 @@ void Noyau::sacrifier_sacrifier_poser(int sacrifice_1_x, int sacrifice_2_x, int 
             {
                 std::cout << terrain->at(i)->id << " at position:" << terrain->at(i)->position_terrain << std::endl;
             }*/
-            emit sendInfo(QString("Je pose de manière sacrificielle"));
+            emit sendInfo(QString(tr("Je pose de manière sacrificielle")));
             la_carte = trouver(main_x);
             la_carte->position_terrain=terrain_x;
             la_carte->pos= def;
@@ -697,7 +697,7 @@ void Noyau::sacrifier_sacrifier_poser(int sacrifice_1_x, int sacrifice_2_x, int 
     }
     else
     {
-         emit sendInfo(QString("L'adversaire pose de manière sacrificielle"));
+         emit sendInfo(QString(tr("L'adversaire pose de manière sacrificielle")));
         std::cout << "je traite le posage adverse" << std::endl;
         for(i=0;i<(signed)terrain->size();i++)
         {
@@ -1176,7 +1176,7 @@ void Noyau::phase_suivante()
     switch(phase)
     {
         case 0:
-            emit sendInfo("Main Phase 1");
+            emit sendInfo(tr("Main Phase 1"));
         break;
         case 1:
             if((no_monster(0) && mon_tour) || (no_monster(1) && !mon_tour))
@@ -1185,10 +1185,10 @@ void Noyau::phase_suivante()
                 phase_suivante();
             }
             else
-                emit sendInfo("Battle Phase");
+                emit sendInfo(tr("Battle Phase"));
         break;
         case 2:
-           emit sendInfo("Main Phase 2");
+           emit sendInfo(tr("Main Phase 2"));
         break;
         default:
         break;
