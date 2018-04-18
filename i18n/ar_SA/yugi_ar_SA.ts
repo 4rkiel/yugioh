@@ -849,6 +849,42 @@ En attente de connexion de l&apos;adversaire...</source>
         <source>L&apos;adversaire active pot de cupidité</source>
         <translation>وعاء الخصم النشط من الجشع</translation>
     </message>
+    <message>
+        <source>J&apos;ai pioché</source>
+        <translation>وجهت</translation>
+    </message>
+    <message>
+        <source>L&apos;adversaire a pioché</source>
+        <translation>وقد رسم الخصم</translation>
+    </message>
+    <message>
+        <source>Je pose</source>
+        <translation>أضع</translation>
+    </message>
+    <message>
+        <source>L&apos;adversaire pose</source>
+        <translation>يطرح الخصم</translation>
+    </message>
+    <message>
+        <source>Je pose de manière sacrificielle</source>
+        <translation>أطرح بطريقة الأضحية</translation>
+    </message>
+    <message>
+        <source>L&apos;adversaire pose de manière sacrificielle</source>
+        <translation>يطرح الخصم بطريقة التضحية</translation>
+    </message>
+    <message>
+        <source>Main Phase 1</source>
+        <translation>المرحلة الرئيسية 1</translation>
+    </message>
+    <message>
+        <source>Battle Phase</source>
+        <translation>مرحلة المعركة</translation>
+    </message>
+    <message>
+        <source>Main Phase 2</source>
+        <translation>المرحلة الرئيسية 2</translation>
+    </message>
 </context>
 <context>
     <name>OptionTab</name>

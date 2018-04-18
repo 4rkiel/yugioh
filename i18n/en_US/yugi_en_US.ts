@@ -1113,19 +1113,66 @@ Please wait...</translation>
         <translation>I cannot draw anymore</translation>
     </message>
     <message>
+        <location filename="../../src/noyau.cpp" line="213"/>
+        <source>J&apos;ai pioché</source>
+        <translation>I&apos;ve drawn a card</translation>
+    </message>
+    <message>
         <location filename="../../src/noyau.cpp" line="219"/>
         <source>L&apos;adversaire ne peut plus piocher</source>
         <translation>The opponent cannot draw</translation>
     </message>
     <message>
-        <location filename="../../src/noyau.cpp" line="838"/>
+        <location filename="../../src/noyau.cpp" line="224"/>
+        <source>L&apos;adversaire a pioché</source>
+        <translation>The opponent has drawn a card</translation>
+    </message>
+    <message>
+        <location filename="../../src/noyau.cpp" line="452"/>
+        <source>Je pose</source>
+        <translation>I place</translation>
+    </message>
+    <message>
+        <location filename="../../src/noyau.cpp" line="500"/>
+        <source>L&apos;adversaire pose</source>
+        <translation>The opponent places</translation>
+    </message>
+    <message>
+        <location filename="../../src/noyau.cpp" line="553"/>
+        <location filename="../../src/noyau.cpp" line="653"/>
+        <source>Je pose de manière sacrificielle</source>
+        <translation>I place with a sacrifice</translation>
+    </message>
+    <message>
+        <location filename="../../src/noyau.cpp" line="599"/>
+        <location filename="../../src/noyau.cpp" line="700"/>
+        <source>L&apos;adversaire pose de manière sacrificielle</source>
+        <translation>the opponent places with a sacrifice</translation>
+    </message>
+    <message>
+        <location filename="../../src/noyau.cpp" line="871"/>
         <source>J&apos;active pot de cupidité</source>
         <translation>I activate pot of greed</translation>
     </message>
     <message>
-        <location filename="../../src/noyau.cpp" line="853"/>
+        <location filename="../../src/noyau.cpp" line="887"/>
         <source>L&apos;adversaire active pot de cupidité</source>
         <translation>The opponent activates pot of greed</translation>
+    </message>
+    <message>
+        <location filename="../../src/noyau.cpp" line="1179"/>
+        <source>Main Phase 1</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../src/noyau.cpp" line="1188"/>
+        <source>Battle Phase</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../src/noyau.cpp" line="1191"/>
+        <source>Main Phase 2</source>
+        <translation></translation>
     </message>
 </context>
 <context>
