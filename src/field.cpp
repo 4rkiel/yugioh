@@ -619,6 +619,20 @@ void Field::emitVisi (){
     emit sendVisi();
 }
 
+void Field::openSee (std::vector <QString> * str){
+    minipop -> openSee(str);
+    miniSave();
+}
+
+void Field::openChoose (std::vector <QString> * str){
+    minipop -> openChoose(str);
+    miniSave();
+}
+
+void Field::openChooseLocked (std::vector <QString> * str){
+    minipop -> openChooseLocked(str);
+    miniSave();
+}
 
 void Field::openWin (){
     
