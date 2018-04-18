@@ -26,6 +26,8 @@ public:
     Popup();
     ~Popup();
 
+    void openQuit();
+    void openEnd();
     
 public slots:
 
@@ -38,10 +40,8 @@ public slots:
     void openLost();
     void closeLost();
 
-    void openEnd();
     void closeEnd();
 
-    void openQuit();
     void closeQuit();
 
     void openMenu();
@@ -99,15 +99,6 @@ private:
             ShadowButt * lostQuit;
             QLabel * lostLabel;
 
-            
-            
-/*
-        QWidget * menuBox;
-        QVBoxLayout * menuLayout;
-
-            ShadowButt * quit;
-            ShadowButt * back;
-*/    
 
 };
 

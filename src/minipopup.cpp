@@ -118,22 +118,25 @@ MiniPopup::MiniPopup (){
         seeLayout = new QGridLayout;
         seeLayout -> setAlignment(Qt::AlignCenter);
 
+            
+            seeList = new QWidget;
+            listLayout = new QGridLayout;
+
+
+
+            seeLayout -> addWidget(seeList, 0,0,3,3);
+
             seeBack = new ShadowButt("\uf078", tr("Retour"));
             seeBack -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
             seeBack -> setToolTip(tr("Retourner au terrain"));
             connect(seeBack, SIGNAL(clicked()), this, SLOT(closeSee()));
-            seeLayout -> addWidget(seeBack, 1,1,1,1);
-
-
+            seeLayout -> addWidget(seeBack, 4,1,1,1);
 
 
 
         seeBox -> setLayout(seeLayout);
         seeBox -> setVisible(false);
         menuOuterLayout -> addWidget(seeBox, 0, 0, 1, 1);
-
-
-
         
        
 
@@ -174,9 +177,16 @@ MiniPopup::~MiniPopup (){
 
         delete magiLayout;
         delete magiBox;
-
+       
 
             delete seeBack;
+
+            while (auto item = listLayout->takeAt(0)){
+                delete item->widget();
+            }
+           
+            delete listLayout;
+            delete seeList;
 
         delete seeLayout;
         delete seeBox;
@@ -247,32 +257,59 @@ void MiniPopup::closeMagi (){
 
 
 
-void MiniPopup::openSee (){
-    
+void MiniPopup::openSee (std::vector <QString> * str){
+
+    populate(str);
+
     openMenu();
+    
     seeBox -> setVisible(true);
     seeBack -> setFocus();
 }
 
 
-void MiniPopup::openChooseLocked (){
+void MiniPopup::openChooseLocked (std::vector <QString> * str){
+    
+    populate(str);
     
     openMenu();
     seeBox -> setVisible(true);
+    seeBack -> setVisible(false);
     locked = true;
 }
 
 
-void MiniPopup::openChoose (){
+void MiniPopup::openChoose (std::vector <QString> * str){
+    
+    populate(str);
     
     openMenu();
     seeBox -> setVisible(true);
     seeBack -> setFocus();
+}
+
+
+void MiniPopup::populate(std::vector <QString> * vic){
+    
+    while (auto item = listLayout->takeAt(0)) {
+        delete item->widget();
+    }
+    
+    for (unsigned int k=0; k < vic->size(); k++){
+        
+        PopCard * prev = new PopCard(k);
+        prev -> setPic(vic -> at(k));
+
+//        connect(prev, SIGNAL(cardClicked(int)), this, SLOT(cardClicked(int)));
+        
+        listLayout -> addWidget(prev);
+    }
 }
 
 
 void MiniPopup::closeSee (){
 
+    seeBack -> setVisible(true);
     closeMenu();
 }
 

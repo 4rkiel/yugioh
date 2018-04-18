@@ -14,8 +14,10 @@
 
 #include <QShortcut>
 
-#include "../inc/shadowButt.h"
+#include <vector>
 
+#include "../inc/shadowButt.h"
+#include "../inc/popCard.h"
 
 class MiniPopup : public QWidget {
 
@@ -42,9 +44,10 @@ public slots:
     void hideMode();
 
 
-    void openSee();
-    void openChoose();
-    void openChooseLocked();
+    void openSee(std::vector <QString> *);
+    void openChoose(std::vector <QString> *);
+    void openChooseLocked(std::vector <QString> *);
+    void populate(std::vector <QString> *);
     void closeSee();
 
     void openMenu();
@@ -103,18 +106,13 @@ private:
         QWidget * seeBox;
         QGridLayout * seeLayout;
 
-            ShadowButt * seeBack;
             QLabel * seeLabel;
-
             
+            QWidget * seeList;
+            QGridLayout * listLayout;
             
-/*
-        QWidget * menuBox;
-        QVBoxLayout * menuLayout;
+            ShadowButt * seeBack;
 
-            ShadowButt * quit;
-            ShadowButt * back;
-*/    
 
 };
 

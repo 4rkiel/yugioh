@@ -49,7 +49,7 @@ public:
     Field();
     ~Field();
     void init();
-//    void resizeEvent(QResizeEvent* event);
+    
 
 public slots:
 
@@ -88,7 +88,10 @@ public slots:
     void openChooseMagi();
     void openWin();
     void openLost();
+    void openQuit();
 
+    void miniClose();
+    void miniReopen();
 
     void previewClicked();
     void cardDoubleClicked(int);
@@ -122,10 +125,13 @@ private:
 	void resetProgress();
     int plusDroite_Self();
 
+    void miniSave();
+
     int retained;
     int maxPhase;
 
 	bool lockTick;
+    bool miniPopSave;
 
 	bool lockPreview;
 	int previewed;

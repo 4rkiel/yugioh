@@ -10,6 +10,8 @@ Initialisé lors du lancement d'une partie
 
 Field::Field () {
 
+    miniPopSave = false;
+
 	lockTick = false;
 
     lockPreview = true;
@@ -170,7 +172,7 @@ Field::Field () {
     connect(popup, SIGNAL(focusField()), this, SLOT(getsFocus()));
     connect(popup, SIGNAL(moiFocus()), this, SLOT(abandonFocus()));
 
-    connect(menuButt, SIGNAL(clicked()), popup, SLOT(openQuit()));
+    connect(menuButt, SIGNAL(clicked()), this, SLOT(openQuit()));
 
 
 
@@ -396,7 +398,7 @@ Field::Field () {
                 sidebar -> addWidget(chat, 0, 0, 10, 1);
 
                 connect(chat, SIGNAL(msgSent(QString)), this, SLOT(sendMsg(QString)));
-                connect(chat, SIGNAL(rcvQuit()), popup, SLOT(openQuit()));
+                connect(chat, SIGNAL(rcvQuit()), this, SLOT(openQuit()));
                 connect(chat, SIGNAL(swField()), this, SLOT(switchField()));
 
             side -> setLayout(sidebar);
@@ -426,7 +428,7 @@ Field::Field () {
     //key shortcut
     shortcut = new QShortcut(QKeySequence("Escape"), this);
     shortcut->setContext(Qt::WidgetShortcut);
-    connect(shortcut, SIGNAL(activated()), popup, SLOT(openQuit()));
+    connect(shortcut, SIGNAL(activated()), this, SLOT(openQuit()));
 
     setLayout(layout);
 
@@ -563,7 +565,7 @@ void Field::init(){
      for (int k=0; k<150; k++){
          if (fieldStack -> at(k) != nullptr){
              connect(fieldStack->at(k), SIGNAL(rcvQuit()), 
-                     popup, SLOT(openQuit()),Qt::UniqueConnection);
+                     this, SLOT(openQuit()),Qt::UniqueConnection);
              connect(fieldStack->at(k), SIGNAL(mvUp()), 
                      this, SLOT(moveUp()),Qt::UniqueConnection);
              connect(fieldStack->at(k), SIGNAL(mvDown()), 
@@ -590,6 +592,7 @@ void Field::emitIntroStack (){
 
 void Field::openChoosePosi (){
     minipop -> openPosi();
+    miniSave();
 }
 
 void Field::emitAtk (){
@@ -603,6 +606,7 @@ void Field::emitDef (){
 
 void Field::openChooseMagi (){
     minipop -> openMagi();
+    miniSave();
 }
 
 void Field::emitHide (){
@@ -615,14 +619,53 @@ void Field::emitVisi (){
 
 
 void Field::openWin (){
-    popup -> openWin();
-	relockTick();
+    
+    if (lockTick){
+        
+        popup -> openWin();
+	    relockTick();
+    }
 }
 
 void Field::openLost (){
-    popup -> openLost();
-	relockTick();
+    
+    if (lockTick){
+    
+        popup -> openLost();
+	    relockTick();
+    }
 }
+
+void Field::openQuit (){
+
+    if (lockTick){
+        
+        popup -> openQuit();
+    
+    } else {
+        
+        popup -> openEnd();
+    }
+}
+
+
+void Field::miniSave (){
+    
+    miniPopSave = true;
+}
+
+void Field::miniClose (){
+
+    miniPopSave = false;
+}
+
+void Field::miniReopen(){
+    
+    if (miniPopSave){
+        minipop -> setVisible(true);
+    }
+}
+
 
 /* Focus */
 void Field::getsFocus(){
@@ -970,13 +1013,14 @@ void Field::dealWithHand(int k){
 
             connect(
                 fieldStack->at(k), SIGNAL(rcvQuit()), 
-                popup, SLOT(openQuit())
+                this, SLOT(openQuit())
             );
 
 //            resizeVictor();
             for (int k=0; k<150; k++){
                 if (fieldStack -> at(k) != nullptr){
-                    connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()),Qt::UniqueConnection);
+                    connect(fieldStack->at(k), SIGNAL(rcvQuit()), 
+                            this, SLOT(openQuit()),Qt::UniqueConnection);
                     connect(fieldStack->at(k), SIGNAL(mvUp()), this, SLOT(moveUp()),Qt::UniqueConnection);
                     connect(fieldStack->at(k), SIGNAL(mvDown()), this, SLOT(moveDown()),Qt::UniqueConnection);
                     connect(fieldStack->at(k), SIGNAL(mvLeft()), this, SLOT(moveLeft()),Qt::UniqueConnection);
