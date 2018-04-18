@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ar_SA">
+<TS version="2.1" language="ar_SA">
 <context>
     <name>BuildTab</name>
     <message>
@@ -9,7 +9,7 @@
     </message>
     <message>
         <source>Cartes</source>
-        <translation>خرائط</translation>
+        <translation type="vanished">خرائط</translation>
     </message>
     <message>
         <source>Editeur de Carte</source>
@@ -18,6 +18,18 @@
     <message>
         <source>Decks</source>
         <translation>الطوابق</translation>
+    </message>
+    <message>
+        <source>Editeur de Decks</source>
+        <translation>محرر الطوابق</translation>
+    </message>
+    <message>
+        <source>Fermer l&apos;éditeur</source>
+        <translation>أغلق المحرر</translation>
+    </message>
+    <message>
+        <source>Créer un nouveau Deck</source>
+        <translation>إنشاء سطح السفينة جديد</translation>
     </message>
 </context>
 <context>
@@ -449,6 +461,42 @@
         <source>Défense: </source>
         <translation>الدفاع: </translation>
     </message>
+    <message>
+        <source>Effet</source>
+        <translation>تأثير</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>طبيعي</translation>
+    </message>
+    <message>
+        <source>Fusion</source>
+        <translation>انصهار</translation>
+    </message>
+    <message>
+        <source>Toon</source>
+        <translation>رسوم متحركة</translation>
+    </message>
+    <message>
+        <source>Rituel</source>
+        <translation>طقوس</translation>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation>استمر</translation>
+    </message>
+    <message>
+        <source>Equipement</source>
+        <translation>معدات</translation>
+    </message>
+    <message>
+        <source>Jeu-Rapide</source>
+        <translation>سريع التشغيل</translation>
+    </message>
+    <message>
+        <source>Terrain</source>
+        <translation>أرض</translation>
+    </message>
 </context>
 <context>
     <name>Chat</name>
@@ -509,6 +557,20 @@
     </message>
 </context>
 <context>
+    <name>DeckPreview</name>
+    <message>
+        <source>Editer le deck </source>
+        <translation>تحرير سطح السفينة </translation>
+    </message>
+</context>
+<context>
+    <name>DeckSelector</name>
+    <message>
+        <source>Utiliser ce deck en duel</source>
+        <translation>استخدم هذا السطح المبارز</translation>
+    </message>
+</context>
+<context>
     <name>Field</name>
     <message>
         <source>Vous</source>
@@ -527,6 +589,10 @@
 0</source>
         <translation>جولة
 0</translation>
+    </message>
+    <message>
+        <source>Tour</source>
+        <translation>جولة</translation>
     </message>
 </context>
 <context>
@@ -567,17 +633,17 @@
     <name>HostChoice</name>
     <message>
         <source>Partie Privée : Hébergement</source>
-        <translation>الطرف الخاص: الإقامة</translation>
+        <translation type="vanished">الطرف الخاص: الإقامة</translation>
     </message>
     <message>
         <source>Retour au Menu</source>
-        <translation>العودة إلى القائمة</translation>
+        <translation type="vanished">العودة إلى القائمة</translation>
     </message>
     <message>
         <source>Serveur personnel initialisé.
 
 En attente de connexion de l&apos;adversaire...</source>
-        <translation>تهيئة الخادم الشخصي.
+        <translation type="vanished">تهيئة الخادم الشخصي.
 
 في انتظار اتصال الخصم ...</translation>
     </message>
@@ -585,8 +651,28 @@ En attente de connexion de l&apos;adversaire...</source>
         <source>Adresse du serveur : 
 
 </source>
-        <translation>عنوان الخادم:
+        <translation type="vanished">عنوان الخادم:
 </translation>
+    </message>
+    <message>
+        <source>Hébergement Partie Privée</source>
+        <translation>استضافة الحفلات الخاصة</translation>
+    </message>
+    <message>
+        <source>Retour</source>
+        <translation>عودة</translation>
+    </message>
+    <message>
+        <source>Serveur personnel initialisé</source>
+        <translation>الخادم الشخصي المبدئي</translation>
+    </message>
+    <message>
+        <source>En attente de l&apos;adversaire</source>
+        <translation>في انتظار الخصم</translation>
+    </message>
+    <message>
+        <source>Adresse du serveur</source>
+        <translation>عنوان الخادم</translation>
     </message>
 </context>
 <context>
@@ -644,15 +730,82 @@ En attente de connexion de l&apos;adversaire...</source>
     <name>JoinChoice</name>
     <message>
         <source>Partie Privée : Rejoindre</source>
-        <translation>حفلة خاصة: انضم</translation>
+        <translation type="vanished">حفلة خاصة: انضم</translation>
     </message>
     <message>
         <source>Retour au Menu</source>
-        <translation>العودة إلى القائمة</translation>
+        <translation type="vanished">العودة إلى القائمة</translation>
     </message>
     <message>
         <source>Valider</source>
         <translation>التحقق من صحة</translation>
+    </message>
+    <message>
+        <source>Rejoindre Partie Privée</source>
+        <translation>انضم إلى حفلة خاصة</translation>
+    </message>
+    <message>
+        <source>Retour</source>
+        <translation>عودة</translation>
+    </message>
+    <message>
+        <source>Entrez l&apos;adresse de l&apos;hôte</source>
+        <translation>أدخل عنوان المضيف</translation>
+    </message>
+</context>
+<context>
+    <name>MiniPopup</name>
+    <message>
+        <source>Atk</source>
+        <translation>هجوم</translation>
+    </message>
+    <message>
+        <source>Monstre en mode Attaque</source>
+        <translation>الوحش في وضع الهجوم</translation>
+    </message>
+    <message>
+        <source>Def</source>
+        <translation>دفاع</translation>
+    </message>
+    <message>
+        <source>Monstre en mode Defense</source>
+        <translation>الوحش في وضع الدفاع</translation>
+    </message>
+    <message>
+        <source>Annuler</source>
+        <translation>إلغاء</translation>
+    </message>
+    <message>
+        <source>Annuler l&apos;action</source>
+        <translation>إلغاء الإجراء</translation>
+    </message>
+    <message>
+        <source>Choisir la position</source>
+        <translation>اختيار الموقف</translation>
+    </message>
+    <message>
+        <source>Visible</source>
+        <translation>مرئي</translation>
+    </message>
+    <message>
+        <source>Carte face visible</source>
+        <translation>بطاقة الوجه</translation>
+    </message>
+    <message>
+        <source>Masquée</source>
+        <translation>مقنع</translation>
+    </message>
+    <message>
+        <source>Carte face masquée</source>
+        <translation>بطاقة وجه ملثمين</translation>
+    </message>
+    <message>
+        <source>Retour</source>
+        <translation>عودة</translation>
+    </message>
+    <message>
+        <source>Retourner au terrain</source>
+        <translation>العودة إلى الميدان</translation>
     </message>
 </context>
 <context>
@@ -667,7 +820,34 @@ En attente de connexion de l&apos;adversaire...</source>
     </message>
     <message>
         <source>Retour au Menu</source>
-        <translation>العودة إلى القائمة</translation>
+        <translation type="vanished">العودة إلى القائمة</translation>
+    </message>
+    <message>
+        <source>Recherche d&apos;un adversaire en cours...</source>
+        <translation>البحث عن خصم ...</translation>
+    </message>
+    <message>
+        <source>Veuillez patienter</source>
+        <translation>من فضلك انتظر</translation>
+    </message>
+</context>
+<context>
+    <name>Noyau</name>
+    <message>
+        <source>Je ne peux plus piocher</source>
+        <translation>لا أستطيع رسم</translation>
+    </message>
+    <message>
+        <source>L&apos;adversaire ne peut plus piocher</source>
+        <translation>الخصم لم يعد يحفر</translation>
+    </message>
+    <message>
+        <source>J&apos;active pot de cupidité</source>
+        <translation>أنا تنشيط وعاء الطمع</translation>
+    </message>
+    <message>
+        <source>L&apos;adversaire active pot de cupidité</source>
+        <translation>وعاء الخصم النشط من الجشع</translation>
     </message>
 </context>
 <context>
@@ -732,36 +912,44 @@ En attente de connexion de l&apos;adversaire...</source>
         <source>Options</source>
         <translation>خيارات</translation>
     </message>
+    <message>
+        <source>Plein Ecran</source>
+        <translation>كامل الشاشة</translation>
+    </message>
+    <message>
+        <source>Afficher l&apos;application en plein écran</source>
+        <translation>عرض التطبيق في وضع ملء الشاشة</translation>
+    </message>
 </context>
 <context>
     <name>Popup</name>
     <message>
         <source>Atk</source>
-        <translation>هجوم</translation>
+        <translation type="vanished">هجوم</translation>
     </message>
     <message>
         <source>Monstre en mode Attaque</source>
-        <translation>الوحش في وضع الهجوم</translation>
+        <translation type="vanished">الوحش في وضع الهجوم</translation>
     </message>
     <message>
         <source>Def</source>
-        <translation>دفاع</translation>
+        <translation type="vanished">دفاع</translation>
     </message>
     <message>
         <source>Monstre en mode Defense</source>
-        <translation>الوحش في وضع الدفاع</translation>
+        <translation type="vanished">الوحش في وضع الدفاع</translation>
     </message>
     <message>
         <source>Annuler</source>
-        <translation>إلغاء</translation>
+        <translation type="vanished">إلغاء</translation>
     </message>
     <message>
         <source>Annuler l&apos;action</source>
-        <translation>إلغاء الإجراء</translation>
+        <translation type="vanished">إلغاء الإجراء</translation>
     </message>
     <message>
         <source>Choisir la position</source>
-        <translation>اختيار الموقف</translation>
+        <translation type="vanished">اختيار الموقف</translation>
     </message>
     <message>
         <source>Non</source>
@@ -782,6 +970,38 @@ En attente de connexion de l&apos;adversaire...</source>
     <message>
         <source>Voulez-vous abandonner ?</source>
         <translation>هل تريد الاستسلام؟</translation>
+    </message>
+    <message>
+        <source>Retour</source>
+        <translation>عودة</translation>
+    </message>
+    <message>
+        <source>Retourner au terrain</source>
+        <translation>العودة إلى الميدان</translation>
+    </message>
+    <message>
+        <source>Quitter</source>
+        <translation>ترك</translation>
+    </message>
+    <message>
+        <source>Retour à l&apos;accueil</source>
+        <translation>عودة إلى الإستقبال</translation>
+    </message>
+    <message>
+        <source>Vous avez Perdu...</source>
+        <translation>لقد فقدت ...</translation>
+    </message>
+    <message>
+        <source>Vous avez Gagné !</source>
+        <translation>لقد فزت!</translation>
+    </message>
+    <message>
+        <source>Rester sur le terrain</source>
+        <translation>ابق على الأرض</translation>
+    </message>
+    <message>
+        <source>Quitter le terrain ?</source>
+        <translation>اترك المجال؟</translation>
     </message>
 </context>
 <context>
@@ -941,7 +1161,7 @@ En attente de connexion de l&apos;adversaire...</source>
     </message>
     <message>
         <source>Deck vide</source>
-        <translation>سطح فارغ</translation>
+        <translation type="vanished">سطح فارغ</translation>
     </message>
     <message>
         <source>Monstre: </source>
@@ -961,23 +1181,23 @@ En attente de connexion de l&apos;adversaire...</source>
     </message>
     <message>
         <source>Type: </source>
-        <translation>نوع: </translation>
+        <translation type="vanished">نوع: </translation>
     </message>
     <message>
         <source>Niveau</source>
-        <translation>المستوى</translation>
+        <translation type="vanished">المستوى</translation>
     </message>
     <message>
         <source>Attaque: </source>
-        <translation>الهجوم: </translation>
+        <translation type="vanished">الهجوم: </translation>
     </message>
     <message>
         <source>Défense: </source>
-        <translation>الدفاع: </translation>
+        <translation type="vanished">الدفاع: </translation>
     </message>
     <message>
         <source>Effets</source>
-        <translation>الآثار</translation>
+        <translation type="vanished">الآثار</translation>
     </message>
     <message>
         <source>Main Deck vide</source>
@@ -1085,15 +1305,79 @@ En attente de connexion de l&apos;adversaire...</source>
     </message>
     <message>
         <source>Deck: </source>
-        <translation>سطح السفينة:</translation>
+        <translation type="vanished">سطح السفينة:</translation>
     </message>
     <message>
         <source>Genre: </source>
-        <translation>النوع:</translation>
+        <translation type="vanished">النوع:</translation>
     </message>
     <message>
         <source>Attribut: </source>
         <translation>سمة:</translation>
+    </message>
+    <message>
+        <source>Tous</source>
+        <translation>جميع</translation>
+    </message>
+    <message>
+        <source>Nom du Deck</source>
+        <translation>اسم سطح السفينة</translation>
+    </message>
+    <message>
+        <source>Supprimer le deck</source>
+        <translation>احذف السطح</translation>
+    </message>
+    <message>
+        <source>Réorganiser les cartes</source>
+        <translation>إعادة ترتيب البطاقات</translation>
+    </message>
+    <message>
+        <source>Mélanger le Deck</source>
+        <translation>مزيج في المؤخرة</translation>
+    </message>
+    <message>
+        <source>Trier le Deck</source>
+        <translation>فرز سطح السفينة</translation>
+    </message>
+    <message>
+        <source>Effacer le contenu du Deck</source>
+        <translation>مسح محتويات سطح السفينة</translation>
+    </message>
+    <message>
+        <source>Annuler la dernière action</source>
+        <translation>إلغاء الإجراء الأخير</translation>
+    </message>
+    <message>
+        <source>Refaire la dernière action annulée</source>
+        <translation>كرر الإجراء الأخير الملغى</translation>
+    </message>
+    <message>
+        <source>Nom recherché</source>
+        <translation>الاسم المطلوب</translation>
+    </message>
+    <message>
+        <source>Effacer la recherche</source>
+        <translation>مسح البحث</translation>
+    </message>
+    <message>
+        <source>Tries avancés sur les Cartes</source>
+        <translation>فرز متقدم على البطاقات</translation>
+    </message>
+    <message>
+        <source>Genre:   </source>
+        <translation>النوع: </translation>
+    </message>
+    <message>
+        <source>Sans_Nom</source>
+        <translation>بدون اسم</translation>
+    </message>
+    <message>
+        <source>Fermer les options de tri</source>
+        <translation>أغلق خيارات الفرز</translation>
+    </message>
+    <message>
+        <source>Réorganiser la prévisualisationdes cartes</source>
+        <translation>إعادة ترتيب معاينة الخريطة</translation>
     </message>
 </context>
 </TS>

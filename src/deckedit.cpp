@@ -363,7 +363,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
 
             // ... Annuler recherche ...........................................
 
-            butClearSearch = new DarkButt("", "clear");
+            butClearSearch = new DarkButt("", tr("Effacer"));
             butClearSearch->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
             butClearSearch->setToolTip(tr("Effacer la recherche"));
 
