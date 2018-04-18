@@ -257,29 +257,31 @@ void Duplica::reInit(Carte * card){
 
         setColor(card -> sous_type);
 
+
     } else if (card -> genre == 1){
 
        setAttr("SPELL"); 
 
-       setSpellType(-1, card -> sous_type);
+       setSpellType(card -> sous_type);
         
        hideType();
 
        hideStat();
 
-       setColor(-1);
+       setSpellColor();
+
 
     } else {
 
         setAttr("TRAP");
 
-        setSpellType(0, card -> sous_type);
+        setTrapType(card -> sous_type);
 
         hideType();
 
         hideStat();
 
-        setColor(0);
+        setTrapColor();
     }
 
 }
@@ -299,78 +301,115 @@ void Duplica::setAttr (QString str){
 }
 
 
+void Duplica::setSpellColor (){
+
+    titleBox -> setStyleSheet( "#replicaTitleBox {"
+        "background: #00897B;"
+        "border-left: 3px solid #80CBC4;"
+        "border-top: 3px solid #80CBC4;"
+    "}");
+
+    descBox -> setStyleSheet(
+        "border: 3px solid #004D40;"
+        "background: #80CBC4;"
+    );
+
+    setStyleSheet("background: #00897B");
+}
+
+
+void Duplica::setTrapColor (){
+
+    titleBox -> setStyleSheet( "#replicaTitleBox {"
+        "background: #FDD835;"
+        "border-left: 3px solid #ffff88;"
+        "border-top: 3px solid #ffff88;"
+    "}");
+
+    descBox -> setStyleSheet(
+        "border: 3px solid #795548;"
+        "background: #FFF59D;"
+    );
+
+    setStyleSheet("background: #FDD835");
+
+}
+
+
 void Duplica::setColor (int x){
-
-    // Magic
-    
-	if (x == -1){
-
-	    titleBox -> setStyleSheet( "#replicaTitleBox {"
-    	    "background: #00897B;"
-        	"border-left: 3px solid #80CBC4;"
-	        "border-top: 3px solid #80CBC4;"
-    	"}");
-    
-	    descBox -> setStyleSheet(
-    	    "border: 3px solid #004D40;"
-        	"background: #80CBC4;"
-	    );
-
-    	setStyleSheet("background: #00897B");
-
-
-    // Trap
-
-	} else if (x == 0){
-
-	    titleBox -> setStyleSheet( "#replicaTitleBox {"
-    	    "background: #FDD835;"
-        	"border-left: 3px solid #ffff88;"
-	        "border-top: 3px solid #ffff88;"
-    	"}");
-    
-	    descBox -> setStyleSheet(
-    	    "border: 3px solid #795548;"
-        	"background: #FFF59D;"
-	    );
-
-    	setStyleSheet("background: #FDD835");
-
-
     // Monster
 
-	} else if (x == 2){
+	switch (x){
 
-	    titleBox -> setStyleSheet( "#replicaTitleBox {"
-    	    "background: #FDD835;"
-        	"border-left: 3px solid #ffff88;"
-	        "border-top: 3px solid #ffff88;"
-    	"}");
-    
-	    descBox -> setStyleSheet(
-    	    "border: 3px solid #795548;"
-        	"background: #FFF59D;"
-	    );
+        case 0: // Effect
+        case 3: // Toon
 
-    	setStyleSheet("background: #FDD835");
+            titleBox -> setStyleSheet( "#replicaTitleBox {"
+                "background: #8D6E63;"
+                "border-left: 3px solid #A1887F;"
+                "border-top: 3px solid #A1887F;"
+            "}");
+        
+            descBox -> setStyleSheet(
+                "border: 3px solid #795548;"
+                "background: #BCAAA4;"
+            );
 
-	} else {
-
-	    titleBox -> setStyleSheet( "#replicaTitleBox {"
-    	    "background: #FDD835;"
-        	"border-left: 3px solid #ffff88;"
-	        "border-top: 3px solid #ffff88;"
-    	"}");
-    
-	    descBox -> setStyleSheet(
-    	    "border: 3px solid #795548;"
-        	"background: #FFF59D;"
-	    );
-
-    	setStyleSheet("background: #FDD835");
+            setStyleSheet("background: #8D6E63");
 
 
+        break;
+        case 1: // Normal
 
+            titleBox -> setStyleSheet( "#replicaTitleBox {"
+                "background: #FDD835;"
+                "border-left: 3px solid #ffff88;"
+                "border-top: 3px solid #ffff88;"
+            "}");
+        
+            descBox -> setStyleSheet(
+                "border: 3px solid #795548;"
+                "background: #FFF59D;"
+            );
+
+            setStyleSheet("background: #FDD835");
+       
+
+        break;
+        case 2: // Fusion
+
+            titleBox -> setStyleSheet( "#replicaTitleBox {"
+                "background: #B39DDB;"
+                "border-left: 3px solid #EDE7F6;"
+                "border-top: 3px solid #EDE7F6;"
+            "}");
+        
+            descBox -> setStyleSheet(
+                "border: 3px solid #9575CD;"
+                "background: #D1C4E9;"
+            );
+
+            setStyleSheet("background: #B39DDB");
+
+
+        break;
+        case 4: // Rituel
+
+            titleBox -> setStyleSheet( "#replicaTitleBox {"
+                "background: #64B5F6;"
+                "border-left: 3px solid #BBDEFB;"
+                "border-top: 3px solid #BBDEFB;"
+            "}");
+        
+            descBox -> setStyleSheet(
+                "border: 3px solid #2196F3;"
+                "background: #90CAF9;"
+            );
+
+            setStyleSheet("background: #64B5F6");
+
+
+        break;
     }
 }
 
@@ -400,9 +439,112 @@ void Duplica::setLevel (int x){
 }
 
 
-void Duplica::setSpellType(int genre, int sous_type){
+void Duplica::setSpellType(int attr){
+
+    while (auto item = typeLayout->takeAt(0)) {
+        delete item->widget();
+    }
+
+    QLabel * genreLabel = new QLabel;
+ 
+    QFont font = this -> font();
+    font.setPointSize(10);
+    
+    genreLabel -> setText(tr("Carte Magie"));
+    genreLabel -> setFont(font);
+
+    typeLayout -> addWidget(genreLabel);
 
 
+    if (attr > 0){
+    
+        QString attrtxt;
+
+        switch (attr){
+            
+            case 1:
+                attrtxt = "";
+            break;
+            case 2:
+                attrtxt = "";
+            break;
+            case 3:
+                attrtxt = "";
+            break;
+            case 4:
+                attrtxt = "";
+            break;
+            case 5:
+                attrtxt = "";
+            break;
+        }
+
+
+        QLabel * typeLabel = new QLabel;
+
+        typeLabel -> setStyleSheet(
+            "border-image:url(\"img/img_attr/"+ attrtxt +".png\");"
+        );
+
+        typeLabel -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+        typeLabel -> setObjectName("replicaAttr");
+        typeLabel -> setMinimumHeight(20);
+        typeLabel -> setMaximumHeight(20);
+        typeLabel -> setMinimumWidth(20);
+        typeLabel -> setMaximumWidth(20);
+        
+        typeLayout -> addWidget(typeLabel);
+    }
+}
+
+
+void Duplica::setTrapType(int attr){
+
+    while (auto item = typeLayout->takeAt(0)) {
+        delete item->widget();
+    }
+
+    QLabel * genreLabel = new QLabel;
+
+    QFont font = this -> font();
+    font.setPointSize(10);
+    
+    genreLabel -> setText(tr("Carte Piège"));
+    genreLabel -> setFont(font);
+
+    typeLayout -> addWidget(genreLabel);
+
+
+    if (attr > 0){
+    
+        QString attrtxt;
+
+        switch (attr){
+            
+            case 1:
+                attrtxt = "";
+            break;
+            case 2:
+                attrtxt = "";
+            break;
+        }
+
+
+        QLabel * typeLabel = new QLabel;
+
+        typeLabel -> setStyleSheet(
+            "border-image:url(\"img/img_attr/"+ attrtxt +".png\");"
+        );
+
+        typeLabel -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+        typeLabel -> setObjectName("replicaAttr");
+        typeLabel -> setMinimumHeight(20);
+        typeLabel -> setMaximumHeight(20);
+        typeLabel -> setMinimumWidth(20);
+        typeLabel -> setMaximumWidth(20);
+        
+        typeLayout -> addWidget(typeLabel);
+    }
 }
 
 
@@ -488,9 +630,29 @@ void Duplica::setType (int x, int y){
 
 }
 
+    switch(y){
+
+        case 0:
+            typetxt = typetxt + " / Effet";
+        break;
+        case 1:
+        break;
+        case 2:
+            typetxt = typetxt + " / Fusion";
+        break;
+        case 3:
+            typetxt = typetxt + " / Toon";
+        break;
+        case 4:
+            typetxt = typetxt + " / Rituel";
+        break;
+    }
+    
+
     type -> setText("[ " + typetxt + " ]");
 	type -> setVisible(true);
 }
+
 
 void Duplica::hideType (){
 	type -> setVisible(false);
@@ -507,6 +669,7 @@ void Duplica::setStat (QString strAtk, QString strDef){
     atk -> setText("ATK " + strAtk + "/ DEF " + strDef);
 	atk -> setVisible(true);
 }
+
 
 void Duplica::hideStat (){
 	atk -> setVisible(false);

@@ -13,6 +13,8 @@
 #include <QPushButton>
 #include <QShortcut>
 
+#include <QFont>
+
 #include "../inc/carte.h"
 
 class Duplica : public QFrame {
@@ -37,13 +39,16 @@ private:
     void setTitle(QString);
    	void setAttr(QString);
 	void setLevel(int);
-    void setSpellType(int, int);
+    void setSpellType(int);
+    void setTrapType(int);
 	void setPic(QString);
 	void setType(int, int);
 	void hideType();
     void setDesc(QString);
     void setStat(QString, QString);
 	void hideStat();
+    void setSpellColor();
+    void setTrapColor();
     void setColor(int);
 
     void mousePressEvent (QMouseEvent *);

@@ -90,7 +90,6 @@ public slots:
     void openLost();
     void openQuit();
 
-    void miniClose();
     void miniReopen();
 
     void previewClicked();
@@ -126,12 +125,14 @@ private:
     int plusDroite_Self();
 
     void miniSave();
+    void maxiSave();
 
     int retained;
     int maxPhase;
 
 	bool lockTick;
     bool miniPopSave;
+    bool popSave;
 
 	bool lockPreview;
 	int previewed;

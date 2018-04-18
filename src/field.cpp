@@ -11,6 +11,7 @@ Initialisé lors du lancement d'une partie
 Field::Field () {
 
     miniPopSave = false;
+    popSave = false;
 
 	lockTick = false;
 
@@ -624,8 +625,10 @@ void Field::openWin (){
         
         popup -> openWin();
 	    relockTick();
+        maxiSave();
     }
 }
+
 
 void Field::openLost (){
     
@@ -633,8 +636,10 @@ void Field::openLost (){
     
         popup -> openLost();
 	    relockTick();
+        maxiSave();
     }
 }
+
 
 void Field::openQuit (){
 
@@ -646,6 +651,8 @@ void Field::openQuit (){
         
         popup -> openEnd();
     }
+
+    maxiSave();
 }
 
 
@@ -654,21 +661,37 @@ void Field::miniSave (){
     miniPopSave = true;
 }
 
-void Field::miniClose (){
 
-    miniPopSave = false;
+void Field::maxiSave (){
+
+    popSave = true;
 }
+
 
 void Field::miniReopen(){
     
-    if (miniPopSave){
+    if (miniPopSave && popSave){
+        
         minipop -> setVisible(true);
+        popSave = false;
+
+    } else if (miniPopSave){
+        
+        miniPopSave = false;
+
+    } else if (popSave){
+    
+        minipop -> setVisible(false);
+        popSave = false;
     }
 }
 
 
 /* Focus */
 void Field::getsFocus(){
+
+    miniReopen();
+
     SlotCard* temp;
     for (int k=0; k<150; k++){
         if (fieldStack -> at(k) != nullptr){
