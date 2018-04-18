@@ -735,7 +735,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/field.cpp" line="911"/>
+        <location filename="../../src/field.cpp" line="888"/>
         <source>Tour</source>
         <translation type="unfinished"></translation>
     </message>
@@ -997,18 +997,73 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/noyau.cpp" line="213"/>
+        <source>J&apos;ai pioché</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../src/noyau.cpp" line="219"/>
         <source>L&apos;adversaire ne peut plus piocher</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/noyau.cpp" line="838"/>
+        <location filename="../../src/noyau.cpp" line="224"/>
+        <source>L&apos;adversaire a pioché</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/noyau.cpp" line="452"/>
+        <source>Je pose</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/noyau.cpp" line="500"/>
+        <source>L&apos;adversaire pose</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/noyau.cpp" line="553"/>
+        <location filename="../../src/noyau.cpp" line="653"/>
+        <source>Je pose de manière sacrificielle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/noyau.cpp" line="599"/>
+        <location filename="../../src/noyau.cpp" line="700"/>
+        <source>L&apos;adversaire pose de manière sacrificielle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/noyau.cpp" line="871"/>
         <source>J&apos;active pot de cupidité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/noyau.cpp" line="853"/>
+        <location filename="../../src/noyau.cpp" line="887"/>
         <source>L&apos;adversaire active pot de cupidité</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/noyau.cpp" line="1179"/>
+        <location filename="../../src/noyau.cpp" line="1718"/>
+        <location filename="../../src/noyau.cpp" line="1761"/>
+        <source>Main Phase 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/noyau.cpp" line="1188"/>
+        <source>Battle Phase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/noyau.cpp" line="1191"/>
+        <source>Main Phase 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/noyau.cpp" line="1717"/>
+        <location filename="../../src/noyau.cpp" line="1760"/>
+        <source>La partie commence !</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

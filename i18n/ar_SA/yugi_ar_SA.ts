@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ar_SA">
+<TS version="2.0" language="ar_SA">
 <context>
     <name>BuildTab</name>
     <message>
@@ -9,7 +9,7 @@
     </message>
     <message>
         <source>Cartes</source>
-        <translation type="vanished">خرائط</translation>
+        <translation>خرائط</translation>
     </message>
     <message>
         <source>Editeur de Carte</source>
@@ -633,17 +633,17 @@
     <name>HostChoice</name>
     <message>
         <source>Partie Privée : Hébergement</source>
-        <translation type="vanished">الطرف الخاص: الإقامة</translation>
+        <translation>الطرف الخاص: الإقامة</translation>
     </message>
     <message>
         <source>Retour au Menu</source>
-        <translation type="vanished">العودة إلى القائمة</translation>
+        <translation>العودة إلى القائمة</translation>
     </message>
     <message>
         <source>Serveur personnel initialisé.
 
 En attente de connexion de l&apos;adversaire...</source>
-        <translation type="vanished">تهيئة الخادم الشخصي.
+        <translation>تهيئة الخادم الشخصي.
 
 في انتظار اتصال الخصم ...</translation>
     </message>
@@ -651,7 +651,7 @@ En attente de connexion de l&apos;adversaire...</source>
         <source>Adresse du serveur : 
 
 </source>
-        <translation type="vanished">عنوان الخادم:
+        <translation>عنوان الخادم:
 </translation>
     </message>
     <message>
@@ -730,11 +730,11 @@ En attente de connexion de l&apos;adversaire...</source>
     <name>JoinChoice</name>
     <message>
         <source>Partie Privée : Rejoindre</source>
-        <translation type="vanished">حفلة خاصة: انضم</translation>
+        <translation>حفلة خاصة: انضم</translation>
     </message>
     <message>
         <source>Retour au Menu</source>
-        <translation type="vanished">العودة إلى القائمة</translation>
+        <translation>العودة إلى القائمة</translation>
     </message>
     <message>
         <source>Valider</source>
@@ -820,7 +820,7 @@ En attente de connexion de l&apos;adversaire...</source>
     </message>
     <message>
         <source>Retour au Menu</source>
-        <translation type="vanished">العودة إلى القائمة</translation>
+        <translation>العودة إلى القائمة</translation>
     </message>
     <message>
         <source>Recherche d&apos;un adversaire en cours...</source>
@@ -848,6 +848,46 @@ En attente de connexion de l&apos;adversaire...</source>
     <message>
         <source>L&apos;adversaire active pot de cupidité</source>
         <translation>وعاء الخصم النشط من الجشع</translation>
+    </message>
+    <message>
+        <source>J&apos;ai pioché</source>
+        <translation>وجهت</translation>
+    </message>
+    <message>
+        <source>L&apos;adversaire a pioché</source>
+        <translation>وقد رسم الخصم</translation>
+    </message>
+    <message>
+        <source>Je pose</source>
+        <translation>أضع</translation>
+    </message>
+    <message>
+        <source>L&apos;adversaire pose</source>
+        <translation>يطرح الخصم</translation>
+    </message>
+    <message>
+        <source>Je pose de manière sacrificielle</source>
+        <translation>أطرح بطريقة الأضحية</translation>
+    </message>
+    <message>
+        <source>L&apos;adversaire pose de manière sacrificielle</source>
+        <translation>يطرح الخصم بطريقة التضحية</translation>
+    </message>
+    <message>
+        <source>Main Phase 1</source>
+        <translation>المرحلة الرئيسية 1</translation>
+    </message>
+    <message>
+        <source>Battle Phase</source>
+        <translation>مرحلة المعركة</translation>
+    </message>
+    <message>
+        <source>Main Phase 2</source>
+        <translation>المرحلة الرئيسية 2</translation>
+    </message>
+    <message>
+        <source>La partie commence !</source>
+        <translation>تبدأ اللعبة!</translation>
     </message>
 </context>
 <context>
@@ -925,31 +965,31 @@ En attente de connexion de l&apos;adversaire...</source>
     <name>Popup</name>
     <message>
         <source>Atk</source>
-        <translation type="vanished">هجوم</translation>
+        <translation>هجوم</translation>
     </message>
     <message>
         <source>Monstre en mode Attaque</source>
-        <translation type="vanished">الوحش في وضع الهجوم</translation>
+        <translation>الوحش في وضع الهجوم</translation>
     </message>
     <message>
         <source>Def</source>
-        <translation type="vanished">دفاع</translation>
+        <translation>دفاع</translation>
     </message>
     <message>
         <source>Monstre en mode Defense</source>
-        <translation type="vanished">الوحش في وضع الدفاع</translation>
+        <translation>الوحش في وضع الدفاع</translation>
     </message>
     <message>
         <source>Annuler</source>
-        <translation type="vanished">إلغاء</translation>
+        <translation>إلغاء</translation>
     </message>
     <message>
         <source>Annuler l&apos;action</source>
-        <translation type="vanished">إلغاء الإجراء</translation>
+        <translation>إلغاء الإجراء</translation>
     </message>
     <message>
         <source>Choisir la position</source>
-        <translation type="vanished">اختيار الموقف</translation>
+        <translation>اختيار الموقف</translation>
     </message>
     <message>
         <source>Non</source>
@@ -1161,7 +1201,7 @@ En attente de connexion de l&apos;adversaire...</source>
     </message>
     <message>
         <source>Deck vide</source>
-        <translation type="vanished">سطح فارغ</translation>
+        <translation>سطح فارغ</translation>
     </message>
     <message>
         <source>Monstre: </source>
@@ -1181,23 +1221,23 @@ En attente de connexion de l&apos;adversaire...</source>
     </message>
     <message>
         <source>Type: </source>
-        <translation type="vanished">نوع: </translation>
+        <translation>نوع: </translation>
     </message>
     <message>
         <source>Niveau</source>
-        <translation type="vanished">المستوى</translation>
+        <translation>المستوى</translation>
     </message>
     <message>
         <source>Attaque: </source>
-        <translation type="vanished">الهجوم: </translation>
+        <translation>الهجوم: </translation>
     </message>
     <message>
         <source>Défense: </source>
-        <translation type="vanished">الدفاع: </translation>
+        <translation>الدفاع: </translation>
     </message>
     <message>
         <source>Effets</source>
-        <translation type="vanished">الآثار</translation>
+        <translation>الآثار</translation>
     </message>
     <message>
         <source>Main Deck vide</source>
@@ -1305,11 +1345,11 @@ En attente de connexion de l&apos;adversaire...</source>
     </message>
     <message>
         <source>Deck: </source>
-        <translation type="vanished">سطح السفينة:</translation>
+        <translation>سطح السفينة:</translation>
     </message>
     <message>
         <source>Genre: </source>
-        <translation type="vanished">النوع:</translation>
+        <translation>النوع:</translation>
     </message>
     <message>
         <source>Attribut: </source>
