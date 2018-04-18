@@ -90,8 +90,8 @@ public slots:
     void openLost();
     void openQuit();
     void openSee(std::vector <QString> *);
-    void openChoose(std::vector <QString> *);
-    void openChooseLocked(std::vector <QString> *);
+    void openChoose(int, std::vector <QString> *);
+    void openChooseLocked(int, std::vector <QString> *);
 
     void miniReopen();
 

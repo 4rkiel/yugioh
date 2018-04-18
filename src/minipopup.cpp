@@ -268,7 +268,7 @@ void MiniPopup::openSee (std::vector <QString> * str){
 }
 
 
-void MiniPopup::openChooseLocked (std::vector <QString> * str){
+void MiniPopup::openChooseLocked (int, std::vector <QString> * str){
     
     populate(str);
     
@@ -279,7 +279,7 @@ void MiniPopup::openChooseLocked (std::vector <QString> * str){
 }
 
 
-void MiniPopup::openChoose (std::vector <QString> * str){
+void MiniPopup::openChoose (int, std::vector <QString> * str){
     
     populate(str);
     

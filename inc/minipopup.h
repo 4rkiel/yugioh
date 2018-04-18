@@ -45,8 +45,8 @@ public slots:
 
 
     void openSee(std::vector <QString> *);
-    void openChoose(std::vector <QString> *);
-    void openChooseLocked(std::vector <QString> *);
+    void openChoose(int, std::vector <QString> *);
+    void openChooseLocked(int, std::vector <QString> *);
     void populate(std::vector <QString> *);
     void closeSee();
 
@@ -71,6 +71,9 @@ signals:
 private:
 
     bool locked;
+
+    int have;
+    int need;
 
     QWidget * current;
     

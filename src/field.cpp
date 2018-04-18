@@ -624,13 +624,13 @@ void Field::openSee (std::vector <QString> * str){
     miniSave();
 }
 
-void Field::openChoose (std::vector <QString> * str){
-    minipop -> openChoose(str);
+void Field::openChoose (int x, std::vector <QString> * str){
+    minipop -> openChoose(x, str);
     miniSave();
 }
 
-void Field::openChooseLocked (std::vector <QString> * str){
-    minipop -> openChooseLocked(str);
+void Field::openChooseLocked (int x, std::vector <QString> * str){
+    minipop -> openChooseLocked(x, str);
     miniSave();
 }
 
