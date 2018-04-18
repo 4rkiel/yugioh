@@ -17,6 +17,7 @@ Noyau::Noyau()
     alreadyAtk = new std::vector<int>();
     alreadyMoved = new std::vector<int>();
     alreadyPosed = false;
+    tour = 1;
 
 }
 
@@ -1652,6 +1653,7 @@ void Noyau::traiter(QString s)
           message.append(QString::fromStdString(ss1.str()));
          emit tiens(message);
          emit giveLife(selfLife);
+           emit setTour(tour);
             emit beginTour();
           lockTick=true;
           mon_tour=false;
@@ -1706,7 +1708,7 @@ void Noyau::traiter(QString s)
          piocher(76);
          piocher(76);
          piocher(1);
-
+           emit setTour(tour);
          emit beginTour();
          lockTick=true;
          mon_tour=true;
