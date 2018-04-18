@@ -1177,6 +1177,7 @@ void Field::switchChat(){
 
 void Field::switchField(){
     fieldStack->at(14)->setFocus();
+    slfScroll->horizontalScrollBar()->setValue(0);
 }
 
 /*
