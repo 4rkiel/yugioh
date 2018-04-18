@@ -17,6 +17,7 @@ Noyau::Noyau()
     alreadyAtk = new std::vector<int>();
     alreadyMoved = new std::vector<int>();
     alreadyPosed = false;
+    tour = 1;
 
 }
 
@@ -34,7 +35,7 @@ void Noyau::init()
     std::cout << "aleatoire" << aleatoire << std::endl;
     std::srand(aleatoire);
     phase = 0;
-    tour = 0;
+    tour = 1;
     //chargerDeck(0);
     //deckAdverse(0);
     //std::stringstream ss1;
@@ -159,12 +160,9 @@ void Noyau::donner_infos(int x)
      {
         if((isAdv(x) && actuelle->etat !=VERSO) || !isAdv(x))
        {
-            if(actuelle->genre == 1)
-                 {
-                emit give_infos(actuelle->nom,-1,actuelle->niveau,actuelle->image,actuelle->type,actuelle->description,actuelle->atk,actuelle->def);
-            }
-            else
-             emit give_infos(actuelle->nom,actuelle->attribut,actuelle->niveau,actuelle->image,actuelle->type,actuelle->description,actuelle->atk,actuelle->def);
+
+                emit give_infos(actuelle);
+             //emit give_infos(actuelle->nom,actuelle->attribut,actuelle->niveau,actuelle->image,actuelle->type,actuelle->description,actuelle->atk,actuelle->def);
         std::cout << "j'émit les infos : " << actuelle->nom.toStdString() << "GENRE:" << actuelle->genre << " " << actuelle->attribut << actuelle->niveau << actuelle->image.toStdString() << actuelle->type << actuelle->description.toStdString() << actuelle->atk << actuelle->def << std::endl;
 
         }
@@ -209,7 +207,7 @@ void Noyau::piocher(int x)
     {
         emit tiens("apioche");
     }*/
-    if(tour!=0)
+    if(tour!=1)
         emit sendInfo("J'ai pioché");
     }
     else
@@ -220,7 +218,7 @@ void Noyau::piocher(int x)
                 emit je_gagne();
                 return;
         }
-        if(tour!=0)
+        if(tour!=1)
         emit sendInfo("L'adversaire a pioché");
     std::cout << "le traitement du piochage adverse en cours " << std::endl;
     int dans_main = perfect_position(1);
@@ -328,7 +326,7 @@ int Noyau::perfect_terrain(int zone)
                    return begin_position;
             while(trouver(begin_position)!=NULL)
                 begin_position++;
-            if(begin_position>5)
+            if(begin_position>81)
                 return -1;
 
         }
@@ -346,7 +344,7 @@ int Noyau::perfect_magie(int zone)
                    return begin_position;
             while(trouver(begin_position)!=NULL)
                 begin_position++;
-            if(begin_position>13)
+            if(begin_position>12)
                 return -1;
 
         }
@@ -461,7 +459,9 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
                 emit tiens(message);
             }
             if(la_carte->genre==0)
-                alreadyPosed=true;
+             {   alreadyPosed=true;
+                alreadyMoved->push_back(terrain_x);
+            }
         }
     }
     else
@@ -1653,6 +1653,7 @@ void Noyau::traiter(QString s)
           message.append(QString::fromStdString(ss1.str()));
          emit tiens(message);
          emit giveLife(selfLife);
+           emit setTour(tour);
             emit beginTour();
           lockTick=true;
           mon_tour=false;
@@ -1707,7 +1708,7 @@ void Noyau::traiter(QString s)
          piocher(76);
          piocher(76);
          piocher(1);
-
+           emit setTour(tour);
          emit beginTour();
          lockTick=true;
          mon_tour=true;
