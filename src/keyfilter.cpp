@@ -12,12 +12,15 @@ bool Keyfilter::eventFilter(QObject* o,QEvent* event){
 
         if ( (key->key()==Qt::Key_Left) || (key->key()==Qt::Key_Up) ) {
             //up or left
-            if((temp=static_cast<QLineEdit*>(qApp->focusObject()))!=NULL && QString(qApp->focusObject()->metaObject()->className())=="QLineEdit"){
+            if((temp=static_cast<QLineEdit*>(qApp->focusObject()))!=NULL && QString(qApp->focusObject()->metaObject()->className())=="QString"){
                 if(temp->text().isEmpty()){
                     QKeyEvent * event2 = new QKeyEvent (QEvent::KeyPress,Qt::Key_Tab,Qt::ShiftModifier);
                     QApplication::postEvent(o,event2);
                 }
                 else return QObject::eventFilter(o,event);
+            }
+            else if(QString(qApp->focusObject()->metaObject()->className())=="QComboBoxListView"){
+                return QObject::eventFilter(o,event);
             }
             else{
                 QKeyEvent * event2 = new QKeyEvent (QEvent::KeyPress,Qt::Key_Tab,Qt::ShiftModifier);
@@ -33,6 +36,9 @@ bool Keyfilter::eventFilter(QObject* o,QEvent* event){
                     QApplication::postEvent(o,event2);
                 }
                 else return QObject::eventFilter(o,event);
+            }
+            else if(QString(qApp->focusObject()->metaObject()->className())=="QComboBoxListView"){
+                return QObject::eventFilter(o,event);
             }
             else{
                 QKeyEvent * event2 = new QKeyEvent (QEvent::KeyPress,Qt::Key_Tab,Qt::NoModifier);
