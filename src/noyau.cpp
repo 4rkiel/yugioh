@@ -461,7 +461,9 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
                 emit tiens(message);
             }
             if(la_carte->genre==0)
-                alreadyPosed=true;
+             {   alreadyPosed=true;
+                alreadyMoved->push_back(terrain_x);
+            }
         }
     }
     else
