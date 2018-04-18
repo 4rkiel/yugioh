@@ -34,7 +34,7 @@ void Noyau::init()
     std::cout << "aleatoire" << aleatoire << std::endl;
     std::srand(aleatoire);
     phase = 0;
-    tour = 0;
+    tour = 1;
     //chargerDeck(0);
     //deckAdverse(0);
     //std::stringstream ss1;
@@ -159,12 +159,9 @@ void Noyau::donner_infos(int x)
      {
         if((isAdv(x) && actuelle->etat !=VERSO) || !isAdv(x))
        {
-            if(actuelle->genre == 1)
-                 {
-                emit give_infos(actuelle->nom,-1,actuelle->niveau,actuelle->image,actuelle->type,actuelle->description,actuelle->atk,actuelle->def);
-            }
-            else
-             emit give_infos(actuelle->nom,actuelle->attribut,actuelle->niveau,actuelle->image,actuelle->type,actuelle->description,actuelle->atk,actuelle->def);
+
+                emit give_infos(actuelle);
+             //emit give_infos(actuelle->nom,actuelle->attribut,actuelle->niveau,actuelle->image,actuelle->type,actuelle->description,actuelle->atk,actuelle->def);
         std::cout << "j'émit les infos : " << actuelle->nom.toStdString() << "GENRE:" << actuelle->genre << " " << actuelle->attribut << actuelle->niveau << actuelle->image.toStdString() << actuelle->type << actuelle->description.toStdString() << actuelle->atk << actuelle->def << std::endl;
 
         }
@@ -209,7 +206,7 @@ void Noyau::piocher(int x)
     {
         emit tiens("apioche");
     }*/
-    if(tour!=0)
+    if(tour!=1)
         emit sendInfo("J'ai pioché");
     }
     else
@@ -220,7 +217,7 @@ void Noyau::piocher(int x)
                 emit je_gagne();
                 return;
         }
-        if(tour!=0)
+        if(tour!=1)
         emit sendInfo("L'adversaire a pioché");
     std::cout << "le traitement du piochage adverse en cours " << std::endl;
     int dans_main = perfect_position(1);
