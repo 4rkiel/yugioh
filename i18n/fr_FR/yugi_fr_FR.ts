@@ -735,7 +735,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/field.cpp" line="911"/>
+        <location filename="../../src/field.cpp" line="888"/>
         <source>Tour</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1045,6 +1045,8 @@
     </message>
     <message>
         <location filename="../../src/noyau.cpp" line="1179"/>
+        <location filename="../../src/noyau.cpp" line="1718"/>
+        <location filename="../../src/noyau.cpp" line="1761"/>
         <source>Main Phase 1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1056,6 +1058,12 @@
     <message>
         <location filename="../../src/noyau.cpp" line="1191"/>
         <source>Main Phase 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/noyau.cpp" line="1717"/>
+        <location filename="../../src/noyau.cpp" line="1760"/>
+        <source>La partie commence !</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
