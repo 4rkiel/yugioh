@@ -10,6 +10,7 @@ Initialisé lors du lancement d'une partie
 
 Field::Field () {
 
+    readLangage();
     miniPopSave = false;
 
 	lockTick = false;
@@ -1088,29 +1089,61 @@ int Field::plusDroite_Self(){
 }
 
 void Field::moveLeft(){
-    if(QString(qApp->focusObject()->metaObject()->className())=="SlotCard"){
-        for (int k=0; k<150; k++){
-            if (fieldStack -> at(k) != nullptr){
-                if(fieldStack->at(k)==static_cast<SlotCard*>(qApp->focusObject())){
-                    if( (k>=1 && k<=6) || (k>=8 && k<=13) || (k>=83 && k<=88) || (k>=76 && k<=81) )
-                        fieldStack -> at(k-1) -> setFocus();
-                    if( (k==0) || (k==7) || (k==75) || (k==82)  )
-                        fieldStack -> at(k+6) -> setFocus();
-                    if(k==14){
-                        fieldStack -> at(plusDroite_Self()) -> setFocus();
-                        slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->maximum());
-                    }
-                    if(k==89)
-                        fieldStack -> at(95) -> setFocus();
-                    if(k>=15 && k<75){
-                        fieldStack -> at(k-1) -> setFocus();
-                        slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() - fieldStack -> at(14) ->width());
-                    }
-                    if(k>=90 && k<=150){
-                        fieldStack -> at(k-1) -> setFocus();
-                    }
-                    return;
+    if(langage!="ar_SA"){
+        if(QString(qApp->focusObject()->metaObject()->className())=="SlotCard"){
+            for (int k=0; k<150; k++){
+                if (fieldStack -> at(k) != nullptr){
+                    if(fieldStack->at(k)==static_cast<SlotCard*>(qApp->focusObject())){
+                        if( (k>=1 && k<=6) || (k>=8 && k<=13) || (k>=83 && k<=88) || (k>=76 && k<=81) )
+                            fieldStack -> at(k-1) -> setFocus();
+                        if( (k==0) || (k==7) || (k==75) || (k==82)  )
+                            fieldStack -> at(k+6) -> setFocus();
+                        if(k==14){
+                            fieldStack -> at(plusDroite_Self()) -> setFocus();
+                            slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->maximum());
+                        }
+                        if(k==89)
+                            fieldStack -> at(95) -> setFocus();
+                        if(k>=15 && k<75){
+                            fieldStack -> at(k-1) -> setFocus();
+                            slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() - fieldStack -> at(14) ->width());
+                        }
+                        if(k>=90 && k<=150){
+                            fieldStack -> at(k-1) -> setFocus();
+                        }
+                        return;
 
+                    }
+                }
+            }
+        }
+    }
+    else{
+        if(QString(qApp->focusObject()->metaObject()->className())=="SlotCard"){
+            for (int k=0; k<150; k++){
+                if (fieldStack -> at(k) != nullptr){
+                    if(fieldStack->at(k)==static_cast<SlotCard*>(qApp->focusObject())){
+                        if( (k>=0 && k<=5) || (k>=7 && k<=12) || (k>=82 && k<=87) || (k>=75 && k<=80) )
+                            fieldStack -> at(k+1) -> setFocus();
+                        if( (k==6) || (k==13) || (k==81) || (k==88) || (k==95)  )
+                            fieldStack -> at(k-6) -> setFocus();
+                        if(k>=14 && k<=75){
+                            if(fieldStack->at(k+1) != nullptr){
+                                fieldStack -> at(k+1) ->setFocus();
+                                slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() + fieldStack -> at(14) ->width());
+                            }
+                            else{
+                                fieldStack -> at(14) ->setFocus();
+                                slfScroll->horizontalScrollBar()->setValue(0);
+                            }
+
+                        }
+                        if(k>=89 && k<=94){
+                            fieldStack -> at(k+1) -> setFocus();
+                        }
+                        return;
+
+                    }
                 }
             }
         }
@@ -1118,30 +1151,61 @@ void Field::moveLeft(){
 }
 
 void Field::moveRight(){
-    if(QString(qApp->focusObject()->metaObject()->className())=="SlotCard"){
-        for (int k=0; k<150; k++){
-            if (fieldStack -> at(k) != nullptr){
-                if(fieldStack->at(k)==static_cast<SlotCard*>(qApp->focusObject())){
-                    if( (k>=0 && k<=5) || (k>=7 && k<=12) || (k>=82 && k<=87) || (k>=75 && k<=80) )
-                        fieldStack -> at(k+1) -> setFocus();
-                    if( (k==6) || (k==13) || (k==81) || (k==88) || (k==95)  )
-                        fieldStack -> at(k-6) -> setFocus();
-                    if(k>=14 && k<=75){
-                        if(fieldStack->at(k+1) != nullptr){
-                            fieldStack -> at(k+1) ->setFocus();
-                            slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() + fieldStack -> at(14) ->width());
+    if(langage!="ar_SA"){
+        if(QString(qApp->focusObject()->metaObject()->className())=="SlotCard"){
+            for (int k=0; k<150; k++){
+                if (fieldStack -> at(k) != nullptr){
+                    if(fieldStack->at(k)==static_cast<SlotCard*>(qApp->focusObject())){
+                        if( (k>=0 && k<=5) || (k>=7 && k<=12) || (k>=82 && k<=87) || (k>=75 && k<=80) )
+                            fieldStack -> at(k+1) -> setFocus();
+                        if( (k==6) || (k==13) || (k==81) || (k==88) || (k==95)  )
+                            fieldStack -> at(k-6) -> setFocus();
+                        if(k>=14 && k<=75){
+                            if(fieldStack->at(k+1) != nullptr){
+                                fieldStack -> at(k+1) ->setFocus();
+                                slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() + fieldStack -> at(14) ->width());
+                            }
+                            else{
+                                fieldStack -> at(14) ->setFocus();
+                                slfScroll->horizontalScrollBar()->setValue(0);
+                            }
+
                         }
-                        else{
-                            fieldStack -> at(14) ->setFocus();
-                            slfScroll->horizontalScrollBar()->setValue(0);
+                        if(k>=89 && k<=94){
+                            fieldStack -> at(k+1) -> setFocus();
                         }
+                        return;
 
                     }
-                    if(k>=89 && k<=94){
-                        fieldStack -> at(k+1) -> setFocus();
-                    }
-                    return;
+                }
+            }
+        }
+    }
+    else{
+        if(QString(qApp->focusObject()->metaObject()->className())=="SlotCard"){
+            for (int k=0; k<150; k++){
+                if (fieldStack -> at(k) != nullptr){
+                    if(fieldStack->at(k)==static_cast<SlotCard*>(qApp->focusObject())){
+                        if( (k>=1 && k<=6) || (k>=8 && k<=13) || (k>=83 && k<=88) || (k>=76 && k<=81) )
+                            fieldStack -> at(k-1) -> setFocus();
+                        if( (k==0) || (k==7) || (k==75) || (k==82)  )
+                            fieldStack -> at(k+6) -> setFocus();
+                        if(k==14){
+                            fieldStack -> at(plusDroite_Self()) -> setFocus();
+                            slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->maximum());
+                        }
+                        if(k==89)
+                            fieldStack -> at(95) -> setFocus();
+                        if(k>=15 && k<75){
+                            fieldStack -> at(k-1) -> setFocus();
+                            slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() - fieldStack -> at(14) ->width());
+                        }
+                        if(k>=90 && k<=150){
+                            fieldStack -> at(k-1) -> setFocus();
+                        }
+                        return;
 
+                    }
                 }
             }
         }
@@ -1155,6 +1219,11 @@ void Field::switchChat(){
 void Field::switchField(){
     fieldStack->at(14)->setFocus();
     slfScroll->horizontalScrollBar()->setValue(0);
+}
+
+void Field::readLangage(){
+    QSettings settings;
+    langage = settings.value("langage", QLocale::system().name()).toString();
 }
 
 /*

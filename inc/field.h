@@ -120,6 +120,7 @@ private:
 
 //    void resizeVictor();
     void dealWithHand(int);
+    void readLangage();
 
     void cardOut();
 	void resetProgress();
@@ -137,6 +138,7 @@ private:
 	int previewed;
 
 	QString baseLife;
+    QString langage;
     
 
     QGridLayout * layout;
