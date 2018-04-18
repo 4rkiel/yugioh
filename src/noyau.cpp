@@ -1714,8 +1714,8 @@ void Noyau::traiter(QString s)
           piocher(76);
           piocher(76);
           piocher(76);
-          emit sendInfo("La partie commence !");
-          emit sendInfo("Main Phase 1");
+          emit sendInfo(tr("La partie commence !"));
+          emit sendInfo(tr("Main Phase 1"));
     }
     else if(s.startsWith("slife/"))
     {
@@ -1757,8 +1757,8 @@ void Noyau::traiter(QString s)
          emit beginTour();
          lockTick=true;
          mon_tour=true;
-         emit sendInfo("La partie commence !");
-         emit sendInfo("Main Phase 1");
+         emit sendInfo(tr("La partie commence !"));
+         emit sendInfo(tr("Main Phase 1"));
         // emit commence();
     }
     else if(s.compare(QString("init"))==0)
