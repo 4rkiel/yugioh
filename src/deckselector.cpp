@@ -29,6 +29,9 @@ DeckSelector::DeckSelector(QObject* parent){
 
         QString image = imgPreviewDeck(deckCourant);
 
+        if(image.isNull())
+            image = defaultImage;
+
         tabRadio.push_back(new QRadioButton);
         tabRadio[i] -> setObjectName("selectRad");
         tabRadio[i] -> setToolTip(tr("Utiliser ce deck en duel"));
@@ -88,8 +91,7 @@ DeckSelector::~DeckSelector(){
 // TODO probleme si vecteur vide: appli crash
 
 QString DeckSelector::imgPreviewDeck(std::vector<Carte*> *deck){
-
-    return deck->at(0)->image;
+    return deck->empty() ? nullptr : deck->at(0)->image;
 }
 
 void DeckSelector::openDeck(QString nomDeck){
