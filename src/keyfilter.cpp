@@ -25,7 +25,7 @@ bool Keyfilter::eventFilter(QObject* o,QEvent* event){
             else if((temp2=static_cast<QTextEdit*>(qApp->focusObject()))!=NULL &&
                       QString(qApp->focusObject()->metaObject()->className())=="QTextEdit" ){
                 if(temp2->toPlainText().isEmpty()){
-                    QKeyEvent * event2 = new QKeyEvent (QEvent::KeyPress,Qt::Key_Tab,Qt::NoModifier);
+                    QKeyEvent * event2 = new QKeyEvent (QEvent::KeyPress,Qt::Key_Tab,Qt::ShiftModifier);
                     QApplication::postEvent(o,event2);
                     return true;
                 }
@@ -82,6 +82,7 @@ bool Keyfilter::eventFilter(QObject* o,QEvent* event){
              }
              else return QObject::eventFilter(o,event);
         }
+
 
         else {
             return QObject::eventFilter(o,event);
