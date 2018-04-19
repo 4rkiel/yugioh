@@ -273,7 +273,7 @@ Trou Noir
 1
 12
 Détruit tous les monstres sur le Terrain.
-{{0
+{{10
 2500
 2100
 ##YGO
@@ -324,3 +324,651 @@ Description / Effet de la carte...
 {{0
 0
 0
+##YGO
+3207946
+0
+1
+Crâne Serviteur
+1
+1
+21
+Fantôme squelettre très commun et qui n'est pas très fort, mais qui, en nombre, peut devenir embarassant.
+{{0
+300
+200
+##YGO
+10944046
+0
+1
+Gaïa Le Chevalier Implacable 
+2
+7
+9
+Chevalier dont le destrier voyage plus vite que le vent. Sa charge de bataille est une force à ne pas sous-estimer.
+{{0
+2300
+2100
+##YGO
+94838365
+0
+1
+Gardien Celte
+2
+4
+9
+Cet elfe qui a appris à manier l'épée déroute l'ennemi par des attaques éclair.
+{{0
+1400
+1200
+##YGO
+25880216
+0
+1
+Insecte Elémentaire
+2
+2
+10
+La forêt est l'environnement préféré de cet insecte que l'on aperçoit généralement dans les marais.
+{{0
+500
+700
+##YGO
+25975540
+0
+1
+Cimetière De Mammouth
+2
+3
+6
+Mammouth qui protège les tombes des siens et qui est absolument sans pitié face aux déterreurs de cadavres.
+{{0
+1200
+800
+##YGO
+58143041
+0
+1
+Croc Argenté
+2
+3
+1
+Un loup des neiges magnifique, mais terriblement violent au combat.
+{{0
+1200
+800
+##YGO
+80884272
+0
+1
+Anthracite
+2
+3
+1
+Ce monstre entièrement gris n'a que rarement été aperçu par des yeux de mortels.
+{{0
+800
+900
+##YGO
+45105681
+0
+1
+Jugement Cauchemardesque
+1
+4
+5
+Ce démon rend son jugement sur les ennemis qu'il maintient prisonniers dans des cercueils.
+{{0
+1300
+900
+##YGO
+16813516
+0
+1
+Nemuriko
+1
+3
+12
+Créature infantile qui commande au démon du sommeil de plonger ses ennemis dans le sommeil éternel.
+{{0
+800
+700
+##YGO
+95752197
+0
+1
+La 13ème Tombe
+1
+3
+21
+Un zombie qui surgit de l'emplacement n°13, une tombe vide.
+{{0
+1200
+900
+##YGO
+32768604
+0
+1
+Manipulateur De Flammes
+4
+3
+12
+Ce Magicien attaque ses ennemis à l'aide de sorts liés au feu, tels que "Mer de Flammes" et "Mur de feu".
+{{0
+900
+1000
+##YGO
+63965099
+0
+1
+Oeuf De Monstre
+2
+3
+9
+Guerrier caché dans un oeuf et qui attaque ses ennemis en lançant des coquilles d'oeufs.
+{{0
+600
+900
+##YGO
+27508290
+0
+1
+Plante De Feu
+2
+2
+13
+Plante qui respire du feu et que l'on trouve poussant près des volcans.
+{{0
+700
+600
+##YGO
+82276200
+0
+1
+Roi Sombre Des Abysses
+1
+3
+5
+On dit que ce roi du néant a le pouvoir de régner sur les ténèbres.
+{{0
+1200
+800
+##YGO
+21406102
+0
+1
+Reflet Infernal N°2
+0
+4
+2
+Monstre à plumes qui invoque des renforcements d'un miroir qu'il tient dans ses mains.
+{{0
+1100
+1400
+##YGO
+71043999
+0
+1
+Tigre Tortue
+3
+4
+0
+Tigre recouvert d'une cuirasse protectrice qui attaque à l'aide de griffes acérées comme des lames de rasoir.
+{{0
+1000
+1500
+##YGO
+61621276
+0
+1
+Petit Dragon
+5
+2
+7
+Dragon minuscule qui utilise toute la surface de son corps et toute sa force pour attaquer.
+{{0
+600
+700
+##YGO
+77435081
+0
+1
+Petit Ange
+0
+3
+8
+Minuscule fée très rapide et difficile à toucher.
+{{0
+600
+900
+##YGO
+60832897
+0
+1
+Ame Hinotama
+4
+2
+15
+Créature incandescente qui détruit tout ce qu'elle trouve sur son passage.
+{{0
+600
+500
+##YGO
+15657825
+0
+1
+Aqua Madoor
+3
+4
+12
+Mage des eaux qui conjure un mur liquide afin d'écease tous les ennemis qui s'opposent à lui..
+{{0
+1200
+2000
+##YGO
+10289132
+0
+1
+Kagémusha De La Flamme Bleue
+2
+2
+9
+Double du souverain de la flamme bleue et véritable fine lame.
+{{0
+800
+400
+##YGO
+59932039
+0
+1
+Seigneur Des Ténèbres À Deux Bouches
+2
+3
+7
+Dinosaure à la double mâchoire meurtrière, il stocke de l'éléctricité dans sa corne et crache de grands éclairs de sa bouche arrière.
+{{0
+900
+700
+##YGO
+97188252
+0
+1
+Dissolveroc
+2
+3
+16
+Monstre né dans les douves, il produit une chaleur intense capable de faire fondre ses ennemis.
+{{0
+900
+1000
+##YGO
+96044605
+0
+1
+Aqua Racine
+3
+3
+14
+Amphibien capable d'invoquer un enorme raz-de-marée sur les mers des ténèbres pour éliminer ses ennemis monstrueux.
+{{0
+900
+800
+##YGO
+31100294
+0
+1
+Le Furieux Roi Des Mers
+3
+3
+0
+Grand Roi des sept mers, il est capable d'invoquer d'énormes raz-de-marée pour faire couler ses ennemis.
+{{0
+800
+700
+##YGO
+96421947
+0
+1
+Roi Fantôme Vert
+2
+3
+13
+Ce jeune roi des forêts vit dans un monde de verdure, entouré d'arbres et d'animaux.
+{{0
+500
+1600
+##YGO
+67950354
+0
+1
+Rayon Et Température
+0
+3
+8
+Le Soleil et le Vent du nord se donnent la main pour créer une combinaison dévastatrice de chaleur et de vents soufflants en tempête.
+{{0
+1000
+1000
+##YGO
+21448632
+0
+1
+Roi Brume
+1
+3
+5
+Démon qui vit dans un écran aveuglant de fumée.
+{{0
+1000
+900
+##YGO
+47066940
+0
+1
+Mouton Mystique N°2
+2
+3
+1
+Mouton monstrueux doté d'une longue queue qui hypnotise ses ennemis.
+{{0
+800
+1000
+##YGO
+54131587
+0
+1
+Masaki Le Spadassin Légendaire
+2
+4
+9
+Masaki, maître légendaire de l'épée, a survécu à plus de 100 batailles.
+{{0
+1100
+1100
+##YGO
+60969485
+0
+1
+Kurama
+5
+3
+2
+Oiseau cruel qui attaque des cieux avec une queue qui ressemble à un fouet.
+{{0
+800
+800
+##YGO
+57776971
+2
+1
+Jarre De Capture Du Dragon
+1
+3
+2
+Tous les monstres de Type Dragon sur le Terrain passent Position de Défense et restent dans cette position tant que cette carte reste face recto sur le terrain.
+{{0
+800
+800
+##YGO
+87268383
+1
+1
+Raigeki
+0
+3
+2
+Détruisez tous les monstres sur le terrain de votre adversaire.
+{{0
+800
+800
+##YGO
+26187013
+1
+1
+Médicament Rouge
+0
+3
+2
+Augmentez vos points de vie de 500 points.
+{{0
+800
+800
+##YGO
+64412069
+1
+1
+Etincelles
+0
+3
+2
+Inflige 200 points de dommages aux points de vie de votre adversaire.
+{{0
+800
+800
+##YGO
+87125887
+1
+1
+Hinotama
+0
+3
+2
+Inflige 500 points de dommages aux points de vie de votre adversaire.
+{{0
+800
+800
+##YGO
+69162661
+1
+1
+Fissure
+0
+3
+2
+Detruit un monstre face recto de votre adversaire avec l'ATK la plus basse.
+{{0
+800
+800
+##YGO
+24876704
+1
+1
+Polymérisation
+0
+3
+2
+Envoyez au cimétière, depuis votre main ou votre Terrain, les Monstres Matierl de Fusion qui sont listés sur une Carte Monstre de Fusion, et invoquez ce Monstre Fusion depuis votre Extra Deck.
+{{0
+800
+800
+##YGO
+77055928
+1
+1
+Piège Supprimé
+0
+3
+2
+Detruit 1 Carte Piège face recto sur le Terrain.
+{{0
+800
+800
+##YGO
+2922822
+2
+1
+Attaque En Double Fourche
+0
+3
+2
+Sélectionnez et détruisez 2 de vos monstres et 1 des monstres de votre adversaire.
+{{0
+800
+800
+##YGO
+96890524
+0
+1
+Elfe Mystique
+0
+4
+12
+Une délicate elfe qui manque d'offensive, mais dont la fantastique défense est renforcée par un pouvoir mystique.
+{{0
+800
+2000
+##YGO
+16070729
+0
+1
+Malédicition Du Dragon
+1
+5
+7
+Dragon malfaisant qui exploite les forces des ténèbres pour éxécuter une attaque puissante.
+{{0
+2000
+1500
+##YGO
+90841904
+0
+1
+Dragon Noir Aux Yeux Rouges
+1
+7
+7
+Dragon féroce à l'attaque meurtrière.
+{{0
+2400
+2000
+##YGO
+77016817
+1
+1
+Stop Defense
+0
+7
+7
+Séléctionez 1 des monstres de votre adversaire et passez-le en Postion d'Attaque. Si la carte est face verso, retournez la face Recto.
+{{0
+2400
+2000
+##YGO
+51151693
+1
+1
+Remède Secret Du Gobelin
+0
+7
+7
+Augmentez vos points de vie de 600 points.
+{{0
+2400
+2000
+##YGO
+33186936
+1
+1
+Flamme Ultime
+0
+7
+7
+Infligez 600 points de dommages aux points de vie de votre adversaire.
+{{0
+2400
+2000
+##YGO
+40714208
+1
+1
+Epées De Révélation De La Lumière
+0
+7
+7
+Retournez face recto tous les monstres contrôlés par votre adversaire. Cette carte reste sur le Terrain pour 3 tours de votre adversaire. Tant que cette carte est sur le Terrain, les monstres contrôlés par votre adversaire ne peuvent pas déclarer d'attaque.
+{{0
+2400
+2000
+##YGO
+87686566
+1
+1
+Monster Reborn
+0
+7
+7
+Selectionnez 1 Carte Monstre dans le Cimétière de votre adversaire ou dans le votre et invoquez-le.
+{{0
+2400
+2000
+##YGO
+93610171
+0
+1
+Jambe Droite De L'Interdit
+1
+1
+12
+Jambe droit interdite scellé par la magie. Toute personne rompant ce sceau connaîtra la puissance infinie.
+{{0
+200
+300
+##YGO
+42755639
+0
+1
+Jambe Gauche De L'Interdit
+1
+1
+12
+Jambe gauche interdite scellée par la magie. Toute personne rompant ce sceau connaîtra la puissance infinie.
+{{0
+200
+300
+##YGO
+36825740
+0
+1
+Bras Droit De L'Interdit
+1
+1
+12
+Bras droit interdit scellé par la magie. Toute personne rompant ce sceau connaîtra la puissance infinie.
+{{0
+200
+300
+##YGO
+47831829
+0
+1
+Bras Gauche De L'Interdit
+1
+1
+12
+Bras gauche interdit scellé par la magie. Toute personne rompant ce sceau connaîtra la puissance infinie.
+{{0
+200
+300
+##YGO
+94836377
+0
+0
+Exodia L'Interdit
+1
+3
+12
+Si vous avez "Jambe Droite De L'Interdit","Jambe Gauche De L'Interdit","Bras Droit De L'Interdit" et "Bras Gauche De L'Interdit" en plus de cette carte dans votre main, vous gagnez le Duel.
+{{0
+1000
+1000
+##YGO
+70778388
+0
+2
+Gaïa Le Dragon Champion
+5
+7
+7
+Gaïa Le Chevalier Implacable + Malediction Du Dragon.
+{{0
+2600
+2100

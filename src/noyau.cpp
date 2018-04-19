@@ -365,7 +365,8 @@ int Noyau::perfect_magie(int zone)
          {
             begin_position=alreadyActivate->at(0);
             enlever_m(&alreadyActivate,0);
-            trouver(begin_position)->position_terrain = -1;
+            //trouver(begin_position)->position_terrain = -1;
+            detruire(begin_position);
             return begin_position;
          }
             begin_position=8;
@@ -874,6 +875,13 @@ void Noyau::activer(int x)
             piocher(1);
             piocher(1);
             break;
+        case 10:
+           emit sendInfo(QString(tr("J'active trou noir")));
+            ss1 << "act/" << Carte::correspondant(x);
+            emit tiens(QString::fromStdString(ss1.str()));
+            destroy_all(1);
+            destroy_all(0);
+            break;
         default:
             break;
         }
@@ -888,10 +896,41 @@ void Noyau::activer(int x)
             piocher(76);
             piocher(76);
             break;
+        case 10:
+           emit sendInfo(QString(tr("L'adversaire active trou noir")));
+            ss1 << "act/" << Carte::correspondant(x);
+            emit tiens(QString::fromStdString(ss1.str()));
+            destroy_all(0);
+            destroy_all(1);
+            break;
         default:
             break;
         }
     }
+}
+
+//detruire toutes les monstres d'une zone, 0 = moi sinon adversaire
+void Noyau::destroy_all(int zone)
+{
+    int i;
+    if(zone==0)
+    {
+        for(i=0;i<(signed)terrain->size();i++)
+        {
+            if(!isAdv(terrain->at(i)->position_terrain) && isMonst(terrain->at(i)->position_terrain))
+                detruire(terrain->at(i)->position_terrain);
+        }
+    }
+    else
+    {
+
+        for(i=0;i<(signed)terrain->size();i++)
+        {
+            if(isAdv(terrain->at(i)->position_terrain)&& isMonst(terrain->at(i)->position_terrain))
+                detruire(terrain->at(i)->position_terrain);
+        }
+    }
+    return;
 }
 
 
