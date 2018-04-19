@@ -83,9 +83,10 @@ public slots:
 
 public:
 
-    /*comme son nom l'indique, passe à la phase_suivante
-     * PAS ENCORE IMPLEMENTE */
+    /*comme son nom l'indique, passe à la phase_suivante */
     void phase_suivante();
+
+    void destroy_all(int zone);
 
     //FONCTIONS UTILE POUR D'AUTRES FONCTIONS, LEURS DESCRIPTIONS EST DANS LE CPP
     void enlever_x(std::vector<Carte *> **vect, int x);
