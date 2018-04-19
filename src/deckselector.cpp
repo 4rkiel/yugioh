@@ -11,50 +11,52 @@ DeckSelector::DeckSelector(QObject* parent){
     mainLayout -> setSpacing(0);
     mainLayout -> setMargin(0);
 
-    
-    tabDeckButton.reserve(NBR_DECK);
-    tabSep.reserve(NBR_DECK-1);
-
+    if(NBR_DECK > 0)
+    {
+        tabDeckButton.reserve(NBR_DECK);
+        if(NBR_DECK > 1)
+            tabSep.reserve(NBR_DECK-1);
+    }
 
     Parser parserAllMighty;
     int i = 0;
     int last = deckList.size();
 
+    if(!deckList.empty())
+        foreach (QString str, deckList){
 
-    foreach (QString str, deckList){
+            std::vector<Carte*> * deckCourant = parserAllMighty.deck(deckRep + str);
 
-        std::vector<Carte*> * deckCourant = parserAllMighty.deck(deckRep + str);
+            // deck button
 
-        // deck button
+            QString image = imgPreviewDeck(deckCourant);
 
-        QString image = imgPreviewDeck(deckCourant);
+            if(image.isNull())
+                image = defaultImage;
 
-        if(image.isNull())
-            image = defaultImage;
+            tabRadio.push_back(new QRadioButton);
+            tabRadio[i] -> setObjectName("selectRad");
+            tabRadio[i] -> setToolTip(tr("Utiliser ce deck en duel"));
 
-        tabRadio.push_back(new QRadioButton);
-        tabRadio[i] -> setObjectName("selectRad");
-        tabRadio[i] -> setToolTip(tr("Utiliser ce deck en duel"));
+            tabDeckButton.push_back(new DeckPreview(str, image));
+            tabDeckButton[i] -> setObjectName("selectButt");
 
-        tabDeckButton.push_back(new DeckPreview(str, image));
-        tabDeckButton[i] -> setObjectName("selectButt");
-        
-        mainLayout->addWidget(tabDeckButton[i],i*2,0,1,1);
-        mainLayout->addWidget(tabRadio[i],i*2,1,1,1);
-       
-        if (i != last-1){
-            
-            tabSep.push_back(new QFrame);
-            tabSep[i]->setFixedHeight(1);
-            tabSep[i]->setObjectName("selectSep");
-        
-            mainLayout->addWidget(tabSep[i], (i*2)+1,0,1,2);
+            mainLayout->addWidget(tabDeckButton[i],i*2,0,1,1);
+            mainLayout->addWidget(tabRadio[i],i*2,1,1,1);
+
+            if (i != last-1){
+
+                tabSep.push_back(new QFrame);
+                tabSep[i]->setFixedHeight(1);
+                tabSep[i]->setObjectName("selectSep");
+
+                mainLayout->addWidget(tabSep[i], (i*2)+1,0,1,2);
+            }
+
+            connect(tabDeckButton[i], SIGNAL(isClick(QString)), this, SLOT(openDeck(QString)));
+
+            i++;
         }
-
-        connect(tabDeckButton[i], SIGNAL(isClick(QString)), this, SLOT(openDeck(QString)));
-
-        i++;
-    }
 
     BuildTab* par= static_cast<BuildTab*>(parent);
     QSpacerItem * spacerButt = new QSpacerItem(2,1,
@@ -86,9 +88,6 @@ DeckSelector::~DeckSelector(){
         
     delete mainLayout;
 }
-
-
-// TODO probleme si vecteur vide: appli crash
 
 QString DeckSelector::imgPreviewDeck(std::vector<Carte*> *deck){
     return deck->empty() ? nullptr : deck->at(0)->image;
