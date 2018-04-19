@@ -44,6 +44,7 @@ public:
     std::vector<int> * alreadyAtk;
     std::vector<int> * alreadyActivate;
     std::vector<int> * alreadyActivateAdv;
+    std::vector<Carte *> * choix;
 
     bool alreadyPosed=false;
 
@@ -167,7 +168,7 @@ signals:
     void beginTour();
     void montre(int x);
     void dialogueMagi();
-    void dialogueSac1();
+    void dialogueSac1(int nombre,std::vector<Carte *>* vector);
     void dialogueSac2();
 
     //void met_en_defense(int x);

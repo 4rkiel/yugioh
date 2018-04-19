@@ -19,6 +19,7 @@ Noyau::Noyau()
     alreadyActivate = new std::vector<int>();
     alreadyActivateAdv = new std::vector<int>();
     alreadyPosed = false;
+    choix = new std::vector<Carte *>();
     tour = 1;
 
 }
@@ -399,6 +400,7 @@ void Noyau::poser_test(int x)
     Carte * la_carte = trouver(x);
     if(la_carte == NULL || isAdv(x))
         return;
+    int i;
     if(can_poser() && !alreadyPosed && isHand(x) && (la_carte->genre==0) && (la_carte->niveau<5)   && (perfect_terrain(0)!=-1))
     {
         registre_0 = x;
@@ -408,7 +410,12 @@ void Noyau::poser_test(int x)
     {
         registre_0 = x;
         std::cout << "Il faut un sacrifice" << std::endl;
-        emit dialogueSac1();
+        for(i=0;i<(signed)terrain->size();i++)
+        {
+            if(!isAdv(terrain->at(i)->position_terrain) && isMonst(terrain->at(i)->position_terrain))
+                    choix->push_back(terrain->at(i));
+        }
+        emit dialogueSac1(1,choix);
     }
     else if(can_poser() && !alreadyPosed && isHand(x) && (la_carte->genre==0)  && (perfect_terrain(0)!=-1))
     {
