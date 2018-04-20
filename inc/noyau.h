@@ -119,7 +119,8 @@ public:
     bool can_switch();
     bool can_activate();
     bool contient(std::vector<int>* vect,int x);
-
+    void augmenterMaVie(int dx);
+    void augmenterSaVie(int dx);
     //obsolète
     Reseau * res;
 

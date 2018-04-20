@@ -447,7 +447,7 @@ void Noyau::poser_test(int x)
     Carte * la_carte = trouver(x);
     if(la_carte == NULL || isAdv(x))
         return;
-    int i;
+    int i,j;
     if(can_poser() && !alreadyPosed && isHand(x) && (la_carte->genre==0) && (la_carte->niveau<5)   && (perfect_terrain(0)!=-1))
     {
         registre_0 = x;
@@ -455,28 +455,48 @@ void Noyau::poser_test(int x)
     }
     else if(can_poser() && !alreadyPosed && isHand(x) && (la_carte->genre==0) && (la_carte->niveau<7)   && (perfect_terrain(0)!=-1))
     {
+        j=0;
         registre_0 = x;
         std::cout << "Il faut un sacrifice" << std::endl;
          choix->clear();
-        for(i=0;i<(signed)terrain->size();i++)
-        {
-            if(!isAdv(terrain->at(i)->position_terrain) && isMonst(terrain->at(i)->position_terrain))
-                    choix->push_back(terrain->at(i));
-        }
-        emit dialogueSac1(1,choix);
+         for(i=0;i<(signed)terrain->size();i++)
+         {
+             if(isMonst(terrain->at(i)->position_terrain) && !isAdv(terrain->at(i)->position_terrain))
+                 j++;
+         }
+         if(j>0)
+         {
+             for(i=0;i<(signed)terrain->size();i++)
+             {
+                 if(!isAdv(terrain->at(i)->position_terrain) && isMonst(terrain->at(i)->position_terrain))
+                         choix->push_back(terrain->at(i));
+             }
+             emit dialogueSac1(1,choix);
+         }
+
 
     }
     else if(can_poser() && !alreadyPosed && isHand(x) && (la_carte->genre==0)  && (perfect_terrain(0)!=-1))
     {
+        j=0;
         registre_0 = x;
         std::cout << "Il faut deux sacrifices" << std::endl;
         choix->clear();
         for(i=0;i<(signed)terrain->size();i++)
         {
-            if(!isAdv(terrain->at(i)->position_terrain) && isMonst(terrain->at(i)->position_terrain))
-                    choix->push_back(terrain->at(i));
+            if(isMonst(terrain->at(i)->position_terrain) && !isAdv(terrain->at(i)->position_terrain))
+                j++;
         }
-        emit dialogueSac1(2,choix);
+        if(j>1)
+        {
+            for(i=0;i<(signed)terrain->size();i++)
+            {
+                if(!isAdv(terrain->at(i)->position_terrain) && isMonst(terrain->at(i)->position_terrain))
+                        choix->push_back(terrain->at(i));
+            }
+            emit dialogueSac1(2,choix);
+        }
+
     }
     else if(can_poser() && isHand(x) && (la_carte->genre==1 || la_carte->genre==2) && (perfect_magie(0)!=-1))
     {
@@ -495,6 +515,18 @@ void Noyau::poser_test(int x)
         std::cout << "je vais activer " << x << std::endl;
         activer(x);
     }
+}
+
+void Noyau::augmenterMaVie(int dx)
+{
+    selfLife = selfLife + dx;
+    emit changeLife(selfLife,true);
+}
+
+void Noyau::augmenterSaVie(int dx)
+{
+    foeLife = foeLife + dx;
+    emit changeLife(foeLife,false);
 }
 
 //poser la carte
@@ -935,6 +967,7 @@ void Noyau::attaquerSlot(int atk,int def)
 
 void Noyau::activer(int x)
 {
+    int i,min, position = -1;
     std::stringstream ss1;
     Carte* carte = trouver(x);
     if(carte == NULL)
@@ -972,8 +1005,41 @@ void Noyau::activer(int x)
              emit tiens(QString::fromStdString(ss1.str()));
              destroy_all(1);
             break;
-        default:
+        case 110:
+            emit sendInfo(QString(tr("J'active "))+carte->nom);
+             ss1 << "act/" << Carte::correspondant(x);
+             emit tiens(QString::fromStdString(ss1.str()));
+              min = 9999;
+             for(i=0;i<(signed)terrain->size();i++)
+             {
+                 if(isMonst(terrain->at(i)->position_terrain) && isAdv(terrain->at(i)->position_terrain))
+                 {
+                     if(terrain->at(i)->atk < min)
+                      {
+                         position=terrain->at(i)->position_terrain;
+                         min = terrain->at(i)->atk;
+                     }
+                 }
+             }
+             if(position!=-1)
+                 detruire(position);
 
+        case 20500:
+            emit sendInfo(QString(tr("J'active "))+carte->nom);
+             ss1 << "act/" << Carte::correspondant(x);
+             emit tiens(QString::fromStdString(ss1.str()));
+            augmenterMaVie(500);
+        case 21200:
+            emit sendInfo(QString(tr("J'active "))+carte->nom);
+             ss1 << "act/" << Carte::correspondant(x);
+             emit tiens(QString::fromStdString(ss1.str()));
+            augmenterSaVie(-200);
+        case 21500:
+            emit sendInfo(QString(tr("J'active "))+carte->nom);
+             ss1 << "act/" << Carte::correspondant(x);
+             emit tiens(QString::fromStdString(ss1.str()));
+            augmenterSaVie(-500);
+        default:
             break;
         }
     }
@@ -996,6 +1062,31 @@ void Noyau::activer(int x)
             emit sendInfo(QString(tr("L'adversaire active Raigeki")));
              destroy_all(0);
             break;
+        case 110:
+            emit sendInfo(QString(tr("L'adversaire active "))+carte->nom);
+              min = 9999;
+             for(i=0;i<(signed)terrain->size();i++)
+             {
+                 if(isMonst(terrain->at(i)->position_terrain) && isAdv(terrain->at(i)->position_terrain))
+                 {
+                     if(terrain->at(i)->atk < min)
+                      {
+                         position=terrain->at(i)->position_terrain;
+                         min = terrain->at(i)->atk;
+                     }
+                 }
+             }
+             if(position!=-1)
+                 detruire(position);
+        case 20500:
+            emit sendInfo(QString(tr("L'adversaire active "))+carte->nom);
+            augmenterSaVie(500);
+        case 21200:
+            emit sendInfo(QString(tr("L'adversaire active "))+carte->nom);
+            augmenterMaVie(-200);
+        case 21500:
+            emit sendInfo(QString(tr("L'adversaire active "))+carte->nom);
+            augmenterMaVie(-500);
         default:
             break;
         }

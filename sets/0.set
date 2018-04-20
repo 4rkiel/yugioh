@@ -741,7 +741,7 @@ Etincelles
 3
 2
 Inflige 200 points de dommages aux points de vie de votre adversaire.
-{{0
+{{21200
 800
 800
 ##YGO
@@ -753,7 +753,7 @@ Hinotama
 3
 2
 Inflige 500 points de dommages aux points de vie de votre adversaire.
-{{0
+{{21500
 800
 800
 ##YGO
@@ -765,7 +765,7 @@ Fissure
 3
 2
 Detruit un monstre face recto de votre adversaire avec l'ATK la plus basse.
-{{0
+{{110
 800
 800
 ##YGO
@@ -792,18 +792,7 @@ Detruit 1 Carte Piège face recto sur le Terrain.
 {{0
 800
 800
-##YGO
-2922822
-2
-1
-Attaque En Double Fourche
-0
-3
-2
-Sélectionnez et détruisez 2 de vos monstres et 1 des monstres de votre adversaire.
-{{0
-800
-800
+
 ##YGO
 96890524
 0
