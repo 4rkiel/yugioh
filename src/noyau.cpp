@@ -457,6 +457,7 @@ void Noyau::poser_test(int x)
     {
         registre_0 = x;
         std::cout << "Il faut un sacrifice" << std::endl;
+         choix->clear();
         for(i=0;i<(signed)terrain->size();i++)
         {
             if(!isAdv(terrain->at(i)->position_terrain) && isMonst(terrain->at(i)->position_terrain))
@@ -469,7 +470,13 @@ void Noyau::poser_test(int x)
     {
         registre_0 = x;
         std::cout << "Il faut deux sacrifices" << std::endl;
-        emit dialogueSac2();
+        choix->clear();
+        for(i=0;i<(signed)terrain->size();i++)
+        {
+            if(!isAdv(terrain->at(i)->position_terrain) && isMonst(terrain->at(i)->position_terrain))
+                    choix->push_back(terrain->at(i));
+        }
+        emit dialogueSac1(2,choix);
     }
     else if(can_poser() && isHand(x) && (la_carte->genre==1 || la_carte->genre==2) && (perfect_magie(0)!=-1))
     {
@@ -505,7 +512,7 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
                 std::cout << terrain->at(i)->id << " at position:" << terrain->at(i)->position_terrain << std::endl;
             }*/
 
-            emit sendInfo(QString(tr("Je pose")));
+
             la_carte = trouver(main_x);
             la_carte->position_terrain=terrain_x;
             la_carte->pos= def;
@@ -517,10 +524,12 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
             {
                 if(vis)
                 {
+                    emit sendInfo(QString(tr("Je pose en mode attaque ")+la_carte->nom));
                     emit visible(la_carte->image,terrain_x);
                 }
                 else
                 {
+                     emit sendInfo(QString(tr("Je pose en mode attaque(cachée) ")+la_carte->nom));
                     emit nonvis(terrain_x);
                 }
             }
@@ -528,6 +537,7 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
             {
                 if(!vis)
                 {
+                    emit sendInfo(QString(tr("Je pose en mode defense(cachée) ")+la_carte->nom));
                     emit defens(terrain_x);
                 }
             }
@@ -553,7 +563,7 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
     }
     else
     {
-         emit sendInfo(QString(tr("L'adversaire pose")));
+
         std::cout << "je traite le posage adverse" << std::endl;
         for(i=0;i<(signed)terrain->size();i++)
         {
@@ -576,10 +586,12 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
          {
              if(vis)
              {
+                 emit sendInfo(QString(tr("L'adversaire pose en mode attaque "))+la_carte->nom);
                  emit visible(la_carte->image,terrain_x);
              }
              else
              {
+                 emit sendInfo(QString(tr("L'adversaire pose une carte en mode attaque face cachée")));
                  emit nonvis(terrain_x);
              }
          }
@@ -587,6 +599,7 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
          {
              if(!vis)
              {
+                  emit sendInfo(QString(tr("L'adversaire pose une carte en mode defense face cachée")));
                  emit defens(terrain_x);
              }
          }
@@ -803,12 +816,12 @@ void Noyau::prepSac(std::vector<int>vect)
 {
     if(vect.size()==1)
     {
-        registre_1 = choix->at(vect->at(0));
+        registre_1 = choix->at(vect.at(0))->position_terrain;
     }
     else if(vect.size()==2)
     {
-        registre_1 = choix->at(vect->at(0));
-        registre_2 = choix->at(vect->at(1));
+        registre_1 = choix->at(vect.at(0))->position_terrain;
+        registre_2 = choix->at(vect.at(1))->position_terrain;
     }
 }
 
@@ -960,6 +973,7 @@ void Noyau::activer(int x)
              destroy_all(1);
             break;
         default:
+
             break;
         }
     }
@@ -1258,6 +1272,22 @@ void Noyau::enlever_x(std::vector<Carte *> **vect, int x)
             resultat->push_back((*vect)->at(i));
         else
         {
+            //on verifie si c'est une partie d'exodia
+            if((*vect)->at(i)->id == 93610171 || (*vect)->at(i)->id ==42755639 || (*vect)->at(i)->id ==36825740 ||
+                   (*vect)->at(i)->id ==47831829 || (*vect)->at(i)->id ==94836377 )
+            {
+                if(isAdv(x))
+                {
+                    nbrExodiaAdv--;
+                    allExodiaAdv->push_back((*vect)->at(i)->id);
+                }
+                else
+                {
+                    nbrExodia--;
+                    allExodia->push_back((*vect)->at(i)->id);
+                }
+            }
+
             (*vect)->at(i)->position_terrain = -1;
             if(x<75)
                 cimetiere1->push_back((*vect)->at(i));
