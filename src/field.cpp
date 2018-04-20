@@ -356,6 +356,8 @@ Field::Field () {
         connect(minipop, SIGNAL(focusField()), this, SLOT(getsFocus()));
         connect(minipop, SIGNAL(moiFocus()), this, SLOT(abandonFocus()));
 
+        connect(minipop, SIGNAL(chosenOne(std::vector<int>)),
+                    this, SLOT(emitChosen(std::vector<int>)));
 
 
 
@@ -619,17 +621,20 @@ void Field::emitVisi (){
     emit sendVisi();
 }
 
-void Field::openSee (std::vector <QString> * str){
+void Field::openSee (std::vector <Carte *> * str){
     minipop -> openSee(str);
     miniSave();
 }
 
-void Field::openChoose (int x, std::vector <QString> * str){
+void Field::openChoose (int x, std::vector <Carte *> * str){
+    
+    std::cout << "yoooooooooooo\n";
+    
     minipop -> openChoose(x, str);
     miniSave();
 }
 
-void Field::openChooseLocked (int x, std::vector <QString> * str){
+void Field::openChooseLocked (int x, std::vector <Carte *> * str){
     minipop -> openChooseLocked(x, str);
     miniSave();
 }
@@ -701,6 +706,11 @@ void Field::miniReopen(){
     }
 }
 
+void Field::emitChosen (std::vector <int> sam){
+    emit chosenOne(sam);
+}
+
+
 
 /* Focus */
 void Field::getsFocus(){
@@ -760,6 +770,7 @@ void Field::cardRightClicked(int x){
         (! that -> isGrave() )
     ){
 
+
         if (lockPreview && !(that -> isHand() && that -> isAdv() ) ){
             
             emit askPreview(x);            
@@ -787,11 +798,8 @@ void Field::cardRightClicked(int x){
 void Field::cardHover (Carte * card){
 
     fullCard -> reInit(card);
-
-    if (lockPreview){
-        chat -> setVisible(false);
-        fullCard -> setVisible(true);
-    }
+    chat -> setVisible(false);
+    fullCard -> setVisible(true);
 }
 
 

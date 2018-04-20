@@ -268,7 +268,7 @@ void Master::loadField (int x){
     connect(noyau,SIGNAL(montre(int)),field,SLOT(reveal(int)));
 
     //sacrifice
-    connect(noyau,SIGNAL(dialogueSac1(int,std::vector<Carte*>*)),field,SLOT(openChoose(int,std::vector<QString>*)));
+    connect(noyau,SIGNAL(dialogueSac1(int,std::vector<Carte*>*)),field,SLOT(openChoose(int,std::vector<Carte*>*)));
 
     field -> init();
 
