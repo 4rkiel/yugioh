@@ -273,7 +273,7 @@ void Master::loadField (int x){
 
     connect(field, SIGNAL(chosenOne(std::vector<int>)), 
             noyau, SLOT(prepSac1(std::vector<int>)));
-
+    connect(noyau,SIGNAL(openChoosePosi()),field,SLOT(openChoosePosi()));
 
     field -> init();
 
