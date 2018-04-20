@@ -55,6 +55,8 @@ public:
     std::vector<int> * allExodia;
     int nbrExodiaAdv=0;
     std::vector<int> * allExodiaAdv;
+    
+    int nbrSacrifice = 0;
 
 public slots:
 
