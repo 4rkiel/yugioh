@@ -255,7 +255,10 @@ void Noyau::piocher(int x)
         enlever_i(&d2,0);
         emit nonvis(dans_main);
         if(nbrExodiaAdv==5)
+        {
+            emit tiens("Exodia");
             emit je_perds();
+        }
     }
     mut->unlock();
 }
@@ -1890,6 +1893,10 @@ void Noyau::traiter(QString s)
          std::cout << "carte a la valeur final:" << carte << std::endl;
          activer(carte);
 
+    }
+    else if(s.compare("Exodia")==0)
+    {
+        emit je_gagne();
     }
 
 }
