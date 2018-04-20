@@ -967,6 +967,7 @@ void Noyau::attaquerSlot(int atk,int def)
 
 void Noyau::activer(int x)
 {
+    int i,min, position = -1;
     std::stringstream ss1;
     Carte* carte = trouver(x);
     if(carte == NULL)
@@ -1004,6 +1005,25 @@ void Noyau::activer(int x)
              emit tiens(QString::fromStdString(ss1.str()));
              destroy_all(1);
             break;
+        case 110:
+            emit sendInfo(QString(tr("J'active "))+carte->nom);
+             ss1 << "act/" << Carte::correspondant(x);
+             emit tiens(QString::fromStdString(ss1.str()));
+              min = 9999;
+             for(i=0;i<(signed)terrain->size();i++)
+             {
+                 if(isMonst(terrain->at(i)->position_terrain) && isAdv(terrain->at(i)->position_terrain))
+                 {
+                     if(terrain->at(i)->atk < min)
+                      {
+                         position=terrain->at(i)->position_terrain;
+                         min = terrain->at(i)->atk;
+                     }
+                 }
+             }
+             if(position!=-1)
+                 detruire(position);
+
         case 20500:
             emit sendInfo(QString(tr("J'active "))+carte->nom);
              ss1 << "act/" << Carte::correspondant(x);
@@ -1014,6 +1034,11 @@ void Noyau::activer(int x)
              ss1 << "act/" << Carte::correspondant(x);
              emit tiens(QString::fromStdString(ss1.str()));
             augmenterSaVie(-200);
+        case 21500:
+            emit sendInfo(QString(tr("J'active "))+carte->nom);
+             ss1 << "act/" << Carte::correspondant(x);
+             emit tiens(QString::fromStdString(ss1.str()));
+            augmenterSaVie(-500);
         default:
             break;
         }
@@ -1037,12 +1062,31 @@ void Noyau::activer(int x)
             emit sendInfo(QString(tr("L'adversaire active Raigeki")));
              destroy_all(0);
             break;
+        case 110:
+            emit sendInfo(QString(tr("L'adversaire active "))+carte->nom);
+              min = 9999;
+             for(i=0;i<(signed)terrain->size();i++)
+             {
+                 if(isMonst(terrain->at(i)->position_terrain) && isAdv(terrain->at(i)->position_terrain))
+                 {
+                     if(terrain->at(i)->atk < min)
+                      {
+                         position=terrain->at(i)->position_terrain;
+                         min = terrain->at(i)->atk;
+                     }
+                 }
+             }
+             if(position!=-1)
+                 detruire(position);
         case 20500:
             emit sendInfo(QString(tr("L'adversaire active "))+carte->nom);
             augmenterSaVie(500);
         case 21200:
             emit sendInfo(QString(tr("L'adversaire active "))+carte->nom);
             augmenterMaVie(-200);
+        case 21500:
+            emit sendInfo(QString(tr("L'adversaire active "))+carte->nom);
+            augmenterMaVie(-500);
         default:
             break;
         }
