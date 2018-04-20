@@ -28,18 +28,19 @@ PopCard::PopCard (int n){
     
         imgButt = new zButt;
         imgButt -> setFocusPolicy(Qt::StrongFocus);
-
+        imgButt -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     layout -> addWidget(imgButt);
 
     setLayout(layout);
     
 
-    /*
-	connect(this, SIGNAL(clicked()), this, SLOT(leftClicked()));
-	connect(imgButt, SIGNAL(clicked()), this, SLOT(leftClicked()));
-	connect(imgButt, SIGNAL(rightClicked()), this, SLOT(rightClicked()));
+//	connect(this, SIGNAL(clicked()), this, SLOT(leftClicked()));
+//	connect(imgButt, SIGNAL(clicked()), this, SLOT(leftClicked()));
+//	connect(imgButt, SIGNAL(rightClicked()), this, SLOT(rightClicked()));
 	connect(imgButt, SIGNAL(doubleClicked()), this, SLOT(doubleClicked()));
+
+    /*
 
     //raccourci echap
     shortcut = new QShortcut(QKeySequence("Escape"), this);

@@ -268,7 +268,12 @@ void Master::loadField (int x){
     connect(noyau,SIGNAL(montre(int)),field,SLOT(reveal(int)));
 
     //sacrifice
-    connect(noyau,SIGNAL(dialogueSac1(int,std::vector<Carte*>*)),field,SLOT(openChoose(int,std::vector<Carte*>*)));
+    connect(noyau,SIGNAL(dialogueSac1(int,std::vector<Carte*>*)),
+            field,SLOT(openChoose(int,std::vector<Carte*>*)));
+
+    connect(field, SIGNAL(chosenOne(std::vector<int>)), 
+            noyau, SLOT(prepSac1(std::vector<int>)));
+
 
     field -> init();
 

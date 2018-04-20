@@ -308,7 +308,7 @@ void MiniPopup::populate(std::vector <Carte *> * vic){
         PopCard * prev = new PopCard(k);
         prev -> setPic(vic -> at(k) -> image);
 
-        connect(prev, SIGNAL(leftClicked(int)), this, SLOT(cardClicked(int)));
+        connect(prev, SIGNAL(doubleClick(int)), this, SLOT(cardClicked(int)));
         
         listLayout -> addWidget(prev);
     }
@@ -320,7 +320,7 @@ void MiniPopup::cardClicked(int x){
         
         bool found = false;
         int sz = stock.size();
-
+        
         for(int k=0; k < sz; k++){
             if(stock[k] == x){
                 
@@ -336,7 +336,9 @@ void MiniPopup::cardClicked(int x){
         }
 
         sz = stock.size();
+        
         if (sz == need){
+
             emit chosenOne(stock);
             closeMenu();
         }
