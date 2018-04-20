@@ -42,20 +42,15 @@ class Ai_battle : public QWidget
         vector<Matrix<float,200,200>> hidden_deltas;
         Matrix<float,200,135> output_delta;
         
-        //row-matrix of current neurons gain
-        Matrix<float,1,200> input_layer_gains;
-        vector<Matrix<float,1,200>> hidden_layers_gains;
-        Matrix<float,1,135> output_layer_gains;
-        
-        //row-matrix of current neurons wgain
-        Matrix<float,1,200> input_layer_wgains;
-        vector<Matrix<float,1,200>> hidden_layers_wgains;
-        Matrix<float,1,135> output_layer_wgains;
-        
         //row-matrix of current neurons input
         Matrix<float,1,434> input_layer_input;
         vector<Matrix<float,1,200>> hidden_layers_input;
         Matrix<float,1,200> output_layer_input;
+
+        //row-matrix of current neurons input
+        Matrix<float,1,434> test_input_layer_input;
+        vector<Matrix<float,1,200>> test_hidden_layers_input;
+        Matrix<float,1,200> test_output_layer_input;
        
         //row-matrix of current neurons values
         Matrix<float,1,200> input_layer_values;
@@ -127,8 +122,8 @@ class Ai_battle : public QWidget
         Matrix<float,1,434> play_simulation(Matrix<float,1,434> game_state, int action);
         int test_win(Matrix<float,1,434> state);
         float max_output_test();
-        Matrix<float,1,Dynamic> ReLU(Matrix<float,1,Dynamic> layer_values);
-        Matrix<float,1,Dynamic> softmax(Matrix<float,1,Dynamic> layer_values);
+        Matrix<float,1,200> ReLU(Matrix<float,1,200> layer_values);
+        Matrix<float,1,135> softmax(Matrix<float,1,135> layer_values);
         float randomFloat(float a, float b);
         
         //communication to noyau, correspondance id/terrain_x

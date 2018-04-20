@@ -24,7 +24,7 @@ void AiTrainer::train_ai()
 
     cout << "quit" << endl;
     delete ai_main_1;
-    delete ai_battle_1;
-    delete ai_main_2;
-    delete ai_battle_2;
+    //delete ai_battle_1;
+    //delete ai_main_2;
+    //delete ai_battle_2;
 }

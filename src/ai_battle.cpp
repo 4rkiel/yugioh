@@ -73,6 +73,7 @@ void Ai_battle::save_ai()
             }
             break;
     }
+    float value;
     if(ai_file){
         //////////////input layer///////////////
         //save weights
@@ -106,20 +107,6 @@ void Ai_battle::save_ai()
         for(i=0;i<NB_HIDDEN;i++)
         {
             ai_file << test_input_layer_values(0,i) << " ";
-        }
-        ai_file << endl;
-        ai_file << endl;
-        //save gains
-        for(i=0;i<NB_HIDDEN;i++)
-        {
-            ai_file << input_layer_gains(0,i) << " ";
-        }
-        ai_file << endl;
-        ai_file << endl;
-        //save wgains
-        for(i=0;i<NB_HIDDEN;i++)
-        {
-            ai_file << input_layer_wgains(0,i) << " ";
         }
         ai_file << endl;
         ai_file << endl;
@@ -161,21 +148,6 @@ void Ai_battle::save_ai()
             }
             ai_file << endl;
             ai_file << endl;
-            //save gains
-            for(i=0;i<NB_HIDDEN;i++)
-            {
-                ai_file << hidden_layers_gains.at(k)(0,i) << " ";
-            }
-            ai_file << endl;
-            ai_file << endl;
-            //save wgains
-            for(i=0;i<NB_HIDDEN;i++)
-            {
-                ai_file << hidden_layers_wgains.at(k)(0,i) << " ";
-            }
-            ai_file << endl;
-            ai_file << endl;
-
         }
         //////////////output layer///////////////
         //save weights
@@ -212,19 +184,6 @@ void Ai_battle::save_ai()
         }
         ai_file << endl;
         ai_file << endl;
-        //save values
-        for(i=0;i<NB_OUTPUT;i++)
-        {
-            ai_file << output_layer_gains(0,i) << " ";
-        }
-        ai_file << endl;
-        ai_file << endl;
-        //save test values
-        for(i=0;i<NB_OUTPUT;i++)
-        {
-            ai_file << output_layer_wgains(0,i) << " ";
-        }
-
         //////////////
         ai_file.close();
     }else{
@@ -299,18 +258,6 @@ void Ai_battle::load_ai()
             ai_file >> number;
             test_input_layer_values(0,i) = number;
         }
-        //load gains
-        for(i=0;i<NB_HIDDEN;i++)
-        {
-            ai_file >> number;
-            input_layer_gains(0,i) = number;
-        }
-        //load wgains
-        for(i=0;i<NB_HIDDEN;i++)
-        {
-            ai_file >> number;
-            input_layer_wgains(0,i) = number;
-        }
 
         ////////////hidden layers//////////////
         for(k=0;k<nb_hidden_layer;k++)
@@ -353,23 +300,6 @@ void Ai_battle::load_ai()
                 new_test_values_m(0,i) = number;
             }
             test_hidden_layers_values.push_back(new_test_values_m);
-            //load gains
-            Matrix<float,1,200> new_gains_m;
-            for(i=0;i<NB_HIDDEN;i++)
-            {
-                ai_file >> number;
-                new_gains_m(0,i) = number;
-            }
-            hidden_layers_gains.push_back(new_gains_m);
-            //load test values
-            Matrix<float,1,200> new_wgains_m;
-            for(i=0;i<NB_HIDDEN;i++)
-            {
-                ai_file >> number;
-                new_wgains_m(0,i) = number;
-            }
-            hidden_layers_wgains.push_back(new_wgains_m);
-
         }
         ////////////output layer//////////////
         //load weights
@@ -402,18 +332,6 @@ void Ai_battle::load_ai()
             ai_file >> number;
             test_output_layer_values(0,i) = number;
         }
-        //load gains
-        for(i=0;i<NB_OUTPUT;i++)
-        {
-            ai_file >> number;
-            output_layer_gains(0,i) = number;
-        }
-        //load wgains
-        for(i=0;i<NB_OUTPUT;i++)
-        {
-            ai_file >> number;
-            output_layer_wgains(0,i) = number;
-        }
         //////////////
         ai_file.close();
     }
@@ -436,14 +354,14 @@ void Ai_battle::load_ai()
 void Ai_battle::initialise_random_ai()
 {
     int i,j,k;
+    srand(time(nullptr));
     /////////////input layer////////////////
     //initialise weights
     for(i=0;i<NB_INPUT;i++)
     {
         for(j=0;j<NB_HIDDEN;j++)
         {
-            input_weight(i,j) =
-                randomFloat(-1/sqrt(NB_INPUT),1/sqrt(NB_INPUT));
+            input_weight(i,j) = randomFloat(-0.01,0.01);
         }
     }
     //initialise deltas
@@ -464,16 +382,6 @@ void Ai_battle::initialise_random_ai()
     {
         test_input_layer_values(0,i) = 0;
     }
-    //initialise gain
-    for(i=0;i<NB_HIDDEN;i++)
-    {
-        input_layer_gains(0,i) = 1;
-    }
-    //initialise wgain
-    for(i=0;i<NB_HIDDEN;i++)
-    {
-        input_layer_wgains(0,i) = 0;
-    }
 
     /////////////hidden layers///////////////
     for(k=0;k<nb_hidden_layer;k++)
@@ -484,8 +392,7 @@ void Ai_battle::initialise_random_ai()
         {
             for(j=0;j<NB_HIDDEN;j++)
             {
-                new_weights_m(i,j) =
-                    randomFloat(-1/sqrt(NB_INPUT),1/sqrt(NB_INPUT));
+                new_weights_m(i,j) = randomFloat(-0.01,0.01);
             }
         }
         hidden_weights.push_back(new_weights_m);
@@ -513,20 +420,6 @@ void Ai_battle::initialise_random_ai()
             new_test_values_m(0,i) = 0;
         }
         test_hidden_layers_values.push_back(new_test_values_m);
-        //initialise gain
-        Matrix<float,1,200> new_gain_m;
-        for(i=0;i<NB_HIDDEN;i++)
-        {
-            new_gain_m(0,i) = 1;
-        }
-        hidden_layers_gains.push_back(new_gain_m);
-        //initialise wgain
-        Matrix<float,1,200> new_wgain_m;
-        for(i=0;i<NB_HIDDEN;i++)
-        {
-            new_wgain_m(0,i) = 0;
-        }
-        hidden_layers_wgains.push_back(new_wgain_m);
     }
     /////////////output layer////////////////
     //initialise weights
@@ -534,8 +427,7 @@ void Ai_battle::initialise_random_ai()
     {
         for(j=0;j<NB_OUTPUT;j++)
         {
-            output_weight(i,j) =
-                randomFloat(-1/sqrt(NB_INPUT),1/sqrt(NB_INPUT));
+            output_weight(i,j) = randomFloat(-0.01,0.01);
         }
     }
     //initialise deltas
@@ -556,16 +448,6 @@ void Ai_battle::initialise_random_ai()
     {
         test_output_layer_values(0,i) = 0;
     }
-    //initialise gain
-    for(i=0;i<NB_OUTPUT;i++)
-    {
-        output_layer_gains(0,i) = 1;
-    }
-    //initialise wgain
-    for(i=0;i<NB_OUTPUT;i++)
-    {
-        output_layer_wgains(0,i) = 0;
-    }
     //////////////
 }
 
@@ -584,13 +466,13 @@ void Ai_battle::initialise_random_ai()
  * if the neuron value is positiv, then activate them, else send 0
  * return the vector this neuron activate or not for the next layer
  */
-Matrix<float,1,Dynamic> Ai_battle::ReLU(Matrix<float,1,Dynamic> layer_values)
+Matrix<float,1,200> Ai_battle::ReLU(Matrix<float,1,200> layer_values)
 {
-    Matrix <float,Dynamic,Dynamic> next_layer_input(1,layer_values.cols());
+    Matrix <float,1,200> next_layer_input;
     int i;
-    for(i=0;i<layer_values.cols();i++)
+    for(i=0;i<NB_HIDDEN;i++)
     {
-        next_layer_input(0,i) = max((float) 0,layer_values(0,i));
+        next_layer_input(0,i) = 1/(1+exp(-layer_values(0,i)));
     }
     return next_layer_input;
 }
@@ -600,16 +482,16 @@ Matrix<float,1,Dynamic> Ai_battle::ReLU(Matrix<float,1,Dynamic> layer_values)
  * softmax
  * activation function
  */
-Matrix<float,1,Dynamic> Ai_battle::softmax(Matrix<float,1,Dynamic> layer_values)
+Matrix<float,1,135> Ai_battle::softmax(Matrix<float,1,135> layer_values)
 {
     Matrix <float,Dynamic,Dynamic> next_layer_input(1,layer_values.cols());
     int i,j;
     float sum=0;
-    for(j=0;j<layer_values.cols();j++)
+    for(j=0;j<NB_OUTPUT;j++)
     {
         sum += exp(layer_values(0,j));
     }
-    for(i=0;i<layer_values.cols();i++)
+    for(i=0;i<NB_OUTPUT;i++)
     {
         next_layer_input(0,i) = exp(layer_values(0,i))/sum;
     }
@@ -626,25 +508,22 @@ Matrix<float,1,Dynamic> Ai_battle::softmax(Matrix<float,1,Dynamic> layer_values)
 void Ai_battle::forward_propagation(Matrix<float,1,434> game_state)
 {
     input_layer_input = game_state;
+    hidden_layers_input.clear();
 
     ////input layer////
     input_layer_values = input_layer_input * input_weight;
-    input_layer_values += input_layer_wgains;
-    hidden_layers_input.at(0) = ReLU(input_layer_values);
+    hidden_layers_input.push_back(ReLU(input_layer_values));
     
     ////hidden layer 1////
-    hidden_layers_values.at(0) = input_layer_values * hidden_weights.at(0);
-    hidden_layers_values.at(0) += hidden_layers_wgains.at(0);
-    hidden_layers_input.at(1) = ReLU(hidden_layers_values.at(0));
+    hidden_layers_values.at(0) = hidden_layers_input.at(0) * hidden_weights.at(0);
+    hidden_layers_input.push_back(ReLU(hidden_layers_values.at(0)));
 
     ////hidden layer 2////
-    hidden_layers_values.at(1) = hidden_layers_values.at(0) * hidden_weights.at(1);
-    hidden_layers_values.at(1) += hidden_layers_wgains.at(0);
+    hidden_layers_values.at(1) = hidden_layers_input.at(1) * hidden_weights.at(1);
     output_layer_input = ReLU(hidden_layers_values.at(1));
 
     ////output layer////
-    output_layer_values = hidden_layers_values.at(1) * output_weight;
-    output_layer_values += output_layer_wgains;
+    output_layer_values = output_layer_input * output_weight;
     output_layer_values = softmax(output_layer_values);
 }
 
@@ -657,12 +536,25 @@ void Ai_battle::forward_propagation(Matrix<float,1,434> game_state)
  */
 void Ai_battle::test_forward_propagation(Matrix<float,1,434> game_state)
 {
-    test_input_layer_values = game_state * input_weight;
-    test_hidden_layers_values.at(0) = test_input_layer_values *
-        hidden_weights.at(0);
-    test_hidden_layers_values.at(1) = test_hidden_layers_values.at(0)
-        * hidden_weights.at(1);
-    test_output_layer_values = test_hidden_layers_values.at(1) * output_weight;
+    test_input_layer_input = game_state;
+    test_hidden_layers_input.clear();
+
+    ////input layer////
+    test_input_layer_values = test_input_layer_input * input_weight;
+    test_hidden_layers_input.push_back(ReLU(test_input_layer_values));
+    
+    ////hidden layer 1////
+    test_hidden_layers_values.at(0) = test_hidden_layers_input.at(0) * hidden_weights.at(0);
+    test_hidden_layers_input.push_back(ReLU(test_hidden_layers_values.at(0)));
+
+    ////hidden layer 2////
+    test_hidden_layers_values.at(1) = test_hidden_layers_input.at(1) * hidden_weights.at(1);
+    test_output_layer_input = ReLU(test_hidden_layers_values.at(1));
+
+    ////output layer////
+    test_output_layer_values = test_output_layer_input * output_weight;
+    test_output_layer_values = softmax(test_output_layer_values);
+
 }
 
 
@@ -702,38 +594,32 @@ void Ai_battle::backward_propagation(float q_targets[135])
 {
     int i,j,k;
     float local_cost=0;
-    float global_cost=0;
     float delta, udelta;
     float output;
     float sum=0,local_sum=0;
 
-
     //output_layer
     //for each neuron in the output layer
-    for(i=0;i<output_weight.rows();i++)
+    for(i=0;i<output_weight.cols();i++)
     {
-        //calcul local and global cost of this neuron
-        output=output_layer_values(0,i);
-        local_cost=( q_targets[i] - output_layer_values(0,i) ) *
-            output_layer_values(0,i) * (1 - output_layer_values(0,i));
-        global_cost += pow(q_targets[i] - output_layer_values(0,i),2);
-        
+        //calcul local cost of this neuron
+        output = output_layer_values(0,i);
+        local_cost = (q_targets[i] - output) *
+            output * (1 - output);
         //update the weights comming into this neuron from the previous
         //layer
         //for each synaps comming into the neuron
-        for(j=0;j<output_weight.cols();j++)
+        for(j=0;j<output_weight.rows();j++)
         {
             //update the weight, according to the local cost and the
             //update delta at the previous backpropagation
             //update the delta value, etc
-            delta=output_delta(i,j);
+            delta=output_delta(j,i);
             udelta = local_cost * output_layer_input(0,i) + delta;
-            output_weight(i,j) += udelta;
-            output_delta(i,j) = udelta;
-            sum += output_weight(i,j) * local_cost;
+            output_weight(j,i) += udelta;
+            output_delta(j,i) = udelta;
+            sum += output_weight(j,i) * local_cost;
         }
-        
-        output_layer_wgains(0,i) += local_cost * output_layer_gains(0,i);
     }
 
     /*
@@ -743,48 +629,43 @@ void Ai_battle::backward_propagation(float q_targets[135])
      * so the cost is backpropagated to update all the neurons of the
      * network
      */
-    for(i=hidden_weights.size();i>0;i--)
+    for(i=hidden_weights.size()-1;i>=0;i--)
     {
-        for(j=0;j<hidden_weights.at(i).rows();j++)
+        cout << endl << "hidden layers ////////////////////////////////////" << endl << endl;
+        for(j=0;j<hidden_weights.at(i).cols();j++)
         {
             output = hidden_layers_values.at(i)(0,j);
-            local_cost = output * (1-output) * sum;
-            for(k=0;k<hidden_weights.at(i).cols();k++)
+            local_cost = output * (1 - output) * sum;
+            for(k=0;k<hidden_weights.at(i).rows();k++)
             {
-                delta = hidden_deltas.at(i)(j,k);
+                delta = hidden_deltas.at(i)(k,j);
                 udelta = local_cost * hidden_layers_input.at(i)(0,j) + delta;
-                hidden_weights.at(i)(j,k) += udelta;
-                hidden_deltas.at(i)(j,k) = udelta;
-                local_sum += hidden_weights.at(i)(j,k) * local_cost;
+                hidden_weights.at(i)(k,j) += udelta;
+                hidden_deltas.at(i)(k,j) = udelta;
+                local_sum += hidden_weights.at(i)(k,j) * local_cost;
             }
-            hidden_layers_wgains.at(i)(0,j) += local_cost * hidden_layers_gains.at(i)(0,j);
         }
         sum = local_sum;
         local_sum=0;
     }
 
-    /*
-     * do the same as for the hidden layers, but now for the input layer
-     */
-    for(i=0;i<input_weight.rows();i++)
+    cout << endl << "output layers ////////////////////////////////////////" << endl << endl;
+    //do the same as for the hidden layers, but now for the input layer
+    for(i=0;i<input_weight.cols();i++)
     {
-        output = input_layer_values(0,j);
+        output = input_layer_values(0,i);
         local_cost = output * (1 - output) * sum;
         
-        for(j=0;j<input_weight.cols();j++)
+        for(j=0;j<input_weight.rows();j++)
         {
-            delta = input_delta(i,j);
+            delta = input_delta(j,i);
             udelta = local_cost * input_layer_input(0,i) + delta;
             //update weights
-            input_weight(i,j) += udelta;
-            input_delta(i,j) = udelta;
+            input_weight(j,i) += udelta;
+            input_delta(j,i) = udelta;
         }
-        //and update the gain weight
-        input_layer_wgains(0,i) += local_cost * input_layer_gains(0,i);
     }
 }
-
-
 
 /*
  * test if the game state is a winning state, a losing state
@@ -831,10 +712,8 @@ Matrix<float,1,434> Ai_battle::play_simulation(Matrix<float,1,434> game_state,
 //function to calculate a random float between two floats
 float Ai_battle::randomFloat(float a, float b)
 {
-    float random = ((float) rand()) / (float) RAND_MAX;
-    float diff = b - a;
-    float r = random * diff;
-    return a + r;
+    float random = a + ((float) rand()) / ((float) RAND_MAX / (b-a));
+    return random;
 }
 
 
@@ -845,7 +724,6 @@ float Ai_battle::randomFloat(float a, float b)
 //function that read the "noyau", and put the game state in a matrix
 Matrix<float,1,434> Ai_battle::read_noyau()
 {
-    
     int i,j;
     Matrix<float,1,434> game_state;
 
@@ -905,15 +783,15 @@ Matrix<float,1,434> Ai_battle::read_noyau()
         
         // stocker dans le vecteur d'entrée du réseau neuronnal
         if(tmp_card!=NULL) {
-            game_state(0,135+i*4) = tmp_card->atk;
-            game_state(0,135+i*4+1) = tmp_card->def;
-            game_state(0,135+i*4+2) = tmp_card->etat;
-            game_state(0,135+i*4+3) = tmp_card->niveau;
+            game_state(0,10+i*4) = tmp_card->atk;
+            game_state(0,10+i*4+1) = tmp_card->def;
+            game_state(0,10+i*4+2) = tmp_card->etat;
+            game_state(0,10+i*4+3) = tmp_card->niveau;
         } else {
-            game_state(0,135+i*4) = -1;
-            game_state(0,135+i*4+1) = -1;
-            game_state(0,135+i*4+2) = -1;
-            game_state(0,135+i*4+3) = -1;
+            game_state(0,10+i*4) = -1;
+            game_state(0,10+i*4+1) = -1;
+            game_state(0,10+i*4+2) = -1;
+            game_state(0,10+i*4+3) = -1;
         }
         j++;
     }
@@ -921,12 +799,20 @@ Matrix<float,1,434> Ai_battle::read_noyau()
     //chaque carte dans son propre deck
     for(i=0;i<60;i++)
     {
-        if(noyau->d1!=NULL && noyau->d1->at(i)!=NULL) {
-            game_state(0,94+i*5) = noyau->d1->at(i)->atk;
-            game_state(0,94+i*5+1) = noyau->d1->at(i)->def;
-            game_state(0,94+i*5+2) = noyau->d1->at(i)->niveau;
-            game_state(0,94+i*5+3) = noyau->d1->at(i)->position_deck;
-            game_state(0,94+i*5+4) = noyau->d1->at(i)->genre;
+        if(noyau->d1!=NULL){
+            if(noyau->d1->at(i)!=NULL) {
+                game_state(0,94+i*5) = noyau->d1->at(i)->atk;
+                game_state(0,94+i*5+1) = noyau->d1->at(i)->def;
+                game_state(0,94+i*5+2) = noyau->d1->at(i)->niveau;
+                game_state(0,94+i*5+3) = noyau->d1->at(i)->position_deck;
+                game_state(0,94+i*5+4) = noyau->d1->at(i)->genre;
+            } else {
+                game_state(0,94+i*5) = -1;
+                game_state(0,94+i*5+1) = -1;
+                game_state(0,94+i*5+2) = -1;
+                game_state(0,94+i*5+3) = -1;
+                game_state(0,94+i*5+4) = -1;
+            }
         } else {
             game_state(0,94+i*5) = -1;
             game_state(0,94+i*5+1) = -1;
@@ -936,7 +822,7 @@ Matrix<float,1,434> Ai_battle::read_noyau()
         }
     }
 
-    //chaque carte dans sa battle
+    //chaque carte dans sa main
     for(i=0;i<7;i++)
     {
         if(joueur==1)
@@ -967,7 +853,7 @@ Matrix<float,1,434> Ai_battle::read_noyau()
 
     //derniere carte du cimetiere
     /*
-    if(noyau->cimetiere1!=NULL){
+    if(noyau->cimetiere1!=NULL && noyau->cimetiere1->back()!=NULL){
         game_state(0,431) = noyau->cimetiere1->back()->atk;
         game_state(0,432) = noyau->cimetiere1->back()->def;
         game_state(0,433) = noyau->cimetiere1->back()->niveau;
@@ -1328,9 +1214,7 @@ void Ai_battle::play()
     Matrix<float,1,434> target_states[135];
     float q_targets[135];
 
-    cout << "avant read noyau" << endl;
     Matrix<float,1,434> game_state = read_noyau();
-    cout << "apres read noyau" << endl;
 
     //compute which action the neural network whant to play
     forward_propagation(game_state);
@@ -1353,14 +1237,14 @@ void Ai_battle::play()
             }
             else if(test == -1)
             {
-                q_targets[action] = -1; //bad reward
+                q_targets[action] = 0; //bad reward
             }
             else
             {
                 //compute the q_value of these states, according to th
                 //futur possibles actions
                 test_forward_propagation(target_states[action]);
-                q_targets[action] = max_output_test();
+                q_targets[action] = 0.007;//max_output_test();
             }
         }
     }
@@ -1368,9 +1252,10 @@ void Ai_battle::play()
     //choose the which action play
     int chosen_action = choose_action(output_layer_values);
 
+    cout << chosen_action << endl;
     if(perform_action(chosen_action)==EXIT_FAILURE)
     {
-        q_targets[chosen_action] = -1;
+        q_targets[chosen_action] = 0;
         
         if(mode==2)
         {
@@ -1378,13 +1263,13 @@ void Ai_battle::play()
             //q_values of the next possible states, and updates the weights
             backward_propagation(q_targets);
         }
-        play();
+        //play();
     } else {
         if(mode==2)
         {
             //compare result of the neural network with the previous calculated
             //q_values of the next possible states, and updates the weights
-            backward_propagation(q_targets);
+            //backward_propagation(q_targets);
         }
     }
 }
