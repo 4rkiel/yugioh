@@ -798,6 +798,20 @@ void Noyau::sacrifier_sacrifier_poser(int sacrifice_1_x, int sacrifice_2_x, int 
     choix->clear();
 }
 
+
+void Noyau::prepSac(std::vector<int>vect)
+{
+    if(vect.size()==1)
+    {
+        registre_1 = choix->at(vect->at(0));
+    }
+    else if(vect.size()==2)
+    {
+        registre_1 = choix->at(vect->at(0));
+        registre_2 = choix->at(vect->at(1));
+    }
+}
+
 //trouve la carte qui a la position x
 //SERT DE MANIERE INTERNE (peut être utile dans de nombreux cas)
 Carte * Noyau::trouver(int x)

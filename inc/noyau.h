@@ -144,6 +144,7 @@ public slots:
     void attaquerSlot(int,int);
     void comptageTick();
     void activer(int x);
+    void prepSac(std::vector<int> vect);
 
 signals:
     void emit_go();
