@@ -51,6 +51,11 @@ public:
     int nbrTick=0;
     bool lockTick = false;
 
+    int nbrExodia=0;
+    std::vector<int> * allExodia;
+    int nbrExodiaAdv=0;
+    std::vector<int> * allExodiaAdv;
+
 public slots:
 
     //comme son nom l'indique, init le noyau
@@ -93,6 +98,7 @@ public:
     void enlever_x(std::vector<Carte *> **vect, int x);
     void enlever_i(std::vector<Carte *> **vect, int i);
     void enlever_m(std::vector<int>**vect,int m);
+    void enlever_e(std::vector<int>**vect,int e);
     int perfect_terrain(int zone);
     int perfect_position(int zone);
     int perfect_magie(int zone);
