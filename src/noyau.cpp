@@ -517,7 +517,7 @@ void Noyau::poser_test(int x)
     }
     else if(can_poser() && isHand(x) && (la_carte->genre==1 || la_carte->genre==2) && (perfect_magie(0)!=-1))
     {
-       sacrifice=0;
+       nbrSacrifice=0;
        registre_0 = x;
        emit dialogueMagi();
     }
