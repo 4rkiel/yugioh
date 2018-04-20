@@ -302,7 +302,15 @@ void Noyau::poserAtk()
     {
         int position = perfect_terrain(0);
         if(position!=-1)
-            poser(registre_0,position,false,true);
+        {
+            if(nbrSacrifice == 0)
+                poser(registre_0,position,false,true);
+            else if(nbrSacrifice == 1)
+                sacrifier_poser(registre_1,registre_0,position,false,true);
+            else if(nbrSacrifice ==2)
+                sacrifier_sacrifier_poser(registre_1,registre_2,position,false,true);   
+                 
+        }
     }
 }
 
@@ -312,7 +320,13 @@ void Noyau::poserDef()
       {
          int position = perfect_terrain(0);
          if(position!=-1)
-          poser(registre_0,position,true,false);
+         {   if(nbrSacrifice == 0)
+                poser(registre_0,position,true,false);
+            else if(nbrSacrifice == 1)
+                sacrifier_poser(registre_1,registre_0,position,true,false);
+            else if(nbrSacrifice ==2)
+                sacrifier_sacrifier_poser(registre_1,registre_2,position,true,false);   
+         }
      }
 }
 
@@ -450,11 +464,13 @@ void Noyau::poser_test(int x)
     int i,j;
     if(can_poser() && !alreadyPosed && isHand(x) && (la_carte->genre==0) && (la_carte->niveau<5)   && (perfect_terrain(0)!=-1))
     {
+        nbrSacrifice = 0;
         registre_0 = x;
         emit dialogue();
     }
     else if(can_poser() && !alreadyPosed && isHand(x) && (la_carte->genre==0) && (la_carte->niveau<7)   && (perfect_terrain(0)!=-1))
     {
+         nbrSacrifice = 1;
         j=0;
         registre_0 = x;
         std::cout << "Il faut un sacrifice" << std::endl;
@@ -478,6 +494,7 @@ void Noyau::poser_test(int x)
     }
     else if(can_poser() && !alreadyPosed && isHand(x) && (la_carte->genre==0)  && (perfect_terrain(0)!=-1))
     {
+        nbrSacrifice = 2;
         j=0;
         registre_0 = x;
         std::cout << "Il faut deux sacrifices" << std::endl;
