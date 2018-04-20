@@ -180,7 +180,7 @@ signals:
     void dialogueMagi();
     void dialogueSac1(int nombre,std::vector<Carte *>* vector);
     void dialogueSac2();
-
+    void openChoosePosi();
     //void met_en_defense(int x);
 };
 
