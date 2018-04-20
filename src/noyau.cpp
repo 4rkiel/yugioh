@@ -867,12 +867,14 @@ void Noyau::prepSac(std::vector<int>vect)
     if(vect.size()==1)
     {
         registre_1 = choix->at(vect.at(0))->position_terrain;
+        std::cout << "je vais sacrifier " << registre_1 << std::endl;
         emit openChoosePosi();
     }
     else if(vect.size()==2)
     {
         registre_1 = choix->at(vect.at(0))->position_terrain;
         registre_2 = choix->at(vect.at(1))->position_terrain;
+        std::cout << "je vais sacrifier " << registre_1 << " " << registre_2 << std::endl;
          emit openChoosePosi();
     }
 }
