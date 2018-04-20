@@ -267,6 +267,9 @@ void Master::loadField (int x){
     //montrer def caché
     connect(noyau,SIGNAL(montre(int)),field,SLOT(reveal(int)));
 
+    //sacrifice
+    connect(noyau,SIGNAL(dialogueSac1(int,std::vector<Carte*>*)),field,SLOT(openChoose(int,std::vector<QString>*)));
+
     field -> init();
 
 

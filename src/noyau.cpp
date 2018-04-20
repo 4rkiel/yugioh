@@ -463,6 +463,7 @@ void Noyau::poser_test(int x)
                     choix->push_back(terrain->at(i));
         }
         emit dialogueSac1(1,choix);
+
     }
     else if(can_poser() && !alreadyPosed && isHand(x) && (la_carte->genre==0)  && (perfect_terrain(0)!=-1))
     {
@@ -691,6 +692,7 @@ void Noyau::sacrifier_poser(int sacrifice_x, int main_x, int terrain_x,bool def,
          emit destruction(main_x);
          emit destruction(sacrifice_x);
     }
+    choix->clear();
 }
 
 void Noyau::sacrifier_sacrifier_poser(int sacrifice_1_x, int sacrifice_2_x, int main_x, int terrain_x,bool def,bool vis)
@@ -793,6 +795,7 @@ void Noyau::sacrifier_sacrifier_poser(int sacrifice_1_x, int sacrifice_2_x, int 
          emit destruction(sacrifice_1_x);
          emit destruction(sacrifice_2_x);
     }
+    choix->clear();
 }
 
 //trouve la carte qui a la position x
