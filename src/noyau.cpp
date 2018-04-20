@@ -308,7 +308,7 @@ void Noyau::poserAtk()
             else if(nbrSacrifice == 1)
                 sacrifier_poser(registre_1,registre_0,position,false,true);
             else if(nbrSacrifice ==2)
-                sacrifier_sacrifier_poser(registre_1,registre_2,position,false,true);   
+                sacrifier_sacrifier_poser(registre_1,registre_2,registre_0,position,false,true);   
                  
         }
     }
