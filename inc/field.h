@@ -9,6 +9,7 @@
 #include <QVBoxLayout>
 #include <QStackedLayout>
 #include <QScrollArea>
+#include <QScrollBar>
 
 #include <QPushButton>
 #include <QString>
@@ -32,7 +33,8 @@
 #include "../inc/stats.h"
 #include "../inc/chat.h"
 #include "../inc/popup.h"
-
+#include "../inc/minipopup.h"
+#include "../inc/carte.h"
 
 
 #include <iostream>
@@ -47,7 +49,7 @@ public:
     Field();
     ~Field();
     void init();
-//    void resizeEvent(QResizeEvent* event);
+    
 
 public slots:
 
@@ -86,7 +88,13 @@ public slots:
     void openChooseMagi();
     void openWin();
     void openLost();
+    void openQuit();
+    void openSee(std::vector <Carte *> *);
+    void openChoose(int, std::vector <Carte *> *);
+    void openChooseLocked(int, std::vector <Carte *> *);
 
+    void miniReopen();
+    void emitChosen(std::vector<int>);
 
     void previewClicked();
     void cardDoubleClicked(int);
@@ -95,11 +103,13 @@ public slots:
     void cardEntered(int);
     void cardLeaved();
 
-    void cardHover(QString, int, int, QString, int, QString, int, int);
+    void cardHover(Carte *);
+
 
 
 signals:
 
+    void chosenOne(std::vector<int>);
     void introStack();
     void sendAtk();
     void sendDef();
@@ -109,26 +119,34 @@ signals:
 	void doubleClicked(int);
 	void monstClick(int, int);
 	void askPreview(int);
+    
 
 
 private:
 
 //    void resizeVictor();
     void dealWithHand(int);
+    void readLangage();
 
     void cardOut();
 	void resetProgress();
     int plusDroite_Self();
 
+    void miniSave();
+    void maxiSave();
+
     int retained;
     int maxPhase;
 
 	bool lockTick;
+    bool miniPopSave;
+    bool popSave;
 
 	bool lockPreview;
 	int previewed;
 
 	QString baseLife;
+    QString langage;
     
 
     QGridLayout * layout;
@@ -167,7 +185,10 @@ private:
         
         QWidget * arenaBox;
         QGridLayout * arenaLayout;
-      
+
+        MiniPopup * minipop;
+
+
             QWidget * advBox;
             QGridLayout * advLayout;
                 

@@ -81,7 +81,7 @@ NetChoice::NetChoice () {
             msgAttente = new QLabel(tr("Recherche d'un adversaire en cours..."));
             msgAttente -> setObjectName("matchmakingText");
 
-            msgAttente->setContentsMargins(200,0,0,100);
+            msgAttente->setAlignment(Qt::AlignCenter);
             msgAttente->setWordWrap(true);
             msgAttente -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 

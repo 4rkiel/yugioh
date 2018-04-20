@@ -13,7 +13,7 @@ CardEditor::CardEditor(Parser* parser){
     createFormGroupBox();
 
     bigEditor = new QTextEdit;
-    bigEditor->setPlainText(tr("Description / Effet de la carte..."));
+    bigEditor->setPlaceholderText(tr("Description / Effet de la carte..."));
     connect(buttonSave, SIGNAL(clicked()), this, SLOT(sauvegarder()));
 
     mainLayout = new QGridLayout;
@@ -179,12 +179,12 @@ void CardEditor::createFormGroupBox (){
 
     // ... placement ...................................................
 
-    layout->addWidget(searchImg, 8, 11, 1, 1);
+    layout->addWidget(searchImg, 7, 11, 1, 1);
     layout->addWidget(genRdmName, 0, 23, 1, 1);
     layout->addWidget(new QLabel(tr("Nom:")), i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(nom, i, 2, 1, 21);
-    layout->addWidget(new QLabel(tr("ID:")), ++i, 0, 1, 2, Qt::AlignCenter);
-    layout->addWidget(ID, i, 2, 1, 22);
+//    layout->addWidget(new QLabel(tr("ID:")), ++i, 0, 1, 2, Qt::AlignCenter);
+//    layout->addWidget(ID, i, 2, 1, 22);
     layout->addWidget(new QLabel(tr("Set:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(nrSet, i, 2, 1, 22);
     layout->addWidget(new QLabel(tr("genre:")), ++i, 0, 1, 2, Qt::AlignCenter);
@@ -257,6 +257,31 @@ void CardEditor::sauvegarder (){
               (Attribut)attribut->currentIndex(),bigEditor->toPlainText(),
               niveau->value(),
               effectBox->currentIndex(),nrSet->currentIndex(),-1,-1));
+
+    ID->setValue(rand()%100000000);
+
+    bool sortir = true;
+
+    do
+    {
+        sortir = true;
+        for(Carte* carteCourante : *allCards)
+        {
+            if(carteCourante->id == ID->value())
+            {
+                sortir = false;
+                ID->setValue(rand()%100000000);
+                break;
+            }
+        }
+    }while(!sortir);
+
+
+    QMessageBox::information(this, tr("Sauvegarde"),
+                             tr("La carte ")+nom->text()+tr(" à bien était sauvegardé."),
+                                 QMessageBox::Ok);
+
+    nameRandom();
 }
 
 
@@ -287,7 +312,7 @@ void CardEditor::selectImg(){
         image->setStyleSheet("border-image: url(" + fileName + "); margin: 2px");
         imageUrl->setText(fileName.section('/', -1));
         absoluteUrlImage = fileName;
-        buttonSave->setDisabled(false);
+        buttonSave->setVisible(true);
     }
 }
 
@@ -300,20 +325,20 @@ void CardEditor::updateImg (){
     if(std::find(extension.begin(), extension.end(), (fileName.substr(fileName.find_last_of(".") + 1))) == extension.end())
     {// extension incorrecte
         imageUrl->setText(imageUrl->text() + "\t extension incorrect");
-        buttonSave->setDisabled(true);
+        buttonSave->setVisible(false);
 
     }
 
     else if(!QFileInfo(imgRep + imageUrl->text()).exists())
     {// fichier incorrecte
         imageUrl->setText(imageUrl->text() + tr("\t n'existe pas"));
-        buttonSave->setDisabled(true);
+        buttonSave->setVisible(false);
     }
     else
     {
         image->setStyleSheet("border-image: url(" + imgRep + imageUrl->text() + "); margin: 2px");
         absoluteUrlImage = imgRep + imageUrl->text();
-        buttonSave->setDisabled(false);
+        buttonSave->setVisible(true);
     }
 }
 
@@ -341,11 +366,17 @@ void CardEditor::slotAttribut(){
             attribut->setItemIcon(6, QIcon(imgRep + "DIVIN"));
 
             attribut->setCurrentIndex(rand()%7);
-            spinAttaque->setDisabled(false);
-            spinDefense->setDisabled(false);
-            typePrimaire->setDisabled(false);
-            typeSecondaire->setDisabled(false);
-            niveau->setDisabled(false);
+//            spinAttaque->setDisabled(false);
+//            spinDefense->setDisabled(false);
+//            typePrimaire->setDisabled(false);
+//            typeSecondaire->setDisabled(false);
+//            niveau->setDisabled(false);
+
+            spinAttaque->setVisible(true);
+            spinDefense->setVisible(true);
+            typePrimaire->setVisible(true);
+            typeSecondaire->setVisible(true);
+            niveau->setVisible(true);
         break;
 
         case MAGIE:
@@ -365,11 +396,11 @@ void CardEditor::slotAttribut(){
 
             attribut->setCurrentIndex(rand()%6);
 
-            spinAttaque->setDisabled(true);
-            spinDefense->setDisabled(true);
-            typePrimaire->setDisabled(true);
-            typeSecondaire->setDisabled(true);
-            niveau->setDisabled(true);
+            spinAttaque->setVisible(false);
+            spinDefense->setVisible(false);
+            typePrimaire->setVisible(false);
+            typeSecondaire->setVisible(false);;
+            niveau->setVisible(false);
         break;
 
         case PIEGE:
@@ -383,11 +414,11 @@ void CardEditor::slotAttribut(){
 
             attribut->setCurrentIndex(rand()%3);
 
-            spinAttaque->setDisabled(true);
-            spinDefense->setDisabled(true);
-            typePrimaire->setDisabled(true);
-            typeSecondaire->setDisabled(true);
-            niveau->setDisabled(true);
+            spinAttaque->setVisible(false);
+            spinDefense->setVisible(false);
+            typePrimaire->setVisible(false);
+            typeSecondaire->setVisible(false);
+            niveau->setVisible(false);
     }
 }
 
@@ -396,10 +427,10 @@ void CardEditor::slotNormal(){
 
     if (typeSecondaire->currentIndex() == 1){ // si monstre normal
     
-        effectBox->setDisabled(true);
+        effectBox->setVisible(false);
     
     } else {
         
-        effectBox->setEnabled(true);
+        effectBox->setVisible(true);
     }
 }

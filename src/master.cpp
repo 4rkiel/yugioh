@@ -246,8 +246,8 @@ void Master::loadField (int x){
     connect(field,SIGNAL(askPreview(int)),noyau,SLOT(donner_infos(int)),Qt::QueuedConnection);
 
 	// give preview
-    connect(noyau,SIGNAL(give_infos(QString,int,int,QString,int,QString,int,int)),
-        field, SLOT(cardHover(QString,int,int,QString,int,QString,int,int)),Qt::QueuedConnection);
+    connect(noyau,SIGNAL(give_infos(Carte *)),
+        field, SLOT(cardHover(Carte *)),Qt::QueuedConnection);
 
     // bi clicked
     connect(field,SIGNAL(monstClick(int,int)),noyau,SLOT(attaquerSlot(int,int)),Qt::QueuedConnection);
@@ -266,6 +266,9 @@ void Master::loadField (int x){
 
     //montrer def caché
     connect(noyau,SIGNAL(montre(int)),field,SLOT(reveal(int)));
+
+    //sacrifice
+    connect(noyau,SIGNAL(dialogueSac1(int,std::vector<Carte*>*)),field,SLOT(openChoose(int,std::vector<Carte*>*)));
 
     field -> init();
 

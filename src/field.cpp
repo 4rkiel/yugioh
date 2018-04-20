@@ -1,5 +1,5 @@
 #include "../inc/field.h"
-#include <QScrollBar>
+
 /******************************************************************************
 
 Widget implémentant le plateau de jeu
@@ -9,6 +9,10 @@ Initialisé lors du lancement d'une partie
 ******************************************************************************/
 
 Field::Field () {
+
+    readLangage();
+    miniPopSave = false;
+    popSave = false;
 
 	lockTick = false;
 
@@ -167,15 +171,10 @@ Field::Field () {
 
     connect(popup, SIGNAL(introStack()), this, SLOT(emitIntroStack()));
 
-    connect(popup, SIGNAL(sendAtk()), this, SLOT(emitAtk()));
-    connect(popup, SIGNAL(sendDef()), this, SLOT(emitDef()));
-    
-    connect(popup, SIGNAL(sendVisi()), this, SLOT(emitVisi()));
-    connect(popup, SIGNAL(sendHide()), this, SLOT(emitHide()));
     connect(popup, SIGNAL(focusField()), this, SLOT(getsFocus()));
     connect(popup, SIGNAL(moiFocus()), this, SLOT(abandonFocus()));
 
-    connect(menuButt, SIGNAL(clicked()), popup, SLOT(openQuit()));
+    connect(menuButt, SIGNAL(clicked()), this, SLOT(openQuit()));
 
 
 
@@ -341,6 +340,29 @@ Field::Field () {
             arenaLayout -> setRowStretch(0,5);
             arenaLayout -> setRowStretch(1,7);
 
+
+            
+        minipop = new MiniPopup;
+        minipop -> setVisible(false);
+        arenaLayout -> addWidget(minipop, 0,0,2,3);
+        
+
+
+        connect(minipop, SIGNAL(sendAtk()), this, SLOT(emitAtk()));
+        connect(minipop, SIGNAL(sendDef()), this, SLOT(emitDef()));
+        
+        connect(minipop, SIGNAL(sendVisi()), this, SLOT(emitVisi()));
+        connect(minipop, SIGNAL(sendHide()), this, SLOT(emitHide()));
+        connect(minipop, SIGNAL(focusField()), this, SLOT(getsFocus()));
+        connect(minipop, SIGNAL(moiFocus()), this, SLOT(abandonFocus()));
+
+        connect(minipop, SIGNAL(chosenOne(std::vector<int>)),
+                    this, SLOT(emitChosen(std::vector<int>)));
+
+
+
+
+
         arenaBox -> setLayout(arenaLayout);
         
 
@@ -380,7 +402,7 @@ Field::Field () {
                 sidebar -> addWidget(chat, 0, 0, 10, 1);
 
                 connect(chat, SIGNAL(msgSent(QString)), this, SLOT(sendMsg(QString)));
-                connect(chat, SIGNAL(rcvQuit()), popup, SLOT(openQuit()));
+                connect(chat, SIGNAL(rcvQuit()), this, SLOT(openQuit()));
                 connect(chat, SIGNAL(swField()), this, SLOT(switchField()));
 
             side -> setLayout(sidebar);
@@ -410,13 +432,8 @@ Field::Field () {
     //key shortcut
     shortcut = new QShortcut(QKeySequence("Escape"), this);
     shortcut->setContext(Qt::WidgetShortcut);
-    connect(shortcut, SIGNAL(activated()), popup, SLOT(openQuit()));
+    connect(shortcut, SIGNAL(activated()), this, SLOT(openQuit()));
 
-    //key shortcut
-    shortcut2 = new QShortcut(QKeySequence("Enter"), this);
-    shortcut2->setContext(Qt::WidgetShortcut);
-    connect(shortcut2, SIGNAL(activated()), this, SLOT(right));
-    
     setLayout(layout);
 
 }
@@ -466,7 +483,9 @@ Field::~Field (){
        
             delete slfLayout;
             delete slfBox;
-        
+
+            delete minipop;
+
         delete arenaLayout;
         delete arenaBox;
 
@@ -549,12 +568,18 @@ void Field::init(){
 
      for (int k=0; k<150; k++){
          if (fieldStack -> at(k) != nullptr){
-             connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()),Qt::UniqueConnection);
-             connect(fieldStack->at(k), SIGNAL(mvUp()), this, SLOT(moveUp()),Qt::UniqueConnection);
-             connect(fieldStack->at(k), SIGNAL(mvDown()), this, SLOT(moveDown()),Qt::UniqueConnection);
-             connect(fieldStack->at(k), SIGNAL(mvLeft()), this, SLOT(moveLeft()),Qt::UniqueConnection);
-             connect(fieldStack->at(k), SIGNAL(mvRight()), this, SLOT(moveRight()),Qt::UniqueConnection);
-             connect(fieldStack->at(k), SIGNAL(swChat()), this, SLOT(switchChat()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(rcvQuit()), 
+                     this, SLOT(openQuit()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(mvUp()), 
+                     this, SLOT(moveUp()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(mvDown()), 
+                     this, SLOT(moveDown()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(mvLeft()), 
+                     this, SLOT(moveLeft()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(mvRight()), 
+                     this, SLOT(moveRight()),Qt::UniqueConnection);
+             connect(fieldStack->at(k), SIGNAL(swChat()), 
+                     this, SLOT(switchChat()),Qt::UniqueConnection);
          }
      }
 
@@ -570,7 +595,8 @@ void Field::emitIntroStack (){
 }
 
 void Field::openChoosePosi (){
-    popup -> openPosi();
+    minipop -> openPosi();
+    miniSave();
 }
 
 void Field::emitAtk (){
@@ -583,7 +609,8 @@ void Field::emitDef (){
 
 
 void Field::openChooseMagi (){
-    popup -> openMagi();
+    minipop -> openMagi();
+    miniSave();
 }
 
 void Field::emitHide (){
@@ -594,19 +621,102 @@ void Field::emitVisi (){
     emit sendVisi();
 }
 
+void Field::openSee (std::vector <Carte *> * str){
+    minipop -> openSee(str);
+    miniSave();
+}
+
+void Field::openChoose (int x, std::vector <Carte *> * str){
+    
+    std::cout << "yoooooooooooo\n";
+    
+    minipop -> openChoose(x, str);
+    miniSave();
+}
+
+void Field::openChooseLocked (int x, std::vector <Carte *> * str){
+    minipop -> openChooseLocked(x, str);
+    miniSave();
+}
 
 void Field::openWin (){
-    popup -> openWin();
-	relockTick();
+    
+    if (lockTick){
+        
+        popup -> openWin();
+	    relockTick();
+        maxiSave();
+    }
 }
 
+
 void Field::openLost (){
-    popup -> openLost();
-	relockTick();
+    
+    if (lockTick){
+    
+        popup -> openLost();
+	    relockTick();
+        maxiSave();
+    }
 }
+
+
+void Field::openQuit (){
+
+    if (lockTick){
+        
+        popup -> openQuit();
+    
+    } else {
+        
+        popup -> openEnd();
+    }
+
+    maxiSave();
+}
+
+
+void Field::miniSave (){
+    
+    miniPopSave = true;
+}
+
+
+void Field::maxiSave (){
+
+    popSave = true;
+}
+
+
+void Field::miniReopen(){
+    
+    if (miniPopSave && popSave){
+        
+        minipop -> setVisible(true);
+        popSave = false;
+
+    } else if (miniPopSave){
+        
+        miniPopSave = false;
+
+    } else if (popSave){
+    
+        minipop -> setVisible(false);
+        popSave = false;
+    }
+}
+
+void Field::emitChosen (std::vector <int> sam){
+    emit chosenOne(sam);
+}
+
+
 
 /* Focus */
 void Field::getsFocus(){
+
+    miniReopen();
+
     SlotCard* temp;
     for (int k=0; k<150; k++){
         if (fieldStack -> at(k) != nullptr){
@@ -660,6 +770,7 @@ void Field::cardRightClicked(int x){
         (! that -> isGrave() )
     ){
 
+
         if (lockPreview && !(that -> isHand() && that -> isAdv() ) ){
             
             emit askPreview(x);            
@@ -684,37 +795,11 @@ void Field::cardRightClicked(int x){
 }
 
 
-void Field::cardHover (
-		QString title, 
-		int attr,
-		int level,
-		QString pic,
-		int type,
-		QString desc,
-		int atk,
-		int def
-	){
+void Field::cardHover (Carte * card){
 
-    fullCard -> setTitle(title);
-	fullCard -> setAttr(attr);
-	fullCard -> setLevel(level);
-
-	fullCard -> setPic(pic);
-    fullCard -> setDesc(desc);
-	
-	if (level > 0){
-		fullCard -> setType(type);
-    	fullCard -> setStat(QString::number(atk), QString::number(def));
-	} else {
-		fullCard -> hideType();
-		fullCard -> hideStat();
-	}
-
-
-    if (lockPreview){
-        chat -> setVisible(false);
-        fullCard -> setVisible(true);
-    }
+    fullCard -> reInit(card);
+    chat -> setVisible(false);
+    fullCard -> setVisible(true);
 }
 
 
@@ -951,13 +1036,14 @@ void Field::dealWithHand(int k){
 
             connect(
                 fieldStack->at(k), SIGNAL(rcvQuit()), 
-                popup, SLOT(openQuit())
+                this, SLOT(openQuit())
             );
 
 //            resizeVictor();
             for (int k=0; k<150; k++){
                 if (fieldStack -> at(k) != nullptr){
-                    connect(fieldStack->at(k), SIGNAL(rcvQuit()), popup, SLOT(openQuit()),Qt::UniqueConnection);
+                    connect(fieldStack->at(k), SIGNAL(rcvQuit()), 
+                            this, SLOT(openQuit()),Qt::UniqueConnection);
                     connect(fieldStack->at(k), SIGNAL(mvUp()), this, SLOT(moveUp()),Qt::UniqueConnection);
                     connect(fieldStack->at(k), SIGNAL(mvDown()), this, SLOT(moveDown()),Qt::UniqueConnection);
                     connect(fieldStack->at(k), SIGNAL(mvLeft()), this, SLOT(moveLeft()),Qt::UniqueConnection);
@@ -1048,29 +1134,61 @@ int Field::plusDroite_Self(){
 }
 
 void Field::moveLeft(){
-    if(QString(qApp->focusObject()->metaObject()->className())=="SlotCard"){
-        for (int k=0; k<150; k++){
-            if (fieldStack -> at(k) != nullptr){
-                if(fieldStack->at(k)==static_cast<SlotCard*>(qApp->focusObject())){
-                    if( (k>=1 && k<=6) || (k>=8 && k<=13) || (k>=83 && k<=88) || (k>=76 && k<=81) )
-                        fieldStack -> at(k-1) -> setFocus();
-                    if( (k==0) || (k==7) || (k==75) || (k==82)  )
-                        fieldStack -> at(k+6) -> setFocus();
-                    if(k==14){
-                        fieldStack -> at(plusDroite_Self()) -> setFocus();
-                        slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->maximum());
-                    }
-                    if(k==89)
-                        fieldStack -> at(95) -> setFocus();
-                    if(k>=15 && k<75){
-                        fieldStack -> at(k-1) -> setFocus();
-                        slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() - fieldStack -> at(14) ->width());
-                    }
-                    if(k>=90 && k<=150){
-                        fieldStack -> at(k-1) -> setFocus();
-                    }
-                    return;
+    if(langage!="ar_SA"){
+        if(QString(qApp->focusObject()->metaObject()->className())=="SlotCard"){
+            for (int k=0; k<150; k++){
+                if (fieldStack -> at(k) != nullptr){
+                    if(fieldStack->at(k)==static_cast<SlotCard*>(qApp->focusObject())){
+                        if( (k>=1 && k<=6) || (k>=8 && k<=13) || (k>=83 && k<=88) || (k>=76 && k<=81) )
+                            fieldStack -> at(k-1) -> setFocus();
+                        if( (k==0) || (k==7) || (k==75) || (k==82)  )
+                            fieldStack -> at(k+6) -> setFocus();
+                        if(k==14){
+                            fieldStack -> at(plusDroite_Self()) -> setFocus();
+                            slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->maximum());
+                        }
+                        if(k==89)
+                            fieldStack -> at(95) -> setFocus();
+                        if(k>=15 && k<75){
+                            fieldStack -> at(k-1) -> setFocus();
+                            slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() - fieldStack -> at(14) ->width());
+                        }
+                        if(k>=90 && k<=150){
+                            fieldStack -> at(k-1) -> setFocus();
+                        }
+                        return;
 
+                    }
+                }
+            }
+        }
+    }
+    else{
+        if(QString(qApp->focusObject()->metaObject()->className())=="SlotCard"){
+            for (int k=0; k<150; k++){
+                if (fieldStack -> at(k) != nullptr){
+                    if(fieldStack->at(k)==static_cast<SlotCard*>(qApp->focusObject())){
+                        if( (k>=0 && k<=5) || (k>=7 && k<=12) || (k>=82 && k<=87) || (k>=75 && k<=80) )
+                            fieldStack -> at(k+1) -> setFocus();
+                        if( (k==6) || (k==13) || (k==81) || (k==88) || (k==95)  )
+                            fieldStack -> at(k-6) -> setFocus();
+                        if(k>=14 && k<=75){
+                            if(fieldStack->at(k+1) != nullptr){
+                                fieldStack -> at(k+1) ->setFocus();
+                                slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() + fieldStack -> at(14) ->width());
+                            }
+                            else{
+                                fieldStack -> at(14) ->setFocus();
+                                slfScroll->horizontalScrollBar()->setValue(0);
+                            }
+
+                        }
+                        if(k>=89 && k<=94){
+                            fieldStack -> at(k+1) -> setFocus();
+                        }
+                        return;
+
+                    }
                 }
             }
         }
@@ -1078,30 +1196,61 @@ void Field::moveLeft(){
 }
 
 void Field::moveRight(){
-    if(QString(qApp->focusObject()->metaObject()->className())=="SlotCard"){
-        for (int k=0; k<150; k++){
-            if (fieldStack -> at(k) != nullptr){
-                if(fieldStack->at(k)==static_cast<SlotCard*>(qApp->focusObject())){
-                    if( (k>=0 && k<=5) || (k>=7 && k<=12) || (k>=82 && k<=87) || (k>=75 && k<=80) )
-                        fieldStack -> at(k+1) -> setFocus();
-                    if( (k==6) || (k==13) || (k==81) || (k==88) || (k==95)  )
-                        fieldStack -> at(k-6) -> setFocus();
-                    if(k>=14 && k<=75){
-                        if(fieldStack->at(k+1) != nullptr){
-                            fieldStack -> at(k+1) ->setFocus();
-                            slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() + fieldStack -> at(14) ->width());
+    if(langage!="ar_SA"){
+        if(QString(qApp->focusObject()->metaObject()->className())=="SlotCard"){
+            for (int k=0; k<150; k++){
+                if (fieldStack -> at(k) != nullptr){
+                    if(fieldStack->at(k)==static_cast<SlotCard*>(qApp->focusObject())){
+                        if( (k>=0 && k<=5) || (k>=7 && k<=12) || (k>=82 && k<=87) || (k>=75 && k<=80) )
+                            fieldStack -> at(k+1) -> setFocus();
+                        if( (k==6) || (k==13) || (k==81) || (k==88) || (k==95)  )
+                            fieldStack -> at(k-6) -> setFocus();
+                        if(k>=14 && k<=75){
+                            if(fieldStack->at(k+1) != nullptr){
+                                fieldStack -> at(k+1) ->setFocus();
+                                slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() + fieldStack -> at(14) ->width());
+                            }
+                            else{
+                                fieldStack -> at(14) ->setFocus();
+                                slfScroll->horizontalScrollBar()->setValue(0);
+                            }
+
                         }
-                        else{
-                            fieldStack -> at(14) ->setFocus();
-                            slfScroll->horizontalScrollBar()->setValue(0);
+                        if(k>=89 && k<=94){
+                            fieldStack -> at(k+1) -> setFocus();
                         }
+                        return;
 
                     }
-                    if(k>=89 && k<=94){
-                        fieldStack -> at(k+1) -> setFocus();
-                    }
-                    return;
+                }
+            }
+        }
+    }
+    else{
+        if(QString(qApp->focusObject()->metaObject()->className())=="SlotCard"){
+            for (int k=0; k<150; k++){
+                if (fieldStack -> at(k) != nullptr){
+                    if(fieldStack->at(k)==static_cast<SlotCard*>(qApp->focusObject())){
+                        if( (k>=1 && k<=6) || (k>=8 && k<=13) || (k>=83 && k<=88) || (k>=76 && k<=81) )
+                            fieldStack -> at(k-1) -> setFocus();
+                        if( (k==0) || (k==7) || (k==75) || (k==82)  )
+                            fieldStack -> at(k+6) -> setFocus();
+                        if(k==14){
+                            fieldStack -> at(plusDroite_Self()) -> setFocus();
+                            slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->maximum());
+                        }
+                        if(k==89)
+                            fieldStack -> at(95) -> setFocus();
+                        if(k>=15 && k<75){
+                            fieldStack -> at(k-1) -> setFocus();
+                            slfScroll->horizontalScrollBar()->setValue(slfScroll->horizontalScrollBar()->value() - fieldStack -> at(14) ->width());
+                        }
+                        if(k>=90 && k<=150){
+                            fieldStack -> at(k-1) -> setFocus();
+                        }
+                        return;
 
+                    }
                 }
             }
         }
@@ -1114,6 +1263,12 @@ void Field::switchChat(){
 
 void Field::switchField(){
     fieldStack->at(14)->setFocus();
+    slfScroll->horizontalScrollBar()->setValue(0);
+}
+
+void Field::readLangage(){
+    QSettings settings;
+    langage = settings.value("langage", QLocale::system().name()).toString();
 }
 
 /*

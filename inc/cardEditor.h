@@ -2,8 +2,6 @@
 #define EDITEUR_DE_CARTE_H
 
 #include <QDialog>
-#include <QtGui>
-#include <QMenuBar>
 #include <vector>
 #include <QString>
 #include <string>
@@ -19,7 +17,6 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QMenu>
-#include <QMenuBar>
 #include <QPushButton>
 #include <QTextEdit>
 #include <QGridLayout>
@@ -29,6 +26,7 @@
 #include <iostream>
 #include <sstream>
 #include <QShortcut>
+#include <QMessageBox>
 
 #include "../inc/carte.h"
 #include "../inc/combo.h"

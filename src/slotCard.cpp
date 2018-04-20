@@ -71,7 +71,6 @@ SlotCard::SlotCard (int p){
 
     
     imgButt = new zButt;
-    imgButt -> setFocusPolicy(Qt::StrongFocus);
 
     if (isDeck()){
     
@@ -189,6 +188,8 @@ SlotCard::~SlotCard (){
     delete proxy;
     delete scene;
     delete view;
+
+    delete layout;
 }
 
 
@@ -376,7 +377,7 @@ void SlotCard::rightClicked(){
 }
 
 void SlotCard::leftClicked(){
-	emit leftClick(posi);
+    emit leftClick(posi);
 }
 
 void SlotCard::enterEvent(QEvent * event){

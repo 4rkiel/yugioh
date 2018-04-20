@@ -42,10 +42,19 @@ public:
 
     std::vector<int> * alreadyMoved;
     std::vector<int> * alreadyAtk;
+    std::vector<int> * alreadyActivate;
+    std::vector<int> * alreadyActivateAdv;
+    std::vector<Carte *> * choix;
+
     bool alreadyPosed=false;
 
     int nbrTick=0;
     bool lockTick = false;
+
+    int nbrExodia=0;
+    std::vector<int> * allExodia;
+    int nbrExodiaAdv=0;
+    std::vector<int> * allExodiaAdv;
 
 public slots:
 
@@ -80,13 +89,16 @@ public slots:
 
 public:
 
-    /*comme son nom l'indique, passe à la phase_suivante
-     * PAS ENCORE IMPLEMENTE */
+    /*comme son nom l'indique, passe à la phase_suivante */
     void phase_suivante();
+
+    void destroy_all(int zone);
 
     //FONCTIONS UTILE POUR D'AUTRES FONCTIONS, LEURS DESCRIPTIONS EST DANS LE CPP
     void enlever_x(std::vector<Carte *> **vect, int x);
     void enlever_i(std::vector<Carte *> **vect, int i);
+    void enlever_m(std::vector<int>**vect,int m);
+    void enlever_e(std::vector<int>**vect,int e);
     int perfect_terrain(int zone);
     int perfect_position(int zone);
     int perfect_magie(int zone);
@@ -107,7 +119,8 @@ public:
     bool can_switch();
     bool can_activate();
     bool contient(std::vector<int>* vect,int x);
-
+    void augmenterMaVie(int dx);
+    void augmenterSaVie(int dx);
     //obsolète
     Reseau * res;
 
@@ -132,6 +145,7 @@ public slots:
     void attaquerSlot(int,int);
     void comptageTick();
     void activer(int x);
+    void prepSac(std::vector<int> vect);
 
 signals:
     void emit_go();
@@ -154,7 +168,7 @@ signals:
     void dialogue();
     void change_position(int x);
     void tiens(QString);
-    void give_infos(QString,int,int,QString,int,QString,int,int);
+    void give_infos(Carte * carte);
     void giveLife(int x);
     void changeLife(int x,bool me);
     void setTour(int x);
@@ -162,7 +176,7 @@ signals:
     void beginTour();
     void montre(int x);
     void dialogueMagi();
-    void dialogueSac1();
+    void dialogueSac1(int nombre,std::vector<Carte *>* vector);
     void dialogueSac2();
 
     //void met_en_defense(int x);
