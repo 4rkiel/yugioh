@@ -999,6 +999,8 @@ void Noyau::activer(int x)
     {
         std::cout << "l'id est "<< carte->id << " et l'effet est " << carte->effet << std::endl;
     }
+    if(contient(alreadyActivate,x))
+        return;
     if(x<75)
     {
          alreadyActivate->push_back(x);
