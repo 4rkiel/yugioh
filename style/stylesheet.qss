@@ -696,11 +696,13 @@ BuildTab #shadowPop {
     background: rgba(0,0,0,100);
 }
 
-
 BuildTab #deckEdit {
     background: #E0F2F1;
 }
 
+BuildTab CardEditor {
+    background: #E0F2F1;
+}
 
 
 BuildTab #closePop,

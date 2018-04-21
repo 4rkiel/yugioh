@@ -62,7 +62,9 @@ void CardEditor::createFormGroupBox (){
     imageUrl = new QLineEdit;
 
     ShadowButt *searchImg = new ShadowButt("\uf07c", "");
+    searchImg -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
     ShadowButt *genRdmName = new ShadowButt("\uf074", "");
+    genRdmName -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
     QStringList imgList = QDir(imgRep).entryList();
 
