@@ -63,10 +63,13 @@ DeckSelector::DeckSelector(QObject* parent){
     for(; indice < tabDeckButton.size(); indice++)
     {
         if(tabDeckButton[indice]->nomDeck == nomDeck )
+        {
+            tabRadio[indice]->toggle();
             break;
+        }
     }
 
-    tabRadio[indice]->toggle();
+
 
     BuildTab* par= static_cast<BuildTab*>(parent);
     QSpacerItem * spacerButt = new QSpacerItem(2,1,
