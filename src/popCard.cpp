@@ -14,7 +14,8 @@ PopCard::PopCard (int n){
 
     pic = "";
     posi = n;
-
+    selected = false;
+    setProperty("down", false);
     setFlat(true);
 
     // Set properties
@@ -28,18 +29,19 @@ PopCard::PopCard (int n){
     
         imgButt = new zButt;
         imgButt -> setFocusPolicy(Qt::StrongFocus);
-
+        imgButt -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     layout -> addWidget(imgButt);
 
     setLayout(layout);
     
 
-    /*
-	connect(this, SIGNAL(clicked()), this, SLOT(leftClicked()));
-	connect(imgButt, SIGNAL(clicked()), this, SLOT(leftClicked()));
-	connect(imgButt, SIGNAL(rightClicked()), this, SLOT(rightClicked()));
+//	connect(this, SIGNAL(clicked()), this, SLOT(leftClicked()));
+//	connect(imgButt, SIGNAL(clicked()), this, SLOT(leftClicked()));
+//	connect(imgButt, SIGNAL(rightClicked()), this, SLOT(rightClicked()));
 	connect(imgButt, SIGNAL(doubleClicked()), this, SLOT(doubleClicked()));
+
+    /*
 
     //raccourci echap
     shortcut = new QShortcut(QKeySequence("Escape"), this);
@@ -118,6 +120,23 @@ void PopCard::setPic(QString str){
 // SIGNALS
 
 void PopCard::doubleClicked(){
+
+    if (selected){
+        selected = false;
+        setProperty("down", false);
+
+        style() -> unpolish(this);
+        style() -> polish(this);
+
+    } else {
+        
+        selected = true;
+        setProperty("down", true);
+
+        style() -> unpolish(this);
+        style() -> polish(this);
+    }
+
 	emit doubleClick(posi);
 }
 

@@ -292,12 +292,17 @@ void Window::readConfSettings (){
         styleSheet = styleSheet + QLatin1String(file.readAll());
         file.close();
 
-        file.setFileName("style/dys.qss");
+        file.setFileName("style/bi.qss");
         file.open(QFile::ReadOnly);
         styleSheet = styleSheet + QLatin1String(file.readAll());
         file.close();
 
     } else if (settings.value("achroma", false).toBool()){
+    
+        file.setFileName("style/stylesheet.qss");
+        file.open(QFile::ReadOnly);
+        styleSheet = styleSheet + QLatin1String(file.readAll());
+        file.close();
 
         file.setFileName("style/dys.qss");
         file.open(QFile::ReadOnly);
@@ -305,8 +310,13 @@ void Window::readConfSettings (){
         file.close();
 
     } else if (settings.value("contraste", false).toBool()){
-
+ 
         file.setFileName("style/stylesheet.qss");
+        file.open(QFile::ReadOnly);
+        styleSheet = styleSheet + QLatin1String(file.readAll());
+        file.close();
+
+        file.setFileName("style/ctst.qss");
         file.open(QFile::ReadOnly);
         styleSheet = styleSheet + QLatin1String(file.readAll());
         file.close();

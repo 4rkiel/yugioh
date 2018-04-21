@@ -14,10 +14,12 @@
 
 #include <QShortcut>
 
+#include <math.h> 
 #include <vector>
 
 #include "../inc/shadowButt.h"
 #include "../inc/popCard.h"
+#include "../inc/carte.h"
 
 class MiniPopup : public QWidget {
 
@@ -43,11 +45,12 @@ public slots:
     void visiMode();
     void hideMode();
 
+    void cardClicked(int);
 
-    void openSee(std::vector <QString> *);
-    void openChoose(int, std::vector <QString> *);
-    void openChooseLocked(int, std::vector <QString> *);
-    void populate(std::vector <QString> *);
+    void openSee(std::vector <Carte *> *);
+    void openChoose(int, std::vector <Carte *> *);
+    void openChooseLocked(int, std::vector <Carte *> *);
+    void populate(std::vector <Carte *> *);
     void closeSee();
 
     void openMenu();
@@ -67,12 +70,14 @@ signals:
     void sendHide();
     void focusField();
 
+    void chosenOne(std::vector<int>);
 
 private:
 
-    bool locked;
+    std::vector <int> stock;
 
-    int have;
+    bool locked;
+    bool waiting;
     int need;
 
     QWidget * current;

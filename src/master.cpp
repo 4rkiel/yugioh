@@ -111,7 +111,7 @@ void Master::loadField (int x){
     if (mode >= 10 && mode <= 19){
 
         delete network;
-
+        noyau->online = false;
         // mode pour le niveau de l'IA
         // 11:easy
         // 12:medium
@@ -124,7 +124,14 @@ void Master::loadField (int x){
             ai_mode = 1; //file ai.data
         else
             ai_mode = 2; //file learning_ai.data
-
+        
+        if(mode==11)
+            noyau->deckAdverse(0);
+        if(mode==12)
+            noyau->deckAdverse(1);
+        if(mode==13)
+            noyau->deckAdverse(2);
+        
         cout << "construct ai" << endl;
         ai_main = new Ai_main(noyau,ai_mode,2);//joueur 2 (adverse)
         ai_battle = new Ai_battle(noyau,ai_mode,2);//joueur 2 (adverse)
@@ -136,30 +143,34 @@ void Master::loadField (int x){
         
         /*TODO: le noyau envoi un signal à l'ia pour lui dire que la battle phase a commencé et
         le noyau renvoit ce signal aussi à chaque fois que l'adversaire effectu une action pendant la battle phase*/
-
+        
         //connect(noyau,SIGNAL(ai_battle_phase()),ai_battle,SLOT(play()));
         
-
+        
         //MAIN PHASE//
-
-        cout << "ai: init signals" << endl;
+        
+        connect(noyau,SIGNAL(main_phase_ia()),ai_main,SLOT(play()));
+        
         connect(ai_main,SIGNAL(signal_poser(int,int,bool,bool)),noyau,SLOT(poser(int,int,bool,bool)));
         
         connect(ai_main,SIGNAL(signal_switch_position(int)),noyau,SLOT(switch_position(int)));
         
-        //connect(ai_main,SIGNAL(detruire(int)),noyau,SLOT(detruire(int)));
+        connect(ai_main,SIGNAL(signal_sacrifier_poser(int,int,int,bool,bool)),noyau,SLOT(sacrifier_poser(int,int,int,bool,bool)));
         
-        //connect(ai_main,SIGNAL(signal_sacrifier_poser(int,int,int)),noyau,SLOT(sacrifier_poser(int,int,int)));
+        connect(ai_main,SIGNAL(signal_sacrifier_sacrifier_poser(int,int,int,int,bool,bool)),noyau,SLOT(sacrifier_sacrifier_poser(int,int,int,int,bool,bool)));
         
-        //connect(ai_main,SIGNAL(signal_sacrifier_sacrifier_poser(int,int,int,int)),noyau,SLOT(sacrifier_sacrifier_poser(int,int,int,int)));
+        //connect(ai_main,SIGNAL(signal_activate(int)),noyau,SLOT(activate(int)));
         
-        //connect(ai_main_phase,SIGNAL(signal_activate(int)),noyau,SLOT(activate(int)));
         
         //BATTLE PHASE//
         
+        connect(noyau,SIGNAL(battle_phase_ia()),ai_battle,SLOT(play()));
+        
         connect(ai_battle,SIGNAL(signal_attaquer(int,int)),noyau,SLOT(attaquer(int,int)));
+        
 
-        cout << "ai: signals init end" << endl;
+
+            ai_mode = 2; //file learning_ai.data
     } else {
 
 		// 
@@ -177,6 +188,8 @@ void Master::loadField (int x){
         if (network != NULL){
             connect(noyau,SIGNAL(tiens(QString)),network,SLOT(transmettre(QString)));
         }
+        if(network!=NULL)
+        connect(network,SIGNAL(hasDied()),noyau,SIGNAL(je_gagne()),Qt::QueuedConnection);
     }
 
 
@@ -265,7 +278,15 @@ void Master::loadField (int x){
     stacked -> setCurrentWidget(field);
 
     //montrer def caché
-    connect(noyau,SIGNAL(montre(int)),field,SLOT(reveal(int)));
+    //connect(noyau,SIGNAL(montre(int)),field,SLOT(reveal(int)));
+
+    //sacrifice
+    connect(noyau,SIGNAL(dialogueSac1(int,std::vector<Carte*>*)),
+            field,SLOT(openChoose(int,std::vector<Carte*>*)));
+
+    connect(field, SIGNAL(chosenOne(std::vector<int>)), 
+            noyau, SLOT(prepSac(std::vector<int>)));
+    connect(noyau,SIGNAL(openChoosePosi()),field,SLOT(openChoosePosi()));
 
     field -> init();
 
@@ -286,7 +307,7 @@ void Master::loadField (int x){
     connect( mThread, SIGNAL(finished()), mThread, SLOT(deleteLater()) );
 
     //connect(mTask,SIGNAL(newTick()),network,SLOT(keepAlive()),Qt::QueuedConnection);
-    connect(network,SIGNAL(hasDied()),noyau,SIGNAL(je_gagne()),Qt::QueuedConnection);
+
 
 
 

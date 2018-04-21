@@ -1,6 +1,5 @@
 #include "../inc/minipopup.h"
 
-
 MiniPopup::MiniPopup (){
 
     locked = false;
@@ -118,20 +117,19 @@ MiniPopup::MiniPopup (){
         seeLayout = new QGridLayout;
         seeLayout -> setAlignment(Qt::AlignCenter);
 
-            
-            seeList = new QWidget;
-            listLayout = new QGridLayout;
-
-
-
-            seeLayout -> addWidget(seeList, 0,0,3,3);
-
             seeBack = new ShadowButt("\uf078", tr("Retour"));
             seeBack -> setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
             seeBack -> setToolTip(tr("Retourner au terrain"));
             connect(seeBack, SIGNAL(clicked()), this, SLOT(closeSee()));
             seeLayout -> addWidget(seeBack, 4,1,1,1);
 
+
+            
+            seeList = new QWidget;
+            listLayout = new QGridLayout;
+
+            seeList -> setLayout(listLayout);
+            seeLayout -> addWidget(seeList, 0,0,3,3);
 
 
         seeBox -> setLayout(seeLayout);
@@ -257,8 +255,9 @@ void MiniPopup::closeMagi (){
 
 
 
-void MiniPopup::openSee (std::vector <QString> * str){
+void MiniPopup::openSee (std::vector <Carte *> * str){
 
+    waiting = false;
     populate(str);
 
     openMenu();
@@ -268,8 +267,12 @@ void MiniPopup::openSee (std::vector <QString> * str){
 }
 
 
-void MiniPopup::openChooseLocked (int, std::vector <QString> * str){
+void MiniPopup::openChooseLocked (int x, std::vector <Carte *> * str){
     
+    waiting = true;
+    stock.clear();
+    need = x;
+
     populate(str);
     
     openMenu();
@@ -279,8 +282,12 @@ void MiniPopup::openChooseLocked (int, std::vector <QString> * str){
 }
 
 
-void MiniPopup::openChoose (int, std::vector <QString> * str){
+void MiniPopup::openChoose (int x, std::vector <Carte *> * str){
     
+    waiting = true;
+    stock.clear();
+    need = x;
+
     populate(str);
     
     openMenu();
@@ -289,20 +296,55 @@ void MiniPopup::openChoose (int, std::vector <QString> * str){
 }
 
 
-void MiniPopup::populate(std::vector <QString> * vic){
+void MiniPopup::populate(std::vector <Carte *> * vic){
     
     while (auto item = listLayout->takeAt(0)) {
         delete item->widget();
     }
-    
-    for (unsigned int k=0; k < vic->size(); k++){
+   
+    int sz = vic -> size();
+    int z = floor(sqrt(sz)) + 1;
+    z = (z > 5) ? 5 : z;
+
+    for (int k=0; k < sz; k++){
         
         PopCard * prev = new PopCard(k);
-        prev -> setPic(vic -> at(k));
+        prev -> setPic(vic -> at(k) -> image);
 
-//        connect(prev, SIGNAL(cardClicked(int)), this, SLOT(cardClicked(int)));
+        connect(prev, SIGNAL(doubleClick(int)), this, SLOT(cardClicked(int)));
         
-        listLayout -> addWidget(prev);
+        listLayout -> addWidget(prev, floor(k/z), k%z, 1,1);
+    }
+}
+
+void MiniPopup::cardClicked(int x){
+    
+    if (waiting){
+        
+        bool found = false;
+        int sz = stock.size();
+        
+        for(int k=0; k < sz; k++){
+            if(stock[k] == x){
+                
+                std::vector<int>::iterator i = stock.begin() + k;
+                stock.erase(i);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found){
+            stock.push_back(x);
+        }
+
+        sz = stock.size();
+        
+        if (sz == need){
+
+            checkCloseMenu();
+            emit chosenOne(stock);
+        }
     }
 }
 

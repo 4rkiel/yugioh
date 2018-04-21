@@ -44,11 +44,19 @@ public:
     std::vector<int> * alreadyAtk;
     std::vector<int> * alreadyActivate;
     std::vector<int> * alreadyActivateAdv;
+    std::vector<Carte *> * choix;
 
     bool alreadyPosed=false;
 
     int nbrTick=0;
     bool lockTick = false;
+
+    int nbrExodia=0;
+    std::vector<int> * allExodia;
+    int nbrExodiaAdv=0;
+    std::vector<int> * allExodiaAdv;
+    
+    int nbrSacrifice = 0;
 
 public slots:
 
@@ -92,6 +100,7 @@ public:
     void enlever_x(std::vector<Carte *> **vect, int x);
     void enlever_i(std::vector<Carte *> **vect, int i);
     void enlever_m(std::vector<int>**vect,int m);
+    void enlever_e(std::vector<int>**vect,int e);
     int perfect_terrain(int zone);
     int perfect_position(int zone);
     int perfect_magie(int zone);
@@ -112,7 +121,8 @@ public:
     bool can_switch();
     bool can_activate();
     bool contient(std::vector<int>* vect,int x);
-
+    void augmenterMaVie(int dx);
+    void augmenterSaVie(int dx);
     //obsolète
     Reseau * res;
 
@@ -137,6 +147,7 @@ public slots:
     void attaquerSlot(int,int);
     void comptageTick();
     void activer(int x);
+    void prepSac(std::vector<int> vect);
 
 signals:
     void emit_go();
@@ -167,8 +178,15 @@ signals:
     void beginTour();
     void montre(int x);
     void dialogueMagi();
-    void dialogueSac1();
+    void dialogueSac1(int nombre,std::vector<Carte *>* vector);
     void dialogueSac2();
+    void openChoosePosi();
+
+    void main_phase_ia();
+    void main_phase_joueur();
+    void battle_phase_ia();
+    void battle_phase_joueur();
+
 
     //void met_en_defense(int x);
 };

@@ -89,11 +89,12 @@ public slots:
     void openWin();
     void openLost();
     void openQuit();
-    void openSee(std::vector <QString> *);
-    void openChoose(int, std::vector <QString> *);
-    void openChooseLocked(int, std::vector <QString> *);
+    void openSee(std::vector <Carte *> *);
+    void openChoose(int, std::vector <Carte *> *);
+    void openChooseLocked(int, std::vector <Carte *> *);
 
     void miniReopen();
+    void emitChosen(std::vector<int>);
 
     void previewClicked();
     void cardDoubleClicked(int);
@@ -105,8 +106,10 @@ public slots:
     void cardHover(Carte *);
 
 
+
 signals:
 
+    void chosenOne(std::vector<int>);
     void introStack();
     void sendAtk();
     void sendDef();
@@ -116,6 +119,7 @@ signals:
 	void doubleClicked(int);
 	void monstClick(int, int);
 	void askPreview(int);
+    
 
 
 private:
