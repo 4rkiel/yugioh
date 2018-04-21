@@ -17,6 +17,10 @@ CardEditor::CardEditor(Parser* parser){
     connect(buttonSave, SIGNAL(clicked()), this, SLOT(sauvegarder()));
 
     mainLayout = new QGridLayout;
+    mainLayout -> setMargin(0);
+    mainLayout -> setSpacing(0);
+    mainLayout -> setContentsMargins(0,0,0,0);
+
 
         mainLayout->addWidget(buttonSave, 2, 0);
         mainLayout->addWidget(formGroupBox, 0, 0);
