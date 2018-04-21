@@ -918,6 +918,7 @@ Carte * Noyau::trouver(int x)
     int i;
     for(i=0;i<(signed) terrain->size();i++)
     {
+
         if(terrain->at(i)->position_terrain == x)
             return terrain->at(i);
     }
@@ -1008,6 +1009,7 @@ bool Noyau::no_monster(int zone)
                 return false;
         }
     }
+
     return fin;
 }
 
@@ -1450,6 +1452,7 @@ void Noyau::enlever_x(std::vector<Carte *> **vect, int x)
 //PAS ENCORE BIEN IMPLEMENTE 
 void Noyau::phase_suivante()
 {
+
     if(phase==2)
     {
         alreadyPosed=false;
@@ -1476,6 +1479,7 @@ void Noyau::phase_suivante()
                 emit main_phase_joueur();
         break;
         case 1:
+
             if((no_monster(0) && mon_tour) || (no_monster(1) && !mon_tour))
                {
                 phase = 2;
@@ -1483,12 +1487,14 @@ void Noyau::phase_suivante()
             }
             else
             {
+
                 emit sendInfo(tr("Battle Phase"));
                 if(tour%2==1)
                     emit battle_phase_ia();
                 else
                     emit battle_phase_joueur();
             }
+
         break;
         case 2:
            emit sendInfo(tr("Main Phase 2"));
@@ -1501,6 +1507,7 @@ void Noyau::phase_suivante()
         break;
 
     }
+
     int i;
     for(i=0;i<(signed)alreadyActivate->size();i++)
     {
