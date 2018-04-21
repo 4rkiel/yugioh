@@ -98,15 +98,15 @@ PopCard::PopCard (int n){
 PopCard::~PopCard (){
 /*
     delete shortcut;
-    delete shortcut2;
     delete shortcut3;
     delete shortcut4;
     delete shortcut5;
     delete shortcut6;
     delete shortcut7;
-    delete shortcut9;
 */
+    delete shortcut2;
     delete shortcut8;
+    delete shortcut9;
     delete imgButt;
     delete layout;
 }
