@@ -72,6 +72,13 @@ CardPreview::CardPreview(Carte *carte){
     setLayout(mainLayout);
 }
 
+CardPreview::~CardPreview()
+{
+    delete imageLabel;
+    delete info;
+    delete mainLayout;
+}
+
 void CardPreview::mousePressEvent (QMouseEvent * e)
 {
     if (e->button() == Qt::LeftButton || e->button() == Qt::RightButton )

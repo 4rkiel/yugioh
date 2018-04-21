@@ -30,6 +30,7 @@ class CardPreview : public QWidget
 
         Carte *maCarte;
         CardPreview(Carte *carte);
+        ~CardPreview();
 
     private:
 

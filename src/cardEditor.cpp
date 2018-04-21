@@ -33,7 +33,17 @@ CardEditor::CardEditor(Parser* parser){
 
 CardEditor::~CardEditor (){
     // TODO
-
+    delete layout;
+    delete imageUrl;
+    delete nom;
+    delete effectBox;
+    delete attribut;
+    delete typeSecondaire;
+    delete typePrimaire;
+    delete genreCarte;
+    delete niveau;
+    delete spinDefense;
+    delete spinAttaque;
 	
 }
 
@@ -181,7 +191,7 @@ void CardEditor::createFormGroupBox (){
     niveau -> setMaximum(12);
     niveau -> setMinimum(1);
 
-    QGridLayout *layout = new QGridLayout;
+    layout = new QGridLayout;
 
     // ... placement ...................................................
 

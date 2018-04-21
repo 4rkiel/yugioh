@@ -82,6 +82,7 @@ private:
         const QString imgRep = QCoreApplication::applicationDirPath()+"/img/img_attr/";
         QString absoluteUrlImage = imgRep + "DEFAULT.jpg";
 
+        QGridLayout* layout;
         QGroupBox *formGroupBox;
         QTextEdit *bigEditor;
 

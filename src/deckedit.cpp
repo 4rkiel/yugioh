@@ -539,6 +539,66 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
     updateExtraDeckVisu();
 }
 
+deckEdit::~deckEdit()
+{
+    for(int i=0; i<NBR_CARTE_EXTRA_DECK; i++)
+        delete tabExtraDeck[i];
+
+    for(int i=0; i<NBR_CARTE_DECK_VISU; i++)
+        delete tabCardVisu[i];
+
+    delete choixSousGenre;
+    delete choixAttribut;
+    delete choixType;
+    delete newDeck;
+    delete textSearch;
+    delete spinAtk;
+    delete spinDef;
+    delete spinNiveau;
+    delete shortcutRedo2;
+    delete shortcutRedo;
+    delete shortcut;
+    delete cardList;
+    delete deckScroll;
+    delete attrLabel;
+    delete attrLayout;
+    delete genreLabel;
+    delete choixGenre;
+    delete genreColonne;
+    delete cardFilterAdv;
+    delete plusFiltrBut;
+    delete butClearSearch;
+    delete layoutRechercheCarte;
+    delete cardFilter;
+    delete layoutCard;
+    delete deckVisu;
+    delete infoMonstreLabel;
+    delete infoMagieLabel;
+    delete infoPiegeLabel;
+    delete infoFusionLabel;
+    delete deckLabel;
+    delete layoutInfo;
+    delete cardInfo;;
+    delete deckVisuLayout;
+    delete undo;
+    delete eraseDeck;
+    delete sortDeck;
+    delete shuffleDeck;
+    delete cachayLayout;
+    delete stealBut;
+    delete plusBut;
+    delete supprDeck;
+    delete nomDeck;
+    delete nomLayout;
+    delete frameNomDeck;
+    delete editCreateLayout;
+    delete editCreate;
+    delete mainL2;
+    delete mainL1;
+    delete mainLayout;
+    delete selectDeck;
+}
+
 void deckEdit::updateDeckVisu()
 {
     int i=0;

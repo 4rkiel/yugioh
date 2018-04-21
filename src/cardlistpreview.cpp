@@ -12,6 +12,12 @@ CardListPreview::CardListPreview(std::vector<Carte *> *cardList)
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 }
 
+CardListPreview::~CardListPreview()
+{
+    delete cardPreviewList;
+    delete mainLayout;
+}
+
 /* remplit le widget de CardPreview à partir d'un vecteur de carte */
 void CardListPreview::updateSearch(std::vector<Carte *> *cardList2)
 {

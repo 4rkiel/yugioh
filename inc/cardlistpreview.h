@@ -35,6 +35,7 @@ public:
     void updateSearch(std::vector<Carte *> *cardList);
 
     CardListPreview(std::vector<Carte *> *cardList2);
+    ~CardListPreview();
 
     QVBoxLayout *mainLayout;
 
