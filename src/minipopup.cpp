@@ -1,5 +1,4 @@
 #include "../inc/minipopup.h"
-#include <iostream>
 
 MiniPopup::MiniPopup (){
 
@@ -302,15 +301,19 @@ void MiniPopup::populate(std::vector <Carte *> * vic){
     while (auto item = listLayout->takeAt(0)) {
         delete item->widget();
     }
-    
-    for (unsigned int k=0; k < vic->size(); k++){
+   
+    int sz = vic -> size();
+    int z = floor(sqrt(sz)) + 1;
+    z = (z > 5) ? 5 : z;
+
+    for (int k=0; k < sz; k++){
         
         PopCard * prev = new PopCard(k);
         prev -> setPic(vic -> at(k) -> image);
 
         connect(prev, SIGNAL(doubleClick(int)), this, SLOT(cardClicked(int)));
         
-        listLayout -> addWidget(prev);
+        listLayout -> addWidget(prev, floor(k/z), k%z, 1,1);
     }
 }
 
@@ -339,8 +342,8 @@ void MiniPopup::cardClicked(int x){
         
         if (sz == need){
 
+            checkCloseMenu();
             emit chosenOne(stock);
-            closeMenu();
         }
     }
 }

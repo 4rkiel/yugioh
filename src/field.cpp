@@ -595,6 +595,7 @@ void Field::emitIntroStack (){
 }
 
 void Field::openChoosePosi (){
+    std::cout << "OPENCHOOSEPOSI\n";
     minipop -> openPosi();
     miniSave();
 }

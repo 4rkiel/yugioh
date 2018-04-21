@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QString>
 
+#include <QStyle>
 #include <QMouseEvent>
 #include <QShortcut>
 
@@ -56,7 +57,8 @@ signals:
 private:
     int posi;
     QString pic;
-    
+    bool selected;
+
     QShortcut* shortcut;
     QShortcut* shortcut2;
     QShortcut* shortcut3;

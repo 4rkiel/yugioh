@@ -14,7 +14,8 @@ PopCard::PopCard (int n){
 
     pic = "";
     posi = n;
-
+    selected = false;
+    setProperty("down", false);
     setFlat(true);
 
     // Set properties
@@ -119,6 +120,23 @@ void PopCard::setPic(QString str){
 // SIGNALS
 
 void PopCard::doubleClicked(){
+
+    if (selected){
+        selected = false;
+        setProperty("down", false);
+
+        style() -> unpolish(this);
+        style() -> polish(this);
+
+    } else {
+        
+        selected = true;
+        setProperty("down", true);
+
+        style() -> unpolish(this);
+        style() -> polish(this);
+    }
+
 	emit doubleClick(posi);
 }
 
