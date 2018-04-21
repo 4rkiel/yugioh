@@ -106,7 +106,7 @@ QString DeckSelector::imgPreviewDeck(std::vector<Carte*> *deck){
 QVariant DeckSelector::getCurrentDeck()
 {
     QSettings settings;
-    return settings.value("deckUtilise",  deckRep+"sans_Nom0");
+    return settings.value("deckUtilise",  deckRep+"sans_Nom0.deck");
     // TODO ICI on peut mettre un deck par default
 }
 
