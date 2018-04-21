@@ -12,6 +12,7 @@
 
 #include <QRadioButton>
 #include <QShortcut>
+#include <QSettings>
 
 /*
 #include <QBoxLayout>
@@ -59,6 +60,8 @@ public:
     ~DeckSelector();
 
     QString imgPreviewDeck(std::vector<Carte*> * deck);
+
+    QSettings setting;
 
 
 public slots:

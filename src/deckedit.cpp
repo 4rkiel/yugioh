@@ -107,38 +107,74 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
                     if(str == deckName+".deck")
                     {
                         Parser parse;
-                        std::vector<Carte*> *leDeckParse = parse.deck(deckRep + str);
+                        std::vector<Carte*> *leDeckParse =
+                                parse.deck(deckRep + str);
+                        std::vector<Carte*> *leExtraDeckParse =
+                                parse.extradeck(deckRep + str);
 
-                        for(Carte* laCarteCourante : *leDeckParse)
-                        {
-                            switch(laCarteCourante->genre)
+                        if(leDeckParse != NULL)
+                            for(Carte* laCarteCourante : *leDeckParse)
                             {
-                                case 0:
-                                    if(laCarteCourante->sous_type == 2) // carte fusion
-                                    {
-                                        extraDeck.push_back(laCarteCourante);
-                                        indiceCarteExtraDeck++;
-                                    }
-                                    else
-                                    {
+                                switch(laCarteCourante->genre)
+                                {
+                                    case 0:
+                                        if(laCarteCourante->sous_type == 2) // carte fusion
+                                        {
+                                            extraDeck.push_back(laCarteCourante);
+                                            indiceCarteExtraDeck++;
+                                        }
+                                        else
+                                        {
+                                            deck.push_back(laCarteCourante);
+                                            nbrCarteMonstre++;
+                                            indiceCarteDeck++;
+                                        }
+                                    break;
+
+                                    case 1:
                                         deck.push_back(laCarteCourante);
-                                        nbrCarteMonstre++;
+                                        nbrCarteMagie++;
                                         indiceCarteDeck++;
-                                    }
-                                break;
+                                    break;
 
-                                case 1:
-                                    deck.push_back(laCarteCourante);
-                                    nbrCarteMagie++;
-                                    indiceCarteDeck++;
-                                break;
-
-                                case 2:
-                                    deck.push_back(laCarteCourante);
-                                    nbrCartePiege++;
-                                    indiceCarteDeck++;
+                                    case 2:
+                                        deck.push_back(laCarteCourante);
+                                        nbrCartePiege++;
+                                        indiceCarteDeck++;
+                                }
                             }
-                        }
+
+                        if(leExtraDeckParse != NULL)
+                            for(Carte* laCarteCourante : *leExtraDeckParse)
+                            {
+                                switch(laCarteCourante->genre)
+                                {
+                                    case 0:
+                                        if(laCarteCourante->sous_type == 2) // carte fusion
+                                        {
+                                            extraDeck.push_back(laCarteCourante);
+                                            indiceCarteExtraDeck++;
+                                        }
+                                        else
+                                        {
+                                            deck.push_back(laCarteCourante);
+                                            nbrCarteMonstre++;
+                                            indiceCarteDeck++;
+                                        }
+                                    break;
+
+                                    case 1:
+                                        deck.push_back(laCarteCourante);
+                                        nbrCarteMagie++;
+                                        indiceCarteDeck++;
+                                    break;
+
+                                    case 2:
+                                        deck.push_back(laCarteCourante);
+                                        nbrCartePiege++;
+                                        indiceCarteDeck++;
+                                }
+                            }
                     }
                 }
 
