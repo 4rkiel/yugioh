@@ -18,7 +18,7 @@
 
 #define NB_INPUT 434
 #define NB_HIDDEN 200
-#define NB_OUTPUT 135
+#define NB_OUTPUT_M 135
 
 
 using namespace Eigen;
@@ -99,11 +99,6 @@ class Ai_main : public QWidget
         //destructor
         ~Ai_main();
         
-    public:
-        
-        //play without learn
-        void play();
-
 
     private:
         
@@ -131,7 +126,7 @@ class Ai_main : public QWidget
         int main_id_to_x(int main_id);
         int monstre_id_to_x(int monstre_id);
         int magie_piege_id_to_x(int magie_piege_id);
-
+        
         //function that 
         int perform_action(int chosen_action);
         
@@ -147,12 +142,10 @@ class Ai_main : public QWidget
         int activer_magie_piege(int magie_id);
 
 
+    public slots:
+        void play(int iter=0);
 
     signals:
-        
-        //attanquant : position_carte
-        //adversaire : position_carte ou -1 si attaque directe vers le joueur
-        void signal_attaquer(int attaquant ,int adversaire);
         
         //main : position carte a poser
         //terrain : destination
@@ -161,10 +154,10 @@ class Ai_main : public QWidget
         void signal_poser(int main, int terrain, bool def ,bool vis);
 
         //sacrifi un monstre et le remplace avec un monstre de niveau 5-6
-        void signal_sacrifier_poser(int sacrifice_x, int main_x, int terrain_x);
+        void signal_sacrifier_poser(int sacrifice_x, int main_x, int terrain_x, bool def=false, bool vis=true);
 
         //Sacrifie deux monstres et en met un en remplacement de niveau 7 et plus
-        void signal_sacrifier_sacrifier_poser(int sacrifice_1_x, int sacrifice_2_x, int main_x, int terrain_x);
+        void signal_sacrifier_sacrifier_poser(int sacrifice_1_x, int sacrifice_2_x, int main_x, int terrain_x, bool def=false, bool vis=true);
         
         //passe de "atk à def" ou de "def à atk"
         //terrain : position de la carte a switcher

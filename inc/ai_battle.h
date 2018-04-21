@@ -18,7 +18,7 @@
 
 #define NB_INPUT 434
 #define NB_HIDDEN 200
-#define NB_OUTPUT 135
+#define NB_OUTPUT_B 31
 
 
 using namespace Eigen;
@@ -34,13 +34,13 @@ class Ai_battle : public QWidget
         //matrix of weights
         Matrix<float,434,200> input_weight;
         vector<Matrix<float,200,200>> hidden_weights;
-        Matrix<float,200,135> output_weight;
+        Matrix<float,200,31> output_weight;
         
         //matrix of deltas, which are the difference between the current weight,
         //and the previous weight, at each iteration
         Matrix<float,434,200> input_delta;
         vector<Matrix<float,200,200>> hidden_deltas;
-        Matrix<float,200,135> output_delta;
+        Matrix<float,200,31> output_delta;
         
         //row-matrix of current neurons input
         Matrix<float,1,434> input_layer_input;
@@ -55,12 +55,12 @@ class Ai_battle : public QWidget
         //row-matrix of current neurons values
         Matrix<float,1,200> input_layer_values;
         vector<Matrix<float,1,200>> hidden_layers_values;
-        Matrix<float,1,135> output_layer_values;
+        Matrix<float,1,31> output_layer_values;
         
         //matrix of next possible neurons values, according to the chosen action
         Matrix<float,1,200> test_input_layer_values;
         vector<Matrix<float,1,200>> test_hidden_layers_values;
-        Matrix<float,1,135> test_output_layer_values;
+        Matrix<float,1,31> test_output_layer_values;
         
         
         //the number of neurons layer
@@ -99,11 +99,6 @@ class Ai_battle : public QWidget
         //destructor
         ~Ai_battle();
         
-    public:
-        
-        //play without learn
-        void play();
-
 
     private:
         
@@ -117,36 +112,33 @@ class Ai_battle : public QWidget
         //propagation, chose action
         void forward_propagation(Matrix<float,1,434> game_state);
         void test_forward_propagation(Matrix<float,1,434> game_state);
-        int choose_action(Matrix<float,1,135> actions);
-        void backward_propagation(float q_targets[135]);
+        int choose_action(Matrix<float,1,31> actions);
+        void backward_propagation(float q_targets[31]);
         Matrix<float,1,434> play_simulation(Matrix<float,1,434> game_state, int action);
         int test_win(Matrix<float,1,434> state);
         float max_output_test();
         Matrix<float,1,200> ReLU(Matrix<float,1,200> layer_values);
-        Matrix<float,1,135> softmax(Matrix<float,1,135> layer_values);
+        Matrix<float,1,31> softmax(Matrix<float,1,31> layer_values);
         float randomFloat(float a, float b);
         
         //communication to noyau, correspondance id/terrain_x
         Matrix<float,1,434> read_noyau();
         int main_id_to_x(int main_id);
-        int monstre_id_to_x(int monstre_id);
+        int monstre_id_s_to_x(int monstre_id);
+        int monstre_id_a_to_x(int monstre_id);
         int magie_piege_id_to_x(int magie_piege_id);
-
+        
         //function that 
         int perform_action(int chosen_action);
         
         //tests before sending signal to noyau
         //returns EXIT_SUCCES if it send the signal to noyau
         //returns EXIT_FAILURE else
-        int poser_atk(int main_id);
-        int poser_def(int main_id);
-        int switch_atk_def(int monstre_id);
-        int sacrifier_poser(int monstre_id, int main_id);
-        int sacrifier_sacrifier_poser(int monstre_1_id, int monstre_2_id, int main_id);
-        int poser_magie_piege(int magie_id);
+        int attaquer(int attaquant_id,int cible_id);
         int activer_magie_piege(int magie_id);
 
-
+    public slots:
+        void play(int iter=0);
 
     signals:
         
@@ -154,25 +146,6 @@ class Ai_battle : public QWidget
         //adversaire : position_carte ou -1 si attaque directe vers le joueur
         void signal_attaquer(int attaquant ,int adversaire);
         
-        //main : position carte a poser
-        //terrain : destination
-        //def : true si défense, false si attaque
-        //vis : true si recto, false si verso
-        void signal_poser(int main, int terrain, bool def ,bool vis);
-
-        //sacrifi un monstre et le remplace avec un monstre de niveau 5-6
-        void signal_sacrifier_poser(int sacrifice_x, int main_x, int terrain_x);
-
-        //Sacrifie deux monstres et en met un en remplacement de niveau 7 et plus
-        void signal_sacrifier_sacrifier_poser(int sacrifice_1_x, int sacrifice_2_x, int main_x, int terrain_x);
-        
-        //passe de "atk à def" ou de "def à atk"
-        //terrain : position de la carte a switcher
-        void signal_switch_position(int terrain);
-        
-        //detruit la carte à la position terrain
-        //void signal_detruire(int terrain);
-
         //activer une marte magie ou piege
         void signal_activate(int terrain);
 

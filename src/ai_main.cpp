@@ -73,7 +73,6 @@ void Ai_main::save_ai()
             }
             break;
     }
-    float value;
     if(ai_file){
         //////////////input layer///////////////
         //save weights
@@ -153,7 +152,7 @@ void Ai_main::save_ai()
         //save weights
         for(i=0;i<NB_HIDDEN;i++)
         {
-            for(j=0;j<NB_OUTPUT;j++)
+            for(j=0;j<NB_OUTPUT_M;j++)
             {
                 ai_file << output_weight(i,j) << " ";
             }
@@ -163,7 +162,7 @@ void Ai_main::save_ai()
         //save deltas
         for(i=0;i<NB_HIDDEN;i++)
         {
-            for(j=0;j<NB_OUTPUT;j++)
+            for(j=0;j<NB_OUTPUT_M;j++)
             {
                 ai_file << output_delta(i,j) << " ";
             }
@@ -171,14 +170,14 @@ void Ai_main::save_ai()
         }
         ai_file << endl;
         //save values
-        for(i=0;i<NB_OUTPUT;i++)
+        for(i=0;i<NB_OUTPUT_M;i++)
         {
             ai_file << output_layer_values(0,i) << " ";
         }
         ai_file << endl;
         ai_file << endl;
         //save test values
-        for(i=0;i<NB_OUTPUT;i++)
+        for(i=0;i<NB_OUTPUT_M;i++)
         {
             ai_file << test_output_layer_values(0,i) << " ";
         }
@@ -305,7 +304,7 @@ void Ai_main::load_ai()
         //load weights
         for(i=0;i<NB_HIDDEN;i++)
         {
-            for(j=0;j<NB_OUTPUT;j++)
+            for(j=0;j<NB_OUTPUT_M;j++)
             {
                 ai_file >> number;
                 output_weight(i,j) = number;
@@ -314,20 +313,20 @@ void Ai_main::load_ai()
         //load deltas
         for(i=0;i<NB_HIDDEN;i++)
         {
-            for(j=0;j<NB_OUTPUT;j++)
+            for(j=0;j<NB_OUTPUT_M;j++)
             {
                 ai_file >> number;
                 output_delta(i,j) = number;
             }
         }
         //load values
-        for(i=0;i<NB_OUTPUT;i++)
+        for(i=0;i<NB_OUTPUT_M;i++)
         {
             ai_file >> number;
             output_layer_values(0,i) = number;
         }
         //load test values
-        for(i=0;i<NB_OUTPUT;i++)
+        for(i=0;i<NB_OUTPUT_M;i++)
         {
             ai_file >> number;
             test_output_layer_values(0,i) = number;
@@ -425,7 +424,7 @@ void Ai_main::initialise_random_ai()
     //initialise weights
     for(i=0;i<NB_HIDDEN;i++)
     {
-        for(j=0;j<NB_OUTPUT;j++)
+        for(j=0;j<NB_OUTPUT_M;j++)
         {
             output_weight(i,j) = randomFloat(-0.01,0.01);
         }
@@ -433,18 +432,18 @@ void Ai_main::initialise_random_ai()
     //initialise deltas
     for(i=0;i<NB_HIDDEN;i++)
     {
-        for(j=0;j<NB_OUTPUT;j++)
+        for(j=0;j<NB_OUTPUT_M;j++)
         {
             output_delta(i,j) = 0;
         }
     }
     //initialise values
-    for(i=0;i<NB_OUTPUT;i++)
+    for(i=0;i<NB_OUTPUT_M;i++)
     {
         output_layer_values(0,i) = 0;
     }
     //initialise test values
-    for(i=0;i<NB_OUTPUT;i++)
+    for(i=0;i<NB_OUTPUT_M;i++)
     {
         test_output_layer_values(0,i) = 0;
     }
@@ -487,11 +486,11 @@ Matrix<float,1,135> Ai_main::softmax(Matrix<float,1,135> layer_values)
     Matrix <float,Dynamic,Dynamic> next_layer_input(1,layer_values.cols());
     int i,j;
     float sum=0;
-    for(j=0;j<NB_OUTPUT;j++)
+    for(j=0;j<NB_OUTPUT_M;j++)
     {
         sum += exp(layer_values(0,j));
     }
-    for(i=0;i<NB_OUTPUT;i++)
+    for(i=0;i<NB_OUTPUT_M;i++)
     {
         next_layer_input(0,i) = exp(layer_values(0,i))/sum;
     }
@@ -696,7 +695,7 @@ float Ai_main::max_output_test()
 {
     float max_value=0;
     int i;
-    for(i=0;i<NB_OUTPUT;i++)
+    for(i=0;i<NB_OUTPUT_M;i++)
     {
         max_value = max(max_value,test_output_layer_values(0,i));
     }
@@ -760,7 +759,7 @@ Matrix<float,1,434> Ai_main::read_noyau()
             j=1;
         if(i==5)
             j=8;
-        if(i==135)
+        if(i==10)
             j=76;
         if(i==15)
             j=83;
@@ -1166,14 +1165,14 @@ int Ai_main::perform_action(int chosen_action)
         case 106:
         case 107:
         case 108:
-            return sacrifier_sacrifier_poser(0,chosen_action-1354,5);
+            return sacrifier_sacrifier_poser(0,chosen_action-104,5);
         case 109:
         case 110:
         case 111:
-            return sacrifier_sacrifier_poser(1,chosen_action-1357,5);
+            return sacrifier_sacrifier_poser(1,chosen_action-107,5);
         case 112:
         case 113:
-            return sacrifier_sacrifier_poser(2,chosen_action-1359,5);
+            return sacrifier_sacrifier_poser(2,chosen_action-109,5);
         case 114:
             return sacrifier_sacrifier_poser(3,4,5);
             //poser 6
@@ -1218,8 +1217,9 @@ int Ai_main::perform_action(int chosen_action)
 ///////////////////////////////////////////////////////////////////////////////
 
 
-void Ai_main::play()
+void Ai_main::play(int iter)
 {
+    iter++;
     Matrix<float,1,434> target_states[135];
     float q_targets[135];
 
@@ -1272,13 +1272,16 @@ void Ai_main::play()
             //q_values of the next possible states, and updates the weights
             backward_propagation(q_targets);
         }
-        //play();
+        if(iter<5)
+            play(iter);
+        else
+            perform_action(0);
     } else {
         if(mode==2)
         {
             //compare result of the neural network with the previous calculated
             //q_values of the next possible states, and updates the weights
-            //backward_propagation(q_targets);
+            backward_propagation(q_targets);
         }
     }
 }

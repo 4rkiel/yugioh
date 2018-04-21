@@ -73,7 +73,6 @@ void Ai_battle::save_ai()
             }
             break;
     }
-    float value;
     if(ai_file){
         //////////////input layer///////////////
         //save weights
@@ -153,7 +152,7 @@ void Ai_battle::save_ai()
         //save weights
         for(i=0;i<NB_HIDDEN;i++)
         {
-            for(j=0;j<NB_OUTPUT;j++)
+            for(j=0;j<NB_OUTPUT_B;j++)
             {
                 ai_file << output_weight(i,j) << " ";
             }
@@ -163,7 +162,7 @@ void Ai_battle::save_ai()
         //save deltas
         for(i=0;i<NB_HIDDEN;i++)
         {
-            for(j=0;j<NB_OUTPUT;j++)
+            for(j=0;j<NB_OUTPUT_B;j++)
             {
                 ai_file << output_delta(i,j) << " ";
             }
@@ -171,14 +170,14 @@ void Ai_battle::save_ai()
         }
         ai_file << endl;
         //save values
-        for(i=0;i<NB_OUTPUT;i++)
+        for(i=0;i<NB_OUTPUT_B;i++)
         {
             ai_file << output_layer_values(0,i) << " ";
         }
         ai_file << endl;
         ai_file << endl;
         //save test values
-        for(i=0;i<NB_OUTPUT;i++)
+        for(i=0;i<NB_OUTPUT_B;i++)
         {
             ai_file << test_output_layer_values(0,i) << " ";
         }
@@ -305,7 +304,7 @@ void Ai_battle::load_ai()
         //load weights
         for(i=0;i<NB_HIDDEN;i++)
         {
-            for(j=0;j<NB_OUTPUT;j++)
+            for(j=0;j<NB_OUTPUT_B;j++)
             {
                 ai_file >> number;
                 output_weight(i,j) = number;
@@ -314,20 +313,20 @@ void Ai_battle::load_ai()
         //load deltas
         for(i=0;i<NB_HIDDEN;i++)
         {
-            for(j=0;j<NB_OUTPUT;j++)
+            for(j=0;j<NB_OUTPUT_B;j++)
             {
                 ai_file >> number;
                 output_delta(i,j) = number;
             }
         }
         //load values
-        for(i=0;i<NB_OUTPUT;i++)
+        for(i=0;i<NB_OUTPUT_B;i++)
         {
             ai_file >> number;
             output_layer_values(0,i) = number;
         }
         //load test values
-        for(i=0;i<NB_OUTPUT;i++)
+        for(i=0;i<NB_OUTPUT_B;i++)
         {
             ai_file >> number;
             test_output_layer_values(0,i) = number;
@@ -425,7 +424,7 @@ void Ai_battle::initialise_random_ai()
     //initialise weights
     for(i=0;i<NB_HIDDEN;i++)
     {
-        for(j=0;j<NB_OUTPUT;j++)
+        for(j=0;j<NB_OUTPUT_B;j++)
         {
             output_weight(i,j) = randomFloat(-0.01,0.01);
         }
@@ -433,18 +432,18 @@ void Ai_battle::initialise_random_ai()
     //initialise deltas
     for(i=0;i<NB_HIDDEN;i++)
     {
-        for(j=0;j<NB_OUTPUT;j++)
+        for(j=0;j<NB_OUTPUT_B;j++)
         {
             output_delta(i,j) = 0;
         }
     }
     //initialise values
-    for(i=0;i<NB_OUTPUT;i++)
+    for(i=0;i<NB_OUTPUT_B;i++)
     {
         output_layer_values(0,i) = 0;
     }
     //initialise test values
-    for(i=0;i<NB_OUTPUT;i++)
+    for(i=0;i<NB_OUTPUT_B;i++)
     {
         test_output_layer_values(0,i) = 0;
     }
@@ -482,16 +481,16 @@ Matrix<float,1,200> Ai_battle::ReLU(Matrix<float,1,200> layer_values)
  * softmax
  * activation function
  */
-Matrix<float,1,135> Ai_battle::softmax(Matrix<float,1,135> layer_values)
+Matrix<float,1,31> Ai_battle::softmax(Matrix<float,1,31> layer_values)
 {
     Matrix <float,Dynamic,Dynamic> next_layer_input(1,layer_values.cols());
     int i,j;
     float sum=0;
-    for(j=0;j<NB_OUTPUT;j++)
+    for(j=0;j<NB_OUTPUT_B;j++)
     {
         sum += exp(layer_values(0,j));
     }
-    for(i=0;i<NB_OUTPUT;i++)
+    for(i=0;i<NB_OUTPUT_B;i++)
     {
         next_layer_input(0,i) = exp(layer_values(0,i))/sum;
     }
@@ -563,7 +562,7 @@ void Ai_battle::test_forward_propagation(Matrix<float,1,434> game_state)
  * Choose the action to do, according to the actions' q_value calculated.
  * More an action has a big q_value, more it has chance to be chosen
  */
-int Ai_battle::choose_action(Matrix<float,1,135> actions)
+int Ai_battle::choose_action(Matrix<float,1,31> actions)
 {
     srand (time(NULL));
     float choice = randomFloat(0,1);
@@ -571,9 +570,9 @@ int Ai_battle::choose_action(Matrix<float,1,135> actions)
     int action=0;
     while(choice>0)
     {
-        if(action==135)
+        if(action==31)
         {
-            action=rand()%135;
+            action=rand()%31;
             break;
         }
         choice -= actions(0,action);
@@ -590,7 +589,7 @@ int Ai_battle::choose_action(Matrix<float,1,135> actions)
  * different next possible state, and update the weights of the neural
  * network
  */
-void Ai_battle::backward_propagation(float q_targets[135])
+void Ai_battle::backward_propagation(float q_targets[31])
 {
     int i,j,k;
     float local_cost=0;
@@ -687,7 +686,7 @@ float Ai_battle::max_output_test()
 {
     float max_value=0;
     int i;
-    for(i=0;i<NB_OUTPUT;i++)
+    for(i=0;i<NB_OUTPUT_B;i++)
     {
         max_value = max(max_value,test_output_layer_values(0,i));
     }
@@ -751,7 +750,7 @@ Matrix<float,1,434> Ai_battle::read_noyau()
             j=1;
         if(i==5)
             j=8;
-        if(i==135)
+        if(i==10)
             j=76;
         if(i==15)
             j=83;
@@ -879,11 +878,21 @@ int Ai_battle::main_id_to_x(int main_id)
         return -1;
 }
 
-int Ai_battle::monstre_id_to_x(int monstre_id)
+int Ai_battle::monstre_id_s_to_x(int monstre_id)
 {
     if(joueur==1)
         return monstre_id+1;
     if(joueur==2)
+        return monstre_id+76;
+    else
+        return -1;
+}
+
+int Ai_battle::monstre_id_a_to_x(int monstre_id)
+{
+    if(joueur==2)
+        return monstre_id+1;
+    if(joueur==1)
         return monstre_id+76;
     else
         return -1;
@@ -902,91 +911,6 @@ int Ai_battle::magie_piege_id_to_x(int magie_piege_id)
 //##SIGNALS////////////////////////////////////////////////////////////////////
 
 
-//put monster in atk position
-//return EXIT_SUCCESS if it work and send signal
-//return EXIT_FAILURE else
-int Ai_battle::poser_atk(int main_id)
-{
-    int i;
-    if(main[main_id]!=NULL)
-        if(main[main_id]->niveau<5)
-            for(i=0;i<5;i++)
-                if(terrain_s_monstre[i]==NULL)
-                {
-                    signal_poser(main_id_to_x(main_id),monstre_id_to_x(i),false,true);
-                    return EXIT_SUCCESS;
-                }
-    return EXIT_FAILURE;
-}
-
-//put monster in defense position
-int Ai_battle::poser_def(int main_id)
-{
-    int i;
-    if(main[main_id]!=NULL)
-        if(main[main_id]->niveau<5)
-            for(i=0;i<5;i++)
-                if(terrain_s_monstre[i]==NULL)
-                {
-                    signal_poser(main_id_to_x(main_id),monstre_id_to_x(i),true,false);
-                    return EXIT_SUCCESS;
-                }
-    return EXIT_FAILURE;
-}
-
-//switch the position of the monster atk/def
-int Ai_battle::switch_atk_def(int monstre_id)
-{
-    if(terrain_s_monstre[monstre_id]!=NULL)
-    {
-        signal_switch_position(monstre_id_to_x(monstre_id));
-        return EXIT_SUCCESS;
-    }
-    return EXIT_FAILURE;
-}
-
-int Ai_battle::sacrifier_poser(int monstre_id,int main_id)
-{
-    if(main[main_id]!=NULL)
-        if(main[main_id]->niveau<7)
-            if(terrain_s_monstre[monstre_id]!=NULL)
-            {
-                signal_sacrifier_poser(monstre_id_to_x(monstre_id),
-                        main_id_to_x(main_id),monstre_id_to_x(monstre_id));
-                return EXIT_SUCCESS;
-            }
-    return EXIT_FAILURE;
-}
-
-int Ai_battle::sacrifier_sacrifier_poser(int monstre_id_1,int monstre_id_2,int main_id)
-{
-    if(main[main_id]!=NULL)
-        if(main[main_id]->niveau<7)
-            if(terrain_s_monstre[monstre_id_1]!=NULL)
-                if(terrain_s_monstre[monstre_id_2]!=NULL)
-                {
-                    signal_sacrifier_sacrifier_poser(monstre_id_to_x(monstre_id_1),monstre_id_to_x(monstre_id_2),
-                            main_id_to_x(main_id),monstre_id_to_x(monstre_id_1));
-                    return EXIT_SUCCESS;
-                }
-    return EXIT_FAILURE;
-}
-
-int Ai_battle::poser_magie_piege(int main_id)
-{
-    return EXIT_FAILURE;
-    int i;
-    if(main[main_id]!=NULL)
-        if(main[main_id]->niveau<5)
-            for(i=0;i<5;i++)
-                if(terrain_s_magie[i]==NULL)
-                {
-                    signal_poser(main_id_to_x(main_id),magie_piege_id_to_x(i),false,false);
-                    return EXIT_SUCCESS;
-                }
-    return EXIT_FAILURE;
-}
-
 int Ai_battle::activer_magie_piege(int magie_id)
 {
     return EXIT_FAILURE;
@@ -994,6 +918,23 @@ int Ai_battle::activer_magie_piege(int magie_id)
     {
         signal_activate(magie_piege_id_to_x(magie_id));
         return EXIT_SUCCESS;
+    }
+    return EXIT_FAILURE;
+}
+
+int Ai_battle::attaquer(int attaquant_id, int cible_id)
+{
+    int i;
+    if(terrain_s_monstre[attaquant_id]!=NULL)
+    {
+        if(terrain_s_monstre[attaquant_id]->etat==0)
+        {
+            if(terrain_a_monstre[cible_id]!=NULL)
+            {
+                signal_attaquer(monstre_id_s_to_x(attaquant_id),monstre_id_a_to_x(cible_id));
+                return EXIT_SUCCESS;
+            }
+        }
     }
     return EXIT_FAILURE;
 }
@@ -1008,193 +949,48 @@ int Ai_battle::perform_action(int chosen_action)
     {
         case 0://passer
             return EXIT_SUCCESS;
-            //poser atk
+            //attaquer 0
         case 1:
         case 2:
         case 3:
         case 4:
         case 5:
+            return attaquer(chosen_action-1,0);
+            // attaquer 1
         case 6:
         case 7:
-            return poser_atk(chosen_action-1);
-            //poser def
         case 8:
         case 9:
         case 10:
+            return attaquer(chosen_action-6,1);
+            //attaquer 2
         case 11:
         case 12:
         case 13:
         case 14:
-            return poser_def(chosen_action-8);
-            //switch atk/def
         case 15:
+            return attaquer(chosen_action-11,2);
+            //attaquer 3
         case 16:
         case 17:
         case 18:
         case 19:
-            return switch_atk_def(chosen_action-15);
         case 20:
+            return attaquer(chosen_action-16,3);
+            //attaquer 4
         case 21:
         case 22:
         case 23:
         case 24:
-            //sacrifier poser
-            return sacrifier_poser(chosen_action-20,0);
         case 25:
+            return attaquer(chosen_action-21,4);
+            //attaquer -1
         case 26:
         case 27:
         case 28:
         case 29:
-            return sacrifier_poser(chosen_action-25,1);
         case 30:
-        case 31:
-        case 32:
-        case 33:
-        case 34:
-            return sacrifier_poser(chosen_action-30,2);
-        case 35:
-        case 36:
-        case 37:
-        case 38:
-        case 39:
-            return sacrifier_poser(chosen_action-35,3);
-        case 40:
-        case 41:
-        case 42:
-        case 43:
-        case 44:
-            return sacrifier_poser(chosen_action-40,4);
-        case 45:
-        case 46:
-        case 47:
-        case 48:
-        case 49:
-            return sacrifier_poser(chosen_action-45,5);
-        case 50:
-        case 51:
-        case 52:
-        case 53:
-        case 54:
-            return sacrifier_poser(chosen_action-50,6);
-            //sacrifier sacrifier poser
-            //poser 0
-        case 55:
-        case 56:
-        case 57:
-        case 58:
-            return sacrifier_sacrifier_poser(0,chosen_action-54,0);
-        case 59:
-        case 60:
-        case 61:
-            return sacrifier_sacrifier_poser(1,chosen_action-57,0);
-        case 62:
-        case 63:
-            return sacrifier_sacrifier_poser(2,chosen_action-59,0);
-        case 64:
-            return sacrifier_sacrifier_poser(3,4,0);
-            //poser 1
-        case 65:
-        case 66:
-        case 67:
-        case 68:
-            return sacrifier_sacrifier_poser(0,chosen_action-64,1);
-        case 69:
-        case 70:
-        case 71:
-            return sacrifier_sacrifier_poser(1,chosen_action-67,1);
-        case 72:
-        case 73:
-            return sacrifier_sacrifier_poser(2,chosen_action-69,1);
-        case 74:
-            return sacrifier_sacrifier_poser(3,4,1);
-            //poser 2
-        case 75:
-        case 76:
-        case 77:
-        case 78:
-            return sacrifier_sacrifier_poser(0,chosen_action-74,2);
-        case 79:
-        case 80:
-        case 81:
-            return sacrifier_sacrifier_poser(1,chosen_action-77,2);
-        case 82:
-        case 83:
-            return sacrifier_sacrifier_poser(2,chosen_action-79,2);
-        case 84:
-            return sacrifier_sacrifier_poser(3,4,2);
-            //poser 3
-        case 85:
-        case 86:
-        case 87:
-        case 88:
-            return sacrifier_sacrifier_poser(0,chosen_action-84,3);
-        case 89:
-        case 90:
-        case 91:
-            return sacrifier_sacrifier_poser(1,chosen_action-87,3);
-        case 92:
-        case 93:
-            return sacrifier_sacrifier_poser(2,chosen_action-89,3);
-        case 94:
-            return sacrifier_sacrifier_poser(3,4,3);
-            //poser 4
-        case 95:
-        case 96:
-        case 97:
-        case 98:
-            return sacrifier_sacrifier_poser(0,chosen_action-94,4);
-        case 99:
-        case 100:
-        case 101:
-            return sacrifier_sacrifier_poser(1,chosen_action-97,4);
-        case 102:
-        case 103:
-            return sacrifier_sacrifier_poser(2,chosen_action-99,4);
-        case 104:
-            return sacrifier_sacrifier_poser(3,4,4);
-            //poser 5
-        case 105:
-        case 106:
-        case 107:
-        case 108:
-            return sacrifier_sacrifier_poser(0,chosen_action-1354,5);
-        case 109:
-        case 110:
-        case 111:
-            return sacrifier_sacrifier_poser(1,chosen_action-1357,5);
-        case 112:
-        case 113:
-            return sacrifier_sacrifier_poser(2,chosen_action-1359,5);
-        case 114:
-            return sacrifier_sacrifier_poser(3,4,5);
-            //poser 6
-        case 115:
-        case 116:
-        case 117:
-        case 118:
-            return sacrifier_sacrifier_poser(0,chosen_action-114,6);
-        case 119:
-        case 120:
-        case 121:
-            return sacrifier_sacrifier_poser(1,chosen_action-117,6);
-        case 122:
-        case 123:
-            return sacrifier_sacrifier_poser(2,chosen_action-119,6);
-        case 124:
-            return sacrifier_sacrifier_poser(3,4,6);
-            //poser magie/piege
-        case 125:
-        case 126:
-        case 127:
-        case 128:
-        case 129:
-            return poser_magie_piege(chosen_action-125);
-        case 130:
-        case 131:
-        case 132:
-        case 133:
-        case 134:
-            return activer_magie_piege(chosen_action-130);
+            return attaquer(chosen_action-26,-1);
         default:
             return EXIT_SUCCESS;
     }
@@ -1209,10 +1005,11 @@ int Ai_battle::perform_action(int chosen_action)
 ///////////////////////////////////////////////////////////////////////////////
 
 
-void Ai_battle::play()
+void Ai_battle::play(int iter)
 {
-    Matrix<float,1,434> target_states[135];
-    float q_targets[135];
+    iter++;
+    Matrix<float,1,434> target_states[31];
+    float q_targets[31];
 
     Matrix<float,1,434> game_state = read_noyau();
 
@@ -1225,7 +1022,7 @@ void Ai_battle::play()
         //compute q_values of the differents next
         //possible states, depending on the chosen action
         int action;
-        for(action=0;action<135;action++)
+        for(action=0;action<31;action++)
         {
             //compute the next state if this action in chosen
             target_states[action] = play_simulation(game_state, action);
@@ -1263,13 +1060,16 @@ void Ai_battle::play()
             //q_values of the next possible states, and updates the weights
             backward_propagation(q_targets);
         }
-        //play();
+        if(iter<5)
+            play(iter);
+        else
+            perform_action(0);
     } else {
         if(mode==2)
         {
             //compare result of the neural network with the previous calculated
             //q_values of the next possible states, and updates the weights
-            //backward_propagation(q_targets);
+            backward_propagation(q_targets);
         }
     }
 }

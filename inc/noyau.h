@@ -181,6 +181,13 @@ signals:
     void dialogueSac1(int nombre,std::vector<Carte *>* vector);
     void dialogueSac2();
     void openChoosePosi();
+
+    void main_phase_ia();
+    void main_phase_joueur();
+    void battle_phase_ia();
+    void battle_phase_joueur();
+
+
     //void met_en_defense(int x);
 };
 
