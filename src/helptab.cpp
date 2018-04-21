@@ -132,7 +132,7 @@ HelpTab::HelpTab (){
 
                 helpLabel = new QLabel;
 
-                    QFile hfile("i18n/fr_FR/help.text");
+                    QFile hfile("i18n/fr_FR/info.text");
 
                     QString htext = "";
                     QString hline;
