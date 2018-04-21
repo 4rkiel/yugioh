@@ -61,7 +61,7 @@ public:
 
     QString imgPreviewDeck(std::vector<Carte*> * deck);
 
-    QSettings setting;
+    QVariant getCurrentDeck();
 
 
 public slots:
@@ -70,6 +70,7 @@ public slots:
     void abandonFocus();
     void getsFocus();
 
+    void setCourant();
 signals:
 
 	void popDeck(QString);

@@ -18,6 +18,8 @@ class DeckPreview : public QPushButton {
 
     public:
 
+        QString nomDeck;
+
         DeckPreview(QString deck, QString img);
         ~DeckPreview();
 
