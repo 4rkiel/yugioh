@@ -1470,7 +1470,7 @@ void Noyau::phase_suivante()
     {
         case 0:
             emit sendInfo(tr("Main Phase 1"));
-            if(phase%2==1)
+            if(tour%2==1)
                 emit main_phase_ia();
             else
                 emit main_phase_joueur();
@@ -1484,7 +1484,7 @@ void Noyau::phase_suivante()
             else
             {
                 emit sendInfo(tr("Battle Phase"));
-                if(phase%2==1)
+                if(tour%2==1)
                     emit battle_phase_ia();
                 else
                     emit battle_phase_joueur();
@@ -1492,7 +1492,7 @@ void Noyau::phase_suivante()
         break;
         case 2:
            emit sendInfo(tr("Main Phase 2"));
-           if(phase%2==1)
+           if(tour%2==1)
                emit main_phase_ia();
            else
                emit main_phase_joueur();
