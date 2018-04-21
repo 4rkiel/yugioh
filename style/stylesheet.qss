@@ -456,7 +456,7 @@ Generique QProgressBar {
     border: none;
     padding: 1px;
     border-radius: 2px;
-    background: #E0F2F1;
+    background: #2196F3;
     color: #000;
     text-align: center;
 }
@@ -629,7 +629,7 @@ RuleTab #ruleTab .QPushButton {
     color: #37474F;
     padding: 15px 20px 13px;
     margin: 5px 0px 0px;
-    border-bottom: 2px solid #03A9F4;
+    border-bottom: 2px solid #2196F3;
     border-right: 0px;
     border-left: 0px;
 }
@@ -639,16 +639,16 @@ OptionTab #optionTab .QPushButton:focus,
 HelpTab #helpTab .QPushButton:focus,
 RuleTab #ruleTab .QPushButton:focus {
     padding: 15px 20px 10px;
-    border-bottom: 5px solid #03A9F4;
+    border-bottom: 5px solid #2196F3;
 }
 
 BuildTab #buildTab .QPushButton[down="true"],
 OptionTab #optionTab .QPushButton[down="true"],
 HelpTab #helpTab .QPushButton[down="true"],
 RuleTab #ruleTab .QPushButton[down="true"] {
-    color: #009688;
+    color: #263238;
     padding: 15px 20px 10px;
-    border-bottom: 5px solid #009688;
+    border-bottom: 5px solid #FFC107;
 }
 
 OptionTab #optionTab ShadowButt,
@@ -1041,6 +1041,26 @@ SlotCard[down="true"]{
     border-image: url(img/card.svg);
 }
 
+
+PopCard {
+    outline: none;
+    border: none;
+    min-width: 50px;
+    min-height: 100px;
+}
+
+PopCard:hover,
+PopCard:focus {
+    border: 1px solid #FFA000;
+}
+
+PopCard[down="false"]{
+    background: transparent;
+}
+
+PopCard[down="true"]{
+    background: #FFC107;
+}
 
 
 

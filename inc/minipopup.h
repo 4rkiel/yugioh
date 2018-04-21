@@ -14,6 +14,7 @@
 
 #include <QShortcut>
 
+#include <math.h> 
 #include <vector>
 
 #include "../inc/shadowButt.h"
