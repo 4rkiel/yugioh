@@ -13,6 +13,7 @@
 
 HelpTab::HelpTab (){
 
+    readLangage();
     layout = new QGridLayout;
     layout -> setSpacing(0);
     layout -> setMargin(0);
@@ -132,7 +133,7 @@ HelpTab::HelpTab (){
 
                 helpLabel = new QLabel;
 
-                    QFile hfile("i18n/fr_FR/info.text");
+                    QFile hfile("i18n/"+valeur+"/info.text");
 
                     QString htext = "";
                     QString hline;
@@ -166,7 +167,6 @@ HelpTab::HelpTab (){
             aboutScroll -> setWidgetResizable(true);
             aboutScroll -> setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
             aboutScroll -> setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-            readLangage();
 
 
                 aboutLabel = new QLabel;
