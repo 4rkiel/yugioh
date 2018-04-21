@@ -28,10 +28,27 @@ PopCard::PopCard (int n){
     layout = new QGridLayout;
     
         imgButt = new zButt;
-        imgButt -> setFocusPolicy(Qt::StrongFocus);
+        imgButt -> setFocusPolicy(Qt::NoFocus);
         imgButt -> setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     layout -> addWidget(imgButt);
+
+    //key shortcut
+    shortcut8 = new QShortcut(QKeySequence("Enter"), this);
+    shortcut8->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(shortcut8, SIGNAL(activated()), this, SLOT(rightClicked()));
+
+
+    //raccourci entrée
+    shortcut2 = new QShortcut(QKeySequence("Return"), this);
+    shortcut2->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(shortcut2, SIGNAL(activated()), this, SLOT(doubleClicked()));
+
+
+    //raccourci espace
+    shortcut9 = new QShortcut(QKeySequence(Qt::Key_Space), this);
+    shortcut9->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(shortcut9, SIGNAL(activated()), this, SLOT(leftClicked()));
 
     setLayout(layout);
     
@@ -47,11 +64,6 @@ PopCard::PopCard (int n){
     shortcut = new QShortcut(QKeySequence("Escape"), this);
     shortcut->setContext(Qt::WidgetWithChildrenShortcut);
     connect(shortcut, SIGNAL(activated()), this, SLOT(openQuit()));
-
-    //raccourci entrée
-    shortcut2 = new QShortcut(QKeySequence("Return"), this);
-    shortcut2->setContext(Qt::WidgetWithChildrenShortcut);
-    connect(shortcut2, SIGNAL(activated()), this, SLOT(doubleClicked()));
 
     //key shortcut
     shortcut3 = new QShortcut(QKeySequence("Up"), this);
@@ -78,16 +90,6 @@ PopCard::PopCard (int n){
     shortcut7->setContext(Qt::WidgetWithChildrenShortcut);
     connect(shortcut7, SIGNAL(activated()), this, SLOT(affChat()));
 
-    //key shortcut
-    shortcut8 = new QShortcut(QKeySequence("Enter"), this);
-    shortcut8->setContext(Qt::WidgetWithChildrenShortcut);
-    connect(shortcut8, SIGNAL(activated()), this, SLOT(rightClicked()));
-
-    //raccourci espace
-    shortcut9 = new QShortcut(QKeySequence(Qt::Key_Space), this);
-    shortcut9->setContext(Qt::WidgetWithChildrenShortcut);
-    connect(shortcut9, SIGNAL(activated()), this, SLOT(leftClicked()));
-
 */    
 }
 
@@ -102,9 +104,9 @@ PopCard::~PopCard (){
     delete shortcut5;
     delete shortcut6;
     delete shortcut7;
-    delete shortcut8;
     delete shortcut9;
 */
+    delete shortcut8;
     delete imgButt;
     delete layout;
 }
