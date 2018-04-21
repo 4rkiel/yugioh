@@ -2,6 +2,8 @@
 
 DeckPreview::DeckPreview(QString deck, QString img){
 
+    nomDeck = deck;
+
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     setFlat(true);
 

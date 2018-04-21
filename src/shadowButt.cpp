@@ -15,6 +15,8 @@ ShadowButt::ShadowButt (QString icoStr, QString textStr){
 
     layout = new QHBoxLayout;
     layout -> setSizeConstraint(QLayout::SetMinimumSize);
+    layout -> setMargin(0);
+    layout -> setContentsMargins(0,0,0,0);
 
     ico = nullptr;
     txt = nullptr;

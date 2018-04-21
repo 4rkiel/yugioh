@@ -696,15 +696,18 @@ BuildTab #shadowPop {
     background: rgba(0,0,0,100);
 }
 
-
 BuildTab #deckEdit {
     background: #E0F2F1;
 }
 
+BuildTab CardEditor {
+    background: #E0F2F1;
+}
 
 
 BuildTab #closePop,
-BuildTab #addDeck {
+BuildTab #addDeck,
+BuildTab #saveCard {
     min-width: 50px;
     max-width: 50px;
     min-height: 50px;
@@ -727,16 +730,20 @@ BuildTab #closePop:pressed {
 }
 
 
-BuildTab #addDeck {
+BuildTab #addDeck,
+BuildTab #saveCard {
     background: #FF8F00;
 }
 
 BuildTab #addDeck:hover,
-BuildTab #addDeck:focus {
+BuildTab #addDeck:focus,
+BuildTab #saveCard:hover,
+BuildTab #saveCard:focus {
     background: #FFA000;
 }
 
-BuildTab #addDeck:pressed {
+BuildTab #addDeck:pressed,
+BuildTab #saveCard:pressed {
     background: #FF6F00;
 }
 

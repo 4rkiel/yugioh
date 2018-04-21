@@ -54,9 +54,19 @@ DeckSelector::DeckSelector(QObject* parent){
             }
 
             connect(tabDeckButton[i], SIGNAL(isClick(QString)), this, SLOT(openDeck(QString)));
+            connect(tabRadio[i], SIGNAL(clicked()), this, SLOT(setCourant()));
 
             i++;
         }
+    QString nomDeck = getCurrentDeck().toString();
+    unsigned int indice=0;
+    for(; indice < tabDeckButton.size(); indice++)
+    {
+        if(tabDeckButton[indice]->nomDeck == nomDeck )
+            break;
+    }
+
+    tabRadio[indice]->toggle();
 
     BuildTab* par= static_cast<BuildTab*>(parent);
     QSpacerItem * spacerButt = new QSpacerItem(2,1,
@@ -93,6 +103,13 @@ QString DeckSelector::imgPreviewDeck(std::vector<Carte*> *deck){
     return deck->empty() ? nullptr : deck->at(0)->image;
 }
 
+QVariant DeckSelector::getCurrentDeck()
+{
+    QSettings settings;
+    return settings.value("deckUtilise",  deckRep+"sans_Nom0.deck");
+    // TODO ICI on peut mettre un deck par default
+}
+
 void DeckSelector::openDeck(QString nomDeck){
 
     emit popDeck(nomDeck);
@@ -123,4 +140,16 @@ void DeckSelector::getsFocus(){
         temp2->setFocusPolicy(Qt::StrongFocus);
         i++;
     }
+}
+
+void DeckSelector::setCourant()
+{
+    size_t pos;
+    QRadioButton* senderObj = qobject_cast<QRadioButton*>(sender());
+    std::vector<QRadioButton *>::iterator it = std::find(tabRadio.begin(),
+                                         tabRadio.end(), senderObj);
+    pos = it - tabRadio.begin();
+
+    QSettings settings;
+    settings.setValue("deckUtilise",  tabDeckButton[(int)pos]->nomDeck);
 }
