@@ -419,10 +419,6 @@ Window > QWidget {
     Introduction Generique
 ******************************************************************/
 
-Generique {
-    border-image: url(img/intro.jpg);
-}
-
 Generique #logoBox {
     background: rgba(0, 0, 0, 200);
 }
@@ -456,13 +452,13 @@ Generique QProgressBar {
     border: none;
     padding: 1px;
     border-radius: 2px;
-    background: #2196F3;
+    background: #ECEFF1;
     color: #000;
     text-align: center;
 }
 
 Generique QProgressBar::chunk {
-    background: #00BFA5;
+    background: #FFCA28;
     border-radius: 2px;
     border: none;
 }
@@ -629,7 +625,7 @@ RuleTab #ruleTab .QPushButton {
     color: #37474F;
     padding: 15px 20px 13px;
     margin: 5px 0px 0px;
-    border-bottom: 2px solid #2196F3;
+    border-bottom: 2px solid #3F51B5;
     border-right: 0px;
     border-left: 0px;
 }
@@ -639,7 +635,7 @@ OptionTab #optionTab .QPushButton:focus,
 HelpTab #helpTab .QPushButton:focus,
 RuleTab #ruleTab .QPushButton:focus {
     padding: 15px 20px 10px;
-    border-bottom: 5px solid #2196F3;
+    border-bottom: 5px solid #3F51B5;
 }
 
 BuildTab #buildTab .QPushButton[down="true"],
