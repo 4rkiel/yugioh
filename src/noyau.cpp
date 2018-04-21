@@ -33,6 +33,7 @@ Noyau::Noyau()
     allExodiaAdv->push_back(47831829);
     allExodiaAdv->push_back(94836377);
     tour = 1;
+         std::cout << "je suis après noyau" << std::endl;
 
 }
 
@@ -51,6 +52,35 @@ void Noyau::init()
     std::srand(aleatoire);
     phase = 0;
     tour = 1;
+    if(!online)
+    {
+        std::cout << "je suis avant parser" << std::endl;
+        Parser * yolo = new Parser();
+        d1 = yolo->deck("deck/Test1.deck");
+        std::random_shuffle(d1->begin(),d1->end());
+        extradeck1 = yolo->extradeck("deck/Test1.deck");
+        d2 = yolo->deck("deck/Test1.deck");
+        std::random_shuffle(d2->begin(),d2->end());
+        extradeck2 = yolo->extradeck("deck/Test1.deck");
+        emit giveLife(selfLife);
+        piocher(1);
+        piocher(1);
+        piocher(1);
+        piocher(1);
+        piocher(1);
+        piocher(76);
+        piocher(76);
+        piocher(76);
+        piocher(76);
+        piocher(76);
+        piocher(1);
+        emit setTour(tour);
+        emit beginTour();
+        lockTick=true;
+        mon_tour=true;
+        emit sendInfo(tr("La partie commence !"));
+        emit sendInfo(tr("Main Phase 1"));
+    }
     //chargerDeck(0);
     //deckAdverse(0);
     //std::stringstream ss1;

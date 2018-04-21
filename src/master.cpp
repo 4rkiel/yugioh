@@ -111,7 +111,7 @@ void Master::loadField (int x){
     if (mode >= 10 && mode <= 19){
 
         delete network;
-
+        noyau->online = false;
         // mode pour le niveau de l'IA
         // 11:easy
         // 12:medium
@@ -188,6 +188,8 @@ void Master::loadField (int x){
         if (network != NULL){
             connect(noyau,SIGNAL(tiens(QString)),network,SLOT(transmettre(QString)));
         }
+        if(network!=NULL)
+        connect(network,SIGNAL(hasDied()),noyau,SIGNAL(je_gagne()),Qt::QueuedConnection);
     }
 
 
@@ -276,14 +278,14 @@ void Master::loadField (int x){
     stacked -> setCurrentWidget(field);
 
     //montrer def caché
-    connect(noyau,SIGNAL(montre(int)),field,SLOT(reveal(int)));
+    //connect(noyau,SIGNAL(montre(int)),field,SLOT(reveal(int)));
 
     //sacrifice
     connect(noyau,SIGNAL(dialogueSac1(int,std::vector<Carte*>*)),
             field,SLOT(openChoose(int,std::vector<Carte*>*)));
 
     connect(field, SIGNAL(chosenOne(std::vector<int>)), 
-            noyau, SLOT(prepSac1(std::vector<int>)));
+            noyau, SLOT(prepSac(std::vector<int>)));
     connect(noyau,SIGNAL(openChoosePosi()),field,SLOT(openChoosePosi()));
 
     field -> init();
@@ -305,7 +307,7 @@ void Master::loadField (int x){
     connect( mThread, SIGNAL(finished()), mThread, SLOT(deleteLater()) );
 
     //connect(mTask,SIGNAL(newTick()),network,SLOT(keepAlive()),Qt::QueuedConnection);
-    connect(network,SIGNAL(hasDied()),noyau,SIGNAL(je_gagne()),Qt::QueuedConnection);
+
 
 
 
