@@ -1,0 +1,18 @@
+<h2>Controls during a duel</h2>
+
+<h3>Mouse</h3>
+
+<p><b>Play a card from your hand: </b>Double clic on the card<p>
+<p><b>Change the stance of a monster on the field : </b>Double clic on the card<p>
+<p><b>Attack : </b>Clic on the attacking monster and then on the target (empty spot if it's a direct attack)<p>
+
+<br/>
+
+<h3>Keyboard</h3>
+
+<p><b>Play a card from your hand: </b>Enter(return from the main keyboard) on the card<p>
+<p><b>Change the stance of a monster on the field : </b>Enter(return from the main keyboard) on the card<p>
+<p><b>Attack : </b>Space on the attacking monster and then on the target (empty sport if it's a direct attack)<p>
+<p><b>Switch between the Chat and the Field : </b>F1<p>
+<p><b>Lock the preview of a card : </b>Enter(numeric pad)<p>
+

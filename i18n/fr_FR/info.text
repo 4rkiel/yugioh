@@ -10,4 +10,9 @@
 
 <h3>Au clavier</h3>
 
-<p><b>Passer du chat au terrain : </b>F1</p>
+<p><b>Poser une carte depuis la main : </b>Entrée(return du clavier principal) sur la carte<p>
+<p><b>Changer la position d'un monstre sur le terrain : </b>Entrée(return du clavier principal) sur la carte<p>
+<p><b>Attaquer : </b>Espace sur le monstre qui doit attaquer puis sur une des cases de l'adversaire<p>
+<p><b>Alterner entre le Chat et le Plateau de jeu : </b>F1<p>
+<p><b>Verrouiller la prévisualisation d'une carte : </b>Entrée(pavé numérique)<p>
+
