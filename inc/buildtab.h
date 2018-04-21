@@ -94,6 +94,7 @@ private:
     DarkButt * closePop;
 
     DarkButt * addDeck;
+    DarkButt * saveCard;
 
     void updateStyle(QPushButton * b);
 

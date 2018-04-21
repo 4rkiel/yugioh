@@ -246,8 +246,15 @@ BuildTab::BuildTab (){
 
 
     // Add Card Butt
+    
+    saveCard = new DarkButt("\uf067", "");
+    saveCard -> setObjectName("saveCard");
+    saveCard -> setToolTip(tr("Enregistrer la carte"));
+    saveCard -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
-
+    connect(saveCard, SIGNAL(clicked()), editeur, SLOT(sauvegarder()));
+    
+    layout -> addWidget(saveCard,2,1, Qt::AlignBottom|Qt::AlignRight);
 
 
 
@@ -289,6 +296,7 @@ BuildTab::~BuildTab (){
     delete iffect;
     delete infoBox;
 
+    delete saveCard;
     delete addDeck;
     delete closePop;
     
@@ -319,6 +327,7 @@ void BuildTab::setDeck (){
 
     updateStyle(deckButt);
 
+    saveCard -> setVisible(false);
     addDeck -> setVisible(true);
     buildStacked -> setCurrentWidget(deckScroll);
 }
@@ -328,6 +337,7 @@ void BuildTab::setCard (){
 
     updateStyle(cardButt);
 
+    saveCard -> setVisible(true);
     addDeck -> setVisible(false);
     buildStacked -> setCurrentWidget(cardScroll);
 }
