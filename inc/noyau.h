@@ -59,6 +59,7 @@ public:
     std::vector<int> * allExodiaAdv;
     
     int nbrSacrifice = 0;
+    int nbrCarteAPioche = 1;
 
 public slots:
 
