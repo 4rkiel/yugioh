@@ -209,7 +209,7 @@ void CardEditor::createFormGroupBox (){
     layout->addWidget(typeSecondaire, i, 16, 1, 8);
     layout->addWidget(new QLabel(tr("attribut:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(attribut, i, 2, 1, 10);
-    layout->addWidget(image, i, 12, 5, 12);
+    layout->addWidget(image, i, 12, 6, 12);
     layout->addWidget(new QLabel(tr("Niveau:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(niveau, i, 2, 1, 10);
 
