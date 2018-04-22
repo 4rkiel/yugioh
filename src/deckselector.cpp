@@ -18,11 +18,11 @@ DeckSelector::DeckSelector(QObject* parent){
             tabSep.reserve(NBR_DECK-1);
     }
 
-    Parser parserAllMighty;
     int i = 0;
     int last = deckList.size();
 
     if(!deckList.empty())
+    {
         foreach (QString str, deckList){
 
             std::vector<Carte*> * deckCourant = parserAllMighty.deck(deckRep + str);
@@ -59,16 +59,19 @@ DeckSelector::DeckSelector(QObject* parent){
 
             i++;
         }
-    QString nomDeck = getCurrentDeck().toString();
-    unsigned int indice=0;
-    for(; indice < tabDeckButton.size(); indice++)
-    {
-        if(tabDeckButton[indice]->nomDeck == nomDeck )
+        QString nomDeck = getCurrentDeck().toString();
+        unsigned int indice=0;
+        for(; indice < tabDeckButton.size(); indice++)
         {
-            tabRadio[indice]->toggle();
-            break;
+            if(tabDeckButton[indice]->nomDeck == nomDeck )
+            {
+                tabRadio[indice]->toggle();
+                break;
+            }
         }
+        posOldCheck = indice;
     }
+
 
     shortcut = new QShortcut(QKeySequence(Qt::Key_Space), this);
     shortcut->setContext(Qt::WidgetWithChildrenShortcut);
@@ -149,6 +152,21 @@ void DeckSelector::setCourant()
     std::vector<QRadioButton *>::iterator it = std::find(tabRadio.begin(),
                                          tabRadio.end(), senderObj);
     pos = it - tabRadio.begin();
+
+    qDebug() << deckRep + tabDeckButton[pos]->nomDeck;
+
+    if(parserAllMighty.deck(deckRep + tabDeckButton[pos]->nomDeck)->size() != 40)
+    {
+        QMessageBox::information(this, tr("Deck Invalide"),
+                                 tr("Impossible d'utiliser ce deck:"
+                                    " Il ne contient pas 40 cartes"),
+                                     QMessageBox::Ok);
+
+
+        tabRadio[posOldCheck]->toggle();
+        return;
+    }
+
 
     QSettings settings;
     settings.setValue("deckUtilise",  tabDeckButton[(int)pos]->nomDeck);
