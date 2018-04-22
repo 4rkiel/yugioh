@@ -947,11 +947,11 @@ int Ai_battle::attaquer()
     int attaquant_id,cible_id;
     for(attaquant_id=0;attaquant_id<5;attaquant_id++)
     {
-        for(cible_id=0;cible_id<5;cible_id++)
+        if(terrain_s_monstre[attaquant_id]!=NULL)
         {
-            if(terrain_s_monstre[attaquant_id]!=NULL)
+            if(terrain_s_monstre[attaquant_id]->etat==0)
             {
-                if(terrain_s_monstre[attaquant_id]->etat==0)
+                for(cible_id=0;cible_id<5;cible_id++)
                 {
                     if(terrain_a_monstre[cible_id]!=NULL)
                     {
@@ -959,6 +959,7 @@ int Ai_battle::attaquer()
                         return EXIT_SUCCESS;
                     }
                 }
+                signal_attaquer(monstre_id_s_to_x(attaquant_id),monstre_id_a_to_x(0));
             }
         }
     }
