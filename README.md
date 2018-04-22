@@ -2,6 +2,20 @@
 
 Implémentation du jeu de carte Yu-Gi-Oh!
 
+## Installation 
+
+Fichier INSTALL
+
+ou
+
+```
+git submodule init
+git submodule update --recursive
+qmake
+make
+make clean
+```
+
 ## Description des fichiers 
 
 #### Extensions de cartes .set 
