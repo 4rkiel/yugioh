@@ -235,7 +235,7 @@ BuildTab::BuildTab (){
 
     // Add Deck Butt 
     
-    addDeck = new DarkButt("\uf067", "");
+    addDeck = new DarkButt("\uf00c", "");
     addDeck -> setObjectName("addDeck");
     addDeck -> setToolTip(tr("Créer un nouveau Deck"));
     addDeck -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
@@ -313,8 +313,8 @@ BuildTab::~BuildTab (){
 
 void BuildTab::init (){
 
-    currButt = deckButt;
-    deckButt -> setFocus();
+//    currButt = deckButt;
+//    deckButt -> setFocus();
 }
 
 void BuildTab::reInit (){
