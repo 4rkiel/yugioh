@@ -177,7 +177,7 @@ void Noyau::deckAdverse(int x)
 {
     //std::srand(ran);
 Parser * yolo = new Parser();
-d2 = yolo->rechercher_set(x,NULL);
+d2 = yolo->deck("deck/Test1.deck");
 std::random_shuffle(d2->begin(),d2->end());
 int i;
 for(i=0;i<(signed)d2->size();i++)
@@ -260,7 +260,10 @@ void Noyau::piocher(int x)
         if(tour!=1)
             emit sendInfo(tr("J'ai pioché"));
         if(nbrExodia==5)
+         {
+            emit sendInfo(tr("J'ai libéré exodia"));
             emit je_gagne();
+        }
     }
     else
     {
@@ -287,6 +290,7 @@ void Noyau::piocher(int x)
         if(nbrExodiaAdv==5)
         {
             emit tiens("Exodia");
+            emit sendInfo(tr("L'adverse a libéré exodia"));
             emit je_perds();
         }
     }
@@ -376,7 +380,12 @@ void Noyau::poserMagV()
     {
         int position = perfect_magie(0);
         if(position!=-1)
+        {
+
             poser(registre_0,position,false,true);
+            activer(position);
+        }
+
     }
 }
 
@@ -2237,6 +2246,7 @@ void Noyau::traiter(QString s)
     }
     else if(s.compare("Exodia")==0)
     {
+        emit sendInfo(tr("J'ai libéré Exodia"));
         emit je_gagne();
     }
 

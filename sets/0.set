@@ -1,162 +1,4 @@
 ##YGO
-95497
-1
-0
-Tigre invincible grognon
-5
-0
-0
-CECI EST UNE CARTE MAGIE EXPRES
-{{0
-1500
-0
-##YGO
-95502
-0
-0
-Guerrier eradicateur du chaos
-5
-7
-0
-Description / Effet de la carte...
-{{0
-1500
-0
-##YGO
-95502
-0
-0
-Vampire rouge debutant
-5
-4
-0
-trshpojh
-{{0
-1500
-2000
-##YGO
-94989
-1
-0
-Serpent rouge grognon
-1
-3
-0
-Description / Effet de la carte...
-{{0
-1500
-0
-##YGO
-46816
-1
-0
-WizTiger eradicateur radieu
-2
-11
-0
-Description / Effet de la carte...
-{{0
-1500
-0
-##YGO
-59882
-0
-2
-Dragon rouge DEADJOE
-4
-7
-0
-Description / Effet de la carte...
-{{0
-1500
-0
-##YGO
-69235
-0
-2
-Soldat blanc myr
-0
-10
-0
-Description / Effet de la carte...
-{{0
-1500
-0
-##YGO
-49266
-0
-0
-Guerrier destructeur imperial
-2
-7
-0
-Description / Effet de la carte...
-{{0
-1500
-0
-##YGO
-49266
-0
-0
-Guerrier destructeur imperial
-2
-7
-0
-Description / Effet de la carte...
-{{0
-1500
-0
-##YGO
-49266
-0
-0
-Guerrier destructeur imperial
-2
-7
-0
-Description / Effet de la carte...
-{{0
-1500
-0
-##YGO
-49266
-0
-0
-Guerrier destructeur imperial
-2
-7
-0
-Description / Effet de la carte...
-{{0
-1500
-0
-##YGO
-49266
-0
-0
-Guerrier destructeur imperial
-2
-7
-0
-Description / Effet de la carte...
-{{0
-1500
-0
-##YGO
-49266
-0
-0
-Guerrier destructeur imperial
-2
-7
-0
-Description / Effet de la carte...
-{{0
-1500
-0
-
-
-##YGO
 55144522
 1
 0
@@ -165,54 +7,6 @@ Pot de Cupidité
 0
 0
 Piochez 2 cartes depuis votre deck.
-{{0
-0
-0
-##YGO
-22422257
-2
-0
-Serpent eradicateur du ciel
-2
-1
-0
-Description / Effet de la carte...
-{{0
-0
-0
-##YGO
-6859238
-1
-0
-Serpent invincible des tenebres
-0
-1
-0
-Description / Effet de la carte...
-{{0
-0
-0
-##YGO
-21730671
-0
-0
-Dragon eradicateur du ciel
-6
-1
-0
-Description / Effet de la carte...
-{{0
-0
-0
-##YGO
-21730674
-0
-0
-Guerrier rouge Json
-6
-1
-0
-Description / Effet de la carte...
 {{0
 0
 0
@@ -276,54 +70,6 @@ Détruit tous les monstres sur le Terrain.
 {{10
 2500
 2100
-##YGO
-12157234
-2
-0
-Dragon blanc innofensif
-2
-1
-0
-Description / Effet de la carte...
-{{0
-0
-0
-##YGO
-53643710
-2
-0
-Dragon blanc innofensif
-2
-1
-0
-Description / Effet de la carte...
-{{0
-0
-0
-##YGO
-86007349
-2
-0
-Dragon blanc innofensif
-2
-1
-0
-Description / Effet de la carte...
-{{0
-0
-0
-##YGO
-90393104
-1
-0
-Singe Mutant rouge invisible
-0
-1
-0
-Description / Effet de la carte...
-{{0
-0
-0
 ##YGO
 3207946
 0
@@ -697,18 +443,6 @@ Oiseau cruel qui attaque des cieux avec une queue qui ressemble à un fouet.
 800
 800
 ##YGO
-57776971
-2
-1
-Jarre De Capture Du Dragon
-1
-3
-2
-Tous les monstres de Type Dragon sur le Terrain passent Position de Défense et restent dans cette position tant que cette carte reste face recto sur le terrain.
-{{0
-800
-800
-##YGO
 87268383
 1
 1
@@ -769,31 +503,6 @@ Detruit un monstre face recto de votre adversaire avec l'ATK la plus basse.
 800
 800
 ##YGO
-24876704
-1
-1
-Polymérisation
-0
-3
-2
-Envoyez au cimétière, depuis votre main ou votre Terrain, les Monstres Matierl de Fusion qui sont listés sur une Carte Monstre de Fusion, et invoquez ce Monstre Fusion depuis votre Extra Deck.
-{{0
-800
-800
-##YGO
-77055928
-1
-1
-Piège Supprimé
-0
-3
-2
-Detruit 1 Carte Piège face recto sur le Terrain.
-{{0
-800
-800
-
-##YGO
 96890524
 0
 1
@@ -829,18 +538,7 @@ Dragon féroce à l'attaque meurtrière.
 {{0
 2400
 2000
-##YGO
-77016817
-1
-1
-Stop Defense
-0
-7
-7
-Séléctionez 1 des monstres de votre adversaire et passez-le en Postion d'Attaque. Si la carte est face verso, retournez la face Recto.
-{{0
-2400
-2000
+
 ##YGO
 51151693
 1
@@ -873,7 +571,7 @@ Epées De Révélation De La Lumière
 0
 7
 7
-Retournez face recto tous les monstres contrôlés par votre adversaire. Cette carte reste sur le Terrain pour 3 tours de votre adversaire. Tant que cette carte est sur le Terrain, les monstres contrôlés par votre adversaire ne peuvent pas déclarer d'attaque.
+Cette carte reste sur le Terrain pour 3 tours de votre adversaire. Tant que cette carte est sur le Terrain, les monstres contrôlés par votre adversaire ne peuvent pas déclarer d'attaque.
 {{60
 2400
 2000
@@ -950,51 +648,3 @@ Gaïa Le Chevalier Implacable + Malediction Du Dragon.
 {{0
 2600
 2100
-##YGO
-78196564
-0
-0
-Vampire invincible DEADJOE
-5
-1
-0
-YOLO
-{{0
-0
-0
-##YGO
-53296797
-0
-0
-Archer invincible millenaire
-5
-1
-0
-YOLO
-{{0
-0
-0
-##YGO
-51951093
-2
-0
-Guerrier rouge de la lumiere
-1
-1
-0
-YOLO
-{{0
-0
-0
-##YGO
-89871801
-2
-0
-Vampire malefique grognon
-1
-1
-0
-YOLO
-{{0
-0
-0
