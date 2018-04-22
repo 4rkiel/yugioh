@@ -70,6 +70,8 @@ public:
     QVariant getCurrentDeck();
     QShortcut* shortcut;
 
+    int posOldCheck=0;
+
 
 public slots:
 

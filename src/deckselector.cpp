@@ -69,6 +69,7 @@ DeckSelector::DeckSelector(QObject* parent){
                 break;
             }
         }
+        posOldCheck = indice;
     }
 
 
@@ -161,6 +162,8 @@ void DeckSelector::setCourant()
                                     " Il ne contient pas 40 cartes"),
                                      QMessageBox::Ok);
 
+
+        tabRadio[posOldCheck]->toggle();
         return;
     }
 
