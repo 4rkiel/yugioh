@@ -1,5 +1,8 @@
 QToolTip {
-    background: #E0F2F1;
+    margin: 0px;
+    padding: 0px 10px;
+    background: #FFF;
+    border: none;
 }
 
 
@@ -11,7 +14,10 @@ QToolTip {
 QTextEdit,
 QLineEdit,
 QPlainTextEdit {
+    padding: 5px;
     color: #263238;
+    border-radius: 0px;
+    border: none;
 }
 
 
@@ -22,7 +28,11 @@ QPlainTextEdit {
 
 Combo {
     selection-background-color: #FFD740;
+    border: none;
+    border-radius: 0px;
+    padding: 5px 10px 5px 10px;
     background-color: #FFFFFF;
+    color: black;
     min-width: 75px;
 }
 
@@ -33,12 +43,33 @@ Combo:focus {
 
 Combo:on {
     selection-background-color: #FF6F00;
+    padding: 0px;
 }
 
 Combo QAbstractItemView {
     background-color: #FFF8E1;
+    border: none;
     selection-background-color: #18465d;
 }
+
+Combo::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    border:none;
+}
+
+
+Combo::up-arrow,
+Combo::down-arrow {
+    image: url(img/rc/down_arrow_disabled.png);
+}
+
+Combo::down-arrow:on,
+Combo::down-arrow:hover,
+Combo::down-arrow:focus {
+    image: url(img/rc/down_arrow.png);
+}
+
 
 
 /******************************************************************************
@@ -46,8 +77,12 @@ Combo QAbstractItemView {
 ******************************************************************************/
 
 QAbstractSpinBox {
+    padding: 5px;
+    border: none;
     background-color: #FFF;
     color: #000;
+    border-radius: 0px;
+    min-width: 75px;
 }
 
 QAbstractSpinBox:hover,
@@ -55,38 +90,200 @@ QAbstractSpinBox:focus {
     background-color: #FFE082;
 }
 
+QAbstractSpinBox:up-button {
+    background-color: transparent;
+    subcontrol-origin: border;
+    subcontrol-position: top right;
+}
+
+QAbstractSpinBox:down-button {
+    background-color: transparent;
+    subcontrol-origin: border;
+    subcontrol-position: bottom right;
+}
+
+QAbstractSpinBox::up-arrow,
+QAbstractSpinBox::up-arrow:disabled,
+QAbstractSpinBox::up-arrow:off {
+    image: url(img/rc/up_arrow_disabled.png);
+    width: 10px;
+    height: 10px;
+}
+
+QAbstractSpinBox::up-arrow:hover {
+    image: url(img/rc/up_arrow.png);
+}
+
+QAbstractSpinBox::down-arrow,
+QAbstractSpinBox::down-arrow:disabled,
+QAbstractSpinBox::down-arrow:off {
+    image: url(img/rc/down_arrow_disabled.png);
+    width: 10px;
+    height: 10px;
+}
+
+QAbstractSpinBox::down-arrow:hover {
+    image: url(img/rc/down_arrow.png);
+}
+
+
 
 /******************************************************************************
     ScrollBars
 ******************************************************************************/
 
+QAbstractScrollArea {
+    border:none;
+}
+
 QScrollBar:vertical {
+    width: 18px;
+    margin: 15px 5px 15px 5px;
+    border: none;
     background: #E8EAF6;
+    border-radius: 3px;
 }
 
 QScrollBar::handle:vertical {
     background-color: #455A64;
+    min-height: 5px;
+    border-radius: 3px;
 }
 
+QScrollBar::sub-line:vertical {
+    margin: 3px 0px 3px 0px;
+    border-image: url(img/rc/up_arrow_disabled.png);
+    height: 10px;
+    width: 10px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::add-line:vertical {
+    margin: 3px 0px 3px 0px;
+    border-image: url(img/rc/down_arrow_disabled.png);
+    height: 10px;
+    width: 10px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical:hover,
+QScrollBar::sub-line:vertical:on {
+    border-image: url(img/rc/up_arrow.png);
+    height: 10px;
+    width: 10px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::add-line:vertical:hover,
+QScrollBar::add-line:vertical:on {
+    border-image: url(img/rc/down_arrow.png);
+    height: 10px;
+    width: 10px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::up-arrow:vertical,
+QScrollBar::down-arrow:vertical {
+    background: none;
+}
+
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+
+
 QScrollBar:horizontal {
+    height: 18px;
+    margin: 5px 15px 5px 15px;
+    border: none;
+    border-radius: 3px;
     background-color: #E8EAF6;
 }
 
 QScrollBar::handle:horizontal {
     background-color: #607D8B;
+    min-width: 5px;
+    border-radius: 3px;
 }
+
+QScrollBar::add-line:horizontal {
+    margin: 0px 3px 0px 3px;
+    border-image: url(img/rc/right_arrow_disabled.png);
+    width: 10px;
+    height: 10px;
+    subcontrol-position: right;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal {
+    margin: 0px 3px 0px 3px;
+    border-image: url(img/rc/left_arrow_disabled.png);
+    height: 10px;
+    width: 10px;
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::add-line:horizontal:hover,
+QScrollBar::add-line:horizontal:on {
+    border-image: url(img/rc/right_arrow.png);
+    height: 10px;
+    width: 10px;
+    subcontrol-position: right;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal:hover,
+QScrollBar::sub-line:horizontal:on {
+    border-image: url(img/rc/left_arrow.png);
+    height: 10px;
+    width: 10px;
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::up-arrow:horizontal,
+QScrollBar::down-arrow:horizontal {
+    background: none;
+}
+
+QScrollBar::add-page:horizontal,
+QScrollBar::sub-page:horizontal {
+    background: none;
+}
+
+
 
 
 /******************************************************************************
     CheckBox
 ******************************************************************************/
 
+QCheckBox {
+    outline: none;
+}
+
 QCheckBox::indicator {
+    width: 15px;
+    height: 15px;
     border: 2px solid #7986CB;
+    border-radius: 3px;
+    padding: -1px;
+    margin: 1px;
+    background: transparent;
 }
 
 QCheckBox::indicator:checked {
+    padding: 0px;
+    margin: 0px;
     background: #7986CB;
+    border-image: url(img/rc/checkbox.png);
 }
 
 QCheckBox::indicator:hover, 
@@ -104,6 +301,9 @@ QCheckBox::indicator:pressed {
 ******************************************************************/
 
 cardEditor {
+	border: none;
+	outline: none;
+	border-radius: 3px;
 	background: #607D8B;
 }
 
@@ -116,12 +316,16 @@ cardEditor {
 
 DarkButt,
 ShadowButt {
+    border: none;
+    outline: none;
+    border-radius: 2px;
     background: #CFD8DC;
 }
 
 DarkButt QLabel,
 ShadowButt QLabel {
     color: #000;
+    margin: 0 10px;
 }
 
 DarkButt:hover,
@@ -143,6 +347,17 @@ ShadowButt:pressed {
     Flat Button
 ******************************************************************/
 
+FlatButt {
+    border: none;
+    outline: none;
+    border-radius: 0px;
+	background: transparent;
+}
+
+FlatButt QLabel {
+    margin: 0;
+}
+
 FlatButt:hover,
 FlatButt::focus {
     background: #80D8FF;
@@ -161,11 +376,15 @@ FlatButt:pressed {
 ******************************************************************/
 
 FlatExpButt {
-	background: #E0F2F1;
+    border: none;
+    outline: none;
+    border-radius: 0px;
+	background: #FFF;
 }
 
 FlatExpButt QLabel {
     color: #000;
+    margin: 0px 30px;
 }
 
 
@@ -194,6 +413,8 @@ Window > QWidget {
 }
 
 
+
+
 /*****************************************************************
     Introduction Generique
 ******************************************************************/
@@ -202,22 +423,44 @@ Generique #logoBox {
     background: rgba(0, 0, 0, 200);
 }
 
+Generique #logo {
+    min-width: 200px;
+    min-height: 200px;
+    max-width: 200px;
+    max-height: 200px;
+    border-image: url(img/puzzle.png);
+}
+
+Generique #title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
 Generique #geneBox {
-    background: #607D8B;
+    background: #37474F;
 }
 
 Generique .QLabel {
     color: #fff;
+    margin: 10px 10px 0 10px;
+    qproperty-alignment: AlignCenter;
 }
 
 
 Generique QProgressBar {
-    background: #E0F2F1;
+    margin: 10px;
+    border: none;
+    padding: 1px;
+    border-radius: 2px;
+    background: #ECEFF1;
     color: #000;
+    text-align: center;
 }
 
 Generique QProgressBar::chunk {
-    background: #00BFA5;
+    background: #FFCA28;
+    border-radius: 2px;
+    border: none;
 }
 
 
@@ -227,15 +470,20 @@ Generique QProgressBar::chunk {
 ******************************************************************************/
 
 #infoBox {
+    margin: 0px 0px 30px 0px;
     background: #3F51B5;
 }
 
 #infoBox > QLabel {
     color: #fff;
+    margin: 0 0 30px 0;
+    padding: 20px; 
 }
 
 #infoBox > FlatButt {
     margin: 0 0 30px 0;
+    padding: 20px 10px;
+    background: transparent;
 }
 
 
@@ -251,6 +499,8 @@ Generique QProgressBar::chunk {
 
 #infoBox > FlatButt QLabel {
     color: #fff;
+    margin: 0 0 30px 0;
+    padding: 40px 0;
 }
 
 
@@ -260,6 +510,15 @@ Generique QProgressBar::chunk {
 
 ******************************************************************************/
 
+Intro,
+Choice,
+SoloChoice,
+JoinChoice,
+HostChoice,
+NetChoice {
+    margin: 0px 0px 0px 0px;
+    padding: 0 0 30px 0;
+}
 
 Intro #introBox,
 Choice #introBox,
@@ -267,15 +526,65 @@ SoloChoice #introBox,
 JoinChoice #introBox,
 HostChoice #introBox,
 NetChoice #introBox {
-    background: #E0F2F1;
+    margin: 0px 30px;
+    border-radius: 2px;
+    background: #FFF;
+    max-width: 600px;
+}
+
+Intro FlatExpButt,
+Choice FlatExpButt,
+SoloChoice FlatExpButt,
+JoinChoice FlatExpButt,
+HostChoice FlatExpButt,
+NetChoice FlatExpButt {
+    margin: 0px 30px;
+   	padding: 0px 10px;
+} 
+
+Intro FlatExpButt > *,
+Choice FlatExpButt > *,
+SoloChoice FlatExpButt > *,
+JoinChoice FlatExpButt > *,
+HostChoice FlatExpButt > *,
+NetChoice FlatExpButt > * {
+    margin: 0px 30px;
+}
+
+
+Intro FlatExpButt QToolTip,
+Choice FlatExpButt QToolTip,
+SoloChoice FlatExpButt QToolTip,
+JoinChoice FlatExpButt QToolTip,
+HostChoice FlatExpButt QToolTip,
+NetChoice FlatExpButt QToolTip {
+    margin: 0px;
+    padding: 5px 10px;
 }
 
 Intro #introBox > QFrame,
 Choice #introBox > QFrame, 
 SoloChoice #introBox > QFrame {
+    margin: 0px 30px;
+    padding: 0px 10px;
+	border: 0px solid red;
 	border-bottom: 1px solid #CCC;
 }
 
+
+
+SoloChoice #introBox > QLabel, 
+JoinChoice #introBox > QLabel, 
+HostChoice #introBox > QLabel {
+    qproperty-alignment: AlignCenter;
+}
+
+SoloChoice #introText,
+JoinChoice #introText,
+NetChoice #matchmakingText,
+HostChoice #stateBox {
+    font-weight: bold;
+}
 
 /******************************************************************************
 
@@ -283,6 +592,22 @@ SoloChoice #introBox > QFrame {
 
 ******************************************************************************/
     
+BuildTab,
+OptionTab, 
+HelpTab, 
+RuleTab {
+    margin: 0px;
+    padding: 0px;
+}
+
+BuildTab #tabInside,
+OptionTab #tabInside, 
+HelpTab #tabInside, 
+RuleTab #tabInside {
+    background: transparent;
+}
+
+
 BuildTab #buildTab, 
 OptionTab #optionTab, 
 HelpTab #helpTab, 
@@ -294,61 +619,102 @@ BuildTab #buildTab .QPushButton,
 OptionTab #optionTab .QPushButton,
 HelpTab #helpTab .QPushButton,
 RuleTab #ruleTab .QPushButton {
-    border-bottom: 2px solid #03A9F4;
+    border: none;
+    outline: none;
+    background: none;
+    color: #37474F;
+    padding: 15px 20px 13px;
+    margin: 5px 0px 0px;
+    border-bottom: 2px solid #3F51B5;
+    border-right: 0px;
+    border-left: 0px;
 }
 
 BuildTab #buildTab .QPushButton:focus,
 OptionTab #optionTab .QPushButton:focus,
 HelpTab #helpTab .QPushButton:focus,
 RuleTab #ruleTab .QPushButton:focus {
-    border-bottom: 5px solid #03A9F4;
+    padding: 15px 20px 10px;
+    border-bottom: 5px solid #3F51B5;
 }
 
 BuildTab #buildTab .QPushButton[down="true"],
 OptionTab #optionTab .QPushButton[down="true"],
 HelpTab #helpTab .QPushButton[down="true"],
 RuleTab #ruleTab .QPushButton[down="true"] {
-    color: #009688;
-    border-bottom: 5px solid #009688;
+    color: #263238;
+    padding: 15px 20px 10px;
+    border-bottom: 5px solid #FFC107;
+}
+
+OptionTab #optionTab ShadowButt,
+HelpTab #helpTab ShadowButt,
+RuleTab #ruleTab ShadowButt {
+    padding: 5px;
+    margin: 10px;
 }
 
 BuildTab #buildBox,
 RuleTab #ruleBox, 
 OptionTab #optBox,
 HelpTab #helpBox {
-    background: #E0F2F1;
+    background: #FFF;
 }
 
 BuildTab #buildBox QScrollArea,
 OptionTab #optBox QScrollArea,
 HelpTab #helpBox QScrollArea,
 RuleTab #ruleBox QScrollArea {
-    background: #E0F2F1;
+    background: #FFF;
 }
 
 OptionTab #optBox #optScrollBox,
 OptionTab #optBox #accScrollBox,
 RuleTab #ruleBox #ruleScrollBox {
-    background: #E0F2F1;
+    background: #FFF;
 }
 
 OptionTab #optBox QLabel,
 HelpTab #helpBox QLabel,
 RuleTab #ruleBox QLabel {
+    margin: 0 0 30px 0;
+    padding: 0 0 30px 0;
     border: 0px solid #B0BEC5;
     border-bottom: 1px solid #B0BEC5;
 }
 
+OptionTab #optBox QComboBox,
+HelpTab #helpBox QComboBox,
+RuleTab #ruleBox QComboBox {
+}
+
+
 BuildTab #shadowPop {
+    border: none;
+    outline: none;
+    border-radius: 0px;
     background: rgba(0,0,0,100);
 }
 
-
 BuildTab #deckEdit {
-    background: #E0F2F1;
+    background: #FFF;
+}
+
+BuildTab CardEditor {
+    background: #FFF;
 }
 
 
+BuildTab #closePop,
+BuildTab #addDeck,
+BuildTab #saveCard {
+    min-width: 50px;
+    max-width: 50px;
+    min-height: 50px;
+    max-height: 50px;
+    border-radius: 25px;
+    margin: 10px;
+}
 
 BuildTab #closePop {
     background: #FFE082;
@@ -364,26 +730,39 @@ BuildTab #closePop:pressed {
 }
 
 
-BuildTab #addDeck {
+BuildTab #addDeck,
+BuildTab #saveCard {
     background: #FF8F00;
 }
 
 BuildTab #addDeck:hover,
-BuildTab #addDeck:focus {
+BuildTab #addDeck:focus,
+BuildTab #saveCard:hover,
+BuildTab #saveCard:focus {
     background: #FFA000;
 }
 
-BuildTab #addDeck:pressed {
+BuildTab #addDeck:pressed,
+BuildTab #saveCard:pressed {
     background: #FF6F00;
 }
 
 
 BuildTab #buildBox #DeckSelector {
-    background: #E0F2F1;
+    background: #FFF;
+}
+
+BuildTab #buildBox #DeckSelector #selectRad {
+    padding: 0px 20px;
+    margin: 0px 10px;
 }
 
 BuildTab #buildBox #DeckSelector #selectButt {
-    background: #E0F2F1;
+    background: #FFF;
+    outline:none;
+    border-radius:0px;
+    border: 0px solid #DDD;
+    border-right: 1px solid #DDD;
 }
 
 BuildTab #buildBox #DeckSelector #selectButt:hover,
@@ -401,6 +780,20 @@ BuildTab #buildBox #DeckSelector #selectSep {
 }
 
 
+BuildTab #frameVisu {
+    background: #fff;
+}
+
+BuildTab #filtreur {
+    background: none;
+    margin: 20px 0px 12px 0px;
+}
+
+BuildTab #filtreurAdv {
+    background: none;
+}
+
+
 /*****************************************************************
 
     App Window
@@ -411,6 +804,22 @@ Field {
     background: #263238;
 }
 
+Field DarkButt,
+Field ShadowButt {
+    padding: 5px 10px;
+    margin: 10px;
+    font-size: 20px;
+}
+
+
+Field #infoBox {
+    margin: 0px;
+}
+
+Field #infoBox > * {
+    margin: 0px;
+}
+
 Field #infoBox #lifeBox {
     background: #9FA8DA;
 }
@@ -419,13 +828,27 @@ Field #infoBox #phaseBox {
     background: #C5CAE9;
 }
 
+Field #infoBox #lifeBox #lifeLabel {
+    font-weight: bold;
+}
+
+Field #infoBox FlatButt QLabel {
+    margin: 0px;
+}
+
 Field #infoBox QProgressBar {
     border: 0px solid #5C6BC0;
+    border-radius: 0px;
     background: #5C6BC0;
+    text-align: center;
+    min-height: 3px;
+    max-height: 3px;
 }
 
 Field #infoBox QProgressBar::chunk{
     background: #FFE082;
+    border-radius: 0px;
+    border: none;
 }
 
 Field #infoBox #phaseLeft,
@@ -450,15 +873,34 @@ Field #infoBox #phaseRight::chunk {
     background-color: #37474F;
 }
 
+#rightBarBox #sideSelector {
+    min-height: 40px;
+    padding: 0;
+    margin: 0;
+    border-radius: 0px;
+}
+
 #rightBarBox #sideSelector FlatButt {
     background: #CFD8DC;
+    border: 0px solid #3F51B5;
+    border-bottom: 2px solid #3F51B5;
+    min-height: 40px;
 }
 
 #rightBarBox #sideSelector FlatButt[down="true"] {
     border-bottom: 5px solid #FFC107;
 }
 
+#rightBarBox #sideSelector FlatButt QLabel {
+    min-height: 40px;
+    margin: 0;
+    padding: 0;
+}
+
 #rightBarBox #sideTitle {
+    padding: 15px 0 10px;
+    font-weight:bold;
+    qproperty-alignment: AlignCenter;
     border: 0px solid #455A64;
     border-bottom: 1px solid #455A64;
 }
@@ -479,12 +921,15 @@ Chat QTextEdit:focus {
 
 
 #popupShadow {
+    outline: none;
+    border: none;
     background: rgba(0,0,0,100);
 }
 
 
 #popupBox {
-    background: #E0F2F1;
+    border-radius: 2px;
+    background: #FFF;
 }
 
 
@@ -492,6 +937,36 @@ Chat QTextEdit:focus {
 /********************************************************************
     Field Slots
 ********************************************************************/
+
+#arenaBox QScrollArea {
+    background: transparent;
+}
+
+#arenaBox #advHand,
+#arenaBox #slfHand {
+    background: transparent;
+}
+
+SlotCard {
+    background: none;
+    border-radius: 3px;
+    min-width: 50px;
+    margin: 0 2px;
+}
+
+SlotCard:focus,
+SlotCard:hover {
+    background: none;
+    border:none;
+    outline: none;
+}
+
+#fieldCardInside {
+    background: transparent;
+    margin: 5px;
+    border-radius: 3px;
+}
+
 
 #handCard {
     border: 2px solid rgba(255,255,255,100);
@@ -560,6 +1035,8 @@ SlotCard[down="true"]{
 
 
 #deckCard {
+    background: transparent;
+    min-width: 50px;
     border: 0px outset transparent;
     border-bottom: 6px outset #3E2723;
     border-right: 0px outset transparent;
@@ -577,6 +1054,44 @@ SlotCard[down="true"]{
 }
 
 #fieldDeckInside {
+    background: transparent;
     border-image: url(img/card.svg);
 }
 
+
+PopCard {
+    outline: none;
+    border: none;
+    min-width: 50px;
+    min-height: 100px;
+}
+
+PopCard:hover,
+PopCard:focus {
+    border: 1px solid #FFA000;
+}
+
+PopCard[down="false"]{
+    background: transparent;
+}
+
+PopCard[down="true"]{
+    background: #FFC107;
+}
+
+
+
+/***********************
+
+    Duplica
+
+*****************************/
+
+Duplica {
+    border-radius: 3px;
+}
+
+#replicaPic {
+    margin: 10px;
+    padding: 10px;
+}

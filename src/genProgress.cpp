@@ -76,7 +76,7 @@ void GenTask::runProgress (){
 
         emit newProgress();
 
-        int s = (qrand() % 5);
+        int s = (qrand() % 450);
         Sleeper::msleep(s);
     }
 
