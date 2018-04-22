@@ -780,6 +780,20 @@ BuildTab #buildBox #DeckSelector #selectSep {
 }
 
 
+BuildTab #frameVisu {
+    background: #fff;
+}
+
+BuildTab #filtreur {
+    background: none;
+    margin: 20px 0px 12px 0px;
+}
+
+BuildTab #filtreurAdv {
+    background: none;
+}
+
+
 /*****************************************************************
 
     App Window

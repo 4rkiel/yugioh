@@ -89,9 +89,7 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
 
         editCreate = new QFrame;
         editCreate->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-        editCreate->setStyleSheet("border: 1px solid blue");
         mainL1->addWidget(editCreate);
-        editCreate->setStyleSheet("background-color: #ECEFF1");
         editCreateLayout = new QVBoxLayout;
         editCreate->setLayout(editCreateLayout);
 
@@ -185,16 +183,17 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
 
             frameNomDeck = new QFrame;
             frameNomDeck->setObjectName("yolo");
+            frameNomDeck -> setStyleSheet("#yolo {background: none}");
             frameNomDeck->setSizePolicy(QSizePolicy::Maximum,
                                         QSizePolicy::Maximum);
-            frameNomDeck->setStyleSheet("#yolo {border-radius: 3px;\
-                                         background-color: blue}");
-
 
 
                 nomLayout = new QGridLayout;
-
+                nomLayout -> setContentsMargins(10,17,10,17);
+                
+                
                 nomDeck = new QLineEdit;
+                nomDeck -> setStyleSheet("background: #fff; padding: 10px 10px;");
 
                 if(deckName != "")
                     nomDeck->setText(deckName);
@@ -236,15 +235,12 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
             stealBut->setObjectName("cachay");
             stealBut->setSizePolicy(QSizePolicy::Minimum,
                                         QSizePolicy::Maximum);
-            stealBut->setContentsMargins(0,0,0,0);
             stealBut->setVisible(false);
-            stealBut->setStyleSheet("#cachay {border-radius: 3px;\
-                                         background-color: red}");
+            stealBut->setStyleSheet("#cachay {border-radius: 3px;}");
 
 
 
                 cachayLayout = new QGridLayout;
-                cachayLayout->setMargin(0);
 
 
 
@@ -318,7 +314,6 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
             cardInfo = new QFrame;
             cardInfo->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
             cardInfo->setObjectName("frameVisu");
-            cardInfo->setStyleSheet("#frameVisu{border: 1px solid green}");
 
             layoutInfo = new QHBoxLayout;
             cardInfo->setLayout(layoutInfo);
@@ -351,7 +346,6 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
             deckVisu = new QFrame;
             deckVisu->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
             deckVisu->setObjectName("frameVisu");
-            deckVisu->setStyleSheet("#frameVisu{border: 1px solid green}");
 
             layoutCard = new QGridLayout;
             deckVisu->setLayout(layoutCard);
@@ -384,7 +378,6 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
         cardFilter->setSizePolicy(QSizePolicy::Minimum,
                                   QSizePolicy::Maximum);
         cardFilter->setObjectName("filtreur");
-        cardFilter->setStyleSheet("#filtreur{background-color: green;}");
         mainL2->addWidget(cardFilter);
         layoutRechercheCarte = new QGridLayout;
 
@@ -427,7 +420,6 @@ deckEdit::deckEdit(std::vector<Carte *> *allCard, QString nomDuDeck){
             cardFilterAdv->setSizePolicy(sp_retain_cachay);
             cardFilterAdv->setVisible(false);
             cardFilterAdv->setObjectName("filtreurAdv");
-            cardFilterAdv->setStyleSheet("#filtreurAdv{background-color: red;}");
             layoutRechercheCarte->addWidget(cardFilterAdv, 1, 0, 2, 5);
             layoutRechercheCarteAdv = new QVBoxLayout;
             cardFilterAdv->setLayout(layoutRechercheCarteAdv);
@@ -1132,11 +1124,14 @@ void deckEdit::plus2But()
         plusBut -> setToolTip(tr("Réorganiser les cartes"));
         stealBut->setVisible(false);
         
+                nomLayout -> setContentsMargins(10,17,10,17);
     } else {
 
         stealBut->setVisible(true);
         plusBut -> setToolTip(tr("Fermer les options de tri"));
         plusBut->setIcon("\uf105");
+
+                nomLayout -> setContentsMargins(10,10,10,10);
     }
 }
 
