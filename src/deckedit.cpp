@@ -816,7 +816,6 @@ void deckEdit::sauvegarder()
         newDeckName = deckName;
 
     QString file = deckRep + newDeckName + QString(".deck");
-    qDebug() << "SAVE: URL FICHIER ECRITURE DECK: "+file;
 
 
 
@@ -890,7 +889,6 @@ void deckEdit::sauvegarderDiscretionMax()
     }
 
     QString file = deckRep + newDeckName + QString(".deck");
-    qDebug() << "SAVE: URL FICHIER ECRITURE DECK: "+file;
 
 
 

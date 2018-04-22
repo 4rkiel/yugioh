@@ -5,7 +5,6 @@
 #include <vector>
 #include <QString>
 #include <string>
-#include <QDebug>
 #include <ctime>
 #include <QList>
 #include <algorithm>
@@ -42,18 +41,7 @@ enum GENRE
     MAGIE,
     PIEGE
 };
-/*
-enum ATTRIBUT
-{
-    LUMIERE,
-    TENEBRE,
-    TERRE,
-    EAU,
-    FEU,
-    VENT,
-    DIVIN
-};
-*/
+
 class CardEditor : public QFrame
 {
     Q_OBJECT

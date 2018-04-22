@@ -6,7 +6,6 @@
 
 CardEditor::CardEditor(Parser* parser){
 
-//    buttonSave = new ShadowButt("", tr("Enregistrer"));
     allCards = parser->all_cards;
     parse = parser;
     
@@ -14,15 +13,12 @@ CardEditor::CardEditor(Parser* parser){
 
     bigEditor = new QTextEdit;
     bigEditor->setPlaceholderText(tr("Description / Effet de la carte..."));
-//    connect(buttonSave, SIGNAL(clicked()), this, SLOT(sauvegarder()));
 
     mainLayout = new QGridLayout;
     mainLayout -> setMargin(0);
     mainLayout -> setSpacing(0);
     mainLayout -> setContentsMargins(0,0,0,0);
 
-
-//        mainLayout->addWidget(buttonSave, 2, 0);
         mainLayout->addWidget(formGroupBox, 0, 0);
         mainLayout->addWidget(bigEditor, 1, 0);
 
@@ -199,8 +195,6 @@ void CardEditor::createFormGroupBox (){
     layout->addWidget(genRdmName, 0, 23, 1, 1);
     layout->addWidget(new QLabel(tr("Nom:")), i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(nom, i, 2, 1, 21);
-//    layout->addWidget(new QLabel(tr("ID:")), ++i, 0, 1, 2, Qt::AlignCenter);
-//    layout->addWidget(ID, i, 2, 1, 22);
     layout->addWidget(new QLabel(tr("Set:")), ++i, 0, 1, 2, Qt::AlignCenter);
     layout->addWidget(nrSet, i, 2, 1, 22);
     layout->addWidget(new QLabel(tr("genre:")), ++i, 0, 1, 2, Qt::AlignCenter);
@@ -231,10 +225,8 @@ void CardEditor::sauvegarder (){
     string ext (fileName.substr(fileName.find_last_of(".") + 1));
 
     QString file = QCoreApplication::applicationDirPath()+"/sets/"+QString::number(nrSet->currentIndex())+".set";
-    qDebug() << "SAVE: URL FICHIER ECRITURE CARTE: "+file;
 
     QString imgURL = QCoreApplication::applicationDirPath()+"/img/cards/"+QString::number(nrSet->currentIndex())+"/"+QString::number(ID->value());
-    qDebug() << "SAVE: URL FICHIER ECRITURE IMG: "+imgURL;
 
     QFile *myfile = new QFile(file);
 
@@ -321,14 +313,12 @@ void CardEditor::selectImg(){
 
     QString fileName = QFileDialog::getOpenFileName(this, tr("Selectionner une image"), imgRep,
                                                     "Images (*.png *.xpm *.jpg)");
-    qDebug() << (fileName);
 
     if(!fileName.isNull())
     {
         image->setStyleSheet("border-image: url(" + fileName + "); margin: 2px");
         imageUrl->setText(fileName.section('/', -1));
         absoluteUrlImage = fileName;
-//        buttonSave->setVisible(true);
     }
 }
 
@@ -341,20 +331,17 @@ void CardEditor::updateImg (){
     if(std::find(extension.begin(), extension.end(), (fileName.substr(fileName.find_last_of(".") + 1))) == extension.end())
     {// extension incorrecte
         imageUrl->setText(imageUrl->text() + "\t extension incorrect");
-//        buttonSave->setVisible(false);
 
     }
 
     else if(!QFileInfo(imgRep + imageUrl->text()).exists())
     {// fichier incorrecte
         imageUrl->setText(imageUrl->text() + tr("\t n'existe pas"));
-//        buttonSave->setVisible(false);
     }
     else
     {
         image->setStyleSheet("border-image: url(" + imgRep + imageUrl->text() + "); margin: 2px");
         absoluteUrlImage = imgRep + imageUrl->text();
-//        buttonSave->setVisible(true);
     }
 }
 
@@ -382,11 +369,6 @@ void CardEditor::slotAttribut(){
             attribut->setItemIcon(6, QIcon(imgRep + "DIVIN"));
 
             attribut->setCurrentIndex(rand()%7);
-//            spinAttaque->setDisabled(false);
-//            spinDefense->setDisabled(false);
-//            typePrimaire->setDisabled(false);
-//            typeSecondaire->setDisabled(false);
-//            niveau->setDisabled(false);
 
             spinAttaque->setVisible(true);
             spinDefense->setVisible(true);

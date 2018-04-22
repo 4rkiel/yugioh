@@ -62,9 +62,9 @@ void Noyau::init()
         std::random_shuffle(d1->begin(),d1->end());
         //extradeck1 = yolo->extradeck("deck/Test1.deck");
         extradeck1 = yolo->extradeck("deck/"+settings.value("deckUtilise","Test1.deck").toString());
-        d2 = yolo->deck("deck/Test1.deck");
+        d2 = yolo->deck("deckIA/Dragon.deck");
         std::random_shuffle(d2->begin(),d2->end());
-        extradeck2 = yolo->extradeck("deck/Test1.deck");
+        extradeck2 = yolo->extradeck("deckIA/Dragon.deck");
         emit giveLife(selfLife);
         piocher(1);
         piocher(1);

@@ -17,7 +17,6 @@
 #include <QFileDialog>
 #include <QCoreApplication>
 #include <QStringList>
-#include <QDebug>
 #include <algorithm>
 #include <QMargins>
 #include <QShortcut>
