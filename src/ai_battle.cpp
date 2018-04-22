@@ -778,7 +778,7 @@ Matrix<float,1,434> Ai_battle::read_noyau()
             else if(i<15)
                 terrain_a_monstre[i%5]=tmp_card;
             else if(i<20)
-                terrain_a_monstre[i%5]=tmp_card;
+                terrain_a_magie[i%5]=tmp_card;
         }
         else if(joueur == 2){
             if(i<5)
@@ -788,7 +788,7 @@ Matrix<float,1,434> Ai_battle::read_noyau()
             else if(i<15)
                 terrain_s_monstre[i%5]=tmp_card;
             else if(i<20)
-                terrain_s_monstre[i%5]=tmp_card;
+                terrain_s_magie[i%5]=tmp_card;
         }
         
         // stocker dans le vecteur d'entrée du réseau neuronnal
