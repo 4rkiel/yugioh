@@ -2,51 +2,6 @@
 
 Implémentation du jeu de carte Yu-Gi-Oh!
 
-[Lien vers le cahier des charges](https://docs.google.com/document/d/1OeF_gmBVjo56tAUFRijaNlVDgjEvVVLkMJVCUVTZqDc/edit?usp=sharing), à completer.
-
-:warning: Dernière semaine avant rendu !
-
-
-## TODO List
-
-#### 4rk
-
- - [ ] Cahier des charges -> Rapport
- - [ ] QSS Polishing
- - [ ] Contraste-full style
- - [ ] Dyschromatopsia style (http://jfly.iam.u-tokyo.ac.jp/color/#pallet)
- - [ ] Popups 1 & 2
- - [ ] Bouton deck edit
- - [ ] Création de l'aide (help.text)
-
-
-#### Vect
-
- - [ ] Fin Noyau de base (combat)
- - [ ] Click Cimetiere / Fusion deck --> popup si non vide
-
-
-#### Chop1
-
- - [ ] Fin card + deck Editor
- - [ ] Set du Deck courrant
- - [ ] Liste des cartes (customs)
-
-
-#### Lucas
-
- - [ ] Connexion IA / Noyau
- - [ ] Lancement des parties IA
-
-
-#### Mathieu
-
- - [ ] Fin racc. clavier
- - [ ] Fin traduction
- - [ ] Compile .exe windows
- - [ ] Compile .desktop Linux
-
-
 ## Description des fichiers 
 
 #### Extensions de cartes .set 
@@ -97,16 +52,5 @@ minimum 0 Cartes max 15
 07 - 13     : magie self
 14 ---- 074 : main self
 ```
-
-
-## Elements Optionnels Interessants/WTF
-
-:information_source: Ces élements ne sont à prendre en compte qu'une fois les fonctionnalités principales implémentées.
-
- - [ ] Environnement sonore
-    - [ ] Option de désactivation des élements sonores
- - [ ] Remplacement des tooltips par zone dédiée
- - [ ] Modification du jeu pour profiter de l'aspect dématérialisé
- 
  
 
