@@ -31,6 +31,10 @@
         <source>Créer un nouveau Deck</source>
         <translation>إنشاء سطح السفينة جديد</translation>
     </message>
+    <message>
+        <source>Enregistrer la carte</source>
+        <translation>حفظ البطاقة</translation>
+    </message>
 </context>
 <context>
     <name>CardEditor</name>
@@ -434,6 +438,18 @@
         <source>Custom</source>
         <translation>العادة</translation>
     </message>
+    <message>
+        <source>Sauvegarde</source>
+        <translation>حماية</translation>
+    </message>
+    <message>
+        <source>La carte </source>
+        <translation>البطاقة </translation>
+    </message>
+    <message>
+        <source> a bien été sauvegardé.</source>
+        <translation>تم حفظها.</translation>
+    </message>
 </context>
 <context>
     <name>CardPreview</name>
@@ -568,6 +584,17 @@
     <message>
         <source>Utiliser ce deck en duel</source>
         <translation>استخدم هذا السطح المبارز</translation>
+    </message>
+</context>
+<context>
+    <name>Duplica</name>
+    <message>
+        <source>Carte Magie</source>
+        <translation>بطاقة سحرية</translation>
+    </message>
+    <message>
+        <source>Carte Piège</source>
+        <translation>بطاقة فخ</translation>
     </message>
 </context>
 <context>
@@ -888,6 +915,82 @@ En attente de connexion de l&apos;adversaire...</source>
     <message>
         <source>La partie commence !</source>
         <translation>تبدأ اللعبة!</translation>
+    </message>
+    <message>
+        <source>J&apos;ai libéré exodia</source>
+        <translation>أنا أفرج عن المحرمة</translation>
+    </message>
+    <message>
+        <source>L&apos;adverse a libéré exodia</source>
+        <translation>أصدر الخصم المحرمة</translation>
+    </message>
+    <message>
+        <source>Je pose en mode attaque </source>
+        <translation>أطرح في وضع الهجوم </translation>
+    </message>
+    <message>
+        <source>Je pose </source>
+        <translation>أضع </translation>
+    </message>
+    <message>
+        <source>Je pose en mode attaque(cachée) </source>
+        <translation>أطرح في وضع الهجوم (مخفي) </translation>
+    </message>
+    <message>
+        <source>Je pose (cachée) </source>
+        <translation>اظن (مخفي) </translation>
+    </message>
+    <message>
+        <source>Je pose en mode defense(cachée) </source>
+        <translation>أطرح في وضع الدفاع (مخفي) </translation>
+    </message>
+    <message>
+        <source>L&apos;adversaire pose en mode attaque </source>
+        <translation>أطرح في وضع الدفاع (مخفي)...</translation>
+    </message>
+    <message>
+        <source>L&apos;adversaire pose une carte en mode attaque face cachée</source>
+        <translation>يضع الخصم بطاقة في وضع الهجوم مواجهة لأسفل</translation>
+    </message>
+    <message>
+        <source>L&apos;adversaire pose une carte en mode defense face cachée</source>
+        <translation>يضع الخصم بطاقة في وضع الدفاع لأسفل</translation>
+    </message>
+    <message>
+        <source>J&apos;active Pot de Cupidité</source>
+        <translation>أنا تنشيط وعاء الطمع</translation>
+    </message>
+    <message>
+        <source>J&apos;active Trou Noir</source>
+        <translation>أنا تفعيل بلاك هول</translation>
+    </message>
+    <message>
+        <source>J&apos;active Raigeki</source>
+        <translation>أنا تنشيط الرعد</translation>
+    </message>
+    <message>
+        <source>J&apos;active </source>
+        <translation>أنا نشطة</translation>
+    </message>
+    <message>
+        <source>L&apos;adversaire active </source>
+        <translation>الخصم النشط</translation>
+    </message>
+    <message>
+        <source>L&apos;adversaire active Pot de Cupidité</source>
+        <translation>وعاء الخصم النشط من الجشع</translation>
+    </message>
+    <message>
+        <source>L&apos;adversaire active Trou Noir</source>
+        <translation>الخصم النشط الثقب الأسود</translation>
+    </message>
+    <message>
+        <source>L&apos;adversaire active Raigeki</source>
+        <translation>نشط الخصم الرعد</translation>
+    </message>
+    <message>
+        <source>J&apos;ai libéré Exodia</source>
+        <translation>أنا أفرج عن المحرمة</translation>
     </message>
 </context>
 <context>
