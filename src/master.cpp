@@ -31,7 +31,6 @@ Master::Master (){
         connect(network, SIGNAL(hostReady(int)), this, SLOT(loadField(int)));
 
         // Ask for being host
-        connect(selector, SIGNAL(sendIP(QString)), this, SLOT(test(QString)));
         connect(selector, SIGNAL(sendIP(QString)), network, SLOT(mondieu(QString)));
 
         // Load Joined Game
@@ -346,16 +345,3 @@ void Master::stopTick(){
 }
 
 
-
-
-
-
-
-
-
-
-/*void Master::test(QString str){
-    std::cout << str.toStdString() << "\n";
-}*/
-
-//void Master::cut(QString, int, int, bool, bool);
