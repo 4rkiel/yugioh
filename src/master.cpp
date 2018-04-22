@@ -64,11 +64,11 @@ Master::~Master (){
 
         } else {
             
+            delete ai_main;
+            delete ai_battle;
             
         }
 
-        delete ai_main;
-        delete ai_battle;
 
         delete noyau;
         delete field;
@@ -108,15 +108,15 @@ void Master::loadField (int x){
     noyau = new Noyau;
 
     cout << "construct ai" << endl;
-    ai_main = new Ai_main(noyau,2,2);//joueur 2 (adverse)
-    ai_battle = new Ai_battle(noyau,2,2);//joueur 2 (adverse)
-
+        ai_main = new Ai_main(noyau,2,2);//joueur 2 (adverse)
+        ai_battle = new Ai_battle(noyau,2,2);//joueur 2 (adverse)
 
 
     if (mode >= 10 && mode <= 19){
 
         delete network;
         noyau->online = false;
+        
         // mode pour le niveau de l'IA
         // 11:easy
         // 12:medium
@@ -172,7 +172,8 @@ void Master::loadField (int x){
 
     } else {
 
-		// 
+        delete ai_main;
+        delete ai_battle;
         noyau->online = true;
         if (network != NULL){
 

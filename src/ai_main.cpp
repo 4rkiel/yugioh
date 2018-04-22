@@ -777,6 +777,8 @@ Matrix<float,1,434> Ai_main::read_noyau()
         
         //lecture de la carte
         tmp_card = noyau->trouver(j);
+        cout << "read terrain " << j << endl;
+        cout << tmp_card << endl;
         
         //stockage dans la base de l'ia
         if(joueur == 1){
@@ -787,7 +789,7 @@ Matrix<float,1,434> Ai_main::read_noyau()
             else if(i<15)
                 terrain_a_monstre[i%5]=tmp_card;
             else if(i<20)
-                terrain_a_monstre[i%5]=tmp_card;
+                terrain_a_magie[i%5]=tmp_card;
         }
         else if(joueur == 2){
             if(i<5)
@@ -797,7 +799,7 @@ Matrix<float,1,434> Ai_main::read_noyau()
             else if(i<15)
                 terrain_s_monstre[i%5]=tmp_card;
             else if(i<20)
-                terrain_s_monstre[i%5]=tmp_card;
+                terrain_s_magie[i%5]=tmp_card;
         }
         
         // stocker dans le vecteur d'entrée du réseau neuronnal
@@ -944,6 +946,8 @@ int Ai_main::poser_atk()
                 for(i=0;i<5;i++)
                     if(terrain_s_monstre[i]==NULL)
                     {
+                        cout << "poser atk" << endl;
+                        cout << terrain_s_monstre[i] << endl;
                         signal_poser(main_id_to_x(main_id),monstre_id_to_x(i),false,true);
                         return EXIT_SUCCESS;
                     }
