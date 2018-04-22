@@ -142,7 +142,7 @@ class Ai_main : public QWidget
         int activer_magie_piege();
 
 
-    publicd slots:
+    public slots:
         void play(int iter=0);
 
     signals:
