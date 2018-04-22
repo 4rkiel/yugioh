@@ -278,7 +278,7 @@ void Master::loadField (int x){
     stacked -> setCurrentWidget(field);
 
     //montrer def caché
-    //connect(noyau,SIGNAL(montre(int)),field,SLOT(reveal(int)));
+    connect(noyau,SIGNAL(montre(QString,int)),field,SLOT(reveal(QString,int)));
 
     //sacrifice
     connect(noyau,SIGNAL(dialogueSac1(int,std::vector<Carte*>*)),
@@ -287,6 +287,9 @@ void Master::loadField (int x){
     connect(field, SIGNAL(chosenOne(std::vector<int>)), 
             noyau, SLOT(prepSac(std::vector<int>)));
     connect(noyau,SIGNAL(openChoosePosi()),field,SLOT(openChoosePosi()));
+
+    //voir certaines zones
+    connect(noyau,SIGNAL(openSee(std::vector<Carte*>*)),field,SLOT(openSee(std::vector<Carte*>*)));
 
     field -> init();
 
