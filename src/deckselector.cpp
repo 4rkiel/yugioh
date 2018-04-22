@@ -37,6 +37,7 @@ DeckSelector::DeckSelector(QObject* parent){
             tabRadio.push_back(new QRadioButton);
             tabRadio[i] -> setObjectName("selectRad");
             tabRadio[i] -> setToolTip(tr("Utiliser ce deck en duel"));
+            tabRadio[i] -> setFocusPolicy(Qt::NoFocus);
 
             tabDeckButton.push_back(new DeckPreview(str, image));
             tabDeckButton[i] -> setObjectName("selectButt");
@@ -69,7 +70,9 @@ DeckSelector::DeckSelector(QObject* parent){
         }
     }
 
-
+    shortcut = new QShortcut(QKeySequence(Qt::Key_Space), this);
+    shortcut->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(shortcut, SIGNAL(activated()), this, SLOT(activeRadio()));
 
     BuildTab* par= static_cast<BuildTab*>(parent);
     QSpacerItem * spacerButt = new QSpacerItem(2,1,
@@ -98,7 +101,7 @@ DeckSelector::~DeckSelector(){
 
         i --;
     }
-        
+    delete shortcut;
     delete mainLayout;
 }
 
@@ -120,26 +123,20 @@ void DeckSelector::openDeck(QString nomDeck){
 
 /* Focus */
 void DeckSelector::abandonFocus(){
-    QRadioButton* temp;
     DeckPreview* temp2;
     int i=0;
-    foreach (QString str, deckList){
-        temp=tabRadio[i];
+    foreach (QString str, deckList){;
         temp2=tabDeckButton[i];
-        temp->setFocusPolicy(Qt::NoFocus);
         temp2->setFocusPolicy(Qt::NoFocus);
         i++;
     }
 }
 
 void DeckSelector::getsFocus(){
-    QRadioButton* temp;
     DeckPreview* temp2;
     int i=0;
     foreach (QString str, deckList){
-        temp=tabRadio[i];
         temp2=tabDeckButton[i];
-        temp->setFocusPolicy(Qt::StrongFocus);
         temp2->setFocusPolicy(Qt::StrongFocus);
         i++;
     }
@@ -155,4 +152,22 @@ void DeckSelector::setCourant()
 
     QSettings settings;
     settings.setValue("deckUtilise",  tabDeckButton[(int)pos]->nomDeck);
+}
+
+void DeckSelector::activeRadio(){
+    QRadioButton* temp;
+    DeckPreview* temp2;
+    QSettings settings;
+    int i=0;
+    if(QString(qApp->focusObject()->metaObject()->className())=="DeckPreview"){
+        foreach (QString str, deckList){
+            temp=tabRadio[i];
+            temp2=tabDeckButton[i];
+            if(static_cast<DeckPreview*>(qApp->focusObject())==temp2){
+                temp->toggle();
+                settings.setValue("deckUtilise",  tabDeckButton[i]->nomDeck);
+            }
+            i++;
+        }
+    }
 }
