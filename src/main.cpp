@@ -292,10 +292,16 @@ void Window::readConfSettings (){
         styleSheet = styleSheet + QLatin1String(file.readAll());
         file.close();
 
-        file.setFileName("style/bi.qss");
+        file.setFileName("style/ctst.qss");
         file.open(QFile::ReadOnly);
         styleSheet = styleSheet + QLatin1String(file.readAll());
         file.close();
+
+        file.setFileName("style/dys.qss");
+        file.open(QFile::ReadOnly);
+        styleSheet = styleSheet + QLatin1String(file.readAll());
+        file.close();
+
 
     } else if (settings.value("achroma", false).toBool()){
     
