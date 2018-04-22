@@ -4,3 +4,4 @@ git submodule init
 git submodule update --recursive
 qmake
 make
+make clean

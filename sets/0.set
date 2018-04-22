@@ -850,7 +850,7 @@ Remède Secret Du Gobelin
 7
 7
 Augmentez vos points de vie de 600 points.
-{{0
+{{20600
 2400
 2000
 ##YGO
@@ -862,7 +862,7 @@ Flamme Ultime
 7
 7
 Infligez 600 points de dommages aux points de vie de votre adversaire.
-{{0
+{{21600
 2400
 2000
 ##YGO
@@ -874,7 +874,7 @@ Epées De Révélation De La Lumière
 7
 7
 Retournez face recto tous les monstres contrôlés par votre adversaire. Cette carte reste sur le Terrain pour 3 tours de votre adversaire. Tant que cette carte est sur le Terrain, les monstres contrôlés par votre adversaire ne peuvent pas déclarer d'attaque.
-{{0
+{{60
 2400
 2000
 ##YGO
@@ -885,8 +885,8 @@ Monster Reborn
 0
 7
 7
-Selectionnez 1 Carte Monstre dans le Cimetière de votre adversaire ou dans le votre et invoquez-le.
-{{0
+Selectionnez 1 Carte Monstre dans votre Cimetière et invoquez-le.
+{{50
 2400
 2000
 ##YGO

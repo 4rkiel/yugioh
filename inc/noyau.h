@@ -176,12 +176,12 @@ signals:
     void setTour(int x);
     void sendInfo(QString i);
     void beginTour();
-    void montre(int x);
+    void montre(QString image,int x);
     void dialogueMagi();
     void dialogueSac1(int nombre,std::vector<Carte *>* vector);
     void dialogueSac2();
     void openChoosePosi();
-
+    void openSee(std::vector<Carte *>*vector);
     void main_phase_ia();
     void main_phase_joueur();
     void battle_phase_ia();

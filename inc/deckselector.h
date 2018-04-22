@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include <QApplication>
 #include <QFrame>
 #include <QGridLayout>
 
@@ -62,6 +63,7 @@ public:
     QString imgPreviewDeck(std::vector<Carte*> * deck);
 
     QVariant getCurrentDeck();
+    QShortcut* shortcut;
 
 
 public slots:
@@ -71,6 +73,7 @@ public slots:
     void getsFocus();
 
     void setCourant();
+    void activeRadio();
 signals:
 
 	void popDeck(QString);
