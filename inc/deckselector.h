@@ -6,6 +6,7 @@
 #include <QApplication>
 #include <QFrame>
 #include <QGridLayout>
+#include <QMessageBox>
 
 #include <QFile>
 #include <QString>
@@ -14,6 +15,8 @@
 #include <QRadioButton>
 #include <QShortcut>
 #include <QSettings>
+
+#include <QDebug>
 
 /*
 #include <QBoxLayout>
@@ -50,6 +53,8 @@ public:
 
 
     QGridLayout * mainLayout;
+
+    Parser parserAllMighty;
 
 
     std::vector<DeckPreview *> tabDeckButton;
