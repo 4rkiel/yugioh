@@ -186,9 +186,12 @@ FlatExpButt:pressed {
 ******************************************************************/
 
 Window {
-    background: #607D8B;
+    background: #37474F;
 }
 
+Window > QWidget {
+    border-image: url(img/wallpaper/wallpaper-ctst.png);
+}
 
 
 /*****************************************************************
