@@ -16,12 +16,23 @@
 //mode = 2 => file learning_ai.data
 Ai_main::Ai_main(Noyau * noyau, int mode, int joueur)
 {
+    int i;
     srand (time(NULL));
     nb_hidden_layer = 2;
     this->mode = mode;
     this->noyau = noyau;
     this->joueur = joueur;
     load_ai();
+    for(i=0;i<5;i++)
+    {
+        terrain_s_monstre[i]=NULL;
+        terrain_a_monstre[i]=NULL;
+        terrain_s_magie[i]=NULL;
+        terrain_a_magie[i]=NULL;
+        main[i]=NULL;
+    }
+    main[5]=NULL;
+    main[6]=NULL;
 }
 
 
@@ -53,10 +64,10 @@ void Ai_main::save_ai()
             switch(joueur)
             {
                 case 1:
-                    ai_file.open("../IA/learning_main_ai_1.data");
+                    ai_file.open("IA/learning_main_ai_1.data");
                     break;
                 case 2:
-                    ai_file.open("../IA/learning_main_ai_2.data");
+                    ai_file.open("IA/learning_main_ai_2.data");
                     break;
             }
             break;
@@ -65,10 +76,10 @@ void Ai_main::save_ai()
             switch(joueur)
             {
                 case 1:
-                    ai_file.open("../IA/main_ai_1.data");
+                    ai_file.open("IA/main_ai_1.data");
                     break;
                 case 2:
-                    ai_file.open("../IA/main_ai_2.data");
+                    ai_file.open("IA/main_ai_2.data");
                     break;
             }
             break;
@@ -204,10 +215,10 @@ void Ai_main::load_ai()
             switch(joueur)
             {
                 case 1:
-                    ai_file.open("../IA/learning_main_ai_1.data");
+                    ai_file.open("IA/learning_main_ai_1.data");
                     break;
                 case 2:
-                    ai_file.open("../IA/learning_main_ai_2.data");
+                    ai_file.open("IA/learning_main_ai_2.data");
                     break;
             }
             break;
@@ -216,10 +227,10 @@ void Ai_main::load_ai()
             switch(joueur)
             {
                 case 1:
-                    ai_file.open("../IA/main_ai_1.data");
+                    ai_file.open("IA/main_ai_1.data");
                     break;
                 case 2:
-                    ai_file.open("../IA/main_ai_2.data");
+                    ai_file.open("IA/main_ai_2.data");
                     break;
             }
             break;
@@ -481,7 +492,7 @@ Matrix<float,1,200> Ai_main::ReLU(Matrix<float,1,200> layer_values)
  * softmax
  * activation function
  */
-Matrix<float,1,135> Ai_main::softmax(Matrix<float,1,135> layer_values)
+Matrix<float,1,8> Ai_main::softmax(Matrix<float,1,8> layer_values)
 {
     Matrix <float,Dynamic,Dynamic> next_layer_input(1,layer_values.cols());
     int i,j;
@@ -562,7 +573,7 @@ void Ai_main::test_forward_propagation(Matrix<float,1,434> game_state)
  * Choose the action to do, according to the actions' q_value calculated.
  * More an action has a big q_value, more it has chance to be chosen
  */
-int Ai_main::choose_action(Matrix<float,1,135> actions)
+int Ai_main::choose_action(Matrix<float,1,8> actions)
 {
     srand (time(NULL));
     float choice = randomFloat(0,1);
@@ -570,9 +581,9 @@ int Ai_main::choose_action(Matrix<float,1,135> actions)
     int action=0;
     while(choice>0)
     {
-        if(action==135)
+        if(action==8)
         {
-            action=rand()%135;
+            action=rand()%8;
             break;
         }
         choice -= actions(0,action);
@@ -589,7 +600,7 @@ int Ai_main::choose_action(Matrix<float,1,135> actions)
  * different next possible state, and update the weights of the neural
  * network
  */
-void Ai_main::backward_propagation(float q_targets[135])
+void Ai_main::backward_propagation(float q_targets[8])
 {
     int i,j,k;
     float local_cost=0;
@@ -606,7 +617,7 @@ void Ai_main::backward_propagation(float q_targets[135])
         local_cost = (q_targets[i] - output) *
             output * (1 - output);
         //update the weights comming into this neuron from the previous
-        //layer
+        //layer       
         //for each synaps comming into the neuron
         for(j=0;j<output_weight.rows();j++)
         {
@@ -633,7 +644,7 @@ void Ai_main::backward_propagation(float q_targets[135])
      */
     for(i=hidden_weights.size()-1;i>=0;i--)
     {
-        cout << endl << "hidden layers ////////////////////////////////////" << endl << endl;
+        //cout << endl << "hidden layers ////////////////////////////////////" << endl << endl;
         for(j=0;j<hidden_weights.at(i).cols();j++)
         {
             output = hidden_layers_values.at(i)(0,j);
@@ -654,7 +665,7 @@ void Ai_main::backward_propagation(float q_targets[135])
         local_sum=0;
     }
 
-    cout << endl << "output layers ////////////////////////////////////////" << endl << endl;
+    //cout << endl << "output layers ////////////////////////////////////////" << endl << endl;
     //do the same as for the hidden layers, but now for the input layer
     for(i=0;i<input_weight.cols();i++)
     {
@@ -669,10 +680,10 @@ void Ai_main::backward_propagation(float q_targets[135])
             input_weight(j,i) += udelta;
             input_delta(j,i) = udelta;
         }
+    }
         //cout << "cost " << local_cost << endl;
         //cout << "delta " << udelta << endl;
         //cout << "value " << output << endl;
-    }
 }
 
 /*
@@ -769,23 +780,23 @@ Matrix<float,1,434> Ai_main::read_noyau()
         
         //stockage dans la base de l'ia
         if(joueur == 1){
-            if(j<=5)
+            if(i<5)
                 terrain_s_monstre[i%5]=tmp_card;
-            else if(j<=12)
+            else if(i<10)
                 terrain_s_magie[i%5]=tmp_card;
-            else if(j<=80)
+            else if(i<15)
                 terrain_a_monstre[i%5]=tmp_card;
-            else if(j<=87)
+            else if(i<20)
                 terrain_a_monstre[i%5]=tmp_card;
         }
         else if(joueur == 2){
-            if(j<=5)
+            if(i<5)
                 terrain_a_monstre[i%5]=tmp_card;
-            else if(j<=12)
+            else if(i<10)
                 terrain_a_magie[i%5]=tmp_card;
-            else if(j<=80)
+            else if(i<15)
                 terrain_s_monstre[i%5]=tmp_card;
-            else if(j<=87)
+            else if(i<20)
                 terrain_s_monstre[i%5]=tmp_card;
         }
         
@@ -804,22 +815,29 @@ Matrix<float,1,434> Ai_main::read_noyau()
         j++;
     }
 
+    j=noyau->d1->size()-1;
     //chaque carte dans son propre deck
     for(i=0;i<60;i++)
     {
-        if(noyau->d1!=NULL){
-            if(noyau->d1->at(i)!=NULL) {
-                game_state(0,94+i*5) = noyau->d1->at(i)->atk;
-                game_state(0,94+i*5+1) = noyau->d1->at(i)->def;
-                game_state(0,94+i*5+2) = noyau->d1->at(i)->niveau;
-                game_state(0,94+i*5+3) = noyau->d1->at(i)->position_deck;
-                game_state(0,94+i*5+4) = noyau->d1->at(i)->genre;
-            } else {
-                game_state(0,94+i*5) = -1;
-                game_state(0,94+i*5+1) = -1;
-                game_state(0,94+i*5+2) = -1;
-                game_state(0,94+i*5+3) = -1;
-                game_state(0,94+i*5+4) = -1;
+        if(j>=0)
+        {
+            if(noyau->d1!=NULL)
+            {
+                if(noyau->d1->at(j)!=NULL)
+                {
+                    game_state(0,94+i*5) = noyau->d1->at(i)->atk;
+                    game_state(0,94+i*5+1) = noyau->d1->at(i)->def;
+                    game_state(0,94+i*5+2) = noyau->d1->at(i)->niveau;
+                    game_state(0,94+i*5+3) = noyau->d1->at(i)->position_deck;
+                    game_state(0,94+i*5+4) = noyau->d1->at(i)->genre;
+                } else
+                {
+                    game_state(0,94+i*5) = -1;
+                    game_state(0,94+i*5+1) = -1;
+                    game_state(0,94+i*5+2) = -1;
+                    game_state(0,94+i*5+3) = -1;
+                    game_state(0,94+i*5+4) = -1;
+                }
             }
         } else {
             game_state(0,94+i*5) = -1;
@@ -828,6 +846,7 @@ Matrix<float,1,434> Ai_main::read_noyau()
             game_state(0,94+i*5+3) = -1;
             game_state(0,94+i*5+4) = -1;
         }
+        j--;
     }
 
     //chaque carte dans sa main
@@ -913,95 +932,135 @@ int Ai_main::magie_piege_id_to_x(int magie_piege_id)
 //put monster in atk position
 //return EXIT_SUCCESS if it work and send signal
 //return EXIT_FAILURE else
-int Ai_main::poser_atk(int main_id)
+int Ai_main::poser_atk()
 {
     int i;
-    if(main[main_id]!=NULL)
-        if(main[main_id]->niveau<5)
-            for(i=0;i<5;i++)
-                if(terrain_s_monstre[i]==NULL)
-                {
-                    signal_poser(main_id_to_x(main_id),monstre_id_to_x(i),false,true);
-                    return EXIT_SUCCESS;
-                }
-    return EXIT_FAILURE;
+    int main_id;
+    for(main_id=0;main_id<7;main_id++)
+    {
+        if(main[main_id]!=NULL)
+            if(main[main_id]->niveau<5)
+            {
+                for(i=0;i<5;i++)
+                    if(terrain_s_monstre[i]==NULL)
+                    {
+                        signal_poser(main_id_to_x(main_id),monstre_id_to_x(i),false,true);
+                        return EXIT_SUCCESS;
+                    }
+            }
+    }
+        return EXIT_FAILURE;
 }
 
 //put monster in defense position
-int Ai_main::poser_def(int main_id)
+int Ai_main::poser_def()
 {
     int i;
-    if(main[main_id]!=NULL)
-        if(main[main_id]->niveau<5)
-            for(i=0;i<5;i++)
-                if(terrain_s_monstre[i]==NULL)
-                {
-                    signal_poser(main_id_to_x(main_id),monstre_id_to_x(i),true,false);
-                    return EXIT_SUCCESS;
-                }
-    return EXIT_FAILURE;
-}
-
-//switch the position of the monster atk/def
-int Ai_main::switch_atk_def(int monstre_id)
-{
-    if(terrain_s_monstre[monstre_id]!=NULL)
+    int main_id;
+    for(main_id=0;main_id<7;main_id++)
     {
-        signal_switch_position(monstre_id_to_x(monstre_id));
-        return EXIT_SUCCESS;
+        if(main[main_id]!=NULL)
+            if(main[main_id]->niveau<5)
+                for(i=0;i<5;i++)
+                    if(terrain_s_monstre[i]==NULL)
+                    {
+                        signal_poser(main_id_to_x(main_id),monstre_id_to_x(i),true,false);
+                        return EXIT_SUCCESS;
+                    }
     }
     return EXIT_FAILURE;
 }
 
-int Ai_main::sacrifier_poser(int monstre_id,int main_id)
+//switch the position of the monster atk/def
+int Ai_main::switch_atk_def()
 {
-    if(main[main_id]!=NULL)
-        if(main[main_id]->niveau<7)
-            if(terrain_s_monstre[monstre_id]!=NULL)
+    int monstre_id;
+    for(monstre_id=0;monstre_id<5;monstre_id++)
+    {
+        if(terrain_s_monstre[monstre_id]!=NULL)
+        {
+            signal_switch_position(monstre_id_to_x(monstre_id));
+            return EXIT_SUCCESS;
+        }
+    }
+    return EXIT_FAILURE;
+}
+
+int Ai_main::sacrifier_poser()
+{
+    int monstre_id;
+    int main_id;
+    for(monstre_id=0;monstre_id<5;monstre_id++)
+    {
+        for(main_id=0;main_id<7;main_id++)
+        {
+            if(main[main_id]!=NULL)
+                if(main[main_id]->niveau<7)
+                    if(terrain_s_monstre[monstre_id]!=NULL)
+                    {
+                        signal_sacrifier_poser(monstre_id_to_x(monstre_id),
+                                main_id_to_x(main_id),monstre_id_to_x(monstre_id));
+                        return EXIT_SUCCESS;
+                    }
+        }
+    }
+    return EXIT_FAILURE;
+}
+
+int Ai_main::sacrifier_sacrifier_poser()
+{
+    int monstre_id_1,monstre_id_2,main_id;
+    for(monstre_id_1=0;monstre_id_1<5;monstre_id_1++)
+    {
+        for(monstre_id_2=0;monstre_id_2<5;monstre_id_2++)
+        {
+            for(main_id=0;main_id<5;main_id++)
             {
-                signal_sacrifier_poser(monstre_id_to_x(monstre_id),
-                        main_id_to_x(main_id),monstre_id_to_x(monstre_id));
-                return EXIT_SUCCESS;
+                if(main[main_id]!=NULL)
+                    if(main[main_id]->niveau<7)
+                        if(terrain_s_monstre[monstre_id_1]!=NULL)
+                            if(terrain_s_monstre[monstre_id_2]!=NULL)
+                            {
+                                signal_sacrifier_sacrifier_poser(monstre_id_to_x(monstre_id_1),monstre_id_to_x(monstre_id_2),
+                                        main_id_to_x(main_id),monstre_id_to_x(monstre_id_1));
+                                return EXIT_SUCCESS;
+                            }
             }
+        }
+    }
     return EXIT_FAILURE;
 }
 
-int Ai_main::sacrifier_sacrifier_poser(int monstre_id_1,int monstre_id_2,int main_id)
+int Ai_main::poser_magie_piege()
 {
-    if(main[main_id]!=NULL)
-        if(main[main_id]->niveau<7)
-            if(terrain_s_monstre[monstre_id_1]!=NULL)
-                if(terrain_s_monstre[monstre_id_2]!=NULL)
-                {
-                    signal_sacrifier_sacrifier_poser(monstre_id_to_x(monstre_id_1),monstre_id_to_x(monstre_id_2),
-                            main_id_to_x(main_id),monstre_id_to_x(monstre_id_1));
-                    return EXIT_SUCCESS;
-                }
-    return EXIT_FAILURE;
-}
-
-int Ai_main::poser_magie_piege(int main_id)
-{
+    int main_id;
     return EXIT_FAILURE;
     int i;
-    if(main[main_id]!=NULL)
-        if(main[main_id]->niveau<5)
-            for(i=0;i<5;i++)
-                if(terrain_s_magie[i]==NULL)
-                {
-                    signal_poser(main_id_to_x(main_id),magie_piege_id_to_x(i),false,false);
-                    return EXIT_SUCCESS;
-                }
+    for(main_id=0;main_id<7;main_id++)
+    {
+        if(main[main_id]!=NULL)
+            if(main[main_id]->niveau<5)
+                for(i=0;i<5;i++)
+                    if(terrain_s_magie[i]==NULL)
+                    {
+                        signal_poser(main_id_to_x(main_id),magie_piege_id_to_x(i),false,false);
+                        return EXIT_SUCCESS;
+                    }
+    }
     return EXIT_FAILURE;
 }
 
-int Ai_main::activer_magie_piege(int magie_id)
+int Ai_main::activer_magie_piege()
 {
+    int magie_id;
     return EXIT_FAILURE;
-    if(terrain_s_magie[magie_id]!=NULL)
+    for(magie_id=0;magie_id<5;magie_id++)
     {
-        signal_activate(magie_piege_id_to_x(magie_id));
-        return EXIT_SUCCESS;
+        if(terrain_s_magie[magie_id]!=NULL)
+        {
+            signal_activate(magie_piege_id_to_x(magie_id));
+            return EXIT_SUCCESS;
+        }
     }
     return EXIT_FAILURE;
 }
@@ -1016,193 +1075,20 @@ int Ai_main::perform_action(int chosen_action)
     {
         case 0://passer
             return EXIT_SUCCESS;
-            //poser atk
         case 1:
+            return poser_atk();
         case 2:
+            return poser_def();
         case 3:
+            return switch_atk_def();
         case 4:
+            return sacrifier_poser();
         case 5:
+            return sacrifier_sacrifier_poser();
         case 6:
+            return poser_magie_piege();
         case 7:
-            return poser_atk(chosen_action-1);
-            //poser def
-        case 8:
-        case 9:
-        case 10:
-        case 11:
-        case 12:
-        case 13:
-        case 14:
-            return poser_def(chosen_action-8);
-            //switch atk/def
-        case 15:
-        case 16:
-        case 17:
-        case 18:
-        case 19:
-            return switch_atk_def(chosen_action-15);
-        case 20:
-        case 21:
-        case 22:
-        case 23:
-        case 24:
-            //sacrifier poser
-            return sacrifier_poser(chosen_action-20,0);
-        case 25:
-        case 26:
-        case 27:
-        case 28:
-        case 29:
-            return sacrifier_poser(chosen_action-25,1);
-        case 30:
-        case 31:
-        case 32:
-        case 33:
-        case 34:
-            return sacrifier_poser(chosen_action-30,2);
-        case 35:
-        case 36:
-        case 37:
-        case 38:
-        case 39:
-            return sacrifier_poser(chosen_action-35,3);
-        case 40:
-        case 41:
-        case 42:
-        case 43:
-        case 44:
-            return sacrifier_poser(chosen_action-40,4);
-        case 45:
-        case 46:
-        case 47:
-        case 48:
-        case 49:
-            return sacrifier_poser(chosen_action-45,5);
-        case 50:
-        case 51:
-        case 52:
-        case 53:
-        case 54:
-            return sacrifier_poser(chosen_action-50,6);
-            //sacrifier sacrifier poser
-            //poser 0
-        case 55:
-        case 56:
-        case 57:
-        case 58:
-            return sacrifier_sacrifier_poser(0,chosen_action-54,0);
-        case 59:
-        case 60:
-        case 61:
-            return sacrifier_sacrifier_poser(1,chosen_action-57,0);
-        case 62:
-        case 63:
-            return sacrifier_sacrifier_poser(2,chosen_action-59,0);
-        case 64:
-            return sacrifier_sacrifier_poser(3,4,0);
-            //poser 1
-        case 65:
-        case 66:
-        case 67:
-        case 68:
-            return sacrifier_sacrifier_poser(0,chosen_action-64,1);
-        case 69:
-        case 70:
-        case 71:
-            return sacrifier_sacrifier_poser(1,chosen_action-67,1);
-        case 72:
-        case 73:
-            return sacrifier_sacrifier_poser(2,chosen_action-69,1);
-        case 74:
-            return sacrifier_sacrifier_poser(3,4,1);
-            //poser 2
-        case 75:
-        case 76:
-        case 77:
-        case 78:
-            return sacrifier_sacrifier_poser(0,chosen_action-74,2);
-        case 79:
-        case 80:
-        case 81:
-            return sacrifier_sacrifier_poser(1,chosen_action-77,2);
-        case 82:
-        case 83:
-            return sacrifier_sacrifier_poser(2,chosen_action-79,2);
-        case 84:
-            return sacrifier_sacrifier_poser(3,4,2);
-            //poser 3
-        case 85:
-        case 86:
-        case 87:
-        case 88:
-            return sacrifier_sacrifier_poser(0,chosen_action-84,3);
-        case 89:
-        case 90:
-        case 91:
-            return sacrifier_sacrifier_poser(1,chosen_action-87,3);
-        case 92:
-        case 93:
-            return sacrifier_sacrifier_poser(2,chosen_action-89,3);
-        case 94:
-            return sacrifier_sacrifier_poser(3,4,3);
-            //poser 4
-        case 95:
-        case 96:
-        case 97:
-        case 98:
-            return sacrifier_sacrifier_poser(0,chosen_action-94,4);
-        case 99:
-        case 100:
-        case 101:
-            return sacrifier_sacrifier_poser(1,chosen_action-97,4);
-        case 102:
-        case 103:
-            return sacrifier_sacrifier_poser(2,chosen_action-99,4);
-        case 104:
-            return sacrifier_sacrifier_poser(3,4,4);
-            //poser 5
-        case 105:
-        case 106:
-        case 107:
-        case 108:
-            return sacrifier_sacrifier_poser(0,chosen_action-104,5);
-        case 109:
-        case 110:
-        case 111:
-            return sacrifier_sacrifier_poser(1,chosen_action-107,5);
-        case 112:
-        case 113:
-            return sacrifier_sacrifier_poser(2,chosen_action-109,5);
-        case 114:
-            return sacrifier_sacrifier_poser(3,4,5);
-            //poser 6
-        case 115:
-        case 116:
-        case 117:
-        case 118:
-            return sacrifier_sacrifier_poser(0,chosen_action-114,6);
-        case 119:
-        case 120:
-        case 121:
-            return sacrifier_sacrifier_poser(1,chosen_action-117,6);
-        case 122:
-        case 123:
-            return sacrifier_sacrifier_poser(2,chosen_action-119,6);
-        case 124:
-            return sacrifier_sacrifier_poser(3,4,6);
-            //poser magie/piege
-        case 125:
-        case 126:
-        case 127:
-        case 128:
-        case 129:
-            return poser_magie_piege(chosen_action-125);
-        case 130:
-        case 131:
-        case 132:
-        case 133:
-        case 134:
-            return activer_magie_piege(chosen_action-130);
+            return activer_magie_piege();
         default:
             return EXIT_SUCCESS;
     }
@@ -1220,8 +1106,8 @@ int Ai_main::perform_action(int chosen_action)
 void Ai_main::play(int iter)
 {
     iter++;
-    Matrix<float,1,434> target_states[135];
-    float q_targets[135];
+    Matrix<float,1,434> target_states[8];
+    float q_targets[8];
 
     Matrix<float,1,434> game_state = read_noyau();
 
@@ -1234,7 +1120,7 @@ void Ai_main::play(int iter)
         //compute q_values of the differents next
         //possible states, depending on the chosen action
         int action;
-        for(action=0;action<135;action++)
+        for(action=0;action<8;action++)
         {
             //compute the next state if this action in chosen
             target_states[action] = play_simulation(game_state, action);
@@ -1272,7 +1158,7 @@ void Ai_main::play(int iter)
             //q_values of the next possible states, and updates the weights
             backward_propagation(q_targets);
         }
-        if(iter<5)
+        if(iter<10)
             play(iter);
         else
             perform_action(0);

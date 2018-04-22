@@ -65,10 +65,11 @@ Master::~Master (){
 
         } else {
             
-            delete ai_main;
-            delete ai_battle;
             
         }
+
+        delete ai_main;
+        delete ai_battle;
 
         delete noyau;
         delete field;
@@ -107,6 +108,11 @@ void Master::loadField (int x){
     field = new Field;
     noyau = new Noyau;
 
+    cout << "construct ai" << endl;
+    ai_main = new Ai_main(noyau,2,2);//joueur 2 (adverse)
+    ai_battle = new Ai_battle(noyau,2,2);//joueur 2 (adverse)
+
+
 
     if (mode >= 10 && mode <= 19){
 
@@ -132,19 +138,15 @@ void Master::loadField (int x){
         if(mode==13)
             noyau->deckAdverse(2);
         
-        cout << "construct ai" << endl;
-        ai_main = new Ai_main(noyau,ai_mode,2);//joueur 2 (adverse)
-        ai_battle = new Ai_battle(noyau,ai_mode,2);//joueur 2 (adverse)
         
-
         /*TODO: le noyau envoi un signal a l'ia pour lui dire de jouer la main phase*/
 
-        //connect(noyau,SIGNAL(ai_main_phase()),ai_main,SLOT(play()));
+        connect(noyau,SIGNAL(ai_main_phase()),ai_main,SLOT(play()));
         
         /*TODO: le noyau envoi un signal à l'ia pour lui dire que la battle phase a commencé et
         le noyau renvoit ce signal aussi à chaque fois que l'adversaire effectu une action pendant la battle phase*/
         
-        //connect(noyau,SIGNAL(ai_battle_phase()),ai_battle,SLOT(play()));
+        connect(noyau,SIGNAL(ai_battle_phase()),ai_battle,SLOT(play()));
         
         
         //MAIN PHASE//
@@ -169,8 +171,6 @@ void Master::loadField (int x){
         connect(ai_battle,SIGNAL(signal_attaquer(int,int)),noyau,SLOT(attaquer(int,int)));
         
 
-
-            ai_mode = 2; //file learning_ai.data
     } else {
 
 		// 
