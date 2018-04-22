@@ -16,12 +16,23 @@
 //mode = 2 => file learning_ai.data
 Ai_battle::Ai_battle(Noyau * noyau, int mode, int joueur)
 {
+    int i;
     srand (time(NULL));
     nb_hidden_layer = 2;
     this->mode = mode;
     this->noyau = noyau;
     this->joueur = joueur;
     load_ai();
+    for(i=0;i<5;i++)
+    {
+        terrain_s_monstre[i]=NULL;
+        terrain_a_monstre[i]=NULL;
+        terrain_s_magie[i]=NULL;
+        terrain_a_magie[i]=NULL;
+        main[i]=NULL;
+    }
+    main[5]=NULL;
+    main[6]=NULL;
 }
 
 
@@ -53,10 +64,10 @@ void Ai_battle::save_ai()
             switch(joueur)
             {
                 case 1:
-                    ai_file.open("../IA/learning_battle_ai_1.data");
+                    ai_file.open("IA/learning_battle_ai_1.data");
                     break;
                 case 2:
-                    ai_file.open("../IA/learning_battle_ai_2.data");
+                    ai_file.open("IA/learning_battle_ai_2.data");
                     break;
             }
             break;
@@ -65,10 +76,10 @@ void Ai_battle::save_ai()
             switch(joueur)
             {
                 case 1:
-                    ai_file.open("../IA/battle_ai_1.data");
+                    ai_file.open("IA/battle_ai_1.data");
                     break;
                 case 2:
-                    ai_file.open("../IA/battle_ai_2.data");
+                    ai_file.open("IA/battle_ai_2.data");
                     break;
             }
             break;
@@ -204,10 +215,10 @@ void Ai_battle::load_ai()
             switch(joueur)
             {
                 case 1:
-                    ai_file.open("../IA/learning_battle_ai_1.data");
+                    ai_file.open("IA/learning_battle_ai_1.data");
                     break;
                 case 2:
-                    ai_file.open("../IA/learning_battle_ai_2.data");
+                    ai_file.open("IA/learning_battle_ai_2.data");
                     break;
             }
             break;
@@ -216,10 +227,10 @@ void Ai_battle::load_ai()
             switch(joueur)
             {
                 case 1:
-                    ai_file.open("../IA/battle_ai_1.data");
+                    ai_file.open("IA/battle_ai_1.data");
                     break;
                 case 2:
-                    ai_file.open("../IA/battle_ai_2.data");
+                    ai_file.open("IA/battle_ai_2.data");
                     break;
             }
             break;
@@ -481,7 +492,7 @@ Matrix<float,1,200> Ai_battle::ReLU(Matrix<float,1,200> layer_values)
  * softmax
  * activation function
  */
-Matrix<float,1,31> Ai_battle::softmax(Matrix<float,1,31> layer_values)
+Matrix<float,1,3> Ai_battle::softmax(Matrix<float,1,3> layer_values)
 {
     Matrix <float,Dynamic,Dynamic> next_layer_input(1,layer_values.cols());
     int i,j;
@@ -562,7 +573,7 @@ void Ai_battle::test_forward_propagation(Matrix<float,1,434> game_state)
  * Choose the action to do, according to the actions' q_value calculated.
  * More an action has a big q_value, more it has chance to be chosen
  */
-int Ai_battle::choose_action(Matrix<float,1,31> actions)
+int Ai_battle::choose_action(Matrix<float,1,3> actions)
 {
     srand (time(NULL));
     float choice = randomFloat(0,1);
@@ -570,9 +581,9 @@ int Ai_battle::choose_action(Matrix<float,1,31> actions)
     int action=0;
     while(choice>0)
     {
-        if(action==31)
+        if(action==3)
         {
-            action=rand()%31;
+            action=rand()%3;
             break;
         }
         choice -= actions(0,action);
@@ -589,7 +600,7 @@ int Ai_battle::choose_action(Matrix<float,1,31> actions)
  * different next possible state, and update the weights of the neural
  * network
  */
-void Ai_battle::backward_propagation(float q_targets[31])
+void Ai_battle::backward_propagation(float q_targets[3])
 {
     int i,j,k;
     float local_cost=0;
@@ -630,7 +641,7 @@ void Ai_battle::backward_propagation(float q_targets[31])
      */
     for(i=hidden_weights.size()-1;i>=0;i--)
     {
-        cout << endl << "hidden layers ////////////////////////////////////" << endl << endl;
+        //cout << endl << "hidden layers ////////////////////////////////////" << endl << endl;
         for(j=0;j<hidden_weights.at(i).cols();j++)
         {
             output = hidden_layers_values.at(i)(0,j);
@@ -648,7 +659,7 @@ void Ai_battle::backward_propagation(float q_targets[31])
         local_sum=0;
     }
 
-    cout << endl << "output layers ////////////////////////////////////////" << endl << endl;
+    //cout << endl << "output layers ////////////////////////////////////////" << endl << endl;
     //do the same as for the hidden layers, but now for the input layer
     for(i=0;i<input_weight.cols();i++)
     {
@@ -760,23 +771,23 @@ Matrix<float,1,434> Ai_battle::read_noyau()
         
         //stockage dans la base de l'ia
         if(joueur == 1){
-            if(j<=5)
+            if(i<5)
                 terrain_s_monstre[i%5]=tmp_card;
-            else if(j<=12)
+            else if(i<10)
                 terrain_s_magie[i%5]=tmp_card;
-            else if(j<=80)
+            else if(i<15)
                 terrain_a_monstre[i%5]=tmp_card;
-            else if(j<=87)
+            else if(i<20)
                 terrain_a_monstre[i%5]=tmp_card;
         }
         else if(joueur == 2){
-            if(j<=5)
+            if(i<5)
                 terrain_a_monstre[i%5]=tmp_card;
-            else if(j<=12)
+            else if(i<10)
                 terrain_a_magie[i%5]=tmp_card;
-            else if(j<=80)
+            else if(i<15)
                 terrain_s_monstre[i%5]=tmp_card;
-            else if(j<=87)
+            else if(i<20)
                 terrain_s_monstre[i%5]=tmp_card;
         }
         
@@ -795,22 +806,29 @@ Matrix<float,1,434> Ai_battle::read_noyau()
         j++;
     }
 
+    j=noyau->d1->size()-1;
     //chaque carte dans son propre deck
     for(i=0;i<60;i++)
     {
-        if(noyau->d1!=NULL){
-            if(noyau->d1->at(i)!=NULL) {
-                game_state(0,94+i*5) = noyau->d1->at(i)->atk;
-                game_state(0,94+i*5+1) = noyau->d1->at(i)->def;
-                game_state(0,94+i*5+2) = noyau->d1->at(i)->niveau;
-                game_state(0,94+i*5+3) = noyau->d1->at(i)->position_deck;
-                game_state(0,94+i*5+4) = noyau->d1->at(i)->genre;
-            } else {
-                game_state(0,94+i*5) = -1;
-                game_state(0,94+i*5+1) = -1;
-                game_state(0,94+i*5+2) = -1;
-                game_state(0,94+i*5+3) = -1;
-                game_state(0,94+i*5+4) = -1;
+        if(j>=0)
+        {
+            if(noyau->d1!=NULL)
+            {
+                if(noyau->d1->at(j)!=NULL)
+                {
+                    game_state(0,94+i*5) = noyau->d1->at(i)->atk;
+                    game_state(0,94+i*5+1) = noyau->d1->at(i)->def;
+                    game_state(0,94+i*5+2) = noyau->d1->at(i)->niveau;
+                    game_state(0,94+i*5+3) = noyau->d1->at(i)->position_deck;
+                    game_state(0,94+i*5+4) = noyau->d1->at(i)->genre;
+                } else
+                {
+                    game_state(0,94+i*5) = -1;
+                    game_state(0,94+i*5+1) = -1;
+                    game_state(0,94+i*5+2) = -1;
+                    game_state(0,94+i*5+3) = -1;
+                    game_state(0,94+i*5+4) = -1;
+                }
             }
         } else {
             game_state(0,94+i*5) = -1;
@@ -819,6 +837,7 @@ Matrix<float,1,434> Ai_battle::read_noyau()
             game_state(0,94+i*5+3) = -1;
             game_state(0,94+i*5+4) = -1;
         }
+        j--;
     }
 
     //chaque carte dans sa main
@@ -911,9 +930,10 @@ int Ai_battle::magie_piege_id_to_x(int magie_piege_id)
 //##SIGNALS////////////////////////////////////////////////////////////////////
 
 
-int Ai_battle::activer_magie_piege(int magie_id)
+int Ai_battle::activer_magie_piege()
 {
     return EXIT_FAILURE;
+    int magie_id=0;
     if(terrain_s_magie[magie_id]!=NULL)
     {
         signal_activate(magie_piege_id_to_x(magie_id));
@@ -922,17 +942,23 @@ int Ai_battle::activer_magie_piege(int magie_id)
     return EXIT_FAILURE;
 }
 
-int Ai_battle::attaquer(int attaquant_id, int cible_id)
+int Ai_battle::attaquer()
 {
-    int i;
-    if(terrain_s_monstre[attaquant_id]!=NULL)
+    int attaquant_id,cible_id;
+    for(attaquant_id=0;attaquant_id<5;attaquant_id++)
     {
-        if(terrain_s_monstre[attaquant_id]->etat==0)
+        for(cible_id=0;cible_id<5;cible_id++)
         {
-            if(terrain_a_monstre[cible_id]!=NULL)
+            if(terrain_s_monstre[attaquant_id]!=NULL)
             {
-                signal_attaquer(monstre_id_s_to_x(attaquant_id),monstre_id_a_to_x(cible_id));
-                return EXIT_SUCCESS;
+                if(terrain_s_monstre[attaquant_id]->etat==0)
+                {
+                    if(terrain_a_monstre[cible_id]!=NULL)
+                    {
+                        signal_attaquer(monstre_id_s_to_x(attaquant_id),monstre_id_a_to_x(cible_id));
+                        return EXIT_SUCCESS;
+                    }
+                }
             }
         }
     }
@@ -949,48 +975,9 @@ int Ai_battle::perform_action(int chosen_action)
     {
         case 0://passer
             return EXIT_SUCCESS;
-            //attaquer 0
         case 1:
         case 2:
-        case 3:
-        case 4:
-        case 5:
-            return attaquer(chosen_action-1,0);
-            // attaquer 1
-        case 6:
-        case 7:
-        case 8:
-        case 9:
-        case 10:
-            return attaquer(chosen_action-6,1);
-            //attaquer 2
-        case 11:
-        case 12:
-        case 13:
-        case 14:
-        case 15:
-            return attaquer(chosen_action-11,2);
-            //attaquer 3
-        case 16:
-        case 17:
-        case 18:
-        case 19:
-        case 20:
-            return attaquer(chosen_action-16,3);
-            //attaquer 4
-        case 21:
-        case 22:
-        case 23:
-        case 24:
-        case 25:
-            return attaquer(chosen_action-21,4);
-            //attaquer -1
-        case 26:
-        case 27:
-        case 28:
-        case 29:
-        case 30:
-            return attaquer(chosen_action-26,-1);
+            return attaquer();
         default:
             return EXIT_SUCCESS;
     }
@@ -1008,8 +995,8 @@ int Ai_battle::perform_action(int chosen_action)
 void Ai_battle::play(int iter)
 {
     iter++;
-    Matrix<float,1,434> target_states[31];
-    float q_targets[31];
+    Matrix<float,1,434> target_states[3];
+    float q_targets[3];
 
     Matrix<float,1,434> game_state = read_noyau();
 
@@ -1022,7 +1009,7 @@ void Ai_battle::play(int iter)
         //compute q_values of the differents next
         //possible states, depending on the chosen action
         int action;
-        for(action=0;action<31;action++)
+        for(action=0;action<3;action++)
         {
             //compute the next state if this action in chosen
             target_states[action] = play_simulation(game_state, action);

@@ -18,7 +18,7 @@
 
 #define NB_INPUT 434
 #define NB_HIDDEN 200
-#define NB_OUTPUT_B 31
+#define NB_OUTPUT_B 3
 
 
 using namespace Eigen;
@@ -34,13 +34,13 @@ class Ai_battle : public QWidget
         //matrix of weights
         Matrix<float,434,200> input_weight;
         vector<Matrix<float,200,200>> hidden_weights;
-        Matrix<float,200,31> output_weight;
+        Matrix<float,200,3> output_weight;
         
         //matrix of deltas, which are the difference between the current weight,
         //and the previous weight, at each iteration
         Matrix<float,434,200> input_delta;
         vector<Matrix<float,200,200>> hidden_deltas;
-        Matrix<float,200,31> output_delta;
+        Matrix<float,200,3> output_delta;
         
         //row-matrix of current neurons input
         Matrix<float,1,434> input_layer_input;
@@ -55,12 +55,12 @@ class Ai_battle : public QWidget
         //row-matrix of current neurons values
         Matrix<float,1,200> input_layer_values;
         vector<Matrix<float,1,200>> hidden_layers_values;
-        Matrix<float,1,31> output_layer_values;
+        Matrix<float,1,3> output_layer_values;
         
         //matrix of next possible neurons values, according to the chosen action
         Matrix<float,1,200> test_input_layer_values;
         vector<Matrix<float,1,200>> test_hidden_layers_values;
-        Matrix<float,1,31> test_output_layer_values;
+        Matrix<float,1,3> test_output_layer_values;
         
         
         //the number of neurons layer
@@ -112,13 +112,13 @@ class Ai_battle : public QWidget
         //propagation, chose action
         void forward_propagation(Matrix<float,1,434> game_state);
         void test_forward_propagation(Matrix<float,1,434> game_state);
-        int choose_action(Matrix<float,1,31> actions);
-        void backward_propagation(float q_targets[31]);
+        int choose_action(Matrix<float,1,3> actions);
+        void backward_propagation(float q_targets[3]);
         Matrix<float,1,434> play_simulation(Matrix<float,1,434> game_state, int action);
         int test_win(Matrix<float,1,434> state);
         float max_output_test();
         Matrix<float,1,200> ReLU(Matrix<float,1,200> layer_values);
-        Matrix<float,1,31> softmax(Matrix<float,1,31> layer_values);
+        Matrix<float,1,3> softmax(Matrix<float,1,3> layer_values);
         float randomFloat(float a, float b);
         
         //communication to noyau, correspondance id/terrain_x
@@ -134,8 +134,8 @@ class Ai_battle : public QWidget
         //tests before sending signal to noyau
         //returns EXIT_SUCCES if it send the signal to noyau
         //returns EXIT_FAILURE else
-        int attaquer(int attaquant_id,int cible_id);
-        int activer_magie_piege(int magie_id);
+        int attaquer();
+        int activer_magie_piege();
 
     public slots:
         void play(int iter=0);

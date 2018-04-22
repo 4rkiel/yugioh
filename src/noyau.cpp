@@ -1588,39 +1588,53 @@ void Noyau::phase_suivante()
     {
         case 0:
             emit sendInfo(tr("Main Phase 1"));
-            if(tour%2==1)
+            if(tour%2==0)
+            {
                 emit main_phase_ia();
+                std::cout << "emit main ia\n";
+            }
             else
-                emit main_phase_joueur();
-        break;
+            {
+                //emit main_phase_joueur();
+                //std::cout << "emit main joueur\n";
+            }
+            break;
         case 1:
-
             if((no_monster(0) && mon_tour) || (no_monster(1) && !mon_tour))
-               {
+            {
                 phase = 2;
                 phase_suivante();
             }
             else
             {
-
                 emit sendInfo(tr("Battle Phase"));
-                if(tour%2==1)
+                if(tour%2==0)
+                {
                     emit battle_phase_ia();
+                    std::cout << "emit battle ia\n";
+                }
                 else
-                    emit battle_phase_joueur();
+                {
+                    //emit battle_phase_joueur();
+                    //std::cout << "emit battle joueur\n";
+                }
             }
-
-        break;
+            break;
         case 2:
            emit sendInfo(tr("Main Phase 2"));
-           if(tour%2==1)
+           if(tour%2==0)
+           {
                emit main_phase_ia();
+               std::cout << "emit main ia\n";
+           }
            else
-               emit main_phase_joueur();
+           {
+               //emit main_phase_joueur();
+               //std::cout << "emit main joueur\n";
+           }
         break;
         default:
         break;
-
     }
 
     for(i=0;i<(signed)alreadyActivate->size();i++)
