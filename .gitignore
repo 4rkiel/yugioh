@@ -9,3 +9,4 @@ a.out
 train_ai
 serveur/serveur
 serveur/*.o
+*.data
