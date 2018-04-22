@@ -46,6 +46,8 @@ public:
     std::vector<int> * alreadyActivateAdv;
     std::vector<Carte *> * choix;
 
+    int epeeDeLumiereBA = 0;
+    int epeeDeLumiereBM = 0;
     bool alreadyPosed=false;
 
     int nbrTick=0;
@@ -57,6 +59,7 @@ public:
     std::vector<int> * allExodiaAdv;
     
     int nbrSacrifice = 0;
+    int nbrCarteAPioche = 1;
 
 public slots:
 

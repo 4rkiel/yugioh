@@ -9,7 +9,7 @@ Matchmaking::Matchmaking(QObject *parent) : QObject(parent){
 
     //on récolte l'adresse du serveur !
 
-    QHostInfo host = QHostInfo::fromName("yugiserveur.ddns.net");
+    QHostInfo host = QHostInfo::fromName("yugiohserveur.ddns.net");
 
     if (host.error() != QHostInfo::NoError) {
         qDebug() << "Lookup failed:" << host.errorString();
@@ -83,8 +83,14 @@ void Matchmaking::cancelMatchmaking(){
 }
 
 Matchmaking::~Matchmaking(){
-    delete socket;
-    delete adresse_bind;
-    delete adresse_serveur;
+    if(socket!=nullptr){
+        delete socket;
+    }
+    if(adresse_bind!=nullptr){
+        delete adresse_bind;
+    }
+    if(adresse_serveur!=nullptr){
+        delete adresse_serveur;
+    }
 }
 

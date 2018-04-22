@@ -235,7 +235,7 @@ BuildTab::BuildTab (){
 
     // Add Deck Butt 
     
-    addDeck = new DarkButt("\uf00c", "");
+    addDeck = new DarkButt("\uf067", "");
     addDeck -> setObjectName("addDeck");
     addDeck -> setToolTip(tr("Créer un nouveau Deck"));
     addDeck -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
@@ -247,10 +247,11 @@ BuildTab::BuildTab (){
 
     // Add Card Butt
     
-    saveCard = new DarkButt("\uf067", "");
+    saveCard = new DarkButt("\uf00c", "");
     saveCard -> setObjectName("saveCard");
     saveCard -> setToolTip(tr("Enregistrer la carte"));
     saveCard -> setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+    saveCard -> setVisible(false);
 
     connect(saveCard, SIGNAL(clicked()), editeur, SLOT(sauvegarder()));
     
@@ -313,8 +314,8 @@ BuildTab::~BuildTab (){
 
 void BuildTab::init (){
 
-//    currButt = deckButt;
-//    deckButt -> setFocus();
+    currButt = deckButt;
+    deckButt -> setFocus();
 }
 
 void BuildTab::reInit (){
@@ -385,7 +386,8 @@ void BuildTab::openDeck (QString str){
 
 
   	popLayout -> addWidget(editor);
-    
+   
+    saveCard -> setVisible(false);
     addDeck -> setVisible(false);
     closePop -> setVisible(true);
     popup -> setVisible(true);
@@ -409,6 +411,7 @@ void BuildTab::closeDeck (){
     delete editor;
     editor = nullptr;
     
+    saveCard -> setVisible(false);
     addDeck -> setVisible(true);
     closePop -> setVisible(false);
     popBox -> setVisible(false);

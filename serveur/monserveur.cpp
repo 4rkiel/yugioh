@@ -6,7 +6,7 @@ MonServeur::MonServeur(QObject *parent) : QObject(parent){
     port_hote=new quint16;
     socket=new QUdpSocket(this);
 
-    QHostInfo host = QHostInfo::fromName("yugiserveur.ddns.net");
+    QHostInfo host = QHostInfo::fromName("yugiohserveur.ddns.net");
 
     if (host.error() != QHostInfo::NoError) {
         qDebug() << "Lookup failed:" << host.errorString();

@@ -54,11 +54,14 @@ void Noyau::init()
     tour = 1;
     if(!online)
     {
+        nbrCarteAPioche = settings.value("cardDrawNumber","1").toInt();
         std::cout << "je suis avant parser" << std::endl;
         Parser * yolo = new Parser();
-        d1 = yolo->deck("deck/Test1.deck");
+        //d1 = yolo->deck("deck/Test1.deck");
+        d1 = yolo->deck("deck/"+settings.value("deckUtilise","Test1.deck").toString());
         std::random_shuffle(d1->begin(),d1->end());
-        extradeck1 = yolo->extradeck("deck/Test1.deck");
+        //extradeck1 = yolo->extradeck("deck/Test1.deck");
+        extradeck1 = yolo->extradeck("deck/"+settings.value("deckUtilise","Test1.deck").toString());
         d2 = yolo->deck("deck/Test1.deck");
         std::random_shuffle(d2->begin(),d2->end());
         extradeck2 = yolo->extradeck("deck/Test1.deck");
@@ -133,10 +136,12 @@ connect(this,SIGNAL(switch_pos(int)),res,SLOT(change_pos(int)));
 //cela changera dans l'avenir certainement 
 void Noyau::chargerDeck(int x)
 {
+    QSettings settings;
 Parser * yolo = new Parser();
 //d1 = yolo->rechercher_set(0,NULL);
-d1 = yolo->deck("deck/Test1.deck");
-extradeck1 = yolo->extradeck("deck/Test1.deck");
+//d1 = yolo->deck("deck/Test1.deck");
+d1 = yolo->deck("deck/"+settings.value("deckUtilise","Test1.deck").toString());
+extradeck1 = yolo->extradeck("deck/"+settings.value("deckUtilise","Test1.deck").toString());
 std::random_shuffle(d1->begin(),d1->end());
 std::cout << "je shuffle d1" << std::endl;
 QString message = "";
@@ -177,7 +182,7 @@ void Noyau::deckAdverse(int x)
 {
     //std::srand(ran);
 Parser * yolo = new Parser();
-d2 = yolo->rechercher_set(x,NULL);
+d2 = yolo->deck("deck/Test1.deck");
 std::random_shuffle(d2->begin(),d2->end());
 int i;
 for(i=0;i<(signed)d2->size();i++)
@@ -219,78 +224,86 @@ void Noyau::donner_infos(int x)
 // x vaut 1 si c'est moi qui pioche sinon x vaut 76
 void Noyau::piocher(int x)
 {
-    mut->lock();
-    int position = Carte::correspondant(x);
-    //si c'est moi qui pioche
-    if(position>75)
-    {
-        //on met la position de la carte qui est au sommet du deck là où il faut dans la main
-        //on place la carte dans au bon endroit
-        //on enleve la carte du deck
-        //sendInfo(QString("Je pioche"));
-        //std::cout << "le traitement du piochage allié en cours " << std::endl;
 
-        int dans_main = perfect_position(0);
-        // std::cout << "id:"<< d1->front()->id << " je pose en " << dans_main << std::endl;
-        // std::cout << "adresse : " << d1->front() << " id:"<< d1->front()->id << " je pose en " << dans_main << std::endl;
-        if((d1==NULL) || (d1->size()==0))
+    int iterateur;
+    for(iterateur = 0;iterateur<nbrCarteAPioche;iterateur++)
+       { mut->lock();
+        int position = Carte::correspondant(x);
+        //si c'est moi qui pioche
+        if(position>75)
         {
-            emit sendInfo(QString(tr("Je ne peux plus piocher")));
-                emit je_perds();
-                return;
-        }
+            //on met la position de la carte qui est au sommet du deck là où il faut dans la main
+            //on place la carte dans au bon endroit
+            //on enleve la carte du deck
+            //sendInfo(QString("Je pioche"));
+            //std::cout << "le traitement du piochage allié en cours " << std::endl;
 
-        d1->front()->position_terrain = dans_main;
-        if(contient(allExodia,d1->front()->id))
-        {
-            nbrExodia++;
-            enlever_e(&allExodia,d1->front()->id);
-        }
-        terrain->push_back(d1->front());
+            int dans_main = perfect_position(0);
+            // std::cout << "id:"<< d1->front()->id << " je pose en " << dans_main << std::endl;
+            // std::cout << "adresse : " << d1->front() << " id:"<< d1->front()->id << " je pose en " << dans_main << std::endl;
+            if((d1==NULL) || (d1->size()==0))
+            {
+                emit sendInfo(QString(tr("Je ne peux plus piocher")));
+                    emit je_perds();
+                    return;
+            }
 
-        enlever_i(&d1,0);
+            d1->front()->position_terrain = dans_main;
+            if(contient(allExodia,d1->front()->id))
+            {
+                nbrExodia++;
+                enlever_e(&allExodia,d1->front()->id);
+            }
+            terrain->push_back(d1->front());
 
-        //prevenir le voisin
-        emit visible(trouver(dans_main)->image,dans_main);
-        std::cout << "faut piocher " << trouver(dans_main)->image.toStdString() << " là " << dans_main << std::endl;
-        /*if(online)
-        {
-            emit tiens("apioche");
-        }*/
-        if(tour!=1)
-            emit sendInfo(tr("J'ai pioché"));
-        if(nbrExodia==5)
-            emit je_gagne();
-    }
-    else
-    {
-        if((d2==NULL) || (d2->size()==0))
-        {
-                emit sendInfo(QString(tr("L'adversaire ne peut plus piocher")));
+            enlever_i(&d1,0);
+
+            //prevenir le voisin
+            emit visible(trouver(dans_main)->image,dans_main);
+            std::cout << "faut piocher " << trouver(dans_main)->image.toStdString() << " là " << dans_main << std::endl;
+            /*if(online)
+            {
+                emit tiens("apioche");
+            }*/
+            if(tour!=1)
+                emit sendInfo(tr("J'ai pioché"));
+            if(nbrExodia==5)
+             {
+                emit sendInfo(tr("J'ai libéré Exodia"));
                 emit je_gagne();
-                return;
+            }
         }
-        if(tour!=1)
-        emit sendInfo(tr("L'adversaire a pioché"));
-        std::cout << "le traitement du piochage adverse en cours " << std::endl;
-        int dans_main = perfect_position(1);
-        //std::cout << "adresse : " << d2->front() << " id:"<< d2->front()->id << " l'adversaire pose en " << dans_main << std::endl;
-        d2->front()->position_terrain = dans_main;
-        if(contient(allExodiaAdv,d2->front()->id))
+        else
         {
-            nbrExodiaAdv++;
-            enlever_e(&allExodiaAdv,d2->front()->id);
+            if((d2==NULL) || (d2->size()==0))
+            {
+                    emit sendInfo(QString(tr("L'adversaire ne peut plus piocher")));
+                    emit je_gagne();
+                    return;
+            }
+            if(tour!=1)
+            emit sendInfo(tr("L'adversaire a pioché"));
+            std::cout << "le traitement du piochage adverse en cours " << std::endl;
+            int dans_main = perfect_position(1);
+            //std::cout << "adresse : " << d2->front() << " id:"<< d2->front()->id << " l'adversaire pose en " << dans_main << std::endl;
+            d2->front()->position_terrain = dans_main;
+            if(contient(allExodiaAdv,d2->front()->id))
+            {
+                nbrExodiaAdv++;
+                enlever_e(&allExodiaAdv,d2->front()->id);
+            }
+            terrain->push_back(d2->front());
+            enlever_i(&d2,0);
+            emit nonvis(dans_main);
+            if(nbrExodiaAdv==5)
+            {
+                emit tiens("Exodia");
+                emit sendInfo(tr("L'adverse a libéré Exodia"));
+                emit je_perds();
+            }
         }
-        terrain->push_back(d2->front());
-        enlever_i(&d2,0);
-        emit nonvis(dans_main);
-        if(nbrExodiaAdv==5)
-        {
-            emit tiens("Exodia");
-            emit je_perds();
-        }
+        mut->unlock();
     }
-    mut->unlock();
 }
 
 bool Noyau::isAdv(int x){
@@ -376,7 +389,12 @@ void Noyau::poserMagV()
     {
         int position = perfect_magie(0);
         if(position!=-1)
+        {
+
             poser(registre_0,position,false,true);
+            activer(position);
+        }
+
     }
 }
 
@@ -594,6 +612,14 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
 {
     int i;
     Carte * la_carte;
+    /*if(nbrSacrifice == -1)
+    {
+            la_carte = choix->at(registre_0);
+            terrain->push_back(la_carte);
+            la_carte->position_terrain = terrain_x;
+            la_carte->pos = def;
+
+    }*/
     if(main_x < 75)
     {
         if(can_poser() )
@@ -710,6 +736,8 @@ void Noyau::sacrifier_poser(int sacrifice_x, int main_x, int terrain_x,bool def,
 {
     int i;
     Carte * la_carte;
+    if(!can_poser())
+        return;
     if(main_x < 75)
     {
         if(can_poser() )
@@ -916,6 +944,7 @@ void Noyau::prepSac(std::vector<int>vect)
     //c'est monsterReborn
     if(nbrSacrifice == -1)
     {
+        registre_0 = vect.at(0);
         emit openChoosePosi();
     }
     else
@@ -1065,6 +1094,7 @@ void Noyau::activer(int x)
         return;
     if(x<75)
     {
+        if(carte->effet!=60)
          alreadyActivate->push_back(x);
         switch(carte->effet)
         {
@@ -1133,6 +1163,7 @@ void Noyau::activer(int x)
              ss1 << "act/" << Carte::correspondant(x);
              emit tiens(QString::fromStdString(ss1.str()));
             augmenterSaVie(-600);
+        //monster reborn à implémenter plus tard
         case 50:
             emit sendInfo(QString(tr("J'active "))+carte->nom);
              ss1 << "act/" << Carte::correspondant(x);
@@ -1149,6 +1180,7 @@ void Noyau::activer(int x)
             emit sendInfo(QString(tr("J'active "))+carte->nom);
              ss1 << "act/" << Carte::correspondant(x);
              emit tiens(QString::fromStdString(ss1.str()));
+             epeeDeLumiereBA=3;
         default:
             break;
         }
@@ -1156,6 +1188,7 @@ void Noyau::activer(int x)
     }
     else
     {
+          if(carte->effet!=60)
         alreadyActivateAdv->push_back(x);
         switch(carte->effet)
         {
@@ -1206,6 +1239,9 @@ void Noyau::activer(int x)
             augmenterMaVie(-600);
         case 50:
             emit sendInfo(QString(tr("L'adversaire active "))+carte->nom);
+        case 60:
+            emit sendInfo(QString(tr("L'adversaire active "))+carte->nom);
+            epeeDeLumiereBM = 3;
         default:
             break;
         }
@@ -1517,23 +1553,58 @@ void Noyau::enlever_x(std::vector<Carte *> **vect, int x)
 
 
 //TODO: ajouter les signaux pour l'IA
-//PAS ENCORE BIEN IMPLEMENTE 
 void Noyau::phase_suivante()
 {
-
+    int i;
     if(phase==2)
     {
         alreadyPosed=false;
         alreadyMoved->clear();
         alreadyAtk->clear();
         mon_tour = !mon_tour;
+        if(!mon_tour && epeeDeLumiereBM > 0)
+        {
+            epeeDeLumiereBM--;
+            if(epeeDeLumiereBM==0)
+            {
+                for(i=0;i<(signed)terrain->size();i++)
+                {
+                    if((terrain->at(i)->id == 40714208) && isAdv(terrain->at(i)->position_terrain))
+                    {
+                        detruire(terrain->at(i)->position_terrain);
+                        break;
+                    }
+                }
+            }
+
+        }
+        else if(mon_tour && epeeDeLumiereBA > 0)
+        {
+            epeeDeLumiereBA--;
+            if(epeeDeLumiereBA==0)
+            {
+                for(i=0;i<(signed)terrain->size();i++)
+                {
+                    if((terrain->at(i)->id == 40714208) && !isAdv(terrain->at(i)->position_terrain))
+                    {
+                        detruire(terrain->at(i)->position_terrain);
+                        break;
+                    }
+                }
+            }
+        }
+
         phase=0;
         tour++;
         emit setTour(tour);
         if(mon_tour)
-            piocher(1);
+        {
+                piocher(1);
+        }
         else
-            piocher(76);
+        {
+                piocher(76);
+        }
     }
     else
         phase++;
@@ -1590,7 +1661,6 @@ void Noyau::phase_suivante()
         break;
     }
 
-    int i;
     for(i=0;i<(signed)alreadyActivate->size();i++)
     {
         detruire(alreadyActivate->at(i));
@@ -1605,12 +1675,12 @@ void Noyau::phase_suivante()
 
 bool Noyau::can_poser()
 {
-    return (mon_tour && (phase==0 || phase==2));
+    return (mon_tour && (phase==0 || phase==2) && !alreadyPosed);
 }
 
 bool Noyau::can_atak()
 {
-    return (mon_tour && (phase==1));
+    return (mon_tour && (phase==1) && (epeeDeLumiereBM==0));
 }
 
 bool Noyau::can_switch()
@@ -1895,6 +1965,7 @@ void Noyau::traiter(QString s)
     }
     else if(s.startsWith("adeck:"))
     {
+        QSettings settings;
         bool extra = false;
         std::cout << "JE TRAITE LE MESSAGE DU SERVEUR" << std::endl;
         Parser * yolo = new Parser();
@@ -1952,8 +2023,8 @@ void Noyau::traiter(QString s)
 
          delete(arg);
          //d1 = yolo->rechercher_set(0,NULL);
-         d1 = yolo->deck("deck/Test1.deck");
-         extradeck1 = yolo->extradeck("deck/Test1.deck");
+         d1 = yolo->deck("deck/"+settings.value("deckUtilise","Test1.deck").toString());
+         extradeck1 = yolo->extradeck("deck/"+settings.value("deckUtilise","Test1.deck").toString());
          std::random_shuffle(d1->begin(),d1->end());
          std::cout << "je shuffle d1" << std::endl;
          QString message = "";
@@ -2191,6 +2262,7 @@ void Noyau::traiter(QString s)
     }
     else if(s.compare("Exodia")==0)
     {
+        emit sendInfo(tr("J'ai libéré Exodia"));
         emit je_gagne();
     }
 
