@@ -594,6 +594,14 @@ void Noyau::poser(int main_x, int terrain_x, bool def, bool vis)
 {
     int i;
     Carte * la_carte;
+    /*if(nbrSacrifice == -1)
+    {
+            la_carte = choix->at(registre_0);
+            terrain->push_back(la_carte);
+            la_carte->position_terrain = terrain_x;
+            la_carte->pos = def;
+
+    }*/
     if(main_x < 75)
     {
         if(can_poser() )
@@ -916,6 +924,7 @@ void Noyau::prepSac(std::vector<int>vect)
     //c'est monsterReborn
     if(nbrSacrifice == -1)
     {
+        registre_0 = vect.at(0);
         emit openChoosePosi();
     }
     else
@@ -1065,6 +1074,7 @@ void Noyau::activer(int x)
         return;
     if(x<75)
     {
+        if(carte->effet!=60)
          alreadyActivate->push_back(x);
         switch(carte->effet)
         {
@@ -1133,6 +1143,7 @@ void Noyau::activer(int x)
              ss1 << "act/" << Carte::correspondant(x);
              emit tiens(QString::fromStdString(ss1.str()));
             augmenterSaVie(-600);
+        //monster reborn à implémenter plus tard
         case 50:
             emit sendInfo(QString(tr("J'active "))+carte->nom);
              ss1 << "act/" << Carte::correspondant(x);
@@ -1149,6 +1160,7 @@ void Noyau::activer(int x)
             emit sendInfo(QString(tr("J'active "))+carte->nom);
              ss1 << "act/" << Carte::correspondant(x);
              emit tiens(QString::fromStdString(ss1.str()));
+             epeeDeLumiereBA=3;
         default:
             break;
         }
@@ -1156,6 +1168,7 @@ void Noyau::activer(int x)
     }
     else
     {
+          if(carte->effet!=60)
         alreadyActivateAdv->push_back(x);
         switch(carte->effet)
         {
@@ -1206,6 +1219,9 @@ void Noyau::activer(int x)
             augmenterMaVie(-600);
         case 50:
             emit sendInfo(QString(tr("L'adversaire active "))+carte->nom);
+        case 60:
+            emit sendInfo(QString(tr("L'adversaire active "))+carte->nom);
+            epeeDeLumiereBM = 3;
         default:
             break;
         }
@@ -1517,16 +1533,47 @@ void Noyau::enlever_x(std::vector<Carte *> **vect, int x)
 
 
 //TODO: ajouter les signaux pour l'IA
-//PAS ENCORE BIEN IMPLEMENTE 
 void Noyau::phase_suivante()
 {
-
+    int i;
     if(phase==2)
     {
         alreadyPosed=false;
         alreadyMoved->clear();
         alreadyAtk->clear();
         mon_tour = !mon_tour;
+        if(!mon_tour && epeeDeLumiereBM > 0)
+        {
+            epeeDeLumiereBM--;
+            if(epeeDeLumiereBM==0)
+            {
+                for(i=0;i<(signed)terrain->size();i++)
+                {
+                    if((terrain->at(i)->id == 40714208) && isAdv(terrain->at(i)->position_terrain))
+                    {
+                        detruire(terrain->at(i)->position_terrain);
+                        break;
+                    }
+                }
+            }
+
+        }
+        else if(mon_tour && epeeDeLumiereBA > 0)
+        {
+            epeeDeLumiereBA--;
+            if(epeeDeLumiereBA==0)
+            {
+                for(i=0;i<(signed)terrain->size();i++)
+                {
+                    if((terrain->at(i)->id == 40714208) && !isAdv(terrain->at(i)->position_terrain))
+                    {
+                        detruire(terrain->at(i)->position_terrain);
+                        break;
+                    }
+                }
+            }
+        }
+
         phase=0;
         tour++;
         emit setTour(tour);
@@ -1576,7 +1623,6 @@ void Noyau::phase_suivante()
 
     }
 
-    int i;
     for(i=0;i<(signed)alreadyActivate->size();i++)
     {
         detruire(alreadyActivate->at(i));
@@ -1596,7 +1642,7 @@ bool Noyau::can_poser()
 
 bool Noyau::can_atak()
 {
-    return (mon_tour && (phase==1));
+    return (mon_tour && (phase==1) && (epeeDeLumiereBM==0));
 }
 
 bool Noyau::can_switch()
