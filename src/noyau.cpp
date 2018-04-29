@@ -1675,7 +1675,7 @@ void Noyau::phase_suivante()
 
 bool Noyau::can_poser()
 {
-    return (mon_tour && (phase==0 || phase==2) && !alreadyPosed);
+    return (mon_tour && (phase==0 || phase==2));
 }
 
 bool Noyau::can_atak()
