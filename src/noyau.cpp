@@ -1072,7 +1072,7 @@ bool Noyau::no_monster(int zone)
 
 void Noyau::attaquerSlot(int atk,int def)
 {
-    if(!contient(alreadyAtk,atk))
+    if(!contient(alreadyAtk,atk)&& tour!=1)
        attaquer(atk,def);
 }
 
