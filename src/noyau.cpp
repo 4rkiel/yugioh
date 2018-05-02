@@ -140,8 +140,8 @@ void Noyau::chargerDeck(int x)
 Parser * yolo = new Parser();
 //d1 = yolo->rechercher_set(0,NULL);
 //d1 = yolo->deck("deck/Test1.deck");
-d1 = yolo->deck("deck/"+settings.value("deckUtilise","Test1.deck").toString());
-extradeck1 = yolo->extradeck("deck/"+settings.value("deckUtilise","Test1.deck").toString());
+d1 = yolo->deck("deck/"+settings.value("deckUtilise","../deckIA/Dragon.deck").toString());
+extradeck1 = yolo->extradeck("deck/"+settings.value("deckUtilise","../deckIA/Dragon.deck").toString());
 std::random_shuffle(d1->begin(),d1->end());
 std::cout << "je shuffle d1" << std::endl;
 QString message = "";
