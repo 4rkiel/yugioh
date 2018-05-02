@@ -136,6 +136,11 @@ connect(this,SIGNAL(switch_pos(int)),res,SLOT(change_pos(int)));
 //cela changera dans l'avenir certainement 
 void Noyau::chargerDeck(int x)
 {
+     std::mt19937 rng;
+    rng.seed(std::random_device()());
+    std::uniform_int_distribution<std::mt19937::result_type> dist6(1,100); // distribution in range [1, 6]
+    srand(dist6(rng));
+     aleatoire = std::rand();
     QSettings settings;
 Parser * yolo = new Parser();
 //d1 = yolo->rechercher_set(0,NULL);
